@@ -1,0 +1,112 @@
+@import "../../assets/css/style.css";
+
+
+.txt_bold{
+  font-size: 24px;
+  font-family: 'Helvetica Neue', sans-serif;
+  text-align: center; /* Căn giữa văn bản */
+  letter-spacing: 0.5px; /* Khoảng cách giữa các ký tự */
+  text-transform: uppercase; /* Chuyển văn bản thành chữ hoa */
+  font-weight: 700; /* Corresponds to Bold */
+  line-height: 1.5; /* Khoảng cách giữa các dòng */
+}
+
+.txt_medium{
+  font-size: 14px;
+  font-family: 'Helvetica Neue', sans-serif;
+  line-height: 20.28px; /* Khoảng cách dòng để văn bản dễ đọc */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 500; /* Corresponds to Medium */
+}
+
+.txt_regular {
+  font-size: 16px; /* Kích thước chữ mặc định */
+  font-family: 'Helvetica Neue', sans-serif;
+  line-height: 20.28px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
+.txt_default {
+  font-size: 15px; /* Kích thước chữ mặc định */
+  font-family: 'Helvetica Neue', sans-serif;
+  line-height: 1.4; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
+  text-align: justify; /* Căn đều hai bên */
+  font-weight: 300; /* Corresponds to Medium */
+}
+
+/* Responsive */
+@media (min-width: 576px) {
+  .txt_bold {
+    font-size: 26px;
+  }
+  .txt_medium {
+    font-size: 16px; /* Tăng kích thước chữ trên màn hình lớn hơn 576px */
+  }
+  .txt_regular {
+    font-size: 18px; /* Tăng kích thước cho màn hình nhỏ từ 576px trở lên */
+  }
+  .txt_default {
+    font-size: 16px; /* Tăng kích thước chữ cho màn hình nhỏ */
+  }
+}
+
+@media (min-width: 768px) {
+  .txt_bold {
+    font-size: 28px;
+  }
+  .txt_medium {
+    font-size: 18px; /* Tăng kích thước cho màn hình tablet (768px) */
+  }
+  .txt_regular {
+    font-size: 20px; /* Tăng kích thước cho tablet */
+  }
+  .txt_default {
+    font-size: 18px; /* Kích thước chữ tăng thêm cho tablet */
+  }
+}
+
+@media (min-width: 992px) {
+  .txt_bold {
+    font-size: 32px;
+  }
+  .txt_medium {
+    font-size: 20px; /* Kích thước lớn hơn cho màn hình lớn */
+  }
+  .txt_regular {
+    font-size: 22px; /* Tăng kích thước cho màn hình lớn hơn, laptop */
+  }
+  .txt_default {
+    font-size: 20px; /* Tăng kích thước chữ cho laptop/PC */
+  }
+}
+
+@media (min-width: 1200px) {
+  .txt_bold {
+    font-size: 36px;
+  }
+  .txt_medium {
+    font-size: 22px; /* Kích thước lớn hơn cho màn hình lớn */
+  }
+  .txt_regular {
+    font-size: 24px; /* Kích thước lớn hơn cho màn hình desktop */
+  }
+  .txt_default {
+    font-size: 22px; /* Kích thước lớn hơn cho desktop */
+  }
+}
+
+@media (min-width: 1400px) {
+  .txt_bold {
+    font-size: 40px;
+  }
+  .txt_medium {
+    font-size: 17px; /* Kích thước lớn hơn nữa cho màn hình cực rộng */
+  }
+  .txt_regular {
+    font-size: 17px; /* Kích thước lớn nhất cho màn hình cực rộng */
+  }
+  .txt_default {
+    font-size: 24px; /* Kích thước lớn nhất cho màn hình cực rộng */
+  }
+}
