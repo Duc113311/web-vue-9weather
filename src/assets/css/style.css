@@ -36,28 +36,28 @@
 /*  HelveticaNeue */
 
 @font-face {
-  font-family: "HelveticaNeue-Bold";
+  font-family: 'Helvetica Neue',sans-serif;
   src: url("../fonts/HelveticaNeueBold.ttf") format("woff2");
   font-weight: 700; /* Corresponds to Bold */
   font-style: normal;
 }
 
 @font-face {
-  font-family: "HelveticaNeue-Medium";
+  font-family: 'Helvetica Neue',sans-serif;
   src: url("../fonts/HelveticaNeueMedium.ttf") format("woff2");
   font-weight: 500; /* Corresponds to Medium */
   font-style: normal;
 }
 
 @font-face {
-  font-family: "HelveticaNeue-Regular";
+  font-family: 'Helvetica Neue',sans-serif;
   src: url("../fonts/HelveticaNeueRegular.ttf") format("truetype");
   font-weight: 400; /* Corresponds to Regular */
   font-style: normal;
 }
 
 @font-face {
-  font-family: "HelveticaNeue-Light";
+  font-family:'Helvetica Neue',sans-serif;
   src: url("../fonts/HelveticaNeueLight.ttf") format("woff2");
   font-weight: 300; /* Corresponds to Medium */
   font-style: normal;
