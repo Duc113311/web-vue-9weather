@@ -4,6 +4,7 @@ import HomePageV2 from "../views/home-page/index.vue";
 
 import WidgetView from "../views/widget-create/form-iframe/index.vue";
 import NotFoundComponent from "../views/404/index.vue";
+import DashPage from "../views/index.vue";
 
 const routes = [
   {
@@ -21,6 +22,21 @@ const routes = [
     path: "/",
     name: "home-page",
     component: HomePageV2,
+  },
+
+  {
+    path: "/:language/:country/:city/:coordinates/",
+    name: "city-page",
+    component: DashPage,
+
+    children: [
+      // router detail
+      {
+        path: `today-weather`, // Add ':language' as a dynamic segment
+        name: "today-weather",
+        component: () => import("@/views/today-page/index.vue"), // Component cho route con
+      },
+    ],
   },
 ];
 

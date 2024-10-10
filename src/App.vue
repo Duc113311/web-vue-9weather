@@ -13,7 +13,7 @@
 
         <!--  -->
 
-        <NavTabOption></NavTabOption>
+        <NavTabbar></NavTabbar>
       </div>
 
       <FooterPage></FooterPage>
@@ -26,7 +26,7 @@ import { mapMutations } from "vuex";
 import NavBottom from "./layout/tabbar-bottom/nav-bottom.vue";
 import FooterPage from "./layout/footer/footer-page.vue";
 import BreadcumsPage from "./layout/breadcums/breadcums-page.vue";
-import NavTabOption from "./layout/tab-menu/nav-tab-option.vue";
+import NavTabbar from "./layout/tab-menu/nav-tabbar.vue";
 // import BreadcumsPage from "./layout/breadcums/breadcums_page.vue";
 
 export default {
@@ -37,7 +37,7 @@ export default {
     NavBottom,
     BreadcumsPage,
     FooterPage,
-    NavTabOption,
+    NavTabbar,
   },
   data() {
     return {

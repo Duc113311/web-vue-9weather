@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-  name: "nav-tab-option",
+  name: "nav-tabbar",
 
   data() {
     return {};
