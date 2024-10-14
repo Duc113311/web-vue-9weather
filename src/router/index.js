@@ -36,6 +36,16 @@ const routes = [
         name: "today-weather",
         component: () => import("@/views/today-page/index.vue"), // Component cho route con
       },
+      {
+        path: `month-weather`, // Add ':language' as a dynamic segment
+        name: "month-weather",
+        component: () => import("@/views/month-page/index.vue"), // Component cho route con
+      },
+      {
+        path: `hourly-weather`, // Add ':language' as a dynamic segment
+        name: "hourly-weather",
+        component: () => import("@/views/hourly-page/index.vue"), // Component cho route con
+      },
     ],
   },
 ];

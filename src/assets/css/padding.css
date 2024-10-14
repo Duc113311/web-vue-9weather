@@ -17,6 +17,18 @@
   padding-bottom: 10px ; 
 }
 
+.pad-l-r{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.pad-tab{
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 /* Radios */
 .bor-radios-big{
   border-radius: 20px;
@@ -24,6 +36,16 @@
 
 .bor-radios-small{
   border-radius: 14px;
+}
+
+
+
+.bor-rim-r{
+  border-right: 1px solid #ffffff;
+}
+
+.bor-c{
+  border: 1px solid #F9F9F9;
 }
 
 .card {

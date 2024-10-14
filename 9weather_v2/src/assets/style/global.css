@@ -1,0 +1,195 @@
+.el-input__wrapper {
+  /* border-radius: 10px !important;
+  color: white !important;
+  background: none !important; */
+  border: 1.5px solid #d3a8a8 !important;
+  box-shadow: none !important;
+}
+/* .el-input__wrapper:hover {
+  border: 1.5px solid #6d99c9 !important;
+} */
+
+.el-select__wrapper {
+  color: #000000 !important;
+  border: 1.5px solid #d3a8a8 !important;
+  box-shadow: none !important;
+}
+.el-select__wrapper:hover {
+  border: 1.5px solid #6d99c9 !important;
+}
+
+.el-select-dropdown__item {
+  text-align: left;
+}
+
+/*  */
+
+.el-icon {
+  font-size: large !important;
+}
+.el-input__inner {
+  height: 35px !important;
+  font-size: 14px !important;
+  font-family: "Roboto-Light", sans-serif;
+}
+.el-collapse {
+  border-bottom: none !important;
+  border-top: none !important;
+}
+.el-collapse-item__header {
+  border-bottom: none !important;
+}
+.el-collapse-item__wrap {
+  border-bottom: none !important;
+}
+.el-collapse-item__content {
+  border-bottom: none !important;
+}
+
+.el-collapse-item__content {
+  padding-bottom: 0px !important;
+}
+
+.el-drawer.rtl {
+  width: 100% !important;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* .el-overlay {
+  background-color: rgb(255 255 255 / 56%) !important;
+} */
+.el-drawer__header {
+  margin-bottom: 0px !important;
+}
+.el-switch--large .el-switch__core {
+  min-width: 44px !important;
+}
+.el-switch--large {
+  height: 0px !important;
+}
+
+.el-color-picker .el-color-picker__icon {
+  display: none !important;
+}
+.el-color-picker__color {
+  border: none !important;
+}
+.el-color-picker__trigger {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.el-color-picker {
+  width: 40px !important;
+  height: 34px !important;
+}
+
+.el-input--small .el-input__inner {
+  color: #000000 !important;
+}
+
+.el-button--small {
+  height: 38px !important;
+}
+
+.el-autocomplete-suggestion li {
+  line-height: 20px !important;
+  padding: 5px 9px !important;
+}
+.el-drawer__body {
+  overflow: hidden !important;
+}
+
+.el-breadcrumb__inner a:hover,
+.el-breadcrumb__inner.is-link:hover {
+  color: #ffffff !important;
+  cursor: pointer;
+}
+
+.el-breadcrumb__inner a,
+.el-breadcrumb__inner.is-link {
+  font-weight: 500 !important;
+}
+
+.el-slider__runway {
+  background-color: #1d2c4b !important;
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1150px;
+  }
+  .el-drawer.rtl{
+    width: 40% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1150px;
+  }
+  .el-drawer.rtl{
+    width: 40% !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .el-drawer.rtl{
+    width: 40% !important;
+  }
+}
+
+.el-tabs__item:nth-child(1) {
+  background-color: #507a46 !important; /* Change to your preferred color */
+  color: white !important;
+  font-size: 14px !important;
+  font-family: "Roboto-Regular", sans-serif;
+}
+
+.el-tabs__item:nth-child(2) {
+  background-color: #cbd956 !important; /* Change to your preferred color */
+  color: white !important;
+}
+
+.el-tabs__item:nth-child(3) {
+  background-color: #ecc32b !important; /* Change to your preferred color */
+  color: white !important;
+}
+
+.el-tabs__item:nth-child(4) {
+  background-color: #ff6272 !important; /* Change to your preferred color */
+  color: white !important;
+}
+.el-tabs__item:nth-child(5) {
+  background-color: #ff38a2 !important; /* Change to your preferred color */
+  color: white !important;
+}
+.equal-width-tabs .el-tabs__item {
+  font-size: 14px !important;
+
+  padding: 24px !important;
+  flex: 1; /* Each tab takes up equal space */
+  text-align: center; /* Center-align the text if needed */
+}
+.equal-width-tabs .el-tabs__item:hover {
+  background-color: #35030325 !important;
+}
+
+.el-tabs__nav {
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title-tab {
+  font-size: 14px !important;
+  font-family: "Roboto-Medium", sans-serif !important;
+  font-weight: 500 !important;
+}
+
+.el-breadcrumb__inner a:hover,
+.el-breadcrumb__inner.is-link:hover {
+  color: #cfb5b5 !important;
+  cursor: pointer;
+}

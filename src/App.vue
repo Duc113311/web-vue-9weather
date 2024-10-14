@@ -1,19 +1,15 @@
 <template>
   <div class="relative h-auto">
-    <div class="body-app show-scroll">
+    <div class="body-app show-scroll h-full">
       <!-- header -->
 
       <HeaderPage @onChangeShowDraw="onChangeShowDraw"></HeaderPage>
 
       <NavBottom></NavBottom>
 
-      <div class="w-full h-full pad-big">
+      <div class="w-full pad-big">
+        <router-view />
         <!--  -->
-        <BreadcumsPage></BreadcumsPage>
-
-        <!--  -->
-
-        <NavTabbar></NavTabbar>
       </div>
 
       <FooterPage></FooterPage>
@@ -25,8 +21,6 @@ import HeaderPage from "./layout/header/header_page";
 import { mapMutations } from "vuex";
 import NavBottom from "./layout/tabbar-bottom/nav-bottom.vue";
 import FooterPage from "./layout/footer/footer-page.vue";
-import BreadcumsPage from "./layout/breadcums/breadcums-page.vue";
-import NavTabbar from "./layout/tab-menu/nav-tabbar.vue";
 // import BreadcumsPage from "./layout/breadcums/breadcums_page.vue";
 
 export default {
@@ -35,9 +29,9 @@ export default {
   components: {
     HeaderPage,
     NavBottom,
-    BreadcumsPage,
+    // BreadcumsPage,
     FooterPage,
-    NavTabbar,
+    // NavTabbar,
   },
   data() {
     return {
