@@ -154,15 +154,15 @@ export default {
 
   computed: {
     renderCountry() {
-      return this.$store.state.getWeather.cityCountry;
+      return this.$store.state.weatherModule.cityCountry;
     },
 
     paramCurrently() {
-      return this.$store.state.getWeather.currently;
+      return this.$store.state.weatherModule.currently;
     },
 
     renderWeatherCurrent() {
-      return this.$store.state.getWeather.weatherCurrent;
+      return this.$store.state.weatherModule.weatherCurrent;
     },
 
     renderCityName() {

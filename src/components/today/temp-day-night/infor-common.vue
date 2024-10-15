@@ -1,16 +1,17 @@
 <template>
-  <div class="w-full h-[345px]">
+  <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2>29°</h2>
-      <p>Clear day</p>
-      <p>real Feel 33°C</p>
+      <h2 class="txt_title_temp mb-2">29°</h2>
+      <div class="txt_regular">Clear day</div>
+      <div class="txt_regular_des">Real Feel 33°C</div>
     </div>
+
     <!--  -->
 
-    <div>
+    <div class="pt-4 pb-4 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
-        <div class="flex items-center text-left">
+        <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
             src="../../../assets/images/svg_v2/ic_UV_index.svg"
             width="24"
@@ -18,10 +19,10 @@
           />
           <p>UV</p>
         </div>
-        <p>8 (high)</p>
+        <p class="txt_medium_des">8 (high)</p>
       </div>
       <div class="flex justify-between items-center">
-        <div class="flex items-center text-left">
+        <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
             src="../../../assets/images/svg_v2/ic_precititation.svg"
             width="24"
@@ -29,10 +30,10 @@
           />
           <p>Precipitation</p>
         </div>
-        <p>100%</p>
+        <p class="txt_medium_des">100%</p>
       </div>
       <div class="flex justify-between items-center">
-        <div class="flex items-center text-left">
+        <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
             src="../../../assets/images/svg_v2/ic_droplet.svg"
             width="24"
@@ -40,11 +41,11 @@
           />
           <p>Rainfall</p>
         </div>
-        <p>11.8 mm</p>
+        <p class="txt_medium_des">11.8 mm</p>
       </div>
     </div>
 
-    <div class="text-left w-full">
+    <div class="text-left w-full txt_regular_des">
       <p>
         Cloudy skies with a cool breeze. Light showers are possible, so you
         might want to grab a light jacket before heading out.

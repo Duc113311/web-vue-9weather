@@ -1,20 +1,20 @@
 <template>
-  <div class="w-full h-[298px]">
+  <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2>29°</h2>
-      <p>Clear day</p>
-      <p>real Feel 33°C</p>
+      <h2 class="txt_title_temp">29°</h2>
+      <div class="txt_regular">Clear day</div>
+      <div class="txt_regular_des">Real Feel 33°C</div>
     </div>
 
     <!--  -->
     <div class="c-temp-row w-full flex justify-between items-center">
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
-        <div class="h-flex flex items-center justify-center">
+        <div class="h-flex flex items-center justify-center pb-14">
           <p>Temperature</p>
         </div>
         <div class="flex justify-center items-center">
-          <div class="text-left flex">
+          <div class="text-left flex txt_medium gap-1">
             <img
               src="../../../assets/images/svg_v2/ic_temperature_max.svg"
               alt=""
@@ -23,7 +23,7 @@
             <span>33°C</span>
           </div>
 
-          <div class="text-right flex">
+          <div class="text-right flex txt_medium gap-1">
             <img
               src="../../../assets/images/svg_v2/ic_temperature_min.svg"
               alt=""
@@ -38,13 +38,13 @@
         <div class="h-flex flex items-center justify-center">
           <p>Precipitation</p>
         </div>
-        <div class="icon-c flex justify-center">
+        <div class="icon-c flex justify-center p-4">
           <img
             src="../../../assets/images/svg_v2/ic_precititation.svg"
             width="24"
           />
         </div>
-        <div class="text-c text-center items-center">
+        <div class="text-c text-center items-center txt_medium">
           <p>100%</p>
         </div>
       </div>
@@ -53,10 +53,10 @@
         <div class="h-flex flex items-center justify-center">
           <p>Rainfall</p>
         </div>
-        <div class="icon-c flex justify-center">
+        <div class="icon-c flex justify-center p-4">
           <img src="../../../assets/images/svg_v2/ic_droplet.svg" width="24" />
         </div>
-        <div class="text-c text-center items-center">
+        <div class="text-c text-center items-center txt_medium">
           <p>11.8mm</p>
         </div>
       </div>
@@ -64,7 +64,7 @@
 
     <!--  -->
 
-    <div class="text-left w-full">
+    <div class="text-left w-full pt-4 pb-4 txt_regular_des">
       <p>
         Today's weather features a slight chance of precipitation, with isolated
         showers possible in the afternoon. Expect mostly sunny skies with brief
@@ -88,7 +88,6 @@ export default {
 .temp-section {
   flex: 1;
   min-width: 0; // This prevents flex items from overflowing
-  padding: 10px; // Adjust as needed
   border-right: 1px solid #ccc; // Adjust color as needed
 
   &:last-child {

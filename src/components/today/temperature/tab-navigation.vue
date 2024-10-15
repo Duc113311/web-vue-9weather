@@ -4,6 +4,7 @@
       <div
         class="item-tab pad-tab bor-c bor-radios-big"
         v-for="(item, index) in listTab"
+        :class="{ 'active-tab': activeIndex === index }"
         :key="index"
       >
         <p>{{ item }}</p>
@@ -18,6 +19,7 @@ export default {
   data() {
     return {
       listTab: ["Today", "UV", "Wind", "Humid", "Pressure"],
+      activeIndex: 0,
     };
   },
 };
@@ -31,5 +33,10 @@ export default {
   &:last-child {
     margin-right: 0px;
   }
+}
+
+.active-tab {
+  background-color: #ffffff;
+  color: #0062f5 !important;
 }
 </style>

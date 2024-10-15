@@ -9,7 +9,10 @@
       </div>
     </header>
 
-    <div class="pad-big bg-color text-white">
+    <div
+      class="bg-color text-white overflow-hidden"
+      :class="{ 'pad-big': isShowPad }"
+    >
       <slot></slot>
     </div>
   </div>
@@ -21,17 +24,19 @@ export default {
   data() {
     return {};
   },
+
+  props: {
+    isShowPad: {
+      type: Boolean,
+      default: true,
+    },
+  },
 };
 </script>
 <style lang="scss">
 .bg-color {
-  background: linear-gradient(
-    to right,
-    rgba(243, 243, 243, 0.15),
-    rgba(243, 243, 243, 0.15)
-  );
+  box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.3);
 
-  border: 1px solid #ffffff;
   border-radius: 12px;
 }
 </style>

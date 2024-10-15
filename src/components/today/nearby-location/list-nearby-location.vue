@@ -23,6 +23,7 @@
           <DistrictCardPage
             v-for="(item, index) in districts"
             :key="index"
+            :objectLocation="item"
           ></DistrictCardPage>
         </div>
       </div>

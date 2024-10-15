@@ -65,13 +65,15 @@
         </div>
       </div>
 
-      <div class="right-c">
+      <div class="right-c pt-12 h-auto">
         <!--  -->
-        <img
-          src="../../assets/images/png/ic_app_download.png"
-          alt=""
-          srcset=""
-        />
+        <div class="flex justify-center items-center h-auto">
+          <img
+            src="../../assets/images/png/ic_app_download.png"
+            alt=""
+            class="img-logo"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -140,5 +142,10 @@ export default {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr;
   gap: 16px;
+}
+
+.img-logo {
+  width: 360px;
+  height: 443px;
 }
 </style>

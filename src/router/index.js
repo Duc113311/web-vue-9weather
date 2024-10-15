@@ -5,6 +5,7 @@ import HomePageV2 from "../views/home-page/index.vue";
 import WidgetView from "../views/widget-create/form-iframe/index.vue";
 import NotFoundComponent from "../views/404/index.vue";
 import DashPage from "../views/index.vue";
+import SearchPage from "../views/search/index.vue";
 
 const routes = [
   {
@@ -19,32 +20,37 @@ const routes = [
   // v2
 
   {
-    path: "/",
+    path: "",
     name: "home-page",
-    component: HomePageV2,
-  },
-
-  {
-    path: "/:language/:country/:city/:coordinates/",
-    name: "city-page",
     component: DashPage,
 
     children: [
-      // router detail
       {
-        path: `today-weather`, // Add ':language' as a dynamic segment
-        name: "today-weather",
-        component: () => import("@/views/today-page/index.vue"), // Component cho route con
+        path: "",
+        name: "home-pages",
+        component: HomePageV2,
       },
       {
-        path: `month-weather`, // Add ':language' as a dynamic segment
-        name: "month-weather",
-        component: () => import("@/views/month-page/index.vue"), // Component cho route con
-      },
-      {
-        path: `hourly-weather`, // Add ':language' as a dynamic segment
-        name: "hourly-weather",
-        component: () => import("@/views/hourly-page/index.vue"), // Component cho route con
+        path: "/:language/:country/:city/:coordinates/",
+        name: "city-page",
+        component: SearchPage,
+        children: [
+          {
+            path: `today-weather`, // Add ':language' as a dynamic segment
+            name: "today-weather",
+            component: () => import("@/views/search/today-page/index.vue"), // Component cho route con
+          },
+          {
+            path: `month-weather`, // Add ':language' as a dynamic segment
+            name: "month-weather",
+            component: () => import("@/views/search/month-page/index.vue"), // Component cho route con
+          },
+          {
+            path: `hourly-weather`, // Add ':language' as a dynamic segment
+            name: "hourly-weather",
+            component: () => import("@/views/search/hourly-page/index.vue"), // Component cho route con
+          },
+        ],
       },
     ],
   },

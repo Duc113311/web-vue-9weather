@@ -12,7 +12,7 @@
           <p>Moonphase</p>
         </div>
       </template>
-      <div class="w-full h-[189px]">
+      <div class="w-full h-[163px]">
         <!--  -->
       </div>
     </BaseComponent>

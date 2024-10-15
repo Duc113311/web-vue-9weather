@@ -94,7 +94,11 @@ const state = {
   weatherWidget: {},
 };
 
-const getters = {};
+const getters = {
+  breadcumsObjectValue(state) {
+    return state.breadcumsObject;
+  },
+};
 
 const mutations = {
   setBreadcumsObject(state, data) {
@@ -241,6 +245,7 @@ const actions = {
 };
 
 export default {
+  namespaced: true,
   state,
   getters,
   mutations,

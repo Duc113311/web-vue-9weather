@@ -2,16 +2,24 @@
   <div class="">
     <!--  -->
     <div class="district-card">
-      <h3 class="district-name">{{ objectLocation?.name }}</h3>
-      <img
-        src="../../../assets/images/svg_v2/ic_rain_data.svg"
-        alt="Weather icon"
-        class="weather-icon"
-      />
-      <p class="weather-condition">{{ objectLocation?.condition }}</p>
-      <p class="temperature">
-        {{ objectLocation?.lowTemp }}°C | {{ objectLocation?.highTemp }}°C
-      </p>
+      <h3 class="text-center txt_medium">
+        {{ objectLocation?.name }}
+      </h3>
+      <div class="flex items-center justify-center">
+        <img
+          src="../../../assets/images/svg_v2/ic_rain_data.svg"
+          alt="Weather icon"
+          width="36"
+        />
+      </div>
+      <div>
+        <p class="txt_medium_des text-center">
+          {{ objectLocation?.condition }}
+        </p>
+        <p class="txt_medium_des text-center">
+          {{ objectLocation?.lowTemp }}°C | {{ objectLocation?.highTemp }}°C
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +49,10 @@ export default {
   text-align: center;
   color: white;
   height: 162px;
+  list-style-type: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .district-name {

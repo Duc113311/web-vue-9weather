@@ -22,15 +22,41 @@
 .txt_regular {
   font-size: 16px; /* Kích thước chữ mặc định */
   font-family: 'Helvetica Neue', sans-serif;
-  line-height: 20.28px; /* Khoảng cách giữa các dòng */
+  line-height: 24.28px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
 }
+
+
+.txt_regular_des {
+  font-size: 14px; /* Kích thước chữ mặc định */
+  font-family: 'Helvetica Neue', sans-serif;
+  line-height: 24.32px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
+.txt_medium_des {
+  font-size: 14px; /* Kích thước chữ mặc định */
+  font-family: 'Helvetica Neue', sans-serif;
+  line-height: 24.32px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 500; /* Corresponds to Regular */
+}
+
 
 .txt_default {
   font-size: 15px; /* Kích thước chữ mặc định */
   font-family: 'Helvetica Neue', sans-serif;
   line-height: 1.4; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
+  text-align: justify; /* Căn đều hai bên */
+  font-weight: 300; /* Corresponds to Medium */
+}
+
+.txt_title_temp{
+  font-size: 87px; /* Kích thước chữ mặc định */
+  font-family: 'Poppins', sans-serif;
+  line-height: 84px; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
   text-align: justify; /* Căn đều hai bên */
   font-weight: 300; /* Corresponds to Medium */
 }
