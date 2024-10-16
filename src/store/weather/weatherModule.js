@@ -29,6 +29,10 @@ const getters = {
   cityCountryValue(state) {
     return state.cityCountry;
   },
+
+  currentlyValue(state) {
+    return state.cityCountry;
+  },
 };
 
 /**
@@ -44,15 +48,15 @@ const mutations = {
     state.weatherCurrentData = JSON.parse(decodeBase64(data));
     console.log("state.weatherCurrentData", state.weatherCurrentData);
     if (state.weatherCurrentData) {
-      state.locationOffset.latitude = state.weatherData.latitude;
-      state.locationOffset.longitude = state.weatherData.longitude;
-      state.locationOffset.offset = state.weatherData.offset;
+      state.locationOffset.latitude = state.weatherCurrentData.latitude;
+      state.locationOffset.longitude = state.weatherCurrentData.longitude;
+      state.locationOffset.offset = state.weatherCurrentData.offset;
 
-      state.currently = state.weatherData.currently;
-      state.dailyOne = state.weatherData.daily.data[0];
-      state.hourly24h = state.weatherData.hourly.data.slice(0, 24);
-      state.hourly48h = state.weatherData.hourly.data;
-      state.dailyData = state.weatherData.daily.data;
+      state.currently = state.weatherCurrentData.currently;
+      state.dailyOne = state.weatherCurrentData.daily.data[0];
+      state.hourly24h = state.weatherCurrentData.hourly.data.slice(0, 24);
+      state.hourly48h = state.weatherCurrentData.hourly.data;
+      state.dailyData = state.weatherCurrentData.daily.data;
     }
   },
 

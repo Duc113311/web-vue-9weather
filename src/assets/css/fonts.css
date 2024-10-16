@@ -4,7 +4,6 @@
 .txt_bold{
   font-size: 24px;
   font-family: 'Helvetica Neue', sans-serif;
-  text-align: center; /* Căn giữa văn bản */
   letter-spacing: 0.5px; /* Khoảng cách giữa các ký tự */
   text-transform: uppercase; /* Chuyển văn bản thành chữ hoa */
   font-weight: 700; /* Corresponds to Bold */
@@ -64,7 +63,7 @@
 /* Responsive */
 @media (min-width: 576px) {
   .txt_bold {
-    font-size: 26px;
+    font-size: 24px;
   }
   .txt_medium {
     font-size: 16px; /* Tăng kích thước chữ trên màn hình lớn hơn 576px */
@@ -79,7 +78,7 @@
 
 @media (min-width: 768px) {
   .txt_bold {
-    font-size: 28px;
+    font-size: 24px;
   }
   .txt_medium {
     font-size: 18px; /* Tăng kích thước cho màn hình tablet (768px) */
@@ -94,7 +93,7 @@
 
 @media (min-width: 992px) {
   .txt_bold {
-    font-size: 32px;
+    font-size: 24px;
   }
   .txt_medium {
     font-size: 20px; /* Kích thước lớn hơn cho màn hình lớn */
@@ -109,7 +108,7 @@
 
 @media (min-width: 1200px) {
   .txt_bold {
-    font-size: 36px;
+    font-size: 24px;
   }
   .txt_medium {
     font-size: 22px; /* Kích thước lớn hơn cho màn hình lớn */
@@ -124,7 +123,7 @@
 
 @media (min-width: 1400px) {
   .txt_bold {
-    font-size: 40px;
+    font-size: 24px;
   }
   .txt_medium {
     font-size: 17px; /* Kích thước lớn hơn nữa cho màn hình cực rộng */
