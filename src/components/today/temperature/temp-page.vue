@@ -18,7 +18,10 @@
         <!--  -->
         <TabNavigation></TabNavigation>
         <!--  -->
-        <ChartTempRain></ChartTempRain>
+        <div class="w-[550px]">
+          <ChartTempRain></ChartTempRain>
+        </div>
+
         <!--  -->
       </div>
     </BaseComponent>

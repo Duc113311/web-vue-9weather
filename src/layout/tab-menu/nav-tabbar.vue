@@ -10,9 +10,8 @@
           :key="index"
           class="weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center text-white"
           :class="{ 'active-tab': activeIndex === index }"
-          @click="setActiveTab(index)"
+          @click="onClickRouterView(menu, index)"
         >
-          <!-- <router-link class="weather-menu-link"> -->
           <div class="flex items-center txt-medium gap-2 cursor-pointer">
             <img
               :src="menu.icon"
@@ -20,9 +19,9 @@
               :class="{ 'active-icon': activeIndex === index }"
               :alt="menu.label"
             />
+
             <span>{{ menu.label }}</span>
           </div>
-          <!-- </router-link> -->
         </div>
       </div>
     </div>
@@ -42,27 +41,52 @@ export default {
     menuItems() {
       return [
         {
-          name: "today",
+          name: "today-weather",
           label: "Today",
           icon: require("../../assets/images/svg_v2/ic_cloud_sun.svg"),
         },
         {
-          name: "hourly",
+          name: "hourly-weather",
           label: "Hourly",
           icon: require("../../assets/images/svg_v2/ic_oclock.svg"),
         },
         {
-          name: "month",
+          name: "month-weather",
           label: "Month",
           icon: require("../../assets/images/svg_v2/ic_calendar_days.svg"),
         },
         {
-          name: "radar",
+          name: "radar-weather",
           label: "Radar",
           icon: require("../../assets/images/svg_v2/ic_radar.svg"),
         },
       ];
     },
+
+    renderCityName() {
+      return this.$route.params.city ? this.$route.params.city : "";
+    },
+
+    renderCountry() {
+      debugger;
+      return this.$route.params.country ? this.$route.params.country : "";
+    },
+
+    renderLanguage() {
+      return this.$route.params.language ? this.$route.params.language : "en";
+    },
+
+    renderCoordinates() {
+      return this.$route.params.coordinates
+        ? this.$route.params.coordinates
+        : "0,0";
+    },
+  },
+
+  mounted() {
+    debugger;
+    const nameRouter = this.$route.name;
+    this.activeIndex = this.menuItems.findIndex((x) => x.name === nameRouter);
   },
 
   methods: {
@@ -70,8 +94,12 @@ export default {
       return this.$route.name === menu.name;
     },
 
-    setActiveTab(index) {
+    async onClickRouterView(value, index) {
       this.activeIndex = index;
+
+      await this.$router.push({
+        path: `/${this.renderLanguage}/${this.renderCountry}/${this.renderCityName}/${this.renderCoordinates}/${value.name}`,
+      });
     },
   },
 };

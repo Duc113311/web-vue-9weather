@@ -14,12 +14,29 @@
       </template>
       <div class="w-full h-[163px]">
         <!--  -->
-        <div class="sun-rise-progression w-full">
+        <div class="sun-rise-progression w-full relative">
+          <div
+            class="flex items-center justify-between w-full absolute bottom-24"
+          >
+            <div class="flex flex-col gap-2 items-center w-[70px]">
+              <p class="txt_light_summer">
+                <span>05:24</span><br />
+                <span>Sunrise</span>
+              </p>
+            </div>
+            <!--  -->
+            <div class="flex flex-col gap-2 items-center w-[70px]">
+              <p class="txt_light_summer">
+                <span>05:24</span><br />
+                <span>Sunrise</span>
+              </p>
+            </div>
+          </div>
           <canvas
             id="draw_progression"
             class="w-full"
-            height="300"
-            width="650"
+            height="450"
+            width="680"
           ></canvas>
         </div>
       </div>
@@ -30,7 +47,10 @@
 import BaseComponent from "../baseComponent.vue";
 import { convertTimeSun } from "../../../utils/converValue.js";
 import { mapGetters } from "vuex";
-
+import {
+  convertTimestampToHoursMinutes,
+  convertTimestampToHoursMinutes12,
+} from "../../../utils/converValue.js";
 export default {
   name: "sun-page",
   components: {
@@ -39,7 +59,7 @@ export default {
 
   data() {
     return {
-      sunSize: 20,
+      sunSize: 50,
       percentProgression: 50,
       imgTop: require("../../../assets/images/svg_v2/ic_Sun.svg"),
       imgBottom: require("../../../assets/images/svg/ic_canvas_bottom.svg"),
@@ -47,7 +67,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["currentlyValue"]),
+    ...mapGetters("weatherModule", [
+      "currentlyValue",
+      "dailyOne",
+      "locationOffsetValue",
+    ]),
+
+    paramDailyOne() {
+      return this.dailyOne;
+    },
 
     timeHourly() {
       const timeValue = this.$store.state.weatherModule.currently;
@@ -67,6 +95,16 @@ export default {
   },
 
   methods: {
+    convertTime(val) {
+      const offsetValue = this.locationOffsetValue?.offset;
+
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
+      } else {
+        return convertTimestampToHoursMinutes(val, 1, offsetValue);
+      }
+    },
     async createProgressionSin() {
       // Lấy canvas gốc và context của nó
       var canvas = document.getElementById("draw_progression");
@@ -125,7 +163,7 @@ export default {
 
       ctx.drawImage(canvasDowner, 0, 0); // Vẽ canvas canvasDowner lên ctx
       ctx.drawImage(canvasUpper, 0, 0); // Vẽ canvas canvasUpper lên ctx
-      var sunSize = 20;
+      var sunSize = 50;
       var percent = this.timeHourly;
       this.drawSunAt(
         ctx,

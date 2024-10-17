@@ -33,6 +33,18 @@ const getters = {
   currentlyValue(state) {
     return state.cityCountry;
   },
+
+  locationOffsetValue(state) {
+    return state.locationOffset;
+  },
+
+  dailyDataValue(state) {
+    return state.dailyData;
+  },
+
+  hourly24hValue(state) {
+    return state.hourly24h;
+  },
 };
 
 /**

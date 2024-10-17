@@ -344,8 +344,9 @@ export default {
       console.log("item-search", item);
 
       // this.setUpdateBreadcumsObject(item);
+      debugger;
       await this.$router.push({
-        path: `/${language}/${item.country}/${item.value}/${item.code}/current-weather`,
+        path: `/${language}/${item.country}/${item.value}/${item.lat},${item.lng}/today-weather`,
       });
       window.location.reload();
 
@@ -499,7 +500,7 @@ export default {
       document.title = "Loading...";
 
       // Lấy thông tin vị trí và thành phố
-      const cityCountryNow = this.$store.state.getWeather.cityCountry;
+      const cityCountryNow = this.$store.state.weatherModule.cityCountry;
 
       localStorage.setItem("country", JSON.stringify(cityCountryNow));
       localStorage.removeItem("cityName");

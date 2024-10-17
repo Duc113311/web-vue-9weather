@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "month-weather",
+  name: "radar-weather",
 
   data() {
     return {};

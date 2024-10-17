@@ -37,6 +37,6 @@ export default {
 .bg-color {
   box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.3);
 
-  border-radius: 12px;
+  border-radius: 20px;
 }
 </style>
