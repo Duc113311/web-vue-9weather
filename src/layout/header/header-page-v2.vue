@@ -709,7 +709,7 @@ export default {
       const valueNewAir = encodeBase64(resultAir);
 
       const airCode = getParamAirByCode(
-        this.$store.state.getAqi.airKeyObject.key
+        this.$store.state.airQualityModule.airKeyObject.key
       );
 
       debugger;
