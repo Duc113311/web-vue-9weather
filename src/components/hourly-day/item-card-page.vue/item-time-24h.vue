@@ -35,6 +35,7 @@
             </div>
             <div>
               <img
+                id="chevron"
                 src="../../../assets/images/svg_v2/ic_chevron_right.png"
                 alt=""
               />
@@ -244,6 +245,7 @@ export default {
   data() {
     return {
       valueChoose: -1,
+      isRotated: false,
     };
   },
 
@@ -257,6 +259,14 @@ export default {
 
   methods: {
     onClickShowDetailCard(value) {
+      const chevron = document.getElementById("chevron");
+      if (this.isRotated) {
+        chevron.style.transform = "rotate(0deg)"; // Trở về hướng ban đầu
+      } else {
+        chevron.style.transform = "rotate(90deg)"; // Xoay xuống dưới
+      }
+      this.isRotated = !this.isRotated; // Đảo ngược trạng thái
+
       if (this.valueChoose === value) {
         this.valueChoose = -1;
       } else {

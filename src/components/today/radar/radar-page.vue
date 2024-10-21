@@ -13,7 +13,7 @@
           <span>Radar</span>
         </div>
       </template>
-      <div v-if="renderRadar !== null" class="h-auto overflow-hidden">
+      <div v-if="renderRadar !== null" class="h-full overflow-hidden">
         <!--  -->
         <iframe
           :src="renderRadar"

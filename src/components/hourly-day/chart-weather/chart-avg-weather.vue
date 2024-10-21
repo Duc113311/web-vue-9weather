@@ -16,7 +16,7 @@
 
           <div class="w-full gap-4 grid">
             <div class="w-[550px] h-[400px]">
-              <ChartTempRain></ChartTempRain>
+              <!-- <ChartTempRain></ChartTempRain> -->
             </div>
 
             <!--  -->
@@ -75,7 +75,7 @@ export default {
 
   components: {
     BaseComponent,
-    ChartTempRain,
+    // ChartTempRain,
   },
   data() {
     return {};
