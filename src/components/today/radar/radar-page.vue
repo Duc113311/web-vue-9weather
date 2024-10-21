@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mt-3">
+  <div class="w-full h-full">
     <!--  -->
     <BaseComponent :isShowPad="false">
       <!--  -->
@@ -13,7 +13,7 @@
           <span>Radar</span>
         </div>
       </template>
-      <div v-if="renderRadar !== null" class="w-full h-[410px] overflow-hidden">
+      <div v-if="renderRadar !== null" class="h-auto overflow-hidden">
         <!--  -->
         <iframe
           :src="renderRadar"
@@ -44,10 +44,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["cityCountryValue"]),
+    ...mapGetters("weatherModule", ["cityCountryGetters"]),
 
     renderRadar() {
-      const dataPosition = this.cityCountryValue;
+      const dataPosition = this.cityCountryGetters;
       console.log("dataPosition", dataPosition);
       const objectSetting = this.$store.state.commonModule.objectSettingSave;
       if (!dataPosition || !dataPosition.latitude || !dataPosition.longitude) {

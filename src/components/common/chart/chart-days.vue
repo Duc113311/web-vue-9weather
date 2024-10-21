@@ -24,9 +24,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["hourly24hValue"]),
+    ...mapGetters("weatherModule", ["hourly24hGetters"]),
     paramHourly() {
-      return this.hourly24hValue;
+      return this.hourly24hGetters;
     },
   },
 

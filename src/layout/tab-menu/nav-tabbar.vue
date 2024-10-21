@@ -28,6 +28,8 @@
   </div>
 </template>
 <script>
+import { convertToEnglishReplace } from "@/utils/converValue";
+import { mapGetters } from "vuex";
 export default {
   name: "nav-tabbar",
 
@@ -38,6 +40,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     menuItems() {
       return [
         {
@@ -64,12 +67,16 @@ export default {
     },
 
     renderCityName() {
-      return this.$route.params.city ? this.$route.params.city : "";
+      return this.$route.params.city
+        ? this.$route.params.city
+        : this.breadcumsObjectGetters?.city;
     },
 
     renderCountry() {
       debugger;
-      return this.$route.params.country ? this.$route.params.country : "";
+      return this.$route.params.country
+        ? this.$route.params.country
+        : this.breadcumsObjectGetters?.country;
     },
 
     renderLanguage() {
@@ -79,7 +86,16 @@ export default {
     renderCoordinates() {
       return this.$route.params.coordinates
         ? this.$route.params.coordinates
-        : "0,0";
+        : `${this.breadcumsObjectGetters.latitude}, ${this.breadcumsObjectGetters.longitude}`;
+    },
+  },
+
+  watch: {
+    // Theo dõi sự thay đổi của breadcumsObjectGetters
+    breadcumsObjectGetters(newVal) {
+      if (newVal && Object.keys(newVal).length > 0) {
+        this.setTitleScream(this.activeIndex);
+      }
     },
   },
 
@@ -87,9 +103,41 @@ export default {
     debugger;
     const nameRouter = this.$route.name;
     this.activeIndex = this.menuItems.findIndex((x) => x.name === nameRouter);
+
+    if (this.activeIndex === -1) {
+      this.activeIndex = 0;
+    }
+    debugger;
+    this.setTitleScream(this.activeIndex);
+    debugger;
   },
 
   methods: {
+    setTitleScream(activeIndex) {
+      const valueTitle = [
+        this.breadcumsObjectGetters?.district,
+        this.breadcumsObjectGetters?.city,
+        this.breadcumsObjectGetters?.country,
+      ]
+        .filter(Boolean) // Lọc các giá trị không hợp lệ (undefined, null, '')
+        .join(", "); // Kết hợp các giá trị hợp lệ bằng dấu phẩy
+      switch (activeIndex) {
+        case 0:
+          document.title = valueTitle + ` Today Weather | 9weather`;
+          break;
+        case 1:
+          document.title = valueTitle + ` Hourly Weather | 9weather`;
+          break;
+        case 2:
+          document.title = valueTitle + ` Month Weather | 9weather`;
+          break;
+
+        default:
+          document.title =
+            "Local, National & Global Daily Weather Forecast | 9Weather";
+          break;
+      }
+    },
     isActive(menu) {
       return this.$route.name === menu.name;
     },
@@ -97,8 +145,15 @@ export default {
     async onClickRouterView(value, index) {
       this.activeIndex = index;
 
+      //const valueTitle = `${this.breadcumsObjectGetters?.district}, ${this.breadcumsObjectGetters?.city}, ${this.breadcumsObjectGetters?.country}`;
+
+      this.setTitleScream(this.activeIndex);
       await this.$router.push({
-        path: `/${this.renderLanguage}/${this.renderCountry}/${this.renderCityName}/${this.renderCoordinates}/${value.name}`,
+        path: `/${this.renderLanguage}/${
+          this.renderCountry
+        }/${convertToEnglishReplace(this.renderCityName)}/${
+          this.renderCoordinates
+        }/${value.name}`,
       });
     },
   },

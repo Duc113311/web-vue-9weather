@@ -1,6 +1,7 @@
 import { httpWeather } from "../../configs/http-weather";
 import { decodeBase64 } from "../../utils/EncoderDecoderUtils";
 
+import { convertToEnglish } from "@/utils/converValue";
 const state = {
   titleBackgroundColor: "#ffffff",
   descriptionColor: "#343434",
@@ -95,16 +96,48 @@ const state = {
 };
 
 const getters = {
-  breadcumsObjectValue(state) {
+  /**
+   * Xét giá trị cho breadcums
+   * @param {*} state
+   * @returns
+   */
+  breadcumsObjectGetters(state) {
     return state.breadcumsObject;
   },
 };
 
 const mutations = {
-  setBreadcumsObject(state, data) {
-    state.breadcumsObject.continent = data.continent;
-    state.breadcumsObject.country = data.country;
-    state.breadcumsObject.city = data.city;
+  /**
+   * Xét giá trị location khi cho phép truy cập
+   * @param {*} state
+   * @param {*} data
+   */
+  setBreadcumsAllowLocation(state, data) {
+    (state.breadcumsObject.country = data?.objectLocation?.country), // Quốc gia
+      (state.breadcumsObject.countryCode = data?.objectLocation?.country_code), // Quốc gia
+      (state.breadcumsObject.city = data?.objectLocation?.city), // Thành phố
+      (state.breadcumsObject.wardCommune = data?.objectLocation?.quarter), // Phường xã
+      (state.breadcumsObject.district = data?.objectLocation?.suburb), // Quận huyện
+      (state.breadcumsObject.road = data?.objectLocation?.road), // Đường
+      (state.breadcumsObject.latitude = data?.latitude), // latitude
+      (state.breadcumsObject.longitude = data?.longitude); // longitude
+  },
+
+  /**
+   * Xét giá trị location khi không cho phép truy cập
+   * @param {*} state
+   * @param {*} data
+   */
+  setBreadcumsNotAllowLocation(state, data) {
+    //
+    (state.breadcumsObject.country = data?.country), // Quốc gia
+      (state.breadcumsObject.countryCode = data?.country_code), // Quốc gia
+      (state.breadcumsObject.city = data?.city), // Thành phố
+      (state.breadcumsObject.wardCommune = ""), // Phường xã
+      (state.breadcumsObject.district = ""), // Quận huyện
+      (state.breadcumsObject.road = ""), // Đường
+      (state.breadcumsObject.latitude = data?.latitude), // latitude
+      (state.breadcumsObject.longitude = data?.longitude); // longitude
   },
 
   setUpdateBreadcumsObject(state, data) {

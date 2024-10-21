@@ -21,7 +21,6 @@ import HeaderPage from "./layout/header/header_page";
 import { mapMutations } from "vuex";
 import NavBottom from "./layout/tabbar-bottom/nav-bottom.vue";
 import FooterPage from "./layout/footer/footer-page.vue";
-// import BreadcumsPage from "./layout/breadcums/breadcums_page.vue";
 
 export default {
   name: "App-V2",
@@ -29,7 +28,6 @@ export default {
   components: {
     HeaderPage,
     NavBottom,
-    // BreadcumsPage,
     FooterPage,
     // NavTabbar,
   },
@@ -85,6 +83,7 @@ export default {
       document.body.classList.add("content-loaded");
     });
 
+    localStorage.setItem("language", "en");
     document.title =
       "Local, National & Global Daily Weather Forecast | 9Weather";
   },

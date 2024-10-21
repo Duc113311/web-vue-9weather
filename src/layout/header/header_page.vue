@@ -19,7 +19,7 @@
                   @click="onClickReloadHome()"
                 ></div>
 
-                <div class="flex justify-between items-center md:pt-2 pt-0">
+                <!-- <div class="flex justify-between items-center md:pt-2 pt-0">
                   <div>
                     <div class="flex items-center gap-1">
                       <div class="items-center flex gap-1">
@@ -45,7 +45,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- Search -->
@@ -115,7 +115,7 @@
 </template>
 <script>
 import { Search } from "@element-plus/icons-vue";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import {
   convertCtoF,
   codeToFind,
@@ -153,6 +153,12 @@ export default {
   },
 
   computed: {
+    ...mapGetters("weatherModule", ["cityCountryGetters"]),
+    ...mapGetters("airQualityModule", [
+      "airObjectGetters",
+      "airKeyObjectGetters",
+    ]),
+
     renderCountry() {
       return this.$store.state.weatherModule.cityCountry;
     },
@@ -203,18 +209,13 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
-      "setListLocation",
-      "setWeatherRecentData",
-      "setCityWeather",
-      "setCountryFilter",
-    ]),
-    ...mapActions([
+    ...mapMutations("weatherModule", ["setCityWeather"]),
+    ...mapMutations(["setListLocation", "setCountryFilter"]),
+
+    ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
+    ...mapActions("weatherModule", [
+      "getWeatherDataCurrent",
       "getFormattedAddress",
-      "getAirQualityByKey",
-      "getWeatherData",
-      "getAirQuality",
-      "getWeatherRecentData",
     ]),
 
     convertFahrenheitToCelsius(value) {
@@ -355,18 +356,12 @@ export default {
       const value = encodeBase64(param);
       const valueNewAir = encodeBase64(resultAir);
 
-      const airCode = getParamAirByCode(
-        this.$store.state.getAqi.airKeyObject.key
-      );
-
-      this.saveToLocalStorage("recent_key", dataLocation);
-      const arrayStorage = this.getFromLocalStorage("recent_key");
-      this.getValueWeatherByRecent(arrayStorage);
+      const airCode = getParamAirByCode(this.airObjectGetters.key);
 
       const encodeAirCode = encodeBase64(airCode);
 
       await Promise.all([
-        this.getWeatherData(value),
+        this.getWeatherDataCurrent(value),
         this.getAirQualityByKey(valueNewAir),
         this.getAirQuality(encodeAirCode),
       ]);
@@ -496,21 +491,18 @@ export default {
       //
       debugger;
       this.valueSearch = "";
-      const originalTitle = document.title;
-      document.title = "Loading...";
 
       // Lấy thông tin vị trí và thành phố
-      const cityCountryNow = this.$store.state.weatherModule.cityCountry;
-
-      localStorage.setItem("country", JSON.stringify(cityCountryNow));
-      localStorage.removeItem("cityName");
-      // Chuyển hướng đến router trước
-      this.$router.push({ path: "/" }).then(() => {
-        window.location.reload();
-      });
+      const cityCountryNow =
+        // Chuyển hướng đến router trước
+        this.$router.push({ path: "/" }).then(() => {
+          window.location.reload();
+        });
       // Xử lý tiếp các tác vụ API trong nền
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=en`;
+      const keyLanguage = this.$route.params.language;
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(
         cityCountryNow.latitude,
         cityCountryNow.longitude
@@ -523,20 +515,18 @@ export default {
         city: cityCountryNow.city,
         country: cityCountryNow.city,
       };
-      const airCode = getParamAirByCode(
-        this.$store.state.getAqi.airKeyObject.key
-      );
+      const airCode = getParamAirByCode(this.airObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
 
       // Gọi các API song song
       await Promise.all([
-        this.getWeatherData(value),
+        this.getWeatherDataCurrent(value),
         this.getAirQualityByKey(valueNewAir),
         this.getAirQuality(encodeAirCode),
       ]);
 
       this.setCityWeather(objectPosition);
-      document.title = originalTitle;
+      document.title = "originalTitle;";
     },
 
     /**
@@ -569,14 +559,12 @@ export default {
         city: cityCountryNow.city,
         country: cityCountryNow.country,
       };
-      const airCode = getParamAirByCode(
-        this.$store.state.getAqi.airKeyObject.key
-      );
+      const airCode = getParamAirByCode(this.airObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
 
       // Gọi các API song song
       await Promise.all([
-        this.getWeatherData(value),
+        this.getWeatherDataCurrent(value),
         this.getAirQualityByKey(valueNewAir),
         this.getAirQuality(encodeAirCode),
       ]);

@@ -68,9 +68,9 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", [
-      "currentlyValue",
+      "currentlyGetters",
       "dailyOne",
-      "locationOffsetValue",
+      "locationOffsetGetters",
     ]),
 
     paramDailyOne() {
@@ -96,7 +96,7 @@ export default {
 
   methods: {
     convertTime(val) {
-      const offsetValue = this.locationOffsetValue?.offset;
+      const offsetValue = this.locationOffsetGetters?.offset;
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {

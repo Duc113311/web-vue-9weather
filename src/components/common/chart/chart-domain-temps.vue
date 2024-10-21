@@ -39,7 +39,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["hourly24hValue"]),
+    ...mapGetters("weatherModule", ["hourly24hGetters"]),
     paramHourly() {
       console.log("hourly24h", this.$store.state.weatherModule.hourly24h);
       return this.$store.state.weatherModule.hourly24h;

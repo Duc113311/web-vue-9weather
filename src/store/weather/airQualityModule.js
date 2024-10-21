@@ -12,7 +12,15 @@ const state = {
 /**
  * Getters
  */
-const getters = {};
+const getters = {
+  airObjectGetters(state) {
+    return state.airObject;
+  },
+
+  airKeyObjectGetters(state) {
+    return state.airKeyObject;
+  },
+};
 
 /**
  * Mutations

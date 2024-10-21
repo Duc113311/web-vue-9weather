@@ -20,29 +20,31 @@ const state = {
   dailyData: [],
 
   cityCountry: {},
+
+  newArray: [],
 };
 
 /**
  * Getters
  */
 const getters = {
-  cityCountryValue(state) {
+  cityCountryGetters(state) {
     return state.cityCountry;
   },
 
-  currentlyValue(state) {
+  currentlyGetters(state) {
     return state.cityCountry;
   },
 
-  locationOffsetValue(state) {
+  locationOffsetGetters(state) {
     return state.locationOffset;
   },
 
-  dailyDataValue(state) {
+  dailyDataGetters(state) {
     return state.dailyData;
   },
 
-  hourly24hValue(state) {
+  hourly24hGetters(state) {
     return state.hourly24h;
   },
 };
@@ -75,6 +77,29 @@ const mutations = {
   setCityWeather(state, data) {
     state.cityCountry = data;
     state.countryFilter = data;
+  },
+
+  setFormattedAddress(state, data) {
+    const jsonValue = decodeBase64(data);
+    if (!jsonValue) {
+      return;
+    }
+    const listResultAddress = JSON.parse(jsonValue);
+    const addressResult = listResultAddress.results;
+    state.newArray = [];
+    for (let index = 0; index < addressResult.length; index++) {
+      const element = addressResult[index];
+      const lastElement =
+        element.address_components[element.address_components.length - 1];
+
+      const objectAddress = {
+        value: element.formatted_address,
+        country: lastElement.long_name,
+        lat: element.geometry.location.lat,
+        lng: element.geometry.location.lng,
+      };
+      state.newArray.push(objectAddress);
+    }
   },
 };
 
@@ -119,6 +144,24 @@ const actions = {
         .then((response) => {
           if (response.status === 200) {
             debugger;
+            resolve(response.data);
+          } else {
+            reject("Error: API returned non-200 status");
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
+  async getFormattedAddress({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      httpWeather
+        .get(`api.php?param=${data}`)
+        .then((response) => {
+          if (response.status === 200) {
+            commit("setFormattedAddress", response.data);
             resolve(response.data);
           } else {
             reject("Error: API returned non-200 status");

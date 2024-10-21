@@ -1086,3 +1086,50 @@ export function formatTimestampDay(timestamp) {
 
   return `${dayOfWeek}`;
 }
+
+
+// New
+/**
+ * Convert sang English
+ * @param {*} str 
+ * @returns 
+ */
+export function convertToEnglish(str) {
+
+  const keyLanguageStorage = localStorage.getItem("language");
+
+  if(keyLanguageStorage === 'en'){
+
+    if (typeof str !== 'string') {
+      return ''; // Hoặc một giá trị mặc định khác
+    }
+    return str
+    .normalize('NFD') // Chuẩn hóa chuỗi để tách dấu
+    .replace(/[\u0300-\u036f]/g, '') // Xóa các dấu thanh
+    .replace(/đ/g, 'd') // Thay thế chữ "đ" thành "d"
+    .replace(/Đ/g, 'D') // Thay thế chữ "Đ" thành "D"
+    // .replace(/\s+/g, ''); // Loại bỏ dấu cách
+  }
+  // Thay thế các ký tự tiếng Việt có dấu thành không dấu
+  return str
+}
+
+export function convertToEnglishReplace(str) {
+
+  const keyLanguageStorage = localStorage.getItem("language");
+
+  if(keyLanguageStorage === 'en'){
+
+    if (typeof str !== 'string') {
+      return ''; // Hoặc một giá trị mặc định khác
+    }
+    return str
+    .normalize('NFD') // Chuẩn hóa chuỗi để tách dấu
+    .replace(/[\u0300-\u036f]/g, '') // Xóa các dấu thanh
+    .replace(/đ/g, 'd') // Thay thế chữ "đ" thành "d"
+    .replace(/Đ/g, 'D') // Thay thế chữ "Đ" thành "D"
+    .replace(/\s+/g, ''); // Loại bỏ dấu cách
+  }
+  // Thay thế các ký tự tiếng Việt có dấu thành không dấu
+  return str
+}

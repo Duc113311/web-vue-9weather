@@ -11,7 +11,8 @@ import {
   getAqiDataFromLocation,
   getParamAirByCode,
 } from "@/utils/EncoderDecoderUtils.js";
-import { mapActions, mapMutations } from "vuex";
+
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "dash-page",
@@ -25,9 +26,19 @@ export default {
     this.getLocationBrowser();
   },
 
+  computed: {
+    ...mapGetters("airQualityModule", [
+      "airKeyObjectGetters",
+      "airObjectGetters",
+    ]),
+  },
+
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather"]),
-    ...mapMutations("commonModule", ["setBreadcumsObject"]),
+    ...mapMutations("commonModule", [
+      "setBreadcumsNotAllowLocation",
+      "setBreadcumsAllowLocation",
+    ]),
 
     ...mapActions("weatherModule", [
       "getWeatherDataCurrent",
@@ -58,7 +69,10 @@ export default {
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
 
-      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${this.latitude}&lon=${this.longitude}`;
+      const keyLanguageStorage = this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
+      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${this.latitude}&lon=${this.longitude}&accept-language=${keyLanguageStorage}`;
       const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
 
       console.log("responsive", responsive.data);
@@ -66,10 +80,10 @@ export default {
       const objectPosition = {
         latitude: this.latitude,
         longitude: this.longitude,
-        code: responsive.data.address.postcode,
-        city: responsive.data.address.city,
-        country: responsive.data.address.country,
+        objectLocation: responsive.data.address,
       };
+
+      this.setBreadcumsAllowLocation(objectPosition);
 
       console.log("responsive.data", responsive.data);
 
@@ -90,9 +104,7 @@ export default {
       // API Get Air Quality By Key
       await this.getAirQualityByKey(encodeKeyAir);
 
-      const airCode = getParamAirByCode(
-        this.$store.state.getAqi.airKeyObject.key
-      );
+      const airCode = getParamAirByCode(this.airObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
       // API Get Air Quality Data
       await this.getAirQuality(encodeAirCode);
@@ -114,7 +126,7 @@ export default {
           await this.getIpLocation(valueNew).then(async (data) => {
             console.log("data-loc", data);
             // Xét Breadcum
-            this.setBreadcumsObject(data);
+            this.setBreadcumsNotAllowLocation(data);
             const objectPosition = {
               latitude: data.latitude,
               longitude: data.longitude,
@@ -142,9 +154,7 @@ export default {
             // Call API getAirQualityByKey
             await this.getAirQualityByKey(valueNewAir);
 
-            const airCode = getParamAirByCode(
-              this.$store.state.getAqi.airKeyObject.key
-            );
+            const airCode = getParamAirByCode(this.airObjectGetters?.key);
             const encodeAirCode = encodeBase64(airCode);
 
             // API Get Air Quality Data

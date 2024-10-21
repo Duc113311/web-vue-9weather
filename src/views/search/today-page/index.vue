@@ -103,7 +103,12 @@ export default {
     };
   },
 
-  mounted() {},
+  mounted() {
+    debugger;
+    const keyLanguage = this.$route.params.language;
+
+    localStorage.setItem("language", keyLanguage); // Lưu lại
+  },
 
   methods: {},
 

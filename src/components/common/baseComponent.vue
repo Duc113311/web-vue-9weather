@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-auto">
+  <div class="w-full h-full">
     <!--  -->
     <header>
       <!-- Nội dung sẽ được chèn vào đây -->
@@ -10,7 +10,7 @@
     </header>
 
     <div
-      class="bg-color text-white overflow-hidden"
+      class="bg-color text-white overflow-hidden h-full"
       :class="{ 'pad-big': isShowPad }"
     >
       <slot></slot>
