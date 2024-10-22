@@ -1,8 +1,8 @@
 <template>
-  <div class="w-[56rem] flex justify-between items-center">
+  <div class="w-[110rem] flex justify-between items-center">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="text-xs pb-1">{{ renderHourly(item).timestampValue }}</div>
+      <div class="text-sm pb-1">{{ renderHourly(item).timestampValue }}</div>
       <div class="flex justify-center items-center">
         <img :src="renderHourly(item).iconValue" alt="weather icon" />
       </div>

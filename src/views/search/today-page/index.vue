@@ -15,7 +15,7 @@
               <TempDayNightPage :title="nightTime"></TempDayNightPage>
             </div>
           </div>
-          <div class="main-bottom h-[410px]">
+          <div class="main-bottom h-[300px]">
             <RadarPage></RadarPage>
           </div>
         </div>

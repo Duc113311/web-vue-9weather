@@ -12,6 +12,7 @@
     <div
       class="bg-color text-white overflow-hidden h-full"
       :class="{ 'pad-big': isShowPad }"
+      :style="{ height: `${heightValue}px` }"
     >
       <slot></slot>
     </div>
@@ -29,6 +30,17 @@ export default {
     isShowPad: {
       type: Boolean,
       default: true,
+    },
+
+    height: {
+      type: [Number, String],
+      default: "100%",
+    },
+  },
+
+  computed: {
+    heightValue() {
+      return typeof this.height === "number" ? `${this.height}px` : this.height;
     },
   },
 };

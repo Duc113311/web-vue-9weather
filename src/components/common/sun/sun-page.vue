@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <BaseComponent>
+    <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -12,7 +12,7 @@
           <p>Sun</p>
         </div>
       </template>
-      <div class="w-full h-[163px]">
+      <div class="w-full h-full">
         <!--  -->
         <div class="sun-rise-progression w-full relative">
           <div
@@ -35,7 +35,7 @@
           <canvas
             id="draw_progression"
             class="w-full"
-            height="450"
+            height="370"
             width="680"
           ></canvas>
         </div>

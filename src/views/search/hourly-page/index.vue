@@ -55,7 +55,7 @@
           <ListCountryPage></ListCountryPage>
         </div>
 
-        <div class="right-hourly">
+        <div class="right-hourly h-[200px]">
           <RadarPage></RadarPage>
         </div>
       </div>

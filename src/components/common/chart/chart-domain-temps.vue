@@ -1,13 +1,15 @@
 <template>
-  <div class="chart-container w-full" v-if="paramHourly && paramHourly.length">
+  <div
+    class="chart-container h-[180px] w-[86rem]"
+    v-if="paramHourly && paramHourly.length"
+  >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="320" ref="canvas"></canvas>
+      <canvas id="chart_hourly" ref="canvas"></canvas>
     </div>
   </div>
 </template>
 <script>
 import { convertFtoC, convertCtoF } from "../../../utils/converValue.js";
-import { mapGetters } from "vuex";
 import {
   Chart,
   CategoryScale,
@@ -27,8 +29,11 @@ Chart.register(
   Filler,
   Tooltip,
   Legend,
-  LineController
+  LineController,
+  ChartDataLabels
 );
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 export default {
   name: "chart-domain-rain",
   data() {
@@ -39,7 +44,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["hourly24hGetters"]),
     paramHourly() {
       console.log("hourly24h", this.$store.state.weatherModule.hourly24h);
       return this.$store.state.weatherModule.hourly24h;
@@ -51,6 +55,8 @@ export default {
 
     listTemperatureData() {
       const unitSetting = this.objectSetting;
+
+      console.log("unitSetting", unitSetting);
 
       return this.paramHourly.map((element) =>
         unitSetting.activeTemperature_save === "f"
@@ -95,21 +101,14 @@ export default {
         return;
       }
 
-      // var chart_hourly = Chart.getChart("chart_hourly");
-      // if (chart_hourly) {
-      //   chart_hourly.destroy();
-      // }
-
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "#d5c692");
-      gradient.addColorStop(1, "rgba(217, 217, 217, 0.4)");
-      gradient.addColorStop(0.8, "rgba(0, 0, 0, 0.4)"); // Chuyển sang trong suốt
-      gradient.addColorStop(0, "#d5c69229"); // Nửa dưới trong suốt
+      gradient.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu trên (#F5A300 với độ mờ 50%)
+      gradient.addColorStop(1, "rgba(245, 212, 0, 0.1)"); // Màu dưới (#F5D400 với độ mờ 10%)
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -133,7 +132,6 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          layout: {},
           plugins: {
             legend: {
               display: false,
@@ -145,13 +143,11 @@ export default {
             datalabels: {
               display: true,
               align: "top",
-              borderRadius: 3,
               font: {
                 size: 10,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-              offset: 1,
               formatter: (value, context) => {
                 return `${value}°`;
               },
@@ -160,22 +156,13 @@ export default {
           scales: {
             x: {
               display: false,
-              title: {
-                display: true,
-              },
-              type: "category",
+
               ticks: {
                 stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
-              barPercentage: 1.8, // Điều chỉnh chiều rộng của mỗi cột
-              categoryPercentage: 1.9, // Điều chỉnh khoảng cách giữa các nhóm
             },
             y: {
               display: false,
-              title: {
-                display: true,
-                //   text: "Giá trị",
-              },
               beginAtZero: true,
               max: 40,
             },
@@ -195,5 +182,9 @@ export default {
 <style lang="scss">
 .chart-container {
   width: 150%;
+}
+
+.chart-wrapper {
+  width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
 }
 </style>

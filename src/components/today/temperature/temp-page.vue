@@ -19,7 +19,7 @@
         <TabNavigation></TabNavigation>
         <!--  -->
         <div class="w-[550px] h-[368px]">
-          <!-- <ChartTempRain></ChartTempRain> -->
+          <ChartTempRain></ChartTempRain>
         </div>
 
         <!--  -->
@@ -40,7 +40,7 @@ export default {
     BaseComponent,
     HeaderTemp,
     TabNavigation,
-    // ChartTempRain,
+    ChartTempRain,
   },
 
   data() {

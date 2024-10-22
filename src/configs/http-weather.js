@@ -18,7 +18,7 @@ export const httpWeather = axios.create({
     Accept: "application/json",
   },
 
-  timeout: 10000,
+  timeout: 20000,
   withCredentials: false,
 });
 

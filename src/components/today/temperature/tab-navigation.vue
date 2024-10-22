@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[100px]">
+  <div class="w-full h-[60px] pt-2">
     <div class="flex w-full justify-between">
       <div
         class="item-tab pad-tab bor-c bor-radios-big"

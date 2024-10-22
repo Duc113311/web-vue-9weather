@@ -1,25 +1,28 @@
 <template>
-  <div class="w-full h-[378px]">
+  <div class="w-full h-auto">
     <!--  -->
     <div class="w-full">
-      <vue-horizontal
-        responsive
-        :displacement="0.7"
-        class="w-full h-[calc(100%-60px)] relative horizontal"
-      >
-        <div>
-          <ChartDays></ChartDays>
+      <div>
+        <ChartDays></ChartDays>
 
-          <ChartDomainTemps></ChartDomainTemps>
-        </div>
-      </vue-horizontal>
+        <!--  -->
+        <ChartDomainTemps></ChartDomainTemps>
+
+        <!--  -->
+        <ChartDomainRain></ChartDomainRain>
+
+        <!--  -->
+
+        <ChartColumnRainfall></ChartColumnRainfall>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import ChartColumnRainfall from "@/components/common/chart/chart-column-rainfall.vue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
+import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
 import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
-import VueHorizontal from "vue-horizontal";
 
 export default {
   name: "chart-temp-rain",
@@ -27,7 +30,8 @@ export default {
   components: {
     ChartDays,
     ChartDomainTemps,
-    VueHorizontal,
+    ChartDomainRain,
+    ChartColumnRainfall,
   },
   data() {
     return {};

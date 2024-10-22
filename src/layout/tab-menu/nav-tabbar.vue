@@ -63,6 +63,11 @@ export default {
           label: "Radar",
           icon: require("../../assets/images/svg_v2/ic_radar.svg"),
         },
+        {
+          name: "widget-view",
+          label: "Widget",
+          icon: require("../../assets/images/svg_v2/ic_widget_tab.svg"),
+        },
       ];
     },
 
