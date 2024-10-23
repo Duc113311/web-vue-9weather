@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container h-[100px] w-[86rem]">
+  <div class="chart-container-rain h-[130px] w-[80rem] absolute top-48 z-20">
     <div class="chart-wrapper w-full h-full">
       <canvas id="chart_hourly_rain" ref="canvas"></canvas>
     </div>
@@ -133,14 +133,17 @@ export default {
           datasets: [
             {
               label: "Rain",
-              borderColor: "#474A8D",
+              borderColor: "#F4F5F8",
               pointBackgroundColor: "#00E3F5",
               borderWidth: 1,
               pointBorderColor: "#474A8D",
               pointRadius: 3,
               backgroundColor: gradient,
               fill: true,
-              data: this.listDataProbability,
+              data: [
+                0, 20, 30, 40, 50, 20, 49, 12, 63, 80, 12, 7, 13, 34, 6, 12, 8,
+                60, 80, 12, 100, 43, 60, 70, 80, 90, 100,
+              ],
             },
           ],
         },
@@ -169,6 +172,7 @@ export default {
               formatter: (value, context) => {
                 return `${value}%`;
               },
+              backgroundColor: "rgba(0, 0, 0, 0.5)", // Thêm background cho label
             },
           },
           scales: {
@@ -176,6 +180,7 @@ export default {
               display: false,
               title: {
                 display: false,
+                stepSize: 2,
                 //   text: "Tháng",
               },
             },
@@ -205,5 +210,9 @@ export default {
 <style scoped>
 .chart-wrapper {
   width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
+}
+
+.chart-container-rain {
+  left: -10px;
 }
 </style>

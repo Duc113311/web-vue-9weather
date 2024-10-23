@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chart-container h-[180px] w-[86rem]"
+    class="chart-container h-[348px] w-[80rem]"
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
@@ -132,6 +132,7 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
+
           plugins: {
             legend: {
               display: false,
