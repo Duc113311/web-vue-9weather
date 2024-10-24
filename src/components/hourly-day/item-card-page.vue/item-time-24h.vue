@@ -24,20 +24,21 @@
               </span>
             </p>
 
-            <p>Light Rain</p>
+            <p>
+              {{
+                item?.summary.charAt(0).toUpperCase() + item?.summary.slice(1)
+              }}
+            </p>
           </div>
 
           <div class="flex items-center">
             <div class="flex items-center gap-2 mr-4">
-              <img
-                src="../../../assets/images/svg_v2/ic_cloud_rain.svg"
-                alt=""
-              />
-              <p>33°C</p>
+              <img :src="renderIcon(item)" alt="" />
+              <p>{{ renderToCelsius(item?.temperature) }}</p>
             </div>
             <div>
               <img
-                id="chevron"
+                :id="'chevron-' + index"
                 src="../../../assets/images/svg_v2/ic_chevron_right.png"
                 alt=""
               />
@@ -239,6 +240,10 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import {
   convertTimestampToHoursMinutes,
   convertTimestampToHoursMinutes12,
+  getIconHourlyForecastTheme,
+  convertCtoF,
+  convertFtoC,
+  codeToFind,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
@@ -265,7 +270,7 @@ export default {
 
   methods: {
     onClickShowDetailCard(value) {
-      const chevron = document.getElementById("chevron");
+      const chevron = document.getElementById(`chevron-${value}`);
       if (this.isRotated) {
         chevron.style.transform = "rotate(0deg)"; // Trở về hướng ban đầu
       } else {
@@ -281,13 +286,31 @@ export default {
     },
 
     convertTime(val) {
-      const offsetValue = this.$store.state.getWeather.locationOffset.offset;
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
         return convertTimestampToHoursMinutes12(val, 1, offsetValue);
       } else {
         return convertTimestampToHoursMinutes(val, 1, offsetValue);
+      }
+    },
+
+    renderIcon(val) {
+      const iconValue = getIconHourlyForecastTheme(val.icon);
+      return iconValue;
+    },
+
+    renderToCelsius(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      } else {
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
       }
     },
   },
