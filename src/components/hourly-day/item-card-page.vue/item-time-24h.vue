@@ -19,7 +19,9 @@
           <!--  -->
           <div class="flex items-center">
             <p class="w-[100px] text-left">
-              <span class="txt_medium">15:00</span>
+              <span class="txt_medium">
+                {{ convertTime(item?.time) }}
+              </span>
             </p>
 
             <p>Light Rain</p>
@@ -234,6 +236,10 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
+import {
+  convertTimestampToHoursMinutes,
+  convertTimestampToHoursMinutes12,
+} from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -253,7 +259,7 @@ export default {
     ...mapGetters("weatherModule", ["hourly24hGetters"]),
 
     hourly24hGettersValues() {
-      return [1, 2, 3, 4, 5, 6, 7, 8];
+      return this.hourly24hGetters;
     },
   },
 
@@ -271,6 +277,17 @@ export default {
         this.valueChoose = -1;
       } else {
         this.valueChoose = value;
+      }
+    },
+
+    convertTime(val) {
+      const offsetValue = this.$store.state.getWeather.locationOffset.offset;
+
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
+      } else {
+        return convertTimestampToHoursMinutes(val, 1, offsetValue);
       }
     },
   },
