@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-full">
     <!-- -->
-    <div class="container mt-10">
-      <div class="header-m h-full">
-        <div class="left-hourly h-[460px]">
+    <div class="container mt-10 h-[600px]">
+      <div class="header-m h-[600px]">
+        <div class="left-hourly">
           <!--  -->
           <CalendarPage></CalendarPage>
         </div>
@@ -15,21 +15,21 @@
       </div>
     </div>
 
-    <div class="container h-[28rem]">
-      <div class="header-m">
-        <div class="left-hourly w-[810px] h-[400px]">
+    <div class="container mt-5 h-[600px]">
+      <div class="header-m h-[400px]">
+        <div class="left-hourly w-[810px]">
           <!--  -->
           <ChartMonthPage></ChartMonthPage>
         </div>
 
-        <div class="right-hourly h-[400px]">
+        <div class="right-hourly">
           <!--  -->
           <RadarPage></RadarPage>
         </div>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container mt-5">
       <div class="header-b">
         <div class="left-hourly">
           <!--  -->
@@ -61,6 +61,8 @@ import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24
 import CalendarPage from "@/components/month-day/calendar/calendar-page.vue";
 import ChartMonthPage from "@/components/month-day/chart-weather/chart-month-page.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
+import { encodeBase64 } from "@/utils/EncoderDecoderUtils";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "month-weather",
@@ -82,12 +84,33 @@ export default {
     };
   },
 
-  mounted() {},
+  computed: {
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
 
-  methods: {},
+    breadcumsObject() {
+      return this.breadcumsObjectGetters;
+    },
+  },
+
+  mounted() {
+    debugger;
+    this.getWeather30Day();
+  },
+
+  methods: {
+    ...mapActions("weatherModule", ["getWeather30DayData"]),
+
+    async getWeather30Day() {
+      debugger;
+      const position = this.$route.params.coordinates;
+      const [latitude, longitude] = position.split(", ").map(Number);
+      const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+      const value = encodeBase64(param);
+      await this.getWeather30DayData(value);
+    },
+  },
 
   beforeRouteLeave(to, from, next) {
-    debugger;
     window.location.replace(to.fullPath);
     next(); // Cho phép chuyển route
   },

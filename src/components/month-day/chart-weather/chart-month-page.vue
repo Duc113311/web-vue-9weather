@@ -13,7 +13,7 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <div class="w-full h-full">
+        <div class="w-full h-[400px]">
           <!-- <ChartTempRain></ChartTempRain> -->
         </div>
 

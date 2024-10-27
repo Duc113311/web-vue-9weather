@@ -13,7 +13,72 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <div class="w-[778px] h-full"></div>
+        <div class="w-[778px] h-full">
+          <div class="calendar">
+            <ul class="weeks bor-bottom pt-2 pb-2">
+              <li>{{ $t("Mon") }}</li>
+              <li>{{ $t("Tue") }}</li>
+              <li>{{ $t("Wed") }}</li>
+              <li>{{ $t("Thu") }}</li>
+              <li>{{ $t("Fri") }}</li>
+              <li class="weekend">{{ $t("Sat") }}</li>
+              <li class="weekend">{{ $t("Sun") }}</li>
+            </ul>
+            <ul class="days">
+              <li
+                v-for="(day, index) in adjustedCalendar"
+                :key="index"
+                :style="getStyle(day?.time)"
+              >
+                <el-popover
+                  ref="popover"
+                  placement="right"
+                  :width="400"
+                  trigger="click"
+                  v-if="day && day.time"
+                >
+                  <template #reference>
+                    <div
+                      class="flex flex-col justify-center items-center gap-0.5 txt_light_14 rounded-xl"
+                    >
+                      <span class="txt_regular_14">{{
+                        convertToShortDay(day.time)
+                      }}</span>
+                      <div>
+                        <!-- <img :src="convertIcon(day.icon)" alt="" /> -->
+                      </div>
+                      <div class="flex items-center gap-1">
+                        <img
+                          src="../../../assets/images/svg/v2/ic_temperature_v2_dark.svg"
+                          class="size-img"
+                          alt=""
+                        />
+                        <p class="txt_regular_14">
+                          {{ convertTemperature(day.temperatureMax) }}° /
+                          {{ convertTemperature(day.temperatureMin) }}°
+                        </p>
+                      </div>
+
+                      <div class="flex items-center gap-1">
+                        <img
+                          src="../../../assets/images/svg/ic_chance_of_rain_24.svg"
+                          alt=""
+                          class="size-img"
+                        />
+                        <p class="weekend txt_regular_14">
+                          {{ Math.round(day.precipProbability * 100) }}%
+                        </p>
+                      </div>
+                    </div>
+                  </template>
+                  <!-- <template #default>
+                    <FormTemperature :objTemperature="day"></FormTemperature>
+                  </template> -->
+                </el-popover>
+              </li>
+            </ul>
+          </div>
+        </div>
 
         <!--  -->
       </div>
@@ -22,6 +87,7 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
+import { convertCtoF, convertFtoC } from "@/utils/converValue";
 
 export default {
   name: "calendar-page",
@@ -32,8 +98,130 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    renderCalendar() {
+      return this.$store.state.weatherModule.listDaily30Day;
+    },
 
-  methods: {},
+    adjustedCalendar() {
+      if (!this.renderCalendar.length) return [];
+
+      // Lấy ngày đầu tiên trong mảng dữ liệu
+      const firstDay = new Date(this.renderCalendar[0].time).getDay();
+
+      // Xác định số lượng ô trống cần thêm trước ngày đầu tiên
+      const placeholders = Array.from({
+        length: firstDay === 0 ? 6 : firstDay - 1,
+      }).map(() => ({}));
+      console.log("renderCalendar", [...placeholders, ...this.renderCalendar]);
+
+      // Kết hợp các ô trống với dữ liệu hiện tại
+
+      console.log("calendar", [...placeholders, ...this.renderCalendar]);
+
+      return [...placeholders, ...this.renderCalendar];
+      // Trả về mảng đã được điều chỉnh
+    },
+  },
+
+  methods: {
+    convertToShortDay(value) {
+      const date = new Date(value * 1000);
+      const dateNew = new Date(date);
+      const day = dateNew.getDate();
+
+      return day;
+    },
+
+    convertToShortToDay() {
+      const today = new Date();
+
+      return today.getDate();
+    },
+
+    getStyle(value) {
+      if (this.convertToShortDay(value) === this.convertToShortToDay()) {
+        return { backgroundColor: "rgba(148, 148, 148, 0.4)" };
+      } else {
+        return { backgroundColor: "transparent" };
+      }
+    },
+
+    convertTemperature(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return convertCtoF(value);
+      } else {
+        return convertFtoC(value);
+      }
+    },
+  },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.calendar ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+
+.calendar .days {
+  margin-bottom: 12px;
+}
+
+.calendar li {
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+  position: relative; /* Make sure tooltip is positioned correctly */
+}
+
+.calendar .weeks li {
+  font-weight: 500;
+  cursor: default;
+}
+
+.calendar .days li {
+  cursor: pointer;
+  position: relative;
+  // margin-top: 8px;
+  padding: 6px;
+}
+
+.days li.inactive {
+  color: #ae8f8f;
+  opacity: 0;
+}
+
+.days li.active {
+  color: #a086dd;
+}
+
+.days li.weekend {
+  color: rgb(135 183 255);
+}
+
+.weekend {
+  color: rgb(135 183 255);
+}
+
+.days li::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+  background-color: rgba(148, 148, 148, 0.4);
+}
+
+.days li:not(.active):hover::before {
+  background: rgba(114, 149, 202, 0.5);
+}
+</style>

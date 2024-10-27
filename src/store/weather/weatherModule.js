@@ -22,6 +22,8 @@ const state = {
   cityCountry: {},
 
   newArray: [],
+
+  listDaily30Day: [],
 };
 
 /**
@@ -46,6 +48,10 @@ const getters = {
 
   hourly24hGetters(state) {
     return state.hourly24h;
+  },
+
+  dailyOneGetters(state) {
+    return state.dailyOne;
   },
 };
 
@@ -100,6 +106,14 @@ const mutations = {
       };
       state.newArray.push(objectAddress);
     }
+  },
+
+  setWeather30DayData(state, data) {
+    state.weatherData30Day = JSON.parse(decodeBase64(data));
+    debugger;
+    console.log("state.weatherData30Day", state.weatherData30Day);
+
+    state.listDaily30Day = state.weatherData30Day.daily.data;
   },
 };
 
@@ -162,6 +176,25 @@ const actions = {
         .then((response) => {
           if (response.status === 200) {
             commit("setFormattedAddress", response.data);
+            resolve(response.data);
+          } else {
+            reject("Error: API returned non-200 status");
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
+  async getWeather30DayData({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      httpWeather
+        .get(`api.php?param=${data}`)
+        .then((response) => {
+          if (response.status === 200) {
+            debugger;
+            commit("setWeather30DayData", response.data);
             resolve(response.data);
           } else {
             reject("Error: API returned non-200 status");

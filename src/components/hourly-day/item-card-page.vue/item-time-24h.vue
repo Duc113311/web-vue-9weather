@@ -9,7 +9,7 @@
       />
       <span>New York, USA</span>
     </div>
-    <BaseComponent v-for="(item, index) in hourly24hGettersValues" :key="index">
+    <BaseComponent v-for="(item, index) in hourly24hGettersData" :key="index">
       <div class="w-full">
         <!--  -->
         <div
@@ -62,18 +62,7 @@
 
               <div class="flex items-center">
                 <div class="flex items-center">
-                  <img
-                    src="../../../assets/images/svg_v2/ic_temperature_max.svg"
-                    alt=""
-                  />
-                  <p>33°C</p>
-                </div>
-                <div class="flex items-center">
-                  <img
-                    src="../../../assets/images/svg_v2/ic_temperature_min.svg"
-                    alt=""
-                  />
-                  <p>33°C</p>
+                  <p>{{ renderToCelsius(item?.temperature) }}</p>
                 </div>
               </div>
             </div>
@@ -87,7 +76,7 @@
                 <p>Feel Like</p>
               </div>
               <div class="flex items-center">
-                <p>33°C</p>
+                <p>{{ renderToCelsius(item?.temperature) }}</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
@@ -100,7 +89,7 @@
                 <p>UV Index</p>
               </div>
               <div class="flex items-center">
-                <p>33°C</p>
+                <p>{{ item?.uvIndex }}</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
@@ -113,7 +102,7 @@
                 <p>Precipitation</p>
               </div>
               <div class="flex items-center">
-                <p>100%</p>
+                <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
@@ -126,7 +115,7 @@
                 <p>Rainfall</p>
               </div>
               <div class="flex items-center">
-                <p>11.8 mm</p>
+                <p>{{ item?.precipProbability * 100 }}%</p>
               </div>
             </div>
 
@@ -159,7 +148,10 @@
               </div>
 
               <div class="flex items-center">
-                <p>6.91 (mi/h)</p>
+                <p>
+                  {{ convertWindSpeed(item.windSpeed) }}
+                  {{ convertUnitWindSpeed() }}
+                </p>
               </div>
             </div>
             <div class="flex items-center justify-between">
@@ -172,7 +164,7 @@
                 <p>Wind direction</p>
               </div>
               <div class="flex items-center">
-                <p>SE</p>
+                <p>{{ convertWindBearing(item?.windBearing) }}</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
@@ -185,7 +177,7 @@
                 <p>Cloud cover</p>
               </div>
               <div class="flex items-center">
-                <p>0%</p>
+                <p>{{ Math.round(item.cloudCover * 100) }}%</p>
               </div>
             </div>
             <div class="flex items-center justify-between">
@@ -198,7 +190,10 @@
                 <p>Pressure</p>
               </div>
               <div class="flex items-center">
-                <p>1012.0 (mbar)</p>
+                <p>
+                  {{ convertPressure(item?.pressure) }}
+                  {{ convertUnitPressure() }}
+                </p>
               </div>
             </div>
 
@@ -212,7 +207,7 @@
                 <p>Sunrise</p>
               </div>
               <div class="flex items-center">
-                <p>6:15 (AM)</p>
+                <p>{{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}</p>
               </div>
             </div>
 
@@ -226,7 +221,7 @@
                 <p>Sunset</p>
               </div>
               <div class="flex items-center">
-                <p>5:55 (PM)</p>
+                <p>{{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}</p>
               </div>
             </div>
           </div>
@@ -244,6 +239,18 @@ import {
   convertCtoF,
   convertFtoC,
   codeToFind,
+  convertMillimet,
+  convertMillimetToInch,
+  convertMPHtoMetPS,
+  convertMiToKm,
+  convertMiToKnot,
+  convertMiToBeaufortScale,
+  getWindDirectionFromDegrees,
+  convertHpaToMmHg,
+  convertHpaToAtm,
+  convertHpaToInHg,
+  convertHpaToMbar,
+  convertHpaToKpa,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
@@ -261,14 +268,46 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["hourly24hGetters"]),
+    ...mapGetters("weatherModule", ["hourly24hGetters", "dailyOneGetters"]),
 
-    hourly24hGettersValues() {
+    hourly24hGettersData() {
       return this.hourly24hGetters;
+    },
+
+    dailyOneGettersData() {
+      return this.dailyOneGetters;
     },
   },
 
   methods: {
+    convertWindSpeed(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeWindSpeed_save === "m/s") {
+        return convertMPHtoMetPS(value);
+      }
+      if (unitSetting.activeWindSpeed_save === "km/h") {
+        return convertMiToKm(value);
+      }
+      if (unitSetting.activeWindSpeed_save === "mi/h") {
+        return value;
+      }
+      if (unitSetting.activeWindSpeed_save === "Knot") {
+        return convertMiToKnot(value);
+      }
+      if (unitSetting.activeWindSpeed_save === "bft") {
+        return convertMiToBeaufortScale(value);
+      }
+    },
+
+    convertUnitWindSpeed() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activeWindSpeed_save);
+    },
+
+    convertWindBearing(value) {
+      return getWindDirectionFromDegrees(value);
+    },
+
     onClickShowDetailCard(value) {
       const chevron = document.getElementById(`chevron-${value}`);
       if (this.isRotated) {
@@ -301,6 +340,23 @@ export default {
       return iconValue;
     },
 
+    convertPrecipitation(val) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activePrecipitation_save === "mm") {
+        return (
+          convertMillimet(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      } else {
+        return (
+          convertMillimetToInch(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      }
+    },
+
     renderToCelsius(value) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
@@ -311,6 +367,44 @@ export default {
         return (
           convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
         );
+      }
+    },
+
+    convertPressure(val) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activePressure_save === "hPa") {
+        return val;
+      }
+      if (unitSetting.activePressure_save === "mmHg") {
+        return convertHpaToMmHg(val);
+      }
+      if (unitSetting.activePressure_save === "atm") {
+        return convertHpaToAtm(val);
+      }
+      if (unitSetting.activePressure_save === "inHg") {
+        return convertHpaToInHg(val);
+      }
+      if (unitSetting.activePressure_save === "mBar") {
+        return convertHpaToMbar(val);
+      }
+      if (unitSetting.activePressure_save === "kPa") {
+        return convertHpaToKpa(val);
+      }
+    },
+
+    convertUnitPressure() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePressure_save);
+    },
+
+    convertTimeUnit(value) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestampToHoursMinutes12(value, 1, offsetValue);
+      } else {
+        return convertTimestampToHoursMinutes(value, 1, offsetValue);
       }
     },
   },

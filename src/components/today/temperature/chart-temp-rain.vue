@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full h-auto">
+  <div class="w-full h-full">
     <!--  -->
-    <div class="w-full relative">
-      <div>
-        <!-- <ChartDays></ChartDays> -->
+    <div class="w-full relative h-full">
+      <div class="w-full h-full relative">
+        <ChartDays></ChartDays>
 
         <!--  -->
-        <!-- <ChartDomainTemps></ChartDomainTemps> -->
+        <ChartDomainTemps></ChartDomainTemps>
 
         <!--  -->
         <!-- <ChartDomainRain></ChartDomainRain> -->
@@ -15,7 +15,7 @@
 
         <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
 
-        <!-- <div class="p-2 absolute w-full bottom-2 left-0 flex justify-between">
+        <div class="absolute w-full bottom-0 left-0 flex justify-between">
           <div class="flex items-center text-left gap-2">
             <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
             <p>Temperature</p>
@@ -28,7 +28,7 @@
             <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>
             <p>Rainfall</p>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -43,8 +43,8 @@ export default {
   name: "chart-temp-rain",
 
   components: {
-    // ChartDays,
-    // ChartDomainTemps,
+    ChartDays,
+    ChartDomainTemps,
     // ChartDomainRain,
     // ChartColumnRainfall,
   },
