@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container h-[348px] w-[80rem]"
+    class="chart-container w-[80rem]"
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" ref="canvas"></canvas>
+      <canvas id="chart_hourly" height="120" ref="canvas"></canvas>
     </div>
   </div>
 </template>

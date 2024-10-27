@@ -9,7 +9,7 @@
               width="24"
               alt=""
             />
-            <span>Today Sumary</span>
+            <span>Top 100 city</span>
           </div>
           <div>
             <p>See more</p>

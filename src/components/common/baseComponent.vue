@@ -10,7 +10,7 @@
     </header>
 
     <div
-      class="bg-color text-white overflow-hidden h-full"
+      class="bg-color text-white overflow-hidden"
       :class="{ 'pad-big': isShowPad }"
       :style="{ height: `${heightValue}px` }"
     >

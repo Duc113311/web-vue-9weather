@@ -3,19 +3,33 @@
     <div class="container">
       <div class="flex justify-between items-center pad-b-t text-white">
         <!-- left -->
-        <div class="flex items-center gap-2">
-          <img
-            src="../../assets/images/svg_v2/ic_city.svg"
-            width="24"
-            alt=""
-            srcset=""
-          />
-          <span>District/City</span>
-          <img
-            src="../../assets/images/svg_v2/ic_chevron_up.svg"
-            width="24"
-            alt=""
-          />
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 cursor-pointer">
+            <img
+              src="../../assets/images/svg_v2/ic_city.svg"
+              width="24"
+              alt=""
+              srcset=""
+            />
+            <span>District/City</span>
+            <img
+              src="../../assets/images/svg_v2/ic_chevron_up.svg"
+              width="24"
+              alt=""
+            />
+          </div>
+          <div
+            class="flex items-center gap-2 cursor-pointer"
+            @click="onClickShowidget()"
+          >
+            <img
+              src="../../assets/images/svg_v2/ic_widget_tab.svg"
+              width="24"
+              alt=""
+              srcset=""
+            />
+            <span>Widget</span>
+          </div>
         </div>
         <!-- right -->
         <div class="flex items-center gap-2">
@@ -44,6 +58,14 @@
 <script>
 export default {
   name: "nav-bottom",
+
+  data() {
+    return {};
+  },
+
+  methods: {
+    onClickShowidget() {},
+  },
 };
 </script>
 <style lang="scss">

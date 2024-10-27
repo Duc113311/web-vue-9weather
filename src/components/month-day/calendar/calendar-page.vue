@@ -13,7 +13,7 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <div class="w-[778px] h-full">
+        <div class="w-[778px]">
           <div class="calendar">
             <ul class="weeks bor-bottom pt-2 pb-2">
               <li>{{ $t("Mon") }}</li>

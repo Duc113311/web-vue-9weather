@@ -1,8 +1,8 @@
 <template>
   <div class="w-full h-full">
     <!-- -->
-    <div class="container mt-10 h-[600px]">
-      <div class="header-m h-[600px]">
+    <div class="container mt-10">
+      <div class="header-m h-full">
         <div class="left-hourly">
           <!--  -->
           <CalendarPage></CalendarPage>
@@ -15,22 +15,8 @@
       </div>
     </div>
 
-    <div class="container mt-5 h-[600px]">
-      <div class="header-m h-[400px]">
-        <div class="left-hourly w-[810px]">
-          <!--  -->
-          <ChartMonthPage></ChartMonthPage>
-        </div>
-
-        <div class="right-hourly">
-          <!--  -->
-          <RadarPage></RadarPage>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt-5">
-      <div class="header-b">
+    <div class="container">
+      <div class="header-b h-full">
         <div class="left-hourly">
           <!--  -->
           <ItemTime24h></ItemTime24h>
@@ -70,8 +56,8 @@ export default {
   components: {
     CalendarPage,
     TempFullCard,
-    ChartMonthPage,
-    RadarPage,
+    // ChartMonthPage,
+    // RadarPage,
     ItemTime24h,
     SunPage,
     MoonPage,

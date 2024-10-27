@@ -9,9 +9,11 @@
         <ChartDomainTemps></ChartDomainTemps>
 
         <!--  -->
-        <!-- <ChartDomainRain></ChartDomainRain> -->
+        <ChartDomainRain></ChartDomainRain>
 
         <!--  -->
+
+        <ChartBarRain></ChartBarRain>
 
         <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
 
@@ -34,6 +36,7 @@
   </div>
 </template>
 <script>
+import ChartBarRain from "@/components/common/chart/chart-bar-rain.vue";
 import ChartColumnRainfall from "@/components/common/chart/chart-column-rainfall.vue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
 import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
@@ -45,7 +48,8 @@ export default {
   components: {
     ChartDays,
     ChartDomainTemps,
-    // ChartDomainRain,
+    ChartDomainRain,
+    ChartBarRain,
     // ChartColumnRainfall,
   },
   data() {
@@ -56,15 +60,15 @@ export default {
 };
 </script>
 <style lang="scss">
-// .bg-temp-c {
-//   background-color: #ec9d00;
-// }
+.bg-temp-c {
+  background-color: #ec9d00;
+}
 
-// .bg-rain-c {
-//   background-color: #39e4f2;
-// }
+.bg-rain-c {
+  background-color: #39e4f2;
+}
 
-// .bg-rainfall-c {
-//   background-color: #327cee;
-// }
+.bg-rainfall-c {
+  background-color: #327cee;
+}
 </style>

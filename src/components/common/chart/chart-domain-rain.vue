@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container-rain h-[130px] w-[80rem] absolute top-48 z-20">
+  <div class="chart-container-rain w-[80rem] absolute top-36 z-20">
     <div class="chart-wrapper w-full h-full">
       <canvas id="chart_hourly_rain" ref="canvas"></canvas>
     </div>
@@ -20,9 +20,7 @@ import {
   Tooltip,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-// import backgroundImage from "@/assets/images/png/bg_rain.png"; // Import ảnh bên cạnh điểm dữ liệu
 
-// Đăng ký các thành phần cần thiết từ Chart.js, bao gồm cả Filler và DataLabels plugin
 Chart.register(
   LineController,
   LineElement,
