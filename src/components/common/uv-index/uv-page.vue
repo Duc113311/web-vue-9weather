@@ -16,10 +16,12 @@
         <!--  -->
         <div class="text-left">
           <div class="txt_bold">
-            <span>8</span>
+            <span>{{ Math.round(currentlyData?.uvIndex) }}</span>
           </div>
-          <div>
-            <p>Moderate</p>
+          <div class="txt_light" :style="{ color: progressColor }">
+            <!-- <span>
+              {{ convertUvIndexName(currentlyData?.uvIndex) }}
+            </span> -->
           </div>
           <div>
             <p>The air is mostly okay</p>
@@ -53,6 +55,8 @@
 import BaseComponent from "../baseComponent.vue";
 import ApexCharts from "vue3-apexcharts";
 import { ref } from "vue";
+import { mapGetters } from "vuex";
+import { getUvSummaryName } from "@/utils/converValue";
 
 export default {
   name: "uv-page",
@@ -138,9 +142,35 @@ export default {
     return { series, chartOptions };
   },
   computed: {
-    paramHourly() {
-      console.log("hourly24h", this.$store.state.weatherModule.hourly24h);
-      return this.$store.state.weatherModule.hourly24h;
+    ...mapGetters("weatherModule", ["currentlyGetters"]),
+    currentlyData() {
+      console.log("currentlyGetters", this.currentlyGetters);
+
+      return this.currentlyGetters;
+    },
+
+    convertUvIndexName(val) {
+      console.log(val);
+
+      return getUvSummaryName(val);
+    },
+
+    progressColor() {
+      return this.getColorFromPercentage(
+        Math.round(this.currentlyGetters?.uvIndex)
+      );
+    },
+  },
+
+  methods: {
+    getColorFromPercentage(percentage) {
+      if (percentage) {
+        if (percentage <= 2) return "#507a46";
+        if (percentage <= 5) return "#cbd956";
+        if (percentage <= 7) return "#ecc32b";
+        if (percentage <= 10) return "#f9b81d";
+        return "#ff0dd3"; // Giá trị phần trăm từ 90 đến 100
+      }
     },
   },
 };

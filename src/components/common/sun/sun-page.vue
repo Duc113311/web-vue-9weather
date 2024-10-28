@@ -20,14 +20,16 @@
           >
             <div class="flex flex-col gap-2 items-center w-[70px]">
               <p class="txt_light_summer">
-                <span>05:24</span><br />
+                <span>{{ convertTime(paramDailyOne?.sunriseTime) }}</span
+                ><br />
                 <span>Sunrise</span>
               </p>
             </div>
             <!--  -->
             <div class="flex flex-col gap-2 items-center w-[70px]">
               <p class="txt_light_summer">
-                <span>05:24</span><br />
+                <span>{{ convertTime(paramDailyOne?.sunsetTime) }}</span
+                ><br />
                 <span>Sunrise</span>
               </p>
             </div>
@@ -69,12 +71,12 @@ export default {
   computed: {
     ...mapGetters("weatherModule", [
       "currentlyGetters",
-      "dailyOne",
+      "dailyOneGetters",
       "locationOffsetGetters",
     ]),
 
     paramDailyOne() {
-      return this.dailyOne;
+      return this.dailyOneGetters;
     },
 
     timeHourly() {
@@ -96,7 +98,10 @@ export default {
 
   methods: {
     convertTime(val) {
-      const offsetValue = this.locationOffsetGetters?.offset;
+      const offsetValue =
+        this.$store.state.weatherModule.locationOffset?.offset;
+
+      console.log("offsetValue", offsetValue);
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {

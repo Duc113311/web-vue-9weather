@@ -38,8 +38,10 @@
   </div>
 </template>
 <script>
+import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import BaseComponent from "../baseComponent.vue";
 import { ref } from "vue";
+import { getAirSummaryName } from "@/utils/converValue";
 
 export default {
   name: "air-quality-page",
@@ -227,6 +229,45 @@ export default {
     });
 
     return { series, chartOptions };
+  },
+
+  computed: {
+    paramAirModule() {
+      const storageAir = localStorage.getItem("airObject");
+      if (storageAir) {
+        const airObject = decodeBase64(storageAir);
+
+        const decodeAirObject = JSON.parse(airObject);
+        console.log("decodeAirObject", decodeAirObject);
+
+        return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
+      }
+      return this.$store.state.getAqi.airObject.aqi
+        ? this.$store.state.getAqi.airObject.aqi
+        : 0;
+    },
+
+    dotStyle() {
+      return { left: `${(parseInt(this.paramAirModule) / 500) * 100}%` };
+    },
+    progressColor() {
+      return this.getColorFromPercentage(this.paramAirModule);
+    },
+  },
+
+  methods: {
+    convertAirIndexName(val) {
+      return getAirSummaryName(val);
+    },
+
+    getColorFromPercentage(percentage) {
+      if (percentage <= 50) return "#507a46";
+      if (percentage <= 100) return "#cbd956";
+      if (percentage <= 150) return "#ecc32b";
+      if (percentage <= 200) return "#f9b81d";
+      if (percentage <= 300) return "#ff6272";
+      return "#ff38a2"; // Giá trị phần trăm từ 90 đến 100
+    },
   },
 };
 </script>
