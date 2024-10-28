@@ -12,7 +12,7 @@
     <div
       class="bg-color text-white overflow-hidden"
       :class="{ 'pad-big': isShowPad }"
-      :style="{ height: `${heightValue}px` }"
+      :style="{ height: `${heightValue}` }"
     >
       <slot></slot>
     </div>

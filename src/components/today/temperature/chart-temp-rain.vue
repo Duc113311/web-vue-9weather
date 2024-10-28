@@ -13,7 +13,7 @@
 
         <!--  -->
 
-        <ChartBarRain></ChartBarRain>
+        <!-- <ChartBarRain></ChartBarRain> -->
 
         <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
 
@@ -49,7 +49,7 @@ export default {
     ChartDays,
     ChartDomainTemps,
     ChartDomainRain,
-    ChartBarRain,
+    // ChartBarRain,
     // ChartColumnRainfall,
   },
   data() {

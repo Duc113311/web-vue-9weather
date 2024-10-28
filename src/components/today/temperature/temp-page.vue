@@ -14,7 +14,10 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <HeaderTemp></HeaderTemp>
+        <HeaderTemp
+          :currentlyData="currentlyData"
+          :dailyOneData="dailyOneData"
+        ></HeaderTemp>
         <!--  -->
         <TabNavigation></TabNavigation>
         <!--  -->
@@ -32,6 +35,7 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import HeaderTemp from "./header-temp.vue";
 import TabNavigation from "./tab-navigation.vue";
 import ChartTempRain from "./chart-temp-rain.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "temp-page",
@@ -41,6 +45,20 @@ export default {
     HeaderTemp,
     TabNavigation,
     ChartTempRain,
+  },
+
+  computed: {
+    ...mapGetters("weatherModule", ["currentlyGetters", "dailyOneGetters"]),
+
+    currentlyData() {
+      debugger;
+      return this.currentlyGetters;
+    },
+
+    dailyOneData() {
+      debugger;
+      return this.dailyOneGetters;
+    },
   },
 
   data() {

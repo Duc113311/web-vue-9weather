@@ -18,12 +18,15 @@ export default {
   name: "dash-page",
 
   data() {
-    return {};
+    return {
+      suggestionsTop100: [],
+    };
   },
 
   mounted() {
     debugger;
     this.getLocationBrowser();
+    // this.loadDataTop100();
   },
 
   computed: {
@@ -34,7 +37,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations("weatherModule", ["setCityWeather"]),
+    ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
     ...mapMutations("commonModule", [
       "setBreadcumsNotAllowLocation",
       "setBreadcumsAllowLocation",
@@ -46,6 +49,7 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapActions("idFindModule", ["getIpLocation"]),
+
     /**
      * Connect vị trí trên trình duyệt
      */

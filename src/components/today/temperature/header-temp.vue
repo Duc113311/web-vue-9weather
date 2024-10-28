@@ -2,9 +2,21 @@
   <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2 class="txt_title_temp">29°</h2>
-      <div class="txt_regular">Clear day</div>
-      <div class="txt_regular_des">Real Feel 33°C</div>
+      <h2 class="txt_title_temp">
+        {{ renderToCelsius(currentlyDataRender?.temperature) }}
+      </h2>
+      <div class="txt_regular">
+        {{
+          currentlyDataRender?.summary
+            ? currentlyDataRender.summary.charAt(0).toUpperCase() +
+              currentlyDataRender.summary.slice(1)
+            : "No summary available"
+        }}
+      </div>
+      <div class="txt_regular_des">
+        Real Feel
+        {{ renderToCelsius(currentlyDataRender?.apparentTemperature) }}
+      </div>
     </div>
 
     <!--  -->
@@ -20,7 +32,9 @@
               alt=""
               srcset=""
             />
-            <span>33°C</span>
+            <span>{{
+              renderToCelsius(dailyOneDataRender?.apparentTemperatureMin)
+            }}</span>
           </div>
 
           <div class="text-right flex txt_medium gap-1">
@@ -29,7 +43,9 @@
               alt=""
               srcset=""
             />
-            <span>33°C</span>
+            <span>
+              {{ renderToCelsius(dailyOneDataRender?.apparentTemperatureMax) }}
+            </span>
           </div>
         </div>
       </div>
@@ -45,19 +61,21 @@
           />
         </div>
         <div class="text-c text-center items-center txt_medium">
-          <p>100%</p>
+          <p>
+            {{ convertPrecipitation(currentlyDataRender?.precipIntensity) }}
+          </p>
         </div>
       </div>
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center">
-          <p>Rainfall</p>
+          <p>Change of rain</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <img src="../../../assets/images/svg_v2/ic_droplet.svg" width="24" />
         </div>
         <div class="text-c text-center items-center txt_medium">
-          <p>11.8mm</p>
+          <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
         </div>
       </div>
     </div>
@@ -74,6 +92,14 @@
   </div>
 </template>
 <script>
+import {
+  codeToFind,
+  convertCtoF,
+  convertFtoC,
+  convertMillimet,
+  convertMillimetToInch,
+} from "@/utils/converValue";
+
 export default {
   name: "header-temp",
 
@@ -81,7 +107,59 @@ export default {
     return {};
   },
 
-  methods: {},
+  props: {
+    currentlyData: {
+      type: Object,
+      default: () => {},
+    },
+
+    dailyOneData: {
+      type: Object,
+      default: () => {},
+    },
+  },
+
+  computed: {
+    currentlyDataRender() {
+      return this.currentlyData;
+    },
+
+    dailyOneDataRender() {
+      return this.dailyOneData;
+    },
+  },
+
+  methods: {
+    renderToCelsius(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      } else {
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      }
+    },
+
+    convertPrecipitation(val) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activePrecipitation_save === "mm") {
+        return (
+          convertMillimet(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      } else {
+        return (
+          convertMillimetToInch(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      }
+    },
+  },
 };
 </script>
 <style lang="scss">

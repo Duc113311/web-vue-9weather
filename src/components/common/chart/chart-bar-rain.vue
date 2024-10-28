@@ -1,7 +1,7 @@
 <template>
-  <div class="chart-container w-[80rem] absolute top-64 z-20">
+  <div class="chart-container w-[80rem] absolute z-20">
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly_rain" height="120" ref="canvas"></canvas>
+      <canvas id="chart_hourly_rain" height="100" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -103,7 +103,9 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-
+          layout: {
+            padding: 20,
+          },
           plugins: {
             legend: {
               display: false,
@@ -130,6 +132,11 @@ export default {
               display: false,
               beginAtZero: true,
               max: 100,
+            },
+          },
+          elements: {
+            line: {
+              tension: 0.5,
             },
           },
         },

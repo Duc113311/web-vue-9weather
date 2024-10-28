@@ -2,9 +2,21 @@
   <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2 class="txt_title_temp mb-2">29°</h2>
-      <div class="txt_regular">Clear day</div>
-      <div class="txt_regular_des">Real Feel 33°C</div>
+      <h2 class="txt_title_temp mb-2">
+        {{ convertFahrenheitToCelsiusNot(dataDayNightRender) }}
+      </h2>
+      <div class="txt_regular">
+        {{
+          currentlyData?.summary
+            ? currentlyData.summary.charAt(0).toUpperCase() +
+              currentlyData.summary.slice(1)
+            : "No summary available"
+        }}
+      </div>
+      <div class="txt_regular_des">
+        Real Feel
+        {{ convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature) }}
+      </div>
     </div>
 
     <!--  -->
@@ -19,7 +31,10 @@
           />
           <p>UV</p>
         </div>
-        <p class="txt_medium_des">8 (high)</p>
+        <p class="txt_medium_des">
+          {{ Math.round(currentlyData?.uvIndex) }}
+          {{ convertUvIndexName(currentlyData?.uvIndex) }}
+        </p>
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
@@ -30,7 +45,9 @@
           />
           <p>Precipitation</p>
         </div>
-        <p class="txt_medium_des">100%</p>
+        <p class="txt_medium_des">
+          {{ convertPrecipitation(currentlyData?.precipIntensity) }}
+        </p>
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
@@ -39,9 +56,11 @@
             width="24"
             alt=""
           />
-          <p>Rainfall</p>
+          <p>Change of rain</p>
         </div>
-        <p class="txt_medium_des">11.8 mm</p>
+        <p class="txt_medium_des">
+          {{ Math.round(currentlyData?.precipProbability * 100) }}%
+        </p>
       </div>
     </div>
 
@@ -54,6 +73,16 @@
   </div>
 </template>
 <script>
+import {
+  codeToFind,
+  convertCtoF,
+  convertFtoC,
+  convertMillimet,
+  convertMillimetToInch,
+  getUvSummaryName,
+} from "@/utils/converValue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "infor-common",
 
@@ -61,7 +90,90 @@ export default {
     return {};
   },
 
-  methods: {},
+  props: {
+    isShowDayNightData: {
+      type: Boolean,
+      default: true,
+    },
+
+    renderTempoDay: {
+      type: Object,
+      default: () => {},
+    },
+  },
+
+  computed: {
+    ...mapGetters("weatherModule", ["currentlyGetters"]),
+
+    currentlyData() {
+      debugger;
+
+      console.log("currentlyGetters", this.currentlyGetters);
+
+      return this.currentlyGetters;
+    },
+    dataDayNightRender() {
+      return this.convertDataDayNight(
+        this.renderTempoDay,
+        this.isShowDayNightData
+      );
+    },
+  },
+
+  methods: {
+    convertDataDayNight(valueData, isDayNight) {
+      let tempAvg = 0;
+      debugger;
+      if (isDayNight === true) {
+        tempAvg =
+          (valueData.maxTempDataDay?.temperature +
+            valueData.minTempDataDay?.temperature) /
+          2;
+      } else {
+        tempAvg =
+          (valueData.minTempDataNight?.temperature +
+            valueData.maxTempDataNight?.temperature) /
+          2;
+      }
+      console.log("tempAvg", tempAvg);
+
+      return tempAvg;
+    },
+
+    convertFahrenheitToCelsiusNot(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      } else {
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      }
+    },
+
+    convertUvIndexName(val) {
+      return getUvSummaryName(val);
+    },
+
+    convertPrecipitation(val) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activePrecipitation_save === "mm") {
+        return (
+          convertMillimet(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      } else {
+        return (
+          convertMillimetToInch(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      }
+    },
+  },
 };
 </script>
 <style lang="scss"></style>

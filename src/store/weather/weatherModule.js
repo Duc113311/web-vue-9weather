@@ -24,6 +24,8 @@ const state = {
   newArray: [],
 
   listDaily30Day: [],
+
+  suggestionsTop100: [],
 };
 
 /**
@@ -35,7 +37,7 @@ const getters = {
   },
 
   currentlyGetters(state) {
-    return state.cityCountry;
+    return state.currently;
   },
 
   locationOffsetGetters(state) {
@@ -52,6 +54,10 @@ const getters = {
 
   dailyOneGetters(state) {
     return state.dailyOne;
+  },
+
+  suggestionsTop100Getters(state) {
+    return state.suggestionsTop100;
   },
 };
 
@@ -114,6 +120,12 @@ const mutations = {
     console.log("state.weatherData30Day", state.weatherData30Day);
 
     state.listDaily30Day = state.weatherData30Day.daily.data;
+  },
+
+  setDataTop100City(state, data) {
+    state.suggestionsTop100 = data;
+
+    console.log("state.suggestionsTop100", state.suggestionsTop100);
   },
 };
 

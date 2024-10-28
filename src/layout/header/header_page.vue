@@ -203,13 +203,10 @@ export default {
     }
   },
 
-  created() {
-    this.loadDataTop100();
-    this.loadDataTopFull();
-  },
+  created() {},
 
   methods: {
-    ...mapMutations("weatherModule", ["setCityWeather"]),
+    ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
@@ -462,6 +459,8 @@ export default {
           lng: values[4],
         };
       });
+
+      this.setDataTop100City(this.suggestionsTop100);
 
       // this.setListLocation(this.suggestions);
     },

@@ -12,7 +12,7 @@
 const LOADER_TYPES = { rectangle: "rectangle", circle: "circle" };
 
 const LOADER_CSS_CLASSES = {
-  [LOADER_TYPES.rectangle]: "rounded",
+  [LOADER_TYPES.rectangle]: "bor-radios-big",
   [LOADER_TYPES.circle]: "rounded-full",
 };
 
