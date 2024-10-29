@@ -58,13 +58,17 @@
       <div class="left-location" v-if="suggestionsTop100Data.length !== 0">
         <ListNearbyLocation></ListNearbyLocation>
       </div>
-      <div v-else class="w-full h-[380px] mt-6">
+      <div v-else class="w-full h-[380px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
-      <div class="right-country">
+      <div class="right-country" v-if="suggestionsTop100Data.length !== 0">
         <!--  -->
         <ListCountryPage></ListCountryPage>
+      </div>
+
+      <div v-else class="w-full h-[380px] mt-4">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
     </div>
 
@@ -72,22 +76,34 @@
       <!--  -->
       <div class="left-c">
         <!--  -->
-        <div class="w-full">
+        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
           <SunPage></SunPage>
         </div>
-        <div class="w-full">
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
+        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
           <MoonPage></MoonPage>
+        </div>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
       </div>
 
       <div class="center-c">
         <!--  -->
-        <div class="w-full">
+        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
           <UvPage></UvPage>
         </div>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
 
-        <div class="w-full">
+        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
           <AirQualityPage></AirQualityPage>
+        </div>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
       </div>
 

@@ -3,13 +3,23 @@
     <!--  -->
     <div class="w-full relative h-full">
       <div class="w-full h-full relative">
-        <ChartDays></ChartDays>
+        <vue-horizontal
+          responsive
+          :displacement="0.7"
+          class="w-full h-full relative horizontal"
+        >
+          <div>
+            <ChartDays></ChartDays>
 
-        <!--  -->
-        <ChartDomainTemps></ChartDomainTemps>
+            <!--  -->
+            <ChartDomainTemps></ChartDomainTemps>
 
-        <!--  -->
-        <ChartDomainRain></ChartDomainRain>
+            <ChartApexRain></ChartApexRain>
+
+            <!--  -->
+            <ChartDomainRain></ChartDomainRain>
+          </div>
+        </vue-horizontal>
 
         <!--  -->
 
@@ -36,11 +46,13 @@
   </div>
 </template>
 <script>
+import ChartApexRain from "@/components/common/chart/chart-apex-rain.vue";
 import ChartBarRain from "@/components/common/chart/chart-bar-rain.vue";
 import ChartColumnRainfall from "@/components/common/chart/chart-column-rainfall.vue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
 import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
 import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
+import VueHorizontal from "vue-horizontal";
 
 export default {
   name: "chart-temp-rain",
@@ -49,6 +61,8 @@ export default {
     ChartDays,
     ChartDomainTemps,
     ChartDomainRain,
+    VueHorizontal,
+    ChartApexRain,
     // ChartBarRain,
     // ChartColumnRainfall,
   },
@@ -59,7 +73,28 @@ export default {
   methods: {},
 };
 </script>
-<style lang="scss">
+<style scoped>
+.horizontal >>> .v-hl-btn-prev {
+  display: none !important;
+  left: 10px !important;
+}
+.horizontal >>> .v-hl-btn-next {
+  display: none !important;
+
+  right: 10px !important;
+}
+.horizontal:hover >>> .v-hl-btn-prev {
+  display: flex !important;
+  left: 10px !important;
+  opacity: 0.5;
+}
+
+.horizontal:hover >>> .v-hl-btn-next {
+  display: flex !important;
+  right: 10px !important;
+  opacity: 0.5;
+}
+
 .bg-temp-c {
   background-color: #ec9d00;
 }

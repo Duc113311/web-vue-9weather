@@ -1,6 +1,6 @@
 <template>
-  <div class="chart-container-rain w-[80rem] absolute top-36 z-20">
-    <div class="chart-wrapper w-full h-full">
+  <div class="chart-container-rain w-[89rem]">
+    <div class="chart-wrapper w-full">
       <canvas id="chart_hourly_rain" ref="canvas"></canvas>
     </div>
   </div>
@@ -138,10 +138,7 @@ export default {
               pointRadius: 3,
               backgroundColor: gradient,
               fill: true,
-              data: [
-                10, 20, 30, 40, 50, 20, 49, 12, 63, 80, 12, 7, 13, 34, 6, 12, 8,
-                60, 80, 12, 100, 43, 60, 70, 80, 90, 100,
-              ],
+              data: this.listDataProbability,
             },
           ],
         },
@@ -149,7 +146,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 20,
+            padding: 15,
           },
           plugins: {
             legend: {
@@ -170,7 +167,6 @@ export default {
               formatter: (value, context) => {
                 return `${value}%`;
               },
-              backgroundColor: "rgba(0, 0, 0, 0.5)", // Thêm background cho label
             },
           },
           scales: {

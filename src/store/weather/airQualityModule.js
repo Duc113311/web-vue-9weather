@@ -36,6 +36,8 @@ const mutations = {
 
     const newDataAir = JSON.parse(decodeBase64(data));
 
+    console.log("newDataAir", newDataAir);
+
     state.airObject = newDataAir;
   },
 
@@ -95,6 +97,7 @@ const actions = {
       });
 
       if (response.status === 200) {
+        debugger;
         commit("setAirQualityByKey", response.data);
         return response.data;
       } else {

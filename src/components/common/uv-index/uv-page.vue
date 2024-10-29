@@ -85,7 +85,6 @@ export default {
       },
       plotOptions: {
         bar: {
-          borderRadius: 10, // Tạo góc bo tròn cho cột
           columnWidth: "80%",
           distributed: true, // Tạo màu khác nhau cho từng cột
         },
@@ -105,7 +104,7 @@ export default {
         "#FFD700",
       ],
       dataLabels: {
-        enabled: true,
+        enabled: false,
         style: {
           colors: ["#fff"], // Màu số trên đỉnh cột
         },

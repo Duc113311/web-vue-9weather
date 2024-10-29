@@ -19,18 +19,18 @@
             class="flex items-center justify-between w-full absolute bottom-24"
           >
             <div class="flex flex-col gap-2 items-center w-[70px]">
-              <p class="txt_light_summer">
+              <p class="txt_medium_des pl-2 text-center">
                 <span>{{ convertTime(paramDailyOne?.sunriseTime) }}</span
                 ><br />
-                <span>Sunrise</span>
+                <span class="txt_regular_des_moon_12">Sunrise</span>
               </p>
             </div>
             <!--  -->
             <div class="flex flex-col gap-2 items-center w-[70px]">
-              <p class="txt_light_summer">
+              <p class="txt_medium_des text-center">
                 <span>{{ convertTime(paramDailyOne?.sunsetTime) }}</span
                 ><br />
-                <span>Sunrise</span>
+                <span class="txt_regular_des_moon_12">Sunrise</span>
               </p>
             </div>
           </div>

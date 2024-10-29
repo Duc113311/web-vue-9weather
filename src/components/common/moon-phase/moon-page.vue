@@ -15,15 +15,15 @@
       <div class="w-full">
         <!--  -->
 
-        <div class="flex items-center justify-between">
-          <div class="text-left">
+        <div class="flex items-center w-full">
+          <div class="text-left w-[182px]">
             <div class="txt_medium">
               <span>{{ moonPhaseName }}</span>
             </div>
-            <div class="txt_regular_des_moon pt-1">
-              <p>{{ dateFull }}</p>
+            <div class="txt_regular_des_moon_12 pt-1">
+              <p v-html="formattedDate"></p>
             </div>
-            <div class="mt-14">
+            <div class="mt-10">
               <div
                 class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
               >
@@ -47,7 +47,9 @@
             </div>
           </div>
 
-          <div class="flex flex-col justify-center items-center">
+          <div
+            class="flex flex-col w-[calc(100%-182px)] justify-center items-center"
+          >
             <div
               class="pb-5"
               :style="{ transform: `rotate(${rotationDegrees}deg)` }"
@@ -55,8 +57,8 @@
               <GlobalMoonIcon
                 :illuminate-percent="illuminate"
                 :is-clip-from-start="true"
-                :width="100"
-                :height="100"
+                :width="80"
+                :height="80"
               >
               </GlobalMoonIcon>
             </div>
@@ -135,7 +137,7 @@ export default {
       numberOfSubChildren: 24,
       illuminate: 50,
       moonPhaseName: "Full Moon",
-      dateFull: "Friday, August 2, 2024 06:00",
+      dateFull: "Wednesday, October 30, 2024 at 04:00 AM",
       rotationDegrees: 0,
       moonPhaseInfo: {
         moonPhaseName: "Waning Crescent",
@@ -159,6 +161,11 @@ export default {
   computed: {
     renderPosition() {
       return this.$store.state.weatherModule.cityCountry;
+    },
+
+    formattedDate() {
+      const [date, time] = this.dateFull.split(" at ");
+      return `${date}<br>At ${time}`;
     },
   },
 

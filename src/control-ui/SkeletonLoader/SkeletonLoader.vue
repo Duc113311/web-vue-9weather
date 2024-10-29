@@ -44,7 +44,7 @@ export default {
     },
     bgClass: {
       type: String,
-      default: "bg-gray-300",
+      default: "bg-load",
     },
     cssClass: {
       type: String,
@@ -81,5 +81,9 @@ export default {
   100% {
     transform: translateX(100%);
   }
+}
+
+.bg-load {
+  background-color: rgb(84 85 124 / 64%);
 }
 </style>
