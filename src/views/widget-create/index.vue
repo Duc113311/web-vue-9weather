@@ -1,7 +1,9 @@
 <template>
   <div class="w-full h-full">
     <!-- -->
-    <WidgetPage></WidgetPage>
+    <div class="container">
+      <WidgetPage></WidgetPage>
+    </div>
   </div>
 </template>
 

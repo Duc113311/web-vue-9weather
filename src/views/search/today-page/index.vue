@@ -55,14 +55,20 @@
     <!--  -->
 
     <div class="container local-c mt-4">
-      <div class="left-location" v-if="suggestionsTop100Data.length !== 0">
+      <div
+        class="left-location"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
         <ListNearbyLocation></ListNearbyLocation>
       </div>
       <div v-else class="w-full h-[380px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
-      <div class="right-country" v-if="suggestionsTop100Data.length !== 0">
+      <div
+        class="right-country"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
         <!--  -->
         <ListCountryPage></ListCountryPage>
       </div>
@@ -76,13 +82,19 @@
       <!--  -->
       <div class="left-c">
         <!--  -->
-        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <SunPage></SunPage>
         </div>
         <div v-else class="w-full h-[230px] mt-4">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
-        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <MoonPage></MoonPage>
         </div>
         <div v-else class="w-full h-[230px] mt-4">
@@ -92,14 +104,20 @@
 
       <div class="center-c">
         <!--  -->
-        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <UvPage></UvPage>
         </div>
         <div v-else class="w-full h-[230px] mt-4">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
 
-        <div class="w-full" v-if="suggestionsTop100Data.length !== 0">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <AirQualityPage></AirQualityPage>
         </div>
         <div v-else class="w-full h-[230px] mt-4">

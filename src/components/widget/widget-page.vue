@@ -336,7 +336,11 @@
       </div>
     </div>
     <!-- <div v-html="valueCodeWidget"></div> -->
-
+    <div class="w-full h-[300px] flex justify-center items-center mb-6 mt-6">
+      <div class="img-ads bg-ads w-full h-full">
+        <!-- Ads -->
+      </div>
+    </div>
     <!-- Cách giải quyết là tạo 1 link widget/index vẽ form đó, đồng thời sẽ vẽ thêm 1 form bên này khi tạo sẽ lấy form kia add vào link và sẽ hiện được widget -->
   </div>
 </template>
@@ -450,7 +454,7 @@ export default {
     },
 
     renderCountry() {
-      return this.$store.state.getWeather.cityCountry;
+      return this.$store.state.weatherModule.cityCountry;
     },
   },
 

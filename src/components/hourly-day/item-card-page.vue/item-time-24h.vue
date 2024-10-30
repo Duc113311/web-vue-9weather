@@ -9,225 +9,246 @@
       />
       <span>New York, USA</span>
     </div>
-    <BaseComponent v-for="(item, index) in hourly24hGettersData" :key="index">
-      <div class="w-full">
-        <!--  -->
-        <div
-          @click="onClickShowDetailCard(index)"
-          class="flex justify-between items-center w-full"
-        >
-          <!--  -->
-          <div class="flex items-center">
-            <p class="w-[100px] text-left">
-              <span class="txt_medium">
-                {{ convertTime(item?.time) }}
-              </span>
-            </p>
+    <div class="w-full h-full overflow-hidden">
+      <transition-group name="fade" tag="div">
+        <BaseComponent v-for="(item, index) in displayedItems" :key="index">
+          <div class="w-full">
+            <!--  -->
+            <div
+              @click="onClickShowDetailCard(index)"
+              class="flex justify-between items-center w-full"
+            >
+              <!--  -->
+              <div class="flex items-center">
+                <p class="w-[100px] text-left">
+                  <span class="txt_medium">
+                    {{ convertTime(item?.time) }}
+                  </span>
+                </p>
 
-            <p>
-              {{
-                item?.summary.charAt(0).toUpperCase() + item?.summary.slice(1)
-              }}
-            </p>
-          </div>
-
-          <div class="flex items-center">
-            <div class="flex items-center gap-2 mr-4">
-              <img :src="renderIcon(item)" alt="" />
-              <p>{{ renderToCelsius(item?.temperature) }}</p>
-            </div>
-            <div>
-              <img
-                :id="'chevron-' + index"
-                src="../../../assets/images/svg_v2/ic_chevron_right.png"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          v-if="index === valueChoose"
-          class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
-        >
-          <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
-            <div class="flex items-center justify-between w-full">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_Temp.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Temperation</p>
+                <p>
+                  {{
+                    item?.summary.charAt(0).toUpperCase() +
+                    item?.summary.slice(1)
+                  }}
+                </p>
               </div>
 
               <div class="flex items-center">
-                <div class="flex items-center">
+                <div class="flex items-center gap-2 mr-4">
+                  <img :src="renderIcon(item)" alt="" />
                   <p>{{ renderToCelsius(item?.temperature) }}</p>
+                </div>
+                <div>
+                  <img
+                    :id="'chevron-' + index"
+                    src="../../../assets/images/svg_v2/ic_chevron_right.png"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_smile.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Feel Like</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ renderToCelsius(item?.temperature) }}</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_UV_index.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>UV Index</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ item?.uvIndex }}</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_precititation.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Precipitation</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_droplet.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Rainfall</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ item?.precipProbability * 100 }}%</p>
-              </div>
-            </div>
+            <div
+              v-if="index === valueChoose"
+              class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
+            >
+              <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
+                <div class="flex items-center justify-between w-full">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_Temp.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Temperation</p>
+                  </div>
 
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_Air_quality.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Air Quality</p>
+                  <div class="flex items-center">
+                    <div class="flex items-center">
+                      <p>{{ renderToCelsius(item?.temperature) }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_smile.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Feel Like</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>{{ renderToCelsius(item?.temperature) }}</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_UV_index.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>UV Index</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>{{ item?.uvIndex }}</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_precititation.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Precipitation</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_droplet.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Rainfall</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>{{ item?.precipProbability * 100 }}%</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_Air_quality.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Air Quality</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>165 (Moderate)</p>
+                  </div>
+                </div>
               </div>
-              <div class="flex items-center">
-                <p>165 (Moderate)</p>
+
+              <!--  -->
+
+              <div class="w-[50%] flex flex-col gap-4 pl-6">
+                <div class="flex items-center justify-between w-full">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_wind.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Wind speed</p>
+                  </div>
+
+                  <div class="flex items-center">
+                    <p>
+                      {{ convertWindSpeed(item.windSpeed) }}
+                      {{ convertUnitWindSpeed() }}
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_wind_flag_svgrepo.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Wind direction</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>{{ convertWindBearing(item?.windBearing) }}</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_cloud_fog.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Cloud cover</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>{{ Math.round(item.cloudCover * 100) }}%</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_pressure.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Pressure</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>
+                      {{ convertPressure(item?.pressure) }}
+                      {{ convertUnitPressure() }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_weather_svgrepo_com.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Sunrise</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>
+                      {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="../../../assets/images/svg_v2/ic_weather_svgrepo_com_sunset.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>Sunset</p>
+                  </div>
+                  <div class="flex items-center">
+                    <p>
+                      {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </BaseComponent>
+      </transition-group>
 
-          <!--  -->
-
-          <div class="w-[50%] flex flex-col gap-4 pl-6">
-            <div class="flex items-center justify-between w-full">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_wind.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Wind speed</p>
-              </div>
-
-              <div class="flex items-center">
-                <p>
-                  {{ convertWindSpeed(item.windSpeed) }}
-                  {{ convertUnitWindSpeed() }}
-                </p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_wind_flag_svgrepo.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Wind direction</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ convertWindBearing(item?.windBearing) }}</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_cloud_fog.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Cloud cover</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ Math.round(item.cloudCover * 100) }}%</p>
-              </div>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_pressure.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Pressure</p>
-              </div>
-              <div class="flex items-center">
-                <p>
-                  {{ convertPressure(item?.pressure) }}
-                  {{ convertUnitPressure() }}
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_weather_svgrepo_com.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Sunrise</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}</p>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <img
-                  src="../../../assets/images/svg_v2/ic_weather_svgrepo_com_sunset.svg"
-                  alt=""
-                  srcset=""
-                />
-                <p>Sunset</p>
-              </div>
-              <div class="flex items-center">
-                <p>{{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="w-full text-left mt-3">
+        <button
+          type="button"
+          @click="onClickLoadMoreItems"
+          class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
+        >
+          <span class="txt_medium_12">
+            {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
+          >
+        </button>
       </div>
-    </BaseComponent>
+    </div>
   </div>
 </template>
 <script>
@@ -264,6 +285,9 @@ export default {
     return {
       valueChoose: -1,
       isRotated: false,
+      itemsPerPage: 10, // Số mục hiển thị ban đầu
+      currentPage: 1, // Trang hiện tại
+      showLessButton: false,
     };
   },
 
@@ -276,6 +300,16 @@ export default {
 
     dailyOneGettersData() {
       return this.dailyOneGetters;
+    },
+
+    displayedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = this.currentPage * this.itemsPerPage;
+      return this.hourly24hGettersData.slice(0, end);
+    },
+
+    showSeeMoreButton() {
+      return this.displayedItems.length < this.hourly24hGettersData.length;
     },
   },
 
@@ -405,6 +439,18 @@ export default {
         return convertTimestampToHoursMinutes12(value, 1, offsetValue);
       } else {
         return convertTimestampToHoursMinutes(value, 1, offsetValue);
+      }
+    },
+
+    onClickLoadMoreItems() {
+      if (this.showLessButton) {
+        this.currentPage = 1; // Reset to show the initial items
+        this.showLessButton = false;
+      } else {
+        this.currentPage++;
+        this.showLessButton =
+          this.currentPage * this.itemsPerPage >=
+          this.hourly24hGettersData.length;
       }
     },
   },

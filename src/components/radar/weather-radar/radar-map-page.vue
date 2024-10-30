@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <BaseComponent :height="300" :isShowPad="false">
+    <BaseComponent :height="heightAuto" :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -77,7 +77,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      heightAuto: "auto",
+    };
   },
 
   methods: {},

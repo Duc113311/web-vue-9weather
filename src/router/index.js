@@ -9,10 +9,20 @@ import SearchPage from "../views/search/index.vue";
 
 const routes = [
   {
-    path: "/widget-view",
+    path: "/:language/widget-view",
     name: "widget-view",
     component: WidgetView,
     props: true,
+  },
+
+  {
+    path: "/:language/create-widget",
+    name: "create-widget-view",
+    component: () =>
+      // eslint-disable-next-line prettier/prettier
+      import(
+        /* webpackChunkName: "create-widget-view" */ "../views/widget-create/index.vue"
+      ),
   },
 
   { path: "/404", name: "404-page", component: NotFoundComponent }, // Component cho trang 404

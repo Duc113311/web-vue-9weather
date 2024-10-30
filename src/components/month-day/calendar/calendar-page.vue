@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <BaseComponent>
+    <BaseComponent :height="heightAuto" :is-show-pad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -13,9 +13,9 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <div class="w-[778px]">
+        <div class="w-[820px]">
           <div class="calendar">
-            <ul class="weeks bor-bottom pt-2 pb-2">
+            <ul class="weeks bor-bottom bg-title-calender p-2">
               <li>{{ $t("Mon") }}</li>
               <li>{{ $t("Tue") }}</li>
               <li>{{ $t("Wed") }}</li>
@@ -24,7 +24,7 @@
               <li class="weekend">{{ $t("Sat") }}</li>
               <li class="weekend">{{ $t("Sun") }}</li>
             </ul>
-            <ul class="days">
+            <ul class="days p-4">
               <li
                 v-for="(day, index) in adjustedCalendar"
                 :key="index"
@@ -34,25 +34,33 @@
                   ref="popover"
                   placement="right"
                   :width="400"
-                  trigger="click"
+                  trigger="none"
                   v-if="day && day.time"
                 >
                   <template #reference>
                     <div
-                      class="flex flex-col justify-center items-center gap-0.5 txt_light_14 rounded-xl"
+                      class="flex flex-col p-1 justify-start gap-0.5 txt_light_14 rounded-xl"
                     >
-                      <span class="txt_regular_14">{{
+                      <span class="txt_regular_14 text-right">{{
                         convertToShortDay(day.time)
                       }}</span>
+                      <div class="flex justify-between">
+                        <img
+                          :src="convertIconCurrently(day?.icon)"
+                          width="20"
+                          height="20"
+                          class="object-cover"
+                        />
+                      </div>
                       <div>
                         <!-- <img :src="convertIcon(day.icon)" alt="" /> -->
                       </div>
-                      <div class="flex items-center gap-1">
-                        <img
+                      <div class="flex justify-start items-center gap-1">
+                        <!-- <img
                           src="../../../assets/images/svg/v2/ic_temperature_v2_dark.svg"
                           class="size-img"
                           alt=""
-                        />
+                        /> -->
                         <p class="txt_regular_14">
                           {{ convertTemperature(day.temperatureMax) }}° /
                           {{ convertTemperature(day.temperatureMin) }}°
@@ -87,7 +95,11 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
-import { convertCtoF, convertFtoC } from "@/utils/converValue";
+import {
+  convertCtoF,
+  convertFtoC,
+  getIconHourlyForecastTheme,
+} from "@/utils/converValue";
 
 export default {
   name: "calendar-page",
@@ -96,7 +108,9 @@ export default {
     BaseComponent,
   },
   data() {
-    return {};
+    return {
+      heightAuto: "auto",
+    };
   },
   computed: {
     renderCalendar() {
@@ -125,6 +139,12 @@ export default {
   },
 
   methods: {
+    convertIconCurrently(value) {
+      if (value) {
+        const url = getIconHourlyForecastTheme(value);
+        return url;
+      }
+    },
     convertToShortDay(value) {
       const date = new Date(value * 1000);
       const dateNew = new Date(date);
@@ -166,14 +186,15 @@ export default {
   text-align: center;
 }
 
-.calendar .days {
-  margin-bottom: 12px;
-}
+// .calendar .days {
+//   margin-bottom: 12px;
+// }
 
 .calendar li {
   width: calc(100% / 7);
   font-size: 1.07rem;
   position: relative; /* Make sure tooltip is positioned correctly */
+  border-radius: 10px;
 }
 
 .calendar .weeks li {
@@ -185,7 +206,6 @@ export default {
   cursor: pointer;
   position: relative;
   // margin-top: 8px;
-  padding: 6px;
 }
 
 .days li.inactive {
@@ -219,9 +239,14 @@ export default {
 
 .days li.active::before {
   background-color: rgba(148, 148, 148, 0.4);
+  border-radius: 10px;
 }
 
 .days li:not(.active):hover::before {
   background: rgba(114, 149, 202, 0.5);
+}
+
+.bg-title-calender {
+  background-color: #5b6c84;
 }
 </style>

@@ -3,15 +3,27 @@
     <!-- -->
     <div class="container mt-10 h-[500px]">
       <div class="header-m">
-        <div class="left-hourly">
+        <div class="left-hourly h-[400px]">
           <!--  -->
-          <RadarMapPage :overlayValue="overlayValue"></RadarMapPage>
+          <RadarMapPage
+            v-if="currentlyData && Object.keys(currentlyData).length < 0"
+            :overlayValue="overlayValue"
+          ></RadarMapPage>
+          <div v-else class="w-full h-[510px]">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
           <!--  -->
         </div>
 
         <div class="right-hourly h-full">
           <!--  -->
-          <TempFullCard :title="title"></TempFullCard>
+          <TempFullCard
+            v-if="currentlyData && Object.keys(currentlyData).length < 0"
+            :title="title"
+          ></TempFullCard>
+          <div v-else class="w-full h-[510px]">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
       </div>
     </div>
@@ -46,6 +58,8 @@
 import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
 import OptionMapRadarPage from "@/components/radar/option-radar/option-map-radar-page.vue";
 import RadarMapPage from "@/components/radar/weather-radar/radar-map-page.vue";
+import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "radar-weather",
@@ -54,6 +68,7 @@ export default {
     TempFullCard,
     RadarMapPage,
     OptionMapRadarPage,
+    SkeletonLoader,
   },
   data() {
     return {
@@ -62,6 +77,14 @@ export default {
   },
 
   mounted() {},
+
+  computed: {
+    ...mapGetters("weatherModule", ["currentlyGetters"]),
+
+    currentlyData() {
+      return this.currentlyGetters;
+    },
+  },
 
   methods: {
     onChangeValueMap(value) {

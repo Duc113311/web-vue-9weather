@@ -26,23 +26,48 @@
       <div class="header-h h-full pt-2">
         <div class="left-hourly h-full">
           <!--  -->
-          <ItemTime24h></ItemTime24h>
+          <ItemTime24h
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></ItemTime24h>
+          <div v-else class="w-full h-[860px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
 
         <div class="right-hourly">
           <!--  -->
-          <div>
+          <!-- <div>
             <img
               src="../../../assets/images/png/ic_app_download.png"
               alt=""
               class="pt-12"
             />
-          </div>
+          </div> -->
 
-          <SunPage></SunPage>
-          <MoonPage></MoonPage>
-          <UvPage></UvPage>
-          <AirQualityPage></AirQualityPage>
+          <SunPage
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></SunPage>
+          <div v-else class="w-full h-[200px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+          <MoonPage
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></MoonPage>
+          <div v-else class="w-full h-[200px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+          <UvPage
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></UvPage>
+          <div v-else class="w-full h-[200px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+          <AirQualityPage
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></AirQualityPage>
+          <div v-else class="w-full h-[200px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
       </div>
     </div>
@@ -51,12 +76,24 @@
 
     <div class="container">
       <div class="header-2 h-full pt-2">
-        <div class="left-hourly">
+        <div
+          class="left-hourly"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <ListCountryPage></ListCountryPage>
         </div>
+        <div v-else class="w-full h-[370px] mt-5">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
 
-        <div class="right-hourly h-[340px]">
+        <div
+          class="right-hourly h-[340px]"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <RadarPage></RadarPage>
+        </div>
+        <div v-else class="w-full h-[370px] mt-5">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
       </div>
     </div>
@@ -72,6 +109,8 @@ import ChartAvgWeather from "@/components/hourly-day/chart-weather/chart-avg-wea
 import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24h.vue";
 import ListCountryPage from "@/components/today/country/list-country-page.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
+import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "hourly-weather",
@@ -84,10 +123,18 @@ export default {
     SunPage,
     MoonPage,
     AirQualityPage,
+    SkeletonLoader,
     UvPage,
   },
   data() {
     return {};
+  },
+
+  computed: {
+    ...mapGetters("weatherModule", ["currentlyGetters"]),
+    currentlyData() {
+      return this.currentlyGetters;
+    },
   },
 
   mounted() {},

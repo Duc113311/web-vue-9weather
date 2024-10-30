@@ -4,7 +4,7 @@
       type="bar"
       :options="chartOptions"
       :series="series"
-      height="50"
+      height="70"
     />
   </div>
 </template>
@@ -12,6 +12,11 @@
 import ApexCharts from "vue3-apexcharts";
 
 import { ref } from "vue";
+import {
+  convertMillimetToInch,
+  convertTimestampToHoursMinutes,
+  convertTimestampToHoursMinutes12,
+} from "@/utils/converValue";
 
 export default {
   name: "chart-apex-rain",
@@ -20,7 +25,7 @@ export default {
     return {};
   },
 
-  computed: {
+  components: {
     apexchart: ApexCharts,
   },
 
@@ -40,25 +45,12 @@ export default {
       },
       plotOptions: {
         bar: {
-          columnWidth: "20%",
+          columnWidth: "18%",
           distributed: true, // Tạo màu khác nhau cho từng cột
           borderRadius: 10,
         },
       },
-      colors: [
-        "#00FF7F",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-        "#00FF7F",
-        "#FFD700",
-        "#00FF7F",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-      ],
+      colors: ["#FFD700"],
       dataLabels: {
         enabled: false,
         style: {
@@ -86,7 +78,7 @@ export default {
           options: {
             plotOptions: {
               bar: {
-                columnWidth: "45%", // Điều chỉnh cột cho các màn hình nhỏ hơn
+                columnWidth: "20%", // Điều chỉnh cột cho các màn hình nhỏ hơn
               },
             },
           },
@@ -95,6 +87,61 @@ export default {
     });
 
     return { series, chartOptions };
+  },
+
+  computed: {
+    // listHourly() {
+    //   return this.$store.state.weatherModule.hourly24h;
+    // },
+  },
+
+  watch: {
+    // listHourly(newValue) {
+    //   this.handlerPrecipitation(newValue);
+    // },
+  },
+
+  mounted() {
+    // if (this.listHourly.length !== 0) {
+    //   this.handlerPrecipitation(this.listHourly);
+    // }
+  },
+
+  methods: {
+    generateSeriesData(data) {
+      return data.map((item) => Math.round(item.precipProbability * 100) || 0);
+    },
+
+    generateCategories(data) {
+      const categories = [];
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      const offsetValue =
+        this.$store.state.weatherModule?.locationOffset?.offset;
+
+      if (data.length !== 0) {
+        data.forEach((item, index) => {
+          let timeConvert = "";
+
+          if (unitSetting.activeTime_save === "12h") {
+            timeConvert = convertTimestampToHoursMinutes12(
+              item?.time,
+              0,
+              offsetValue
+            );
+          } else {
+            timeConvert = convertTimestampToHoursMinutes(
+              item?.time,
+              0,
+              offsetValue
+            );
+          }
+
+          categories.push(timeConvert);
+        });
+      }
+
+      return categories;
+    },
   },
 };
 </script>

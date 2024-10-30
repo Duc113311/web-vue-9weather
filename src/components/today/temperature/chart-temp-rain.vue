@@ -14,10 +14,10 @@
             <!--  -->
             <ChartDomainTemps></ChartDomainTemps>
 
-            <ChartApexRain></ChartApexRain>
-
             <!--  -->
             <ChartDomainRain></ChartDomainRain>
+
+            <ChartApexRain></ChartApexRain>
           </div>
         </vue-horizontal>
 

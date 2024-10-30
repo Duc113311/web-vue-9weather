@@ -20,7 +20,7 @@
           </div>
           <div
             class="flex items-center gap-2 cursor-pointer"
-            @click="onClickShowidget()"
+            @click="onClickShowWidget()"
           >
             <img
               src="../../assets/images/svg_v2/ic_widget_tab.svg"
@@ -63,8 +63,18 @@ export default {
     return {};
   },
 
+  computed: {
+    renderLanguage() {
+      return this.$route.params.language ? this.$route.params.language : "en";
+    },
+  },
+
   methods: {
-    onClickShowidget() {},
+    async onClickShowWidget() {
+      await this.$router.push({
+        path: `/${this.renderLanguage}/create-widget`,
+      });
+    },
   },
 };
 </script>

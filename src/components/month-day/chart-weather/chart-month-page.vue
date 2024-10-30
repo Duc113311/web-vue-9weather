@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <BaseComponent>
+    <BaseComponent :height="heightAuto">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -13,8 +13,9 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <div class="w-full h-[400px]">
+        <div class="w-[780px] h-[400px]">
           <!-- <ChartTempRain></ChartTempRain> -->
+          <ChartTempRain></ChartTempRain>
         </div>
 
         <!--  -->
@@ -30,11 +31,13 @@ export default {
   name: "chart-month-page",
 
   components: {
-    // ChartTempRain,
+    ChartTempRain,
     BaseComponent,
   },
   data() {
-    return {};
+    return {
+      heightAuto: "auto",
+    };
   },
 
   methods: {},

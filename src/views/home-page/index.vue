@@ -9,21 +9,45 @@
 
     <div class="container mt-10">
       <div class="header h-full">
-        <div class="left-today h-full">
+        <div
+          class="left-today h-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <TempPage></TempPage>
+        </div>
+        <div v-else class="lg:w-[566px] w-full h-[850px]">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
         <div class="right-today">
           <div class="main-top">
-            <div class="left-main h-full">
+            <div
+              class="left-main h-full"
+              v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            >
               <TempDayNightPage :title="dayTime"></TempDayNightPage>
             </div>
+            <div v-else class="w-full h-full">
+              <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+            </div>
 
-            <div class="right-main">
+            <div
+              class="right-main"
+              v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            >
               <TempDayNightPage :title="nightTime"></TempDayNightPage>
             </div>
+            <div v-else class="w-full h-[444px]">
+              <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+            </div>
           </div>
-          <div class="main-bottom h-[362px] mt-2">
+          <div
+            class="main-bottom h-[362px] mt-2"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
             <RadarPage></RadarPage>
+          </div>
+          <div v-else class="w-full h-[380px] mt-6">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
       </div>
@@ -31,14 +55,26 @@
     <!--  -->
 
     <div class="container local-c mt-4">
-      <div class="left-location">
+      <div
+        class="left-location"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
         <!--  -->
         <ListNearbyLocation></ListNearbyLocation>
       </div>
+      <div v-else class="w-full h-[380px] mt-4">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+      </div>
 
-      <div class="right-country">
+      <div
+        class="right-country"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
         <!--  -->
         <ListCountryPage></ListCountryPage>
+      </div>
+      <div v-else class="w-full h-[380px] mt-4">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
     </div>
 
@@ -46,22 +82,46 @@
       <!--  -->
       <div class="left-c">
         <!--  -->
-        <div class="w-full">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <SunPage></SunPage>
         </div>
-        <div class="w-full">
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <MoonPage></MoonPage>
+        </div>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
       </div>
 
       <div class="center-c">
         <!--  -->
-        <div class="w-full">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <UvPage></UvPage>
         </div>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
 
-        <div class="w-full">
+        <div
+          class="w-full"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <AirQualityPage></AirQualityPage>
+        </div>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
       </div>
 
@@ -88,8 +148,10 @@ import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-l
 import RadarPage from "@/components/today/radar/radar-page.vue";
 import TempDayNightPage from "@/components/today/temp-day-night/temp-day-night-page.vue";
 import TempPage from "@/components/today/temperature/temp-page.vue";
+import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import BreadcumsPage from "@/layout/breadcums/breadcums-page.vue";
 import NavTabbar from "@/layout/tab-menu/nav-tabbar.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "home-page",
@@ -106,6 +168,7 @@ export default {
     MoonPage,
     UvPage,
     AirQualityPage,
+    SkeletonLoader,
   },
 
   data() {
@@ -113,6 +176,14 @@ export default {
       dayTime: "Day Time",
       nightTime: "Night Time",
     };
+  },
+
+  computed: {
+    ...mapGetters("weatherModule", ["currentlyGetters"]),
+
+    currentlyData() {
+      return this.currentlyGetters;
+    },
   },
 };
 </script>

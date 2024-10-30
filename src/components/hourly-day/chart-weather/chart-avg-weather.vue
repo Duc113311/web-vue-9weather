@@ -1,7 +1,10 @@
 <template>
   <div class="w-full">
     <div class="flex items-center flex-hourly h-full">
-      <div class="left-i">
+      <div
+        class="left-i"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
         <BaseComponent>
           <template v-slot:header>
             <div class="flex items-center text-left gap-2">
@@ -23,9 +26,14 @@
           </div>
         </BaseComponent>
       </div>
+      <div v-else class="lg:w-[566px] w-full h-[480px]">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+      </div>
 
       <div class="right-i">
-        <BaseComponent>
+        <BaseComponent
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <template v-slot:header>
             <div class="flex items-center text-left gap-2">
               <img
@@ -67,8 +75,13 @@
             <!--  -->
           </div>
         </BaseComponent>
+        <div v-else class="w-full h-[230px]">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
 
-        <BaseComponent>
+        <BaseComponent
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
           <div class="w-full gap-4 grid">
             <div class="w-[160px] h-[170px]">
               <div class="flex justify-start items-center text-left">
@@ -96,6 +109,9 @@
             <!--  -->
           </div>
         </BaseComponent>
+        <div v-else class="w-full h-[230px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        </div>
       </div>
     </div>
   </div>
@@ -103,6 +119,7 @@
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
 import ChartTempRain from "@/components/today/temperature/chart-temp-rain.vue";
+import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import {
   codeToFind,
   convertCtoF,
@@ -119,13 +136,18 @@ export default {
   components: {
     BaseComponent,
     ChartTempRain,
+    SkeletonLoader,
   },
   data() {
     return {};
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["dailyOneGetters"]),
+    ...mapGetters("weatherModule", ["dailyOneGetters", "currentlyGetters"]),
+
+    currentlyData() {
+      return this.currentlyGetters;
+    },
 
     dailyOneData() {
       return this.dailyOneGetters;

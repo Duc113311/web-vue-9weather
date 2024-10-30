@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container-rain w-[89rem]">
     <div class="chart-wrapper w-full">
-      <canvas id="chart_hourly_rain" ref="canvas"></canvas>
+      <canvas id="chart_hourly_rain" height="100" ref="canvas"></canvas>
     </div>
   </div>
 </template>
