@@ -15,7 +15,7 @@
             <ChartDomainTemps></ChartDomainTemps>
 
             <!--  -->
-            <ChartDomainRain></ChartDomainRain>
+            <!-- <ChartDomainRain></ChartDomainRain> -->
 
             <ChartApexRain></ChartApexRain>
           </div>
@@ -60,7 +60,7 @@ export default {
   components: {
     ChartDays,
     ChartDomainTemps,
-    ChartDomainRain,
+    // ChartDomainRain,
     VueHorizontal,
     ChartApexRain,
     // ChartBarRain,

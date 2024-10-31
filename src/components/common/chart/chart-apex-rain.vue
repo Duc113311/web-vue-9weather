@@ -4,115 +4,157 @@
       type="bar"
       :options="chartOptions"
       :series="series"
-      height="70"
+      height="150"
     />
   </div>
 </template>
 <script>
 import ApexCharts from "vue3-apexcharts";
 
-import { ref } from "vue";
 import {
+  codeToFind,
+  convertHpaToAtm,
+  convertHpaToInHg,
+  convertHpaToKpa,
+  convertHpaToMbar,
+  convertHpaToMmHg,
+  convertMillimet,
   convertMillimetToInch,
   convertTimestampToHoursMinutes,
   convertTimestampToHoursMinutes12,
+  formatHpa,
 } from "@/utils/converValue";
 
 export default {
   name: "chart-apex-rain",
 
   data() {
-    return {};
+    return {
+      series: [
+        {
+          name: "Chance of rain",
+          data: [],
+        },
+      ],
+      chartOptions: {
+        fill: {
+          colors: "#2FC92B",
+          opacity: 0.5,
+          type: "solid",
+        },
+        colors: ["#428FDB"],
+        markers: {
+          size: 4,
+          colors: ["#AAB44F"], // Background color of the points
+        },
+        chart: {
+          type: "area",
+          toolbar: {
+            show: false,
+          },
+          zoom: {
+            enabled: false,
+          },
+        },
+        legend: {
+          show: false,
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          width: [1],
+          curve: "smooth",
+        },
+        tooltip: {
+          enabled: true,
+          theme: "dark", // Tooltip theme to use
+        },
+        xaxis: {
+          categories: [],
+          labels: {
+            show: false,
+            rotate: 0,
+            style: {
+              colors: "#2FC92B",
+              fontSize: "12px",
+              fontFamily: "Helvetica, Arial, sans-serif",
+              cssClass: "apexcharts-yaxis-label",
+            },
+          },
+        },
+        yaxis: {
+          opposite: true,
+          labels: {
+            show: false,
+            style: {
+              colors: "#474A8D",
+              fontSize: "12px",
+              fontFamily: "Helvetica, Arial, sans-serif",
+              cssClass: "apexcharts-yaxis-label",
+            },
+            formatter: (value) => {
+              return Math.round(value);
+            },
+          },
+        },
+      },
+    };
   },
 
   components: {
     apexchart: ApexCharts,
   },
 
-  setup() {
-    const series = ref([
-      {
-        name: "Data",
-        data: [6, 8, 8, 8, 6, 8, 6, 8, 8, 8, 8, 8],
-      },
-    ]);
-
-    const chartOptions = ref({
-      chart: {
-        type: "bar",
-        toolbar: { show: false },
-        sparkline: { enabled: true }, // Gọn nhẹ không hiện khung
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: "18%",
-          distributed: true, // Tạo màu khác nhau cho từng cột
-          borderRadius: 10,
-        },
-      },
-      colors: ["#FFD700"],
-      dataLabels: {
-        enabled: false,
-        style: {
-          colors: ["#fff"], // Màu số trên đỉnh cột
-        },
-        offsetY: 10,
-      },
-      xaxis: {
-        labels: { show: false }, // Ẩn trục X
-        axisBorder: { show: false },
-        axisTicks: { show: false },
-      },
-      yaxis: {
-        labels: { show: false }, // Ẩn trục Y
-      },
-      grid: {
-        show: false, // Không hiện lưới
-      },
-      tooltip: {
-        enabled: false, // Tắt tooltip
-      },
-      responsive: [
-        {
-          breakpoint: 600,
-          options: {
-            plotOptions: {
-              bar: {
-                columnWidth: "20%", // Điều chỉnh cột cho các màn hình nhỏ hơn
-              },
-            },
-          },
-        },
-      ],
-    });
-
-    return { series, chartOptions };
-  },
-
   computed: {
-    // listHourly() {
-    //   return this.$store.state.weatherModule.hourly24h;
-    // },
+    listHourly() {
+      return this.$store.state.weatherModule.hourly24h;
+    },
   },
 
   watch: {
-    // listHourly(newValue) {
-    //   this.handlerPrecipitation(newValue);
-    // },
+    listHourly(newValue) {
+      this.handlerPrecipitation(newValue);
+    },
   },
 
   mounted() {
-    // if (this.listHourly.length !== 0) {
-    //   this.handlerPrecipitation(this.listHourly);
-    // }
+    if (this.listHourly.length !== 0) {
+      this.handlerPrecipitation(this.listHourly);
+    }
   },
 
   methods: {
     generateSeriesData(data) {
-      return data.map((item) => Math.round(item.precipProbability * 100) || 0);
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return data.map((item) => {
+        if (unitSetting.activePressure_save === "hPa") {
+          return formatHpa(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "mmHg") {
+          return convertHpaToMmHg(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "atm") {
+          return convertHpaToAtm(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "inHg") {
+          return convertHpaToInHg(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "mBar") {
+          return convertHpaToMbar(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "kPa") {
+          return convertHpaToKpa(item?.pressure);
+        }
+      });
     },
 
-    generateCategories(data) {
+    /**
+     * Data Time
+     * @param data
+     */
+    generateCategoriesTime(data) {
       const categories = [];
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       const offsetValue =
@@ -141,6 +183,35 @@ export default {
       }
 
       return categories;
+    },
+
+    handlerPrecipitation(value) {
+      const categories = this.generateCategoriesTime(value);
+      const data = this.generateSeriesData(value);
+
+      const maxData = Math.max(...data);
+      const minData = Math.min(...data);
+      this.series = [
+        {
+          name: "Pressure",
+          data: data,
+        },
+      ];
+      this.chartOptions = {
+        ...this.chartOptions,
+        xaxis: {
+          ...this.chartOptions.xaxis,
+          categories: categories,
+        },
+        yaxis: {
+          ...this.chartOptions.yaxis,
+          opposite: true,
+          min: Math.round(minData * 0.9),
+          max: Math.round(maxData * 1.1),
+          // min: Math.round(minData),
+          // max: Math.round(maxData),
+        },
+      };
     },
   },
 };

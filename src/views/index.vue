@@ -13,6 +13,7 @@ import {
 } from "@/utils/EncoderDecoderUtils.js";
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import { data } from "autoprefixer";
 
 export default {
   name: "dash-page",
@@ -25,7 +26,13 @@ export default {
 
   mounted() {
     debugger;
-    this.getLocationBrowser();
+    const objectBread = localStorage.getItem("objectBread");
+    if (!objectBread) {
+      this.getLocationBrowser();
+    } else {
+      const objectBreadValue = JSON.parse(objectBread);
+      this.handleLocation(objectBreadValue);
+    }
     // this.loadDataTop100();
   },
 
@@ -50,6 +57,51 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapActions("idFindModule", ["getIpLocation"]),
 
+    async handleLocation(dataValue) {
+      debugger;
+      let latitude = dataValue.latitude;
+      let longitude = dataValue.longitude;
+
+      const keyLanguageStorage = this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
+      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${keyLanguageStorage}`;
+      const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
+
+      console.log("responsive", responsive.data);
+      // Xét giá trị để lưu Recent
+      const objectPosition = {
+        latitude: latitude,
+        longitude: longitude,
+        objectLocation: responsive.data.address,
+      };
+
+      this.setBreadcumsAllowLocation(objectPosition);
+
+      console.log("responsive.data", responsive.data);
+
+      this.setCityWeather(objectPosition);
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+
+      // map url by lat,long
+      const resultAir = getAqiDataFromLocation(latitude, longitude);
+
+      const encodeDataWeather = encodeBase64(param);
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      // Lưu lại ở Storage để cache
+      localStorage.setItem("keyCurrent", JSON.stringify(encodeDataWeather));
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+    },
     /**
      * Connect vị trí trên trình duyệt
      */

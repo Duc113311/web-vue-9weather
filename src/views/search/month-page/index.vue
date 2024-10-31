@@ -185,11 +185,15 @@ export default {
 
     async getWeather30Day() {
       debugger;
-      const position = this.$route.params.coordinates;
-      const [latitude, longitude] = position.split(", ").map(Number);
-      const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
-      const value = encodeBase64(param);
-      await this.getWeather30DayData(value);
+      const objectBread = localStorage.getItem("objectBread");
+      if (objectBread) {
+        const objectBreadValue = JSON.parse(objectBread);
+        // const position = this.$route.params.coordinates;
+        // const [latitude, longitude] = position.split(", ").map(Number);
+        const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=en`;
+        const value = encodeBase64(param);
+        await this.getWeather30DayData(value);
+      }
     },
   },
 

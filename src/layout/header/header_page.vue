@@ -207,6 +207,7 @@ export default {
 
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
+    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
@@ -326,6 +327,7 @@ export default {
     async handleSelect(item) {
       this.valueSearch = item.value;
 
+      debugger;
       const dataLocation = {
         city: item.value,
         code: item.code,
@@ -333,6 +335,17 @@ export default {
         latitude: item.lat,
         longitude: item.lng,
       };
+      const objectBread = {
+        country: item.country,
+        city: item.value,
+        latitude: item.lat,
+        longitude: item.lng,
+        country_code: item?.code ? item?.code : "",
+      };
+
+      localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+      this.setBreadcumsNotAllowLocation(objectBread);
 
       localStorage.setItem("country", JSON.stringify(dataLocation));
       localStorage.setItem("cityName", JSON.stringify(dataLocation.city));
@@ -490,6 +503,9 @@ export default {
       //
       debugger;
       this.valueSearch = "";
+
+      localStorage.removeItem("cityName");
+      localStorage.removeItem("objectBread");
 
       // Lấy thông tin vị trí và thành phố
       const cityCountryNow =

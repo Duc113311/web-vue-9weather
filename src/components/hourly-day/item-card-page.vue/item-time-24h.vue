@@ -7,7 +7,11 @@
         width="24"
         alt=""
       />
-      <span>New York, USA</span>
+      <span>
+        {{ convertToEnglishRender(breadcumsObject?.city) }},{{
+          breadcumsObject?.country
+        }}
+      </span>
     </div>
     <div class="w-full h-full overflow-hidden">
       <transition-group name="fade" tag="div">
@@ -272,6 +276,7 @@ import {
   convertHpaToInHg,
   convertHpaToMbar,
   convertHpaToKpa,
+  convertToEnglish,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
@@ -293,7 +298,7 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["hourly24hGetters", "dailyOneGetters"]),
-
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     hourly24hGettersData() {
       return this.hourly24hGetters;
     },
@@ -310,6 +315,10 @@ export default {
 
     showSeeMoreButton() {
       return this.displayedItems.length < this.hourly24hGettersData.length;
+    },
+
+    breadcumsObject() {
+      return this.breadcumsObjectGetters;
     },
   },
 
@@ -452,6 +461,10 @@ export default {
           this.currentPage * this.itemsPerPage >=
           this.hourly24hGettersData.length;
       }
+    },
+
+    convertToEnglishRender(value) {
+      return convertToEnglish(value);
     },
   },
 };

@@ -11,6 +11,7 @@
 <script>
 import BreadcumsPage from "@/layout/breadcums/breadcums-page.vue";
 import NavTabbar from "@/layout/tab-menu/nav-tabbar.vue";
+// import { mapMutations } from "vuex";
 
 export default {
   name: "search-page",
@@ -22,6 +23,16 @@ export default {
 
   data() {
     return {};
+  },
+
+  mounted() {
+    debugger;
+    // const objectBread = localStorage.getItem("objectBread");
+    // this.setBreadcumsNotAllowLocation(objectBread);
+  },
+
+  methods: {
+    // ...mapMutations("weatherModule", ["setBreadcumsNotAllowLocation"]),
   },
 };
 </script>

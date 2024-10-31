@@ -6,7 +6,7 @@
         <div class="left-hourly h-[400px]">
           <!--  -->
           <RadarMapPage
-            v-if="currentlyData && Object.keys(currentlyData).length < 0"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
             :overlayValue="overlayValue"
           ></RadarMapPage>
           <div v-else class="w-full h-[510px]">
@@ -18,7 +18,7 @@
         <div class="right-hourly h-full">
           <!--  -->
           <TempFullCard
-            v-if="currentlyData && Object.keys(currentlyData).length < 0"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
             :title="title"
           ></TempFullCard>
           <div v-else class="w-full h-[510px]">
