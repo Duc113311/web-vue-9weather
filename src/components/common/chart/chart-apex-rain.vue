@@ -32,26 +32,46 @@ export default {
     return {
       series: [
         {
+          name: "Background",
+          data: [100, 100, 100, 100, 100, 100, 100, 100], // Dữ liệu nền 100%
+        },
+        {
           name: "Chance of rain",
           data: [],
         },
       ],
       chartOptions: {
+        plotOptions: {
+          bar: {
+            borderRadius: 12,
+            columnWidth: "50%",
+            // colors: {
+            //   ranges: [
+            //     {
+            //       from: 0,
+            //       to: 50,
+            //       color: "#428FDB", // Màu cho các giá trị <= 50
+            //     },
+            //     {
+            //       from: 51,
+            //       to: 100,
+            //       color: "#FF6347", // Màu cho các giá trị > 50
+            //     },
+            //   ],
+            // },
+          },
+        },
         fill: {
-          colors: "#2FC92B",
-          opacity: 0.5,
-          type: "solid",
+          opacity: 1,
         },
-        colors: ["#428FDB"],
-        markers: {
-          size: 4,
-          colors: ["#AAB44F"], // Background color of the points
-        },
+        colors: ["#E0E0E0", "#428FDB"], // Màu nền (xám) và màu cột chính
+
         chart: {
-          type: "area",
+          type: "bar",
           toolbar: {
             show: false,
           },
+          stacked: true, // Dùng chế độ stacked để chồng hai lớp lên nhau
           zoom: {
             enabled: false,
           },
@@ -60,7 +80,11 @@ export default {
           show: false,
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
+          formatter: function (val) {
+            return val + " mm"; // Display value with units
+          },
+          offsetY: -10,
         },
         stroke: {
           width: [1],
@@ -86,9 +110,9 @@ export default {
         yaxis: {
           opposite: true,
           labels: {
-            show: false,
+            show: true,
             style: {
-              colors: "#474A8D",
+              colors: "#ffffff",
               fontSize: "12px",
               fontFamily: "Helvetica, Arial, sans-serif",
               cssClass: "apexcharts-yaxis-label",
@@ -126,28 +150,7 @@ export default {
 
   methods: {
     generateSeriesData(data) {
-      const unitSetting = this.$store.state.commonModule.objectSettingSave;
-
-      return data.map((item) => {
-        if (unitSetting.activePressure_save === "hPa") {
-          return formatHpa(item?.pressure);
-        }
-        if (unitSetting.activePressure_save === "mmHg") {
-          return convertHpaToMmHg(item?.pressure);
-        }
-        if (unitSetting.activePressure_save === "atm") {
-          return convertHpaToAtm(item?.pressure);
-        }
-        if (unitSetting.activePressure_save === "inHg") {
-          return convertHpaToInHg(item?.pressure);
-        }
-        if (unitSetting.activePressure_save === "mBar") {
-          return convertHpaToMbar(item?.pressure);
-        }
-        if (unitSetting.activePressure_save === "kPa") {
-          return convertHpaToKpa(item?.pressure);
-        }
-      });
+      return [30, 40, 45, 50, 49, 60, 70, 91];
     },
 
     /**
@@ -189,7 +192,7 @@ export default {
       const categories = this.generateCategoriesTime(value);
       const data = this.generateSeriesData(value);
 
-      const maxData = Math.max(...data);
+      const maxData = Math.max(...data) + 10;
       const minData = Math.min(...data);
       this.series = [
         {
@@ -205,9 +208,8 @@ export default {
         },
         yaxis: {
           ...this.chartOptions.yaxis,
-          opposite: true,
-          min: Math.round(minData * 0.9),
-          max: Math.round(maxData * 1.1),
+
+          max: maxData,
           // min: Math.round(minData),
           // max: Math.round(maxData),
         },
