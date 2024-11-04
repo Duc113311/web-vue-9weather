@@ -1,0 +1,444 @@
+[
+  {
+    "code": 0,
+    "city": "Tỉnh Thành",
+    "category": "Cà Mau",
+    "postalCode": "98000",
+    "district": null,
+    "districtList": [],
+    "cityDistrict": [
+      {
+        "code": 1,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Thành phố Cà Mau",
+        "postalCode": "980001",
+        "district": null,
+        "districtList": [
+          {
+            "code": 2,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 9"
+          },
+          {
+            "code": 3,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 4"
+          },
+          {
+            "code": 4,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 1"
+          },
+          {
+            "code": 5,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 5"
+          },
+          {
+            "code": 6,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 2"
+          },
+          {
+            "code": 7,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 8"
+          },
+          {
+            "code": 8,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 6"
+          },
+          {
+            "code": 9,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường 7"
+          },
+          {
+            "code": 10,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường Tân Xuyên"
+          },
+          {
+            "code": 11,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã An Xuyên"
+          },
+          {
+            "code": 12,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Phường Tân Thành"
+          },
+          {
+            "code": 13,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã Tân Thành"
+          },
+          {
+            "code": 14,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã Tắc Vân"
+          },
+          {
+            "code": 15,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã Lý Văn Lâm"
+          },
+          {
+            "code": 16,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã Định Bình"
+          },
+          {
+            "code": 17,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã Hòa Thành"
+          },
+          {
+            "code": 18,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Cà Mau",
+            "district": "Xã Hòa Tân"
+          }
+        ]
+      },
+      {
+        "code": 19,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện U Minh",
+        "postalCode": "9800019",
+        "district": null,
+        "districtList": [
+          {
+            "code": 20,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Khánh Hòa"
+          },
+          {
+            "code": 21,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Khánh Thuận"
+          },
+          {
+            "code": 22,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Khánh Tiến"
+          },
+          {
+            "code": 23,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Nguyễn Phích"
+          },
+          {
+            "code": 24,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Khánh Lâm"
+          },
+          {
+            "code": 25,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Khánh An"
+          },
+          {
+            "code": 26,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh",
+            "district": "Xã Khánh Hội"
+          }
+        ]
+      },
+      {
+        "code": 27,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Thới Bình",
+        "postalCode": "9800027",
+        "district": null,
+        "districtList": [
+          {
+            "code": 28,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Biển Bạch"
+          },
+          {
+            "code": 29,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Tân Bằng"
+          },
+          {
+            "code": 30,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Trí Phải"
+          },
+          {
+            "code": 31,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Trí Lực"
+          },
+          {
+            "code": 32,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Biển Bạch Đông"
+          },
+          {
+            "code": 33,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Thới Bình"
+          },
+          {
+            "code": 34,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Tân Phú"
+          },
+          {
+            "code": 35,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Tân Lộc Bắc"
+          },
+          {
+            "code": 36,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Tân Lộc"
+          },
+          {
+            "code": 37,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Tân Lộc Đông"
+          },
+          {
+            "code": 38,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Bình",
+            "district": "Xã Hồ Thị Kỷ"
+          }
+        ]
+      },
+      {
+        "code": 39,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Trần Văn Thời",
+        "postalCode": "9800039",
+        "district": null,
+        "districtList": [
+          {
+            "code": 40,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Thị trấn Sông Đốc"
+          },
+          {
+            "code": 41,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Bình Tây Bắc"
+          },
+          {
+            "code": 42,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Bình Tây"
+          },
+          {
+            "code": 43,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Trần Hợi"
+          },
+          {
+            "code": 44,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Lộc"
+          },
+          {
+            "code": 45,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Bình"
+          },
+          {
+            "code": 46,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Hưng"
+          },
+          {
+            "code": 47,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Bình Đông"
+          },
+          {
+            "code": 48,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Khánh Hải"
+          },
+          {
+            "code": 49,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Lợi An"
+          },
+          {
+            "code": 50,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Phong Điền"
+          },
+          {
+            "code": 51,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Trần Văn Thời",
+            "district": "Xã Phong Lạc"
+          }
+        ]
+      },
+      {
+        "code": 52,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Cái Nước",
+        "postalCode": "9800052",
+        "district": null,
+        "districtList": [
+          {
+            "code": 53,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Thạnh Phú"
+          },
+          {
+            "code": 54,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Lương Thế Trân"
+          },
+          {
+            "code": 55,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Phú Hưng"
+          },
+          {
+            "code": 56,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Tân Hưng"
+          },
+          {
+            "code": 57,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Hưng Mỹ"
+          },
+          {
+            "code": 58,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Hoà Mỹ"
+          },
+          {
+            "code": 59,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Đông Hưng"
+          },
+          {
+            "code": 60,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Đông Thới"
+          },
+          {
+            "code": 61,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Tân Hưng Đông"
+          },
+          {
+            "code": 62,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cái Nước",
+            "district": "Xã Trần Thới"
+          }
+        ]
+      },
+      {
+        "code": 63,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Đầm Dơi",
+        "postalCode": "9800063",
+        "district": null,
+        "districtList": [
+          {
+            "code": 64,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Đầm Dơi",
+            "district": "Xã Tạ An Khương"
+          },
+          {
+            "code": 65,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Đầm Dơi",
+            "district": "Xã Tạ An Khương Đông"
+          },
+          {
+            "code": 66,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Đầm Dơi",
+            "district": "Xã Trần Phán"
+          },
+          {
+            "code": 67,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Đầm Dơi",
+            "district": "Xã Tân Trung"
+          },
+          {
+            "code": 68,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Đầm Dơi",
+            "district": "Xã Tân Đức"
+          },
+          {
+            "code": 69,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Đầm Dơi",
+            "district": "Xã Tân Thuận"
+          }
+        ]
+      }
+    ]
+  }
+]

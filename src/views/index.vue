@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       suggestionsTop100: [],
+      provinces: [],
     };
   },
 
@@ -43,6 +44,10 @@ export default {
     ]),
   },
 
+  created() {
+    this.loadProvinces();
+  },
+
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
     ...mapMutations("commonModule", [
@@ -56,6 +61,32 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapActions("idFindModule", ["getIpLocation"]),
+
+    loadProvinces() {
+      // Sử dụng require.context để import tất cả file JSON trong thư mục "provinces"
+      const context = require.context("/public/json/vietnam", false, /\.json$/);
+      debugger;
+      // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+      const provincesData = context.keys().map((key) => {
+        debugger;
+        const provinceData = context(key); // Load dữ liệu từ file
+
+        this.provinces.push(provinceData);
+        // return {
+        //   code: provinceData.code,
+        //   city: provinceData.city,
+        //   category: provinceData.category,
+        //   district: provinceData.district,
+        //   districtList: provinceData.districtList,
+        // };
+      });
+      debugger;
+
+      // Gán dữ liệu đã gom vào data "provinces"
+      // this.provinces = provincesData;
+
+      console.log("provinces", this.provinces);
+    },
 
     async handleLocation(dataValue) {
       debugger;

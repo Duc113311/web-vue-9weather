@@ -1,0 +1,936 @@
+[
+  {
+    "code": 0,
+    "city": "Tỉnh Thành",
+    "category": "Cần Thơ",
+    "postalCode": "94000",
+    "district": null,
+    "districtList": [],
+    "cityDistrict": [
+      {
+        "code": 1,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Quận Ninh Kiều",
+        "postalCode": "940001",
+        "district": null,
+        "districtList": [
+          {
+            "code": 2,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường Cái Khế"
+          },
+          {
+            "code": 3,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường An Hòa"
+          },
+          {
+            "code": 4,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường Thới Bình"
+          },
+          {
+            "code": 5,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường An Nghiệp"
+          },
+          {
+            "code": 6,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường An Cư"
+          },
+          {
+            "code": 7,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường Tân An"
+          },
+          {
+            "code": 8,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường An Phú"
+          },
+          {
+            "code": 9,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường Xuân Khánh"
+          },
+          {
+            "code": 10,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường Hưng Lợi"
+          },
+          {
+            "code": 11,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường An Khánh"
+          },
+          {
+            "code": 12,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ninh Kiều",
+            "district": "Phường An Bình"
+          }
+        ]
+      },
+      {
+        "code": 13,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Quận Ô Môn",
+        "postalCode": "9400013",
+        "district": null,
+        "districtList": [
+          {
+            "code": 14,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Châu Văn Liêm"
+          },
+          {
+            "code": 15,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Thới Hòa"
+          },
+          {
+            "code": 16,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Thới Long"
+          },
+          {
+            "code": 17,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Long Hưng"
+          },
+          {
+            "code": 18,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Thới An"
+          },
+          {
+            "code": 19,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Phước Thới"
+          },
+          {
+            "code": 20,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Ô Môn",
+            "district": "Phường Trường Lạc"
+          }
+        ]
+      },
+      {
+        "code": 21,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Quận Bình Thuỷ",
+        "postalCode": "9400021",
+        "district": null,
+        "districtList": [
+          {
+            "code": 22,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường Trà An"
+          },
+          {
+            "code": 23,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường Trà Nóc"
+          },
+          {
+            "code": 24,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường Thới An Đông"
+          },
+          {
+            "code": 25,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường An Thới"
+          },
+          {
+            "code": 26,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường Bùi Hữu Nghĩa"
+          },
+          {
+            "code": 27,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường Long Hòa"
+          },
+          {
+            "code": 28,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Bình Thuỷ",
+            "district": "Phường Long Tuyền"
+          }
+        ]
+      },
+      {
+        "code": 29,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Quận Cái Răng",
+        "postalCode": "9400029",
+        "district": null,
+        "districtList": [
+          {
+            "code": 30,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Lê Bình"
+          },
+          {
+            "code": 31,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Hưng Phú"
+          },
+          {
+            "code": 32,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Hưng Thạnh"
+          },
+          {
+            "code": 33,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Ba Láng"
+          },
+          {
+            "code": 34,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Thường Thạnh"
+          },
+          {
+            "code": 35,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Phú Thứ"
+          },
+          {
+            "code": 36,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Cái Răng",
+            "district": "Phường Tân Phú"
+          }
+        ]
+      },
+      {
+        "code": 37,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Quận Thốt Nốt",
+        "postalCode": "9400037",
+        "district": null,
+        "districtList": [
+          {
+            "code": 38,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Thới Thuận"
+          },
+          {
+            "code": 39,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Thuận An"
+          },
+          {
+            "code": 40,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Tân Lộc"
+          },
+          {
+            "code": 41,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Trung Nhứt"
+          },
+          {
+            "code": 42,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Thạnh Hoà"
+          },
+          {
+            "code": 43,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Trung Kiên"
+          },
+          {
+            "code": 44,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Tân Hưng"
+          },
+          {
+            "code": 45,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Quận Thốt Nốt",
+            "district": "Phường Thuận Hưng"
+          }
+        ]
+      },
+      {
+        "code": 46,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Vĩnh Thạnh",
+        "postalCode": "9400046",
+        "district": null,
+        "districtList": [
+          {
+            "code": 47,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Vĩnh Bình"
+          },
+          {
+            "code": 48,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Thị trấn Thanh An"
+          },
+          {
+            "code": 49,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Thị trấn Vĩnh Thạnh"
+          },
+          {
+            "code": 50,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh Mỹ"
+          },
+          {
+            "code": 51,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Vĩnh Trinh"
+          },
+          {
+            "code": 52,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh An"
+          },
+          {
+            "code": 53,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh Tiến"
+          },
+          {
+            "code": 54,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh Thắng"
+          },
+          {
+            "code": 55,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh Lợi"
+          },
+          {
+            "code": 56,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh Qưới"
+          },
+          {
+            "code": 57,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thạnh",
+            "district": "Xã Thạnh Lộc"
+          }
+        ]
+      },
+      {
+        "code": 58,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Cờ Đỏ",
+        "postalCode": "9400058",
+        "district": null,
+        "districtList": [
+          {
+            "code": 59,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Trung An"
+          },
+          {
+            "code": 60,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Trung Thạnh"
+          },
+          {
+            "code": 61,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Thạnh Phú"
+          },
+          {
+            "code": 62,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Trung Hưng"
+          },
+          {
+            "code": 63,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Thị trấn Cờ Đỏ"
+          },
+          {
+            "code": 64,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Thới Hưng"
+          },
+          {
+            "code": 65,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Đông Hiệp"
+          },
+          {
+            "code": 66,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Đông Thắng"
+          },
+          {
+            "code": 67,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Thới Đông"
+          },
+          {
+            "code": 68,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Cờ Đỏ",
+            "district": "Xã Thới Xuân"
+          }
+        ]
+      },
+      {
+        "code": 69,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Phong Điền",
+        "postalCode": "9400069",
+        "district": null,
+        "districtList": [
+          {
+            "code": 70,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Phong Điền",
+            "district": "Xã Nhơn Ái"
+          },
+          {
+            "code": 71,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Phong Điền",
+            "district": "Xã Giai Xuân"
+          },
+          {
+            "code": 72,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Phong Điền",
+            "district": "Xã Tân Thới"
+          },
+          {
+            "code": 73,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Phong Điền",
+            "district": "Xã Trường Long"
+          },
+          {
+            "code": 74,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Phong Điền",
+            "district": "Xã Mỹ Khánh"
+          },
+          {
+            "code": 75,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Phong Điền",
+            "district": "Xã Nhơn Nghĩa"
+          }
+        ]
+      },
+      {
+        "code": 76,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Thới Lai",
+        "postalCode": "9400076",
+        "district": null,
+        "districtList": [
+          {
+            "code": 77,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Thới Thạnh"
+          },
+          {
+            "code": 78,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Tân Thạnh"
+          },
+          {
+            "code": 79,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Xuân Thắng"
+          },
+          {
+            "code": 80,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Đông Bình"
+          },
+          {
+            "code": 81,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Đông Thuận"
+          },
+          {
+            "code": 82,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Thới Tân"
+          },
+          {
+            "code": 83,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Trường Thắng"
+          },
+          {
+            "code": 84,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Định Môn"
+          },
+          {
+            "code": 85,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Trường Thành"
+          },
+          {
+            "code": 86,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Trường Xuân"
+          },
+          {
+            "code": 87,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Trường Xuân A"
+          },
+          {
+            "code": 88,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Thới Lai",
+            "district": "Xã Trường Xuân B"
+          }
+        ]
+      },
+      {
+        "code": 96,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện An Biên",
+        "postalCode": "9400096",
+        "district": null,
+        "districtList": [
+          {
+            "code": 97,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Thị trấn Thứ Ba"
+          },
+          {
+            "code": 98,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Tây Yên"
+          },
+          {
+            "code": 99,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Tây Yên A"
+          },
+          {
+            "code": 100,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Nam Yên"
+          },
+          {
+            "code": 101,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Hưng Yên"
+          },
+          {
+            "code": 102,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Nam Thái"
+          },
+          {
+            "code": 103,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Nam Thái A"
+          },
+          {
+            "code": 104,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Đông Thái"
+          },
+          {
+            "code": 105,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Biên",
+            "district": "Xã Đông Yên"
+          }
+        ]
+      },
+      {
+        "code": 106,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện An Minh",
+        "postalCode": "94000106",
+        "district": null,
+        "districtList": [
+          {
+            "code": 107,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Thị trấn Thứ Mười Một"
+          },
+          {
+            "code": 108,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Thuận Hoà"
+          },
+          {
+            "code": 109,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Đông Hòa"
+          },
+          {
+            "code": 110,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Đông Thạnh"
+          },
+          {
+            "code": 111,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Tân Thạnh"
+          },
+          {
+            "code": 112,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Đông Hưng"
+          },
+          {
+            "code": 113,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Đông Hưng A"
+          },
+          {
+            "code": 114,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Đông Hưng B"
+          },
+          {
+            "code": 115,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Vân Khánh"
+          },
+          {
+            "code": 116,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Vân Khánh Đông"
+          },
+          {
+            "code": 117,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện An Minh",
+            "district": "Xã Vân Khánh Tây"
+          }
+        ]
+      },
+      {
+        "code": 118,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Vĩnh Thuận",
+        "postalCode": "94000118",
+        "district": null,
+        "districtList": [
+          {
+            "code": 119,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Vĩnh Bình Bắc"
+          },
+          {
+            "code": 120,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Vĩnh Bình Nam"
+          },
+          {
+            "code": 121,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Bình Minh"
+          },
+          {
+            "code": 122,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Vĩnh Thuận"
+          },
+          {
+            "code": 123,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Tân Thuận"
+          },
+          {
+            "code": 124,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Phong Đông"
+          },
+          {
+            "code": 125,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Vĩnh Thuận",
+            "district": "Xã Vĩnh Phong"
+          }
+        ]
+      },
+      {
+        "code": 126,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Thành phố Phú Quốc",
+        "postalCode": "94000126",
+        "district": null,
+        "districtList": [
+          {
+            "code": 127,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Phường Dương Đông"
+          },
+          {
+            "code": 128,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Phường An Thới"
+          },
+          {
+            "code": 129,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Cửa Cạn"
+          },
+          {
+            "code": 130,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Gành Dầu"
+          },
+          {
+            "code": 131,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Cửa Dương"
+          },
+          {
+            "code": 132,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Hàm Ninh"
+          },
+          {
+            "code": 133,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Dương Tơ"
+          },
+          {
+            "code": 134,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Bãi Thơm"
+          },
+          {
+            "code": 135,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Thành phố Phú Quốc",
+            "district": "Xã Thổ Châu"
+          }
+        ]
+      },
+      {
+        "code": 136,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Kiên Hải",
+        "postalCode": "94000136",
+        "district": null,
+        "districtList": [
+          {
+            "code": 137,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Kiên Hải",
+            "district": "Xã Hòn Tre"
+          },
+          {
+            "code": 138,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Kiên Hải",
+            "district": "Xã Lại Sơn"
+          },
+          {
+            "code": 139,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Kiên Hải",
+            "district": "Xã An Sơn"
+          },
+          {
+            "code": 140,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Kiên Hải",
+            "district": "Xã Nam Du"
+          }
+        ]
+      },
+      {
+        "code": 141,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện U Minh Thượng",
+        "postalCode": "94000141",
+        "district": null,
+        "districtList": [
+          {
+            "code": 142,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh Thượng",
+            "district": "Xã Thạnh Yên"
+          },
+          {
+            "code": 143,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh Thượng",
+            "district": "Xã Thạnh Yên A"
+          },
+          {
+            "code": 144,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh Thượng",
+            "district": "Xã An Minh Bắc"
+          },
+          {
+            "code": 145,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh Thượng",
+            "district": "Xã Vĩnh Hòa"
+          },
+          {
+            "code": 146,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh Thượng",
+            "district": "Xã Hoà Chánh"
+          },
+          {
+            "code": 147,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện U Minh Thượng",
+            "district": "Xã Minh Thuận"
+          }
+        ]
+      },
+      {
+        "code": 148,
+        "city": "Thành Phố/Huyện/ Thị Xã",
+        "category": "Huyện Giang Thành",
+        "postalCode": "94000148",
+        "district": null,
+        "districtList": [
+          {
+            "code": 149,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Giang Thành",
+            "district": "Xã Vĩnh Phú"
+          },
+          {
+            "code": 150,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Giang Thành",
+            "district": "Xã Vĩnh Điều"
+          },
+          {
+            "code": 151,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Giang Thành",
+            "district": "Xã Tân Khánh Hòa"
+          },
+          {
+            "code": 152,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Giang Thành",
+            "district": "Xã Phú Lợi"
+          },
+          {
+            "code": 153,
+            "city": "Phường/Xã/Thị trấn",
+            "category": "Huyện Giang Thành",
+            "district": "Xã Phú Mỹ"
+          }
+        ]
+      }
+    ]
+  }
+]
