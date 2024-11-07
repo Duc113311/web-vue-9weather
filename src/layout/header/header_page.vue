@@ -1,10 +1,10 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="w-full bg-header overflow-hidden sticky top-0 z-50">
+  <div class="w-full bg-header overflow-hidden sticky top-0 header-page">
     <div class="w-full bg-header h-full pad-big">
       <div class="w-full h-full container">
         <!-- Header -->
-        <div class="w-full h-[40px]">
+        <div class="w-full">
           <!--  -->
           <div class="w-full flex justify-between items-center h-full">
             <!-- Logo -->
@@ -76,7 +76,7 @@
             <div
               class="nav-menu md:w-[600px] w-full h-full flex justify-end items-center"
             >
-              <div
+              <!-- <div
                 class="md:flex items-center pl-4 pr-4 gap-1 text-white txt_regular"
               >
                 <div class="flex items-center gap-1">
@@ -97,6 +97,21 @@
                   >
                   <span class="ml-1" id="dateValue">| {{ dateValue }}</span>
                 </span>
+              </div> -->
+              <div class="flex items-center mr-4">
+                <div class="flex items-center gap-1">
+                  <img
+                    class="size-img"
+                    src="../../assets/images/svg/ic_oclock.svg"
+                    alt=""
+                  />
+                  <div class="text-left">
+                    <span>{{ $t("Local_time") }}:</span>
+                  </div>
+                </div>
+                <span id="s-date-time" class="flex items-center ml-2">
+                  {{ vietnamTime }}
+                </span>
               </div>
 
               <img
@@ -116,6 +131,9 @@
 <script>
 import { Search } from "@element-plus/icons-vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
+
+import { formatInTimeZone } from "date-fns-tz";
+
 import {
   convertCtoF,
   codeToFind,
@@ -149,7 +167,18 @@ export default {
       minutes: "",
       second: "",
       dateValue: "",
+
+      vietnamTime: "",
+      usTime: "",
+      userTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Múi giờ của người dùng
     };
+  },
+
+  props: {
+    isShowHeaderMenu: {
+      type: Boolean,
+      default: () => false,
+    },
   },
 
   computed: {
@@ -216,6 +245,22 @@ export default {
       "getFormattedAddress",
     ]),
 
+    updateTime() {
+      const now = new Date();
+
+      // Định dạng giờ Việt Nam (Asia/Ho_Chi_Minh)
+      const timeZone = this.userTimeZone;
+      this.vietnamTime = formatInTimeZone(
+        now,
+        timeZone,
+        "HH:mm:ss | dd/MM/yyyy"
+      );
+
+      // // Định dạng giờ Mỹ (America/New_York)
+      // const timeZoneUS = this.userTimeZone;
+      // this.usTime = formatInTimeZone(now, timeZoneUS, "HH:mm:ss | dd/MM/yyyy");
+    },
+
     convertFahrenheitToCelsius(value) {
       if (isNaN(value) || value == null) {
         return "";
@@ -240,20 +285,24 @@ export default {
     },
 
     onClickShowMenu() {
-      this.$emit("onChangeShowDraw", true);
+      debugger;
+      if (this.isShowHeaderMenu) {
+        return this.$emit("onChangeShowHeaderMenu", false);
+      }
+      this.$emit("onChangeShowHeaderMenu", true);
     },
 
-    updateTime() {
-      const now = new Date();
-      // Lấy giờ, phút, giây và định dạng lại nếu cần thiết
-      this.hour = this.formatTimeUnit(now.getHours());
-      this.minutes = this.formatTimeUnit(now.getMinutes());
-      this.second = this.formatTimeUnit(now.getSeconds());
+    // updateTime() {
+    //   const now = new Date();
+    //   // Lấy giờ, phút, giây và định dạng lại nếu cần thiết
+    //   this.hour = this.formatTimeUnit(now.getHours());
+    //   this.minutes = this.formatTimeUnit(now.getMinutes());
+    //   this.second = this.formatTimeUnit(now.getSeconds());
 
-      // Định dạng ngày tháng
-      const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-      this.dateValue = now.toLocaleDateString("en-US", options);
-    },
+    //   // Định dạng ngày tháng
+    //   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    //   this.dateValue = now.toLocaleDateString("en-US", options);
+    // },
     formatTimeUnit(unit) {
       // Định dạng lại số để có hai chữ số (vd: 01, 02, ..., 12)
       return unit < 10 ? "0" + unit : unit;
@@ -683,5 +732,19 @@ export default {
 
 .p-li {
   padding: 4px;
+}
+.header-page {
+  z-index: 100;
+}
+
+@media (min-width: 768px) {
+  .basic-header .header-page {
+    height: 62px;
+  }
+}
+
+.basic-header .header-page {
+  background-color: #1f1f1f;
+  height: 78px;
 }
 </style>

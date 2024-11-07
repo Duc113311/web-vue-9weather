@@ -1,6 +1,28 @@
 <template>
-  <div class="w-full h-full">
-    <router-view />
+  <div class="">
+    <!-- header -->
+
+    <div class="basic-header menu-open">
+      <HeaderPage
+        @onChangeShowHeaderMenu="onChangeShowHeaderMenu"
+        :isShowHeaderMenu="isShowHeaderMenu"
+      ></HeaderPage>
+      <HeaderMenu v-show="isShowHeaderMenu"></HeaderMenu>
+    </div>
+    <div class="header-placeholder"></div>
+
+    <div class="body-app relative body-n">
+      <NavBottom></NavBottom>
+
+      <div class="w-full pad-big">
+        <router-view />
+        <!--  -->
+      </div>
+    </div>
+
+    <FooterPage></FooterPage>
+
+    <!-- Header menu -->
   </div>
 </template>
 <script>
@@ -14,14 +36,26 @@ import {
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { data } from "autoprefixer";
+import HeaderPage from "@/layout/header/header_page.vue";
+import NavBottom from "@/layout/tabbar-bottom/nav-bottom.vue";
+import FooterPage from "@/layout/footer/footer-page.vue";
+import HeaderMenu from "@/layout/header/header-menu.vue";
 
 export default {
   name: "dash-page",
 
+  components: {
+    HeaderPage,
+    NavBottom,
+    FooterPage,
+    HeaderMenu,
+    // NavTabbar,
+  },
   data() {
     return {
       suggestionsTop100: [],
       provinces: [],
+      isShowHeaderMenu: false,
     };
   },
 
@@ -61,6 +95,10 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapActions("idFindModule", ["getIpLocation"]),
+
+    onChangeShowHeaderMenu(value) {
+      this.isShowHeaderMenu = value;
+    },
 
     loadProvinces() {
       // Sử dụng require.context để import tất cả file JSON trong thư mục "provinces"
@@ -203,6 +241,7 @@ export default {
      */
     async getIpLocationHandle(value) {
       try {
+        debugger;
         const codeLocation = encodeBase64(value);
         await this.getWeatherDataIp(codeLocation).then(async (data) => {
           debugger;
@@ -281,4 +320,27 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.body-n {
+  z-index: 99;
+}
+
+.basic-header {
+  color: #fff;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: visible !important;
+  z-index: 2147483647;
+}
+@media (min-width: 768px) {
+  .header-placeholder {
+    height: 62px;
+  }
+}
+
+.header-placeholder {
+  height: 78px;
+}
+</style>

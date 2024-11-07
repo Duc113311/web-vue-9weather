@@ -1,36 +1,14 @@
 <template>
-  <div class="relative h-auto">
-    <div class="body-app show-scroll h-full">
-      <!-- header -->
-
-      <HeaderPage @onChangeShowDraw="onChangeShowDraw"></HeaderPage>
-
-      <NavBottom></NavBottom>
-
-      <div class="w-full pad-big">
-        <router-view />
-        <!--  -->
-      </div>
-
-      <FooterPage></FooterPage>
-    </div>
+  <div class="">
+    <router-view />
   </div>
 </template>
 <script>
-import HeaderPage from "./layout/header/header_page";
 import { mapMutations } from "vuex";
-import NavBottom from "./layout/tabbar-bottom/nav-bottom.vue";
-import FooterPage from "./layout/footer/footer-page.vue";
 
 export default {
   name: "App-V2",
 
-  components: {
-    HeaderPage,
-    NavBottom,
-    FooterPage,
-    // NavTabbar,
-  },
   data() {
     return {
       drawerValue: false,
@@ -90,18 +68,6 @@ export default {
 
   methods: {
     ...mapMutations(["setObjectSetting", "setObjectSettingNotLocal"]),
-    onChangeShowDraw(val) {
-      debugger;
-      this.drawerValue = val;
-    },
-
-    onCancelFormDraw(val) {
-      this.drawerValue = val;
-    },
-
-    handleRouteLoaded() {
-      this.isContentLoaded = true;
-    },
   },
 };
 </script>
