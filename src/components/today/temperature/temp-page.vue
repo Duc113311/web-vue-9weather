@@ -19,10 +19,14 @@
           :dailyOneData="dailyOneData"
         ></HeaderTemp>
         <!--  -->
-        <TabNavigation></TabNavigation>
+        <TabNavigation @onChangeTabChart="onChangeTabChart"></TabNavigation>
         <!--  -->
         <div class="w-[550px] h-[368px]">
-          <ChartTempRain></ChartTempRain>
+          <ChartTempRain v-show="indexChart === 0"></ChartTempRain>
+          <UvChartPage v-show="indexChart === 1"> </UvChartPage>
+          <WindChartPage v-show="indexChart === 2"> </WindChartPage>
+          <HumidChartPage v-show="indexChart === 3"></HumidChartPage>
+          <PressureChartPage v-show="indexChart === 3"></PressureChartPage>
         </div>
 
         <!--  -->
@@ -36,6 +40,10 @@ import HeaderTemp from "./header-temp.vue";
 import TabNavigation from "./tab-navigation.vue";
 import ChartTempRain from "./chart-temp-rain.vue";
 import { mapGetters } from "vuex";
+import UvChartPage from "../uv-chart/uv-chart-page.vue";
+import WindChartPage from "../wind-chart/wind-chart-page.vue";
+import HumidChartPage from "../humid-chart/humid-chart-page.vue";
+import PressureChartPage from "../pressure-chart/pressure-chart-page.vue";
 
 export default {
   name: "temp-page",
@@ -45,6 +53,10 @@ export default {
     HeaderTemp,
     TabNavigation,
     ChartTempRain,
+    UvChartPage,
+    WindChartPage,
+    HumidChartPage,
+    PressureChartPage,
   },
 
   computed: {
@@ -62,10 +74,16 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      indexChart: 0,
+    };
   },
 
-  methods: {},
+  methods: {
+    onChangeTabChart(value) {
+      this.indexChart = value;
+    },
+  },
 };
 </script>
 <style lang=""></style>

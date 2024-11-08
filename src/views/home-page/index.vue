@@ -185,6 +185,8 @@ export default {
       return this.currentlyGetters;
     },
   },
+
+  methods: {},
 };
 </script>
 <style lang="scss">

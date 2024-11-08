@@ -6,6 +6,7 @@
         v-for="(item, index) in listTab"
         :class="{ 'active-tab': activeIndex === index }"
         :key="index"
+        @click="onClickTabChart(index)"
       >
         <p>{{ item }}</p>
       </div>
@@ -21,6 +22,12 @@ export default {
       listTab: ["Today", "UV", "Wind", "Humid", "Pressure"],
       activeIndex: 0,
     };
+  },
+
+  methods: {
+    onClickTabChart(value) {
+      this.$emit("onChangeTabChart", value);
+    },
   },
 };
 </script>
