@@ -7,7 +7,10 @@
         @onChangeShowHeaderMenu="onChangeShowHeaderMenu"
         :isShowHeaderMenu="isShowHeaderMenu"
       ></HeaderPage>
-      <HeaderMenu v-show="isShowHeaderMenu"></HeaderMenu>
+      <HeaderMenu
+        v-show="isShowHeaderMenu"
+        @onChangeCloseMenu="onChangeShowHeaderMenu"
+      ></HeaderMenu>
     </div>
     <div class="header-placeholder"></div>
 
@@ -87,6 +90,7 @@ export default {
     ...mapMutations("commonModule", [
       "setBreadcumsNotAllowLocation",
       "setBreadcumsAllowLocation",
+      "setObjectCityByLocation",
     ]),
 
     ...mapActions("weatherModule", [
@@ -100,31 +104,6 @@ export default {
       this.isShowHeaderMenu = value;
     },
 
-    // loadProvinces() {
-    //   // Sử dụng require.context để import tất cả file JSON trong thư mục "provinces"
-    //   const context = require.context("/public/json/vietnam", false, /\.json$/);
-    //
-    //   // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
-    //   const provincesData = context.keys().map((key) => {
-    //
-    //     const provinceData = context(key); // Load dữ liệu từ file
-
-    //     this.provinces.push(provinceData);
-    //     // return {
-    //     //   code: provinceData.code,
-    //     //   city: provinceData.city,
-    //     //   category: provinceData.category,
-    //     //   district: provinceData.district,
-    //     //   districtList: provinceData.districtList,
-    //     // };
-    //   });
-    //
-
-    //   // Gán dữ liệu đã gom vào data "provinces"
-    //   // this.provinces = provincesData;
-
-    //   console.log("provinces", this.provinces);
-    // },
     async loadProvince() {
       try {
         const response = await fetch("./file-txt/city.json");
@@ -132,7 +111,8 @@ export default {
         debugger;
         const data = await response.json(); // Parse JSON data
         console.log("data", data);
-        this.provinceData = data; // Assign data to a component variable
+        this.provinceData = data;
+        this.setObjectCityByLocation(this.provinceData);
       } catch (error) {
         console.error("Error loading file:", error);
       }

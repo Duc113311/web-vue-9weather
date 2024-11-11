@@ -1,23 +1,74 @@
 <template>
   <div class="w-full h-[60px] bg-nav flex items-center">
-    <div class="container">
+    <div class="container relative">
       <div class="flex justify-between items-center pad-b-t text-white">
         <!-- left -->
         <div class="flex items-center gap-4">
-          <div class="flex items-center gap-2 cursor-pointer">
-            <img
-              src="../../assets/images/svg_v2/ic_city.svg"
-              width="24"
-              alt=""
-              srcset=""
-            />
-            <span>District/City</span>
-            <img
-              src="../../assets/images/svg_v2/ic_chevron_up.svg"
-              width="24"
-              alt=""
-            />
+          <div class="h-district">
+            <div class="flex items-center gap-2 cursor-pointer">
+              <img
+                src="../../assets/images/svg_v2/ic_city.svg"
+                width="24"
+                alt=""
+                srcset=""
+              />
+              <span>District/City</span>
+              <img
+                src="../../assets/images/svg_v2/ic_chevron_up.svg"
+                width="24"
+                alt=""
+              />
+            </div>
+
+            <div class="mega-box container">
+              <div class="content">
+                <div class="container-c">
+                  <!--  -->
+                  <div class="region">
+                    <h2>Đông Bắc Bộ</h2>
+                    <ul>
+                      <li>Bắc Giang</li>
+                      <li>Bắc Kạn</li>
+                      <li>Cao Bằng</li>
+                      <li>Hà Giang</li>
+                      <li>Lạng Sơn</li>
+                      <li>Phú Thọ</li>
+                      <li>Quảng Ninh</li>
+                      <li>Thái Nguyên</li>
+                      <li>Tuyên Quang</li>
+                    </ul>
+                  </div>
+                  <div class="region">
+                    <h2>Tây Bắc Bộ</h2>
+                    <ul>
+                      <li>Hoà Bình</li>
+                      <li>Lai Châu</li>
+                      <li>Lào Cai</li>
+                      <li>Sơn La</li>
+                      <li>Yên Bái</li>
+                      <li>Điện Biên</li>
+                    </ul>
+                  </div>
+                  <div class="region">
+                    <h2>Đồng bằng sông Hồng</h2>
+                    <ul>
+                      <li>Bắc Ninh</li>
+                      <li>Hà Nam</li>
+                      <li>Hà Nội</li>
+                      <li>Hải Dương</li>
+                      <li>Hải Phòng</li>
+                      <li>Hưng Yên</li>
+                      <li>Nam Định</li>
+                      <li>Ninh Bình</li>
+                      <li>Thái Bình</li>
+                      <li>Vĩnh Phúc</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div
             class="flex items-center gap-2 cursor-pointer"
             @click="onClickShowWidget()"
@@ -74,13 +125,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
+    ...mapGetters("commonModule", [
+      "breadcumsObjectGetters",
+      "objectCityByLocationGetters",
+    ]),
     renderLanguage() {
       return this.$route.params.language ? this.$route.params.language : "en";
     },
 
     breadcumsObject() {
       return this.breadcumsObjectGetters;
+    },
+
+    objectCity() {
+      return this.objectCityByLocationGetters;
     },
   },
 
@@ -152,5 +210,72 @@ export default {
 .bg-bth {
   background-color: #e3eefb;
   color: #0d2952;
+}
+.h-district:hover .mega-box {
+  transition: all 0.3s ease;
+  top: 30px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}
+
+.mega-box {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 115px;
+  opacity: 0;
+  visibility: visible;
+  color: black;
+  z-index: -1;
+}
+
+.mega-box .content {
+  background: #ffffff;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.mega-box .region {
+  // background-color: #fff;
+  // border: 1px solid #ddd;
+  // border-radius: 4px;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  // margin: 10px;
+  // padding: 20px;
+  width: 208px;
+  margin-top: 10px;
+}
+
+.mega-box .container-c {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  text-align: left;
+}
+
+.mega-box .region h2 {
+  font-size: 14px;
+  margin-top: 0;
+  color: #007bff;
+  padding-left: 20px;
+}
+
+.mega-box .region ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mega-box .region ul li {
+  margin: 5px 0;
+  font-size: 12px;
+  padding-left: 20px;
+}
+
+.mega-box .region ul li:hover {
+  background-color: aqua;
 }
 </style>

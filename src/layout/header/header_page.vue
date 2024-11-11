@@ -20,7 +20,7 @@
                 ></div>
 
                 <!-- <div class="flex justify-between items-center md:pt-2 pt-0">
-                  <div>
+                  <div> 
                     <div class="flex items-center gap-1">
                       <div class="items-center flex gap-1">
                         <span class="txt_regular">
@@ -653,74 +653,6 @@ export default {
 <style lang="scss">
 .nav-links {
   margin-top: 4px;
-}
-.nav-links li:hover .mega-box {
-  // display: block;
-  transition: all 0.3s ease;
-  top: 100px;
-  opacity: 1;
-  visibility: visible;
-  z-index: 10;
-}
-.mega-box {
-  // display: none;
-  position: absolute;
-  left: 0px;
-  width: 60%;
-  padding: 0 30px;
-  top: 115px;
-  opacity: 0;
-  visibility: visible;
-  color: black;
-  z-index: -1;
-}
-.mega-box .content {
-  background: #ffffff;
-  padding: 25px 20px;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-.mega-box .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  // padding: 20px;
-  text-align: left;
-}
-
-.mega-box .region {
-  // background-color: #fff;
-  // border: 1px solid #ddd;
-  // border-radius: 4px;
-  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  // margin: 10px;
-  // padding: 20px;
-  width: 208px;
-  margin-top: 10px;
-}
-
-.mega-box .region h2 {
-  font-size: 14px;
-  margin-top: 0;
-  color: #007bff;
-  padding-left: 20px;
-}
-
-.mega-box .region ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.mega-box .region ul li {
-  margin: 5px 0;
-  font-size: 12px;
-  padding-left: 20px;
-}
-
-.mega-box .region ul li:hover {
-  background-color: aqua;
 }
 
 .p-li {

@@ -93,6 +93,8 @@ const state = {
   codeLanguage: "en",
   indexKey: 0,
   weatherWidget: {},
+
+  objectCityByLocation: [],
 };
 
 const getters = {
@@ -104,9 +106,16 @@ const getters = {
   breadcumsObjectGetters(state) {
     return state.breadcumsObject;
   },
+
+  objectCityByLocationGetters(state) {
+    return state.objectCityByLocation;
+  },
 };
 
 const mutations = {
+  setObjectCityByLocation(state, data) {
+    state.objectCityByLocation = data;
+  },
   /**
    * Xét giá trị location khi cho phép truy cập
    * @param {*} state

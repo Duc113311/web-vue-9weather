@@ -14,10 +14,12 @@
         @click="onClickCancel"
         src="../../assets/images/svg_v2/ic_close.svg"
         alt=""
+        width="24"
+        class="cursor-pointer"
       />
     </div>
 
-    <div class="address-now pt-3 pb-3 text-left">
+    <div class="address-now pt-4 pb-4 text-left">
       {{ breadcumsObject?.district }},
       {{ convertToEnglishRender(breadcumsObject?.city) }},
       {{ breadcumsObject?.country }}
@@ -72,7 +74,7 @@ export default {
     onClickUnitSetting(value) {},
 
     onClickCancel() {
-      this;
+      this.$emit("onChangeCloseMenu", false);
     },
   },
 };
@@ -88,7 +90,7 @@ export default {
 }
 @media (min-width: 768px) {
   .header-menu {
-    background: linear-gradient(to bottom, #5a60a3, #686876);
+    background: linear-gradient(to bottom, #7781ee, #a6a6c4);
     -webkit-box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     color: #000;
