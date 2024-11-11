@@ -63,12 +63,10 @@ export default {
     ...mapGetters("weatherModule", ["currentlyGetters", "dailyOneGetters"]),
 
     currentlyData() {
-      debugger;
       return this.currentlyGetters;
     },
 
     dailyOneData() {
-      debugger;
       return this.dailyOneGetters;
     },
   },

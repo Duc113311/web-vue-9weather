@@ -56,11 +56,13 @@ export default {
       suggestionsTop100: [],
       provinces: [],
       isShowHeaderMenu: false,
+      provinceData: null,
     };
   },
 
   mounted() {
-    debugger;
+    this.loadProvince();
+
     const objectBread = localStorage.getItem("objectBread");
     if (!objectBread) {
       this.getLocationBrowser();
@@ -78,9 +80,7 @@ export default {
     ]),
   },
 
-  created() {
-    this.loadProvinces();
-  },
+  created() {},
 
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
@@ -100,34 +100,45 @@ export default {
       this.isShowHeaderMenu = value;
     },
 
-    loadProvinces() {
-      // Sử dụng require.context để import tất cả file JSON trong thư mục "provinces"
-      const context = require.context("/public/json/vietnam", false, /\.json$/);
-      debugger;
-      // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
-      const provincesData = context.keys().map((key) => {
+    // loadProvinces() {
+    //   // Sử dụng require.context để import tất cả file JSON trong thư mục "provinces"
+    //   const context = require.context("/public/json/vietnam", false, /\.json$/);
+    //
+    //   // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+    //   const provincesData = context.keys().map((key) => {
+    //
+    //     const provinceData = context(key); // Load dữ liệu từ file
+
+    //     this.provinces.push(provinceData);
+    //     // return {
+    //     //   code: provinceData.code,
+    //     //   city: provinceData.city,
+    //     //   category: provinceData.category,
+    //     //   district: provinceData.district,
+    //     //   districtList: provinceData.districtList,
+    //     // };
+    //   });
+    //
+
+    //   // Gán dữ liệu đã gom vào data "provinces"
+    //   // this.provinces = provincesData;
+
+    //   console.log("provinces", this.provinces);
+    // },
+    async loadProvince() {
+      try {
+        const response = await fetch("./file-txt/city.json");
+        if (!response.ok) throw new Error("Failed to fetch data");
         debugger;
-        const provinceData = context(key); // Load dữ liệu từ file
-
-        this.provinces.push(provinceData);
-        // return {
-        //   code: provinceData.code,
-        //   city: provinceData.city,
-        //   category: provinceData.category,
-        //   district: provinceData.district,
-        //   districtList: provinceData.districtList,
-        // };
-      });
-      debugger;
-
-      // Gán dữ liệu đã gom vào data "provinces"
-      // this.provinces = provincesData;
-
-      console.log("provinces", this.provinces);
+        const data = await response.json(); // Parse JSON data
+        console.log("data", data);
+        this.provinceData = data; // Assign data to a component variable
+      } catch (error) {
+        console.error("Error loading file:", error);
+      }
     },
 
     async handleLocation(dataValue) {
-      debugger;
       let latitude = dataValue.latitude;
       let longitude = dataValue.longitude;
 
@@ -190,7 +201,6 @@ export default {
      * @param position
      */
     async setPosition(position) {
-      debugger;
       let latitude = position.coords.latitude;
       let longitude = position.coords.longitude;
 
@@ -241,13 +251,11 @@ export default {
      */
     async getIpLocationHandle(value) {
       try {
-        debugger;
         const codeLocation = encodeBase64(value);
         await this.getWeatherDataIp(codeLocation).then(async (data) => {
-          debugger;
           const valueNew = decodeBase64(data);
           console.log("valueNew", valueNew);
-          debugger;
+
           // API Lấy vị trí
           await this.getIpLocation(valueNew).then(async (data) => {
             console.log("data-loc", data);
@@ -297,8 +305,6 @@ export default {
      * @param error
      */
     async showError(error) {
-      debugger;
-
       let param =
         "version=1&type=1&app_id=amobi.weather.forecast.storm.radar&request=https://ipfind.co/me?auth=TOH_KEY";
       switch (error.code) {

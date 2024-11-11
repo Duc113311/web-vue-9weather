@@ -73,7 +73,6 @@ export default {
     },
 
     renderCountry() {
-      debugger;
       return this.$route.params.country
         ? this.$route.params.country
         : this.breadcumsObjectGetters?.country;
@@ -100,16 +99,14 @@ export default {
   },
 
   mounted() {
-    debugger;
     const nameRouter = this.$route.name;
     this.activeIndex = this.menuItems.findIndex((x) => x.name === nameRouter);
 
     if (this.activeIndex === -1) {
       this.activeIndex = 0;
     }
-    debugger;
+
     this.setTitleScream(this.activeIndex);
-    debugger;
   },
 
   methods: {

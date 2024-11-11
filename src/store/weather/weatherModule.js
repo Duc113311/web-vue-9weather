@@ -116,7 +116,6 @@ const mutations = {
 
   setWeather30DayData(state, data) {
     state.weatherData30Day = JSON.parse(decodeBase64(data));
-    debugger;
     console.log("state.weatherData30Day", state.weatherData30Day);
 
     state.listDaily30Day = state.weatherData30Day.daily.data;
@@ -169,7 +168,6 @@ const actions = {
         .get(`api.php?param=${data}`)
         .then((response) => {
           if (response.status === 200) {
-            debugger;
             resolve(response.data);
           } else {
             reject("Error: API returned non-200 status");
@@ -205,7 +203,6 @@ const actions = {
         .get(`api.php?param=${data}`)
         .then((response) => {
           if (response.status === 200) {
-            debugger;
             commit("setWeather30DayData", response.data);
             resolve(response.data);
           } else {

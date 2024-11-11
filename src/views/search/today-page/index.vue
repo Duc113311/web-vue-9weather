@@ -190,7 +190,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     const keyLanguage = this.$route.params.language;
 
     localStorage.setItem("language", keyLanguage); // Lưu lại
@@ -199,7 +198,6 @@ export default {
   methods: {},
 
   beforeRouteLeave(to, from, next) {
-    debugger;
     window.location.replace(to.fullPath);
     next(); // Cho phép chuyển route
   },

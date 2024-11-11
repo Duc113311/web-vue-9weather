@@ -97,7 +97,6 @@ const actions = {
       });
 
       if (response.status === 200) {
-        debugger;
         commit("setAirQualityByKey", response.data);
         return response.data;
       } else {

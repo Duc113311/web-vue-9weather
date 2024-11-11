@@ -68,9 +68,7 @@ export default {
 
   watch: {
     paramHourly(newData) {
-      debugger;
       if (newData.length !== 0) {
-        debugger;
         this.$nextTick(() => {
           this.createChartHourly24h();
         });
@@ -79,7 +77,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     if (this.paramHourly && this.paramHourly.length) {
       this.$nextTick(() => {
         this.createChartHourly24h();

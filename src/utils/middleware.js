@@ -5,7 +5,6 @@
  */
 export function saveRecentLocalStorage(key, value) {
   let storedData = JSON.parse(localStorage.getItem(key)) || [];
-  debugger;
   // Nếu mảng đã đủ 3 phần tử, xóa phần tử đầu tiên
   if (storedData.length === 3) {
     storedData.pop();

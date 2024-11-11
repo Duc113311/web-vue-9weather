@@ -216,7 +216,6 @@ export default {
     setInterval(() => {
       this.updateTime();
     }, 1000);
-    debugger;
 
     this.loadDataTop100();
     this.loadDataTopFull();
@@ -285,7 +284,6 @@ export default {
     },
 
     onClickShowMenu() {
-      debugger;
       if (this.isShowHeaderMenu) {
         return this.$emit("onChangeShowHeaderMenu", false);
       }
@@ -376,7 +374,6 @@ export default {
     async handleSelect(item) {
       this.valueSearch = item.value;
 
-      debugger;
       const dataLocation = {
         city: item.value,
         code: item.code,
@@ -404,7 +401,7 @@ export default {
       console.log("item-search", item);
 
       // this.setUpdateBreadcumsObject(item);
-      debugger;
+
       await this.$router.push({
         path: `/${language}/${item.country}/${item.value}/${item.lat},${item.lng}/today-weather`,
       });
@@ -429,7 +426,6 @@ export default {
     async getValueWeatherByRecent(value) {
       const objectLocation = value;
 
-      debugger;
       for (let index = 0; index < objectLocation.length; index++) {
         const element = objectLocation[index];
         const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${element.latitude},${element.longitude}?lang=en`;
@@ -454,7 +450,7 @@ export default {
 
     saveToLocalStorage(key, value) {
       let storedData = JSON.parse(localStorage.getItem(key)) || [];
-      debugger;
+
       // Nếu mảng đã đủ 3 phần tử, xóa phần tử đầu tiên
       if (storedData.length === 3) {
         storedData.pop();
@@ -484,7 +480,6 @@ export default {
       fetch("/file-txt/Top_100_Cities.txt")
         .then((response) => response.text())
         .then((text) => {
-          debugger;
           this.processFileTop100(text);
         })
         .catch((error) => {
@@ -498,8 +493,6 @@ export default {
       fetch("/file-txt/full_city.txt")
         .then((response) => response.text())
         .then((text) => {
-          debugger;
-
           this.processFileTopFull(text);
         })
         .catch((error) => {
@@ -550,7 +543,7 @@ export default {
      */
     async onClickReloadHome() {
       //
-      debugger;
+
       this.valueSearch = "";
 
       localStorage.removeItem("cityName");

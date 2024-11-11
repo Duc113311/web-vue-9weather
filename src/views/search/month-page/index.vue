@@ -176,7 +176,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     this.getWeather30Day();
   },
 
@@ -184,7 +183,6 @@ export default {
     ...mapActions("weatherModule", ["getWeather30DayData"]),
 
     async getWeather30Day() {
-      debugger;
       const objectBread = localStorage.getItem("objectBread");
       if (objectBread) {
         const objectBreadValue = JSON.parse(objectBread);

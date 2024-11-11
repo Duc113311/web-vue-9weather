@@ -26,7 +26,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     // const objectBread = localStorage.getItem("objectBread");
     // this.setBreadcumsNotAllowLocation(objectBread);
   },

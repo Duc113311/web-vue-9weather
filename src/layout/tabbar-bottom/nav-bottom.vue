@@ -99,7 +99,6 @@ export default {
     },
 
     async onClickRechange() {
-      debugger;
       this.valueSearch = "";
 
       localStorage.removeItem("cityName");

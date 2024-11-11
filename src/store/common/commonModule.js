@@ -239,7 +239,6 @@ const mutations = {
   },
 
   setNumberDataDaily(state, data) {
-    debugger;
     state.objectWidget.listDaily = state.weatherWidget.daily.data.slice(
       0,
       data

@@ -2,7 +2,7 @@
   <div class="w-full h-[60px] pt-2">
     <div class="flex w-full justify-between">
       <div
-        class="item-tab pad-tab bor-c bor-radios-big"
+        class="item-tab pad-tab bor-c bor-radios-big cursor-pointer"
         v-for="(item, index) in listTab"
         :class="{ 'active-tab': activeIndex === index }"
         :key="index"
@@ -45,5 +45,9 @@ export default {
 .active-tab {
   background-color: #ffffff;
   color: #0062f5 !important;
+}
+
+.item-tab:hover {
+  background-color: #edfffe38;
 }
 </style>

@@ -49,7 +49,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     this.nameRouter = this.$route.name;
     const unitValue = localStorage.getItem("unit");
     if (unitValue) {

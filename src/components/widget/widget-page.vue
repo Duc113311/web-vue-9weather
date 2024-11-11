@@ -500,7 +500,6 @@ export default {
     },
 
     onChangeTitleBackgroundColor(color) {
-      debugger;
       this.titleBackgroundColor = color;
       this.setTitleBackgroundColor(color);
     },
@@ -655,7 +654,6 @@ export default {
     },
 
     onChangeNumberDay(value) {
-      debugger;
       switch (value) {
         case "number_5":
           this.setNumberDataDaily(5);

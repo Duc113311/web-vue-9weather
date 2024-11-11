@@ -33,7 +33,6 @@ export default {
       const keyCurrentValue = localStorage.getItem("keyCurrent");
       if (keyCurrentValue) {
         const keyCurrent = JSON.parse(keyCurrentValue);
-        debugger;
         await this.getWeatherDataCurrent(keyCurrent);
         const weatherCurrentValue = this.$store.state.getWeather.weatherCurrent;
         if (weatherCurrentValue) {

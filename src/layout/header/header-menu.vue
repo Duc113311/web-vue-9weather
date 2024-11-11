@@ -69,9 +69,7 @@ export default {
       return convertToEnglish(value);
     },
 
-    onClickUnitSetting(value) {
-      debugger;
-    },
+    onClickUnitSetting(value) {},
 
     onClickCancel() {
       this;

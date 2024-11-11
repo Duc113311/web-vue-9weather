@@ -106,8 +106,6 @@ export default {
     ...mapGetters("weatherModule", ["currentlyGetters"]),
 
     currentlyData() {
-      debugger;
-
       console.log("currentlyGetters", this.currentlyGetters);
 
       return this.currentlyGetters;
@@ -123,7 +121,7 @@ export default {
   methods: {
     convertDataDayNight(valueData, isDayNight) {
       let tempAvg = 0;
-      debugger;
+
       if (isDayNight === true) {
         tempAvg =
           (valueData.maxTempDataDay?.temperature +
