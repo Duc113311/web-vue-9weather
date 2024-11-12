@@ -38,7 +38,6 @@ import {
 } from "@/utils/EncoderDecoderUtils.js";
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import { data } from "autoprefixer";
 import HeaderPage from "@/layout/header/header_page.vue";
 import NavBottom from "@/layout/tabbar-bottom/nav-bottom.vue";
 import FooterPage from "@/layout/footer/footer-page.vue";
@@ -66,6 +65,7 @@ export default {
   mounted() {
     this.loadProvince();
 
+    this.loadAllFileJson();
     const objectBread = localStorage.getItem("objectBread");
     if (!objectBread) {
       this.getLocationBrowser();
@@ -91,6 +91,7 @@ export default {
       "setBreadcumsNotAllowLocation",
       "setBreadcumsAllowLocation",
       "setObjectCityByLocation",
+      "setListDetailCityAll",
     ]),
 
     ...mapActions("weatherModule", [
@@ -116,6 +117,23 @@ export default {
       } catch (error) {
         console.error("Error loading file:", error);
       }
+    },
+
+    async loadAllFileJson() {
+      let provinces = [];
+      const context = require.context("/public/json/vietnam", false, /\.json$/);
+      debugger;
+      // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+      const provincesData = context.keys().map((key) => {
+        debugger;
+        const provinceData = context(key); // Load dữ liệu từ file
+
+        provinces.push(provinceData);
+      });
+      debugger;
+      console.log("provinces", provinces);
+      this.setListDetailCityAll(provinces);
+      console.log("provincesData", provincesData);
     },
 
     async handleLocation(dataValue) {

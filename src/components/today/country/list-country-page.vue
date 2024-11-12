@@ -20,6 +20,22 @@
 
       <div class="w-full h-[302px]">
         <!--  -->
+        <div class="flex justify-between items-center pb-2 pt-2">
+          <div>Hồ chí minh</div>
+          <img
+            src="../../../assets/images/svg_v2/ic_rain_data.svg"
+            width="24"
+            alt=""
+          />
+        </div>
+        <div class="flex justify-between items-center pb-2 pt-2">
+          <div>Hồ chí minh</div>
+          <img
+            src="../../../assets/images/svg_v2/ic_rain_data.svg"
+            width="24"
+            alt=""
+          />
+        </div>
       </div>
     </BaseComponent>
   </div>
@@ -36,6 +52,8 @@ export default {
   data() {
     return {};
   },
+
+  computed: {},
 };
 </script>
 <style lang="scss"></style>

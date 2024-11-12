@@ -9,7 +9,7 @@
               width="24"
               alt=""
             />
-            <span>Top 100 city</span>
+            <span>Quận/ huyện lân cận</span>
           </div>
           <div>
             <p>See more</p>
@@ -21,7 +21,7 @@
         <!--  -->
         <div class="district-list">
           <DistrictCardPage
-            v-for="(item, index) in districts"
+            v-for="(item, index) in renderListCityAllGetters"
             :key="index"
             :objectLocation="item"
           ></DistrictCardPage>
@@ -33,6 +33,7 @@
 <script>
 import DistrictCardPage from "@/components/common/card/district-card-page.vue";
 import ItemComponent from "@/components/common/itemComponent.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "list-nearby-location",
@@ -96,6 +97,23 @@ export default {
         // ... thêm các district khác
       ],
     };
+  },
+
+  computed: {
+    ...mapGetters("commonModule", ["listCityAllGetters"]),
+
+    renderListCityAllGetters() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      debugger;
+      console.log("retrievedArray", retrievedArray);
+
+      console.log("listCityAllGetters", this.listCityAllGetters);
+      const findData = this.listCityAllGetters.find(
+        (x) => x.keyLanguage === retrievedArray.keyLanguage
+      );
+
+      return findData.districtList.slice(0, 8);
+    },
   },
 };
 </script>

@@ -106,22 +106,28 @@ export default {
       this.activeIndex = 0;
     }
 
+    debugger;
     this.setTitleScream(this.activeIndex);
   },
 
   methods: {
     setTitleScream(activeIndex) {
+      debugger;
       const valueTitle = [
         this.breadcumsObjectGetters?.district,
         this.breadcumsObjectGetters?.city,
         this.breadcumsObjectGetters?.country,
       ]
+
         .filter(Boolean) // Lọc các giá trị không hợp lệ (undefined, null, '')
         .join(", "); // Kết hợp các giá trị hợp lệ bằng dấu phẩy
       switch (activeIndex) {
         case 0:
-          document.title = valueTitle + ` Today Weather | 9weather`;
+          if (Object.keys(this.$route.params).length !== 0) {
+            document.title = valueTitle + ` Today Weather | 9weather`;
+          }
           break;
+
         case 1:
           document.title = valueTitle + ` Hourly Weather | 9weather`;
           break;

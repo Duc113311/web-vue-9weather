@@ -7,8 +7,8 @@ export default {
 
   props: {
     illuminatePercent: {
-      type: Number,
-      default: 60,
+      type: String,
+      default: "",
     },
     isClipFromStart: {
       type: Boolean,

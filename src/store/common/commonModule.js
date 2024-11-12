@@ -95,6 +95,7 @@ const state = {
   weatherWidget: {},
 
   objectCityByLocation: [],
+  listCityAll: [],
 };
 
 const getters = {
@@ -110,11 +111,24 @@ const getters = {
   objectCityByLocationGetters(state) {
     return state.objectCityByLocation;
   },
+
+  listCityAllGetters(state) {
+    return state.listCityAll;
+  },
 };
 
 const mutations = {
   setObjectCityByLocation(state, data) {
+    console.log("objectCityByLocation", data);
+    sessionStorage.setItem("dataCityLog", JSON.stringify(data));
+
     state.objectCityByLocation = data;
+  },
+
+  setListDetailCityAll(state, data) {
+    sessionStorage.setItem("dataCityAll", JSON.stringify(data));
+
+    state.listCityAll = data;
   },
   /**
    * Xét giá trị location khi cho phép truy cập
@@ -139,6 +153,7 @@ const mutations = {
    */
   setBreadcumsNotAllowLocation(state, data) {
     //
+    debugger;
     (state.breadcumsObject.country = data?.country), // Quốc gia
       (state.breadcumsObject.countryCode = data?.country_code), // Quốc gia
       (state.breadcumsObject.city = data?.city), // Thành phố

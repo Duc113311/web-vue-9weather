@@ -44,13 +44,16 @@ export default {
      * Gán giá trị breadcums
      */
     breadcumsObject() {
-      return this.breadcumsObjectGetters;
+      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
   },
 
   methods: {
     convertToEnglishRender(value) {
-      return convertToEnglish(value);
+      return value;
     },
   },
 };

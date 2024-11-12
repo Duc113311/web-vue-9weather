@@ -41,27 +41,27 @@ const routes = [
         component: HomePageV2,
       },
       {
-        path: ":language/:country/:city/:coordinates/",
+        path: ":language",
         name: "city-page",
         component: SearchPage,
         children: [
           {
-            path: `today-weather`, // Add ':language' as a dynamic segment
+            path: `today-weather/:country/:city`, // Add ':language' as a dynamic segment
             name: "today-weather",
             component: () => import("@/views/search/today-page/index.vue"), // Component cho route con
           },
           {
-            path: `month-weather`, // Add ':language' as a dynamic segment
+            path: `month-weather/:country/:city`, // Add ':language' as a dynamic segment
             name: "month-weather",
             component: () => import("@/views/search/month-page/index.vue"), // Component cho route con
           },
           {
-            path: `hourly-weather`, // Add ':language' as a dynamic segment
+            path: `hourly-weather/:country/:city`, // Add ':language' as a dynamic segment
             name: "hourly-weather",
             component: () => import("@/views/search/hourly-page/index.vue"), // Component cho route con
           },
           {
-            path: `radar-weather`, // Add ':language' as a dynamic segment
+            path: `radar-weather/:country/:city`, // Add ':language' as a dynamic segment
             name: "radar-weather",
             component: () => import("@/views/search/radar-page/index.vue"), // Component cho route con
           },

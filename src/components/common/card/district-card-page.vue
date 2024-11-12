@@ -2,24 +2,16 @@
   <div class="">
     <!--  -->
     <div class="district-card">
-      <h3 class="text-center txt_medium">
-        {{ objectLocation?.name }}
-      </h3>
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center p-4">
         <img
           src="../../../assets/images/svg_v2/ic_rain_data.svg"
           alt="Weather icon"
           width="36"
         />
       </div>
-      <div>
-        <p class="txt_medium_des text-center">
-          {{ objectLocation?.condition }}
-        </p>
-        <p class="txt_medium_des text-center">
-          {{ objectLocation?.lowTemp }}°C | {{ objectLocation?.highTemp }}°C
-        </p>
-      </div>
+      <h3 class="text-center txt_medium">
+        {{ convertLanguage(objectLocation, "en") }}
+      </h3>
     </div>
   </div>
 </template>
@@ -38,7 +30,11 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    convertLanguage(data, language) {
+      return data.languages[language];
+    },
+  },
 };
 </script>
 <style lang="scss">

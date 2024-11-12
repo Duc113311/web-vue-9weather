@@ -20,49 +20,27 @@
               />
             </div>
 
-            <div class="mega-box container">
-              <div class="content">
-                <div class="container-c">
-                  <!--  -->
-                  <div class="region">
-                    <h2>Đông Bắc Bộ</h2>
-                    <ul>
-                      <li>Bắc Giang</li>
-                      <li>Bắc Kạn</li>
-                      <li>Cao Bằng</li>
-                      <li>Hà Giang</li>
-                      <li>Lạng Sơn</li>
-                      <li>Phú Thọ</li>
-                      <li>Quảng Ninh</li>
-                      <li>Thái Nguyên</li>
-                      <li>Tuyên Quang</li>
-                    </ul>
-                  </div>
-                  <div class="region">
-                    <h2>Tây Bắc Bộ</h2>
-                    <ul>
-                      <li>Hoà Bình</li>
-                      <li>Lai Châu</li>
-                      <li>Lào Cai</li>
-                      <li>Sơn La</li>
-                      <li>Yên Bái</li>
-                      <li>Điện Biên</li>
-                    </ul>
-                  </div>
-                  <div class="region">
-                    <h2>Đồng bằng sông Hồng</h2>
-                    <ul>
-                      <li>Bắc Ninh</li>
-                      <li>Hà Nam</li>
-                      <li>Hà Nội</li>
-                      <li>Hải Dương</li>
-                      <li>Hải Phòng</li>
-                      <li>Hưng Yên</li>
-                      <li>Nam Định</li>
-                      <li>Ninh Bình</li>
-                      <li>Thái Bình</li>
-                      <li>Vĩnh Phúc</li>
-                    </ul>
+            <div class="mega-box">
+              <div class="container">
+                <div class="content">
+                  <div class="container-c">
+                    <!--  -->
+                    <div
+                      class="region"
+                      v-for="(item, index) in objectCity"
+                      :key="index"
+                    >
+                      <h2>{{ getLanguageDisplay(item, "vi") }}</h2>
+                      <ul>
+                        <li
+                          v-for="(item1, index) in item?.districtList"
+                          :key="index"
+                          @click="onClickSearchCity(item1)"
+                        >
+                          {{ getLanguageDisplay(item1, "vi") }}
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -98,7 +76,7 @@
           </div>
 
           <button
-            class="bg-bth hover:bg-blue-700 txt_regular tex- pad-small rounded-xl"
+            class="bg-bth hover:bg-blue-400 hover:text-white txt_regular tex- pad-small rounded-xl"
             @click="onClickRechange()"
           >
             Rechange
@@ -111,9 +89,11 @@
 </template>
 <script>
 import {
+  decodeBase64,
   encodeBase64,
   getAqiDataFromLocation,
   getParamAirByCode,
+  urlEncodeString,
 } from "@/utils/EncoderDecoderUtils";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
@@ -129,6 +109,11 @@ export default {
       "breadcumsObjectGetters",
       "objectCityByLocationGetters",
     ]),
+    ...mapGetters("airQualityModule", [
+      "airObjectGetters",
+      "airKeyObjectGetters",
+    ]),
+
     renderLanguage() {
       return this.$route.params.language ? this.$route.params.language : "en";
     },
@@ -138,17 +123,95 @@ export default {
     },
 
     objectCity() {
-      return this.objectCityByLocationGetters;
+      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      console.log("exist-weather", this.objectCityByLocationGetters);
+      console.log("retrievedArray", retrievedArray);
+
+      return this.objectCityByLocationGetters.length !== 0
+        ? this.objectCityByLocationGetters
+        : retrievedArray;
     },
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
     ...mapActions("weatherModule", [
       "getWeatherDataCurrent",
       "getFormattedAddress",
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
+
+    async onClickSearchCity(value) {
+      debugger;
+      const nameCity = value.languages["en"];
+
+      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+        nameCity
+      )}&key=TOH_KEY`;
+
+      const valueEncode = encodeBase64(urlParam);
+      let objectAddressNew = {};
+      await this.getFormattedAddress(valueEncode).then((data) => {
+        const jsonValue = decodeBase64(data);
+        if (!jsonValue) {
+          return;
+        }
+        debugger;
+        const listResultAddress = JSON.parse(jsonValue);
+        const addressResult = listResultAddress.results;
+        const partsAddress = addressResult[0].formatted_address
+          .split(", ")
+          .map((part) => part.trim());
+
+        objectAddressNew.city = partsAddress[0];
+        objectAddressNew.country = partsAddress[1];
+        objectAddressNew.lat = addressResult[0].geometry.location.lat;
+        objectAddressNew.lng = addressResult[0].geometry.location.lng;
+      });
+      let language = localStorage.getItem("language") || "en";
+
+      await this.$router.push({
+        path: `/${language}/today-weather/${objectAddressNew.country}/${objectAddressNew.city}`,
+      });
+      window.location.reload();
+
+      const objectBread = {
+        country: objectAddressNew.country,
+        city: objectAddressNew.city,
+        latitude: objectAddressNew.lat,
+        longitude: objectAddressNew.lng,
+        country_code: objectAddressNew?.code ? objectAddressNew?.code : "",
+        keyLanguage: value.keyLanguage,
+      };
+
+      localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+      this.setBreadcumsNotAllowLocation(objectBread);
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectAddressNew.lat},${objectAddressNew.lng}?lang=en`;
+
+      const resultAir = getAqiDataFromLocation(
+        objectAddressNew.lat,
+        objectAddressNew.lng
+      );
+      const valueEncodeW = encodeBase64(param);
+      const valueNewAir = encodeBase64(resultAir);
+
+      const airCode = getParamAirByCode(this.airObjectGetters.key);
+
+      const encodeAirCode = encodeBase64(airCode);
+
+      await Promise.all([
+        this.getWeatherDataCurrent(valueEncodeW),
+        this.getAirQualityByKey(valueNewAir),
+        this.getAirQuality(encodeAirCode),
+      ]);
+    },
+
+    getLanguageDisplay(data, languageKey) {
+      return data.languages[languageKey] || data.languages.vi;
+    },
 
     async onClickShowWidget() {
       await this.$router.push({
@@ -217,6 +280,7 @@ export default {
   opacity: 1;
   visibility: visible;
   z-index: 10;
+  width: 77%;
 }
 
 .mega-box {
@@ -236,15 +300,10 @@ export default {
   width: 100%;
   justify-content: space-between;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
 }
 
 .mega-box .region {
-  // background-color: #fff;
-  // border: 1px solid #ddd;
-  // border-radius: 4px;
-  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  // margin: 10px;
-  // padding: 20px;
   width: 208px;
   margin-top: 10px;
 }
@@ -252,13 +311,13 @@ export default {
 .mega-box .container-c {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: left;
   padding: 20px;
   text-align: left;
 }
 
 .mega-box .region h2 {
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 0;
   color: #007bff;
   padding-left: 20px;
@@ -270,9 +329,9 @@ export default {
 }
 
 .mega-box .region ul li {
-  margin: 5px 0;
-  font-size: 12px;
-  padding-left: 20px;
+  font-size: 14px;
+  padding: 6px 18px;
+  cursor: pointer;
 }
 
 .mega-box .region ul li:hover {
