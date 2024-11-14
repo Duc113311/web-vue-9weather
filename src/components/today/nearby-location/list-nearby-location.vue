@@ -19,7 +19,7 @@
 
       <div class="w-full h-[302px]">
         <!--  -->
-        <div class="district-list">
+        <div class="district-list" v-if="renderListCityAllGetters.length !== 0">
           <DistrictCardPage
             v-for="(item, index) in renderListCityAllGetters"
             :key="index"

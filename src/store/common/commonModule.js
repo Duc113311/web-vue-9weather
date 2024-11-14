@@ -161,7 +161,8 @@ const mutations = {
       (state.breadcumsObject.district = ""), // Quận huyện
       (state.breadcumsObject.road = ""), // Đường
       (state.breadcumsObject.latitude = data?.latitude), // latitude
-      (state.breadcumsObject.longitude = data?.longitude); // longitude
+      (state.breadcumsObject.longitude = data?.longitude), // longitude
+      (state.breadcumsObject.keyCategory = data?.keyCategory); // longitude
   },
 
   setUpdateBreadcumsObject(state, data) {

@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center pad-b-t text-white">
         <!-- left -->
         <div class="flex items-center gap-4">
-          <div class="h-district">
+          <div class="h-district pt-5 pb-5">
             <div class="flex items-center gap-2 cursor-pointer">
               <img
                 src="../../assets/images/svg_v2/ic_city.svg"
@@ -35,7 +35,7 @@
                         <li
                           v-for="(item1, index) in item?.districtList"
                           :key="index"
-                          @click="onClickSearchCity(item1)"
+                          @click="onClickSearchCity(item1, item)"
                         >
                           {{ getLanguageDisplay(item1, "vi") }}
                         </li>
@@ -142,7 +142,7 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
-    async onClickSearchCity(value) {
+    async onClickSearchCity(value, valueCategory) {
       debugger;
       const nameCity = value.languages["en"];
 
@@ -183,6 +183,7 @@ export default {
         longitude: objectAddressNew.lng,
         country_code: objectAddressNew?.code ? objectAddressNew?.code : "",
         keyLanguage: value.keyLanguage,
+        keyCategory: valueCategory.keyLanguage,
       };
 
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
@@ -276,7 +277,7 @@ export default {
 }
 .h-district:hover .mega-box {
   transition: all 0.3s ease;
-  top: 30px;
+  top: 60px;
   opacity: 1;
   visibility: visible;
   z-index: 10;

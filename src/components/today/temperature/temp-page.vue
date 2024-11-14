@@ -23,10 +23,18 @@
         <!--  -->
         <div class="w-[550px] h-[368px]">
           <ChartTempRain v-show="indexChart === 0"></ChartTempRain>
-          <UvChartPage v-show="indexChart === 1"> </UvChartPage>
-          <WindChartPage v-show="indexChart === 2"> </WindChartPage>
-          <HumidChartPage v-show="indexChart === 3"></HumidChartPage>
-          <PressureChartPage v-show="indexChart === 3"></PressureChartPage>
+          <UvChartPage :key="indexKey + '_uvIndex'" v-show="indexChart === 1">
+          </UvChartPage>
+          <WindChartPage :key="indexKey + '_wind'" v-show="indexChart === 2">
+          </WindChartPage>
+          <HumidChartPage
+            :key="indexKey + '_humid'"
+            v-show="indexChart === 3"
+          ></HumidChartPage>
+          <PressureChartPage
+            :key="indexKey + '_pressure'"
+            v-show="indexChart === 4"
+          ></PressureChartPage>
         </div>
 
         <!--  -->
@@ -74,12 +82,14 @@ export default {
   data() {
     return {
       indexChart: 0,
+      indexKey: 0,
     };
   },
 
   methods: {
     onChangeTabChart(value) {
       this.indexChart = value;
+      this.indexKey++;
     },
   },
 };

@@ -26,6 +26,7 @@ export default {
 
   methods: {
     onClickTabChart(value) {
+      this.activeIndex = value;
       this.$emit("onChangeTabChart", value);
     },
   },

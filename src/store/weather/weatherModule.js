@@ -97,6 +97,9 @@ const mutations = {
       return;
     }
     const listResultAddress = JSON.parse(jsonValue);
+
+    debugger;
+
     const addressResult = listResultAddress.results;
     state.newArray = [];
     for (let index = 0; index < addressResult.length; index++) {
@@ -104,9 +107,32 @@ const mutations = {
       const lastElement =
         element.address_components[element.address_components.length - 1];
 
+      const valueCountry = element.address_components.find((x) =>
+        ["country", "political"].every((type) => x.types.includes(type))
+      ) || { long_name: "" };
+
+      const valueCity = element.address_components.find((x) =>
+        ["administrative_area_level_1", "political"].every((type) =>
+          x.types.includes(type)
+        )
+      ) || { long_name: "" };
+
+      const valueDistrict = element.address_components.find((x) =>
+        ["administrative_area_level_2", "political"].every((type) =>
+          x.types.includes(type)
+        )
+      );
+
+      const valueStreet = element.address_components.find((x) =>
+        ["route"].every((type) => x.types.includes(type))
+      );
+
       const objectAddress = {
-        value: element.formatted_address,
-        country: lastElement.long_name,
+        country: valueCountry.long_name,
+        city: valueCity.long_name,
+        // district: valueDistrict.long_name,
+        // street: valueStreet.long_name,
+        address: element.formatted_address,
         lat: element.geometry.location.lat,
         lng: element.geometry.location.lng,
       };

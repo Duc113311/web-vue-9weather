@@ -58,13 +58,28 @@
                     :placeholder="$t('Search_location')"
                     @select="handleSelect"
                     :prefix-icon="Search"
+                    class="custom-placeholder"
                   >
                     <template #default="{ item }">
-                      <div>
-                        <div class="txt_regular">{{ item.value }}</div>
-                        <span class="link txt_regular_12">{{
-                          item.country
-                        }}</span>
+                      <div v-if="valueSearch">
+                        <div v-if="item.country !== ''">
+                          <div class="txt_regular">{{ item.address }}</div>
+                          <span class="link txt_regular_12">{{
+                            item?.country
+                          }}</span>
+                        </div>
+                      </div>
+
+                      <div
+                        v-else-if="!valueSearch || !suggestions.length"
+                        class="flex items-center justify-start cursor-pointer"
+                      >
+                        <img
+                          src="../../assets/images/svg_v2/mingcute_send-fill.svg"
+                          alt=""
+                          width="24"
+                        />
+                        <div>Sử dụng vị trí hiện tại</div>
                       </div>
                     </template>
                   </el-autocomplete>
@@ -221,14 +236,9 @@ export default {
     this.loadDataTopFull();
     this.selectedActive = null;
 
-    const storageCity = localStorage.getItem("cityName");
-    if (storageCity) {
-      const storageCityName = JSON.parse(storageCity);
+    // const storageCity = localStorage.getItem("cityName");
 
-      this.valueSearch = storageCityName;
-    } else {
-      this.valueSearch = "";
-    }
+    this.valueSearch = "";
   },
 
   created() {},
@@ -338,27 +348,28 @@ export default {
 
     async querySearchAsync(queryString, cb) {
       let timeout;
-      const results = queryString
-        ? this.suggestionsFull.filter(this.createFilter(queryString))
-        : this.suggestionsTop100;
+      // const results = queryString
+      //   ? this.suggestionsFull.filter(this.createFilter(queryString))
+      //   : this.suggestionsTop100;
 
-      if (results.length > 0) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          cb(results);
-        }, 300 * Math.random());
-      } else {
-        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-          this.valueSearch
-        )}&key=TOH_KEY`;
+      // if (results.length > 0) {
+      //   clearTimeout(timeout);
+      //   timeout = setTimeout(() => {
+      //     cb(results);
+      //   }, 300 * Math.random());
+      // } else {
+      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+        this.valueSearch
+      )}&key=TOH_KEY`;
 
-        const value = encodeBase64(urlParam);
+      const value = encodeBase64(urlParam);
 
-        await this.getFormattedAddress(value);
-        timeout = setTimeout(() => {
-          cb(this.$store.state.getWeather.newArray);
-        }, 300 * Math.random());
-      }
+      await this.getFormattedAddress(value);
+      timeout = setTimeout(() => {
+        this.suggestions = this.$store.state.weatherModule.newArray;
+        cb(this.suggestions); // Gọi cb với dữ liệu từ sugges
+      }, 300 * Math.random());
+      // }
     },
 
     createFilter(queryString) {

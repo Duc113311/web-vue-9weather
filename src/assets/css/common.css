@@ -106,7 +106,7 @@
 
 
 .imgLogo {
-  background-image: url(@/assets/images/svg/logo_n_w.svg);
+  background-image: url(@/assets/images/svg/logo_new.svg);
   width: 95px;
   height: 30px;
   background-position: center;
@@ -116,20 +116,20 @@
 }
 @media (min-width: 576px) {
   .imgLogo {
-    width: 95px;
+    width: 163px;
     height: 30px;
   }
 }
 
 @media (min-width: 768px) {
   .imgLogo {
-    width: 125px;
+    width: 203px;
     height: 40px;
   }
 }
 @media (min-width: 992px) {
   .imgLogo {
-    width: 125px;
+    width: 203px;
     height: 40px;
   }
 }

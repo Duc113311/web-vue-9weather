@@ -1,10 +1,10 @@
 .el-input__wrapper {
-  /* border-radius: 10px !important;
+  /* border-radius: 10px !important; */
   color: white !important;
-  background: none !important; */
-  border: 1px solid #d3a8a8 !important;
+  background: #0D29521A !important;
+  border: 1px solid #0D2952 !important;
   box-shadow: none !important;
-  border-radius: 20px !important;
+  /* border-radius: 20px !important; */
 
 }
 /* .el-input__wrapper:hover {
@@ -24,6 +24,12 @@
   text-align: left;
 }
 
+.el-input__prefix{
+  color: #0D2952;
+}
+.el-input__inner::placeholder{
+  color: #0D2952;
+}
 /*  */
 
 .el-icon {
@@ -33,7 +39,9 @@
   height: 35px !important;
   font-size: 14px !important;
   font-family: "Roboto-Light", sans-serif;
+  color: #0D2952;
 }
+
 .el-collapse {
   border-bottom: none !important;
   border-top: none !important;
