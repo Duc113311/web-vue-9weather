@@ -226,6 +226,7 @@ export default {
       localStorage.removeItem("cityName");
       localStorage.removeItem("objectBread");
 
+      debugger;
       // Lấy thông tin vị trí và thành phố
       const cityCountryNow =
         // Chuyển hướng đến router trước
