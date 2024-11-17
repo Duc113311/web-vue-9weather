@@ -20,7 +20,7 @@
       "nameCategory": "Thành phố Hà Giang",
       "keyLanguage": "Thành_phố_Hà_Giang",
       "languages": {
-        "vi": "Thành Phố Hà Giang", 
+        "vi": "Thành Phố Hà Giang",
         "en": "Thành phố Hà Giang",
         "ja": "タイン・フォ・ハ・ザン",
         "ko": "탄포하장(Thành phố Hà Giang)"
@@ -48,7 +48,7 @@
           "languages": {
             "vi": "Phường Trần Phú",
             "en": "Phường Trần Phú",
-            "ja": "フォン・トラン・フー",
+            "ja": "フォン・チャン・フー",
             "ko": "프엉 쩐 푸(Phuờng Trần Phú)"
           }
         },
@@ -155,7 +155,7 @@
           "languages": {
             "vi": "Bảng trấn tĩnh",
             "en": "Thị trấn Phó Bảng",
-            "ja": "トゥ トラン フォー バン",
+            "ja": "トゥン・トラン・フォー・バン",
             "ko": "Thị trấn Phó Bảng"
           }
         },
@@ -363,7 +363,7 @@
           "languages": {
             "vi": "Xã Lũng Phìn",
             "en": "Xã Lũng Phìn",
-            "ja": "シン・ルン・ピン",
+            "ja": "シン・ロン・ピン",
             "ko": "싼룽핀"
           }
         },
@@ -561,7 +561,7 @@
           "languages": {
             "vi": "Xã Tát Ngà",
             "en": "Xã Tát Ngà",
-            "ja": "シャー・タット・ガー",
+            "ja": "ザン・タット・ガー",
             "ko": "Xã Tát Ngà"
           }
         },
@@ -892,8 +892,8 @@
           "languages": {
             "vi": "Xã Bát Đại Sơn",
             "en": "Xã Bát Đại Sơn",
-            "ja": "サン・バート・ダイソン",
-            "ko": "사 바트 다이 손"
+            "ja": "Xã Bát Đại Sơn",
+            "ko": "싸밧다이손"
           }
         },
         {
@@ -905,7 +905,7 @@
           "languages": {
             "vi": "Xã Nghĩa Thuận",
             "en": "Xã Nghĩa Thuận",
-            "ja": "サン・グア・トゥン",
+            "ja": "サン・ギア・トゥアン",
             "ko": "Xã Nghĩa Thuận"
           }
         },
@@ -931,7 +931,7 @@
           "languages": {
             "vi": "Xã Cao Mã Pờ",
             "en": "Xã Cao Mã Pờ",
-            "ja": "サン・カオ・マン・ポー",
+            "ja": "サンカオマンポー",
             "ko": "Xã Cao Mã Pờ"
           }
         },
@@ -1116,7 +1116,7 @@
           "languages": {
             "vi": "Xã Thuận Hòa",
             "en": "Xã Thuận Hoà",
-            "ja": "サン・トゥン・ホア",
+            "ja": "サン・トゥアン・ホア",
             "ko": "Xã Thuận Hoà"
           }
         },
@@ -1168,7 +1168,7 @@
           "languages": {
             "vi": "Xã Phong Quang",
             "en": "Xã Phong Quang",
-            "ja": "シャン・フォン・クアン",
+            "ja": "サー・フォン・クアン",
             "ko": "사퐁꽝"
           }
         },
@@ -1285,7 +1285,7 @@
           "languages": {
             "vi": "Xã Việt Lâm",
             "en": "Xã Việt Lâm",
-            "ja": "サン・ヴィエト・ラム",
+            "ja": "サン・ヴィエット・ラム",
             "ko": "Xã Viet Lâm"
           }
         },
@@ -1298,7 +1298,7 @@
           "languages": {
             "vi": "Xã Ngọc Linh",
             "en": "Xã Ngọc Linh",
-            "ja": "ザン・ゴック・リン",
+            "ja": "ザン・ゴク・リン",
             "ko": "싸응옥린"
           }
         },
@@ -1311,8 +1311,8 @@
           "languages": {
             "vi": "Xã Ngọc Minh",
             "en": "Xã Ngọc Minh",
-            "ja": "ザ・ゴク・ミン",
-            "ko": "Xã Nọc Minh"
+            "ja": "シャン・ゴク・ミン",
+            "ko": "Xã Ngọc Minh"
           }
         },
         {
@@ -1405,7 +1405,7 @@
           "languages": {
             "vi": "Thị trấn Yên Phú",
             "en": "Thị trấn Yên Phú",
-            "ja": "トゥ・トラン・イェン・フー",
+            "ja": "トゥン・トラン・イェン・フー",
             "ko": "티 쩐 옌 푸(Thị trấn Yên Phú)"
           }
         },
@@ -1585,7 +1585,7 @@
             "vi": "Xã Thèn Chu Phìn",
             "en": "Xã Thèn Chu Phìn",
             "ja": "ザン・テン・チュー・フィン",
-            "ko": "싼텐추핀"
+            "ko": "Xã Thèn Chu Phìn"
           }
         },
         {
@@ -1714,7 +1714,7 @@
           "languages": {
             "vi": "Xã San Xả Hồ",
             "en": "Xã Sán Xả Hồ",
-            "ja": "サンサンホー",
+            "ja": "サン・サン・ホー",
             "ko": "Xã Sán Xả Hồ"
           }
         },
@@ -2003,7 +2003,7 @@
           "languages": {
             "vi": "Xã Tả Nhìu",
             "en": "Xã Tả Nhìu",
-            "ja": "ザン・タ・ニウ",
+            "ja": "Xã Tả Nhìu",
             "ko": "Xã Tả Nhìu"
           }
         },
@@ -2149,7 +2149,7 @@
           "languages": {
             "vi": "Xã Tân Thành",
             "en": "Xã Tân Thành",
-            "ja": "シャンタンタイン",
+            "ja": "シャン・タン・タン",
             "ko": "Xã Tân Thành"
           }
         },

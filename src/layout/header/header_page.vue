@@ -554,7 +554,7 @@ export default {
      */
     async onClickReloadHome() {
       //
-
+      debugger;
       this.valueSearch = "";
 
       localStorage.removeItem("cityName");
