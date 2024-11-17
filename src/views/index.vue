@@ -125,12 +125,10 @@ export default {
       debugger;
       // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
       const provincesData = context.keys().map((key) => {
-        debugger;
         const provinceData = context(key); // Load dữ liệu từ file
 
         provinces.push(provinceData);
       });
-      debugger;
       console.log("provinces", provinces);
       this.setListDetailCityAll(provinces);
       console.log("provincesData", provincesData);

@@ -100,19 +100,33 @@ export default {
   },
 
   computed: {
-    ...mapGetters("commonModule", ["listCityAllGetters"]),
+    ...mapGetters("commonModule", [
+      "listCityAllGetters",
+      "breadcumsObjectGetters",
+    ]),
 
     renderListCityAllGetters() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       debugger;
       console.log("retrievedArray", retrievedArray);
 
-      console.log("listCityAllGetters", this.listCityAllGetters);
-      const findData = this.listCityAllGetters.find(
-        (x) => x.keyLanguage === retrievedArray.keyLanguage
-      );
+      // const cityLocation = retrievedArray
+      //   ? retrievedArray
+      //   : this.breadcumsObjectGetters;
 
-      return findData.districtList.slice(0, 8);
+      if (retrievedArray) {
+        console.log("listCityAllGetters", this.listCityAllGetters);
+        const findData = this.listCityAllGetters.find(
+          (x) => x.keyLanguage === retrievedArray.keyLanguage
+        );
+
+        return findData.districtList.slice(0, 8);
+      } else {
+        const findData = this.listCityAllGetters.find(
+          (x) => x.nameCategory === this.breadcumsObjectGetters.city
+        );
+        return findData.districtList.slice(0, 8);
+      }
     },
   },
 };

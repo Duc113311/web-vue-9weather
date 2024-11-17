@@ -70,8 +70,8 @@
 
           <div class="flex items-center mr-4 gap-2">
             <span class=" ">Your current location:</span>
-            <span class="txt_medium" v-if="breadcumsObject?.city">{{
-              breadcumsObject?.city
+            <span class="txt_medium" v-if="breadcumsObject?.keyLanguage">{{
+              breadcumsObject?.keyLanguage.replace(/_/g, " ")
             }}</span>
           </div>
 
@@ -119,7 +119,12 @@ export default {
     },
 
     breadcumsObject() {
-      return this.breadcumsObjectGetters;
+      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+
+      console.log("retrievedArray", retrievedArray);
+
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
 
     objectCity() {
@@ -261,7 +266,6 @@ export default {
       ]);
 
       this.setCityWeather(objectPosition);
-      document.title = "originalTitle;";
     },
   },
 };

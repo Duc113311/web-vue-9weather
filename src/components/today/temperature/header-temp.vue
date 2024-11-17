@@ -28,7 +28,7 @@
         <div class="flex justify-center items-center">
           <div class="text-left flex txt_medium gap-1">
             <img
-              src="../../../assets/images/svg_v2/ic_temperature_max.svg"
+              src="../../../assets/images/svg_v2/ic_temperature_min.svg"
               alt=""
               srcset=""
             />
@@ -39,7 +39,7 @@
 
           <div class="text-right flex txt_medium gap-1">
             <img
-              src="../../../assets/images/svg_v2/ic_temperature_min.svg"
+              src="../../../assets/images/svg_v2/ic_temperature_max.svg"
               alt=""
               srcset=""
             />
@@ -69,7 +69,7 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center">
-          <p>Change of rain</p>
+          <p>Chance of rain</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <img src="../../../assets/images/svg_v2/ic_droplet.svg" width="24" />

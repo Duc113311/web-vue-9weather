@@ -55,28 +55,46 @@ export default {
   },
 
   computed: {
-    ...mapGetters("commonModule", ["objectCityByLocationGetters"]),
+    ...mapGetters("commonModule", [
+      "objectCityByLocationGetters",
+      "breadcumsObjectGetters",
+    ]),
 
     renderCityLocation() {
       debugger;
-      const retrievedDataCity = JSON.parse(
-        sessionStorage.getItem("dataCityLog")
-      );
-      debugger;
+      const retrievedDataCity = sessionStorage.getItem("dataCityLog")
+        ? JSON.parse(sessionStorage.getItem("dataCityLog"))
+        : null;
 
-      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      if (!retrievedDataCity) {
+        console.error("retrievedDataCity is null or invalid.");
+        return [];
+      }
+
+      const retrievedArray = localStorage.getItem("objectBread")
+        ? JSON.parse(localStorage.getItem("objectBread"))
+        : null;
+
       if (retrievedArray) {
         const findData = retrievedDataCity.find(
           (x) => x.keyLanguage === retrievedArray.keyCategory
         );
 
         if (findData) {
-          debugger;
           const findExistData = findData.districtList.filter(
             (x) => x.keyLanguage !== retrievedArray.keyLanguage
           );
-          if (findExistData) {
-            return findExistData.splice(0, 6);
+          return findExistData.length > 0 ? findExistData.slice(0, 6) : [];
+        }
+      } else {
+        for (const element of retrievedDataCity) {
+          const findExistData = element.districtList.filter(
+            (x) =>
+              x.keyLanguage !==
+              this.convertToUnderscore(this.breadcumsObjectGetters.city)
+          );
+          if (findExistData.length > 0) {
+            return findExistData.slice(0, 6);
           }
         }
       }
@@ -88,6 +106,10 @@ export default {
   methods: {
     convertKeyLanguage(value, keyLanguage) {
       return value.languages[keyLanguage];
+    },
+
+    convertToUnderscore(text) {
+      return text.replace(/ /g, "_");
     },
   },
 };

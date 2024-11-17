@@ -56,7 +56,7 @@
             width="24"
             alt=""
           />
-          <p>Change of rain</p>
+          <p>Chance of rain</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%

@@ -34,7 +34,7 @@
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
-            <p>Change of rain</p>
+            <p>Chance of rain</p>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>

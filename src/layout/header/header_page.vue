@@ -73,6 +73,7 @@
                       <div
                         v-else-if="!valueSearch || !suggestions.length"
                         class="flex items-center justify-start cursor-pointer"
+                        @click="onClickLocationNow()"
                       >
                         <img
                           src="../../assets/images/svg_v2/mingcute_send-fill.svg"
@@ -253,6 +254,47 @@ export default {
       "getWeatherDataCurrent",
       "getFormattedAddress",
     ]),
+
+    async onClickLocationNow() {
+      localStorage.removeItem("cityName");
+      localStorage.removeItem("objectBread");
+
+      debugger;
+      // Lấy thông tin vị trí và thành phố
+      const cityCountryNow =
+        // Chuyển hướng đến router trước
+        this.$router.push({ path: "/" }).then(() => {
+          window.location.reload();
+        });
+      // Xử lý tiếp các tác vụ API trong nền
+
+      const keyLanguage = this.$route.params.language;
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
+      const resultAir = getAqiDataFromLocation(
+        cityCountryNow.latitude,
+        cityCountryNow.longitude
+      );
+      const value = encodeBase64(param);
+      const valueNewAir = encodeBase64(resultAir);
+      const objectPosition = {
+        latitude: cityCountryNow.latitude,
+        longitude: cityCountryNow.longitude,
+        city: cityCountryNow.city,
+        country: cityCountryNow.city,
+      };
+      const airCode = getParamAirByCode(this.airObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+
+      // Gọi các API song song
+      await Promise.all([
+        this.getWeatherDataCurrent(value),
+        this.getAirQualityByKey(valueNewAir),
+        this.getAirQuality(encodeAirCode),
+      ]);
+
+      this.setCityWeather(objectPosition);
+    },
 
     updateTime() {
       const now = new Date();

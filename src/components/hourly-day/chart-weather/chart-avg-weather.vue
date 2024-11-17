@@ -96,7 +96,7 @@
                 <p>{{ dailyOneData?.precipProbability * 100 }}%</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
-                <p>Change of rain</p>
+                <p>Chance of rain</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
                 <p>Precipitation:</p>
