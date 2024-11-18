@@ -96,7 +96,7 @@
       </div>
     </div>
 
-    <div class="container local-c mt-4">
+    <div class="container local-c">
       <div
         class="left-location"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -183,9 +183,12 @@ export default {
     ...mapActions("weatherModule", ["getWeather30DayData"]),
 
     async getWeather30Day() {
-      const objectBread = localStorage.getItem("objectBread");
-      if (objectBread) {
-        const objectBreadValue = JSON.parse(objectBread);
+      debugger;
+      const objectLocationLatLong = JSON.parse(
+        localStorage.getItem("locationLatLong")
+      );
+      if (objectLocationLatLong) {
+        const objectBreadValue = objectLocationLatLong;
         // const position = this.$route.params.coordinates;
         // const [latitude, longitude] = position.split(", ").map(Number);
         const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=en`;

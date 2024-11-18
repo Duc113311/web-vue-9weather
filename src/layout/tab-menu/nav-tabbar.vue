@@ -148,15 +148,22 @@ export default {
     async onClickRouterView(value, index) {
       this.activeIndex = index;
 
-      //const valueTitle = `${this.breadcumsObjectGetters?.district}, ${this.breadcumsObjectGetters?.city}, ${this.breadcumsObjectGetters?.country}`;
-
+      debugger;
+      let screamName = "today-weather";
+      if (this.activeIndex === 1) {
+        screamName = "hourly-weather";
+      }
+      if (this.activeIndex === 2) {
+        screamName = "month-weather";
+      }
+      if (this.activeIndex === 3) {
+        screamName = "radar-weather";
+      }
       this.setTitleScream(this.activeIndex);
       await this.$router.push({
-        path: `/${this.renderLanguage}/${
+        path: `/${this.renderLanguage}/${screamName}/${
           this.renderCountry
-        }/${convertToEnglishReplace(this.renderCityName)}/${
-          this.renderCoordinates
-        }/${value.name}`,
+        }/${convertToEnglishReplace(this.renderCityName)}`,
       });
     },
   },

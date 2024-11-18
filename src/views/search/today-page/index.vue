@@ -54,7 +54,7 @@
     </div>
     <!--  -->
 
-    <div class="container local-c mt-4">
+    <div class="container local-c">
       <div
         class="left-location"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <div class="container local-d mt-4">
+    <div class="container local-d">
       <!--  -->
       <div class="left-c">
         <!--  -->

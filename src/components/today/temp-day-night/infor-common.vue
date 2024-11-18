@@ -52,7 +52,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_droplet.svg"
+            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
             width="24"
             alt=""
           />

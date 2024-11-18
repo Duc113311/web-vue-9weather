@@ -10,9 +10,9 @@ export const httpIpFind = axios.create({
   withCredentials: false,
 });
 
-//API_WEATHER
+//API_WEATHER : https://swtapi.tohapp.com
 export const httpWeather = axios.create({
-  baseURL: `/swtapi`,
+  baseURL: `https://swtapi.tohapp.com/`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -22,9 +22,9 @@ export const httpWeather = axios.create({
   withCredentials: false,
 });
 
-//API_AQI
+//API_AQI : https://airapi.tohapp.com
 export const httpAqi = axios.create({
-  baseURL: `/airapi`,
+  baseURL: `https://airapi.tohapp.com/`,
   headers: {
     "Content-Type": "application/json",
   },

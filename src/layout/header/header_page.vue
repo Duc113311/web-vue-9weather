@@ -63,7 +63,9 @@
                     <template #default="{ item }">
                       <div v-if="valueSearch">
                         <div v-if="item.country !== ''">
-                          <div class="txt_regular">{{ item.address }}</div>
+                          <div class="txt_regular">
+                            {{ item.address }}
+                          </div>
                           <span class="link txt_regular_12">{{
                             item?.country
                           }}</span>
@@ -73,7 +75,6 @@
                       <div
                         v-else-if="!valueSearch || !suggestions.length"
                         class="flex items-center justify-start cursor-pointer"
-                        @click="onClickLocationNow()"
                       >
                         <img
                           src="../../assets/images/svg_v2/mingcute_send-fill.svg"
@@ -130,13 +131,15 @@
                 </span>
               </div>
 
-              <img
-                @click="onClickShowMenu"
-                src="../../assets/images/svg/ic_menu.svg"
-                width="20"
-                class="cursor-pointer"
-                alt=""
-              />
+              <div class="cursor-pointer">
+                <img
+                  @click="onClickShowMenu"
+                  src="../../assets/images/svg/ic_menu.svg"
+                  width="20"
+                  class="cursor-pointer"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -177,6 +180,7 @@ export default {
       selectedActive: null,
       valueSearch: "",
       suggestionsTop100: [],
+      suggestions: [],
       suggestionsFull: [],
 
       hour: "",
@@ -268,7 +272,9 @@ export default {
         });
       // Xử lý tiếp các tác vụ API trong nền
 
-      const keyLanguage = this.$route.params.language;
+      const keyLanguage = this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(
@@ -426,29 +432,37 @@ export default {
 
     async handleSelect(item) {
       this.valueSearch = item.value;
+      let objectBread = {
+        country: item.country,
+        country_code: item.country,
+        city: item.city,
+        latitude: item.lat,
+        longitude: item.lng,
+        keyCategory: item.city.replace(/ /g, "_"),
+      };
+      debugger;
+      // if (item.country !== "Vietnam") {
+      //   localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
-      const dataLocation = {
-        city: item.value,
-        code: item.code,
-        country: item.country,
-        latitude: item.lat,
-        longitude: item.lng,
-      };
-      const objectBread = {
-        country: item.country,
-        city: item.value,
-        latitude: item.lat,
-        longitude: item.lng,
-        country_code: item?.code ? item?.code : "",
-      };
+      //   this.setBreadcumsNotAllowLocation(objectBread);
+      // } else {
+
+      // }
+      // const dataLocation = {
+      //   city: item.value,
+      //   code: item.code,
+      //   country: item.country,
+      //   latitude: item.lat,
+      //   longitude: item.lng,
+      // };
 
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
       this.setBreadcumsNotAllowLocation(objectBread);
 
-      localStorage.setItem("country", JSON.stringify(dataLocation));
-      localStorage.setItem("cityName", JSON.stringify(dataLocation.city));
-      this.setCountryFilter(dataLocation);
+      // localStorage.setItem("country", JSON.stringify(dataLocation));
+      // localStorage.setItem("cityName", JSON.stringify(dataLocation.city));
+      // this.setCountryFilter(dataLocation);
 
       let language = localStorage.getItem("language") || "en";
       console.log("item-search", item);
@@ -456,7 +470,7 @@ export default {
       // this.setUpdateBreadcumsObject(item);
 
       await this.$router.push({
-        path: `/${language}/${item.country}/${item.value}/${item.lat},${item.lng}/today-weather`,
+        path: `/${language}/today-weather/${item.country}/${item.city}`,
       });
       window.location.reload();
 

@@ -1,11 +1,10 @@
 .el-input__wrapper {
   /* border-radius: 10px !important; */
   color: white !important;
-  background: #0D29521A !important;
-  border: 1px solid #0D2952 !important;
+  background: #0d29521a !important;
+  /* border: 1px solid #0D2952 !important; */
   box-shadow: none !important;
   /* border-radius: 20px !important; */
-
 }
 /* .el-input__wrapper:hover {
   border: 1.5px solid #6d99c9 !important;
@@ -24,11 +23,11 @@
   text-align: left;
 }
 
-.el-input__prefix{
-  color: #0D2952;
+.el-input__prefix {
+  color: #0d2952;
 }
-.el-input__inner::placeholder{
-  color: #0D2952;
+.el-input__inner::placeholder {
+  color: #0d2952;
 }
 /*  */
 
@@ -39,7 +38,7 @@
   height: 35px !important;
   font-size: 14px !important;
   font-family: "Roboto-Light", sans-serif;
-  color: #0D2952;
+  color: #0d2952;
 }
 
 .el-collapse {
@@ -130,7 +129,7 @@
   .container {
     max-width: 1150px;
   }
-  .el-drawer.rtl{
+  .el-drawer.rtl {
     width: 40% !important;
   }
 }
@@ -139,13 +138,13 @@
   .container {
     max-width: 1150px;
   }
-  .el-drawer.rtl{
+  .el-drawer.rtl {
     width: 40% !important;
   }
 }
 
 @media (min-width: 992px) {
-  .el-drawer.rtl{
+  .el-drawer.rtl {
     width: 40% !important;
   }
 }

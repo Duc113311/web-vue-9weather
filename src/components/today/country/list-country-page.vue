@@ -12,16 +12,25 @@
             />
             <span>Tỉnh thành lân cận</span>
           </div>
-          <div>
+          <div
+            v-if="
+              renderCityLocation.length !== 0 &&
+              this.breadcumsObjectGetters.country === 'Vietnam'
+            "
+          >
             <p>See more</p>
           </div>
         </div>
       </template>
 
-      <div class="w-full h-[302px]">
-        <!--  -->
-
-        <div v-if="renderCityLocation.length !== 0">
+      <div
+        class="w-full h-[302px]"
+        v-if="
+          renderCityLocation.length !== 0 &&
+          this.breadcumsObjectGetters.country === 'Vietnam'
+        "
+      >
+        <div>
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
@@ -35,6 +44,11 @@
               alt=""
             />
           </div>
+        </div>
+      </div>
+      <div class="h-[302px]" v-else>
+        <div class="w-full h-full justify-center flex items-center">
+          In development
         </div>
       </div>
     </BaseComponent>
@@ -88,13 +102,15 @@ export default {
         }
       } else {
         for (const element of retrievedDataCity) {
-          const findExistData = element.districtList.filter(
-            (x) =>
-              x.keyLanguage !==
-              this.convertToUnderscore(this.breadcumsObjectGetters.city)
-          );
-          if (findExistData.length > 0) {
-            return findExistData.slice(0, 6);
+          if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
+            const findExistData = element.districtList.filter(
+              (x) =>
+                x.keyLanguage !==
+                this.convertToUnderscore(this.breadcumsObjectGetters.city)
+            );
+            if (findExistData.length > 0) {
+              return findExistData.slice(0, 6);
+            }
           }
         }
       }

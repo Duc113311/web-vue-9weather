@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  name: "global-moon-icon",
+  // name: "global-moon-icon",
 
   props: {
     illuminatePercent: {
@@ -108,7 +108,7 @@ export default {
         const path = this.createPath();
 
         const moonImg = new Image();
-        moonImg.src = require("../../../assets/images/svg_v2/ic_moon_phase_dark.svg");
+        moonImg.src = require("../../../assets/images/svg_v2/ic_moon_phase_light_new.svg");
 
         moonImg.onload = () => {
           // Create an off-screen canvas to draw the SVG

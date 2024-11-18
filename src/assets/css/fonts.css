@@ -1,18 +1,17 @@
 @import "../../assets/css/style.css";
 
-
-.txt_bold{
+.txt_bold {
   font-size: 24px;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   letter-spacing: 0.5px; /* Khoảng cách giữa các ký tự */
   text-transform: uppercase; /* Chuyển văn bản thành chữ hoa */
   font-weight: 700; /* Corresponds to Bold */
   line-height: 1.5; /* Khoảng cách giữa các dòng */
 }
 
-.txt_medium{
+.txt_medium {
   font-size: 14px;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 20.28px; /* Khoảng cách dòng để văn bản dễ đọc */
   text-align: left; /* Căn trái mặc định */
   font-weight: 500; /* Corresponds to Medium */
@@ -20,16 +19,15 @@
 
 .txt_regular {
   font-size: 16px; /* Kích thước chữ mặc định */
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 24.28px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
 }
 
-
 .txt_regular_des {
   font-size: 14px; /* Kích thước chữ mặc định */
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 24.32px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
@@ -37,15 +35,15 @@
 
 .txt_regular_des_moon {
   font-size: 10px; /* Kích thước chữ mặc định */
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 11.5px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
 }
 
 .txt_regular_des_moon_12 {
-  font-size: 12px; /* Kích thước chữ mặc định */
-  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 13px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 14.32px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
@@ -53,24 +51,23 @@
 
 .txt_medium_des {
   font-size: 14px; /* Kích thước chữ mặc định */
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 24.32px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 500; /* Corresponds to Regular */
 }
 
-
 .txt_default {
   font-size: 15px; /* Kích thước chữ mặc định */
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 1.4; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
   text-align: justify; /* Căn đều hai bên */
   font-weight: 300; /* Corresponds to Medium */
 }
 
-.txt_title_temp{
+.txt_title_temp {
   font-size: 87px; /* Kích thước chữ mặc định */
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 84px; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
   text-align: justify; /* Căn đều hai bên */
   font-weight: 300; /* Corresponds to Medium */

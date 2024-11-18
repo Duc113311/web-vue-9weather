@@ -2,14 +2,25 @@
   <div class="header-menu text-white">
     <!--  -->
     <div class="flex w-full items-center justify-between">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2" v-if="namePage !== 'unit_settings'">
         <img
           src="../../assets/images/svg_v2/ic_settings.svg"
           alt=""
           srcset=""
         />
-        <p>Setting</p>
+        <p class="txt_regular text-white">Setting</p>
       </div>
+      <div
+        @click="onClickBack('settings')"
+        class="flex items-center gap-2 cursor-pointer"
+        v-if="namePage === 'unit_settings'"
+      >
+        <img src="../../assets/images/svg_v2/ic_back_st.svg" alt="" srcset="" />
+        <p class="txt_regular text-white">
+          <span>{{ $t("Unit_preferences_settings") }}</span>
+        </p>
+      </div>
+
       <img
         @click="onClickCancel"
         src="../../assets/images/svg_v2/ic_close.svg"
@@ -19,43 +30,52 @@
       />
     </div>
 
-    <div class="address-now pt-4 pb-4 text-left">
-      {{ breadcumsObject?.district }},
+    <div class="address-now pt-4 pb-4 text-left cursor-pointer text-blue-300">
       {{ convertToEnglishRender(breadcumsObject?.city) }},
       {{ breadcumsObject?.country }}
     </div>
 
     <div class="w-full">
       <div
+        v-if="namePage !== 'unit_settings'"
         class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         @click="onClickUnitSetting('unit_settings')"
       >
-        <div class="txt_light_summer flex items-center">
+        <div class="txt_regular flex items-center">
           <span>{{ $t("Unit_preferences_settings") }}</span>
         </div>
         <div>
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
         </div>
       </div>
-      <div class="bor-bottom"></div>
-      <!-- Cài đặt thông báo -->
 
-      <div class="bor-bottom"></div>
-      <!-- Ra da -->
+      <!--  -->
+      <UnitPreferencesPage
+        v-if="namePage === 'unit_settings'"
+      ></UnitPreferencesPage>
+    </div>
 
-      <!-- language -->
+    <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
+      <span>{{ $t("Version") }} 2/ 18.11.2024</span>
     </div>
   </div>
 </template>
 <script>
+import UnitPreferencesPage from "@/components/settings/unit-preferences-page.vue";
 import { convertToEnglish } from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "header-menu",
 
+  components: {
+    UnitPreferencesPage,
+  },
+
   data() {
-    return {};
+    return {
+      namePage: "setting",
+    };
   },
 
   computed: {
@@ -71,10 +91,16 @@ export default {
       return convertToEnglish(value);
     },
 
-    onClickUnitSetting(value) {},
+    onClickUnitSetting(value) {
+      this.namePage = value;
+    },
 
     onClickCancel() {
       this.$emit("onChangeCloseMenu", false);
+    },
+
+    onClickBack(value) {
+      this.namePage = value;
     },
   },
 };
@@ -90,15 +116,19 @@ export default {
 }
 @media (min-width: 768px) {
   .header-menu {
-    background: linear-gradient(to bottom, #7781ee, #a6a6c4);
+    // background: linear-gradient(to bottom, #343863, #a6a6c4);
+    background-image: url(../../assets/images/svg_v2/background.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     -webkit-box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     color: #000;
-    padding: 20px 32px 0;
+    padding: 20px 20px 0;
     position: absolute;
     right: 0;
     top: 0;
-    width: 370px;
+    width: 478px;
   }
 }
 .basic-header.menu-open .header-menu {

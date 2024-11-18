@@ -72,7 +72,10 @@
           <p>Chance of rain</p>
         </div>
         <div class="icon-c flex justify-center p-4">
-          <img src="../../../assets/images/svg_v2/ic_droplet.svg" width="24" />
+          <img
+            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
+            width="24"
+          />
         </div>
         <div class="text-c text-center items-center txt_medium">
           <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>

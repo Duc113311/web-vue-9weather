@@ -104,6 +104,8 @@ const mutations = {
     state.newArray = [];
     for (let index = 0; index < addressResult.length; index++) {
       const element = addressResult[index];
+      console.log("element-search", element);
+
       const lastElement =
         element.address_components[element.address_components.length - 1];
 
@@ -112,9 +114,7 @@ const mutations = {
       ) || { long_name: "" };
 
       const valueCity = element.address_components.find((x) =>
-        ["administrative_area_level_1", "political"].every((type) =>
-          x.types.includes(type)
-        )
+        ["locality", "political"].every((type) => x.types.includes(type))
       ) || { long_name: "" };
 
       const valueDistrict = element.address_components.find((x) =>
@@ -136,6 +136,9 @@ const mutations = {
         lat: element.geometry.location.lat,
         lng: element.geometry.location.lng,
       };
+
+      console.log("objectAddress", objectAddress);
+
       state.newArray.push(objectAddress);
     }
   },

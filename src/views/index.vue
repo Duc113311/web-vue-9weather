@@ -67,6 +67,7 @@ export default {
 
     this.loadAllFileJson();
     const objectBread = localStorage.getItem("objectBread");
+    debugger;
     if (!objectBread) {
       this.getLocationBrowser();
     } else {
@@ -138,12 +139,19 @@ export default {
       let latitude = dataValue.latitude;
       let longitude = dataValue.longitude;
 
+      const objectLatLong = {
+        latitude: latitude,
+        longitude: longitude,
+      };
+      localStorage.setItem("locationLatLong", JSON.stringify(objectLatLong));
+
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
         : localStorage.getItem("language");
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${keyLanguageStorage}`;
       const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
 
+      debugger;
       console.log("responsive", responsive.data);
       // Xét giá trị để lưu Recent
       const objectPosition = {
@@ -200,11 +208,18 @@ export default {
       let latitude = position.coords.latitude;
       let longitude = position.coords.longitude;
 
+      const objectLatLong = {
+        latitude: latitude,
+        longitude: longitude,
+      };
+      localStorage.setItem("locationLatLong", JSON.stringify(objectLatLong));
+
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
         : localStorage.getItem("language");
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${keyLanguageStorage}`;
       const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
+      debugger;
 
       console.log("responsive", responsive.data);
       // Xét giá trị để lưu Recent
@@ -213,7 +228,8 @@ export default {
         longitude: longitude,
         objectLocation: responsive.data.address,
       };
-
+      debugger;
+      // localStorage.setItem("objectBread", JSON.stringify(objectPosition));
       this.setBreadcumsAllowLocation(objectPosition);
 
       console.log("responsive.data", responsive.data);
@@ -256,6 +272,17 @@ export default {
           await this.getIpLocation(valueNew).then(async (data) => {
             console.log("data-loc", data);
             // Xét Breadcum
+            debugger;
+
+            const objectLatLong = {
+              latitude: data.latitude,
+              longitude: data.longitude,
+            };
+            localStorage.setItem(
+              "locationLatLong",
+              JSON.stringify(objectLatLong)
+            );
+
             this.setBreadcumsNotAllowLocation(data);
             const objectPosition = {
               latitude: data.latitude,

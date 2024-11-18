@@ -34,7 +34,7 @@
         <div class="flex items-center">
           <div class="flex items-center">
             <img
-              src="../../../assets/images/svg_v2/ic_temperature_max.svg"
+              src="../../../assets/images/svg_v2/ic_temperature_min.svg"
               alt=""
             />
             <p>
@@ -47,7 +47,7 @@
           </div>
           <div class="flex items-center">
             <img
-              src="../../../assets/images/svg_v2/ic_temperature_min.svg"
+              src="../../../assets/images/svg_v2/ic_temperature_max.svg"
               alt=""
             />
             <p>
@@ -90,7 +90,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_droplet.svg"
+            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
             width="24"
             alt=""
           />

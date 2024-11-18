@@ -11,20 +11,36 @@
             />
             <span>Quận/ huyện lân cận</span>
           </div>
-          <div>
+          <div
+            v-if="
+              renderListCityAllGetters.length !== 0 &&
+              this.breadcumsObjectGetters.country === 'Vietnam'
+            "
+          >
             <p>See more</p>
           </div>
         </div>
       </template>
 
-      <div class="w-full h-[302px]">
+      <div
+        class="w-full h-[302px]"
+        v-if="
+          renderListCityAllGetters.length !== 0 &&
+          this.breadcumsObjectGetters.country === 'Vietnam'
+        "
+      >
         <!--  -->
-        <div class="district-list" v-if="renderListCityAllGetters.length !== 0">
+        <div class="district-list">
           <DistrictCardPage
             v-for="(item, index) in renderListCityAllGetters"
             :key="index"
             :objectLocation="item"
           ></DistrictCardPage>
+        </div>
+      </div>
+      <div class="h-[340px] bg-color text-white overflow-hidden pad-big" v-else>
+        <div class="w-full h-full justify-center flex items-center">
+          In development
         </div>
       </div>
     </ItemComponent>
@@ -120,7 +136,11 @@ export default {
           (x) => x.keyLanguage === retrievedArray.keyLanguage
         );
 
-        return findData.districtList.slice(0, 8);
+        if (findData) {
+          return findData.districtList.slice(0, 8);
+        } else {
+          return [];
+        }
       } else {
         const findData = this.listCityAllGetters.find(
           (x) => x.nameCategory === this.breadcumsObjectGetters.city

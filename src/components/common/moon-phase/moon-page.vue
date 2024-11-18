@@ -137,7 +137,7 @@ export default {
       numberOfSubChildren: 24,
       illuminate: 50,
       moonPhaseName: "Full Moon",
-      dateFull: "Wednesday, October 30, 2024 at 04:00 AM",
+      dateFull: "Friday, August 2, 2024 06:00",
       rotationDegrees: 0,
       moonPhaseInfo: {
         moonPhaseName: "Waning Crescent",
