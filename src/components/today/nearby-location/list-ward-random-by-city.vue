@@ -57,7 +57,7 @@ import {
   getParamAirByCode,
   urlEncodeString,
 } from "@/utils/EncoderDecoderUtils";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "list-ward-random-by-city",
@@ -114,6 +114,14 @@ export default {
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
+    ...mapActions("weatherModule", [
+      "getWeatherDataCurrent",
+      "getFormattedAddress",
+    ]),
+    ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
+    ...mapMutations("weatherModule", ["setCityWeather"]),
+
     async onClickShowDetailDistrict(value) {
       debugger;
       localStorage.setItem("keyLanguageCity", value.keyLanguage);
@@ -143,11 +151,11 @@ export default {
       let language = localStorage.getItem("language") || "en";
 
       await this.$router.push({
-        path: `/${language}/today-weather/${objectAddressNew.country}/${objectAddressNew.city}/${value.languages["en"]}`,
+        path: `/${language}/today-weather/${objectAddressNew.country}/${objectAddressNew.city}/${value.languages["en"]}/${value.languages["en"]} `,
       });
       window.location.reload();
 
-      const keyCity = JSON.parse(localStorage.getItem("objectBread"));
+      //   const keyCity = JSON.parse(localStorage.getItem("objectBread"));
       const objectBread = {
         country: objectAddressNew.country,
         city: objectAddressNew.city,
@@ -157,7 +165,7 @@ export default {
         keyLanguage: value.keyLanguage,
         // keyCategory: valueCategory.keyLanguage,
       };
-      localStorage.setItem("keyCityWard", value.keyLanguage);
+      localStorage.setItem("keyCityWardRandom", value.keyLanguage);
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
       this.setBreadcumsNotAllowLocation(objectBread);
