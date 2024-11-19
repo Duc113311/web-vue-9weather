@@ -45,11 +45,27 @@ const routes = [
         name: "city-page",
         component: SearchPage,
         children: [
+          // Today
           {
-            path: `today-weather/:country/:city`, // Add ':language' as a dynamic segment
+            path: `today-weather/:country/:city`, // Tỉnh
             name: "today-weather",
             component: () => import("@/views/search/today-page/index.vue"), // Component cho route con
           },
+
+          {
+            path: `today-weather/:country/:city/:district`, // Thành phố, quận , huyện
+            name: "today-weather-district",
+            component: () =>
+              import("@/views/search/today-page/district/index.vue"), // Component cho route con
+          },
+
+          {
+            path: `today-weather/:country/:city/:district/:ward`, // Phường/xã
+            name: "today-weather-ward",
+            component: () => import("@/views/search/today-page/ward/index.vue"), // Component cho route con
+          },
+          // End today
+
           {
             path: `month-weather/:country/:city`, // Add ':language' as a dynamic segment
             name: "month-weather",

@@ -35,10 +35,18 @@
   font-size: large !important;
 }
 .el-input__inner {
-  height: 35px !important;
-  font-size: 14px !important;
+  height: 42px !important;
+  font-size: 16px !important;
   font-family: "Roboto-Light", sans-serif;
   color: #0d2952;
+}
+
+.el-autocomplete-suggestion li {
+  padding: 0px !important;
+}
+
+.el-autocomplete-suggestion__wrap {
+  padding: 0px !important;
 }
 
 .el-collapse {
@@ -104,7 +112,7 @@
 
 .el-autocomplete-suggestion li {
   line-height: 20px !important;
-  padding: 5px 9px !important;
+  /* padding: 5px 9px !important; */
 }
 .el-drawer__body {
   overflow: hidden !important;

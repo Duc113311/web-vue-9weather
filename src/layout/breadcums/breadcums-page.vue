@@ -18,12 +18,12 @@
         />
         <span>{{ convertToEnglishRender(breadcumsObject?.city) }}</span>
         <img
-          v-if="breadcumsObject?.district"
+          v-if="cityBreadcums"
           class="transform"
           src="@/assets/images/svg_v2/ic_move_down_left.svg"
           alt=""
         />
-        <span>{{ breadcumsObject?.district }}</span>
+        <span>{{ cityBreadcums.replace(/_/g, " ") }}</span>
       </div>
     </div>
   </div>
@@ -47,6 +47,12 @@ export default {
       console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
+
+    cityBreadcums() {
+      const retrievedArray = localStorage.getItem("keyLanguageCity");
+
+      return retrievedArray;
     },
   },
 

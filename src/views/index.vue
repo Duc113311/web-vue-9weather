@@ -361,7 +361,6 @@ export default {
   right: 0;
   top: 0;
   visibility: visible !important;
-  z-index: 2147483647;
 }
 @media (min-width: 768px) {
   .header-placeholder {

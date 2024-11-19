@@ -49,9 +49,9 @@
               </div>
             </div>
             <!-- Search -->
-            <div class="w-[calc(100%-800px)] h-full md:block hidden">
+            <div class="w-[calc(100%-720px)] h-full md:block hidden">
               <div class="w-full flex justify-center items-center h-full">
-                <div class="w-[50vh] lg:block hidden">
+                <div class="w-[60vh] lg:block hidden">
                   <el-autocomplete
                     v-model="valueSearch"
                     :fetch-suggestions="querySearchAsync"
@@ -61,27 +61,25 @@
                     class="custom-placeholder"
                   >
                     <template #default="{ item }">
-                      <div v-if="valueSearch">
-                        <div v-if="item.country !== ''">
-                          <div class="txt_regular">
-                            {{ item.address }}
-                          </div>
-                          <span class="link txt_regular_12">{{
-                            item?.country
-                          }}</span>
-                        </div>
-                      </div>
-
+                      <!--  -->
                       <div
-                        v-else-if="!valueSearch || !suggestions.length"
-                        class="flex items-center justify-start cursor-pointer"
+                        v-if="item.isFallback"
+                        class="flex items-center justify-start cursor-pointer gap-2 bg-location-now p-3"
                       >
                         <img
                           src="../../assets/images/svg_v2/mingcute_send-fill.svg"
                           alt=""
-                          width="24"
+                          width="20"
                         />
-                        <div>Sử dụng vị trí hiện tại</div>
+                        <div class="txt_regular">Sử dụng vị trí hiện tại</div>
+                      </div>
+                      <!--  -->
+
+                      <div v-else-if="item.address" class="p-3">
+                        <div class="txt_regular">{{ item.address }}</div>
+                        <span class="link txt_regular_12">{{
+                          item.country || ""
+                        }}</span>
                       </div>
                     </template>
                   </el-autocomplete>
@@ -228,6 +226,15 @@ export default {
         return storageCountryName.city;
       }
       return "";
+    },
+  },
+
+  watch: {
+    valueSearch(newValue) {
+      if (!newValue) {
+        // Khi giá trị bị xóa, reset danh sách gợi ý
+        this.suggestions = [];
+      }
     },
   },
 
@@ -396,28 +403,49 @@ export default {
 
     async querySearchAsync(queryString, cb) {
       let timeout;
-      // const results = queryString
-      //   ? this.suggestionsFull.filter(this.createFilter(queryString))
-      //   : this.suggestionsTop100;
+      debugger;
+      // Tạo phần tử "Sử dụng vị trí hiện tại"
+      const useCurrentLocation = {
+        isFallback: true,
+        address: "",
+        country: "",
+      };
 
-      // if (results.length > 0) {
-      //   clearTimeout(timeout);
-      //   timeout = setTimeout(() => {
-      //     cb(results);
-      //   }, 300 * Math.random());
-      // } else {
+      if (!this.valueSearch) {
+        // Khi không có giá trị tìm kiếm, chỉ hiển thị "Sử dụng vị trí hiện tại"
+        this.suggestions = [useCurrentLocation];
+        timeout = setTimeout(() => {
+          cb(this.suggestions);
+        }, 300);
+        return;
+      }
+
+      // Gọi API để lấy dữ liệu gợi ý
       const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
         this.valueSearch
       )}&key=TOH_KEY`;
 
       const value = encodeBase64(urlParam);
 
-      await this.getFormattedAddress(value);
-      timeout = setTimeout(() => {
-        this.suggestions = this.$store.state.weatherModule.newArray;
-        cb(this.suggestions); // Gọi cb với dữ liệu từ sugges
-      }, 300 * Math.random());
-      // }
+      try {
+        await this.getFormattedAddress(value);
+
+        // Đảm bảo giá trị tìm kiếm không thay đổi
+        if (this.valueSearch === queryString) {
+          // Thêm phần tử "Sử dụng vị trí hiện tại" vào đầu danh sách
+          this.suggestions = [
+            useCurrentLocation,
+            ...(this.$store.state.weatherModule.newArray || []),
+          ];
+          timeout = setTimeout(() => {
+            cb(this.suggestions);
+          }, 300);
+        }
+      } catch (error) {
+        console.error("Error fetching address:", error);
+        this.suggestions = [useCurrentLocation];
+        cb(this.suggestions);
+      }
     },
 
     createFilter(queryString) {
@@ -433,9 +461,9 @@ export default {
     async handleSelect(item) {
       this.valueSearch = item.value;
       let objectBread = {
-        country: item.country,
+        country: item.country.length !== 0 ? item.country : item.address,
         country_code: item.country,
-        city: item.city,
+        city: item.city.length !== 0 ? item.city : item.address,
         latitude: item.lat,
         longitude: item.lng,
         keyCategory: item.city.replace(/ /g, "_"),
@@ -470,7 +498,9 @@ export default {
       // this.setUpdateBreadcumsObject(item);
 
       await this.$router.push({
-        path: `/${language}/today-weather/${item.country}/${item.city}`,
+        path: `/${language}/today-weather/${
+          item.country.length !== 0 ? item.country : item.address
+        }/${item.city.length !== 0 ? item.city : item.address}`,
       });
       window.location.reload();
 
@@ -738,5 +768,9 @@ export default {
 .basic-header .header-page {
   background-color: #1f1f1f;
   height: 78px;
+}
+
+.bg-location-now {
+  background-color: #91d6dd63;
 }
 </style>

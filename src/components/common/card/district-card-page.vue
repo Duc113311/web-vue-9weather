@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="cursor-pointer">
     <!--  -->
     <div class="district-card">
       <div class="flex items-center justify-center p-4">

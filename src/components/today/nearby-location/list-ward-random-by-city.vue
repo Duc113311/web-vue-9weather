@@ -9,7 +9,7 @@
               width="24"
               alt=""
             />
-            <span>Quận/ huyện lân cận</span>
+            <span>Phường/ xã lân cận</span>
           </div>
           <div
             v-if="
@@ -57,70 +57,17 @@ import {
   getParamAirByCode,
   urlEncodeString,
 } from "@/utils/EncoderDecoderUtils";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
-  name: "list-nearby-location",
+  name: "list-ward-random-by-city",
 
   components: {
     ItemComponent,
     DistrictCardPage,
   },
   data() {
-    return {
-      districts: [
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-        {
-          name: "District name",
-          condition: "Light Rain",
-          lowTemp: 24,
-          highTemp: 32,
-        },
-
-        // ... thêm các district khác
-      ],
-    };
+    return {};
   },
 
   computed: {
@@ -129,13 +76,9 @@ export default {
       "breadcumsObjectGetters",
     ]),
 
-    ...mapGetters("airQualityModule", [
-      "airObjectGetters",
-      "airKeyObjectGetters",
-    ]),
-
     renderListCityAllGetters() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const keyCityValue = localStorage.getItem("keyLanguageCity");
       debugger;
       console.log("retrievedArray", retrievedArray);
 
@@ -150,7 +93,14 @@ export default {
         );
 
         if (findData) {
-          return findData.districtList.slice(0, 8);
+          const findCity = findData.districtList.find(
+            (x) => x.keyLanguage === keyCityValue
+          );
+          if (findCity) {
+            return findCity.districtList.slice(0, 8);
+          } else {
+            return [];
+          }
         } else {
           return [];
         }
@@ -164,13 +114,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
-    ...mapActions("weatherModule", [
-      "getWeatherDataCurrent",
-      "getFormattedAddress",
-    ]),
-    ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
-    ...mapMutations("weatherModule", ["setCityWeather"]),
     async onClickShowDetailDistrict(value) {
       debugger;
       localStorage.setItem("keyLanguageCity", value.keyLanguage);
@@ -190,9 +133,7 @@ export default {
         debugger;
         const listResultAddress = JSON.parse(jsonValue);
         const addressResult = listResultAddress.results;
-        const partsAddress = addressResult[0].formatted_address
-          .split(", ")
-          .map((part) => part.trim());
+        const partsAddress = addressResult[0].formatted_address.split(", ");
 
         objectAddressNew.city = partsAddress[0];
         objectAddressNew.country = partsAddress[partsAddress.length - 1];
