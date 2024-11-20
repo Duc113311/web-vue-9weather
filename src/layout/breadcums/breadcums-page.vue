@@ -3,27 +3,38 @@
     <div class="container">
       <div class="flex items-center gap-2 txt_regular">
         <span>Home</span>
-        <img
-          v-if="breadcumsObject?.country"
-          class="transform"
-          src="../../assets/images/svg_v2/ic_move_down_left.svg"
-          alt=""
-        />
-        <span> {{ breadcumsObject?.country }}</span>
-        <img
-          v-if="breadcumsObject?.city"
-          class="transform"
-          src="../../assets/images/svg_v2/ic_move_down_left.svg"
-          alt=""
-        />
-        <span>{{ convertToEnglishRender(breadcumsObject?.city) }}</span>
-        <img
-          v-if="cityBreadcums"
-          class="transform"
-          src="@/assets/images/svg_v2/ic_move_down_left.svg"
-          alt=""
-        />
-        <span>{{ cityBreadcums.replace(/_/g, " ") }}</span>
+        <div class="flex items-center" v-if="breadcumsObject?.country">
+          <img
+            class="transform"
+            src="../../assets/images/svg_v2/ic_move_down_left.svg"
+            alt=""
+          />
+          <span> {{ breadcumsObject?.country }}</span>
+        </div>
+        <div class="flex items-center" v-if="breadcumsObject?.city">
+          <img
+            class="transform"
+            src="../../assets/images/svg_v2/ic_move_down_left.svg"
+            alt=""
+          />
+          <span>{{ breadcumsObject?.city }}</span>
+        </div>
+        <div class="flex items-center" v-if="breadcumsObject?.district">
+          <img
+            class="transform"
+            src="@/assets/images/svg_v2/ic_move_down_left.svg"
+            alt=""
+          />
+          <span>{{ breadcumsObject?.district }}</span>
+        </div>
+        <div class="flex items-center" v-if="breadcumsObject?.ward">
+          <img
+            class="transform"
+            src="@/assets/images/svg_v2/ic_move_down_left.svg"
+            alt=""
+          />
+          <span>{{ breadcumsObject?.ward }}</span>
+        </div>
       </div>
     </div>
   </div>

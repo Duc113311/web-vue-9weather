@@ -459,34 +459,65 @@ export default {
     },
 
     async handleSelect(item) {
-      this.valueSearch = item.value;
-      let objectBread = {
-        country: item.country.length !== 0 ? item.country : item.address,
-        country_code: item.country,
-        city: item.city.length !== 0 ? item.city : item.address,
-        latitude: item.lat,
-        longitude: item.lng,
-        keyCategory: item.city.replace(/ /g, "_"),
-      };
       debugger;
-      // if (item.country !== "Vietnam") {
-      //   localStorage.setItem("objectBread", JSON.stringify(objectBread));
+      this.valueSearch = "";
+      if (item.country === "Vietnam") {
+        let objectBread = {
+          country: item.country,
+          country_key:
+            item.country && item.country.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_country",
+          city: item.city,
+          city_key:
+            item.city && item.city.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_city",
+          district: item.district,
+          district_key:
+            item.district && item.district.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_district",
+          ward: item.ward,
+          ward_key:
+            item.ward && item.ward.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_ward",
+          latitude: item.lat,
+          longitude: item.lng,
+        };
+        debugger;
 
-      //   this.setBreadcumsNotAllowLocation(objectBread);
-      // } else {
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
-      // }
-      // const dataLocation = {
-      //   city: item.value,
-      //   code: item.code,
-      //   country: item.country,
-      //   latitude: item.lat,
-      //   longitude: item.lng,
-      // };
+        this.setBreadcumsNotAllowLocation(objectBread);
+      } else {
+        let objectBread = {
+          country: item.country,
+          country_key:
+            item.country && item.country.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_country",
+          city: item.city,
+          city_key:
+            item.city && item.city.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_city",
+          district: item.district,
+          district_key:
+            item.district && item.district.trim() !== ""
+              ? item.city.replace(/ /g, "_")
+              : "unknown_district",
 
-      localStorage.setItem("objectBread", JSON.stringify(objectBread));
+          latitude: item.lat,
+          longitude: item.lng,
+        };
+        debugger;
 
-      this.setBreadcumsNotAllowLocation(objectBread);
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+        this.setBreadcumsNotAllowLocation(objectBread);
+      }
 
       // localStorage.setItem("country", JSON.stringify(dataLocation));
       // localStorage.setItem("cityName", JSON.stringify(dataLocation.city));

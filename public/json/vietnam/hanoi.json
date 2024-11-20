@@ -586,7 +586,13 @@
       "category": null,
       "postalCode": "1000044",
       "nameCategory": "Quận Long Biên",
-      "languages": {},
+      "keyLanguage": "Quận_Long_Biên",
+      "languages": {
+        "vi": "Quận Long Biên",
+        "en": "Long Bien District",
+        "ja": "ロンビエン地区",
+        "ko": "롱비엔 지구"
+      },
       "districtList": [
         {
           "code": 45,

@@ -136,12 +136,22 @@ const mutations = {
    * @param {*} data
    */
   setBreadcumsAllowLocation(state, data) {
+    debugger;
     (state.breadcumsObject.country = data?.objectLocation?.country), // Quốc gia
-      (state.breadcumsObject.countryCode = data?.objectLocation?.country_code), // Quốc gia
+      (state.breadcumsObject.country_key = data?.objectLocation?.country_code), // Quốc gia
       (state.breadcumsObject.city = data?.objectLocation?.city), // Thành phố
-      (state.breadcumsObject.wardCommune = data?.objectLocation?.quarter), // Phường xã
+      (state.breadcumsObject.city_key = data?.objectLocation?.city.replace(
+        / /g,
+        "_"
+      )), // Thành phố
+      (state.breadcumsObject.ward = data?.objectLocation?.quarter), // Phường xã
+      (state.breadcumsObject.ward_key = data?.objectLocation?.quarter.replace(
+        / /g,
+        "_"
+      )), // Phường xã
       (state.breadcumsObject.district = data?.objectLocation?.suburb), // Quận huyện
-      (state.breadcumsObject.road = data?.objectLocation?.road), // Đường
+      (state.breadcumsObject.district_key =
+        data?.objectLocation?.suburb.replace(/ /g, "_")), // Quận huyện
       (state.breadcumsObject.latitude = data?.latitude), // latitude
       (state.breadcumsObject.longitude = data?.longitude); // longitude
   },
@@ -155,14 +165,15 @@ const mutations = {
     //
     debugger;
     (state.breadcumsObject.country = data?.country), // Quốc gia
-      (state.breadcumsObject.countryCode = data?.country_code), // Quốc gia
-      (state.breadcumsObject.city = data?.city), // Thành phố
-      (state.breadcumsObject.wardCommune = ""), // Phường xã
+      (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
+      (state.breadcumsObject.city = data?.city),
+      (state.breadcumsObject.city_key = data?.city_key),
+      (state.breadcumsObject.ward = ""), // Phường xã
+      (state.breadcumsObject.ward_key = ""), // Phường xã
       (state.breadcumsObject.district = ""), // Quận huyện
-      (state.breadcumsObject.road = ""), // Đường
+      (state.breadcumsObject.district_key = ""), // Quận huyện
       (state.breadcumsObject.latitude = data?.latitude), // latitude
-      (state.breadcumsObject.longitude = data?.longitude), // longitude
-      (state.breadcumsObject.keyCategory = data?.keyCategory); // longitude
+      (state.breadcumsObject.longitude = data?.longitude); // longitude
   },
 
   setUpdateBreadcumsObject(state, data) {

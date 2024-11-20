@@ -106,40 +106,84 @@ const mutations = {
       const element = addressResult[index];
       console.log("element-search", element);
 
-      const lastElement =
-        element.address_components[element.address_components.length - 1];
+      // const lastElement =
+      //   element.address_components[element.address_components.length - 1];
 
+      let objectPush = {};
       const valueCountry = element.address_components.find((x) =>
         ["country", "political"].every((type) => x.types.includes(type))
       ) || { long_name: "" };
 
-      const valueCity = element.address_components.find((x) =>
-        ["locality", "political"].every((type) => x.types.includes(type))
-      ) || { long_name: "" };
+      if (valueCountry.long_name === "Vietnam") {
+        const nameCity = element.address_components.find((x) =>
+          ["administrative_area_level_1", "political"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
+        const nameDistrict = element.address_components.find((x) =>
+          ["administrative_area_level_2", "political"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
+        const nameWard = element.address_components.find((x) =>
+          ["political", "sublocality", "sublocality_level_1"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
 
-      const valueDistrict = element.address_components.find((x) =>
-        ["administrative_area_level_2", "political"].every((type) =>
-          x.types.includes(type)
-        )
-      );
+        objectPush.country = valueCountry.long_name;
+        objectPush.city = nameCity.long_name;
+        objectPush.district = nameDistrict.long_name;
+        objectPush.ward = nameWard.long_name;
+        (objectPush.address = element.formatted_address),
+          (objectPush.lat = element.geometry.location.lat),
+          (objectPush.lng = element.geometry.location.lng);
+      } else {
+        const nameCity = element.address_components.find((x) =>
+          ["locality", "political"].every((type) => x.types.includes(type))
+        ) || { long_name: "" };
 
-      const valueStreet = element.address_components.find((x) =>
-        ["route"].every((type) => x.types.includes(type))
-      );
+        const nameDistrict = element.address_components.find((x) =>
+          ["administrative_area_level_2", "political"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
 
-      const objectAddress = {
-        country: valueCountry.long_name,
-        city: valueCity.long_name,
-        // district: valueDistrict.long_name,
-        // street: valueStreet.long_name,
-        address: element.formatted_address,
-        lat: element.geometry.location.lat,
-        lng: element.geometry.location.lng,
-      };
+        objectPush.country = valueCountry.long_name;
+        objectPush.city = nameCity.long_name;
+        objectPush.district = nameDistrict.long_name;
+        (objectPush.address = element.formatted_address),
+          (objectPush.lat = element.geometry.location.lat),
+          (objectPush.lng = element.geometry.location.lng);
+      }
 
-      console.log("objectAddress", objectAddress);
+      // const valueCity = element.address_components.find((x) =>
+      //   ["locality", "political"].every((type) => x.types.includes(type))
+      // ) || { long_name: "" };
 
-      state.newArray.push(objectAddress);
+      // const valueDistrict = element.address_components.find((x) =>
+      //   ["administrative_area_level_2", "political"].every((type) =>
+      //     x.types.includes(type)
+      //   )
+      // );
+
+      // const valueStreet = element.address_components.find((x) =>
+      //   ["route"].every((type) => x.types.includes(type))
+      // );
+
+      // const objectAddress = {
+      //   country: valueCountry.long_name,
+      //   city: valueCity.long_name,
+      //   // district: valueDistrict.long_name,
+      //   // street: valueStreet.long_name,
+      //   address: element.formatted_address,
+      //   lat: element.geometry.location.lat,
+      //   lng: element.geometry.location.lng,
+      // };
+
+      // console.log("objectAddress", objectAddress);
+
+      state.newArray.push(objectPush);
     }
   },
 

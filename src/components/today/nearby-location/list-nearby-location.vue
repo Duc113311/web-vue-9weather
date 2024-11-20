@@ -156,7 +156,7 @@ export default {
         }
       } else {
         const findData = this.listCityAllGetters.find(
-          (x) => x.nameCategory === this.breadcumsObjectGetters.city
+          (x) => x.keyLanguage === this.breadcumsObjectGetters.city_key
         );
         return findData.districtList.slice(0, 8);
       }
@@ -181,28 +181,30 @@ export default {
       )}&key=TOH_KEY`;
 
       const valueEncode = encodeBase64(urlParam);
-      let objectAddressNew = {};
-      await this.getFormattedAddress(valueEncode).then((data) => {
-        const jsonValue = decodeBase64(data);
-        if (!jsonValue) {
-          return;
-        }
-        debugger;
-        const listResultAddress = JSON.parse(jsonValue);
-        const addressResult = listResultAddress.results;
-        const partsAddress = addressResult[0].formatted_address
-          .split(", ")
-          .map((part) => part.trim());
+      await this.getFormattedAddress(valueEncode);
+      let objectAddressNew = this.$store.state.weatherModule.newArray[0];
+      debugger;
+      // await this.getFormattedAddress(valueEncode).then((data) => {
+      //   const jsonValue = decodeBase64(data);
+      //   if (!jsonValue) {
+      //     return;
+      //   }
+      //   debugger;
+      //   const listResultAddress = JSON.parse(jsonValue);
+      //   const addressResult = listResultAddress.results;
+      //   const partsAddress = addressResult[0].formatted_address
+      //     .split(", ")
+      //     .map((part) => part.trim());
 
-        objectAddressNew.city = partsAddress[0];
-        objectAddressNew.country = partsAddress[partsAddress.length - 1];
-        objectAddressNew.lat = addressResult[0].geometry.location.lat;
-        objectAddressNew.lng = addressResult[0].geometry.location.lng;
-      });
+      //   objectAddressNew.city = partsAddress[0];
+      //   objectAddressNew.country = partsAddress[partsAddress.length - 1];
+      //   objectAddressNew.lat = addressResult[0].geometry.location.lat;
+      //   objectAddressNew.lng = addressResult[0].geometry.location.lng;
+      // });
       let language = localStorage.getItem("language") || "en";
 
       await this.$router.push({
-        path: `/${language}/today-weather/${objectAddressNew.country}/${objectAddressNew.city}/${value.languages["en"]}`,
+        path: `/${language}/today-weather/${objectAddressNew.country}/${objectAddressNew.city}/${objectAddressNew.district}`,
       });
       window.location.reload();
 

@@ -180,13 +180,25 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["currentlyGetters"]),
-
+    ...mapGetters("commonModule", [
+      "listCityAllGetters",
+      "breadcumsObjectGetters",
+    ]),
     currentlyData() {
       return this.currentlyGetters;
     },
   },
 
-  created() {},
+  beforeUnmount(to, from, next) {
+    debugger;
+    const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+    next();
+    if (retrievedArray) {
+      console.log("retrievedArray-home", retrievedArray);
+
+      this.$router.replace();
+    }
+  },
 
   methods: {},
 };

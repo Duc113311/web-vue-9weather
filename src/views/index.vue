@@ -283,7 +283,17 @@ export default {
               JSON.stringify(objectLatLong)
             );
 
-            this.setBreadcumsNotAllowLocation(data);
+            const objectLocation = {
+              country: data.country,
+              country_key: data.country,
+              city: this.convertToVietnamese(data.city).city,
+              city_key: this.convertToVietnamese(data.city).cityConvert,
+              latitude: data.latitude,
+              longitude: data.longitude,
+            };
+
+            this.setBreadcumsNotAllowLocation(objectLocation);
+
             const objectPosition = {
               latitude: data.latitude,
               longitude: data.longitude,
@@ -321,6 +331,83 @@ export default {
       } catch (error) {
         this.error = "Unable to retrieve location via IP.";
       }
+    },
+
+    convertToVietnamese(input) {
+      // Map các từ gốc sang từ có dấu
+      const vietnameseMap = {
+        Hanoi: "Hà Nội",
+        Haiphong: "Hải Phòng",
+        Danang: "Đà Nẵng",
+        Hochiminh: "Hồ Chí Minh",
+        Cantho: "Cần Thơ",
+        AnGiang: "An Giang",
+        BacGiang: "Bắc Giang",
+        BacKan: "Bắc Kạn",
+        BacLieu: "Bạc Liêu",
+        BacNinh: "Bắc Ninh",
+        BenTre: "Bến Tre",
+        BinhDinh: "Bình Định",
+        BinhDuong: "Bình Dương",
+        BinhPhuoc: "Bình Phước",
+        BinhThuan: "Bình Thuận",
+        CaMau: "Cà Mau",
+        CaoBang: "Cao Bằng",
+        DakLak: "Đắk Lắk",
+        DakNong: "Đắk Nông",
+        DienBien: "Điện Biên",
+        DongNai: "Đồng Nai",
+        DongThap: "Đồng Tháp",
+        GiaLai: "Gia Lai",
+        HaGiang: "Hà Giang",
+        HaNam: "Hà Nam",
+        HaTinh: "Hà Tĩnh",
+        HaiDuong: "Hải Dương",
+        HauGiang: "Hậu Giang",
+        HoaBinh: "Hòa Bình",
+        HungYen: "Hưng Yên",
+        KhanhHoa: "Khánh Hòa",
+        KienGiang: "Kiên Giang",
+        KonTum: "Kon Tum",
+        LaiChau: "Lai Châu",
+        LamDong: "Lâm Đồng",
+        LangSon: "Lạng Sơn",
+        LaoCai: "Lào Cai",
+        LongAn: "Long An",
+        NamDinh: "Nam Định",
+        NgheAn: "Nghệ An",
+        NinhBinh: "Ninh Bình",
+        NinhThuan: "Ninh Thuận",
+        PhuTho: "Phú Thọ",
+        PhuYen: "Phú Yên",
+        QuangBinh: "Quảng Bình",
+        QuangNam: "Quảng Nam",
+        QuangNgai: "Quảng Ngãi",
+        QuangNinh: "Quảng Ninh",
+        QuangTri: "Quảng Trị",
+        SocTrang: "Sóc Trăng",
+        SonLa: "Sơn La",
+        TayNinh: "Tây Ninh",
+        ThaiBinh: "Thái Bình",
+        ThaiNguyen: "Thái Nguyên",
+        ThanhHoa: "Thanh Hóa",
+        ThuaThienHue: "Thừa Thiên Huế",
+        TienGiang: "Tiền Giang",
+        TraVinh: "Trà Vinh",
+        TuyenQuang: "Tuyên Quang",
+        VinhLong: "Vĩnh Long",
+        VinhPhuc: "Vĩnh Phúc",
+        YenBai: "Yên Bái",
+      };
+
+      // Kiểm tra nếu chuỗi tồn tại trong map
+      const converted = vietnameseMap[input] || input;
+
+      // Thay khoảng trắng bằng dấu gạch dưới
+      return {
+        city: converted,
+        cityConvert: converted.replace(/ /g, "_"),
+      };
     },
 
     /**
@@ -361,6 +448,7 @@ export default {
   right: 0;
   top: 0;
   visibility: visible !important;
+  z-index: 100;
 }
 @media (min-width: 768px) {
   .header-placeholder {
