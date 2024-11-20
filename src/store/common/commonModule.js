@@ -144,11 +144,12 @@ const mutations = {
         / /g,
         "_"
       )), // Thành phố
-      (state.breadcumsObject.ward = data?.objectLocation?.quarter), // Phường xã
-      (state.breadcumsObject.ward_key = data?.objectLocation?.quarter.replace(
-        / /g,
-        "_"
-      )), // Phường xã
+      (state.breadcumsObject.ward = data?.objectLocation?.quarter
+        ? data?.objectLocation?.quarter
+        : data?.objectLocation?.neighbourhood), // Phường xã
+      (state.breadcumsObject.ward_key = data?.objectLocation?.quarter
+        ? data?.objectLocation?.quarter.replace(/ /g, "_")
+        : data?.objectLocation?.neighbourhood.replace(/ /g, "_")), // Phường xã
       (state.breadcumsObject.district = data?.objectLocation?.suburb), // Quận huyện
       (state.breadcumsObject.district_key =
         data?.objectLocation?.suburb.replace(/ /g, "_")), // Quận huyện
@@ -173,7 +174,7 @@ const mutations = {
       (state.breadcumsObject.district = ""), // Quận huyện
       (state.breadcumsObject.district_key = ""), // Quận huyện
       (state.breadcumsObject.latitude = data?.latitude), // latitude
-      (state.breadcumsObject.longitude = data?.longitude); // longitude
+      (state.breadcumsObject.longitude = data?.longitude); // longitud  e
   },
 
   setUpdateBreadcumsObject(state, data) {

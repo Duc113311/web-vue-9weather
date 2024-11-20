@@ -461,6 +461,8 @@ export default {
     async handleSelect(item) {
       debugger;
       this.valueSearch = "";
+      let language = localStorage.getItem("language") || "en";
+
       if (item.country === "Vietnam") {
         let objectBread = {
           country: item.country,
@@ -491,6 +493,35 @@ export default {
         localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
         this.setBreadcumsNotAllowLocation(objectBread);
+
+        // tồn tại thành phố
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length === 0
+        ) {
+          await this.$router.push({
+            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}`,
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0 &&
+          objectBread.ward.length === 0
+        ) {
+          await this.$router.push({
+            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}/${objectBread.district}`,
+          });
+        }
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0 &&
+          objectBread.ward.length !== 0
+        ) {
+          await this.$router.push({
+            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}/${objectBread.district}/${objectBread.ward}`,
+          });
+        }
       } else {
         let objectBread = {
           country: item.country,
@@ -517,22 +548,33 @@ export default {
         localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
         this.setBreadcumsNotAllowLocation(objectBread);
+
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length === 0
+        ) {
+          await this.$router.push({
+            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}`,
+          });
+        }
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0
+        ) {
+          await this.$router.push({
+            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}/${objectBread.district}`,
+          });
+        }
       }
 
       // localStorage.setItem("country", JSON.stringify(dataLocation));
       // localStorage.setItem("cityName", JSON.stringify(dataLocation.city));
       // this.setCountryFilter(dataLocation);
 
-      let language = localStorage.getItem("language") || "en";
       console.log("item-search", item);
 
       // this.setUpdateBreadcumsObject(item);
 
-      await this.$router.push({
-        path: `/${language}/today-weather/${
-          item.country.length !== 0 ? item.country : item.address
-        }/${item.city.length !== 0 ? item.city : item.address}`,
-      });
       window.location.reload();
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;

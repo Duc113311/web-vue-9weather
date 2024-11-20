@@ -189,17 +189,6 @@ export default {
     },
   },
 
-  beforeUnmount(to, from, next) {
-    debugger;
-    const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-    next();
-    if (retrievedArray) {
-      console.log("retrievedArray-home", retrievedArray);
-
-      this.$router.replace();
-    }
-  },
-
   methods: {},
 };
 </script>

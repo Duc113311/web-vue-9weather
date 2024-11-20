@@ -208,7 +208,8 @@ export default {
       });
       window.location.reload();
 
-      const keyCity = JSON.parse(localStorage.getItem("objectBread"));
+      // const keyCity = JSON.parse(localStorage.getItem("objectBread"));
+      debugger;
       const objectBread = {
         country: objectAddressNew.country,
         city: objectAddressNew.city,
