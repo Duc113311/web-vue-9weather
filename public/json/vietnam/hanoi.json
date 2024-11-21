@@ -34,7 +34,7 @@
           "keyLanguage": "Phường_Phúc_Xá",
           "languages": {
             "vi": "Phường Phúc Xá",
-            "en": "Phường Phúc Xá",
+            "en": "Phuc Xa Ward",
             "ja": "Phường Phúc Xá",
             "ko": "프엉푹싸"
           }
@@ -47,7 +47,7 @@
           "keyLanguage": "Phường_Trúc_Bạch",
           "languages": {
             "vi": "Phường Trúc Bạch",
-            "en": "Phường Trúc Bạch",
+            "en": "Truc Bach Ward",
             "ja": "フォン・チュク・バック",
             "ko": "프엉 쭉 바흐(Phuờng Truc Bạch)"
           }
@@ -60,7 +60,7 @@
           "keyLanguage": "Phường_Vĩnh_Phúc",
           "languages": {
             "vi": "Phường Vĩnh Phúc",
-            "en": "Phường Vĩnh Phúc",
+            "en": "Vinh Phuc Ward",
             "ja": "フォン・ヴィン・フック",
             "ko": "프엉 빈 푹"
           }
@@ -73,7 +73,7 @@
           "keyLanguage": "Phường_Cống_Vị",
           "languages": {
             "vi": "Phường Cống Vị",
-            "en": "Phường Cống Vị",
+            "en": "Cong Vi Ward",
             "ja": "Phường Cống Vị",
             "ko": "프엉 꽁 비(Phuờng Cống Vị)"
           }
@@ -86,7 +86,7 @@
           "keyLanguage": "Phường_Liễu_Giai",
           "languages": {
             "vi": "Phường Liễu Giai",
-            "en": "Phường Liễu Giai",
+            "en": "Lieu Giai Ward",
             "ja": "フォン・リウ・ザイ",
             "ko": "프엉 리우 지아이(Phuờng Liễu Giai)"
           }
@@ -99,7 +99,7 @@
           "keyLanguage": "Phường_Nguyễn_Trung_Trực",
           "languages": {
             "vi": "Phường Nguyễn Trung Trực",
-            "en": "Phường Nguyễn Trung Trực",
+            "en": "Nguyen Trung Truc Ward",
             "ja": "Phường Nguyễn Trung Trực",
             "ko": "프엉 응우옌 쭝쯧"
           }
@@ -112,7 +112,7 @@
           "keyLanguage": "Phường_Quán_Thánh",
           "languages": {
             "vi": "Phường Quán Thánh",
-            "en": "Phường Quán Thánh",
+            "en": "Quan Thanh Ward",
             "ja": "プオン・クアン・タン",
             "ko": "프엉 꾸안 탄"
           }
@@ -125,7 +125,7 @@
           "keyLanguage": "Phường_Ngọc_Hà",
           "languages": {
             "vi": "Phường Ngọc Hà",
-            "en": "Phường Ngọc Hà",
+            "en": "Ngoc Ha Ward",
             "ja": "フォン・ゴク・ハ",
             "ko": "프엉 응옥 하(Phuờng Ngọc Hà)"
           }
@@ -138,7 +138,7 @@
           "keyLanguage": "Phường_Điện_Biên",
           "languages": {
             "vi": "Phường Điện Biên",
-            "en": "Phường Điện Biên",
+            "en": "Dien Bien Ward",
             "ja": "フォン・ディン・ビエン",
             "ko": "프엉 디엔 비엔"
           }
@@ -151,7 +151,7 @@
           "keyLanguage": "Phường_Đội_Cấn",
           "languages": {
             "vi": "Phường Đội Cấn",
-            "en": "Phường Đội Cấn",
+            "en": "Doi Can Ward",
             "ja": "フォン・ダイ・カン",
             "ko": "프엉 도이 깐"
           }
@@ -164,7 +164,7 @@
           "keyLanguage": "Phường_Ngọc_Khánh",
           "languages": {
             "vi": "Phường Ngọc Khánh",
-            "en": "Phường Ngọc Khánh",
+            "en": "Ngoc Khanh Ward",
             "ja": "フォン・ゴック・カイン",
             "ko": "프엉 응옥 칸"
           }
@@ -177,7 +177,7 @@
           "keyLanguage": "Phường_Kim_Mã",
           "languages": {
             "vi": "Phường Kim Mã",
-            "en": "Phường Kim Mã",
+            "en": "Kim Ma Ward",
             "ja": "フォン・キム・マン",
             "ko": "프엉 김 마"
           }
@@ -190,7 +190,7 @@
           "keyLanguage": "Phường_Giảng_Võ",
           "languages": {
             "vi": "Phường Võ Giảng",
-            "en": "Phường Giảng Võ",
+            "en": "Giang Vo Ward",
             "ja": "Phường Giảng Võ",
             "ko": "프엉 기앙 보(Phuờng Giảng Võ)"
           }
@@ -203,7 +203,7 @@
           "keyLanguage": "Phường_Thành_Công",
           "languages": {
             "vi": "Phường Thành Công",
-            "en": "Phường Thành Công",
+            "en": "Thanh Cong Ward",
             "ja": "フォン・タイン・コン",
             "ko": "프엉 탄 콩"
           }
@@ -245,7 +245,7 @@
           "keyLanguage": "Phường_Đồng_Xuân",
           "languages": {
             "vi": "Phường Đồng Xuân",
-            "en": "Phường Đồng Xuân",
+            "en": "Dong Xuan Ward",
             "ja": "フォン・ドン・スアン",
             "ko": "프엉동쑤언"
           }
@@ -258,7 +258,7 @@
           "keyLanguage": "Phường_Hàng_Mã",
           "languages": {
             "vi": "Phường Hàng Mã",
-            "en": "Phường Hàng Mã",
+            "en": "Hang Ma Ward",
             "ja": "フォン・ハン・マン",
             "ko": "프엉항마"
           }
