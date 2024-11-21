@@ -108,7 +108,7 @@ const mutations = {
 
       // const lastElement =
       //   element.address_components[element.address_components.length - 1];
-
+      debugger;
       let objectPush = {};
       const valueCountry = element.address_components.find((x) =>
         ["country", "political"].every((type) => x.types.includes(type))
@@ -132,6 +132,7 @@ const mutations = {
         ) || { long_name: "" };
 
         objectPush.country = valueCountry.long_name;
+        objectPush.country_key = valueCountry.short_name;
         objectPush.city = nameCity.long_name;
         objectPush.district = nameDistrict.long_name;
         objectPush.ward = nameWard.long_name;
@@ -139,12 +140,13 @@ const mutations = {
           (objectPush.lat = element.geometry.location.lat),
           (objectPush.lng = element.geometry.location.lng);
       } else {
+        debugger;
         const nameCity = element.address_components.find((x) =>
           ["locality", "political"].every((type) => x.types.includes(type))
         ) || { long_name: "" };
 
         const nameDistrict = element.address_components.find((x) =>
-          ["administrative_area_level_2", "political"].every((type) =>
+          ["administrative_area_level_1", "political"].every((type) =>
             x.types.includes(type)
           )
         ) || { long_name: "" };

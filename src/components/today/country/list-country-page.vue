@@ -24,7 +24,7 @@
       </template>
 
       <div
-        class="w-full h-[302px]"
+        class="w-full h-[302px] show-scroll"
         v-if="
           renderCityLocation.length !== 0 &&
           this.breadcumsObjectGetters.country === 'Vietnam'
@@ -34,7 +34,7 @@
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
-            class="flex justify-between items-center pb-3 pt-3"
+            class="flex justify-between items-center pb-3 pt-3 pr-2"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
           >
             <div>{{ convertKeyLanguage(item, "en") }}</div>
@@ -89,28 +89,13 @@ export default {
         ? JSON.parse(localStorage.getItem("objectBread"))
         : null;
 
-      if (retrievedArray) {
-        const findData = retrievedDataCity.find(
-          (x) => x.keyLanguage === retrievedArray.keyCategory
-        );
-
-        if (findData) {
-          const findExistData = findData.districtList.filter(
-            (x) => x.keyLanguage !== retrievedArray.keyLanguage
+      for (const element of retrievedDataCity) {
+        if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
+          const findExistData = element.districtList.filter(
+            (x) => x.keyLanguage !== retrievedDataCity.city_key
           );
-          return findExistData.length > 0 ? findExistData.slice(0, 6) : [];
-        }
-      } else {
-        for (const element of retrievedDataCity) {
-          if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
-            const findExistData = element.districtList.filter(
-              (x) =>
-                x.keyLanguage !==
-                this.convertToUnderscore(this.breadcumsObjectGetters.city)
-            );
-            if (findExistData.length > 0) {
-              return findExistData.slice(0, 6);
-            }
+          if (findExistData.length > 0) {
+            return findExistData;
           }
         }
       }

@@ -136,6 +136,14 @@ export default {
         ? this.objectCityByLocationGetters
         : retrievedArray;
     },
+
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.location[0]
+        : localStorage.getItem("language");
+    },
   },
 
   methods: {
@@ -147,6 +155,18 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
+    convertToSlug(str) {
+      // Bước 1: Loại bỏ dấu tiếng Việt
+      const normalizedStr = str
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
+      return normalizedStr
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
+        .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
+    },
     async onClickSearchCity(value, valueCategory) {
       debugger;
       const nameCity = value.languages["en"];
@@ -156,50 +176,38 @@ export default {
       )}&key=TOH_KEY`;
 
       const valueEncode = encodeBase64(urlParam);
-      let objectAddressNew = {};
-      await this.getFormattedAddress(valueEncode).then((data) => {
-        const jsonValue = decodeBase64(data);
-        if (!jsonValue) {
-          return;
-        }
-        debugger;
-        const listResultAddress = JSON.parse(jsonValue);
-        const addressResult = listResultAddress.results;
-        const partsAddress = addressResult[0].formatted_address
-          .split(", ")
-          .map((part) => part.trim());
+      await this.getFormattedAddress(valueEncode);
 
-        objectAddressNew.city = partsAddress[0];
-        objectAddressNew.country = partsAddress[1];
-        objectAddressNew.lat = addressResult[0].geometry.location.lat;
-        objectAddressNew.lng = addressResult[0].geometry.location.lng;
-      });
-      let language = localStorage.getItem("language") || "en";
-
-      await this.$router.push({
-        path: `/${language}/today-weather/${objectAddressNew.country}/${objectAddressNew.city}`,
-      });
-      window.location.reload();
+      debugger;
+      const newDataValue = this.$store.state.weatherModule.newArray[0];
+      let language = this.languageParam;
 
       const objectBread = {
-        country: objectAddressNew.country,
-        city: objectAddressNew.city,
-        latitude: objectAddressNew.lat,
-        longitude: objectAddressNew.lng,
-        country_code: objectAddressNew?.code ? objectAddressNew?.code : "",
-        keyLanguage: value.keyLanguage,
-        keyCategory: valueCategory.keyLanguage,
+        country: newDataValue.country,
+        country_key: newDataValue.country_key,
+        city: nameCity,
+        city_key: nameCity.replace(/ /g, "_"),
+        latitude: newDataValue.lat,
+        longitude: newDataValue.lng,
       };
 
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
       this.setBreadcumsNotAllowLocation(objectBread);
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectAddressNew.lat},${objectAddressNew.lng}?lang=en`;
+      const locationPath = `${language}/${objectBread.country.toLowerCase()}/${this.convertToSlug(
+        objectBread.city
+      )}`;
+      await this.$router.push({
+        path: `/${locationPath}/today-weather`,
+      });
+      window.location.reload();
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
       const resultAir = getAqiDataFromLocation(
-        objectAddressNew.lat,
-        objectAddressNew.lng
+        objectBread.latitude,
+        objectBread.longitude
       );
       const valueEncodeW = encodeBase64(param);
       const valueNewAir = encodeBase64(resultAir);

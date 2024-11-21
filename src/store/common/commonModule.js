@@ -137,22 +137,14 @@ const mutations = {
    */
   setBreadcumsAllowLocation(state, data) {
     debugger;
-    (state.breadcumsObject.country = data?.objectLocation?.country), // Quốc gia
-      (state.breadcumsObject.country_key = data?.objectLocation?.country_code), // Quốc gia
-      (state.breadcumsObject.city = data?.objectLocation?.city), // Thành phố
-      (state.breadcumsObject.city_key = data?.objectLocation?.city.replace(
-        / /g,
-        "_"
-      )), // Thành phố
-      (state.breadcumsObject.ward = data?.objectLocation?.quarter
-        ? data?.objectLocation?.quarter
-        : data?.objectLocation?.neighbourhood), // Phường xã
-      (state.breadcumsObject.ward_key = data?.objectLocation?.quarter
-        ? data?.objectLocation?.quarter.replace(/ /g, "_")
-        : data?.objectLocation?.neighbourhood.replace(/ /g, "_")), // Phường xã
-      (state.breadcumsObject.district = data?.objectLocation?.suburb), // Quận huyện
-      (state.breadcumsObject.district_key =
-        data?.objectLocation?.suburb.replace(/ /g, "_")), // Quận huyện
+    (state.breadcumsObject.country = data?.country), // Quốc gia
+      (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
+      (state.breadcumsObject.city = data?.city), // Thành phố
+      (state.breadcumsObject.city_key = data?.city_key), // Thành phố
+      (state.breadcumsObject.ward = data?.ward), // Phường xã
+      (state.breadcumsObject.ward_key = data?.ward_key), // Phường xã
+      (state.breadcumsObject.district = data?.district), // Quận huyện
+      (state.breadcumsObject.district_key = data?.district_key), // Quận huyện
       (state.breadcumsObject.latitude = data?.latitude), // latitude
       (state.breadcumsObject.longitude = data?.longitude); // longitude
   },

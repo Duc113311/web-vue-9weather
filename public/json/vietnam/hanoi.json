@@ -7,7 +7,7 @@
   "keyLanguage": "Hà_Nội",
   "languages": {
     "vi": "Hà Nội",
-    "en": "Hà Nội",
+    "en": "Hanoi",
     "ja": "ハノイ",
     "ko": "하노이"
   },
@@ -21,7 +21,7 @@
       "keyLanguage": "Quận_Ba_Đình",
       "languages": {
         "vi": "Quận Ba Đình",
-        "en": "Quận Ba Đình",
+        "en": "Ba Dinh District",
         "ja": "クアン・バ・ディン",
         "ko": "꽝바딘"
       },
@@ -219,7 +219,7 @@
       "keyLanguage": "Quận_Hoàn_Kiếm",
       "languages": {
         "vi": "Quận Hoàn Kiếm",
-        "en": "Quận Hoàn Kiếm",
+        "en": "Hoan Kiem District",
         "ja": "クン・ホアン・キエム",
         "ko": "Quận Hoàn Kiếm"
       },
@@ -232,7 +232,7 @@
           "keyLanguage": "Phường_Phúc_Tân",
           "languages": {
             "vi": "Phường Phúc Tân",
-            "en": "Phường Phúc Tân",
+            "en": "Phuc Tan Ward",
             "ja": "Phường Phúc Tân",
             "ko": "프엉푹탄(Phuờng Phúc Tân)"
           }
@@ -774,9 +774,9 @@
       "keyLanguage": "Quận_Cầu_Giấy",
       "languages": {
         "vi": "Quận Cầu Giấy",
-        "en": "Quận Cầu Giấy",
+        "en": "Cau Giay District",
         "ja": "クアン・カウ・ギエ",
-        "ko": "Quận Cầu Giấy"
+        "ko": "꺼우저이 지구"
       },
       "districtList": [
         {
@@ -787,8 +787,8 @@
           "keyLanguage": "Phường_Dịch_Vọng",
           "languages": {
             "vi": "Phường Dịch Vọng",
-            "en": "Phường Dịch Vọng",
-            "ja": "Phường Dịch Vọng",
+            "en": "Dich Vong Ward",
+            "ja": "ディッチ・ヴォング・ワード",
             "ko": "프엉 디치 뱅(Phuờng Dịch Vọng)"
           }
         },
@@ -1433,7 +1433,7 @@
       "keyLanguage": "Quận_Hoàng_Mai",
       "languages": {
         "vi": "Quận Hoàng Mai",
-        "en": "Quận Hoàng Mai",
+        "en": "Hoang Mai District",
         "ja": "クアン・ホアン・マイ",
         "ko": "꽝호앙마이(Quận Hoàng Mai)"
       },

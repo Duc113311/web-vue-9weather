@@ -10,7 +10,7 @@
         />
       </div>
       <h3 class="text-center txt_medium">
-        {{ convertLanguage(objectLocation, "en") }}
+        {{ convertLanguage(objectLocation, this.languageParam) }}
       </h3>
     </div>
   </div>
@@ -28,6 +28,16 @@ export default {
 
   data() {
     return {};
+  },
+
+  computed: {
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.location[0]
+        : localStorage.getItem("language");
+    },
   },
 
   methods: {

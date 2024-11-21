@@ -191,8 +191,9 @@ export default {
 
   mounted() {
     const keyLanguage = this.$route.params.language;
-
-    localStorage.setItem("language", keyLanguage); // Lưu lại
+    if (keyLanguage) {
+      localStorage.setItem("language", keyLanguage); // Lưu lại
+    }
   },
 
   methods: {},

@@ -9,7 +9,7 @@
               width="24"
               alt=""
             />
-            <span>Phường/ xã lân cận</span>
+            <span>Thời tiết xã phường {{ wardParam.district }}</span>
           </div>
           <div
             v-if="
@@ -69,9 +69,13 @@ export default {
       "breadcumsObjectGetters",
     ]),
 
+    wardParam() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      return retrievedArray;
+    },
+
     renderListCityAllGetters() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      const keyCityValue = localStorage.getItem("keyLanguageCity");
       debugger;
       console.log("retrievedArray", retrievedArray);
 
@@ -82,15 +86,15 @@ export default {
       if (retrievedArray) {
         console.log("listCityAllGetters", this.listCityAllGetters);
         const findData = this.listCityAllGetters.find(
-          (x) => x.keyLanguage === retrievedArray.keyLanguage
+          (x) => x.keyLanguage === retrievedArray.city_key
         );
 
         if (findData) {
           const findCity = findData.districtList.find(
-            (x) => x.keyLanguage === keyCityValue
+            (x) => x.keyLanguage === retrievedArray.district_key
           );
           if (findCity) {
-            return findCity.districtList.slice(0, 8);
+            return findCity.districtList;
           } else {
             return [];
           }

@@ -161,9 +161,7 @@ export default {
       }
       this.setTitleScream(this.activeIndex);
       await this.$router.push({
-        path: `/${this.renderLanguage}/${screamName}/${
-          this.renderCountry
-        }/${convertToEnglishReplace(this.renderCityName)}`,
+        name: screamName,
       });
     },
   },

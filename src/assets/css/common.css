@@ -43,7 +43,7 @@
 }
 
 .show-scroll::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 .show-scroll::-webkit-scrollbar-track {
@@ -79,7 +79,6 @@
   background: #c1cfe1;
 }
 
-
 /* Model */
 
 .z-model {
@@ -97,13 +96,11 @@
   z-index: 99;
 }
 
-.size-img{
+.size-img {
   height: 16px;
   max-height: 16px;
   object-fit: cover;
 }
-
-
 
 .imgLogo {
   background-image: url(@/assets/images/svg/logo_new.svg);

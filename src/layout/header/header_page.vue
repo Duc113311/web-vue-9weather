@@ -206,6 +206,14 @@ export default {
       "airKeyObjectGetters",
     ]),
 
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.location[0]
+        : localStorage.getItem("language");
+    },
+
     renderCountry() {
       return this.$store.state.weatherModule.cityCountry;
     },
@@ -458,33 +466,106 @@ export default {
       };
     },
 
+    convertToVietnamese(input) {
+      // Map các từ gốc sang từ có dấu
+      const vietnameseMap = {
+        Hanoi: "Hà Nội",
+        Haiphong: "Hải Phòng",
+        Danang: "Đà Nẵng",
+        Hochiminh: "Hồ Chí Minh",
+        Cantho: "Cần Thơ",
+        AnGiang: "An Giang",
+        BacGiang: "Bắc Giang",
+        BacKan: "Bắc Kạn",
+        BacLieu: "Bạc Liêu",
+        BacNinh: "Bắc Ninh",
+        BenTre: "Bến Tre",
+        BinhDinh: "Bình Định",
+        BinhDuong: "Bình Dương",
+        BinhPhuoc: "Bình Phước",
+        BinhThuan: "Bình Thuận",
+        CaMau: "Cà Mau",
+        CaoBang: "Cao Bằng",
+        DakLak: "Đắk Lắk",
+        DakNong: "Đắk Nông",
+        DienBien: "Điện Biên",
+        DongNai: "Đồng Nai",
+        DongThap: "Đồng Tháp",
+        GiaLai: "Gia Lai",
+        HaGiang: "Hà Giang",
+        HaNam: "Hà Nam",
+        HaTinh: "Hà Tĩnh",
+        HaiDuong: "Hải Dương",
+        HauGiang: "Hậu Giang",
+        HoaBinh: "Hòa Bình",
+        HungYen: "Hưng Yên",
+        KhanhHoa: "Khánh Hòa",
+        KienGiang: "Kiên Giang",
+        KonTum: "Kon Tum",
+        LaiChau: "Lai Châu",
+        LamDong: "Lâm Đồng",
+        LangSon: "Lạng Sơn",
+        LaoCai: "Lào Cai",
+        LongAn: "Long An",
+        NamDinh: "Nam Định",
+        NgheAn: "Nghệ An",
+        NinhBinh: "Ninh Bình",
+        NinhThuan: "Ninh Thuận",
+        PhuTho: "Phú Thọ",
+        PhuYen: "Phú Yên",
+        QuangBinh: "Quảng Bình",
+        QuangNam: "Quảng Nam",
+        QuangNgai: "Quảng Ngãi",
+        QuangNinh: "Quảng Ninh",
+        QuangTri: "Quảng Trị",
+        SocTrang: "Sóc Trăng",
+        SonLa: "Sơn La",
+        TayNinh: "Tây Ninh",
+        ThaiBinh: "Thái Bình",
+        ThaiNguyen: "Thái Nguyên",
+        ThanhHoa: "Thanh Hóa",
+        ThuaThienHue: "Thừa Thiên Huế",
+        TienGiang: "Tiền Giang",
+        TraVinh: "Trà Vinh",
+        TuyenQuang: "Tuyên Quang",
+        VinhLong: "Vĩnh Long",
+        VinhPhuc: "Vĩnh Phúc",
+        YenBai: "Yên Bái",
+      };
+
+      // Kiểm tra nếu chuỗi tồn tại trong map
+      const converted = vietnameseMap[input] || input;
+
+      // Thay khoảng trắng bằng dấu gạch dưới
+      return {
+        city: converted,
+        cityConvert: converted.replace(/ /g, "_"),
+      };
+    },
+
     async handleSelect(item) {
       debugger;
       this.valueSearch = "";
-      let language = localStorage.getItem("language") || "en";
-
+      let language = this.languageParam;
       if (item.country === "Vietnam") {
         let objectBread = {
           country: item.country,
-          country_key:
-            item.country && item.country.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "unknown_country",
-          city: item.city,
-          city_key:
-            item.city && item.city.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "unknown_city",
-          district: item.district,
+          country_key: item.country_key
+            ? item.country_key.replace(/ /g, "_")
+            : "",
+          city: item.city ? this.convertToVietnamese(item.city).city : "",
+          city_key: item.city
+            ? this.convertToVietnamese(item.city).cityConvert
+            : "",
+          district: item.district ? "Quận" + " " + item.district : "",
           district_key:
             item.district && item.district.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "unknown_district",
-          ward: item.ward,
-          ward_key:
-            item.ward && item.ward.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "unknown_ward",
+              ? ("Quận" + " " + item.district).replace(/ /g, "_")
+              : "",
+          ward: item.ward ? "Phường" + " " + item.ward : "",
+          ward_key: item.ward
+            ? ("Phường" + " " + item.ward).replace(/ /g, "_")
+            : "",
           latitude: item.lat,
           longitude: item.lng,
         };
@@ -499,8 +580,12 @@ export default {
           objectBread.city.length !== 0 &&
           objectBread.district.length === 0
         ) {
+          const locationPath = `${language}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
+            objectBread.city
+          )}`;
+
           await this.$router.push({
-            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}`,
+            path: `/${locationPath}/today-weather`,
           });
         }
         // Tồn tại quận
@@ -509,8 +594,11 @@ export default {
           objectBread.district.length !== 0 &&
           objectBread.ward.length === 0
         ) {
+          const locationPath = `${language}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
+            objectBread.city
+          )}/${this.convertToSlug(objectBread.district)}`;
           await this.$router.push({
-            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}/${objectBread.district}`,
+            path: `/${locationPath}/today-weather`,
           });
         }
         if (
@@ -518,27 +606,31 @@ export default {
           objectBread.district.length !== 0 &&
           objectBread.ward.length !== 0
         ) {
+          const locationPath = `${language}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
+            objectBread.city
+          )}/${this.convertToSlug(objectBread.district)}/${this.convertToSlug(
+            objectBread.ward
+          )}`;
+
           await this.$router.push({
-            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}/${objectBread.district}/${objectBread.ward}`,
+            path: `/${locationPath}/today-weather`,
           });
         }
       } else {
+        debugger;
         let objectBread = {
           country: item.country,
-          country_key:
-            item.country && item.country.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "unknown_country",
-          city: item.city,
+          country_key: item.country ? item.country.replace(/ /g, "_") : "",
+          city: item.city ? item.city : "",
           city_key:
             item.city && item.city.trim() !== ""
               ? item.city.replace(/ /g, "_")
-              : "unknown_city",
+              : "",
           district: item.district,
           district_key:
             item.district && item.district.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "unknown_district",
+              ? item.district.replace(/ /g, "_")
+              : "",
 
           latitude: item.lat,
           longitude: item.lng,
@@ -548,21 +640,30 @@ export default {
         localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
         this.setBreadcumsNotAllowLocation(objectBread);
-
+        debugger;
         if (
           objectBread.city.length !== 0 &&
           objectBread.district.length === 0
         ) {
+          const locationPath = `${language}/${this.convertToSlug(
+            objectBread.country
+          )}/${this.convertToSlug(objectBread.city)}`;
+
           await this.$router.push({
-            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}`,
+            path: `/${locationPath}/today-weather`,
           });
         }
         if (
           objectBread.city.length !== 0 &&
           objectBread.district.length !== 0
         ) {
+          const locationPath = `${language}/${this.convertToSlug(
+            objectBread.country
+          )}/${this.convertToSlug(objectBread.city)}/${this.convertToSlug(
+            objectBread.district
+          )}`;
           await this.$router.push({
-            path: `/${language}/today-weather/${objectBread.country}/${objectBread.city}/${objectBread.district}`,
+            path: `/${locationPath}/today-weather`,
           });
         }
       }
@@ -690,6 +791,19 @@ export default {
       // this.setListLocation(this.suggestions);
     },
 
+    convertToSlug(str) {
+      // Bước 1: Loại bỏ dấu tiếng Việt
+      const normalizedStr = str
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
+      return normalizedStr
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
+        .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
+    },
+
     processFileTopFull(data) {
       const lines = data.split("\n");
       this.suggestionsFull = lines.map((line, index) => {
@@ -716,9 +830,7 @@ export default {
       debugger;
       this.valueSearch = "";
 
-      localStorage.removeItem("cityName");
       localStorage.removeItem("objectBread");
-
       // Lấy thông tin vị trí và thành phố
       const cityCountryNow =
         // Chuyển hướng đến router trước

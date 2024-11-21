@@ -62,17 +62,24 @@ export default {
     };
   },
 
-  mounted() {
+  async mounted() {
     this.loadProvince();
 
-    this.loadAllFileJson();
+    await this.loadAllFileJson();
     const objectBread = localStorage.getItem("objectBread");
     debugger;
     if (!objectBread) {
       this.getLocationBrowser();
     } else {
       const objectBreadValue = JSON.parse(objectBread);
-      this.handleLocation(objectBreadValue);
+      if (objectBreadValue.country === "Vietnam") {
+        this.handleLocation(objectBreadValue);
+      } else {
+        debugger;
+        // localStorage.removeItem("objectBread");
+        // this.getLocationBrowser();
+        this.handleLocationWorld(objectBreadValue);
+      }
     }
     // this.loadDataTop100();
   },
@@ -135,7 +142,102 @@ export default {
       console.log("provincesData", provincesData);
     },
 
+    async handleLocationWorld(dataValue) {
+      let latitude = dataValue.latitude;
+      let longitude = dataValue.longitude;
+
+      const paramsRouter = this.$route.params;
+      console.log(paramsRouter);
+      debugger;
+
+      if (Object.keys(paramsRouter).length === 0) {
+        // Xét giá trị để lưu Recent
+        const objectPosition = {
+          latitude: latitude,
+          longitude: longitude,
+          country: dataValue.country,
+          country_key: dataValue.country_key,
+          city: dataValue.city,
+          city_key: dataValue.city_key,
+          district: "",
+          district_key: "",
+          ward: "",
+          ward_key: "",
+          // objectLocation: responsive.data.address,
+        };
+        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+
+        this.setBreadcumsAllowLocation(objectPosition);
+
+        this.setCityWeather(objectPosition);
+      } else {
+        if (paramsRouter.location.length === 3) {
+          // Xét giá trị để lưu Recent
+          const objectPosition = {
+            latitude: latitude,
+            longitude: longitude,
+            country: dataValue.country,
+            country_key: dataValue.country_key,
+            city: dataValue.city,
+            city_key: dataValue.city_key,
+            district: "",
+            district_key: "",
+            ward: "",
+            ward_key: "",
+          };
+          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+
+          this.setBreadcumsAllowLocation(objectPosition);
+
+          this.setCityWeather(objectPosition);
+        }
+        if (paramsRouter.location.length === 4) {
+          const objectPosition = {
+            latitude: latitude,
+            longitude: longitude,
+            country: dataValue.country,
+            country_key: dataValue.country_key,
+            city: dataValue.city,
+            city_key: dataValue.city_key,
+            district: dataValue.district,
+            district_key: dataValue.district_key,
+            ward: "",
+            ward_key: "",
+
+            // objectLocation: responsive.data.address,
+          };
+          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+
+          this.setBreadcumsAllowLocation(objectPosition);
+
+          this.setCityWeather(objectPosition);
+        }
+      }
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+
+      // map url by lat,long
+      const resultAir = getAqiDataFromLocation(latitude, longitude);
+
+      const encodeDataWeather = encodeBase64(param);
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      // Lưu lại ở Storage để cache
+      localStorage.setItem("keyCurrent", JSON.stringify(encodeDataWeather));
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+    },
+
     async handleLocation(dataValue) {
+      debugger;
       let latitude = dataValue.latitude;
       let longitude = dataValue.longitude;
 
@@ -145,26 +247,94 @@ export default {
       };
       localStorage.setItem("locationLatLong", JSON.stringify(objectLatLong));
 
-      const keyLanguageStorage = this.$route.params.language
-        ? this.$route.params.language
-        : localStorage.getItem("language");
-      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${keyLanguageStorage}`;
-      const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
+      const paramsRouter = this.$route.params;
 
-      debugger;
-      console.log("responsive", responsive.data);
-      // Xét giá trị để lưu Recent
-      const objectPosition = {
-        latitude: latitude,
-        longitude: longitude,
-        objectLocation: responsive.data.address,
-      };
+      if (Object.keys(paramsRouter).length === 0) {
+        // Xét giá trị để lưu Recent
+        const objectPosition = {
+          latitude: latitude,
+          longitude: longitude,
+          country: dataValue.country,
+          country_key: dataValue.country_key,
+          city: dataValue.city,
+          city_key: dataValue.city_key,
+          district: "",
+          district_key: "",
+          ward: "",
+          ward_key: "",
+          // objectLocation: responsive.data.address,
+        };
+        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
 
-      this.setBreadcumsAllowLocation(objectPosition);
+        this.setBreadcumsAllowLocation(objectPosition);
 
-      console.log("responsive.data", responsive.data);
+        this.setCityWeather(objectPosition);
+      } else {
+        if (paramsRouter.location.length === 3) {
+          // Xét giá trị để lưu Recent
+          const objectPosition = {
+            latitude: latitude,
+            longitude: longitude,
+            country: dataValue.country,
+            country_key: dataValue.country_key,
+            city: dataValue.city,
+            city_key: dataValue.city_key,
+            district: "",
+            district_key: "",
+            ward: "",
+            ward_key: "",
+          };
+          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
 
-      this.setCityWeather(objectPosition);
+          this.setBreadcumsAllowLocation(objectPosition);
+
+          this.setCityWeather(objectPosition);
+        }
+        if (paramsRouter.location.length === 4) {
+          const objectPosition = {
+            latitude: latitude,
+            longitude: longitude,
+            country: dataValue.country,
+            country_key: dataValue.country_key,
+            city: dataValue.city,
+            city_key: dataValue.city_key,
+            district: dataValue.district,
+            district_key: dataValue.district_key,
+            ward: "",
+            ward_key: "",
+
+            // objectLocation: responsive.data.address,
+          };
+          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+
+          this.setBreadcumsAllowLocation(objectPosition);
+
+          this.setCityWeather(objectPosition);
+        }
+
+        if (paramsRouter.location.length === 5) {
+          // Xét giá trị để lưu Recent
+          const objectPosition = {
+            latitude: latitude,
+            longitude: longitude,
+            country: dataValue.country,
+            country_key: dataValue.country_key,
+            city: dataValue.city,
+            city_key: dataValue.city_key,
+            district: dataValue.district,
+            district_key: dataValue.district_key,
+            ward: dataValue.ward,
+            ward_key: dataValue.ward_key,
+            // objectLocation: responsive.data.address,
+          };
+          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+
+          this.setBreadcumsAllowLocation(objectPosition);
+
+          this.setCityWeather(objectPosition);
+        }
+      }
+
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
 
       // map url by lat,long
@@ -223,13 +393,23 @@ export default {
 
       console.log("responsive", responsive.data);
       // Xét giá trị để lưu Recent
+      const dataResponsive = responsive.data.address;
+      // Xét giá trị để lưu Recent
       const objectPosition = {
         latitude: latitude,
         longitude: longitude,
-        objectLocation: responsive.data.address,
+        country: dataResponsive.country,
+        country_key: dataResponsive.country_code,
+        city: dataResponsive.city,
+        city_key: dataResponsive.city.replace(/ /g, "_"),
+        district: "",
+        district_key: "",
+        ward: "",
+        ward_key: "",
+        // objectLocation: responsive.data.address,
       };
       debugger;
-      // localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+      localStorage.setItem("objectBread", JSON.stringify(objectPosition));
       this.setBreadcumsAllowLocation(objectPosition);
 
       console.log("responsive.data", responsive.data);
@@ -291,7 +471,7 @@ export default {
               latitude: data.latitude,
               longitude: data.longitude,
             };
-
+            localStorage.setItem("objectBread", JSON.stringify(objectLocation));
             this.setBreadcumsNotAllowLocation(objectLocation);
 
             const objectPosition = {
