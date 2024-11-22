@@ -271,7 +271,7 @@
           "keyLanguage": "Phường_Hàng_Buồm",
           "languages": {
             "vi": "Phường Hàng Buồm",
-            "en": "Phường Hàng Buồm",
+            "en": "Hang Buom Ward",
             "ja": "フォン・ハン・ブエム",
             "ko": "프엉 항 부옴"
           }
@@ -284,7 +284,7 @@
           "keyLanguage": "Phường_Hàng_Đào",
           "languages": {
             "vi": "Phường Hàng Đào",
-            "en": "Phường Hàng Đào",
+            "en": "Hang Dao Ward",
             "ja": "フォン・ハン・ダオ",
             "ko": "프엉항다오"
           }
@@ -297,7 +297,7 @@
           "keyLanguage": "Phường_Hàng_Bồ",
           "languages": {
             "vi": "Phường Hàng Bồ",
-            "en": "Phường Hàng Bồ",
+            "en": "Hang Bo Ward",
             "ja": "フォン・ハン・ボー",
             "ko": "프엉항비(Phuờng Hàng Bồ)"
           }
@@ -310,7 +310,7 @@
           "keyLanguage": "Phường_Cửa_Đông",
           "languages": {
             "vi": "Phường Cửa Đông",
-            "en": "Phường Cửa Đông",
+            "en": "Cua Dong Ward",
             "ja": "Phường Cửa Đông",
             "ko": "프엉 끄어 동"
           }
@@ -323,7 +323,7 @@
           "keyLanguage": "Phường_Lý_Thái_Tổ",
           "languages": {
             "vi": "Phường Lý Thái Tổ",
-            "en": "Phường Lý Thái Tổ",
+            "en": "Ly Thai To Ward",
             "ja": "Phường Lý Thái Tổ",
             "ko": "프엉 리 타이 뜨(Phuờng Lý Thái Tổ)"
           }
@@ -336,7 +336,7 @@
           "keyLanguage": "Phường_Hàng_Bạc",
           "languages": {
             "vi": "Phường Bạc Hàng",
-            "en": "Phường Hàng Bạc",
+            "en": "Hang Bac Ward",
             "ja": "フォン・ハン・バク",
             "ko": "프엉항박"
           }
@@ -349,7 +349,7 @@
           "keyLanguage": "Phường_Hàng_Gai",
           "languages": {
             "vi": "Phường Hàng Gai",
-            "en": "Phường Hàng Gai",
+            "en": "Hang Gai Ward",
             "ja": "フォン・ハン・ガイ",
             "ko": "프엉항가이"
           }
@@ -362,7 +362,7 @@
           "keyLanguage": "Phường_Chương_Dương",
           "languages": {
             "vi": "Phường Chương Dương",
-            "en": "Phường Chương Dương",
+            "en": "Chuong Duong Ward",
             "ja": "Phường Chương Dương",
             "ko": "프엉 쭈엉 즈엉"
           }
@@ -375,7 +375,7 @@
           "keyLanguage": "Phường_Hàng_Trống",
           "languages": {
             "vi": "Phường Hàng Trống",
-            "en": "Phường Hàng Trống",
+            "en": "Hang Trong Ward",
             "ja": "フォン・ハン・チャン",
             "ko": "프엉항쫑"
           }
@@ -388,7 +388,7 @@
           "keyLanguage": "Phường_Cửa_Nam",
           "languages": {
             "vi": "Phường Cửa Nam",
-            "en": "Phường Cửa Nam",
+            "en": "Cua Nam Ward",
             "ja": "Phường Cửa Nam",
             "ko": "프엉 꾸아 남(Phuờng Cửa Nam)"
           }
@@ -401,7 +401,7 @@
           "keyLanguage": "Phường_Hàng_Bông",
           "languages": {
             "vi": "Phường Hàng Bông",
-            "en": "Phường Hàng Bông",
+            "en": "Hang Bong Ward",
             "ja": "フォン・ハン・ボン",
             "ko": "프엉항봉"
           }
@@ -414,7 +414,7 @@
           "keyLanguage": "Phường_Tràng_Tiền",
           "languages": {
             "vi": "Phường Tràng Tiền",
-            "en": "Phường Tràng Tiền",
+            "en": "Trang Tien Ward",
             "ja": "フォン・チャン・ティエン",
             "ko": "프엉 Tràng Tiền"
           }
@@ -427,7 +427,7 @@
           "keyLanguage": "Phường_Trần_Hưng_Đạo",
           "languages": {
             "vi": "Phường Trần Hưng Đạo",
-            "en": "Phường Trần Hưng Đạo",
+            "en": "Tran Hung Dao Ward",
             "ja": "Phường Trần Hưng Đạo",
             "ko": "프엉 쩐 흥 다오"
           }
@@ -440,7 +440,7 @@
           "keyLanguage": "Phường_Phan_Chu_Trinh",
           "languages": {
             "vi": "Phường Phan Chu Trinh",
-            "en": "Phường Phan Chu Trinh",
+            "en": "Phan Chu Trinh Ward",
             "ja": "フォン・ファン・チュー・チン",
             "ko": "프엉 판 추 찐(Phuờng Phan Chu Trinh)"
           }
@@ -453,7 +453,7 @@
           "keyLanguage": "Phường_Hàng_Bài",
           "languages": {
             "vi": "Phường Bài Hàng",
-            "en": "Phường Hàng Bài",
+            "en": "Hang Bai Ward",
             "ja": "フォン・ハンバイ",
             "ko": "프엉항바이(Phuờng Hàng Bài)"
           }

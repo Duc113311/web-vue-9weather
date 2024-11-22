@@ -64,6 +64,7 @@
                       <!--  -->
                       <div
                         v-if="item.isFallback"
+                        @click.stop="onClickLocationView"
                         class="flex items-center justify-start cursor-pointer gap-2 bg-location-now p-3"
                       >
                         <img
@@ -822,6 +823,48 @@ export default {
       // this.setListLocation(this.suggestions);
     },
 
+    async onClickLocationView() {
+      debugger;
+      debugger;
+      this.valueSearch = "";
+
+      localStorage.removeItem("objectBread");
+      // Lấy thông tin vị trí và thành phố
+      const cityCountryNow =
+        // Chuyển hướng đến router trước
+        this.$router.push({ path: "/" }).then(() => {
+          window.location.reload();
+        });
+      // Xử lý tiếp các tác vụ API trong nền
+
+      const keyLanguage = this.$route.params.language;
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
+      const resultAir = getAqiDataFromLocation(
+        cityCountryNow.latitude,
+        cityCountryNow.longitude
+      );
+      const value = encodeBase64(param);
+      const valueNewAir = encodeBase64(resultAir);
+      const objectPosition = {
+        latitude: cityCountryNow.latitude,
+        longitude: cityCountryNow.longitude,
+        city: cityCountryNow.city,
+        country: cityCountryNow.city,
+      };
+      const airCode = getParamAirByCode(this.airObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+
+      // Gọi các API song song
+      await Promise.all([
+        this.getWeatherDataCurrent(value),
+        this.getAirQualityByKey(valueNewAir),
+        this.getAirQuality(encodeAirCode),
+      ]);
+
+      this.setCityWeather(objectPosition);
+    },
+
     /**
      * Lấy thông tin weather, back về trang chủ
      */
@@ -865,7 +908,6 @@ export default {
       ]);
 
       this.setCityWeather(objectPosition);
-      document.title = "originalTitle;";
     },
 
     /**

@@ -262,24 +262,35 @@ export default {
       await this.getFormattedAddress(valueEncode);
       let objectAddressNew = this.$store.state.weatherModule.newArray[0];
       debugger;
+      let objectBreadStorage = JSON.parse(localStorage.getItem("objectBread"));
 
       let objectBread = {
-        country: objectAddressNew.country,
-        country_key: objectAddressNew.country_key,
-        city: this.convertToVietnamese(objectAddressNew.city).city,
-        city_key: this.convertToVietnamese(objectAddressNew.city).cityConvert,
-        latitude: objectAddressNew.lat,
-        longitude: objectAddressNew.lng,
-        district: objectAddressNew.district
+        country: objectAddressNew
+          ? objectAddressNew.country
+          : objectBreadStorage.country,
+        country_key: objectAddressNew
+          ? objectAddressNew.country_key
+          : objectBreadStorage.country_key,
+        city: objectAddressNew
+          ? this.convertToVietnamese(objectAddressNew.city).city
+          : objectBreadStorage.city,
+        city_key: objectAddressNew
+          ? this.convertToVietnamese(objectAddressNew.city).cityConvert
+          : objectBreadStorage.city_key,
+        latitude: objectAddressNew
+          ? objectAddressNew.lat
+          : objectBreadStorage.latitude,
+        longitude: objectAddressNew
+          ? objectAddressNew.lng
+          : objectBreadStorage.longitude,
+        district: objectAddressNew
           ? "Quận" + " " + objectAddressNew.district
           : "",
-        district_key: objectAddressNew.district
+        district_key: objectAddressNew
           ? ("Quận" + " " + objectAddressNew.district).replace(/ /g, "_")
           : "",
-        ward: objectAddressNew.ward
-          ? "Phường" + " " + objectAddressNew.ward
-          : "",
-        ward_key: objectAddressNew.ward
+        ward: objectAddressNew ? "Phường" + " " + objectAddressNew.ward : "",
+        ward_key: objectAddressNew
           ? ("Phường" + " " + objectAddressNew.ward).replace(/ /g, "_")
           : "",
       };
