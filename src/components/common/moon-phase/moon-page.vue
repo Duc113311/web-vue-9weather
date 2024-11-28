@@ -9,7 +9,7 @@
             alt=""
             srcset=""
           />
-          <p>Moonphase</p>
+          <p>{{ $t("moonphase") }}</p>
         </div>
       </template>
       <div class="w-full">
@@ -27,21 +27,21 @@
               <div
                 class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
               >
-                <p>Illumination:</p>
+                <p>{{ $t("moon_illumination") }}:</p>
                 <p>{{ moonPhaseInfo.illumination }} %</p>
               </div>
               <!--  -->
               <div
                 class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
               >
-                <p>Moon rise:</p>
+                <p>{{ $t("moonrise") }}:</p>
                 <p>{{ moonPhaseInfo.moonrise }}</p>
               </div>
               <!--  -->
               <div
                 class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
               >
-                <p>Next full moon:</p>
+                <p>{{ $t("next_full_moon") }}:</p>
                 <p>{{ moonPhaseInfo.nextFullMoon }}</p>
               </div>
             </div>

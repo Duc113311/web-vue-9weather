@@ -9,7 +9,7 @@
             alt=""
             srcset=""
           />
-          <p>UV index</p>
+          <p>{{ $t("uv_index") }}</p>
         </div>
       </template>
       <div class="w-full h-[163px]">
@@ -24,7 +24,7 @@
             </span> -->
           </div>
           <div>
-            <p>The air is mostly okay</p>
+            <p>{{ $t("The_air_is_mostly_okay") }}</p>
           </div>
         </div>
         <div class="w-full relative mt-2">

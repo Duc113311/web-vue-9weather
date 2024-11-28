@@ -9,15 +9,27 @@
               width="24"
               alt=""
             />
-            <span v-if="wardParam?.city && !wardParam?.district"
-              >Thời tiết quận huyện {{ wardParam?.city }}</span
+            <span v-if="wardParam?.city && !wardParam?.district">
+              {{
+                $t(`Weather_in_{city}_district`, {
+                  city: wardParam?.city,
+                })
+              }}</span
             >
-            <span v-if="wardParam?.district && !wardParam?.ward"
-              >Thời tiết phường xã {{ wardParam?.district }}</span
-            >
-            <span v-if="wardParam?.ward"
-              >Thời tiết phường xã {{ wardParam?.ward }}</span
-            >
+            <span v-if="wardParam?.district && !wardParam?.ward">
+              {{
+                $t(`Weather_in_{city}_ward_and_commune`, {
+                  city: wardParam?.district,
+                })
+              }}
+            </span>
+            <span v-if="wardParam?.ward">
+              {{
+                $t(`Weather_in_{city}_ward_and_commune`, {
+                  city: wardParam?.ward,
+                })
+              }}
+            </span>
           </div>
           <div
             v-if="
@@ -25,7 +37,7 @@
               this.breadcumsObjectGetters.country === 'Vietnam'
             "
           >
-            <p>See more</p>
+            <p>{{ $t("See_more") }}</p>
           </div>
         </div>
       </template>
@@ -49,7 +61,7 @@
       </div>
       <div class="h-[340px] bg-color text-white overflow-hidden pad-big" v-else>
         <div class="w-full h-full justify-center flex items-center">
-          In development
+          {{ $t("In_development") }}
         </div>
       </div>
     </ItemComponent>
@@ -89,6 +101,14 @@ export default {
       "airKeyObjectGetters",
     ]),
 
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : localStorage.getItem("language");
+    },
+
     wardParam() {
       debugger;
 
@@ -107,24 +127,24 @@ export default {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       console.log("retrievedArray", retrievedArray);
 
-      // const cityLocation = retrievedArray
-      //   ? retrievedArray
-      //   : this.breadcumsObjectGetters;
-
       if (retrievedArray) {
         if (retrievedArray.country === "Vietnam") {
           console.log("listCityAllGetters", this.listCityAllGetters);
+          const cityKey = this.removeDiacritics(retrievedArray.city);
+          debugger;
           const findData = this.listCityAllGetters.find(
-            (x) => x.keyLanguage === retrievedArray.city_key
+            (x) => x.keyAccentLanguage === cityKey
           );
 
           if (findData) {
             if (retrievedArray.district_key) {
               const findDataWard = findData.districtList.find(
-                (x) => x.keyLanguage === retrievedArray.district_key
+                (x) =>
+                  x.keyAccentLanguage ===
+                  this.removeDiacritics(retrievedArray.district)
               );
               if (findDataWard) {
-                return findDataWard.districtList.slice(0, 8);
+                return findDataWard.wards.slice(0, 8);
               } else {
                 return [];
               }
@@ -154,7 +174,12 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
-
+    removeDiacritics(value) {
+      const removeString = value
+        .normalize("NFD") // Tách ký tự dấu
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu
+      return removeString.replace(/ /g, "_");
+    },
     convertToVietnamese(input) {
       // Map các từ gốc sang từ có dấu
       const vietnameseMap = {
@@ -250,9 +275,9 @@ export default {
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
         : localStorage.getItem("language");
-      localStorage.setItem("keyLanguageCity", value.keyLanguage);
+      localStorage.setItem("keyLanguageCity", value.keyAccentLanguage);
 
-      const nameCity = value.languages[keyLanguageStorage];
+      const nameCity = value.viNameLanguage;
 
       const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
         nameCity
@@ -283,28 +308,38 @@ export default {
         longitude: objectAddressNew
           ? objectAddressNew.lng
           : objectBreadStorage.longitude,
-        district: objectAddressNew
-          ? "Quận" + " " + objectAddressNew.district
-          : "",
-        district_key: objectAddressNew
-          ? ("Quận" + " " + objectAddressNew.district).replace(/ /g, "_")
-          : "",
-        ward: objectAddressNew ? "Phường" + " " + objectAddressNew.ward : "",
-        ward_key: objectAddressNew
-          ? ("Phường" + " " + objectAddressNew.ward).replace(/ /g, "_")
-          : "",
+        district:
+          value.type === "District"
+            ? value.viNameLanguage
+            : objectBreadStorage.district,
+        district_key:
+          value.type === "District"
+            ? value.keyAccentLanguage
+            : objectBreadStorage.district_key,
+        ward:
+          value.type === "Ward"
+            ? value.viNameLanguage
+            : objectBreadStorage.ward,
+        ward_key:
+          value.type === "Ward"
+            ? value.keyAccentLanguage
+            : objectBreadStorage.ward_key,
       };
+
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
       this.setBreadcumsNotAllowLocation(objectBread);
       debugger;
       if (objectBread.city.length !== 0 && objectBread.district.length === 0) {
-        const locationPath = `${keyLanguageStorage}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
-          objectBread.city
-        )}`;
-
         await this.$router.push({
-          path: `/${locationPath}/today-weather`,
+          name: "today-weather",
+          params: {
+            language: keyLanguageStorage,
+            location: [
+              objectBread.country_key.toLowerCase(),
+              this.convertToSlug(objectBread.city),
+            ],
+          },
         });
       }
       if (
@@ -312,11 +347,16 @@ export default {
         objectBread.district.length !== 0 &&
         objectBread.ward.length === 0
       ) {
-        const locationPath = `${keyLanguageStorage}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
-          objectBread.city
-        )}/${this.convertToSlug(objectBread.district)}`;
         await this.$router.push({
-          path: `/${locationPath}/today-weather`,
+          name: "today-weather",
+          params: {
+            language: keyLanguageStorage,
+            location: [
+              objectBread.country_key.toLowerCase(),
+              this.convertToSlug(objectBread.city),
+              this.convertToSlug(objectBread.district),
+            ],
+          },
         });
       }
       if (
@@ -324,14 +364,17 @@ export default {
         objectBread.district.length !== 0 &&
         objectBread.ward.length !== 0
       ) {
-        const locationPath = `${keyLanguageStorage}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
-          objectBread.city
-        )}/${this.convertToSlug(objectBread.district)}/${this.convertToSlug(
-          objectBread.ward
-        )}`;
-
         await this.$router.push({
-          path: `/${locationPath}/today-weather`,
+          name: "today-weather",
+          params: {
+            language: keyLanguageStorage,
+            location: [
+              objectBread.country_key.toLowerCase(),
+              this.convertToSlug(objectBread.city),
+              this.convertToSlug(objectBread.district),
+              this.convertToSlug(objectBread.ward),
+            ],
+          },
         });
       }
 

@@ -9,7 +9,7 @@
             alt=""
             srcset=""
           />
-          <p>Air Quality</p>
+          <p>{{ $t("air_quality") }}</p>
         </div>
       </template>
       <div class="w-full">

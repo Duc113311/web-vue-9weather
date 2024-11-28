@@ -27,7 +27,7 @@
             width="24"
             alt=""
           />
-          <span>Temperature</span>
+          <span>{{ $t("temperature") }}</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -55,7 +55,7 @@
             width="24"
             alt=""
           />
-          <span>Time_Format</span>
+          <span>{{ $t("Time_Format") }}</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -83,7 +83,7 @@
             width="24"
             srcset=""
           />
-          <span>Precipitation</span>
+          <span>{{ $t("precipitation") }}</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -111,7 +111,7 @@
             src="../../assets/images/svg_v2/ic_map_st.svg"
             alt=""
           />
-          <span>Distance</span>
+          <span>{{ $t("Distance") }}</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -142,7 +142,7 @@
             alt=""
             srcset=""
           />
-          <span>Wind_Speed</span>
+          <span>{{ $t("wind_speed") }}</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="flex gap-2 justify-end">
@@ -194,7 +194,7 @@
             alt=""
             srcset=""
           />
-          <span>Pressure</span>
+          <span>{{ $t("pressure") }}</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="gap-2 flex justify-end">
@@ -252,15 +252,14 @@
         @click="onClickDoneUnit()"
         class="w-[300px] text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-5 py-3 text-center me-2 mb-2"
       >
-        <span class="txt_medium">Done</span>
+        <span class="txt_medium">{{ $t("Done") }}</span>
       </button>
     </div>
   </div>
 </template>
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import { ElNotification } from "element-plus";
-import { setTimeout } from "core-js";
 
 export default {
   name: "unit-preferences-page",

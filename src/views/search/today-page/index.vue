@@ -168,8 +168,8 @@ export default {
   },
   data() {
     return {
-      dayTime: "Day Time",
-      nightTime: "Night Time",
+      dayTime: this.$t("Daytime_temperature"),
+      nightTime: this.$t("Nighttime_temperature"),
     };
   },
 

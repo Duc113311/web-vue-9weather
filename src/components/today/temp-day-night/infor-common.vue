@@ -14,7 +14,7 @@
         }}
       </div>
       <div class="txt_regular_des">
-        Real Feel
+        {{ $t("real_feel") }}
         {{ convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature) }}
       </div>
     </div>
@@ -29,7 +29,7 @@
             width="24"
             alt=""
           />
-          <p>UV</p>
+          <p>{{ $t("uv") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.uvIndex) }}
@@ -43,7 +43,7 @@
             width="24"
             alt=""
           />
-          <p>Precipitation</p>
+          <p>{{ $t("precipitation") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ convertPrecipitation(currentlyData?.precipIntensity) }}
@@ -56,7 +56,7 @@
             width="24"
             alt=""
           />
-          <p>Chance of rain</p>
+          <p>{{ $t("chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%
@@ -66,8 +66,7 @@
 
     <div class="text-left w-full txt_regular_des">
       <p>
-        Cloudy skies with a cool breeze. Light showers are possible, so you
-        might want to grab a light jacket before heading out.
+        {{ $t("Cloudy_skies") }}
       </p>
     </div>
   </div>

@@ -187,10 +187,6 @@ export default {
         : localStorage.getItem("language");
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
-      const locationPath = `${language}/${retrievedArray.country_key.toLowerCase()}/${this.convertToSlug(
-        retrievedArray.city
-      )}`;
-
       let objectBread = {
         country: retrievedArray.country,
         country_key: retrievedArray.country_key,
@@ -209,8 +205,16 @@ export default {
       this.setBreadcumsNotAllowLocation(objectBread);
 
       await this.$router.push({
-        path: `/${locationPath}/today-weather`,
+        name: "today-weather",
+        params: {
+          language: language,
+          location: [
+            retrievedArray.country_key.toLowerCase(),
+            this.convertToSlug(retrievedArray.city),
+          ],
+        },
       });
+
       window.location.reload();
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${retrievedArray.latitude},${retrievedArray.longitude}?lang=en`;
@@ -238,12 +242,6 @@ export default {
         : localStorage.getItem("language");
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
-      const locationPath = `${language}/${retrievedArray.country_key.toLowerCase()}/${this.convertToSlug(
-        retrievedArray.city
-      )}/${this.convertToSlug(retrievedArray.district)}/${this.convertToSlug(
-        retrievedArray.ward
-      )}`;
-
       let objectBread = {
         country: retrievedArray.country,
         country_key: retrievedArray.country_key,
@@ -262,8 +260,18 @@ export default {
       this.setBreadcumsNotAllowLocation(objectBread);
 
       await this.$router.push({
-        path: `/${locationPath}/today-weather`,
+        name: "today-weather",
+        params: {
+          language: language,
+          location: [
+            retrievedArray.country_key.toLowerCase(),
+            this.convertToSlug(retrievedArray.city),
+            this.convertToSlug(retrievedArray.district),
+            this.convertToSlug(retrievedArray.ward),
+          ],
+        },
       });
+
       window.location.reload();
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${retrievedArray.latitude},${retrievedArray.longitude}?lang=en`;
@@ -314,8 +322,17 @@ export default {
       this.setBreadcumsNotAllowLocation(objectBread);
 
       await this.$router.push({
-        path: `/${locationPath}/today-weather`,
+        name: "today-weather",
+        params: {
+          language: language,
+          location: [
+            retrievedArray.country_key.toLowerCase(),
+            this.convertToSlug(retrievedArray.city),
+            this.convertToSlug(retrievedArray.district),
+          ],
+        },
       });
+
       window.location.reload();
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${retrievedArray.latitude},${retrievedArray.longitude}?lang=en`;

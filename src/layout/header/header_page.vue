@@ -587,7 +587,14 @@ export default {
           )}`;
 
           await this.$router.push({
-            path: `/${locationPath}/today-weather`,
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                this.convertToSlug(objectBread.city),
+              ],
+            },
           });
         }
         // Tồn tại quận
@@ -596,11 +603,16 @@ export default {
           objectBread.district.length !== 0 &&
           objectBread.ward.length === 0
         ) {
-          const locationPath = `${language}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
-            objectBread.city
-          )}/${this.convertToSlug(objectBread.district)}`;
           await this.$router.push({
-            path: `/${locationPath}/today-weather`,
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                this.convertToSlug(objectBread.city),
+                this.convertToSlug(objectBread.district),
+              ],
+            },
           });
         }
         if (
@@ -608,14 +620,17 @@ export default {
           objectBread.district.length !== 0 &&
           objectBread.ward.length !== 0
         ) {
-          const locationPath = `${language}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
-            objectBread.city
-          )}/${this.convertToSlug(objectBread.district)}/${this.convertToSlug(
-            objectBread.ward
-          )}`;
-
           await this.$router.push({
-            path: `/${locationPath}/today-weather`,
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                this.convertToSlug(objectBread.city),
+                this.convertToSlug(objectBread.district),
+                this.convertToSlug(objectBread.ward),
+              ],
+            },
           });
         }
       } else {
@@ -647,36 +662,36 @@ export default {
           objectBread.city.length !== 0 &&
           objectBread.district.length === 0
         ) {
-          const locationPath = `${language}/${this.convertToSlug(
-            objectBread.country
-          )}/${this.convertToSlug(objectBread.city)}`;
-
           await this.$router.push({
-            path: `/${locationPath}/today-weather`,
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                this.convertToSlug(objectBread.city),
+              ],
+            },
           });
         }
         if (
           objectBread.city.length !== 0 &&
           objectBread.district.length !== 0
         ) {
-          const locationPath = `${language}/${this.convertToSlug(
-            objectBread.country
-          )}/${this.convertToSlug(objectBread.city)}/${this.convertToSlug(
-            objectBread.district
-          )}`;
           await this.$router.push({
-            path: `/${locationPath}/today-weather`,
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                this.convertToSlug(objectBread.city),
+                this.convertToSlug(objectBread.district),
+              ],
+            },
           });
         }
       }
 
-      // localStorage.setItem("country", JSON.stringify(dataLocation));
-      // localStorage.setItem("cityName", JSON.stringify(dataLocation.city));
-      // this.setCountryFilter(dataLocation);
-
       console.log("item-search", item);
-
-      // this.setUpdateBreadcumsObject(item);
 
       window.location.reload();
 

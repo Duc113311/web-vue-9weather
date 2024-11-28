@@ -10,7 +10,7 @@
               width="24"
               alt=""
             />
-            <span>Tỉnh thành lân cận</span>
+            <span>{{ $t("Neighboring_provinces") }}</span>
           </div>
           <div
             v-if="
@@ -18,7 +18,7 @@
               this.breadcumsObjectGetters.country === 'Vietnam'
             "
           >
-            <p>See more</p>
+            <p>{{ $t("See_more") }}</p>
           </div>
         </div>
       </template>
@@ -37,7 +37,9 @@
             class="flex justify-between items-center pb-3 pt-3 pr-2"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
           >
-            <div>{{ item.viNameLanguage }}</div>
+            <div>
+              {{ $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`) }}
+            </div>
             <img
               src="../../../assets/images/svg_v2/ic_rain_data.svg"
               width="24"
@@ -48,7 +50,7 @@
       </div>
       <div class="h-[302px]" v-else>
         <div class="w-full h-full justify-center flex items-center">
-          In development
+          {{ $t("In_development") }}
         </div>
       </div>
     </BaseComponent>
@@ -73,6 +75,10 @@ export default {
       "objectCityByLocationGetters",
       "breadcumsObjectGetters",
     ]),
+
+    renderLanguage() {
+      return this.$route.params.language ? this.$route.params.language : "en";
+    },
 
     renderCityLocation() {
       debugger;

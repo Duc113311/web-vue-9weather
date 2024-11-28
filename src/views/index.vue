@@ -129,7 +129,11 @@ export default {
 
     async loadAllFileJson() {
       let provinces = [];
-      const context = require.context("/public/json/vietnam", false, /\.json$/);
+      const context = require.context(
+        "/public/json/vietnamese",
+        false,
+        /\.json$/
+      );
       debugger;
       // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
       const provincesData = context.keys().map((key) => {

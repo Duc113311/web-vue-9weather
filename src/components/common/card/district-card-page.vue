@@ -10,12 +10,20 @@
         />
       </div>
       <h3 class="text-center txt_medium">
-        {{ convertLanguage(objectLocation, this.languageParam) }}
+        {{
+          $t(
+            `${removeDiacritics(breadcumsObject.city)}.${removeDiacritics(
+              breadcumsObject.city
+            )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+          )
+        }}
       </h3>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "district-card-page",
 
@@ -31,18 +39,31 @@ export default {
   },
 
   computed: {
-    languageParam() {
-      debugger;
-      const languageRouter = this.$route.params;
-      return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language
-        : localStorage.getItem("language");
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
+    renderLanguage() {
+      return this.$route.params.language ? this.$route.params.language : "en";
+    },
+
+    breadcumsObject() {
+      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+
+      console.log("retrievedArray", retrievedArray);
+
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
   },
 
   methods: {
     convertLanguage(data, language) {
       return data.languages[language];
+    },
+
+    removeDiacritics(str) {
+      const removeString = str
+        .normalize("NFD") // Tách ký tự dấu
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu
+      return removeString.toLowerCase().replace(/\s+/g, "");
     },
   },
 };

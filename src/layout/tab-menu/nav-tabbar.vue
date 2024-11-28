@@ -8,7 +8,7 @@
         <div
           v-for="(menu, index) in menuItems"
           :key="index"
-          class="weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center text-white"
+          class="cursor-pointer weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center text-white"
           :class="{ 'active-tab': activeIndex === index }"
           @click="onClickRouterView(menu, index)"
         >
@@ -35,7 +35,7 @@ export default {
 
   data() {
     return {
-      activeIndex: 0,
+      activeIndex: -1,
     };
   },
 
@@ -87,6 +87,15 @@ export default {
         ? this.$route.params.coordinates
         : `${this.breadcumsObjectGetters.latitude}, ${this.breadcumsObjectGetters.longitude}`;
     },
+
+    breadcumsObject() {
+      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+
+      console.log("retrievedArray", retrievedArray);
+
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
   },
 
   watch: {
@@ -103,7 +112,7 @@ export default {
     this.activeIndex = this.menuItems.findIndex((x) => x.name === nameRouter);
 
     if (this.activeIndex === -1) {
-      this.activeIndex = 0;
+      this.activeIndex = -1;
     }
 
     debugger;
@@ -145,6 +154,19 @@ export default {
       return this.$route.name === menu.name;
     },
 
+    convertToSlug(str) {
+      // Bước 1: Loại bỏ dấu tiếng Việt
+      const normalizedStr = str
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
+      return normalizedStr
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
+        .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
+    },
+
     async onClickRouterView(value, index) {
       this.activeIndex = index;
 
@@ -160,14 +182,62 @@ export default {
         screamName = "radar-weather";
       }
       this.setTitleScream(this.activeIndex);
-      const location = `${this.currentCountry}/${this.currentCity}/${this.currentDistrict}/${this.currentWard}`;
 
-      await this.$router.push({
-        params: {
-          language: this.currentLanguage,
-          location: this.currentLocation,
-        }, // Thêm params nếu cần
-      });
+      // Tồn tại thành phố
+      if (
+        this.breadcumsObject.city.length !== 0 &&
+        this.breadcumsObject.district.length === 0
+      ) {
+        await this.$router.push({
+          name: screamName,
+          params: {
+            language: this.renderLanguage,
+            location: [
+              this.breadcumsObject.country_key.toLowerCase(),
+              this.convertToSlug(this.breadcumsObject.city),
+            ],
+          },
+        });
+      }
+
+      // Tồn tại quận
+      if (
+        this.breadcumsObject.city.length !== 0 &&
+        this.breadcumsObject.district.length !== 0 &&
+        this.breadcumsObject.ward.length === 0
+      ) {
+        await this.$router.push({
+          name: screamName,
+          params: {
+            language: this.renderLanguage,
+            location: [
+              this.breadcumsObject.country_key.toLowerCase(),
+              this.convertToSlug(this.breadcumsObject.city),
+              this.convertToSlug(this.breadcumsObject.district),
+            ],
+          },
+        });
+      }
+
+      // Tồn tại phường xã
+      if (
+        this.breadcumsObject.city.length !== 0 &&
+        this.breadcumsObject.district.length !== 0 &&
+        this.breadcumsObject.ward.length !== 0
+      ) {
+        await this.$router.push({
+          name: screamName,
+          params: {
+            language: this.renderLanguage,
+            location: [
+              this.breadcumsObject.country_key.toLowerCase(),
+              this.convertToSlug(this.breadcumsObject.city),
+              this.convertToSlug(this.breadcumsObject.district),
+              this.convertToSlug(this.breadcumsObject.ward),
+            ],
+          },
+        });
+      }
     },
   },
 };

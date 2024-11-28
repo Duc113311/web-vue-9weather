@@ -210,8 +210,16 @@ export default {
         objectBread.city
       )}`;
       await this.$router.push({
-        path: `/${locationPath}/today-weather`,
+        name: "today-weather",
+        params: {
+          language: language,
+          location: [
+            objectBread.country_key.toLowerCase(),
+            this.convertToSlug(objectBread.city),
+          ],
+        },
       });
+
       window.location.reload();
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
