@@ -22,7 +22,7 @@
         <div class="absolute w-full bottom-0 left-0 flex justify-end">
           <div class="flex items-center text-left gap-2">
             <div class="bg-humid rounded-full w-[15px] h-[15px]"></div>
-            <p>Humidity in the coming hours</p>
+            <p>{{ $t("Humidity_in_the_coming_hours") }}</p>
           </div>
         </div>
       </div>

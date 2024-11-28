@@ -49,7 +49,7 @@
               </div>
             </div>
             <!-- Search -->
-            <div class="w-[calc(100%-720px)] h-full md:block hidden">
+            <div class="w-[calc(100%-800px)] h-full md:block hidden">
               <div class="w-full flex justify-center items-center h-full">
                 <div class="w-[60vh] lg:block hidden">
                   <el-autocomplete
@@ -72,7 +72,9 @@
                           alt=""
                           width="20"
                         />
-                        <div class="txt_regular">Sử dụng vị trí hiện tại</div>
+                        <div class="txt_regular">
+                          {{ $t("Use_current_location") }}
+                        </div>
                       </div>
                       <!--  -->
 
@@ -102,7 +104,6 @@
                     alt=""
                   />
                   <div class="text-left">
-                    <span>{{ $t("Local_time") }}</span>
                   </div>
                 </div>
                 <span id="s-date-time" class="flex items-center">
@@ -211,7 +212,7 @@ export default {
       debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.location[0]
+        ? languageRouter.language
         : localStorage.getItem("language");
     },
 

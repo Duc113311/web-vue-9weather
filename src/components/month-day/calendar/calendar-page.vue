@@ -16,13 +16,13 @@
         <div class="w-[820px]">
           <div class="calendar">
             <ul class="weeks bor-bottom bg-title-calender p-2">
-              <li>{{ $t("Mon") }}</li>
-              <li>{{ $t("Tue") }}</li>
-              <li>{{ $t("Wed") }}</li>
-              <li>{{ $t("Thu") }}</li>
-              <li>{{ $t("Fri") }}</li>
-              <li class="weekend">{{ $t("Sat") }}</li>
-              <li class="weekend">{{ $t("Sun") }}</li>
+              <li>Mon</li>
+              <li>Tue</li>
+              <li>Wed</li>
+              <li>Thu</li>
+              <li>Fri</li>
+              <li class="weekend">Sat</li>
+              <li class="weekend">Sun</li>
             </ul>
             <ul class="days p-4">
               <li

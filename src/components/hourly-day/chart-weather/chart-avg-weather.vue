@@ -13,7 +13,7 @@
                 width="24"
                 alt=""
               />
-              <span>Today Sumary</span>
+              <span>{{ $t("Current_weather_today") }}</span>
             </div>
           </template>
 

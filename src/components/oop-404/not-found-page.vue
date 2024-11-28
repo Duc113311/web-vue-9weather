@@ -16,7 +16,7 @@
         <div class="w-[30%] h-[1px] bg-white"></div>
       </div>
       <div class="txt_light_504 w-full text-center">
-        {{ $t("Oops!_The_page_you_requested_was_not_found!") }}
+        Oops!_The_page_you_requested_was_not_found!
       </div>
     </div>
   </div>

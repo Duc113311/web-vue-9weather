@@ -55,11 +55,10 @@ export function getMoonPhase(desiredDate) {
   const moonPhaseTable = initMoonPhaseTable();
 
   // Tìm pha mặt trăng tương ứng
-  const moonPhase = i18n.global.t(
+  const moonPhase =
     moonPhaseTable.find(
       (phase) => lunarDay > phase.range[0] && lunarDay <= phase.range[1]
-    )?.phase || ""
-  );
+    )?.phase || "";
 
   let percentage = -1.0;
   let isLightFromStart = false;

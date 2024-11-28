@@ -45,22 +45,22 @@ export default {
       return [
         {
           name: "today-weather",
-          label: "Today",
+          label: this.$t("Today"),
           icon: require("../../assets/images/svg_v2/ic_cloud_sun.svg"),
         },
         {
           name: "hourly-weather",
-          label: "Hourly",
+          label: this.$t("Hourly"),
           icon: require("../../assets/images/svg_v2/ic_oclock.svg"),
         },
         {
           name: "month-weather",
-          label: "Month",
+          label: this.$t("Month"),
           icon: require("../../assets/images/svg_v2/ic_calendar_days.svg"),
         },
         {
           name: "radar-weather",
-          label: "Radar",
+          label: this.$t("Radar"),
           icon: require("../../assets/images/svg_v2/ic_radar.svg"),
         },
       ];
@@ -160,8 +160,13 @@ export default {
         screamName = "radar-weather";
       }
       this.setTitleScream(this.activeIndex);
+      const location = `${this.currentCountry}/${this.currentCity}/${this.currentDistrict}/${this.currentWard}`;
+
       await this.$router.push({
-        name: screamName,
+        params: {
+          language: this.currentLanguage,
+          location: this.currentLocation,
+        }, // Thêm params nếu cần
       });
     },
   },

@@ -35,7 +35,7 @@ export default {
       debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.location[0]
+        ? languageRouter.language
         : localStorage.getItem("language");
     },
   },

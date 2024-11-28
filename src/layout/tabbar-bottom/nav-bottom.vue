@@ -12,7 +12,7 @@
                 alt=""
                 srcset=""
               />
-              <span>District/City</span>
+              <span>{{ $t("District_City") }}</span>
               <img
                 src="../../assets/images/svg_v2/ic_chevron_up.svg"
                 width="24"
@@ -30,14 +30,24 @@
                       v-for="(item, index) in objectCity"
                       :key="index"
                     >
-                      <h2>{{ getLanguageDisplay(item, "vi") }}</h2>
+                      <h2>
+                        {{
+                          $t(
+                            `city.city_${renderLanguage}.${item.keyAccentLanguage}`
+                          )
+                        }}
+                      </h2>
                       <ul>
                         <li
-                          v-for="(item1, index) in item?.districtList"
+                          v-for="(item1, index) in item?.provinceCity"
                           :key="index"
                           @click="onClickSearchCity(item1, item)"
                         >
-                          {{ getLanguageDisplay(item1, "vi") }}
+                          {{
+                            $t(
+                              `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
+                            )
+                          }}
                         </li>
                       </ul>
                     </div>
@@ -57,7 +67,7 @@
               alt=""
               srcset=""
             />
-            <span>Widget</span>
+            <span>{{ $t("Widget") }}</span>
           </div>
         </div>
         <!-- right -->
@@ -68,19 +78,20 @@
             srcset=""
           />
 
-          <div class="flex items-center mr-4 gap-2">
-            <span class=" ">Your current location:</span>
-            <span class="txt_medium" v-if="breadcumsObject?.keyLanguage">{{
-              breadcumsObject?.keyLanguage.replace(/_/g, " ")
-            }}</span>
+          <div class="flex items-center mr-2 gap-2">
+            <span class=" ">{{ $t("Your_current_location") }}:</span>
+            <span
+              class="txt_medium text-blue-400"
+              v-if="breadcumsObject?.city"
+              >{{ breadcumsObject?.city }}</span
+            >
           </div>
-
-          <button
-            class="bg-bth hover:bg-blue-400 hover:text-white txt_regular tex- pad-small rounded-xl"
+          <div
+            class="flex items-center cursor-pointer txt_medium"
             @click="onClickRechange()"
           >
-            Rechange
-          </button>
+            <span>{{ $t("rechange") }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -141,7 +152,7 @@ export default {
       debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.location[0]
+        ? languageRouter.language
         : localStorage.getItem("language");
     },
   },

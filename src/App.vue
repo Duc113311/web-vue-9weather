@@ -40,7 +40,12 @@ export default {
     $route(to, from) {
       // Khi route thay đổi, đánh dấu là nội dung đang được load
       this.isContentLoaded = false;
-
+      debugger;
+      const language = to.params.language; // Lấy ngôn ngữ từ route mới
+      if (language) {
+        localStorage.setItem("language", language); // Lưu ngôn ngữ vào localStorage
+        this.$i18n.locale = language; // Cập nhật ngôn ngữ cho i18n
+      }
       // Sau khi route được tải xong, đánh dấu là đã load xong
       this.$nextTick(() => {
         this.isContentLoaded = true;
@@ -60,9 +65,14 @@ export default {
       document.body.classList.add("content-loaded");
     });
 
-    localStorage.setItem("language", "en");
-    document.title =
-      "Local, National & Global Daily Weather Forecast | 9Weather";
+    debugger;
+
+    const storedLanguage = localStorage.getItem("language");
+    if (storedLanguage) {
+      this.$i18n.locale = storedLanguage; // Cập nhật ngôn ngữ cho i18n
+    }
+
+    document.title = this.$t("Local_National_Global") + " " + "| 9Weather";
   },
 
   methods: {

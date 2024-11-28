@@ -37,7 +37,7 @@
             class="flex justify-between items-center pb-3 pt-3 pr-2"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
           >
-            <div>{{ convertKeyLanguage(item, "en") }}</div>
+            <div>{{ item.viNameLanguage }}</div>
             <img
               src="../../../assets/images/svg_v2/ic_rain_data.svg"
               width="24"
@@ -91,8 +91,10 @@ export default {
 
       for (const element of retrievedDataCity) {
         if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
-          const findExistData = element.districtList.filter(
-            (x) => x.keyLanguage !== retrievedDataCity.city_key
+          const findExistData = element.provinceCity.filter(
+            (x) =>
+              x.keyAccentLanguage !==
+              this.removeDiacritics(retrievedArray.city_key)
           );
           if (findExistData.length > 0) {
             return findExistData;
@@ -111,6 +113,12 @@ export default {
 
     convertToUnderscore(text) {
       return text.replace(/ /g, "_");
+    },
+
+    removeDiacritics(str) {
+      return str
+        .normalize("NFD") // Tách ký tự dấu
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu
     },
   },
 };

@@ -14,7 +14,7 @@
         }}
       </div>
       <div class="txt_regular_des">
-        Real Feel
+        {{ $t("real_feel") }}
         {{ renderToCelsius(currentlyDataRender?.apparentTemperature) }}
       </div>
     </div>
@@ -23,7 +23,7 @@
     <div class="c-temp-row w-full flex justify-between items-center">
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center pb-14">
-          <p>Temperature</p>
+          <p>{{ $t("temperature") }}</p>
         </div>
         <div class="flex justify-center items-center">
           <div class="text-left flex txt_medium gap-1">
@@ -52,7 +52,7 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center">
-          <p>Precipitation</p>
+          <p>{{ $t("precipitation") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <img
@@ -69,7 +69,7 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center">
-          <p>Chance of rain</p>
+          <p>{{ $t("chance_of_rain") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <img
@@ -87,9 +87,7 @@
 
     <div class="text-left w-full pt-4 pb-4 txt_regular_des">
       <p>
-        Today's weather features a slight chance of precipitation, with isolated
-        showers possible in the afternoon. Expect mostly sunny skies with brief
-        periods of light rain.
+        {{ $t("weather_description") }}
       </p>
     </div>
   </div>

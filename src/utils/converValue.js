@@ -890,18 +890,20 @@ export function getAQIColor(aqi) {
 export function getAirSummaryName(value) {
   value = parseInt(value);
 
+  console.log("i18n-value", i18n);
+
   if (value <= 50) {
-    return i18n.global.t("Good");
+    return "Good";
   } else if (value <= 100) {
-    return i18n.global.t("Moderate");
+    return "Moderate";
   } else if (value <= 150) {
-    return i18n.global.t("Unhealthy_for_Sensitive_Groups");
+    return "Unhealthy_for_Sensitive_Groups";
   } else if (value <= 200) {
-    return i18n.global.t("Unhealthy");
+    return "Unhealthy";
   } else if (value <= 300) {
-    return i18n.global.t("Very_Unhealthy");
+    return "Very_Unhealthy";
   } else {
-    return i18n.global.t("Hazardous");
+    return "Hazardous";
   }
 }
 
@@ -1087,49 +1089,44 @@ export function formatTimestampDay(timestamp) {
   return `${dayOfWeek}`;
 }
 
-
 // New
 /**
  * Convert sang English
- * @param {*} str 
- * @returns 
+ * @param {*} str
+ * @returns
  */
 export function convertToEnglish(str) {
-
   const keyLanguageStorage = localStorage.getItem("language");
 
-  if(keyLanguageStorage === 'en'){
-
-    if (typeof str !== 'string') {
-      return ''; // Hoặc một giá trị mặc định khác
+  if (keyLanguageStorage === "en") {
+    if (typeof str !== "string") {
+      return ""; // Hoặc một giá trị mặc định khác
     }
     return str
-    .normalize('NFD') // Chuẩn hóa chuỗi để tách dấu
-    .replace(/[\u0300-\u036f]/g, '') // Xóa các dấu thanh
-    .replace(/đ/g, 'd') // Thay thế chữ "đ" thành "d"
-    .replace(/Đ/g, 'D') // Thay thế chữ "Đ" thành "D"
+      .normalize("NFD") // Chuẩn hóa chuỗi để tách dấu
+      .replace(/[\u0300-\u036f]/g, "") // Xóa các dấu thanh
+      .replace(/đ/g, "d") // Thay thế chữ "đ" thành "d"
+      .replace(/Đ/g, "D"); // Thay thế chữ "Đ" thành "D"
     // .replace(/\s+/g, ''); // Loại bỏ dấu cách
   }
   // Thay thế các ký tự tiếng Việt có dấu thành không dấu
-  return str
+  return str;
 }
 
 export function convertToEnglishReplace(str) {
-
   const keyLanguageStorage = localStorage.getItem("language");
 
-  if(keyLanguageStorage === 'en'){
-
-    if (typeof str !== 'string') {
-      return ''; // Hoặc một giá trị mặc định khác
+  if (keyLanguageStorage === "en") {
+    if (typeof str !== "string") {
+      return ""; // Hoặc một giá trị mặc định khác
     }
     return str
-    .normalize('NFD') // Chuẩn hóa chuỗi để tách dấu
-    .replace(/[\u0300-\u036f]/g, '') // Xóa các dấu thanh
-    .replace(/đ/g, 'd') // Thay thế chữ "đ" thành "d"
-    .replace(/Đ/g, 'D') // Thay thế chữ "Đ" thành "D"
-    .replace(/\s+/g, ''); // Loại bỏ dấu cách
+      .normalize("NFD") // Chuẩn hóa chuỗi để tách dấu
+      .replace(/[\u0300-\u036f]/g, "") // Xóa các dấu thanh
+      .replace(/đ/g, "d") // Thay thế chữ "đ" thành "d"
+      .replace(/Đ/g, "D") // Thay thế chữ "Đ" thành "D"
+      .replace(/\s+/g, ""); // Loại bỏ dấu cách
   }
   // Thay thế các ký tự tiếng Việt có dấu thành không dấu
-  return str
+  return str;
 }

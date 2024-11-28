@@ -15,7 +15,6 @@
         </span>
       </div>
       <div>
-        <span>{{ $t("Please_choose_your_preference") }}</span>
       </div>
     </div> -->
 
@@ -28,7 +27,7 @@
             width="24"
             alt=""
           />
-          <span>{{ $t("Temperature") }}</span>
+          <span>Temperature</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -56,7 +55,7 @@
             width="24"
             alt=""
           />
-          <span>{{ $t("Time_Format") }}</span>
+          <span>Time_Format</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -84,7 +83,7 @@
             width="24"
             srcset=""
           />
-          <span>{{ $t("Precipitation") }}</span>
+          <span>Precipitation</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -112,7 +111,7 @@
             src="../../assets/images/svg_v2/ic_map_st.svg"
             alt=""
           />
-          <span>{{ $t("Distance") }}</span>
+          <span>Distance</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -143,7 +142,7 @@
             alt=""
             srcset=""
           />
-          <span>{{ $t("Wind_Speed") }}</span>
+          <span>Wind_Speed</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="flex gap-2 justify-end">
@@ -195,7 +194,7 @@
             alt=""
             srcset=""
           />
-          <span>{{ $t("Pressure") }}</span>
+          <span>Pressure</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="gap-2 flex justify-end">

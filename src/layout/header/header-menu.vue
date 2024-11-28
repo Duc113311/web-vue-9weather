@@ -17,7 +17,7 @@
       >
         <img src="../../assets/images/svg_v2/ic_back_st.svg" alt="" srcset="" />
         <p class="txt_regular text-white">
-          <span>{{ $t("Unit_preferences_settings") }}</span>
+          <span>{{ $t(`common.Unit_preferences_settings`) }}</span>
         </p>
       </div>
 
@@ -42,7 +42,7 @@
         @click="onClickUnitSetting('unit_settings')"
       >
         <div class="txt_regular flex items-center">
-          <span>{{ $t("Unit_preferences_settings") }}</span>
+          <span>{{ $t(`common.Unit_preferences_settings`) }}</span>
         </div>
         <div>
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
@@ -56,7 +56,7 @@
     </div>
 
     <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
-      <span>{{ $t("Version") }} 2/ 18.11.2024</span>
+      <span>{{ $t(`common.Version`) }} 2/ 18.11.2024</span>
     </div>
   </div>
 </template>

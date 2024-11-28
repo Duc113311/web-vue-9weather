@@ -23,7 +23,7 @@
         <div class="absolute w-full bottom-0 left-0 flex justify-end">
           <div class="flex items-center text-left gap-2">
             <div class="bg-wind rounded-full w-[15px] h-[15px]"></div>
-            <p>Precipitation in the coming hours</p>
+            <p>{{ $t("Precipitation_in_the_coming_hours") }}</p>
           </div>
         </div>
       </div>

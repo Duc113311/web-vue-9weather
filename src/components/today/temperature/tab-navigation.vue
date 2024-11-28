@@ -8,7 +8,7 @@
         :key="index"
         @click="onClickTabChart(index)"
       >
-        <p>{{ item }}</p>
+        <p>{{ $t(item) }}</p>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      listTab: ["Today", "UV", "Wind", "Humid", "Pressure"],
+      listTab: ["Today", "uv", "wind_speed", "Humid", "pressure"],
       activeIndex: 0,
     };
   },
@@ -37,6 +37,7 @@ export default {
   flex: 1;
   min-width: 0; // This prevents flex items from overflowing
   margin-right: 10px;
+  font-size: 14px;
 
   &:last-child {
     margin-right: 0px;

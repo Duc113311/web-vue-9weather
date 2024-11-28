@@ -2,7 +2,9 @@
   <div class="w-full items-center text-left text-white pad-t-b">
     <div class="container">
       <div class="flex items-center gap-2 txt_regular">
-        <div class="cursor-pointer" @click="onClickHome()">Home</div>
+        <div class="cursor-pointer" @click="onClickHome()">
+          {{ $t("Home") }}
+        </div>
         <div class="flex items-center" v-if="breadcumsObject?.country">
           <img
             class="transform"
@@ -71,7 +73,7 @@ export default {
       debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.location[0]
+        ? languageRouter.language
         : localStorage.getItem("language");
     },
     /**

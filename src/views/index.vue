@@ -115,7 +115,7 @@ export default {
 
     async loadProvince() {
       try {
-        const response = await fetch("./file-txt/city.json");
+        const response = await fetch("./json/city/city.json");
         if (!response.ok) throw new Error("Failed to fetch data");
         debugger;
         const data = await response.json(); // Parse JSON data
@@ -270,69 +270,24 @@ export default {
 
         this.setCityWeather(objectPosition);
       } else {
-        if (paramsRouter.location.length === 3) {
-          // Xét giá trị để lưu Recent
-          const objectPosition = {
-            latitude: latitude,
-            longitude: longitude,
-            country: dataValue.country,
-            country_key: dataValue.country_key,
-            city: dataValue.city,
-            city_key: dataValue.city_key,
-            district: "",
-            district_key: "",
-            ward: "",
-            ward_key: "",
-          };
-          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+        const objectPosition = {
+          latitude: latitude,
+          longitude: longitude,
+          country: dataValue.country,
+          country_key: dataValue.country_key,
+          city: dataValue.city,
+          city_key: dataValue.city_key,
+          district: dataValue.district,
+          district_key: dataValue.district_key,
+          ward: dataValue.ward,
+          ward_key: dataValue.ward_key,
+          // objectLocation: responsive.data.address,
+        };
+        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
 
-          this.setBreadcumsAllowLocation(objectPosition);
+        this.setBreadcumsAllowLocation(objectPosition);
 
-          this.setCityWeather(objectPosition);
-        }
-        if (paramsRouter.location.length === 4) {
-          const objectPosition = {
-            latitude: latitude,
-            longitude: longitude,
-            country: dataValue.country,
-            country_key: dataValue.country_key,
-            city: dataValue.city,
-            city_key: dataValue.city_key,
-            district: dataValue.district,
-            district_key: dataValue.district_key,
-            ward: "",
-            ward_key: "",
-
-            // objectLocation: responsive.data.address,
-          };
-          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-          this.setBreadcumsAllowLocation(objectPosition);
-
-          this.setCityWeather(objectPosition);
-        }
-
-        if (paramsRouter.location.length === 5) {
-          // Xét giá trị để lưu Recent
-          const objectPosition = {
-            latitude: latitude,
-            longitude: longitude,
-            country: dataValue.country,
-            country_key: dataValue.country_key,
-            city: dataValue.city,
-            city_key: dataValue.city_key,
-            district: dataValue.district,
-            district_key: dataValue.district_key,
-            ward: dataValue.ward,
-            ward_key: dataValue.ward_key,
-            // objectLocation: responsive.data.address,
-          };
-          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-          this.setBreadcumsAllowLocation(objectPosition);
-
-          this.setCityWeather(objectPosition);
-        }
+        this.setCityWeather(objectPosition);
       }
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;

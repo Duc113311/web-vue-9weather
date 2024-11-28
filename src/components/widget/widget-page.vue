@@ -10,7 +10,7 @@
       <div class="w-full pl-4 pr-4 pt-4 text-left bor-bottom">
         <div class="w-full p-4">
           <div class="txt_regular">
-            <span>{{ $t("Weather_forecast_on_your_website") }}</span>
+            <span>Weather_forecast_on_your_website</span>
           </div>
           <div class="txt_light_summer">
             <span
@@ -29,13 +29,13 @@
           <div class="w-[50%] flex flex-col gap-4">
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>{{ $t("Location") }}</span>
+                <span>Location</span>
               </div>
               <div class="w-full flex justify-start">
                 <el-autocomplete
                   v-model="valueAddress"
                   :fetch-suggestions="querySearchAsync"
-                  :placeholder="$t('Search_location')"
+                  :placeholder="Search_location"
                   @select="handleSelect"
                 >
                   <template #default="{ item }">
@@ -49,12 +49,12 @@
             </div>
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>{{ $t("Sampling") }}</span>
+                <span>Sampling</span>
               </div>
               <div class="w-full flex justify-start">
                 <el-select
                   v-model="valueSampling"
-                  :placeholder="$t('Select')"
+                  :placeholder="Select"
                   size="large"
                 >
                   <el-option
@@ -68,7 +68,7 @@
             </div>
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>{{ $t("Number_of_days") }} </span>
+                <span>Number_of_days </span>
               </div>
               <div class="w-full flex justify-start">
                 <el-select
@@ -89,7 +89,7 @@
 
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>{{ $t("Color_change_panel") }}</span>
+                <span>Color_change_panel</span>
               </div>
               <div
                 class="w-full flex gap-10 items-center h-[140px] txt_light_summer"
@@ -99,7 +99,7 @@
                 >
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>{{ $t("Background_color") }}</span>
+                      <span>Background_color</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -111,7 +111,7 @@
                   </div>
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>{{ $t("Color_description") }}</span>
+                      <span>Color_description</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -127,7 +127,7 @@
                 >
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>{{ $t("Title_color") }}</span>
+                      <span>Title_color</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -139,7 +139,7 @@
                   </div>
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>{{ $t("Text_color") }}</span>
+                      <span>Text_color</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -155,7 +155,7 @@
                 >
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>{{ $t("Line_color") }}</span>
+                      <span>Line_color</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -177,7 +177,7 @@
               >
                 <div class="flex items-center justify-center gap-1">
                   <img src="../../assets/images/svg/ic_create.svg" alt="" />
-                  <span class="txt_medium">{{ $t("Add_Widget") }}</span>
+                  <span class="txt_medium">Add_Widget</span>
                 </div>
               </button>
             </div>
@@ -187,7 +187,7 @@
             <div class="title-switch">
               <!--  -->
               <div class="w-full text-left txt_regular">
-                <span>{{ $t("Width") }}:</span>
+                <span>Width:</span>
               </div>
               <div class="slider-demo-block">
                 <el-slider
@@ -234,7 +234,7 @@
                         }}</a>
                         <p>
                           <span
-                            >{{ $t("Feels_like") }}
+                            >Feels_like
                             {{
                               convertTemperature(
                                 renderObjectWidget?.currently
@@ -313,7 +313,7 @@
                 type="textarea"
                 ref="iframeCode"
                 class="textarea-type hide-scroll"
-                :placeholder="$t('Copy_code_iframe_in_website')"
+                :placeholder="Copy_code_iframe_in_website"
                 v-model="valueCodeWidget"
                 maxlength="500"
               />
@@ -327,7 +327,7 @@
               >
                 <div class="flex items-center justify-center gap-1">
                   <img src="../../assets/images/svg/ic_copy.svg" alt="" />
-                  <span class="txt_medium">{{ $t("Copy_code") }}</span>
+                  <span class="txt_medium">Copy_code</span>
                 </div>
               </button>
             </div>
@@ -384,8 +384,8 @@ export default {
   data() {
     return {
       valueAddress: "",
-      valueSampling: this.$t("Sample_{number}", { number: 1 }),
-      valueNumberDay: this.$t("{number}_days", { number: 3 }),
+      valueSampling: "Sample_1",
+      valueNumberDay: "3_days",
       valueCodeWidget: "",
 
       valueSliderWidth: 300,
@@ -399,15 +399,15 @@ export default {
       return [
         {
           value: "option_1",
-          label: this.$t("Sample_{number}", { number: 1 }),
+          label: this.$t(`common.Sample_{numbe}`, { number: 1 }),
         },
         {
           value: "option_2",
-          label: this.$t("Sample_{number}", { number: 2 }),
+          label: this.$t(`common.Sample_{numbe}`, { number: 2 }),
         },
         {
           value: "option_3",
-          label: this.$t("Sample_{number}", { number: 3 }),
+          label: this.$t(`common.Sample_{number}`, { number: 3 }),
         },
       ];
     },
@@ -416,19 +416,19 @@ export default {
       return [
         {
           value: "number_1",
-          label: this.$t("{number}_days", { number: 1 }),
+          label: this.$t(`common.{number}_days`, { number: 1 }),
         },
         {
           value: "number_3",
-          label: this.$t("{number}_days", { number: 3 }),
+          label: this.$t(`common.{number}_days`, { number: 3 }),
         },
         {
           value: "number_5",
-          label: this.$t("{number}_days", { number: 5 }),
+          label: this.$t(`common.{number}_days`, { number: 5 }),
         },
         {
           value: "number_7",
-          label: this.$t("{number}_days", { number: 7 }),
+          label: this.$t(`common.{number}_days`, { number: 7 }),
         },
       ];
     },
