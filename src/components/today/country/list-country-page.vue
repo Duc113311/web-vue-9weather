@@ -27,7 +27,7 @@
         class="w-full h-[302px] show-scroll"
         v-if="
           renderCityLocation.length !== 0 &&
-          this.breadcumsObjectGetters.country === 'Vietnam'
+          this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'
         "
       >
         <div>
@@ -77,7 +77,9 @@ export default {
     ]),
 
     renderLanguage() {
-      return this.$route.params.language ? this.$route.params.language : "en";
+      return this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
     },
 
     renderCityLocation() {

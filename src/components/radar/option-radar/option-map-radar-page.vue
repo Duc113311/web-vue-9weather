@@ -47,17 +47,17 @@ export default {
       isShowActive: 0,
       listMap: [
         {
-          title: "Temperature",
+          title: this.$t("temperature"),
           codeOverlay: "temp",
           urlImg: require("../../../assets/images/svg_v2/ic_temp_radar.svg"),
         },
         {
-          title: "Humidity",
+          title: this.$t("Humid"),
           codeOverlay: "humidity",
           urlImg: require("../../../assets/images/svg_v2/ic_humid_radar.svg"),
         },
         {
-          title: "Rain",
+          title: this.$t("Rain"),
           codeOverlay: "rain",
           urlImg: require("../../../assets/images/svg_v2/ic_rain_radar.svg"),
         },
@@ -67,17 +67,17 @@ export default {
           urlImg: require("../../../assets/images/svg_v2/ic_cloudy_radar.svg"),
         },
         {
-          title: "Pressure",
+          title: this.$t("pressure"),
           codeOverlay: "pressure",
           urlImg: require("../../../assets/images/svg_v2/ic_pressure_radar.svg"),
         },
         {
-          title: "Snow",
+          title: this.$t("Snow"),
           codeOverlay: "snow",
           urlImg: require("../../../assets/images/svg_v2/ic_snows_radar.svg"),
         },
         {
-          title: "Speed",
+          title: this.$t("wind_speed"),
           codeOverlay: "wind",
           urlImg: require("../../../assets/images/svg_v2/ic_snows_radar.svg"),
         },

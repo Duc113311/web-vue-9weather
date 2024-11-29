@@ -41,7 +41,9 @@ export default {
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     renderLanguage() {
-      return this.$route.params.language ? this.$route.params.language : "en";
+      return this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
     },
 
     breadcumsObject() {

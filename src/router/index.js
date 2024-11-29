@@ -106,9 +106,8 @@ const routes = [
         ],
       },
       {
-        path: "/:language", // This will match /en, /fr, etc.
-        name: "home-pages-with-language",
-        component: HomePageV2, // Render HomePageV2 for language routes
+        path: ":language/",
+        component: HomePageV2, // Directly render HomePageV2 for language path
       },
     ],
   },

@@ -1,145 +1,95 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
   <div class="w-full bg-header overflow-hidden sticky top-0 header-page">
-    <div class="w-full bg-header h-full pad-big">
+    <!--  -->
+    <div class="w-full bg-header h-full pl-4 pr-4">
       <div class="w-full h-full container">
-        <!-- Header -->
-        <div class="w-full">
-          <!--  -->
-          <div class="w-full flex justify-between items-center h-full">
-            <!-- Logo -->
-            <div
-              class="logo-app md:w-[600px] w-full h-full flex justify-center items-center"
-            >
-              <!--  -->
+        <div class="w-full h-full flex items-center">
+          <!-- Logo -->
+          <div class="logo-app w-full h-full flex justify-center items-center">
+            <!--  -->
 
-              <div class="md:flex w-full items-center gap-2">
-                <div
-                  class="imgLogo cursor-pointer"
-                  @click="onClickReloadHome()"
-                ></div>
-
-                <!-- <div class="flex justify-between items-center md:pt-2 pt-0">
-                  <div> 
-                    <div class="flex items-center gap-1">
-                      <div class="items-center flex gap-1">
-                        <span class="txt_regular">
-                          <span class="text-blue-400 txt_light_summer">{{
-                            renderCityName
-                          }}</span></span
-                        >
-                        <span class="text-left txt_light_summer">
-                          {{
-                            convertFahrenheitToCelsius(
-                              paramCurrently?.temperature
-                            )
-                          }}</span
-                        >
-                        <div>
-                          <img
-                            :src="convertIconCurrently(paramCurrently?.icon)"
-                            class="size-img"
-                            alt=""
-                          />
-                        </div>
+            <div class="md:flex w-full items-center gap-2">
+              <div
+                class="imgLogo cursor-pointer"
+                @click="onClickReloadHome()"
+              ></div>
+            </div>
+          </div>
+          <!-- Search -->
+          <div class="sm:block hidden w-[350px] h-full">
+            <div class="flex justify-center items-center h-full">
+              <div class="w-[40vh] block">
+                <el-autocomplete
+                  v-model="valueSearch"
+                  :fetch-suggestions="querySearchAsync"
+                  :placeholder="$t('Search_location')"
+                  @select="handleSelect"
+                  :prefix-icon="Search"
+                  class="custom-placeholder"
+                >
+                  <template #default="{ item }">
+                    <!--  -->
+                    <div
+                      v-if="item.isFallback"
+                      @click.stop="onClickLocationView"
+                      class="flex items-center justify-start cursor-pointer gap-2 bg-location-now p-3"
+                    >
+                      <img
+                        src="../../assets/images/svg_v2/mingcute_send-fill.svg"
+                        alt=""
+                        width="16"
+                      />
+                      <div class="txt_regular_des_moon_12">
+                        {{ $t("Use_current_location") }}
                       </div>
                     </div>
-                  </div>
-                </div> -->
-              </div>
-            </div>
-            <!-- Search -->
-            <div class="w-[calc(100%-800px)] h-full md:block hidden">
-              <div class="w-full flex justify-center items-center h-full">
-                <div class="w-[60vh] lg:block hidden">
-                  <el-autocomplete
-                    v-model="valueSearch"
-                    :fetch-suggestions="querySearchAsync"
-                    :placeholder="$t('Search_location')"
-                    @select="handleSelect"
-                    :prefix-icon="Search"
-                    class="custom-placeholder"
-                  >
-                    <template #default="{ item }">
-                      <!--  -->
-                      <div
-                        v-if="item.isFallback"
-                        @click.stop="onClickLocationView"
-                        class="flex items-center justify-start cursor-pointer gap-2 bg-location-now p-3"
-                      >
-                        <img
-                          src="../../assets/images/svg_v2/mingcute_send-fill.svg"
-                          alt=""
-                          width="20"
-                        />
-                        <div class="txt_regular">
-                          {{ $t("Use_current_location") }}
-                        </div>
-                      </div>
-                      <!--  -->
+                    <!--  -->
 
-                      <div v-else-if="item.address" class="p-3">
-                        <div class="txt_regular">{{ item.address }}</div>
-                        <span class="link txt_regular_12">{{
-                          item.country || ""
-                        }}</span>
+                    <div v-else-if="item.address" class="p-3">
+                      <div class="txt_regular_des_moon_12">
+                        {{ item.address }}
                       </div>
-                    </template>
-                  </el-autocomplete>
-                </div>
-                <!-- <div class="w-[30vh] h-full"></div> -->
+                      <span class="link txt_regular_12">{{
+                        item.country || ""
+                      }}</span>
+                      
+                      <img src="" alt="" srcset="">
+                    </div>
+                  </template>
+                </el-autocomplete>
               </div>
+              <!-- <div class="w-[30vh] h-full"></div> -->
             </div>
-            <!--  -->
+          </div>
+          <!-- Time -->
+          <div class="nav-menu w-full flex h-full justify-end items-center">
             <div
-              class="nav-menu md:w-[600px] w-full h-full flex justify-end items-center"
+              class="lg:flex hidden items-center mr-4 txt_regular_des_moon_12"
             >
-              <!-- <div
-                class="md:flex items-center pl-4 pr-4 gap-1 text-white txt_regular"
-              >
-                <div class="flex items-center gap-1">
-                  <img
-                    class="size-img"
-                    src="../../assets/images/svg/ic_oclock.svg"
-                    alt=""
-                  />
-                  <div class="text-left">
-                  </div>
-                </div>
-                <span id="s-date-time" class="flex items-center">
-                  <span class="md:block flex justify-center"
-                    ><span id="hour">{{ hour }}</span
-                    ><span>:</span> <span id="minutes">{{ minutes }}</span
-                    ><span>:</span> <span id="second">{{ second }}</span></span
-                  >
-                  <span class="ml-1" id="dateValue">| {{ dateValue }}</span>
-                </span>
-              </div> -->
-              <div class="flex items-center mr-4">
-                <div class="flex items-center gap-1">
-                  <img
-                    class="size-img"
-                    src="../../assets/images/svg/ic_oclock.svg"
-                    alt=""
-                  />
-                  <div class="text-left">
-                    <span>{{ $t("Local_time") }}:</span>
-                  </div>
-                </div>
-                <span id="s-date-time" class="flex items-center ml-2">
-                  {{ vietnamTime }}
-                </span>
-              </div>
-
-              <div class="cursor-pointer">
+              <div class="flex items-center gap-1">
                 <img
-                  @click="onClickShowMenu"
-                  src="../../assets/images/svg/ic_menu.svg"
-                  width="20"
-                  class="cursor-pointer"
+                  class="size-img"
+                  src="../../assets/images/svg/ic_oclock.svg"
                   alt=""
                 />
+                <div class="text-left">
+                  <span>{{ $t("Local_time") }}:</span>
+                </div>
               </div>
+              <span id="s-date-time" class="flex items-center">
+                {{ vietnamTime }}
+              </span>
+            </div>
+
+            <div class="cursor-pointer">
+              <img
+                @click="onClickShowMenu"
+                src="../../assets/images/svg/ic_menu.svg"
+                width="20"
+                class="cursor-pointer"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -549,12 +499,10 @@ export default {
       debugger;
       this.valueSearch = "";
       let language = this.languageParam;
-      if (item.country === "Vietnam") {
+      if (item.country_key.toLowerCase() === "vn") {
         let objectBread = {
           country: item.country,
-          country_key: item.country_key
-            ? item.country_key.replace(/ /g, "_")
-            : "",
+          country_key: item.country_key,
           city: item.city ? this.convertToVietnamese(item.city).city : "",
           city_key: item.city
             ? this.convertToVietnamese(item.city).cityConvert
@@ -969,24 +917,6 @@ export default {
       this.setCityWeather(objectPosition);
       document.title = originalTitle;
     },
-
-    // processAdditionalFile(data) {
-    //   const lines = data.split("\n");
-    //   const newSuggestions = lines.map((line, index) => {
-    //     const values = line
-    //       .split(";")
-    //       .map((value) => value.replace(/"/g, "").trim());
-    //     return {
-    //       id: this.suggestions.length + index + 1,
-    //       value: values[1],
-    //       country: values[2],
-    //       lat: values[3],
-    //       lng: values[4],
-    //     };
-    //   });
-    //   // Thêm dữ liệu từ file mới vào suggestions
-    //   this.suggestions = [...this.suggestions, ...newSuggestions];
-    // },
   },
 };
 </script>
@@ -1010,7 +940,7 @@ export default {
 
 .basic-header .header-page {
   background-color: #1f1f1f;
-  height: 78px;
+  height: 60px;
 }
 
 .bg-location-now {

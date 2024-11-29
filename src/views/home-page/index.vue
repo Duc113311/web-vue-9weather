@@ -7,7 +7,7 @@
     <NavTabbar></NavTabbar>
     <!--  -->
 
-    <div class="container mt-10">
+    <div class="container mt-5">
       <div class="header h-full">
         <div
           class="left-today h-full"

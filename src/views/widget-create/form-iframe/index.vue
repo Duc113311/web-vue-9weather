@@ -29,7 +29,7 @@
               }}</a>
               <p>
                 <span
-                  >Feels like
+                  >{{ $t("real_feel") }}
                   {{
                     convertTemperature(
                       renderObjectWidget?.currently?.temperature

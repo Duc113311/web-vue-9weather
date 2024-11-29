@@ -8,7 +8,7 @@
             width="24"
             alt=""
           />
-          <span>Temperation</span>
+          <span>{{ $t("temperature") }}</span>
         </div>
       </template>
 

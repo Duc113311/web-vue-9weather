@@ -64,7 +64,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Temperation</p>
+                    <p>{{ $t("temperature") }}</p>
                   </div>
 
                   <div class="flex items-center">
@@ -80,7 +80,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Feel Like</p>
+                    <p>{{ $t("real_feel") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ renderToCelsius(item?.temperature) }}</p>
@@ -93,7 +93,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>UV Index</p>
+                    <p>{{ $t("uv") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ item?.uvIndex }}</p>
@@ -106,7 +106,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Precipitation</p>
+                    <p>{{ $t("precipitation") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
@@ -119,7 +119,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Rainfall</p>
+                    <p>{{ $t("chance_of_rain") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ item?.precipProbability * 100 }}%</p>
@@ -133,7 +133,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Air Quality</p>
+                    <p>{{ $t("air_quality") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>165 (Moderate)</p>
@@ -151,7 +151,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Wind speed</p>
+                    <p>{{ $t("wind_speed") }}</p>
                   </div>
 
                   <div class="flex items-center">
@@ -168,7 +168,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Wind direction</p>
+                    <p>{{ $t("wind_direction") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ convertWindBearing(item?.windBearing) }}</p>
@@ -181,7 +181,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Cloud cover</p>
+                    <p>{{ $t("cloud_cover") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ Math.round(item.cloudCover * 100) }}%</p>
@@ -194,7 +194,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Pressure</p>
+                    <p>{{ $t("pressure") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>
@@ -211,7 +211,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Sunrise</p>
+                    <p>{{ $t("sunrise") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>
@@ -227,7 +227,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>Sunset</p>
+                    <p>{{ $t("sunset") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>
@@ -248,7 +248,7 @@
           class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
         >
           <span class="txt_medium_12">
-            {{ showLessButton ? "Hide" : "See_more" }}</span
+            {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
           >
         </button>
       </div>

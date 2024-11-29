@@ -25,6 +25,14 @@
   font-weight: 400; /* Corresponds to Regular */
 }
 
+.txt_regular_16 {
+  font-size: 16px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 24.28px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
 .txt_regular_des {
   font-size: 14px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
@@ -47,6 +55,22 @@
   line-height: 14.32px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
+}
+
+.txt_medium_des_16 {
+  font-size: 16px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 24.32px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 500; /* Corresponds to Regular */
+}
+
+.txt_medium_des_18 {
+  font-size: 16px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 24.32px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 500; /* Corresponds to Regular */
 }
 
 .txt_medium_des {
@@ -82,7 +106,7 @@
     font-size: 16px; /* Tăng kích thước chữ trên màn hình lớn hơn 576px */
   }
   .txt_regular {
-    font-size: 18px; /* Tăng kích thước cho màn hình nhỏ từ 576px trở lên */
+    font-size: 12px; /* Tăng kích thước cho màn hình nhỏ từ 576px trở lên */
   }
   .txt_default {
     font-size: 16px; /* Tăng kích thước chữ cho màn hình nhỏ */
@@ -97,10 +121,16 @@
     font-size: 18px; /* Tăng kích thước cho màn hình tablet (768px) */
   }
   .txt_regular {
-    font-size: 20px; /* Tăng kích thước cho tablet */
+    font-size: 14px; /* Tăng kích thước cho tablet */
   }
   .txt_default {
     font-size: 18px; /* Kích thước chữ tăng thêm cho tablet */
+  }
+  .txt_regular_16 {
+    font-size: 14px;
+  }
+  .txt_medium_des_18 {
+    font-size: 16px;
   }
 }
 
@@ -109,10 +139,10 @@
     font-size: 24px;
   }
   .txt_medium {
-    font-size: 20px; /* Kích thước lớn hơn cho màn hình lớn */
+    font-size: 16px; /* Kích thước lớn hơn cho màn hình lớn */
   }
   .txt_regular {
-    font-size: 20px; /* Tăng kích thước cho màn hình lớn hơn, laptop */
+    font-size: 16px; /* Tăng kích thước cho màn hình lớn hơn, laptop */
   }
   .txt_default {
     font-size: 20px; /* Tăng kích thước chữ cho laptop/PC */
@@ -124,10 +154,10 @@
     font-size: 24px;
   }
   .txt_medium {
-    font-size: 20px; /* Kích thước lớn hơn cho màn hình lớn */
+    font-size: 16px; /* Kích thước lớn hơn cho màn hình lớn */
   }
   .txt_regular {
-    font-size: 20px; /* Kích thước lớn hơn cho màn hình desktop */
+    font-size: 16px; /* Kích thước lớn hơn cho màn hình desktop */
   }
   .txt_default {
     font-size: 22px; /* Kích thước lớn hơn cho desktop */

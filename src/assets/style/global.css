@@ -35,8 +35,8 @@
   font-size: large !important;
 }
 .el-input__inner {
-  height: 42px !important;
-  font-size: 16px !important;
+  height: 35px !important;
+  font-size: 12px !important;
   font-family: "Roboto-Light", sans-serif;
   color: #0d2952;
 }
@@ -133,27 +133,21 @@
   background-color: #1d2c4b !important;
 }
 
-@media (min-width: 1536px) {
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1024px) and (min-height: 800px) {
   .container {
-    max-width: 1150px;
-  }
-  .el-drawer.rtl {
-    width: 40% !important;
+    min-width: 988px;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1150px;
-  }
-  .el-drawer.rtl {
-    width: 40% !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .el-drawer.rtl {
-    width: 40% !important;
+    max-width: 1024px;
   }
 }
 

@@ -14,7 +14,7 @@
         }}
       </div>
       <div class="txt_regular_des">
-        Real Feel
+        {{ $t("real_feel") }}
         {{ convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature) }}
       </div>
     </div>
@@ -29,7 +29,7 @@
             width="24"
             alt=""
           />
-          <p>Temperation</p>
+          <p>{{ $t("temperature") }}</p>
         </div>
         <div class="flex items-center">
           <div class="flex items-center">
@@ -67,7 +67,7 @@
             width="24"
             alt=""
           />
-          <p>UV</p>
+          <p>{{ $t("uv") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.uvIndex) }}
@@ -81,7 +81,7 @@
             width="24"
             alt=""
           />
-          <p>Precipitation</p>
+          <p>{{ $t("precipitation") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ convertPrecipitation(currentlyData?.precipIntensity) }}
@@ -94,7 +94,7 @@
             width="24"
             alt=""
           />
-          <p>Chance of rain</p>
+          <p>{{ $t("chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%
@@ -107,7 +107,7 @@
             width="24"
             alt=""
           />
-          <p>Air Quality</p>
+          <p>{{ $t("air_quality") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ paramAirModule }}
@@ -118,9 +118,7 @@
 
     <div class="text-left w-full txt_regular_des">
       <p>
-        Today's weather features a slight chance of precipitation, with isolated
-        showers possible in the afternoon. Expect mostly sunny skies with brief
-        periods of light rain.
+        {{ $t("weather_description") }}
       </p>
     </div>
   </div>

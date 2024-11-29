@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="flex flex-col">
     <!-- header -->
 
     <div class="basic-header menu-open">
@@ -14,12 +14,11 @@
     </div>
     <div class="header-placeholder"></div>
 
-    <div class="body-app relative body-n">
+    <div class="body-app relative body-n flex-grow">
       <NavBottom></NavBottom>
 
       <div class="w-full pad-big">
         <router-view />
-        <!--  -->
       </div>
     </div>
 
@@ -591,11 +590,11 @@ export default {
 }
 @media (min-width: 768px) {
   .header-placeholder {
-    height: 62px;
+    height: 60px;
   }
 }
 
 .header-placeholder {
-  height: 78px;
+  height: 60px;
 }
 </style>

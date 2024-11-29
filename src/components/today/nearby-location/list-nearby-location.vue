@@ -34,7 +34,7 @@
           <div
             v-if="
               renderListCityAllGetters.length !== 0 &&
-              this.breadcumsObjectGetters.country === 'Vietnam'
+              this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'
             "
           >
             <p>{{ $t("See_more") }}</p>
@@ -46,7 +46,7 @@
         class="w-full h-[302px]"
         v-if="
           renderListCityAllGetters.length !== 0 &&
-          this.breadcumsObjectGetters.country === 'Vietnam'
+          this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'
         "
       >
         <!--  -->
@@ -128,7 +128,7 @@ export default {
       console.log("retrievedArray", retrievedArray);
 
       if (retrievedArray) {
-        if (retrievedArray.country === "Vietnam") {
+        if (retrievedArray.country_key.toLowerCase() === "vn") {
           console.log("listCityAllGetters", this.listCityAllGetters);
           const cityKey = this.removeDiacritics(retrievedArray.city);
           debugger;
@@ -377,8 +377,6 @@ export default {
           },
         });
       }
-
-      window.location.reload();
 
       // const keyCity = JSON.parse(localStorage.getItem("objectBread"));
 

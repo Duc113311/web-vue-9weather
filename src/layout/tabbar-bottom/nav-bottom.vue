@@ -1,101 +1,105 @@
 <template>
-  <div class="w-full h-[60px] bg-nav flex items-center">
-    <div class="container relative">
-      <div class="flex justify-between items-center pad-b-t text-white">
-        <!-- left -->
-        <div class="flex items-center gap-4">
-          <div class="h-district pt-5 pb-5">
-            <div class="flex items-center gap-2 cursor-pointer">
-              <img
-                src="../../assets/images/svg_v2/ic_city.svg"
-                width="24"
-                alt=""
-                srcset=""
-              />
-              <span>{{ $t("District_City") }}</span>
-              <img
-                src="../../assets/images/svg_v2/ic_chevron_up.svg"
-                width="24"
-                alt=""
-              />
-            </div>
+  <div class="w-full h-[50px] bg-nav flex items-center">
+    <div class="w-full h-full pl-4 pr-4 text-white">
+      <div class="w-full h-full container">
+        <div class="w-full h-full flex justify-between items-center">
+          <!-- left -->
+          <div class="md:flex hidden items-center gap-4">
+            <div class="h-district pt-5 pb-5 hidden lg:block relative group">
+              <div class="flex items-center gap-2 cursor-pointer">
+                <img
+                  src="../../assets/images/svg_v2/ic_city.svg"
+                  width="16"
+                  alt=""
+                  srcset=""
+                />
+                <span class="txt_regular_16">{{ $t("District_City") }}</span>
+                <img
+                  src="../../assets/images/svg_v2/ic_chevron_up.svg"
+                  width="24"
+                  alt=""
+                />
+              </div>
 
-            <div class="mega-box">
-              <div class="container">
+              <div class="mega-box absolute hidden group-hover:block">
                 <div class="content">
-                  <div class="container-c">
-                    <!--  -->
-                    <div
-                      class="region"
-                      v-for="(item, index) in objectCity"
-                      :key="index"
-                    >
-                      <h2>
-                        {{
-                          $t(
-                            `city.city_${renderLanguage}.${item.keyAccentLanguage}`
-                          )
-                        }}
-                      </h2>
-                      <ul>
-                        <li
-                          v-for="(item1, index) in item?.provinceCity"
-                          :key="index"
-                          @click="onClickSearchCity(item1, item)"
-                        >
+                  <div class="container">
+                    <div class="container-c">
+                      <!--  -->
+                      <div
+                        class="region"
+                        v-for="(item, index) in objectCity"
+                        :key="index"
+                      >
+                        <h2>
                           {{
                             $t(
-                              `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
+                              `city.city_${renderLanguage}.${item.keyAccentLanguage}`
                             )
                           }}
-                        </li>
-                      </ul>
+                        </h2>
+                        <ul>
+                          <li
+                            v-for="(item1, index) in item?.provinceCity"
+                            :key="index"
+                            @click="onClickSearchCity(item1, item)"
+                          >
+                            {{
+                              $t(
+                                `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
+                              )
+                            }}
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div
-            class="flex items-center gap-2 cursor-pointer"
-            @click="onClickShowWidget()"
-          >
+            <div
+              class="flex items-center gap-2 cursor-pointer"
+              @click="onClickShowWidget()"
+            >
+              <img
+                src="../../assets/images/svg_v2/ic_widget_tab.svg"
+                width="20"
+                alt=""
+                srcset=""
+              />
+              <span class="txt_regular_16">{{ $t("Widget") }}</span>
+            </div>
+          </div>
+          <!-- right -->
+          <div class="flex items-center gap-2">
             <img
-              src="../../assets/images/svg_v2/ic_widget_tab.svg"
-              width="24"
+              src="../../assets/images/svg_v2/ic_locate_fixed.svg"
+              width="16"
               alt=""
               srcset=""
             />
-            <span>{{ $t("Widget") }}</span>
-          </div>
-        </div>
-        <!-- right -->
-        <div class="flex items-center gap-2">
-          <img
-            src="../../assets/images/svg_v2/ic_locate_fixed.svg"
-            alt=""
-            srcset=""
-          />
 
-          <div class="flex items-center mr-2 gap-2">
-            <span class=" ">{{ $t("Your_current_location") }}:</span>
-            <span
-              class="txt_medium text-blue-400"
-              v-if="breadcumsObject?.city"
-              >{{ breadcumsObject?.city }}</span
+            <div class="flex items-center mr-2 gap-2">
+              <span class="txt_regular_16"
+                >{{ $t("Your_current_location") }}:</span
+              >
+              <span
+                class="txt_medium_des_16 text-blue-400"
+                v-if="breadcumsObject?.city"
+                >{{ breadcumsObject?.city }}</span
+              >
+            </div>
+            <div
+              class="flex items-center cursor-pointer txt_medium_des_18"
+              @click="onClickRechange()"
             >
-          </div>
-          <div
-            class="flex items-center cursor-pointer txt_medium"
-            @click="onClickRechange()"
-          >
-            <span>{{ $t("rechange") }}</span>
+              <span>{{ $t("rechange") }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!--  -->
   </div>
 </template>
 <script>
@@ -126,7 +130,9 @@ export default {
     ]),
 
     renderLanguage() {
-      return this.$route.params.language ? this.$route.params.language : "en";
+      return this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
     },
 
     breadcumsObject() {
@@ -309,11 +315,20 @@ export default {
 }
 .h-district:hover .mega-box {
   transition: all 0.3s ease;
-  top: 60px;
+  top: 50px;
   opacity: 1;
   visibility: visible;
   z-index: 10;
-  width: 77%;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .h-district:hover .mega-box {
+    top: auto; /* Không thay đổi vị trí */
+    opacity: 0; /* Ẩn mega-box */
+    visibility: hidden; /* Ẩn mega-box */
+    z-index: -1; /* Đưa mega-box ra khỏi z-index */
+  }
 }
 
 .mega-box {
@@ -328,29 +343,31 @@ export default {
 }
 
 .mega-box .content {
-  background: #ffffff;
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 20px;
+
+  position: absolute;
+  width: 100%;
 }
 
 .mega-box .region {
-  width: 208px;
+  width: 228px;
   margin-top: 10px;
 }
 
 .mega-box .container-c {
-  display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  padding: 20px;
+  padding: 10px 10px;
   text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.413);
+  background: #ffffff;
 }
 
 .mega-box .region h2 {
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 0;
   color: #007bff;
   padding-left: 20px;
@@ -362,7 +379,7 @@ export default {
 }
 
 .mega-box .region ul li {
-  font-size: 14px;
+  font-size: 12px;
   padding: 6px 18px;
   cursor: pointer;
 }

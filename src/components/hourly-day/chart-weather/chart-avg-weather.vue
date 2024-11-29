@@ -13,7 +13,11 @@
                 width="24"
                 alt=""
               />
-              <span>{{ $t("Current_weather_today") }}</span>
+              <span>{{
+                $t(`Weather_forecast_for_{city}_in_the_coming_hours`, {
+                  city: wardParam?.city,
+                })
+              }}</span>
             </div>
           </template>
 
@@ -41,7 +45,7 @@
                 width="24"
                 alt=""
               />
-              <span>Today Sumary</span>
+              <span>{{ $t("Temperature_today") }}</span>
             </div>
           </template>
 
@@ -67,7 +71,7 @@
               </div>
 
               <div class="flex justify-start items-center pt-1 pb-1">
-                <span>Feels like: </span> &nbsp;
+                <span class="text-left">{{ $t("real_feel") }}: </span> &nbsp;
                 <span>{{ convertFahrenheitToCelsiusAmtp(dailyOneData) }}</span>
               </div>
             </div>
@@ -96,10 +100,10 @@
                 <p>{{ dailyOneData?.precipProbability * 100 }}%</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
-                <p>Chance of rain</p>
+                <p>{{ $t("chance_of_rain") }}</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
-                <p>Precipitation:</p>
+                <p>{{ $t("precipitation") }}:</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
                 <p>{{ convertPrecipitation(dailyOneData?.precipIntensity) }}</p>
@@ -143,6 +147,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     ...mapGetters("weatherModule", ["dailyOneGetters", "currentlyGetters"]),
 
     currentlyData() {
@@ -151,6 +156,18 @@ export default {
 
     dailyOneData() {
       return this.dailyOneGetters;
+    },
+
+    wardParam() {
+      debugger;
+
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+      console.log("resultData", resultData);
+
+      return resultData;
     },
   },
 

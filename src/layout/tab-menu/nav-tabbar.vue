@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!--  -->
-    <div class="container mt-2 overflow-hidden">
+    <div class="container overflow-hidden">
       <div
         class="weather-menu-inner w-max flex justify-between items-center mt-2 pt-1"
       >
@@ -18,9 +18,10 @@
               class="menu-icon"
               :class="{ 'active-icon': activeIndex === index }"
               :alt="menu.label"
+              width="18"
             />
 
-            <span>{{ menu.label }}</span>
+            <span class="txt_regular_16">{{ menu.label }}</span>
           </div>
         </div>
       </div>
@@ -79,7 +80,9 @@ export default {
     },
 
     renderLanguage() {
-      return this.$route.params.language ? this.$route.params.language : "en";
+      return this.$route.params.language
+        ? this.$route.params.language
+        : localStorage.getItem("language");
     },
 
     renderCoordinates() {
@@ -244,7 +247,7 @@ export default {
 </script>
 <style lang="scss">
 .weather-menu-item {
-  width: 162px;
+  width: 130px;
   background-color: #5b6c86;
 }
 

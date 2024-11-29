@@ -73,6 +73,7 @@ export default {
   data() {
     return {
       overlayValue: "temp",
+      title: this.$t("Current_weather_today"),
     };
   },
 
