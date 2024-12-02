@@ -2,7 +2,7 @@
   <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2 class="txt_title_temp mb-2">
+      <h2 class="txt_title_temp">
         {{ convertFahrenheitToCelsiusNot(currentlyData?.temperature) }}
       </h2>
       <div class="txt_regular">
@@ -21,7 +21,7 @@
 
     <!--  -->
 
-    <div class="pt-4 pb-4 gap-2 flex-col flex">
+    <div class="pt-2 pb-2 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
@@ -116,7 +116,7 @@
       </div>
     </div>
 
-    <div class="text-left w-full txt_regular_des">
+    <div class="text-left w-full txt_regular_des_12">
       <p>
         {{ $t("weather_description") }}
       </p>

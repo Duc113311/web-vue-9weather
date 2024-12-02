@@ -18,6 +18,7 @@
             <ChartDomainRain></ChartDomainRain>
 
             <!-- <ChartApexRain></ChartApexRain> -->
+            <ChartColumnRainfall></ChartColumnRainfall>
           </div>
         </vue-horizontal>
 
@@ -62,6 +63,7 @@ export default {
     ChartDomainTemps,
     ChartDomainRain,
     VueHorizontal,
+    ChartColumnRainfall,
     // ChartApexRain,
     // ChartBarRain,
     // ChartColumnRainfall,

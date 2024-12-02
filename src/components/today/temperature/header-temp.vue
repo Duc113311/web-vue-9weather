@@ -20,7 +20,7 @@
     </div>
 
     <!--  -->
-    <div class="c-temp-row w-full flex justify-between items-center">
+    <div class="c-temp-row w-full flex items-center mt-2">
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center pb-14">
           <p>{{ $t("temperature") }}</p>
@@ -85,7 +85,7 @@
 
     <!--  -->
 
-    <div class="text-left w-full pt-4 pb-4 txt_regular_des">
+    <div class="text-left w-full pt-4 pb-4 txt_regular_des_12">
       <p>
         {{ $t("weather_description") }}
       </p>

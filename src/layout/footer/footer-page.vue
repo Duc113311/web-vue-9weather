@@ -4,7 +4,7 @@
       <!-- footer -->
       <div class="w-full justify-between flex items-center">
         <div
-          class="logo-app md:w-[600px] w-full h-full flex justify-center items-center"
+          class="logo-app lg:w-[600px] h-full flex justify-center items-center"
         >
           <div class="flex w-full items-center cursor-pointer">
             <div class="imgLogo cursor-pointer"></div>

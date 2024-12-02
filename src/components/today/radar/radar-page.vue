@@ -4,7 +4,7 @@
     <BaseComponent :isShowPad="false">
       <!--  -->
       <template v-slot:header>
-        <div class="flex items-center text-left gap-2 mb-1">
+        <div class="flex items-center text-left gap-2">
           <img
             src="../../../assets/images/svg_v2/ic_radar.svg"
             width="24"
@@ -13,15 +13,17 @@
           <span>Radar</span>
         </div>
       </template>
-      <div v-if="renderRadar !== null" class="h-full overflow-hidden">
+      <div v-if="renderRadar !== null" class="h-[360px]">
         <!--  -->
-        <iframe
-          :src="renderRadar"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          scrolling="no"
-        ></iframe>
+        <div class="w-full h-full">
+          <iframe
+            :src="renderRadar"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            scrolling="no"
+          ></iframe>
+        </div>
       </div>
     </BaseComponent>
   </div>
@@ -45,9 +47,22 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["cityCountryGetters"]),
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
+    iframeHeight() {
+      return window.innerWidth < 768 ? 300 : 360; // Adjust the breakpoint as needed
+    },
+
+    breadcumsObject() {
+      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+
+      console.log("retrievedArray", retrievedArray);
+
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
 
     renderRadar() {
-      const dataPosition = this.cityCountryGetters;
+      const dataPosition = this.breadcumsObject;
       console.log("dataPosition", dataPosition);
       const objectSetting = this.$store.state.commonModule.objectSettingSave;
       if (!dataPosition || !dataPosition.latitude || !dataPosition.longitude) {
@@ -68,12 +83,18 @@ export default {
         urlHost +
         `?lat=${dataPosition.latitude}&lng=${dataPosition.longitude}&overlay=${this.overlayValue}&zoom=${zoomValue}&metricTemp=${metricTempValue}&metricRain=${metricRainValue}&metricSnow=${metricSnow}&metricWind=${metricWind}&metricPressure=${metricPressure}&metricHumidity=${metricHumidity}&metricClouds=${metricClouds}`;
 
-      const urlIf = `https://embed.windy.com/embed2.html?lat=${dataPosition.latitude}&lon=${dataPosition.longitude}&zoom=${zoomValue}&metricTemp=${metricTempValue}&level=surface&overlay=${this.overlayValue}`;
       return urlIframe;
     },
   },
 
-  methods: {},
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.$forceUpdate(); // Force reactivity on resize
+    },
+  },
 };
 </script>
 <style lang="scss"></style>

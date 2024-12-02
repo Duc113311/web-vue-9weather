@@ -21,8 +21,10 @@
 
         <div class="absolute w-full bottom-0 left-0 flex justify-end">
           <div class="flex items-center text-left gap-2">
-            <div class="bg-wind rounded-full w-[15px] h-[15px]"></div>
-            <p>{{ $t("Wind_speed_in_the_coming_hours") }}</p>
+            <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
+            <span class="txt_regular_des">{{
+              $t("Wind_speed_in_the_coming_hours")
+            }}</span>
           </div>
         </div>
       </div>

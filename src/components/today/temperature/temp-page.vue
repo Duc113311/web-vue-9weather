@@ -13,7 +13,7 @@
         </div>
       </template>
 
-      <div class="w-full gap-4 grid">
+      <div class="w-full">
         <HeaderTemp
           :currentlyData="currentlyData"
           :dailyOneData="dailyOneData"
@@ -21,7 +21,7 @@
         <!--  -->
         <TabNavigation @onChangeTabChart="onChangeTabChart"></TabNavigation>
         <!--  -->
-        <div class="w-[550px] h-[368px]">
+        <div class="w-auto h-[368px]">
           <ChartTempRain v-show="indexChart === 0"></ChartTempRain>
           <UvChartPage :key="indexKey + '_uvIndex'" v-show="indexChart === 1">
           </UvChartPage>

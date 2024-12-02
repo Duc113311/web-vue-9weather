@@ -4,7 +4,7 @@
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="120" ref="canvas"></canvas>
+      <canvas id="chart_hourly" height="90" ref="canvas"></canvas>
     </div>
   </div>
 </template>

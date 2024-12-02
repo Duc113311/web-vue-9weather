@@ -18,13 +18,13 @@
               this.breadcumsObjectGetters.country === 'Vietnam'
             "
           >
-            <p>{{ $t("See_more") }}</p>
+            <span class="txt_regular_des_12">{{ $t("See_more") }}</span>
           </div>
         </div>
       </template>
 
       <div
-        class="w-full h-[302px] show-scroll"
+        class="w-full h-[212px] show-scroll"
         v-if="
           renderCityLocation.length !== 0 &&
           this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'

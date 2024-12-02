@@ -8,9 +8,9 @@
     <!--  -->
 
     <div class="container mt-5">
-      <div class="header h-full">
+      <div class="header h-full w-full lg:flex gap-4">
         <div
-          class="left-today h-full"
+          class="left-today lg:w-3/6 w-full h-full"
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
         >
           <TempPage></TempPage>
@@ -18,7 +18,7 @@
         <div v-else class="lg:w-[566px] w-full h-[850px]">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
-        <div class="right-today">
+        <div class="right-today lg:w-3/6 w-full">
           <div class="main-top">
             <div
               class="left-main h-full"
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div
-            class="main-bottom h-[362px] mt-2"
+            class="main-bottom h-auto mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <RadarPage></RadarPage>
@@ -54,20 +54,20 @@
     </div>
     <!--  -->
 
-    <div class="container local-c">
-      <div
-        class="left-location"
+    <div class="container local-c w-full flex items-center gap-4">
+      <div6
+        class="left-location lg:w-[70%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
         <ListNearbyLocation></ListNearbyLocation>
-      </div>
+      </div6>
       <div v-else class="w-full h-[380px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
       <div
-        class="right-country"
+        class="right-country lg:w-[30%] w-[40%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
@@ -78,54 +78,56 @@
       </div>
     </div>
 
-    <div class="container local-d">
+    <div class="container local-d lg:flex block w-full justify-between gap-4">
       <!--  -->
-      <div class="left-c">
-        <!--  -->
-        <div
-          class="w-full"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <SunPage></SunPage>
+      <div class="md:flex block justify-between lg:w-[70%] w-full gap-4">
+        <div class="left-c md:w-[50%] w-full">
+          <!--  -->
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <SunPage></SunPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <MoonPage></MoonPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
-        <div v-else class="w-full h-[230px] mt-4">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-        </div>
-        <div
-          class="w-full"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <MoonPage></MoonPage>
-        </div>
-        <div v-else class="w-full h-[230px] mt-4">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+
+        <div class="center-c md:w-[50%] w-full">
+          <!--  -->
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <UvPage></UvPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <AirQualityPage></AirQualityPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
       </div>
 
-      <div class="center-c">
-        <!--  -->
-        <div
-          class="w-full"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <UvPage></UvPage>
-        </div>
-        <div v-else class="w-full h-[230px] mt-4">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-        </div>
-
-        <div
-          class="w-full"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <AirQualityPage></AirQualityPage>
-        </div>
-        <div v-else class="w-full h-[230px] mt-4">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-        </div>
-      </div>
-
-      <div class="right-c pt-12 h-auto">
+      <div class="right-c pt-12 h-auto lg:w-[30%] w-full">
         <!--  -->
         <div class="flex justify-center items-center h-auto">
           <img
@@ -193,35 +195,14 @@ export default {
 };
 </script>
 <style lang="scss">
-.header {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  gap: 16px;
-}
-
 .main-top {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
-.local-c {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: 16px;
-}
-
-.local-d {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr;
-  gap: 16px;
-}
-
 .img-logo {
   width: 360px;
-  height: 443px;
+  height: auto;
 }
 </style>

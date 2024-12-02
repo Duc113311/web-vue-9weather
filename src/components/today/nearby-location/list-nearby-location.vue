@@ -34,19 +34,19 @@
           <div
             v-if="
               renderListCityAllGetters.length !== 0 &&
-              this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'
+              this.wardParam?.country_key?.toLowerCase() === 'vn'
             "
           >
-            <p>{{ $t("See_more") }}</p>
+            <span class="txt_regular_des_12">{{ $t("See_more") }}</span>
           </div>
         </div>
       </template>
 
       <div
-        class="w-full h-[302px]"
+        class="w-full h-[244px]"
         v-if="
           renderListCityAllGetters.length !== 0 &&
-          this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'
+          this.wardParam?.country_key?.toLowerCase() === 'vn'
         "
       >
         <!--  -->
@@ -101,6 +101,16 @@ export default {
       "airKeyObjectGetters",
     ]),
 
+    itemSliceCount() {
+      if (window.innerWidth < 768) {
+        return 4; // Mobile
+      } else if (window.innerWidth < 1024) {
+        return 6; // Tablet
+      } else {
+        return 8; // Desktop
+      }
+    },
+
     languageParam() {
       debugger;
       const languageRouter = this.$route.params;
@@ -128,7 +138,7 @@ export default {
       console.log("retrievedArray", retrievedArray);
 
       if (retrievedArray) {
-        if (retrievedArray.country_key.toLowerCase() === "vn") {
+        if (retrievedArray?.country_key?.toLowerCase() === "vn") {
           console.log("listCityAllGetters", this.listCityAllGetters);
           const cityKey = this.removeDiacritics(retrievedArray.city);
           debugger;
@@ -144,12 +154,12 @@ export default {
                   this.removeDiacritics(retrievedArray.district)
               );
               if (findDataWard) {
-                return findDataWard.wards.slice(0, 8);
+                return findDataWard.wards.slice(0, this.itemSliceCount);
               } else {
                 return [];
               }
             } else {
-              return findData.districtList.slice(0, 8);
+              return findData.districtList.slice(0, this.itemSliceCount);
             }
           } else {
             return [];
@@ -161,7 +171,7 @@ export default {
         const findData = this.listCityAllGetters.find(
           (x) => x.keyLanguage === this.breadcumsObjectGetters.city_key
         );
-        return findData.districtList.slice(0, 8);
+        return findData.districtList.slice(0, this.itemSliceCount);
       }
     },
   },
@@ -336,7 +346,7 @@ export default {
           params: {
             language: keyLanguageStorage,
             location: [
-              objectBread.country_key.toLowerCase(),
+              objectBread?.country_key?.toLowerCase(),
               this.convertToSlug(objectBread.city),
             ],
           },
@@ -352,7 +362,7 @@ export default {
           params: {
             language: keyLanguageStorage,
             location: [
-              objectBread.country_key.toLowerCase(),
+              objectBread?.country_key?.toLowerCase(),
               this.convertToSlug(objectBread.city),
               this.convertToSlug(objectBread.district),
             ],
@@ -369,7 +379,7 @@ export default {
           params: {
             language: keyLanguageStorage,
             location: [
-              objectBread.country_key.toLowerCase(),
+              objectBread?.country_key?.toLowerCase(),
               this.convertToSlug(objectBread.city),
               this.convertToSlug(objectBread.district),
               this.convertToSlug(objectBread.ward),
@@ -407,5 +417,11 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
+}
+@media (max-width: 1024px) {
+  .district-list {
+    /* Adjust the max-width as needed for tablet */
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  }
 }
 </style>

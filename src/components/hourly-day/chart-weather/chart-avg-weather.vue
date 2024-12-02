@@ -1,8 +1,8 @@
 <template>
   <div class="w-full">
-    <div class="flex items-center flex-hourly h-full">
+    <div class="lg:flex items-center gap-4 w-full h-full">
       <div
-        class="left-i"
+        class="left-i lg:w-[70%] w-full"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <BaseComponent>
@@ -21,8 +21,8 @@
             </div>
           </template>
 
-          <div class="w-full gap-4 grid">
-            <div class="w-[550px] h-[400px]">
+          <div class="w-full gap-4">
+            <div class="w-auto h-[400px]">
               <ChartTempRain></ChartTempRain>
             </div>
 
@@ -34,7 +34,7 @@
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
-      <div class="right-i">
+      <div class="right-i lg:w-[30%] w-full lg:block flex gap-4">
         <BaseComponent
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
         >

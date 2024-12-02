@@ -12,8 +12,8 @@
         </div>
       </template>
 
-      <div class="w-full gap-4 grid">
-        <div class="w-[780px] h-[400px]">
+      <div class="w-full gap-4">
+        <div class="w-auto h-[400px]">
           <!-- <ChartTempRain></ChartTempRain> -->
           <ChartTempRain></ChartTempRain>
         </div>

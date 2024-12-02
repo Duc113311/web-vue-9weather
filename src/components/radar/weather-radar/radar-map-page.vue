@@ -12,7 +12,7 @@
         </div>
       </template>
 
-      <div class="w-full h-[462px]">
+      <div class="w-full h-[430px]">
         <div class="w-full h-full">
           <!--  -->
           <iframe

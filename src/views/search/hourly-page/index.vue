@@ -2,20 +2,16 @@
   <div class="w-full h-full">
     <!-- -->
     <div class="container mt-5">
-      <div class="header-h h-full">
-        <div class="left-hourly">
+      <div class="header-h h-full w-full flex gap-4">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <ChartAvgWeather> </ChartAvgWeather>
         </div>
 
-        <div class="right-hourly">
+        <div class="right-hourly w-[30%] md:block hidden">
           <!--  -->
           <div class="flex justify-end items-center h-full w-full">
-            <img
-              src="../../../assets/images/png/ic_app_download.png"
-              alt=""
-              class="h-full pt-10"
-            />
+            <img src="../../../assets/images/png/ic_app_download.png" alt="" />
           </div>
         </div>
       </div>
@@ -23,8 +19,8 @@
 
     <!--  -->
     <div class="container">
-      <div class="header-h h-full pt-2">
-        <div class="left-hourly h-full">
+      <div class="lg:flex w-full h-full pt-2 gap-4">
+        <div class="left-hourly h-full lg:w-[70%] w-full">
           <!--  -->
           <ItemTime24h
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -34,16 +30,7 @@
           </div>
         </div>
 
-        <div class="right-hourly">
-          <!--  -->
-          <!-- <div>
-            <img
-              src="../../../assets/images/png/ic_app_download.png"
-              alt=""
-              class="pt-12"
-            />
-          </div> -->
-
+        <div class="right-hourly lg:w-[30%] w-full">
           <SunPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></SunPage>
@@ -148,13 +135,6 @@ export default {
 </script>
 
 <style lang="scss">
-.header-h {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 5fr 2fr;
-  gap: 16px;
-}
-
 .header-2 {
   grid-column: span 3;
   display: grid;

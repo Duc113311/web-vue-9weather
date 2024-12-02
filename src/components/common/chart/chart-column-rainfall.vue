@@ -1,69 +1,131 @@
 <template>
-  <div class="w-[86rem] absolute bottom-6 right-1">
-    <div id="chart" class="w-full">
-      <apexchart
-        type="bar"
-        :options="chartOptions"
-        :series="series"
-        height="140"
-      ></apexchart>
+  <div class="chart-container-rainfall w-[89rem]">
+    <div class="chart-wrapper w-full">
+      <canvas id="chart_hourly_rainfall" height="100" ref="canvas"></canvas>
     </div>
   </div>
 </template>
-
 <script>
-import { convertToWeekdayAndDate } from "@/utils/converValue";
+import {
+  codeToFind,
+  convertMillimet,
+  convertMillimetToInch,
+} from "@/utils/converValue";
+import {
+  CategoryScale,
+  Chart,
+  Filler,
+  Legend,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+  Legend,
+  Filler,
+  ChartDataLabels
+);
 export default {
   name: "chart-column-rainfall",
+
   data() {
     return {
-      chartOptions: {
-        chart: {
-          type: "bar",
-          stacked: true,
-          stackType: "100%",
-          height: "100%",
-          toolbar: { show: false },
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: "60%", // Giảm kích thước cột
-            borderRadius: 16,
-            endingShape: "rounded",
-            barPadding: 1.5,
-            dataLabels: {
-              position: "bottom", // Đảm bảo label ở dưới cột
-            },
-          },
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: function (val, opts) {
-            const seriesIndex = opts.seriesIndex;
-            const dataPointIndex = opts.dataPointIndex;
-            const w = opts.w;
-            if (seriesIndex === 0) {
-              const value = w.globals.series[0][dataPointIndex].toFixed(1);
-              return value; // Sử dụng ký tự Zero Width Space
-            }
-          },
-          style: {
-            colors: ["#ffffff"],
-            fontSize: "12px",
-            fontWeight: "bold",
-          },
-          offsetY: 0,
-          position: "bottom",
-          textAnchor: "middle", // Căn giữa text
-        },
-        stroke: {
-          curve: "smooth",
-          width: [0, 0, 2], // Độ rộng cho mỗi series, 2px cho đường
-        },
-        xaxis: {
-          categories: [
+      chart: null,
+      pattern: null,
+      img: null,
+      pointImg: null, // Add an image object to the data
+      chartInstance: null,
+    };
+  },
+
+  computed: {
+    paramHourly() {
+      return this.$store.state.weatherModule.hourly24h;
+    },
+
+    listDataProbability() {
+      return this.paramHourly.map(
+        (element) =>
+          // this.convertPrecipitation(element.humidity * 100)
+          Math.round(element.humidity * 100) || 0
+      );
+    },
+  },
+
+  watch: {
+    paramHourly(newData) {
+      if (newData.length !== 0) {
+        this.$nextTick(() => {
+          this.createChartRain24h();
+        });
+      }
+    },
+  },
+
+  mounted() {
+    if (this.paramHourly && this.paramHourly.length) {
+      this.$nextTick(() => {
+        this.createChartRainfall24h();
+      });
+    }
+  },
+
+  methods: {
+    convertPrecipitation(val) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activePrecipitation_save === "mm") {
+        return (
+          convertMillimet(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      } else {
+        return (
+          convertMillimetToInch(val) +
+          " " +
+          codeToFind(unitSetting.activePrecipitation_save)
+        );
+      }
+    },
+
+    createChartRainfall24h() {
+      const canvas = document.getElementById("chart_hourly_rainfall");
+      if (!canvas) {
+        console.error("Canvas element not found");
+        return;
+      }
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        console.error("Failed to get canvas context");
+        return;
+      }
+
+      // var chart_hourly_rain = Chart.getChart("chart_hourly_rain");
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+
+      // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
+      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height); // Gradient từ trên xuống dưới
+      gradient.addColorStop(0, "#2E77E8"); // Màu trên (100% độ mờ)
+      gradient.addColorStop(1, "#104B77"); // Màu dưới (0% độ mờ)
+      this.chartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
             "1",
             "2",
             "3",
@@ -89,132 +151,83 @@ export default {
             "23",
             "24",
           ],
+          datasets: [
+            {
+              label: "Rain",
+              borderColor: "#F4F5F8",
+              pointBackgroundColor: "#00E3F5",
+              pointBorderColor: "#474A8D",
+              pointRadius: 10,
+              backgroundColor: gradient,
+              fill: true,
+              data: this.listDataProbability,
+              borderRadius: 30,
+              barThickness: 30,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
 
-          labels: {
-            show: false,
+          plugins: {
+            legend: {
+              display: false,
+              position: "bottom",
+            },
+            tooltip: {
+              enabled: true,
+            },
+            datalabels: {
+              display: true,
+              align: "top",
+              font: {
+                size: 10,
+                //   weight: "bold", // Chỉnh độ đậm của chữ
+              },
+              color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
+              formatter: (value, context) => {
+                return `${value}%`;
+              },
+            },
           },
-          axisBorder: {
-            show: false,
+          scales: {
+            x: {
+              display: false,
+              title: {
+                display: false,
+                stepSize: 2,
+                //   text: "Tháng",
+              },
+            },
+            y: {
+              display: false,
+              title: {
+                display: false,
+                //   text: "Giá trị",
+              },
+              beginAtZero: true,
+              max: 100,
+            },
           },
-
-          max: 15,
-          axisTicks: {
-            show: false,
+          elements: {
+            line: {
+              tension: 0.5,
+            },
           },
         },
-        yaxis: {
-          labels: {
-            show: false,
-          },
-        },
-        grid: {
-          show: false,
-        },
-        tooltip: {
-          enabled: false,
-        },
-        legend: {
-          show: false,
-        },
-        colors: ["#0C61EE", "rgba(255, 255, 255, 0.15)"], // Màu xanh cho giá trị thực, xám cho phần còn lại
-        fill: {
-          opacity: 1,
-        },
-      },
-    };
-  },
-
-  computed: {
-    // currentDailyDataSeven() {
-    //   return this.$store.state.weatherModule.hourly24h;
-    // },
-
-    categoryLength() {
-      return [];
-    },
-    series() {
-      const data = [
-        0.4, 0.8, 0.7, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.8, 0.7, 0.3, 0.2,
-        0.2, 0.2, 0.2, 0.2, 0.2, 0.8, 0.7, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2,
-      ];
-      const maxValue = 1; // Giá trị tối đa cho mỗi cột
-      return [
-        {
-          name: "Actual Value",
-          data: data,
-        },
-        {
-          name: "Remaining",
-          data: data.map((value) => maxValue - value),
-        },
-      ];
-    },
-  },
-
-  watch: {
-    // currentDailyDataSeven(newValue) {
-    //   this.handlerHumidity(newValue);
-    // },
-  },
-
-  mounted() {
-    // if (this.currentDailyDataSeven) {
-    //   this.handlerHumidity(this.currentDailyDataSeven);
-    // }
-  },
-
-  methods: {
-    getColor(value) {
-      if (value >= 100) return "#00FF00";
-      if (value >= 75) return "#FFFF00";
-      if (value >= 50) return "#FFA500";
-      return "#FF0000";
-    },
-    handlerHumidity(value) {
-      const categories = this.generateCategories(value);
-      this.series = [
-        {
-          name: "Chance of rain",
-          type: "bar",
-          data: this.generateSeriesData(value),
-        },
-      ];
-      this.chartOptions = {
-        ...this.chartOptions,
-        xaxis: {
-          ...this.chartOptions.xaxis,
-          categories: categories,
-        },
-      };
-    },
-
-    generateSeriesData(data) {
-      return data.map((item) => Math.round(item?.precipIntensity) || 0);
-    },
-
-    generateCategories(data) {
-      const categories = [];
-      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-
-      if (data.length !== 0) {
-        data.forEach((item, index) => {
-          let timeConvert = convertToWeekdayAndDate(
-            item?.time,
-            offsetValue
-          ).date;
-
-          categories.push(timeConvert);
-        });
-      }
-
-      return categories;
+        plugins: [{}],
+      });
     },
   },
 };
 </script>
-
-<style scoped>
+<style lang="scss">
 .chart-wrapper {
   width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
+}
+
+.chart-container-rainfall {
+  left: -10px;
 }
 </style>

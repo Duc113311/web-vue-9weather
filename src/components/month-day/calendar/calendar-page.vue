@@ -13,7 +13,7 @@
       </template>
 
       <div class="w-full gap-4 grid">
-        <div class="w-[820px]">
+        <div class="w-full">
           <div class="calendar">
             <ul class="weeks bor-bottom bg-title-calender p-2">
               <li>Mon</li>
@@ -41,7 +41,7 @@
                     <div
                       class="flex flex-col p-1 justify-start gap-0.5 txt_light_14 rounded-xl"
                     >
-                      <span class="txt_regular_14 text-right">{{
+                      <span class="txt_medium_des_16 text-right">{{
                         convertToShortDay(day.time)
                       }}</span>
                       <div class="flex justify-between">

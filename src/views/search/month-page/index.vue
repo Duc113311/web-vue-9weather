@@ -2,8 +2,8 @@
   <div class="w-full h-full">
     <!-- -->
     <div class="container mt-5">
-      <div class="header-m h-full">
-        <div class="left-hourly">
+      <div class="header-m flex w-full gap-4 h-full">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <CalendarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -13,7 +13,7 @@
           </div>
         </div>
 
-        <div class="right-hourly">
+        <div class="right-hourly lg:w-[30%] w-full lg:block hidden">
           <!--  -->
           <TempFullCard
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -28,8 +28,8 @@
     </div>
 
     <div class="container">
-      <div class="header-b h-full">
-        <div class="left-hourly">
+      <div class="header-b ld:flex block w-full gap-4 h-full">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <ChartMonthPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <div class="right-hourly h-[430px]">
+        <div class="right-hourly lg:w-[30%] w-full lg:h-[430px]">
           <!--  -->
           <RadarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -52,8 +52,8 @@
     </div>
 
     <div class="container">
-      <div class="header-b h-full">
-        <div class="left-hourly">
+      <div class="header-b lg:flex w-full gap-4 h-full">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <ItemTime24h
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -63,7 +63,7 @@
           </div>
         </div>
 
-        <div class="right-hourly">
+        <div class="right-hourly lg:w-[30%] w-full">
           <!--  -->
           <SunPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -96,9 +96,9 @@
       </div>
     </div>
 
-    <div class="container local-c">
+    <div class="container local-c w-full flex items-center gap-4">
       <div
-        class="left-location"
+        class="left-location lg:w-[70%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <ListNearbyLocation></ListNearbyLocation>
@@ -108,7 +108,7 @@
       </div>
 
       <div
-        class="right-country"
+        class="right-country lg:w-[30%] w-[40%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
@@ -205,18 +205,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.header-m {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  gap: 16px;
-}
-
-.header-b {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: 5fr 2fr;
-  gap: 16px;
-}
-</style>
+<style lang="scss"></style>

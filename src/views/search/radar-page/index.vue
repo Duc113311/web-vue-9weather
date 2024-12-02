@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-full">
     <!-- -->
-    <div class="container mt-10 h-[500px]">
-      <div class="header-m">
-        <div class="left-hourly h-[400px]">
+    <div class="container mt-5">
+      <div class="header-m h-full lg:flex w-full gap-4">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <RadarMapPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -15,7 +15,7 @@
           <!--  -->
         </div>
 
-        <div class="right-hourly h-full">
+        <div class="right-hourly lg:w-[30%] w-full lg:flex hidden">
           <!--  -->
           <TempFullCard
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -27,9 +27,9 @@
         </div>
       </div>
     </div>
-    <div class="container mt-10 h-[500px]">
-      <div class="header-r">
-        <div class="left-hourly">
+    <div class="container">
+      <div class="header-r h-full lg:flex w-full gap-4 mt-5">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <OptionMapRadarPage
             @onStateValueMap="onChangeValueMap"
@@ -38,7 +38,7 @@
           <!--  -->
         </div>
 
-        <div class="right-hourly h-full">
+        <div class="right-hourly w-[30%] lg:flex hidden">
           <!--  -->
           <!-- <TempFullCard :title="title"></TempFullCard> -->
           <div>
@@ -100,16 +100,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.header-r {
-  display: grid;
-  grid-template-columns: 5fr 2fr;
-  gap: 16px;
-}
-
-.header-m {
-  display: grid;
-  grid-template-columns: 5fr 2fr;
-  gap: 16px;
-}
-</style>
+<style lang="scss"></style>

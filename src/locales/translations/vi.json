@@ -66,6 +66,7 @@
   "Time_Format": "Định dạng thời gian",
   "Temperature_today":"Nhiệt độ hôm nay",
   "Unit_preferences_settings": "Cài đặt tùy chọn đơn vị",
+  "{city}_weather_by_hour":"Thời tiết {city} theo giờ",
   "Wind_speed_in_the_coming_hours": "Tốc độ gió trong những giờ tới",
   "Humidity_in_the_coming_hours": "Độ ẩm trong những giờ tới",
   "Precipitation_in_the_coming_hours": "Lượng mưa trong những giờ tới",

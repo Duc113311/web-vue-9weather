@@ -12,7 +12,7 @@
           <p>{{ $t("uv_index") }}</p>
         </div>
       </template>
-      <div class="w-full h-[163px]">
+      <div class="w-full h-[168px]">
         <!--  -->
         <div class="text-left">
           <div class="txt_bold">

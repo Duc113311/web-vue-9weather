@@ -209,7 +209,7 @@ export default {
         params: {
           language: language,
           location: [
-            retrievedArray.country_key.toLowerCase(),
+            retrievedArray?.country_key?.toLowerCase(),
             this.convertToSlug(retrievedArray.city),
           ],
         },
@@ -262,7 +262,7 @@ export default {
         params: {
           language: language,
           location: [
-            retrievedArray.country_key.toLowerCase(),
+            retrievedArray?.country_key?.toLowerCase(),
             this.convertToSlug(retrievedArray.city),
             this.convertToSlug(retrievedArray.district),
             this.convertToSlug(retrievedArray.ward),

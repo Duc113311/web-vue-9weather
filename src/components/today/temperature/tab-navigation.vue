@@ -1,14 +1,14 @@
 <template>
-  <div class="w-full h-[60px] pt-2">
-    <div class="flex w-full justify-between">
+  <div class="w-full h-[38px] mb-4">
+    <div class="flex justify-center">
       <div
-        class="item-tab pad-tab bor-c bor-radios-big cursor-pointer"
+        class="item-tab pad-tab bor-c bor-radios-big cursor-pointer w-[200px]"
         v-for="(item, index) in listTab"
         :class="{ 'active-tab': activeIndex === index }"
         :key="index"
         @click="onClickTabChart(index)"
       >
-        <p>{{ $t(item) }}</p>
+        <span>{{ $t(item) }}</span>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "tab-navigation",
-
+  components: {},
   data() {
     return {
       listTab: ["Today", "uv", "wind_speed", "Humid", "pressure"],
@@ -37,7 +37,7 @@ export default {
   flex: 1;
   min-width: 0; // This prevents flex items from overflowing
   margin-right: 10px;
-  font-size: 14px;
+  font-size: 12px;
 
   &:last-child {
     margin-right: 0px;

@@ -41,6 +41,22 @@
   font-weight: 400; /* Corresponds to Regular */
 }
 
+.txt_regular_des_12 {
+  font-size: 13px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 24.32px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
+.txt_regular_14 {
+  font-size: 14px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 24.32px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
 .txt_regular_des_moon {
   font-size: 10px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
@@ -90,7 +106,7 @@
 }
 
 .txt_title_temp {
-  font-size: 87px; /* Kích thước chữ mặc định */
+  font-size: 60px; /* Kích thước chữ mặc định */
   font-family: "Poppins", sans-serif;
   line-height: 84px; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
   text-align: justify; /* Căn đều hai bên */
@@ -118,7 +134,7 @@
     font-size: 24px;
   }
   .txt_medium {
-    font-size: 18px; /* Tăng kích thước cho màn hình tablet (768px) */
+    font-size: 14px; /* Tăng kích thước cho màn hình tablet (768px) */
   }
   .txt_regular {
     font-size: 14px; /* Tăng kích thước cho tablet */
@@ -139,7 +155,7 @@
     font-size: 24px;
   }
   .txt_medium {
-    font-size: 16px; /* Kích thước lớn hơn cho màn hình lớn */
+    font-size: 14px; /* Kích thước lớn hơn cho màn hình lớn */
   }
   .txt_regular {
     font-size: 16px; /* Tăng kích thước cho màn hình lớn hơn, laptop */
@@ -169,10 +185,10 @@
     font-size: 24px;
   }
   .txt_medium {
-    font-size: 17px; /* Kích thước lớn hơn nữa cho màn hình cực rộng */
+    font-size: 16px; /* Kích thước lớn hơn nữa cho màn hình cực rộng */
   }
   .txt_regular {
-    font-size: 17px; /* Kích thước lớn nhất cho màn hình cực rộng */
+    font-size: 16px; /* Kích thước lớn nhất cho màn hình cực rộng */
   }
   .txt_default {
     font-size: 24px; /* Kích thước lớn nhất cho màn hình cực rộng */

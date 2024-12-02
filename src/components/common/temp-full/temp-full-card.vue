@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!--  -->
-    <BaseComponent>
+    <BaseComponent :height="heightAuto">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -29,7 +29,9 @@ export default {
     InforFullCard,
   },
   data() {
-    return {};
+    return {
+      heightAuto: "auto",
+    };
   },
 
   props: {

@@ -74,10 +74,10 @@ export default {
 .district-card {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   color: white;
-  height: 162px;
+  height: 112px;
   list-style-type: 10px;
   display: flex;
   flex-direction: column;

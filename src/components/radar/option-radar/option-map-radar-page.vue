@@ -20,7 +20,7 @@
         >
           <!--   -->
           <div class="text-center absolute top-0 left-0 bg-color-title">
-            <p>{{ item.title }}</p>
+            <span class="txt_regular_14">{{ item.title }}</span>
           </div>
         </div>
       </div>
@@ -95,24 +95,30 @@ export default {
 </script>
 <style lang="scss">
 .bg-img {
-  width: 114px;
-  height: 114px;
+  width: 90px;
+  height: 90px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   overflow: hidden;
   cursor: pointer;
 }
-
+@media (max-width: 768px) {
+  /* Adjust the max-width as needed for mobile */
+  .bg-img {
+    width: 68px; /* Mobile width */
+    height: 68px; /* Optional: adjust height for mobile */
+  }
+}
 .bg-color-title {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.35);
   color: #ffffff;
-  padding: 6px;
+  padding: 4px;
 }
 
 .active-bg {
-  border: 4px solid #0062f5;
+  border: 2px solid #0062f5;
 }
 
 /* Optional: Custom styling for scrollbar */

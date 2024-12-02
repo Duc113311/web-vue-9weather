@@ -8,9 +8,7 @@
         alt=""
       />
       <span>
-        {{ convertToEnglishRender(breadcumsObject?.city) }},{{
-          breadcumsObject?.country
-        }}
+        {{ $t(`{city}_weather_by_hour`, { city: breadcumsObject?.city }) }}
       </span>
     </div>
     <div class="w-full h-full overflow-hidden">
@@ -318,7 +316,13 @@ export default {
     },
 
     breadcumsObject() {
-      return this.breadcumsObjectGetters;
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+      console.log("resultData", resultData);
+
+      return resultData;
     },
   },
 

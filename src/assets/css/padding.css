@@ -1,55 +1,50 @@
-.pad-big{
-  padding: 20px;
+.pad-big {
+  padding: 14px;
 }
-.pad-small{
+.pad-small {
   padding: 10px;
 }
 
-.pad-t-b-l-r{
+.pad-t-b-l-r {
   padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.pad-t-b{
-  padding-top: 10px;
-  padding-bottom: 10px ; 
-}
-
-.pad-l-r{
+  padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.pad-tab{
+.pad-t-b {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pad-l-r {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.pad-tab {
   padding-top: 6px;
   padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
 }
 
 /* Radios */
-.bor-radios-big{
+.bor-radios-big {
   border-radius: 20px;
 }
 
-.bor-radios-small{
+.bor-radios-small {
   border-radius: 14px;
 }
 
-
-
-.bor-rim-r{
+.bor-rim-r {
   border-right: 1px solid #ffffff;
 }
 
-.bor-c{
-  border: 1px solid #F9F9F9;
+.bor-c {
+  border: 1px solid #f9f9f9;
 }
 
-
-.bor-b{
+.bor-b {
   border-bottom: 1px solid #f9f9f9c3;
 }
 .card {

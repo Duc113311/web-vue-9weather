@@ -66,6 +66,7 @@
   "version": "version",
   "Time_Format": "Time Format",
   "Temperature_today":"Temperature today",
+  "{city}_weather_by_hour":"{city} weather by hour",
   "Unit_preferences_settings": "Unit preferences settings",
   "Humidity_in_the_coming_hours": "Humidity in the coming hours",
   "Precipitation_in_the_coming_hours": "Precipitation in the coming hours",

@@ -63,6 +63,7 @@ export default {
         type: "area",
         toolbar: { show: false },
         sparkline: { enabled: true },
+        offsetY: 0,
       },
       stroke: {
         curve: "smooth",
@@ -99,9 +100,16 @@ export default {
         labels: { show: false },
         min: 0,
         max: 300, // Giới hạn trục y
+        offset: 0,
       },
       grid: {
         show: false,
+        padding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+        },
       },
       tooltip: {
         enabled: false,
@@ -150,4 +158,10 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.chart-container {
+  margin: 0; /* Remove any margin */
+  padding: 0; /* Remove any padding */
+  overflow: hidden; /* Prevent overflow */
+}
+</style>
