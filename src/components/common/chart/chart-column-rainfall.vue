@@ -68,7 +68,7 @@ export default {
     paramHourly(newData) {
       if (newData.length !== 0) {
         this.$nextTick(() => {
-          this.createChartRain24h();
+          this.createChartRainfall24h();
         });
       }
     },

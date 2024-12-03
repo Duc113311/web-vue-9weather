@@ -13,8 +13,7 @@
       </template>
 
       <div class="w-full h-[430px]">
-        <div class="w-full h-full">
-          <!--  -->
+        <div class="w-full h-full relative">
           <iframe
             :src="renderRadar"
             width="100%"
@@ -22,9 +21,20 @@
             frameborder="0"
             scrolling="no"
           ></iframe>
-        </div>
 
-        <!--  -->
+          <!-- Thêm nút phóng to -->
+          <div
+            class="absolute bottom-2 right-2 bg-white/80 hover:bg-white p-1.5 rounded cursor-pointer transition-all"
+            @click="toggleFullScreen"
+          >
+            <img
+              src="../../../assets/images/svg_v2/ic_fullscreen.svg"
+              width="20"
+              height="20"
+              alt="Fullscreen"
+            />
+          </div>
+        </div>
       </div>
     </BaseComponent>
   </div>
@@ -82,7 +92,31 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    toggleFullScreen() {
+      const iframe = this.$el.querySelector("iframe");
+      if (iframe) {
+        if (!document.fullscreenElement) {
+          iframe.requestFullscreen().catch((err) => {
+            console.log(
+              `Error attempting to enable fullscreen: ${err.message}`
+            );
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    },
+  },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+</style>

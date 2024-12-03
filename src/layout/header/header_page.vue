@@ -53,8 +53,8 @@
                       <span class="link txt_regular_12">{{
                         item.country || ""
                       }}</span>
-                      
-                      <img src="" alt="" srcset="">
+
+                      <img src="" alt="" srcset="" />
                     </div>
                   </template>
                 </el-autocomplete>
@@ -116,6 +116,8 @@ import {
   urlEncodeString,
   decodeBase64,
 } from "../../utils/EncoderDecoderUtils";
+import removeAccents from "remove-accents";
+import axios from "axios";
 
 export default {
   name: "header_page",
@@ -163,7 +165,7 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
 
     renderCountry() {
@@ -241,7 +243,7 @@ export default {
 
       const keyLanguage = this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(
@@ -833,45 +835,95 @@ export default {
      * Lấy thông tin weather, back về trang chủ
      */
     async onClickReloadHome() {
-      //
       debugger;
-      this.valueSearch = "";
+      this.resetComponentData();
+      this.$router.replace({ path: "/" }); // Thêm query để làm mới
+    },
 
-      localStorage.removeItem("objectBread");
-      // Lấy thông tin vị trí và thành phố
-      const cityCountryNow =
-        // Chuyển hướng đến router trước
-        this.$router.push({ path: "/" }).then(() => {
-          window.location.reload();
-        });
-      // Xử lý tiếp các tác vụ API trong nền
+    getLocationBrowserLoad() {
+      debugger;
 
-      const keyLanguage = this.$route.params.language;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          this.setPosition.bind(this),
+          this.showError.bind(this)
+        );
+      } else {
+        this.error = "Geolocation is not supported by this browser.";
+      }
+    },
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
-      const resultAir = getAqiDataFromLocation(
-        cityCountryNow.latitude,
-        cityCountryNow.longitude
-      );
-      const value = encodeBase64(param);
-      const valueNewAir = encodeBase64(resultAir);
-      const objectPosition = {
-        latitude: cityCountryNow.latitude,
-        longitude: cityCountryNow.longitude,
-        city: cityCountryNow.city,
-        country: cityCountryNow.city,
+    resetComponentData() {
+      // Reset dữ liệu trong component
+      Object.assign(this.$data, this.$options.data());
+    },
+
+    async setPosition(position) {
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      debugger;
+      const objectLatLong = {
+        latitude: latitude,
+        longitude: longitude,
       };
-      const airCode = getParamAirByCode(this.airObjectGetters?.key);
-      const encodeAirCode = encodeBase64(airCode);
+      localStorage.setItem("locationLatLong", JSON.stringify(objectLatLong));
 
-      // Gọi các API song song
-      await Promise.all([
-        this.getWeatherDataCurrent(value),
-        this.getAirQualityByKey(valueNewAir),
-        this.getAirQuality(encodeAirCode),
-      ]);
+      const keyLanguageStorage = this.$route.params.language
+        ? this.$route.params.language
+        : this.$i18n.locale;
+      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${keyLanguageStorage}`;
+      const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
+      debugger;
+
+      console.log("responsive", responsive.data);
+      // Xét giá trị để lưu Recent
+      const dataResponsive = responsive.data.address;
+
+      // Xét giá trị để lưu Recent
+      const objectPosition = {
+        latitude: latitude,
+        longitude: longitude,
+        country: dataResponsive.country,
+        country_key: dataResponsive.country_code,
+        city: dataResponsive.city,
+        city_key: removeAccents(dataResponsive.city).replace(/ /g, "_"),
+        district: "",
+        district_key: "",
+        ward: "",
+        ward_key: "",
+        // objectLocation: responsive.data.address,
+      };
+      if (dataResponsive.city === "Thành phố Hà Nội") {
+        objectPosition.city = "Hà Nội";
+        objectPosition.city_key = "Ha_Noi";
+      }
+      debugger;
+      localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+      this.setBreadcumsAllowLocation(objectPosition);
+
+      console.log("responsive.data", responsive.data);
 
       this.setCityWeather(objectPosition);
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+
+      // map url by lat,long
+      const resultAir = getAqiDataFromLocation(latitude, longitude);
+
+      const encodeDataWeather = encodeBase64(param);
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      // Lưu lại ở Storage để cache
+      localStorage.setItem("keyCurrent", JSON.stringify(encodeDataWeather));
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
     },
 
     /**

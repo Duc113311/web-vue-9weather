@@ -194,9 +194,9 @@
 }
 
 .title-tab {
-  font-size: 14px !important;
+  font-size: 12px !important;
   font-family: "Roboto-Medium", sans-serif !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
 }
 
 .el-breadcrumb__inner a:hover,

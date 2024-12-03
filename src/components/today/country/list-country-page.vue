@@ -79,7 +79,7 @@ export default {
     renderLanguage() {
       return this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
 
     renderCityLocation() {

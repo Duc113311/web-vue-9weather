@@ -82,7 +82,7 @@ export default {
     renderLanguage() {
       return this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
 
     renderCoordinates() {
@@ -171,75 +171,59 @@ export default {
     },
 
     async onClickRouterView(value, index) {
-      this.activeIndex = index;
+      try {
+        this.activeIndex = index;
 
-      debugger;
-      let screamName = "today-weather";
-      if (this.activeIndex === 1) {
-        screamName = "hourly-weather";
-      }
-      if (this.activeIndex === 2) {
-        screamName = "month-weather";
-      }
-      if (this.activeIndex === 3) {
-        screamName = "radar-weather";
-      }
-      this.setTitleScream(this.activeIndex);
+        let screamName = "today-weather";
+        if (this.activeIndex === 1) {
+          screamName = "hourly-weather";
+        }
+        if (this.activeIndex === 2) {
+          screamName = "month-weather";
+        }
+        if (this.activeIndex === 3) {
+          screamName = "radar-weather";
+        }
+        this.setTitleScream(this.activeIndex);
 
-      // Tồn tại thành phố
-      if (
-        this.breadcumsObject.city.length !== 0 &&
-        this.breadcumsObject.district.length === 0
-      ) {
-        await this.$router.push({
+        let routeParams = {
           name: screamName,
           params: {
             language: this.renderLanguage,
-            location: [
-              this.breadcumsObject.country_key.toLowerCase(),
-              this.convertToSlug(this.breadcumsObject.city),
-            ],
+            location: [this.breadcumsObject.country_key.toLowerCase()],
           },
-        });
-      }
+        };
 
-      // Tồn tại quận
-      if (
-        this.breadcumsObject.city.length !== 0 &&
-        this.breadcumsObject.district.length !== 0 &&
-        this.breadcumsObject.ward.length === 0
-      ) {
-        await this.$router.push({
-          name: screamName,
-          params: {
-            language: this.renderLanguage,
-            location: [
-              this.breadcumsObject.country_key.toLowerCase(),
-              this.convertToSlug(this.breadcumsObject.city),
-              this.convertToSlug(this.breadcumsObject.district),
-            ],
-          },
-        });
-      }
+        // Xây dựng mảng location dựa vào điều kiện
+        if (this.breadcumsObject.city.length !== 0) {
+          routeParams.params.location.push(
+            this.convertToSlug(this.breadcumsObject.city)
+          );
+        }
 
-      // Tồn tại phường xã
-      if (
-        this.breadcumsObject.city.length !== 0 &&
-        this.breadcumsObject.district.length !== 0 &&
-        this.breadcumsObject.ward.length !== 0
-      ) {
-        await this.$router.push({
-          name: screamName,
-          params: {
-            language: this.renderLanguage,
-            location: [
-              this.breadcumsObject.country_key.toLowerCase(),
-              this.convertToSlug(this.breadcumsObject.city),
-              this.convertToSlug(this.breadcumsObject.district),
-              this.convertToSlug(this.breadcumsObject.ward),
-            ],
-          },
-        });
+        if (this.breadcumsObject.district.length !== 0) {
+          routeParams.params.location.push(
+            this.convertToSlug(this.breadcumsObject.district)
+          );
+        }
+
+        if (this.breadcumsObject.ward.length !== 0) {
+          routeParams.params.location.push(
+            this.convertToSlug(this.breadcumsObject.ward)
+          );
+        }
+
+        // Thêm query param để force component re-render
+        routeParams.params.timestamp = Date.now();
+
+        // Chuyển route và đợi cho đến khi navigation hoàn tất
+        await this.$router.push(routeParams);
+        this.$router.go();
+
+        // Emit event để thông báo cho component cha biết route đã thay đổi
+        this.$emit("route-changed", screamName);
+      } catch (err) {
+        console.error("Navigation failed:", err);
       }
     },
   },

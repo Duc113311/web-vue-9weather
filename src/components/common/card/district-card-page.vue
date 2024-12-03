@@ -2,7 +2,7 @@
   <div class="cursor-pointer">
     <!--  -->
     <div class="district-card">
-      <div class="flex items-center justify-center p-4">
+      <div class="flex items-center justify-center p-1">
         <img
           src="../../../assets/images/svg_v2/ic_rain_data.svg"
           alt="Weather icon"
@@ -12,7 +12,7 @@
       <h3 class="text-center txt_medium">
         {{
           $t(
-            `${removeDiacritics(breadcumsObject.city)}.${removeDiacritics(
+            `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
               breadcumsObject.city
             )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
           )
@@ -23,6 +23,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import removeAccents from "remove-accents";
 
 export default {
   name: "district-card-page",
@@ -43,7 +44,7 @@ export default {
     renderLanguage() {
       return this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
 
     breadcumsObject() {
@@ -66,6 +67,11 @@ export default {
         .normalize("NFD") // Tách ký tự dấu
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu
       return removeString.toLowerCase().replace(/\s+/g, "");
+    },
+
+    convertToConvert(str) {
+      const slug = removeAccents(str).toLowerCase().replace(/\s+/g, "");
+      return slug;
     },
   },
 };

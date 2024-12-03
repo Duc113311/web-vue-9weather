@@ -185,7 +185,7 @@ export default {
                 //   text: "Giá trị",
               },
               beginAtZero: true,
-              max: 100,
+              max: 110,
             },
           },
           elements: {

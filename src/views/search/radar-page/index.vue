@@ -34,8 +34,6 @@
           <OptionMapRadarPage
             @onStateValueMap="onChangeValueMap"
           ></OptionMapRadarPage>
-          <!-- <div class="w-[500px] h-[300px] bg-white"></div> -->
-          <!--  -->
         </div>
 
         <div class="right-hourly w-[30%] lg:flex hidden">

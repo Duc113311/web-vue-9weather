@@ -121,6 +121,13 @@ const router = createRouter({
     return { top: 0 };
   },
 });
+
+router.afterEach((to, from) => {
+  const favicon = document.getElementById("favicon");
+  if (favicon) {
+    favicon.href = "/favicon.ico"; // Đổi đường dẫn favicon nếu cần
+  }
+});
 const isSafeURL = (url) => {
   // Kiểm tra URL có chứa mã độc hay không
   const unsafeChars = /<script>|<\/script>|javascript:/i;

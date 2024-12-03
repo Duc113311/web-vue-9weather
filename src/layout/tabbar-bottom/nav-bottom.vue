@@ -111,12 +111,15 @@ import {
   urlEncodeString,
 } from "@/utils/EncoderDecoderUtils";
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import removeAccents from "remove-accents";
 
 export default {
   name: "nav-bottom",
 
   data() {
-    return {};
+    return {
+      isMegaBoxVisible: false,
+    };
   },
 
   computed: {
@@ -132,7 +135,7 @@ export default {
     renderLanguage() {
       return this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
 
     breadcumsObject() {
@@ -159,7 +162,7 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
   },
 
@@ -172,80 +175,99 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
+    toggleMegaBox() {
+      this.isMegaBoxVisible = !this.isMegaBoxVisible; // Chuyển đổi trạng thái hiển thị
+    },
     convertToSlug(str) {
       // Bước 1: Loại bỏ dấu tiếng Việt
       const normalizedStr = str
         .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
-
+      console.log("normalizedStr", normalizedStr);
       // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
-      return normalizedStr
+      const resultConvert = normalizedStr
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
+
+      console.log("resultConvert", resultConvert);
+
+      return resultConvert;
     },
+
+    convertToConvert(str) {
+      const slug = removeAccents(str).toLowerCase().replace(/\s+/g, "-");
+      return slug;
+    },
+
+    convertToConvertLowerCase(str) {
+      const slug = removeAccents(str).replace(/\s+/g, "_");
+      return slug;
+    },
+
     async onClickSearchCity(value, valueCategory) {
-      debugger;
-      const nameCity = value.languages["en"];
+      try {
+        const nameCity = value.viNameLanguage;
+        debugger;
+        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+          nameCity
+        )}&key=TOH_KEY`;
+        const valueEncode = encodeBase64(urlParam);
 
-      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-        nameCity
-      )}&key=TOH_KEY`;
+        await this.getFormattedAddress(valueEncode);
 
-      const valueEncode = encodeBase64(urlParam);
-      await this.getFormattedAddress(valueEncode);
+        const newDataValue = this.$store.state.weatherModule.newArray[0];
+        const language = this.languageParam;
 
-      debugger;
-      const newDataValue = this.$store.state.weatherModule.newArray[0];
-      let language = this.languageParam;
+        const objectBread = {
+          country: newDataValue.country,
+          country_key: newDataValue.country_key,
+          city: nameCity,
+          city_key: this.convertToConvertLowerCase(nameCity),
+          district: "",
+          district_key: "",
+          ward: "",
+          ward_key: "",
+          latitude: newDataValue.lat,
+          longitude: newDataValue.lng,
+        };
 
-      const objectBread = {
-        country: newDataValue.country,
-        country_key: newDataValue.country_key,
-        city: nameCity,
-        city_key: nameCity.replace(/ /g, "_"),
-        latitude: newDataValue.lat,
-        longitude: newDataValue.lng,
-      };
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+        this.setBreadcumsNotAllowLocation(objectBread);
 
-      localStorage.setItem("objectBread", JSON.stringify(objectBread));
+        const convertCityUrl = this.convertToConvert(objectBread.city);
+        debugger;
+        // Chuyển hướng ngay lập tức
+        await this.$router.push({
+          name: "today-weather",
+          params: {
+            language,
+            location: [objectBread.country_key.toLowerCase(), convertCityUrl],
+          },
+        });
 
-      this.setBreadcumsNotAllowLocation(objectBread);
+        // Gọi các API sau khi chuyển hướng
+        const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
-      const locationPath = `${language}/${objectBread.country.toLowerCase()}/${this.convertToSlug(
-        objectBread.city
-      )}`;
-      await this.$router.push({
-        name: "today-weather",
-        params: {
-          language: language,
-          location: [
-            objectBread.country_key.toLowerCase(),
-            this.convertToSlug(objectBread.city),
-          ],
-        },
-      });
+        const resultAir = getAqiDataFromLocation(
+          objectBread.latitude,
+          objectBread.longitude
+        );
+        const [valueEncodeW, valueNewAir, encodeAirCode] = [
+          encodeBase64(param),
+          encodeBase64(resultAir),
+          encodeBase64(getParamAirByCode(this.airObjectGetters.key)),
+        ];
 
-      window.location.reload();
-
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
-
-      const resultAir = getAqiDataFromLocation(
-        objectBread.latitude,
-        objectBread.longitude
-      );
-      const valueEncodeW = encodeBase64(param);
-      const valueNewAir = encodeBase64(resultAir);
-
-      const airCode = getParamAirByCode(this.airObjectGetters.key);
-
-      const encodeAirCode = encodeBase64(airCode);
-
-      await Promise.all([
-        this.getWeatherDataCurrent(valueEncodeW),
-        this.getAirQualityByKey(valueNewAir),
-        this.getAirQuality(encodeAirCode),
-      ]);
+        await Promise.all([
+          this.getWeatherDataCurrent(valueEncodeW),
+          this.getAirQualityByKey(valueNewAir),
+          this.getAirQuality(encodeAirCode),
+        ]);
+      } catch (error) {
+        console.error("Error while searching city:", error);
+        // Hiển thị thông báo lỗi cho người dùng
+      }
     },
 
     getLanguageDisplay(data, languageKey) {
@@ -313,23 +335,6 @@ export default {
   background-color: #e3eefb;
   color: #0d2952;
 }
-.h-district:hover .mega-box {
-  transition: all 0.3s ease;
-  top: 50px;
-  opacity: 1;
-  visibility: visible;
-  z-index: 10;
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .h-district:hover .mega-box {
-    top: auto; /* Không thay đổi vị trí */
-    opacity: 0; /* Ẩn mega-box */
-    visibility: hidden; /* Ẩn mega-box */
-    z-index: -1; /* Đưa mega-box ra khỏi z-index */
-  }
-}
 
 .mega-box {
   display: block;
@@ -340,12 +345,28 @@ export default {
   visibility: visible;
   color: black;
   z-index: -1;
+  transition: opacity 0.3s ease, transform 0.3s ease; // Thêm hiệu ứng trượt
+  transform: translateY(10px); // Đặt vị trí ban đầu
+}
+.h-district:hover .mega-box {
+  top: 50px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+  width: 100%;
+  transform: translateY(0); // Trở về vị trí ban đầu
 }
 
+@media (max-width: 768px) {
+  .h-district:hover .mega-box {
+    opacity: 0; /* Ẩn mega-box */
+    visibility: hidden; /* Ẩn mega-box */
+    z-index: -1; /* Đưa mega-box ra khỏi z-index */
+  }
+}
 .mega-box .content {
   display: flex;
   justify-content: space-between;
-
   position: absolute;
   width: 100%;
 }

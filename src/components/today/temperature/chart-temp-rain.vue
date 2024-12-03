@@ -31,15 +31,15 @@
         <div class="absolute w-full bottom-0 left-0 flex justify-between">
           <div class="flex items-center text-left gap-2">
             <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
-            <p>{{ $t("temperature") }}</p>
+            <span class="txt_regular_des">{{ $t("temperature") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
-            <p>{{ $t("precipitation") }}</p>
+            <span class="txt_regular_des">{{ $t("precipitation") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>
-            <p>{{ $t("chance_of_rain") }}</p>
+            <span class="txt_regular_des">{{ $t("chance_of_rain") }}</span>
           </div>
         </div>
       </div>

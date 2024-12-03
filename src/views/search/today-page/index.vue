@@ -34,7 +34,7 @@
             </div>
           </div>
           <div
-            class="main-bottom h-auto mt-2"
+            class="main-bottom lg:h-[358px] mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <RadarPage></RadarPage>
@@ -55,7 +55,7 @@
         <!--  -->
         <ListNearbyLocation></ListNearbyLocation>
       </div6>
-      <div v-else class="w-full h-[380px] mt-4">
+      <div v-else class="w-full h-[300px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
@@ -66,7 +66,7 @@
         <!--  -->
         <ListCountryPage></ListCountryPage>
       </div>
-      <div v-else class="w-full h-[380px] mt-4">
+      <div v-else class="w-full h-[300px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
     </div>
@@ -190,8 +190,6 @@ export default {
       localStorage.setItem("language", keyLanguage); // Lưu lại
     }
   },
-
-  methods: {},
 
   beforeRouteLeave(to, from, next) {
     window.location.replace(to.fullPath);

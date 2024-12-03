@@ -3,13 +3,13 @@
     <!-- -->
     <div class="container mt-5">
       <div class="header-m flex w-full gap-4 h-full">
-        <div class="left-hourly lg:w-[70%] w-full">
+        <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <CalendarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></CalendarPage>
           <div v-else class="w-full h-full">
-            <SkeletonLoader class="w-[820px] h-[600px]"> </SkeletonLoader>
+            <SkeletonLoader class="w-[700px] h-[600px]"> </SkeletonLoader>
           </div>
         </div>
 
@@ -28,18 +28,18 @@
     </div>
 
     <div class="container">
-      <div class="header-b ld:flex block w-full gap-4 h-full">
-        <div class="left-hourly lg:w-[70%] w-full">
+      <div class="header-b ld:block flex w-full gap-4 h-full">
+        <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ChartMonthPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></ChartMonthPage>
           <div v-else class="w-full h-full mt-6">
-            <SkeletonLoader class="w-[820px] h-[460px]"> </SkeletonLoader>
+            <SkeletonLoader class="w-[700px] h-[460px]"> </SkeletonLoader>
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full lg:h-[430px]">
+        <div class="right-hourly lg:w-[30%] w-full lg:h-[400px]">
           <!--  -->
           <RadarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -53,7 +53,7 @@
 
     <div class="container">
       <div class="header-b lg:flex w-full gap-4 h-full">
-        <div class="left-hourly lg:w-[70%] w-full">
+        <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ItemTime24h
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -98,7 +98,7 @@
 
     <div class="container local-c w-full flex items-center gap-4">
       <div
-        class="left-location lg:w-[70%] w-[60%]"
+        class="left-location lg:w-[68%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <ListNearbyLocation></ListNearbyLocation>

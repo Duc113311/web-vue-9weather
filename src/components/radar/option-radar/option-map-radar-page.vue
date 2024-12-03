@@ -28,11 +28,14 @@
 
     <!--  -->
 
+    <ListNearbyLocation></ListNearbyLocation>
+
     <ListCountryPage></ListCountryPage>
   </div>
 </template>
 <script>
 import ListCountryPage from "@/components/today/country/list-country-page.vue";
+import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
 import VueHorizontal from "vue-horizontal";
 
 export default {
@@ -41,6 +44,7 @@ export default {
   components: {
     ListCountryPage,
     VueHorizontal,
+    ListNearbyLocation,
   },
   data() {
     return {

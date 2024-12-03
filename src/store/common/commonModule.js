@@ -1,7 +1,6 @@
 import { httpWeather } from "../../configs/http-weather";
 import { decodeBase64 } from "../../utils/EncoderDecoderUtils";
 
-import { convertToEnglish } from "@/utils/converValue";
 const state = {
   titleBackgroundColor: "#ffffff",
   descriptionColor: "#343434",

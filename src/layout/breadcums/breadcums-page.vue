@@ -22,7 +22,13 @@
             alt=""
           />
           <div class="cursor-pointer" @click="onClickCity()">
-            {{ breadcumsObject?.city }}
+            {{
+              $t(
+                `city.city_${languageParam}.${convertToLowCase(
+                  breadcumsObject?.city_key
+                )}`
+              )
+            }}
           </div>
         </div>
         <div class="flex items-center" v-if="breadcumsObject?.district">
@@ -74,7 +80,7 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
     /**
      * Gán giá trị breadcums
@@ -184,7 +190,7 @@ export default {
       debugger;
       const language = this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
       let objectBread = {
@@ -237,7 +243,7 @@ export default {
     async onClickWard() {
       const language = this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
       let objectBread = {
@@ -293,7 +299,7 @@ export default {
       debugger;
       const language = this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
       const locationPath = `${language}/${retrievedArray.country_key.toLowerCase()}/${this.convertToSlug(
@@ -354,11 +360,19 @@ export default {
         .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
 
-      // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
-      return normalizedStr
+      const normalizedStrResult = normalizedStr
         .toLowerCase() // Chuyển thành chữ thường
-        .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
+        .replace(/\s+/g, "_") // Thay thế khoảng trắng bằng "-"
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
+      return normalizedStrResult;
+    },
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
     },
 
     convertToEnglishRender(value) {
@@ -376,7 +390,7 @@ export default {
       const keyLanguage =
         Object.keys(this.$route.params).length !== 0
           ? this.$route.params.location[0]
-          : localStorage.getItem("language");
+          : this.$i18n.locale;
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${retrievedArray.latitude},${retrievedArray.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(

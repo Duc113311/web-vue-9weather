@@ -3,7 +3,7 @@
     <!-- -->
     <div class="container mt-5">
       <div class="header-h h-full w-full flex gap-4">
-        <div class="left-hourly lg:w-[70%] w-full">
+        <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ChartAvgWeather> </ChartAvgWeather>
         </div>
@@ -20,7 +20,7 @@
     <!--  -->
     <div class="container">
       <div class="lg:flex w-full h-full pt-2 gap-4">
-        <div class="left-hourly h-full lg:w-[70%] w-full">
+        <div class="left-hourly h-full lg:w-[68%] w-full">
           <!--  -->
           <ItemTime24h
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -61,27 +61,25 @@
 
     <!--  -->
 
-    <div class="container">
-      <div class="header-2 h-full pt-2">
-        <div
-          class="left-hourly"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <ListCountryPage></ListCountryPage>
-        </div>
-        <div v-else class="w-full h-[370px] mt-5">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-        </div>
+    <div class="container w-full flex items-center gap-4">
+      <div
+        class="left-hourly lg:w-[68%] w-[60%]"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
+        <ListNearbyLocation></ListNearbyLocation>
+      </div>
+      <div v-else class="w-full h-[380px] mt-5">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+      </div>
 
-        <div
-          class="right-hourly h-[340px]"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <RadarPage></RadarPage>
-        </div>
-        <div v-else class="w-full h-[370px] mt-5">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-        </div>
+      <div
+        class="right-hourly h-[280px] lg:w-[30%] w-[40%]"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
+        <RadarPage></RadarPage>
+      </div>
+      <div v-else class="w-full h-[380px] mt-5">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
     </div>
   </div>
@@ -94,7 +92,7 @@ import SunPage from "@/components/common/sun/sun-page.vue";
 import UvPage from "@/components/common/uv-index/uv-page.vue";
 import ChartAvgWeather from "@/components/hourly-day/chart-weather/chart-avg-weather.vue";
 import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24h.vue";
-import ListCountryPage from "@/components/today/country/list-country-page.vue";
+import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters } from "vuex";
@@ -105,12 +103,12 @@ export default {
   components: {
     ChartAvgWeather,
     ItemTime24h,
-    ListCountryPage,
     RadarPage,
     SunPage,
     MoonPage,
     AirQualityPage,
     SkeletonLoader,
+    ListNearbyLocation,
     UvPage,
   },
   data() {

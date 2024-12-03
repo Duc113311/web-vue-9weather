@@ -12,7 +12,7 @@
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
                 $t(`Weather_in_{city}_district`, {
-                  city: wardParam?.city,
+                  city: convertToLowCase(wardParam?.city),
                 })
               }}</span
             >
@@ -59,7 +59,7 @@
           ></DistrictCardPage>
         </div>
       </div>
-      <div class="h-[340px] bg-color text-white overflow-hidden pad-big" v-else>
+      <div class="h-[240px] bg-color text-white overflow-hidden pad-big" v-else>
         <div class="w-full h-full justify-center flex items-center">
           {{ $t("In_development") }}
         </div>
@@ -87,7 +87,9 @@ export default {
     DistrictCardPage,
   },
   data() {
-    return {};
+    return {
+      windowWidth: window.innerWidth,
+    };
   },
 
   computed: {
@@ -102,9 +104,11 @@ export default {
     ]),
 
     itemSliceCount() {
-      if (window.innerWidth < 768) {
+      if (this.windowWidth <= 567) {
         return 4; // Mobile
-      } else if (window.innerWidth < 1024) {
+      } else if (this.windowWidth < 768) {
+        return 4; // Tablet
+      } else if (this.windowWidth < 1024) {
         return 6; // Tablet
       } else {
         return 8; // Desktop
@@ -116,7 +120,7 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
     },
 
     wardParam() {
@@ -140,7 +144,7 @@ export default {
       if (retrievedArray) {
         if (retrievedArray?.country_key?.toLowerCase() === "vn") {
           console.log("listCityAllGetters", this.listCityAllGetters);
-          const cityKey = this.removeDiacritics(retrievedArray.city);
+          const cityKey = retrievedArray.city_key;
           debugger;
           const findData = this.listCityAllGetters.find(
             (x) => x.keyAccentLanguage === cityKey
@@ -176,6 +180,14 @@ export default {
     },
   },
 
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+
   methods: {
     ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
     ...mapActions("weatherModule", [
@@ -184,6 +196,14 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
     removeDiacritics(value) {
       const removeString = value
         .normalize("NFD") // Tách ký tự dấu
@@ -284,7 +304,7 @@ export default {
       debugger;
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
       localStorage.setItem("keyLanguageCity", value.keyAccentLanguage);
 
       const nameCity = value.viNameLanguage;
@@ -408,6 +428,10 @@ export default {
         this.getAirQualityByKey(valueNewAir),
         this.getAirQuality(encodeAirCode),
       ]);
+    },
+
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     },
   },
 };

@@ -5,7 +5,7 @@
     "type": "Geographic Region",
     "viNameLanguage": "Đông Bắc Bộ",
     "postalCode": "000",
-    "keyAccentLanguage": "Đong_Bac_Bo",
+    "keyAccentLanguage": "Dong_Bac_Bo",
     "provinceCity": [
       {
         "code": 1,
@@ -104,8 +104,8 @@
       {
         "code": 16,
         "type": "Provincial City",
-        "viNameLanguage": "Điện Biên",
-        "keyAccentLanguage": "Đien_Bien"
+        "viNameLanguage": "Điện Biên Phủ",
+        "keyAccentLanguage": "Dien_Bien_Phu"
       }
     ]
   },
@@ -115,7 +115,7 @@
     "type": "Geographic Region",
     "viNameLanguage": "Đồng bằng sông Hồng",
     "postalCode": "0002",
-    "keyAccentLanguage": "Đong_bang_song_Hong",
+    "keyAccentLanguage": "Dong_bang_song_Hong",
     "provinceCity": [
       {
         "code": 18,
@@ -157,7 +157,7 @@
         "code": 24,
         "type": "Provincial City",
         "viNameLanguage": "Nam Định",
-        "keyAccentLanguage": "Nam_Đinh"
+        "keyAccentLanguage": "Nam_Dinh"
       },
       {
         "code": 25,
@@ -243,7 +243,7 @@
         "code": 37,
         "type": "Provincial City",
         "viNameLanguage": "Bình Định",
-        "keyAccentLanguage": "Binh_Đinh"
+        "keyAccentLanguage": "Binh_Dinh"
       },
       {
         "code": 38,
@@ -279,7 +279,7 @@
         "code": 43,
         "type": "Provincial City",
         "viNameLanguage": "Đà Nẵng",
-        "keyAccentLanguage": "Đa_Nang"
+        "keyAccentLanguage": "Da_Nang"
       }
     ]
   },
@@ -307,19 +307,19 @@
         "code": 47,
         "type": "Provincial City",
         "viNameLanguage": "Lâm Đồng",
-        "keyAccentLanguage": "Lam_Đong"
+        "keyAccentLanguage": "Lam_Dong"
       },
       {
         "code": 48,
         "type": "Provincial City",
         "viNameLanguage": "Đắk Lăk",
-        "keyAccentLanguage": "Đak_Lak"
+        "keyAccentLanguage": "Dak_Lak"
       },
       {
         "code": 49,
         "type": "Provincial City",
         "viNameLanguage": "Đắk Nông",
-        "keyAccentLanguage": "Đak_Nong"
+        "keyAccentLanguage": "Dak_Nong"
       }
     ]
   },
@@ -329,7 +329,7 @@
     "type": "Geographic Region",
     "viNameLanguage": "Đông Nam Bộ",
     "postalCode": "0006",
-    "keyAccentLanguage": "Đong_Nam_Bo",
+    "keyAccentLanguage": "Dong_Nam_Bo",
     "provinceCity": [
       {
         "code": 51,
@@ -365,7 +365,7 @@
         "code": 56,
         "type": "Provincial City",
         "viNameLanguage": "Đồng Nai",
-        "keyAccentLanguage": "Đong_Nai"
+        "keyAccentLanguage": "Dong_Nai"
       }
     ]
   },
@@ -375,7 +375,7 @@
     "type": "Geographic Region",
     "viNameLanguage": "Đồng bằng sông Cửu Long",
     "postalCode": "0007",
-    "keyAccentLanguage": "Đong_bang_song_Cuu_Long",
+    "keyAccentLanguage": "Dong_bang_song_Cuu_Long",
     "provinceCity": [
       {
         "code": 58,

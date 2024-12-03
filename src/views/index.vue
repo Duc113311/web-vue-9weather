@@ -35,6 +35,7 @@ import {
   getAqiDataFromLocation,
   getParamAirByCode,
 } from "@/utils/EncoderDecoderUtils.js";
+import removeAccents from "remove-accents";
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import HeaderPage from "@/layout/header/header_page.vue";
@@ -335,7 +336,7 @@ export default {
     async setPosition(position) {
       let latitude = position.coords.latitude;
       let longitude = position.coords.longitude;
-
+      debugger;
       const objectLatLong = {
         latitude: latitude,
         longitude: longitude,
@@ -344,7 +345,7 @@ export default {
 
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
-        : localStorage.getItem("language");
+        : this.$i18n.locale;
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${keyLanguageStorage}`;
       const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
       debugger;
@@ -352,6 +353,7 @@ export default {
       console.log("responsive", responsive.data);
       // Xét giá trị để lưu Recent
       const dataResponsive = responsive.data.address;
+
       // Xét giá trị để lưu Recent
       const objectPosition = {
         latitude: latitude,
@@ -359,13 +361,17 @@ export default {
         country: dataResponsive.country,
         country_key: dataResponsive.country_code,
         city: dataResponsive.city,
-        city_key: dataResponsive.city.replace(/ /g, "_"),
+        city_key: removeAccents(dataResponsive.city).replace(/ /g, "_"),
         district: "",
         district_key: "",
         ward: "",
         ward_key: "",
         // objectLocation: responsive.data.address,
       };
+      if (dataResponsive.city === "Thành phố Hà Nội") {
+        objectPosition.city = "Hà Nội";
+        objectPosition.city_key = "Ha_Noi";
+      }
       debugger;
       localStorage.setItem("objectBread", JSON.stringify(objectPosition));
       this.setBreadcumsAllowLocation(objectPosition);
@@ -405,7 +411,7 @@ export default {
         await this.getWeatherDataIp(codeLocation).then(async (data) => {
           const valueNew = decodeBase64(data);
           console.log("valueNew", valueNew);
-
+          debugger;
           // API Lấy vị trí
           await this.getIpLocation(valueNew).then(async (data) => {
             console.log("data-loc", data);
@@ -423,12 +429,19 @@ export default {
 
             const objectLocation = {
               country: data.country,
-              country_key: data.country,
+              country_key: data.country_code.toLowerCase(),
               city: this.convertToVietnamese(data.city).city,
-              city_key: this.convertToVietnamese(data.city).cityConvert,
+              city_key: removeAccents(
+                this.convertToVietnamese(data.city).cityConvert
+              ),
+              district: "",
+              district_key: "",
+              ward: "",
+              ward_key: "",
               latitude: data.latitude,
               longitude: data.longitude,
             };
+
             localStorage.setItem("objectBread", JSON.stringify(objectLocation));
             this.setBreadcumsNotAllowLocation(objectLocation);
 
@@ -574,27 +587,5 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.body-n {
-  z-index: 99;
-}
 
-.basic-header {
-  color: #fff;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  visibility: visible !important;
-  z-index: 100;
-}
-@media (min-width: 768px) {
-  .header-placeholder {
-    height: 60px;
-  }
-}
-
-.header-placeholder {
-  height: 60px;
-}
-</style>
+<style lang="scss"></style>

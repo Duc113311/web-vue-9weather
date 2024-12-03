@@ -13,7 +13,7 @@
           <span>Radar</span>
         </div>
       </template>
-      <div v-if="renderRadar !== null" class="h-[360px]">
+      <div v-if="renderRadar !== null" class="h-[100%]">
         <!--  -->
         <div class="w-full h-full">
           <iframe

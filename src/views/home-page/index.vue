@@ -55,13 +55,13 @@
     <!--  -->
 
     <div class="container local-c w-full flex items-center gap-4">
-      <div6
+      <div
         class="left-location lg:w-[70%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
         <ListNearbyLocation></ListNearbyLocation>
-      </div6>
+      </div>
       <div v-else class="w-full h-[380px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>

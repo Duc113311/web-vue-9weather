@@ -13,7 +13,7 @@
       </template>
 
       <div class="w-full gap-4">
-        <div class="w-auto h-[400px]">
+        <div class="w-auto h-[374px]">
           <!-- <ChartTempRain></ChartTempRain> -->
           <ChartTempRain></ChartTempRain>
         </div>

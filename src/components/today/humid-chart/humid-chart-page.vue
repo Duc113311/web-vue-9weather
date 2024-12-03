@@ -12,10 +12,10 @@
             <ChartDays></ChartDays>
 
             <div
-              class="chart-container w-[89rem]"
+              class="chart-container w-[89rem] pt-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="280" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="260" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -192,7 +192,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 100,
+              max: 110,
             },
           },
           elements: {
