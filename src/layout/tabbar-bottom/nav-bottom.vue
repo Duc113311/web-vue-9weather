@@ -86,9 +86,21 @@
               >
               <span
                 class="txt_medium_des_16 text-blue-400"
-                v-if="breadcumsObject?.city"
-                >{{ breadcumsObject?.city }}</span
+                v-if="
+                  breadcumsObject?.country_key?.toLowerCase() === 'vn' &&
+                  breadcumsObject?.city
+                "
+                >{{
+                  $t(
+                    `city.city_${languageParam}.${convertToLowCase(
+                      breadcumsObject?.city_key
+                    )}`
+                  )
+                }}</span
               >
+              <span class="txt_medium_des_16 text-blue-400" v-else>{{
+                breadcumsObject?.city
+              }}</span>
             </div>
             <div
               class="flex items-center cursor-pointer txt_medium_des_18"
@@ -175,6 +187,14 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+
     toggleMegaBox() {
       this.isMegaBoxVisible = !this.isMegaBoxVisible; // Chuyển đổi trạng thái hiển thị
     },
@@ -245,6 +265,8 @@ export default {
             location: [objectBread.country_key.toLowerCase(), convertCityUrl],
           },
         });
+
+        this.$router.go();
 
         // Gọi các API sau khi chuyển hướng
         const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;

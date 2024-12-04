@@ -168,6 +168,19 @@ const mutations = {
       (state.breadcumsObject.longitude = data?.longitude); // longitud  e
   },
 
+  setBreadcumsTheWorld(state, data) {
+    //
+    debugger;
+    (state.breadcumsObject.country = data?.country), // Quốc gia
+      (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
+      (state.breadcumsObject.city = data?.city),
+      (state.breadcumsObject.city_key = data?.city_key),
+      (state.breadcumsObject.district = data?.district), // Quận huyện
+      (state.breadcumsObject.district_key = data?.district_key), // Quận huyện
+      (state.breadcumsObject.latitude = data?.latitude), // latitude
+      (state.breadcumsObject.longitude = data?.longitude); // longitud  e
+  },
+
   setUpdateBreadcumsObject(state, data) {
     state.breadcumsObject.country = data.country;
     state.breadcumsObject.city = data.value;

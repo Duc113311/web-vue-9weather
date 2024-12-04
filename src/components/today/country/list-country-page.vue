@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="h-[302px]" v-else>
+      <div class="h-[212px]" v-else>
         <div class="w-full h-full justify-center flex items-center">
           {{ $t("In_development") }}
         </div>
@@ -97,15 +97,17 @@ export default {
         ? JSON.parse(localStorage.getItem("objectBread"))
         : null;
 
-      for (const element of retrievedDataCity) {
-        if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
-          const findExistData = element.provinceCity.filter(
-            (x) =>
-              x.keyAccentLanguage !==
-              this.removeDiacritics(retrievedArray.city_key)
-          );
-          if (findExistData.length > 0) {
-            return findExistData;
+      if (retrievedArray) {
+        for (const element of retrievedDataCity) {
+          if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
+            const findExistData = element.provinceCity.filter(
+              (x) =>
+                x.keyAccentLanguage !==
+                this.removeDiacritics(retrievedArray.city_key)
+            );
+            if (findExistData.length > 0) {
+              return findExistData;
+            }
           }
         }
       }

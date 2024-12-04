@@ -69,6 +69,9 @@
   "{city}_weather_by_hour":"{city} weather by hour",
   "Unit_preferences_settings": "Unit preferences settings",
   "Humidity_in_the_coming_hours": "Humidity in the coming hours",
+  "Weather_Today_for_{district}_{city}_{country}":" {district} {city} {country} Weather Today",
+  "Weather_Hourly_for_{district}_{city}_{country}":"{district} {city} {country} Hourly Weather",
+  "Weather_Month_for_{district}_{city}_{country}":"{district} {city} {country} Monthly Weather",
   "Precipitation_in_the_coming_hours": "Precipitation in the coming hours",
   "Local_National_Global": "Local, National & Global Daily Weather Forecast",
   "Cloudy_skies": "Cloudy skies with a cool breeze. Light showers are possible, so you might want to grab a light jacket before heading out."

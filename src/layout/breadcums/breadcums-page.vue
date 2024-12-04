@@ -5,50 +5,107 @@
         <div class="cursor-pointer" @click="onClickHome()">
           {{ $t("Home") }}
         </div>
-        <div class="flex items-center" v-if="breadcumsObject?.country">
-          <img
-            class="transform"
-            src="../../assets/images/svg_v2/ic_move_down_left.svg"
-            alt=""
-          />
-          <div class="cursor-pointer" @click="onClickHome()">
-            {{ breadcumsObject?.country }}
+        <div
+          class="flex items-center"
+          v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
+        >
+          <div class="flex items-center" v-if="breadcumsObject?.country">
+            <img
+              class="transform"
+              src="../../assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickHome()">
+              {{ breadcumsObject?.country }}
+            </div>
+          </div>
+          <div class="flex items-center" v-if="breadcumsObject?.city">
+            <img
+              class="transform"
+              src="../../assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickCity()">
+              {{
+                $t(
+                  `city.city_${languageParam}.${convertToLowCase(
+                    breadcumsObject?.city_key
+                  )}`
+                )
+              }}
+            </div>
+          </div>
+          <div class="flex items-center" v-if="breadcumsObject?.district">
+            <img
+              class="transform"
+              src="@/assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickDistrict()">
+              {{
+                $t(
+                  `${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}.${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}_${languageParam}.${convertToLowCase(
+                    breadcumsObject?.district_key
+                  )}`
+                )
+              }}
+            </div>
+          </div>
+          <div class="flex items-center" v-if="breadcumsObject?.ward">
+            <img
+              class="transform"
+              src="@/assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickWard()">
+              {{
+                $t(
+                  `${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}.${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}_${languageParam}.${convertToLowCase(
+                    breadcumsObject?.ward_key
+                  )}`
+                )
+              }}
+            </div>
           </div>
         </div>
-        <div class="flex items-center" v-if="breadcumsObject?.city">
-          <img
-            class="transform"
-            src="../../assets/images/svg_v2/ic_move_down_left.svg"
-            alt=""
-          />
-          <div class="cursor-pointer" @click="onClickCity()">
-            {{
-              $t(
-                `city.city_${languageParam}.${convertToLowCase(
-                  breadcumsObject?.city_key
-                )}`
-              )
-            }}
+        <div v-else class="flex items-center">
+          <div class="flex items-center" v-if="breadcumsObject?.country">
+            <img
+              class="transform"
+              src="../../assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickHome()">
+              {{ breadcumsObject?.country }}
+            </div>
           </div>
-        </div>
-        <div class="flex items-center" v-if="breadcumsObject?.district">
-          <img
-            class="transform"
-            src="@/assets/images/svg_v2/ic_move_down_left.svg"
-            alt=""
-          />
-          <div class="cursor-pointer" @click="onClickDistrict()">
-            {{ breadcumsObject?.district }}
+          <div class="flex items-center" v-if="breadcumsObject?.city">
+            <img
+              class="transform"
+              src="../../assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickCity()">
+              {{ breadcumsObject?.city }}
+            </div>
           </div>
-        </div>
-        <div class="flex items-center" v-if="breadcumsObject?.ward">
-          <img
-            class="transform"
-            src="@/assets/images/svg_v2/ic_move_down_left.svg"
-            alt=""
-          />
-          <div class="cursor-pointer" @click="onClickWard()">
-            {{ breadcumsObject?.ward }}
+          <div class="flex items-center" v-if="breadcumsObject?.district">
+            <img
+              class="transform"
+              src="@/assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickDistrict()">
+              {{ breadcumsObject?.district }}
+            </div>
           </div>
         </div>
       </div>
@@ -105,72 +162,6 @@ export default {
         return "";
       }
 
-      return "";
-    },
-
-    districtBreadcums() {
-      debugger;
-      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-
-      if (this.listCityAllGetters.length !== 0) {
-        const findData = this.listCityAllGetters.find(
-          (x) => x.keyLanguage === retrievedArray?.city_key
-        );
-        if (findData) {
-          if (retrievedArray?.district_key) {
-            const findDataWard = findData.districtList.find(
-              (x) =>
-                x.languages["en"].replace(/ /g, "_") ===
-                retrievedArray.district_key
-            );
-            if (findDataWard) {
-              return findDataWard.languages[this.languageParam];
-            } else {
-              return "";
-            }
-          }
-        } else {
-          return "";
-        }
-      }
-      return "";
-    },
-
-    wardBreadcums() {
-      debugger;
-      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-
-      if (this.listCityAllGetters.length !== 0) {
-        const findData = this.listCityAllGetters.find(
-          (x) => x.keyLanguage === retrievedArray?.city_key
-        );
-        if (findData) {
-          if (retrievedArray?.district_key) {
-            const findDataWard = findData.districtList.find(
-              (x) =>
-                x.languages["en"].replace(/ /g, "_") ===
-                retrievedArray.district_key
-            );
-            if (findDataWard) {
-              if (retrievedArray?.ward_key) {
-                const findDataWardNew = findDataWard.districtList.find(
-                  (x) => x.keyLanguage === retrievedArray?.ward_key
-                );
-
-                if (findDataWardNew) {
-                  return findDataWardNew.languages[this.languageParam];
-                } else {
-                  return "";
-                }
-              }
-            } else {
-              return "";
-            }
-          } else {
-            return "";
-          }
-        }
-      }
       return "";
     },
   },
@@ -373,6 +364,14 @@ export default {
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
 
       return normalizedStr;
+    },
+
+    convertToSlugCity(str) {
+      return str
+        .normalize("NFD") // Chuyển đổi các ký tự đặc biệt
+        .replace(/[\u0300-\u036f]/g, "") // Xóa dấu
+        .replace(/\s+/g, "") // Xóa khoảng trắng
+        .toLowerCase(); // Chuyển thành chữ thường
     },
 
     convertToEnglishRender(value) {

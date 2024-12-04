@@ -22,7 +22,10 @@
         <TabNavigation @onChangeTabChart="onChangeTabChart"></TabNavigation>
         <!--  -->
         <div class="w-auto h-[368px]">
-          <ChartTempRain v-show="indexChart === 0"></ChartTempRain>
+          <ChartTempRain
+            :key="indexKey + '_temp'"
+            v-show="indexChart === 0"
+          ></ChartTempRain>
           <UvChartPage :key="indexKey + '_uvIndex'" v-show="indexChart === 1">
           </UvChartPage>
           <WindChartPage :key="indexKey + '_wind'" v-show="indexChart === 2">

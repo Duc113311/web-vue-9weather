@@ -63,7 +63,7 @@ export default {
   },
 
   async mounted() {
-    this.loadProvince();
+    await this.loadProvince();
 
     await this.loadAllFileJson();
     const objectBread = localStorage.getItem("objectBread");
@@ -114,16 +114,19 @@ export default {
     },
 
     async loadProvince() {
+      debugger;
       try {
-        const response = await fetch("./json/city/city.json");
-        if (!response.ok) throw new Error("Failed to fetch data");
-        debugger;
+        const response = await fetch("/json/city/city.json");
+        if (!response.ok)
+          throw new Error(
+            `Failed to fetch data: ${response.status} ${response.statusText}`
+          );
         const data = await response.json(); // Parse JSON data
         console.log("data", data);
         this.provinceData = data;
         this.setObjectCityByLocation(this.provinceData);
       } catch (error) {
-        console.error("Error loading file:", error);
+        console.error("Error loading file:", error.message);
       }
     },
 

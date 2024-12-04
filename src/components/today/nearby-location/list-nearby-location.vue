@@ -77,6 +77,9 @@ import {
   getParamAirByCode,
   urlEncodeString,
 } from "@/utils/EncoderDecoderUtils";
+
+import removeAccents from "remove-accents";
+
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -151,8 +154,9 @@ export default {
           );
 
           if (findData) {
+            debugger;
             if (retrievedArray.district_key) {
-              const findDataWard = findData.districtList.find(
+              const findDataWard = findData.districtList?.find(
                 (x) =>
                   x.keyAccentLanguage ===
                   this.removeDiacritics(retrievedArray.district)
@@ -163,7 +167,7 @@ export default {
                 return [];
               }
             } else {
-              return findData.districtList.slice(0, this.itemSliceCount);
+              return findData.districtList?.slice(0, this.itemSliceCount) || [];
             }
           } else {
             return [];
@@ -175,7 +179,7 @@ export default {
         const findData = this.listCityAllGetters.find(
           (x) => x.keyLanguage === this.breadcumsObjectGetters.city_key
         );
-        return findData.districtList.slice(0, this.itemSliceCount);
+        return findData?.districtList?.slice(0, this.itemSliceCount) || [];
       }
     },
   },
@@ -300,6 +304,11 @@ export default {
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
     },
 
+    convertToConvertLowerCase(str) {
+      const slug = removeAccents(str).replace(/\s+/g, "_");
+      return slug;
+    },
+
     async onClickShowDetailDistrict(value) {
       debugger;
       const keyLanguageStorage = this.$route.params.language
@@ -329,9 +338,7 @@ export default {
         city: objectAddressNew
           ? this.convertToVietnamese(objectAddressNew.city).city
           : objectBreadStorage.city,
-        city_key: objectAddressNew
-          ? this.convertToVietnamese(objectAddressNew.city).cityConvert
-          : objectBreadStorage.city_key,
+        city_key: objectBreadStorage.city_key,
         latitude: objectAddressNew
           ? objectAddressNew.lat
           : objectBreadStorage.latitude,
@@ -371,6 +378,7 @@ export default {
             ],
           },
         });
+        this.$router.go();
       }
       if (
         objectBread.city.length !== 0 &&
@@ -388,6 +396,7 @@ export default {
             ],
           },
         });
+        this.$router.go();
       }
       if (
         objectBread.city.length !== 0 &&
@@ -406,6 +415,7 @@ export default {
             ],
           },
         });
+        this.$router.go();
       }
 
       // const keyCity = JSON.parse(localStorage.getItem("objectBread"));

@@ -1,12 +1,13 @@
 <template>
   <div class="chart-container-rain w-[89rem]">
     <div class="chart-wrapper w-full">
-      <canvas id="chart_hourly_rain" height="100" ref="canvas"></canvas>
+      <canvas id="chart_hourly_rain" height="80" ref="canvas"></canvas>
     </div>
   </div>
 </template>
 
 <script>
+import { convertMillimet, convertMillimetToInch } from "@/utils/converValue";
 import {
   CategoryScale,
   Chart,
@@ -53,7 +54,7 @@ export default {
 
     listDataProbability() {
       return this.paramHourly.map((element) =>
-        Math.round(element.precipProbability * 100)
+        Math.round(element.precipProbability * 100 || 0)
       );
     },
   },
@@ -130,7 +131,7 @@ export default {
           ],
           datasets: [
             {
-              label: "Rain",
+              label: "Chance of rain",
               borderColor: "#F4F5F8",
               pointBackgroundColor: "#00E3F5",
               borderWidth: 1,
@@ -139,6 +140,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: this.listDataProbability,
+              pointHoverRadius: 8,
             },
           ],
         },
@@ -155,6 +157,12 @@ export default {
             },
             tooltip: {
               enabled: true,
+              callbacks: {
+                label: (tooltipItem) => {
+                  const value = tooltipItem.raw; // Get the raw value
+                  return `Chance of rain: ${value} %`; // Display value with percentage
+                },
+              },
             },
             datalabels: {
               display: true,
@@ -165,7 +173,7 @@ export default {
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return `${value}%`;
+                return `${value} %`;
               },
             },
           },

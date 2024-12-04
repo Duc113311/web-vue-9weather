@@ -124,7 +124,11 @@ const mutations = {
           ["administrative_area_level_2", "political"].every((type) =>
             x.types.includes(type)
           )
-        ) || { long_name: "" };
+        ) ||
+          element.address_components.find((x) =>
+            ["locality", "political"].every((type) => x.types.includes(type))
+          ) || { long_name: "" };
+
         const nameWard = element.address_components.find((x) =>
           ["political", "sublocality", "sublocality_level_1"].every((type) =>
             x.types.includes(type)

@@ -70,6 +70,9 @@
   "Wind_speed_in_the_coming_hours": "Tốc độ gió trong những giờ tới",
   "Humidity_in_the_coming_hours": "Độ ẩm trong những giờ tới",
   "Precipitation_in_the_coming_hours": "Lượng mưa trong những giờ tới",
+  "Weather_Today_for_{district}_{city}_{country}":"Thời tiết hôm nay tại {district}, {city}, {country}",
+  "Weather_Hourly_for_{district}_{city}_{country}":"Thời tiết theo giờ ở {district}, {city}, {country}",
+  "Weather_Month_for_{district}_{city}_{country}":"Thời tiết theo tháng tại {district}, {city}, {country}",
   "Local_National_Global": "Dự báo thời tiết hàng ngày của địa phương, quốc gia và toàn cầu",
   "Cloudy_skies": "Bầu trời nhiều mây với làn gió mát. Có khả năng xuất hiện mưa nhẹ, vì vậy bạn nên mang theo áo khoác nhẹ trước khi ra ngoài."
 }

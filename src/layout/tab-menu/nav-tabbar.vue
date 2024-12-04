@@ -99,6 +99,14 @@ export default {
 
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
+
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
   },
 
   watch: {
@@ -123,34 +131,157 @@ export default {
   },
 
   methods: {
+    convertToSlugCity(str) {
+      return str
+        .normalize("NFD") // Chuyển đổi các ký tự đặc biệt
+        .replace(/[\u0300-\u036f]/g, "") // Xóa dấu
+        .replace(/\s+/g, "") // Xóa khoảng trắng
+        .toLowerCase(); // Chuyển thành chữ thường
+    },
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+
     setTitleScream(activeIndex) {
       debugger;
-      const valueTitle = [
-        this.breadcumsObjectGetters?.district,
-        this.breadcumsObjectGetters?.city,
-        this.breadcumsObjectGetters?.country,
-      ]
+      let districtKeyTitle = this.breadcumsObject?.district_key;
+      let districtTitle = this.breadcumsObject?.district;
+      let cityTitle = this.breadcumsObject?.city;
+      let cityKeyTitle = this.breadcumsObject?.city_key;
+      let countryTitle = this.breadcumsObject?.country;
+      let countryKey = this.breadcumsObject?.country_key;
 
-        .filter(Boolean) // Lọc các giá trị không hợp lệ (undefined, null, '')
-        .join(", "); // Kết hợp các giá trị hợp lệ bằng dấu phẩy
-      switch (activeIndex) {
-        case 0:
-          if (Object.keys(this.$route.params).length !== 0) {
-            document.title = valueTitle + ` Today Weather | 9weather`;
+      if (countryKey) {
+        if (countryKey.toLowerCase() === "vn") {
+          switch (activeIndex) {
+            case 0:
+              if (Object.keys(this.$route.params).length !== 0) {
+                document.title = `${this.$t(
+                  `Weather_Today_for_{district}_{city}_{country}`,
+                  {
+                    district: districtKeyTitle
+                      ? this.$t(
+                          `${this.convertToSlugCity(
+                            cityTitle
+                          )}.${this.convertToSlugCity(cityTitle)}_${
+                            this.languageParam
+                          }.${this.convertToLowCase(districtKeyTitle)}`
+                        )
+                      : "",
+                    city: cityKeyTitle
+                      ? this.$t(
+                          `city.city_${
+                            this.languageParam
+                          }.${this.convertToLowCase(cityKeyTitle)}`
+                        )
+                      : "",
+                    country: countryTitle,
+                  }
+                )} | 9weather`;
+              }
+              break;
+
+            case 1:
+              document.title = `${this.$t(
+                `Weather_Hourly_for_{district}_{city}_{country}`,
+                {
+                  district: districtKeyTitle
+                    ? this.$t(
+                        `${this.convertToSlugCity(
+                          cityTitle
+                        )}.${this.convertToSlugCity(cityTitle)}_${
+                          this.languageParam
+                        }.${this.convertToLowCase(districtKeyTitle)}`
+                      )
+                    : "",
+                  city: cityKeyTitle
+                    ? this.$t(
+                        `city.city_${
+                          this.languageParam
+                        }.${this.convertToLowCase(cityKeyTitle)}`
+                      )
+                    : "",
+                  country: countryTitle,
+                }
+              )} | 9weather`;
+              break;
+            case 2:
+              document.title = `${this.$t(
+                `Weather_Month_for_{district}_{city}_{country}`,
+                {
+                  district: districtKeyTitle
+                    ? this.$t(
+                        `${this.convertToSlugCity(
+                          cityTitle
+                        )}.${this.convertToSlugCity(cityTitle)}_${
+                          this.languageParam
+                        }.${this.convertToLowCase(districtKeyTitle)}`
+                      )
+                    : "",
+                  city: cityKeyTitle
+                    ? this.$t(
+                        `city.city_${
+                          this.languageParam
+                        }.${this.convertToLowCase(cityKeyTitle)}`
+                      )
+                    : "",
+                  country: countryTitle,
+                }
+              )} | 9weather`;
+              break;
+
+            default:
+              document.title = `${this.$t("Local_National_Global")} | 9weather`;
+              break;
           }
-          break;
+        } else {
+          switch (activeIndex) {
+            case 0:
+              if (Object.keys(this.$route.params).length !== 0) {
+                document.title = `${this.$t(
+                  `Weather_Today_for_{district}_{city}_{country}`,
+                  {
+                    district: districtTitle ? `${districtTitle}, ` : "",
+                    city: cityTitle ? `${cityTitle}, ` : "",
+                    country: countryTitle,
+                  }
+                )} | 9weather`;
+              }
+              break;
 
-        case 1:
-          document.title = valueTitle + ` Hourly Weather | 9weather`;
-          break;
-        case 2:
-          document.title = valueTitle + ` Month Weather | 9weather`;
-          break;
+            case 1:
+              document.title = `${this.$t(
+                `Weather_Hourly_for_{district}_{city}_{country}`,
+                {
+                  district: districtTitle ? `${districtTitle}, ` : "",
+                  city: cityTitle ? `${cityTitle}, ` : "",
+                  country: countryTitle,
+                }
+              )} | 9weather`;
+              break;
+            case 2:
+              document.title = `${this.$t(
+                `Weather_Month_for_{district}_{city}_{country}`,
+                {
+                  district: districtTitle ? `${districtTitle}, ` : "",
+                  city: cityTitle ? `${cityTitle}, ` : "",
+                  country: countryTitle,
+                }
+              )} | 9weather`;
+              break;
 
-        default:
-          document.title =
-            "Local, National & Global Daily Weather Forecast | 9Weather";
-          break;
+            default:
+              document.title = `${this.$t("Local_National_Global")} | 9weather`;
+              break;
+          }
+        }
+      } else {
+        document.title = `${this.$t("Local_National_Global")} | 9weather`;
       }
     },
     isActive(menu) {
@@ -186,42 +317,77 @@ export default {
         }
         this.setTitleScream(this.activeIndex);
 
-        let routeParams = {
-          name: screamName,
-          params: {
-            language: this.renderLanguage,
-            location: [this.breadcumsObject.country_key.toLowerCase()],
-          },
-        };
+        const countryKey = this.breadcumsObject.country_key;
 
-        // Xây dựng mảng location dựa vào điều kiện
-        if (this.breadcumsObject.city.length !== 0) {
-          routeParams.params.location.push(
-            this.convertToSlug(this.breadcumsObject.city)
-          );
+        if (countryKey.toLowerCase() === "vn") {
+          let routeParams = {
+            name: screamName,
+            params: {
+              language: this.renderLanguage,
+              location: [this.breadcumsObject.country_key.toLowerCase()],
+            },
+          };
+
+          // Xây dựng mảng location dựa vào điều kiện
+          if (this.breadcumsObject.city.length !== 0) {
+            routeParams.params.location.push(
+              this.convertToSlug(this.breadcumsObject.city)
+            );
+          }
+
+          if (this.breadcumsObject.district.length !== 0) {
+            routeParams.params.location.push(
+              this.convertToSlug(this.breadcumsObject.district)
+            );
+          }
+
+          if (this.breadcumsObject.ward.length !== 0) {
+            routeParams.params.location.push(
+              this.convertToSlug(this.breadcumsObject.ward)
+            );
+          }
+
+          // Thêm query param để force component re-render
+          routeParams.params.timestamp = Date.now();
+
+          // Chuyển route và đợi cho đến khi navigation hoàn tất
+          await this.$router.push(routeParams);
+          this.$router.go();
+
+          // Emit event để thông báo cho component cha biết route đã thay đổi
+          this.$emit("route-changed", screamName);
+        } else {
+          let routeParams = {
+            name: screamName,
+            params: {
+              language: this.renderLanguage,
+              location: [this.breadcumsObject.country_key.toLowerCase()],
+            },
+          };
+
+          // Xây dựng mảng location dựa vào điều kiện
+          if (this.breadcumsObject.city.length !== 0) {
+            routeParams.params.location.push(
+              this.convertToSlug(this.breadcumsObject.city)
+            );
+          }
+
+          if (this.breadcumsObject.district.length !== 0) {
+            routeParams.params.location.push(
+              this.convertToSlug(this.breadcumsObject.district)
+            );
+          }
+
+          // Thêm query param để force component re-render
+          routeParams.params.timestamp = Date.now();
+
+          // Chuyển route và đợi cho đến khi navigation hoàn tất
+          await this.$router.push(routeParams);
+          this.$router.go();
+
+          // Emit event để thông báo cho component cha biết route đã thay đổi
+          this.$emit("route-changed", screamName);
         }
-
-        if (this.breadcumsObject.district.length !== 0) {
-          routeParams.params.location.push(
-            this.convertToSlug(this.breadcumsObject.district)
-          );
-        }
-
-        if (this.breadcumsObject.ward.length !== 0) {
-          routeParams.params.location.push(
-            this.convertToSlug(this.breadcumsObject.ward)
-          );
-        }
-
-        // Thêm query param để force component re-render
-        routeParams.params.timestamp = Date.now();
-
-        // Chuyển route và đợi cho đến khi navigation hoàn tất
-        await this.$router.push(routeParams);
-        this.$router.go();
-
-        // Emit event để thông báo cho component cha biết route đã thay đổi
-        this.$emit("route-changed", screamName);
       } catch (err) {
         console.error("Navigation failed:", err);
       }

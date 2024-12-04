@@ -155,6 +155,10 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["cityCountryGetters"]),
+    ...mapGetters("commonModule", [
+      "listCityAllGetters",
+      "objectCityByLocationGetters",
+    ]),
     ...mapGetters("airQualityModule", [
       "airObjectGetters",
       "airKeyObjectGetters",
@@ -219,7 +223,10 @@ export default {
 
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
-    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
+    ...mapMutations("commonModule", [
+      "setBreadcumsNotAllowLocation",
+      "setBreadcumsTheWorld",
+    ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
@@ -420,6 +427,11 @@ export default {
       };
     },
 
+    convertToConvertLowerCase(str) {
+      const slug = removeAccents(str).replace(/\s+/g, "_");
+      return slug;
+    },
+
     convertToVietnamese(input) {
       // Map các từ gốc sang từ có dấu
       const vietnameseMap = {
@@ -493,31 +505,154 @@ export default {
       // Thay khoảng trắng bằng dấu gạch dưới
       return {
         city: converted,
-        cityConvert: converted.replace(/ /g, "_"),
+        cityConvert: this.convertToConvertLowerCase(converted),
       };
+    },
+    checkSubstring(str1, str2) {
+      const words1 = str1.split("_");
+      const words2 = str2.split("_");
+
+      // Lọc ra các từ có trong str2
+      const commonWords = words1.filter((word) => words2.includes(word));
+
+      // Kiểm tra xem có ít nhất 2 từ chung không
+      return commonWords.length >= 2;
+    },
+
+    findCityData(value) {
+      const listCityVN = this.objectCityByLocationGetters;
+      const replaceCity = value.city.replace(/ /g, "_");
+      for (let index = 0; index < listCityVN.length; index++) {
+        const element = listCityVN[index];
+        const provinceCityData = element.provinceCity;
+        const findData = provinceCityData.find(
+          (x) => x.keyAccentLanguage === replaceCity
+        );
+        if (findData) {
+          return findData;
+        }
+      }
+    },
+
+    findDistrictsData(value) {
+      const listCityVN = this.listCityAllGetters;
+
+      // Kiểm tra xem listCityVN có tồn tại không
+      if (!listCityVN) {
+        console.error("listCityAllGetters không tồn tại");
+        return null; // Hoặc xử lý theo cách khác
+      }
+
+      const replaceCity = value.city.replace(/ /g, "_");
+      const replaceDistrict = this.convertToConvertLowerCase(value.district);
+
+      const findData = listCityVN.find(
+        (x) => x.keyAccentLanguage === replaceCity
+      );
+
+      if (findData) {
+        const districtListData = findData.districtList;
+
+        // Kiểm tra districtListData có tồn tại và là mảng không
+        if (Array.isArray(districtListData)) {
+          for (let index = 0; index < districtListData.length; index++) {
+            const element = districtListData[index];
+
+            const checkSub = this.checkSubstring(
+              element.keyAccentLanguage,
+              replaceDistrict
+            );
+
+            if (checkSub) {
+              return element; // Trả về district nếu tìm thấy
+            }
+          }
+        } else {
+          console.error("districtListData không phải là mảng");
+        }
+      }
+
+      return null; // Trả về null nếu không tìm thấy district
+    },
+
+    findWardData(value) {
+      const listCityVN = this.listCityAllGetters;
+
+      // Kiểm tra xem listCityVN có tồn tại không
+      if (!listCityVN) {
+        console.error("listCityAllGetters không tồn tại");
+        return null; // Hoặc xử lý theo cách khác
+      }
+
+      const replaceCity = value.city.replace(/ /g, "_");
+      const replaceDistrict = this.convertToConvertLowerCase(value.district);
+      const replaceWard = this.convertToConvertLowerCase(value.ward);
+
+      const findData = listCityVN.find(
+        (x) => x.keyAccentLanguage === replaceCity
+      );
+
+      if (findData) {
+        const districtListData = findData.districtList;
+
+        // Kiểm tra districtListData có tồn tại và là mảng không
+        if (Array.isArray(districtListData)) {
+          for (let index = 0; index < districtListData.length; index++) {
+            const element = districtListData[index];
+
+            const checkSub = this.checkSubstring(
+              element.keyAccentLanguage,
+              replaceDistrict
+            );
+
+            if (checkSub) {
+              const wardListData = element.wards;
+
+              // Kiểm tra wardListData có tồn tại và là mảng không
+              if (Array.isArray(wardListData)) {
+                for (let index = 0; index < wardListData.length; index++) {
+                  const elementWard = wardListData[index];
+                  const checkSubWard = this.checkSubstring(
+                    elementWard.keyAccentLanguage,
+                    replaceWard
+                  );
+
+                  if (checkSubWard) {
+                    return elementWard;
+                  }
+                }
+              } else {
+                console.error("wardListData không phải là mảng");
+              }
+            }
+          }
+        } else {
+          console.error("districtListData không phải là mảng");
+        }
+      }
+
+      return null; // Trả về null nếu không tìm thấy ward
     },
 
     async handleSelect(item) {
       debugger;
       this.valueSearch = "";
       let language = this.languageParam;
-      if (item.country_key.toLowerCase() === "vn") {
+      if (item?.country_key?.toLowerCase() === "vn") {
         let objectBread = {
           country: item.country,
           country_key: item.country_key,
-          city: item.city ? this.convertToVietnamese(item.city).city : "",
-          city_key: item.city
-            ? this.convertToVietnamese(item.city).cityConvert
+          city: item.city ? this.findCityData(item).viNameLanguage : "",
+          city_key: item.city ? this.findCityData(item).keyAccentLanguage : "",
+          district: item.district
+            ? this.findDistrictsData(item).viNameLanguage
             : "",
-          district: item.district ? "Quận" + " " + item.district : "",
           district_key:
             item.district && item.district.trim() !== ""
-              ? ("Quận" + " " + item.district).replace(/ /g, "_")
+              ? this.findDistrictsData(item).keyAccentLanguage
               : "",
-          ward: item.ward ? "Phường" + " " + item.ward : "",
-          ward_key: item.ward
-            ? ("Phường" + " " + item.ward).replace(/ /g, "_")
-            : "",
+          ward: item.ward ? this.findWardData(item).viNameLanguage : "",
+          ward_key: item.ward ? this.findWardData(item).keyAccentLanguage : "",
           latitude: item.lat,
           longitude: item.lng,
         };
@@ -532,10 +667,6 @@ export default {
           objectBread.city.length !== 0 &&
           objectBread.district.length === 0
         ) {
-          const locationPath = `${language}/${objectBread.country_key.toLowerCase()}/${this.convertToSlug(
-            objectBread.city
-          )}`;
-
           await this.$router.push({
             name: "today-weather",
             params: {
@@ -606,7 +737,7 @@ export default {
 
         localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
-        this.setBreadcumsNotAllowLocation(objectBread);
+        this.setBreadcumsTheWorld(objectBread);
         debugger;
         if (
           objectBread.city.length !== 0 &&
@@ -617,7 +748,7 @@ export default {
             params: {
               language: language,
               location: [
-                objectBread.country_key.toLowerCase(),
+                objectBread.country.toLowerCase(),
                 this.convertToSlug(objectBread.city),
               ],
             },
@@ -632,7 +763,7 @@ export default {
             params: {
               language: language,
               location: [
-                objectBread.country_key.toLowerCase(),
+                objectBread.country.toLowerCase(),
                 this.convertToSlug(objectBread.city),
                 this.convertToSlug(objectBread.district),
               ],
@@ -796,28 +927,25 @@ export default {
 
       localStorage.removeItem("objectBread");
       // Lấy thông tin vị trí và thành phố
-      const cityCountryNow =
-        // Chuyển hướng đến router trước
-        this.$router.push({ path: "/" }).then(() => {
-          window.location.reload();
-        });
+      // Chuyển hướng đến router trước
+      this.$router.push({ path: "/" }).then(() => {
+        window.location.reload();
+      });
       // Xử lý tiếp các tác vụ API trong nền
 
-      const keyLanguage = this.$route.params.language;
+      const keyLanguage = this.$route.params.language
+        ? this.$route.params.language
+        : this.$i18n.locale;
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
+      const latLong = localStorage.getItem("locationLatLong");
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latLong.latitude},${latLong.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(
-        cityCountryNow.latitude,
-        cityCountryNow.longitude
+        latLong.latitude,
+        latLong.longitude
       );
       const value = encodeBase64(param);
       const valueNewAir = encodeBase64(resultAir);
-      const objectPosition = {
-        latitude: cityCountryNow.latitude,
-        longitude: cityCountryNow.longitude,
-        city: cityCountryNow.city,
-        country: cityCountryNow.city,
-      };
+
       const airCode = getParamAirByCode(this.airObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
 
@@ -827,8 +955,6 @@ export default {
         this.getAirQualityByKey(valueNewAir),
         this.getAirQuality(encodeAirCode),
       ]);
-
-      this.setCityWeather(objectPosition);
     },
 
     /**
@@ -837,7 +963,10 @@ export default {
     async onClickReloadHome() {
       debugger;
       this.resetComponentData();
-      this.$router.replace({ path: "/" }); // Thêm query để làm mới
+      localStorage.removeItem("objectBread");
+      this.$router.push({ path: "/" }).then(() => {
+        this.$router.go();
+      });
     },
 
     getLocationBrowserLoad() {
@@ -988,6 +1117,13 @@ export default {
   .basic-header .header-page {
     height: 62px;
   }
+}
+
+.basic-header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background-color: #160f05;
 }
 
 .basic-header .header-page {

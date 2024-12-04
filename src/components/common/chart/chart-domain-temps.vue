@@ -139,6 +139,12 @@ export default {
             },
             tooltip: {
               enabled: true,
+              callbacks: {
+                label: (tooltipItem) => {
+                  const value = tooltipItem.raw; // Get the raw value
+                  return `Temperature: ${value}°`; // Display value with percentage
+                },
+              },
             },
             datalabels: {
               display: true,

@@ -56,11 +56,15 @@ export default {
     },
 
     listDataProbability() {
-      return this.paramHourly.map(
-        (element) =>
-          // this.convertPrecipitation(element.humidity * 100)
-          Math.round(element.humidity * 100) || 0
+      return this.paramHourly.map((element) =>
+        // this.convertPrecipitation(element.humidity * 100)
+        Math.round(this.convertPrecipitation(element.precipIntensity))
       );
+    },
+
+    unitPrecipitation() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePrecipitation_save);
     },
   },
 
@@ -86,17 +90,9 @@ export default {
     convertPrecipitation(val) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activePrecipitation_save === "mm") {
-        return (
-          convertMillimet(val) +
-          " " +
-          codeToFind(unitSetting.activePrecipitation_save)
-        );
+        return convertMillimet(val);
       } else {
-        return (
-          convertMillimetToInch(val) +
-          " " +
-          codeToFind(unitSetting.activePrecipitation_save)
-        );
+        return convertMillimetToInch(val);
       }
     },
 
@@ -122,6 +118,11 @@ export default {
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height); // Gradient từ trên xuống dưới
       gradient.addColorStop(0, "#2E77E8"); // Màu trên (100% độ mờ)
       gradient.addColorStop(1, "#104B77"); // Màu dưới (0% độ mờ)
+
+      const displayData = this.listDataProbability.map((value) =>
+        value === 0 ? 0.9 : value
+      );
+
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
@@ -153,14 +154,15 @@ export default {
           ],
           datasets: [
             {
-              label: "Rain",
+              label: "PrecipIntensity",
               borderColor: "#F4F5F8",
               pointBackgroundColor: "#00E3F5",
               pointBorderColor: "#474A8D",
+              borderWidth: 1,
               pointRadius: 10,
               backgroundColor: gradient,
               fill: true,
-              data: this.listDataProbability,
+              data: displayData,
               borderRadius: 30,
               barThickness: 30,
             },
@@ -187,7 +189,9 @@ export default {
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return `${value}%`;
+                return this.listDataProbability[context.dataIndex] === 0
+                  ? "0" + " " + this.unitPrecipitation
+                  : value + " " + this.unitPrecipitation;
               },
             },
           },
@@ -207,7 +211,7 @@ export default {
                 //   text: "Giá trị",
               },
               beginAtZero: true,
-              max: 100,
+              max: 13,
             },
           },
           elements: {
