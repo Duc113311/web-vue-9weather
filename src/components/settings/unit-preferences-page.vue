@@ -349,6 +349,7 @@ export default {
 
     onClickDoneUnit() {
       this.successUnit();
+      this.$router.go();
 
       this.setObjectSettingSaveDefault(this.renderUnitSetting);
 

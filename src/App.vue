@@ -57,6 +57,7 @@ export default {
     this.nameRouter = this.$route.name;
     const unitValue = localStorage.getItem("unit");
     if (unitValue) {
+      debugger;
       const decodeAirObject = JSON.parse(unitValue);
       this.setObjectSetting(decodeAirObject);
       this.setObjectSettingNotLocal(decodeAirObject);
@@ -76,7 +77,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["setObjectSetting", "setObjectSettingNotLocal"]),
+    ...mapMutations("commonModule", [
+      "setObjectSettingNotLocal",
+      "setObjectSetting",
+    ]),
   },
 };
 </script>

@@ -5,7 +5,10 @@
         <div class="w-full h-full flex justify-between items-center">
           <!-- left -->
           <div class="md:flex hidden items-center gap-4">
-            <div class="h-district pt-5 pb-5 hidden lg:block relative group">
+            <div
+              v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
+              class="h-district pt-5 pb-5 hidden lg:block relative group"
+            >
               <div class="flex items-center gap-2 cursor-pointer">
                 <img
                   src="../../assets/images/svg_v2/ic_city.svg"

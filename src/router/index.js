@@ -15,16 +15,6 @@ const routes = [
     props: true,
   },
 
-  {
-    path: "/:language/create-widget",
-    name: "create-widget-view",
-    component: () =>
-      // eslint-disable-next-line prettier/prettier
-      import(
-        /* webpackChunkName: "create-widget-view" */ "../views/widget-create/index.vue"
-      ),
-  },
-
   { path: "/404", name: "404-page", component: NotFoundComponent }, // Component cho trang 404
 
   // v2
@@ -108,6 +98,15 @@ const routes = [
       {
         path: ":language/",
         component: HomePageV2, // Directly render HomePageV2 for language path
+      },
+      {
+        path: ":language/create-widget",
+        name: "create-widget-view",
+        component: () =>
+          // eslint-disable-next-line prettier/prettier
+          import(
+            /* webpackChunkName: "create-widget-view" */ "../views/widget-create/index.vue"
+          ),
       },
     ],
   },

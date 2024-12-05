@@ -92,6 +92,7 @@ const state = {
   codeLanguage: "en",
   indexKey: 0,
   weatherWidget: {},
+  weatherWidgetOption: {},
 
   objectCityByLocation: [],
   listCityAll: [],
@@ -113,6 +114,10 @@ const getters = {
 
   listCityAllGetters(state) {
     return state.listCityAll;
+  },
+
+  weatherWidgetOptionGetters(state) {
+    return state.weatherWidgetOption;
   },
 };
 
@@ -271,12 +276,25 @@ const mutations = {
   },
 
   setWeatherWidget(state, data) {
-    const weatherData = JSON.parse(decodeBase64(data));
-    if (weatherData) {
-      state.weatherWidget = weatherData;
-      state.objectWidget.currently = weatherData.currently;
-      state.objectWidget.listDaily = weatherData.daily.data.slice(0, 3);
+    const jsonValue = decodeBase64(data);
+    if (!jsonValue) {
+      return;
     }
+    const weatherData = JSON.parse(jsonValue);
+    if (weatherData) {
+      debugger;
+      console.log("weatherData-widget", weatherData.results[0]);
+
+      const weatherDataConvert = weatherData.results[0];
+      (state.weatherWidgetOption.label = weatherDataConvert.formatted_address),
+        (state.weatherWidgetOption.lat =
+          weatherDataConvert.geometry.location.lat),
+        (state.weatherWidgetOption.lng =
+          weatherDataConvert.geometry.location.lng);
+    }
+    // state.weatherWidget = weatherData;
+    // state.objectWidget.currently = weatherData.currently;
+    // state.objectWidget.listDaily = weatherData.daily.data.slice(0, 3);
   },
 
   setNumberDataDaily(state, data) {

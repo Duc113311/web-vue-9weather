@@ -67,20 +67,26 @@ export default {
 
     await this.loadAllFileJson();
     const objectBread = localStorage.getItem("objectBread");
+    const routerLink = this.$route.params;
     debugger;
-    if (!objectBread) {
-      this.getLocationBrowser();
-    } else {
-      const objectBreadValue = JSON.parse(objectBread);
-      if (objectBreadValue.country === "Vietnam") {
-        this.handleLocation(objectBreadValue);
+    if (Object.keys(routerLink).length !== 0) {
+      if (!objectBread) {
+        this.getLocationBrowser();
       } else {
-        debugger;
-        // localStorage.removeItem("objectBread");
-        // this.getLocationBrowser();
-        this.handleLocationWorld(objectBreadValue);
+        const objectBreadValue = JSON.parse(objectBread);
+        if (objectBreadValue.country === "Vietnam") {
+          this.handleLocation(objectBreadValue);
+        } else {
+          debugger;
+          // localStorage.removeItem("objectBread");
+          // this.getLocationBrowser();
+          this.handleLocationWorld(objectBreadValue);
+        }
       }
+    } else {
+      this.getLocationBrowser();
     }
+
     // this.loadDataTop100();
   },
 

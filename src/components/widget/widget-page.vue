@@ -10,16 +10,10 @@
       <div class="w-full pl-4 pr-4 pt-4 text-left bor-bottom">
         <div class="w-full p-4">
           <div class="txt_regular">
-            <span>Weather_forecast_on_your_website</span>
+            <span>{{ $t("Weather_forecast_on_your_website") }}</span>
           </div>
           <div class="txt_light_summer">
-            <span
-              >{{
-                $t(
-                  "Create_a_custom_code_for_your_website_and_copy_the_embed_code_and_add_it_to_the_location_you_want_to_display_on_your_website."
-                )
-              }}
-            </span>
+            <span>{{ $t("Create_a_custom_code_for_your_website") }} </span>
           </div>
         </div>
       </div>
@@ -32,19 +26,20 @@
                 <span>Location</span>
               </div>
               <div class="w-full flex justify-start">
-                <el-autocomplete
-                  v-model="valueAddress"
-                  :fetch-suggestions="querySearchAsync"
-                  :placeholder="Search_location"
-                  @select="handleSelect"
-                >
-                  <template #default="{ item }">
-                    <div>
-                      <div class="txt_medium">{{ item.value }}</div>
-                      <span class="link">{{ item.country }}</span>
-                    </div>
-                  </template>
-                </el-autocomplete>
+                <input
+                  class="form-control"
+                  list="datalistDiadiem"
+                  id="dia-diem-search-widget"
+                  placeholder="Nhập địa điểm..."
+                  fdprocessedid="nifv28"
+                />
+
+                <datalist id="datalistDiadiem">
+                  <option
+                    data-value="/ha-noi/cau-giay"
+                    value="Quận Cầu Giấy (Hà Nội)"
+                  ></option>
+                </datalist>
               </div>
             </div>
             <div class="label w-full">
@@ -68,7 +63,7 @@
             </div>
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>Number_of_days </span>
+                <span>{{ $t("Number_of_days") }} </span>
               </div>
               <div class="w-full flex justify-start">
                 <el-select
@@ -78,10 +73,9 @@
                   @change="onChangeNumberDay"
                 >
                   <el-option
-                    v-for="item in optionsNumberDay"
-                    :key="item.value"
+                    v-for="(item, index) in optionsNumberDay"
+                    :key="index"
                     :label="item.label"
-                    :value="item.value"
                   />
                 </el-select>
               </div>
@@ -89,7 +83,7 @@
 
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>Color_change_panel</span>
+                <span>{{ $t("Color_change_panel") }}</span>
               </div>
               <div
                 class="w-full flex gap-10 items-center h-[140px] txt_light_summer"
@@ -99,7 +93,7 @@
                 >
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>Background_color</span>
+                      <span>{{ $t("Background_color") }}</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -111,7 +105,7 @@
                   </div>
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>Color_description</span>
+                      <span>{{ $t("Color_description") }}</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -127,7 +121,7 @@
                 >
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>Title_color</span>
+                      <span>{{ $t("Title_color") }}</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -139,7 +133,7 @@
                   </div>
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>Text_color</span>
+                      <span>{{ $t("Text_color") }}</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -155,7 +149,7 @@
                 >
                   <div class="flex flex-col gap-1 w-full">
                     <div>
-                      <span>Line_color</span>
+                      <span>{{ $t("Line_color") }}</span>
                     </div>
                     <div class="p-1.5 w-[40px] h-[35px]">
                       <el-color-picker
@@ -177,7 +171,7 @@
               >
                 <div class="flex items-center justify-center gap-1">
                   <img src="../../assets/images/svg/ic_create.svg" alt="" />
-                  <span class="txt_medium">Add_Widget</span>
+                  <span class="txt_medium">{{ $t("Add_widget") }}</span>
                 </div>
               </button>
             </div>
@@ -234,7 +228,7 @@
                         }}</a>
                         <p>
                           <span
-                            >Feels_like
+                            >{{ $t("real_feel") }}
                             {{
                               convertTemperature(
                                 renderObjectWidget?.currently
@@ -327,7 +321,7 @@
               >
                 <div class="flex items-center justify-center gap-1">
                   <img src="../../assets/images/svg/ic_copy.svg" alt="" />
-                  <span class="txt_medium">Copy_code</span>
+                  <span class="txt_medium">{{ $t("Copy_code") }}</span>
                 </div>
               </button>
             </div>
@@ -346,7 +340,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { ElNotification } from "element-plus";
 import { encodeBase64, urlEncodeString } from "../../utils/EncoderDecoderUtils";
 
@@ -384,10 +378,10 @@ export default {
   data() {
     return {
       valueAddress: "",
-      valueSampling: "Sample_1",
-      valueNumberDay: "3_days",
+      valueSampling: this.$t(`Sample_{number}`, { number: 1 }),
+      valueNumberDay: this.$t(`{number}_days`, { number: 3 }),
       valueCodeWidget: "",
-
+      options: [],
       valueSliderWidth: 300,
       color: "#ff0000",
       listAddressVietName: [],
@@ -395,19 +389,20 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", ["weatherWidgetOptionGetters"]),
     optionsSampling() {
       return [
         {
           value: "option_1",
-          label: this.$t(`common.Sample_{numbe}`, { number: 1 }),
+          label: this.$t(`Sample_{number}`, { number: 1 }),
         },
         {
           value: "option_2",
-          label: this.$t(`common.Sample_{numbe}`, { number: 2 }),
+          label: this.$t(`Sample_{number}`, { number: 2 }),
         },
         {
           value: "option_3",
-          label: this.$t(`common.Sample_{number}`, { number: 3 }),
+          label: this.$t(`Sample_{number}`, { number: 3 }),
         },
       ];
     },
@@ -415,20 +410,16 @@ export default {
     optionsNumberDay() {
       return [
         {
-          value: "number_1",
-          label: this.$t(`common.{number}_days`, { number: 1 }),
-        },
-        {
           value: "number_3",
-          label: this.$t(`common.{number}_days`, { number: 3 }),
+          label: this.$t(`{number}_days`, { number: 3 }),
         },
         {
           value: "number_5",
-          label: this.$t(`common.{number}_days`, { number: 5 }),
+          label: this.$t(`{number}_days`, { number: 5 }),
         },
         {
           value: "number_7",
-          label: this.$t(`common.{number}_days`, { number: 7 }),
+          label: this.$t(`{number}_days`, { number: 7 }),
         },
       ];
     },
@@ -459,7 +450,6 @@ export default {
   },
 
   mounted() {
-    this.loadDataVietName();
     this.onClickCreateWidget();
   },
 
@@ -474,9 +464,13 @@ export default {
       "setWeatherWidget",
       "setNumberDataDaily",
     ]),
-    ...mapActions(["getFormattedAddress", "getWeatherWidget"]),
+    ...mapActions("commonModule", ["getFormattedAddress", "getWeatherWidget"]),
     onChangeSliderWidth(value) {
       this.valueSliderWidth = value;
+    },
+
+    handleBlur(value) {
+      debugger;
     },
 
     onChangeDescriptionColor(color) {
@@ -609,28 +603,26 @@ export default {
         };
       });
     },
-    async querySearchAsync(queryString, cb) {
+    async querySearchAsync(queryString) {
       let timeout;
-      const results = queryString
-        ? this.listAddressVietName.filter(this.createFilter(queryString))
-        : this.listAddressVietName;
-
-      if (results.length > 0) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          cb(results);
-        }, 300 * Math.random());
+      debugger;
+      if (queryString.length === 0) {
+        this.options = [];
+        return;
       } else {
         const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-          this.valueSearch
+          queryString
         )}&key=TOH_KEY`;
-
+        this.options = [];
         const value = encodeBase64(urlParam);
 
-        await this.getFormattedAddress(value);
-        timeout = setTimeout(() => {
-          cb(this.$store.state.getWeather.newArray);
-        }, 300 * Math.random());
+        await this.getWeatherWidget(value);
+        const newData = this.weatherWidgetOptionGetters;
+        console.log("newData", newData);
+
+        debugger;
+        this.options.push(newData);
+        timeout = setTimeout(() => {}, 300 * Math.random());
       }
     },
 
@@ -642,15 +634,6 @@ export default {
           city.country.toLowerCase().includes(searchString)
         );
       };
-    },
-
-    async handleSelect(item) {
-      this.valueAddress = item.value;
-      this.setDataWidget(item.value);
-
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
-      const value = encodeBase64(param);
-      await this.getWeatherWidget(value);
     },
 
     onChangeNumberDay(value) {
@@ -699,8 +682,11 @@ export default {
   outline: none; /* Loại bỏ viền xung quanh khi được focus */
   resize: none; /* Ngăn chặn khả năng thay đổi kích thước */
   border-radius: 14px;
-  padding: 10px;
   color: #000000;
+  border: 1px solid #ced4da;
+  overflow: scroll;
+  padding: 0.47rem 0.75rem;
+  font-size: 0.8125rem;
 }
 
 .textarea-type:target {
@@ -731,5 +717,35 @@ export default {
 }
 .custom-notification {
   text-align: left;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 10px 17px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1.5px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #b9bfc4;
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control:hover {
+  border: 1.5px solid #6d99c9;
 }
 </style>
