@@ -521,7 +521,7 @@ export default {
 
     findCityData(value) {
       const listCityVN = this.objectCityByLocationGetters;
-      const replaceCity = value.city.replace(/ /g, "_");
+      const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       for (let index = 0; index < listCityVN.length; index++) {
         const element = listCityVN[index];
         const provinceCityData = element.provinceCity;
@@ -543,7 +543,7 @@ export default {
         return null; // Hoặc xử lý theo cách khác
       }
 
-      const replaceCity = value.city.replace(/ /g, "_");
+      const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = this.convertToConvertLowerCase(value.district);
 
       const findData = listCityVN.find(
@@ -559,7 +559,7 @@ export default {
             const element = districtListData[index];
 
             const checkSub = this.checkSubstring(
-              element.keyAccentLanguage,
+              removeAccents(element.keyAccentLanguage),
               replaceDistrict
             );
 
@@ -584,7 +584,7 @@ export default {
         return null; // Hoặc xử lý theo cách khác
       }
 
-      const replaceCity = value.city.replace(/ /g, "_");
+      const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = this.convertToConvertLowerCase(value.district);
       const replaceWard = this.convertToConvertLowerCase(value.ward);
 
@@ -601,7 +601,7 @@ export default {
             const element = districtListData[index];
 
             const checkSub = this.checkSubstring(
-              element.keyAccentLanguage,
+              removeAccents(element.keyAccentLanguage),
               replaceDistrict
             );
 
@@ -613,7 +613,7 @@ export default {
                 for (let index = 0; index < wardListData.length; index++) {
                   const elementWard = wardListData[index];
                   const checkSubWard = this.checkSubstring(
-                    elementWard.keyAccentLanguage,
+                    removeAccents(elementWard.keyAccentLanguage),
                     replaceWard
                   );
 
@@ -632,6 +632,12 @@ export default {
       }
 
       return null; // Trả về null nếu không tìm thấy ward
+    },
+
+    convertLowerCase(str) {
+      const slug = removeAccents(str);
+      debugger;
+      return slug.replace(/\s+/g, "-").toLowerCase();
     },
 
     async handleSelect(item) {
@@ -673,7 +679,7 @@ export default {
               language: language,
               location: [
                 objectBread.country_key.toLowerCase(),
-                this.convertToSlug(objectBread.city),
+                this.convertLowerCase(objectBread.city),
               ],
             },
           });
@@ -690,8 +696,8 @@ export default {
               language: language,
               location: [
                 objectBread.country_key.toLowerCase(),
-                this.convertToSlug(objectBread.city),
-                this.convertToSlug(objectBread.district),
+                this.convertLowerCase(objectBread.city),
+                this.convertLowerCase(objectBread.district),
               ],
             },
           });
@@ -707,9 +713,9 @@ export default {
               language: language,
               location: [
                 objectBread.country_key.toLowerCase(),
-                this.convertToSlug(objectBread.city),
-                this.convertToSlug(objectBread.district),
-                this.convertToSlug(objectBread.ward),
+                this.convertLowerCase(objectBread.city),
+                this.convertLowerCase(objectBread.district),
+                this.convertLowerCase(objectBread.ward),
               ],
             },
           });

@@ -120,6 +120,8 @@ import {
   getAqiDataFromLocation,
   getParamAirByCode,
 } from "@/utils/EncoderDecoderUtils";
+import removeAccents from "remove-accents";
+
 export default {
   name: "breadcums-page",
 
@@ -367,11 +369,11 @@ export default {
     },
 
     convertToSlugCity(str) {
-      return str
-        .normalize("NFD") // Chuyển đổi các ký tự đặc biệt
-        .replace(/[\u0300-\u036f]/g, "") // Xóa dấu
-        .replace(/\s+/g, "") // Xóa khoảng trắng
-        .toLowerCase(); // Chuyển thành chữ thường
+      const slug = removeAccents(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
     },
 
     convertToEnglishRender(value) {

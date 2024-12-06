@@ -893,17 +893,17 @@ export function getAirSummaryName(value) {
   console.log("i18n-value", i18n);
 
   if (value <= 50) {
-    return "Good";
+    return i18n.global.t("Good");
   } else if (value <= 100) {
-    return "Moderate";
+    return i18n.global.t("Moderate");
   } else if (value <= 150) {
-    return "Unhealthy_for_Sensitive_Groups";
+    return i18n.global.t("Unhealthy_for_Sensitive_Groups");
   } else if (value <= 200) {
-    return "Unhealthy";
+    return i18n.global.t("Unhealthy");
   } else if (value <= 300) {
-    return "Very_Unhealthy";
+    return i18n.global.t("Very_Unhealthy");
   } else {
-    return "Hazardous";
+    return i18n.global.t("Hazardous");
   }
 }
 
