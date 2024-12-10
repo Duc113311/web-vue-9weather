@@ -69,22 +69,18 @@ export default {
     const objectBread = localStorage.getItem("objectBread");
     const routerLink = this.$route.params;
     debugger;
-    if (Object.keys(routerLink).length !== 0) {
-      if (!objectBread) {
-        this.getLocationBrowser();
-      } else {
-        const objectBreadValue = JSON.parse(objectBread);
-        if (objectBreadValue.country === "Vietnam") {
-          this.handleLocation(objectBreadValue);
-        } else {
-          debugger;
-          // localStorage.removeItem("objectBread");
-          // this.getLocationBrowser();
-          this.handleLocationWorld(objectBreadValue);
-        }
-      }
-    } else {
+    if (!objectBread) {
       this.getLocationBrowser();
+    } else {
+      const objectBreadValue = JSON.parse(objectBread);
+      if (objectBreadValue.country === "Vietnam") {
+        this.handleLocation(objectBreadValue);
+      } else {
+        debugger;
+        // localStorage.removeItem("objectBread");
+        // this.getLocationBrowser();
+        this.handleLocationWorld(objectBreadValue);
+      }
     }
 
     // this.loadDataTop100();

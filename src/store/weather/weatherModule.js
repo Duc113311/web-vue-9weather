@@ -154,13 +154,14 @@ const mutations = {
             x.types.includes(type)
           )
         ) || { long_name: "" };
-
-        objectPush.country = valueCountry.long_name;
-        objectPush.city = nameCity.long_name;
-        objectPush.district = nameDistrict.long_name;
-        (objectPush.address = element.formatted_address),
-          (objectPush.lat = element.geometry.location.lat),
-          (objectPush.lng = element.geometry.location.lng);
+        if (valueCountry.long_name.length !== 0) {
+          objectPush.country = valueCountry.long_name;
+          objectPush.city = nameCity.long_name;
+          objectPush.district = nameDistrict.long_name;
+          (objectPush.address = element.formatted_address),
+            (objectPush.lat = element.geometry.location.lat),
+            (objectPush.lng = element.geometry.location.lng);
+        }
       }
 
       // const valueCity = element.address_components.find((x) =>

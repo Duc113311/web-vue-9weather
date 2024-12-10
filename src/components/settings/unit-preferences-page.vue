@@ -266,9 +266,10 @@ export default {
   setup() {
     const successUnit = () => {
       ElNotification({
-        title: "Success",
-        message: "This is a success message",
+        title: "Unit",
+        message: "Unit installation successful",
         type: "success",
+        position: "bottom-left",
       });
     };
     return {
@@ -285,6 +286,7 @@ export default {
         activeWindSpeed: "mi/h",
         activePressure: "hPa",
       },
+      indexKey: 0,
     };
   },
 
@@ -310,6 +312,7 @@ export default {
       "setActiveTemperature",
       "setObjectSettingSave",
       "setObjectSettingSaveDefault",
+      "setIndexComponent",
     ]),
     setActiveButton(value) {
       const nameValue = value;
@@ -349,7 +352,13 @@ export default {
 
     onClickDoneUnit() {
       this.successUnit();
-      this.$router.go();
+      // this.$router.go();
+      this.setIndexComponent(this.indexKey++);
+
+      console.log(
+        "objectSetting",
+        this.$store.state.commonModule.objectSetting
+      );
 
       this.setObjectSettingSaveDefault(this.renderUnitSetting);
 

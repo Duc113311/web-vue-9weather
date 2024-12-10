@@ -23,19 +23,19 @@
         <!--  -->
         <div class="w-auto h-[368px]">
           <ChartTempRain
-            :key="indexKey + '_temp'"
+            :key="indexState + '_temp'"
             v-show="indexChart === 0"
           ></ChartTempRain>
-          <UvChartPage :key="indexKey + '_uvIndex'" v-show="indexChart === 1">
+          <UvChartPage :key="indexState + '_uvIndex'" v-show="indexChart === 1">
           </UvChartPage>
-          <WindChartPage :key="indexKey + '_wind'" v-show="indexChart === 2">
+          <WindChartPage :key="indexState + '_wind'" v-show="indexChart === 2">
           </WindChartPage>
           <HumidChartPage
-            :key="indexKey + '_humid'"
+            :key="indexState + '_humid'"
             v-show="indexChart === 3"
           ></HumidChartPage>
           <PressureChartPage
-            :key="indexKey + '_pressure'"
+            :key="indexState + '_pressure'"
             v-show="indexChart === 4"
           ></PressureChartPage>
         </div>
@@ -50,7 +50,7 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import HeaderTemp from "./header-temp.vue";
 import TabNavigation from "./tab-navigation.vue";
 import ChartTempRain from "./chart-temp-rain.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import UvChartPage from "../uv-chart/uv-chart-page.vue";
 import WindChartPage from "../wind-chart/wind-chart-page.vue";
 import HumidChartPage from "../humid-chart/humid-chart-page.vue";
@@ -73,12 +73,19 @@ export default {
   computed: {
     ...mapGetters("weatherModule", ["currentlyGetters", "dailyOneGetters"]),
 
+    ...mapGetters("commonModule", ["indexComponentGetters"]),
+
     currentlyData() {
       return this.currentlyGetters;
     },
 
     dailyOneData() {
       return this.dailyOneGetters;
+    },
+
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
     },
   },
 
@@ -90,9 +97,12 @@ export default {
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setIndexComponent"]),
     onChangeTabChart(value) {
       this.indexChart = value;
       this.indexKey++;
+
+      this.setIndexComponent(this.indexKey++);
     },
   },
 };

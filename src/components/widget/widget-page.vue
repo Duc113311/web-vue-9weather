@@ -31,13 +31,14 @@
                   list="datalistDiadiem"
                   id="dia-diem-search-widget"
                   placeholder="Nhập địa điểm..."
-                  fdprocessedid="nifv28"
+                  @input="handleInput"
                 />
 
-                <datalist id="datalistDiadiem">
+                <datalist id="datalistDiadiem" v-if="options.length !== 0">
                   <option
-                    data-value="/ha-noi/cau-giay"
-                    value="Quận Cầu Giấy (Hà Nội)"
+                    v-for="(item, index) in options"
+                    :key="index"
+                    :value="item.label"
                   ></option>
                 </datalist>
               </div>
@@ -469,9 +470,57 @@ export default {
       this.valueSliderWidth = value;
     },
 
-    handleBlur(value) {
+    async handleInput(event) {
       debugger;
+      const valueSearch = event.target.value;
+      let timeout;
+      debugger;
+      if (valueSearch.length === 0) {
+        this.options = [];
+        return;
+      } else {
+        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+          valueSearch
+        )}&key=TOH_KEY`;
+        this.options = [];
+        const value = encodeBase64(urlParam);
+
+        await this.getWeatherWidget(value);
+        const newData = this.weatherWidgetOptionGetters;
+        console.log("newData", newData);
+        // console.log("this.options", this.options);
+
+        if (!this.options.some((option) => option.label === newData.label)) {
+          this.options.push(newData);
+        }
+        console.log("this.options", this.options);
+        // timeout = setTimeout(() => {}, 300 * Math.random());
+      }
     },
+
+    // Khi giá trị thay đổi (chọn từ danh sách hoặc gõ xong)
+    // handleChange(event) {
+    //   debugger;
+
+    //   const value = event.target.value;
+    //   console.log("Changed value:", value);
+
+    //   // Tìm data-value tương ứng trong datalist
+    //   const selectedOption = [...event.target.list.options].find(
+    //     (option) => option.value === value
+    //   );
+
+    //   if (selectedOption) {
+    //     console.log("Selected data-value:", selectedOption.dataset.value);
+    //   }
+    // },
+
+    // Khi nhấn phím (ví dụ: để kiểm tra từng phím bấm)
+    // handleKeyup(event) {
+    //   debugger;
+
+    //   console.log("Key pressed:", event.key);
+    // },
 
     onChangeDescriptionColor(color) {
       this.descriptionColor = color;

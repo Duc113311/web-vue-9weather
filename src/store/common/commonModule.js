@@ -96,6 +96,8 @@ const state = {
 
   objectCityByLocation: [],
   listCityAll: [],
+
+  indexComponent: 0,
 };
 
 const getters = {
@@ -106,6 +108,10 @@ const getters = {
    */
   breadcumsObjectGetters(state) {
     return state.breadcumsObject;
+  },
+
+  indexComponentGetters(state) {
+    return state.indexComponent;
   },
 
   objectCityByLocationGetters(state) {
@@ -127,6 +133,11 @@ const mutations = {
     sessionStorage.setItem("dataCityLog", JSON.stringify(data));
 
     state.objectCityByLocation = data;
+  },
+
+  setIndexComponent(state, data) {
+    debugger;
+    state.indexComponent = data;
   },
 
   setListDetailCityAll(state, data) {
@@ -286,7 +297,8 @@ const mutations = {
       console.log("weatherData-widget", weatherData.results[0]);
 
       const weatherDataConvert = weatherData.results[0];
-      (state.weatherWidgetOption.label = weatherDataConvert.formatted_address),
+      (state.weatherWidgetOption.label =
+        weatherDataConvert.formatted_address).trim(),
         (state.weatherWidgetOption.lat =
           weatherDataConvert.geometry.location.lat),
         (state.weatherWidgetOption.lng =
