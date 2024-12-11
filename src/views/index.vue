@@ -180,7 +180,7 @@ export default {
 
         this.setCityWeather(objectPosition);
       } else {
-        if (paramsRouter.location.length === 3) {
+        if (paramsRouter.location && paramsRouter.location.length === 3) {
           // Xét giá trị để lưu Recent
           const objectPosition = {
             latitude: latitude,
@@ -200,7 +200,7 @@ export default {
 
           this.setCityWeather(objectPosition);
         }
-        if (paramsRouter.location.length === 4) {
+        if (paramsRouter.location && paramsRouter.location.length === 4) {
           const objectPosition = {
             latitude: latitude,
             longitude: longitude,

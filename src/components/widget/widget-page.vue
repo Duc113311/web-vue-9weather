@@ -33,8 +33,7 @@
                   placeholder="Nhập địa điểm..."
                   @input="handleInput"
                 />
-
-                <datalist id="datalistDiadiem" v-if="options.length !== 0">
+                <datalist id="datalistDiadiem">
                   <option
                     v-for="(item, index) in options"
                     :key="index"

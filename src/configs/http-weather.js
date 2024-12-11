@@ -2,9 +2,10 @@ import axios from "axios";
 
 //API_IP_FIND
 export const httpIpFind = axios.create({
-  baseURL: `https://ipfind.co/`,
+  baseURL: `/ipfind`,
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
   timeout: 10000,
   withCredentials: false,

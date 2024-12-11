@@ -170,7 +170,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 40,
+              max: 100,
             },
           },
           elements: {
