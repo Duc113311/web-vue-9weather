@@ -92,6 +92,9 @@
 .el-color-picker__color {
   border: none !important;
 }
+.el-color-picker__color{
+  border: 1px solid #ebe4e4 !important;
+}
 .el-color-picker__trigger {
   height: 100% !important;
   width: 100% !important;

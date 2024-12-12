@@ -26,20 +26,21 @@
                 <span>Location</span>
               </div>
               <div class="w-full flex justify-start">
-                <input
-                  class="form-control"
-                  list="datalistDiadiem"
-                  id="dia-diem-search-widget"
-                  placeholder="Nhập địa điểm..."
+                <el-select
+                  size="large"
+                  v-model="valueAddress"
+                  filterable
+                  placeholder="Select"
+                  :filter-method="() => true"
+                  no-data-text="No data"
                   @input="handleInput"
-                />
-                <datalist id="datalistDiadiem">
-                  <option
+                >
+                  <el-option
                     v-for="(item, index) in options"
                     :key="index"
-                    :value="item.label"
-                  ></option>
-                </datalist>
+                    :label="item.label"
+                  />
+                </el-select>
               </div>
             </div>
             <div class="label w-full">
@@ -51,6 +52,7 @@
                   v-model="valueSampling"
                   :placeholder="Select"
                   size="large"
+                  @change="onChangeSampling"
                 >
                   <el-option
                     v-for="item in optionsSampling"
@@ -76,6 +78,7 @@
                     v-for="(item, index) in optionsNumberDay"
                     :key="index"
                     :label="item.label"
+                    :value="item.value"
                   />
                 </el-select>
               </div>
@@ -378,8 +381,8 @@ export default {
   data() {
     return {
       valueAddress: "",
-      valueSampling: this.$t(`Sample_{number}`, { number: 1 }),
-      valueNumberDay: this.$t(`{number}_days`, { number: 3 }),
+      valueSampling: "option_1",
+      valueNumberDay: "number_3",
       valueCodeWidget: "",
       options: [],
       valueSliderWidth: 300,
@@ -454,8 +457,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setTitleBackgroundColor"]),
     ...mapMutations([
-      "setTitleBackgroundColor",
       "setDescriptionColor",
       "setTitleColor",
       "setTextColor",
@@ -465,6 +468,11 @@ export default {
       "setNumberDataDaily",
     ]),
     ...mapActions("commonModule", ["getFormattedAddress", "getWeatherWidget"]),
+
+    onChangeSampling(value) {
+      debugger;
+      this.valueSampling = value;
+    },
     onChangeSliderWidth(value) {
       this.valueSliderWidth = value;
     },
@@ -472,29 +480,33 @@ export default {
     async handleInput(event) {
       debugger;
       const valueSearch = event.target.value;
-      let timeout;
-      debugger;
       if (valueSearch.length === 0) {
         this.options = [];
         return;
-      } else {
-        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-          valueSearch
-        )}&key=TOH_KEY`;
-        this.options = [];
-        const value = encodeBase64(urlParam);
-
-        await this.getWeatherWidget(value);
-        const newData = this.weatherWidgetOptionGetters;
-        console.log("newData", newData);
-        // console.log("this.options", this.options);
-
-        if (!this.options.some((option) => option.label === newData.label)) {
-          this.options.push(newData);
-        }
-        console.log("this.options", this.options);
-        // timeout = setTimeout(() => {}, 300 * Math.random());
       }
+      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+        valueSearch
+      )}&key=TOH_KEY`;
+
+      const value = encodeBase64(urlParam);
+
+      await this.getWeatherWidget(value);
+
+      const newData = this.weatherWidgetOptionGetters;
+
+      if (!newData || !newData.label) {
+        console.error("Dữ liệu không hợp lệ:", newData);
+        return;
+      }
+
+      if (!this.options.some((option) => option.label === newData.label)) {
+        // Tạo một mảng mới để kích hoạt Vue reactivity
+        this.options = [...this.options, newData];
+      }
+
+      // Kiểm tra DOM sau khi render
+
+      console.log("this.options", this.options);
     },
 
     // Khi giá trị thay đổi (chọn từ danh sách hoặc gõ xong)
@@ -542,7 +554,7 @@ export default {
     },
 
     onChangeTitleBackgroundColor(color) {
-      this.titleBackgroundColor = color;
+      debugger;
       this.setTitleBackgroundColor(color);
     },
 
@@ -651,40 +663,9 @@ export default {
         };
       });
     },
-    async querySearchAsync(queryString) {
-      let timeout;
-      debugger;
-      if (queryString.length === 0) {
-        this.options = [];
-        return;
-      } else {
-        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-          queryString
-        )}&key=TOH_KEY`;
-        this.options = [];
-        const value = encodeBase64(urlParam);
-
-        await this.getWeatherWidget(value);
-        const newData = this.weatherWidgetOptionGetters;
-        console.log("newData", newData);
-
-        debugger;
-        this.options.push(newData);
-        timeout = setTimeout(() => {}, 300 * Math.random());
-      }
-    },
-
-    createFilter(queryString) {
-      return (city) => {
-        const searchString = queryString.toLowerCase();
-        return (
-          city.value.toLowerCase().includes(searchString) ||
-          city.country.toLowerCase().includes(searchString)
-        );
-      };
-    },
 
     onChangeNumberDay(value) {
+      this.valueNumberDay = value;
       switch (value) {
         case "number_5":
           this.setNumberDataDaily(5);
@@ -770,7 +751,7 @@ export default {
 .form-control {
   display: block;
   width: 100%;
-  padding: 10px 17px;
+  padding: 9px 17px;
   font-size: 0.8125rem;
   font-weight: 400;
   line-height: 1.5;

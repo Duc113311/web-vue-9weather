@@ -7,6 +7,7 @@ const state = {
   titleColor: "#000000",
   textColor: "#000000",
   lineColor: "#F2F2F2",
+  statusAddWidget: true,
 
   objectWidget: {
     titleName: "Hà Nội",
@@ -259,6 +260,7 @@ const mutations = {
   },
   // end
   setTitleBackgroundColor(state, data) {
+    state.statusAddWidget = false;
     state.titleBackgroundColor = data;
   },
 
