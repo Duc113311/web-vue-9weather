@@ -157,7 +157,6 @@ export function getIconHourlyForecastTheme(value) {
   const ic_snow_hourly = require("../assets/images/svg_v2/icon-thoitiet/cloud-snow.svg");
   const ic_clear_night_hourly = require("../assets/images/svg/theme_icon_1/ic_clear_night_hourly.svg");
   value = value.toString();
-  debugger;
   switch (value) {
     case "cloudy":
       return ic_cloudy_hourly;
@@ -200,7 +199,7 @@ export function convertDayOfWeek(timestamp) {
   } else {
     // Nếu không trùng, hiển thị ngày trong tuần
     const days = [
-      i18n.global.t("Sun"),
+      i18n.global.t("Sunday"),
       i18n.global.t("Mon"),
       i18n.global.t("Tue"),
       i18n.global.t("Wed"),
@@ -374,6 +373,28 @@ export function convertTimestampToAmPm(timestamp) {
 
   // Trả về thời gian định dạng 12 giờ
   return amPm;
+}
+
+
+export function convertTimestampToFormattedDate(timestamp, language = "vi") {
+  const daysOfWeek = {
+    vi: ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"],
+    en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  };
+
+  const date = new Date(timestamp); // Chuyển đổi từ timestamp
+  const dayOfWeek = daysOfWeek[language][date.getDay()]; // Lấy ngày trong tuần theo ngôn ngữ
+  const day = date.getDate(); // Lấy ngày
+  const month = date.getMonth() + 1; // Lấy tháng (bắt đầu từ 0 nên cần +1)
+  const year = date.getFullYear(); // Lấy năm
+
+  if (language === "vi") {
+    return `${dayOfWeek}, Ngày ${day}/${month}/${year}`;
+  } else if (language === "en") {
+    return `${dayOfWeek}, ${month}/${day}/${year}`;
+  } else {
+    throw new Error("Unsupported language");
+  }
 }
 
 /**

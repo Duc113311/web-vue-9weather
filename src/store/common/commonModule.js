@@ -2,10 +2,10 @@ import { httpWeather } from "../../configs/http-weather";
 import { decodeBase64 } from "../../utils/EncoderDecoderUtils";
 
 const state = {
-  titleBackgroundColor: "#ffffff",
-  descriptionColor: "#343434",
-  titleColor: "#000000",
-  textColor: "#000000",
+  titleBackgroundColor: "#0D274C",
+  descriptionColor: "#C7C8C8",
+  titleColor: "#ffffff",
+  textColor: "#CCCEFF",
   lineColor: "#F2F2F2",
   statusAddWidget: true,
 
@@ -312,6 +312,7 @@ const mutations = {
   },
 
   setNumberDataDaily(state, data) {
+    debugger;
     state.objectWidget.listDaily = state.weatherWidget.daily.data.slice(
       0,
       data

@@ -26,6 +26,9 @@ const state = {
   listDaily30Day: [],
 
   suggestionsTop100: [],
+
+  objectWidget: {},
+  weatherWidgetDefault: [],
 };
 
 /**
@@ -206,6 +209,26 @@ const mutations = {
 
     console.log("state.suggestionsTop100", state.suggestionsTop100);
   },
+
+  // Widget
+
+  setWeatherByWidget(state, data) {
+    debugger;
+    const widgetCurrently = JSON.parse(decodeBase64(data));
+    state.weatherWidgetDefault = widgetCurrently;
+
+    state.objectWidget.currently = widgetCurrently.currently;
+
+    state.objectWidget.listDaily = widgetCurrently.daily.data.slice(0, 3);
+    debugger;
+  },
+
+  setNumberDailyWeather(state, data) {
+    state.objectWidget.listDaily = state.weatherWidgetDefault.daily.data.slice(
+      0,
+      data
+    );
+  },
 };
 
 /**
@@ -284,6 +307,24 @@ const actions = {
         .then((response) => {
           if (response.status === 200) {
             commit("setWeather30DayData", response.data);
+            resolve(response.data);
+          } else {
+            reject("Error: API returned non-200 status");
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
+  async getWeatherByWidget({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      httpWeather
+        .get(`api.php?param=${data}`)
+        .then((response) => {
+          if (response.status === 200) {
+            commit("setWeatherByWidget", response.data);
             resolve(response.data);
           } else {
             reject("Error: API returned non-200 status");

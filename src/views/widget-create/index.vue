@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import WidgetPage from "../../components/widget/widget-page";
+import { encodeBase64 } from "@/utils/EncoderDecoderUtils";
 export default {
   components: { WidgetPage },
   name: "create-widget-view",
@@ -20,8 +20,6 @@ export default {
   },
   // bg_ads.png
   mounted() {
-    this.handleDataCurrent();
-
     this.loadDataWidget();
   },
 
@@ -33,28 +31,23 @@ export default {
   },
 
   methods: {
-    ...mapActions("weatherModule", [
-      "getWeatherDataCurrent",
-      "getWeatherWidget",
-    ]),
-
-    async handleDataCurrent() {
-      const keyCurrentValue = localStorage.getItem("keyCurrent");
-      if (keyCurrentValue) {
-        const keyCurrent = JSON.parse(keyCurrentValue);
-        await this.getWeatherDataCurrent(keyCurrent);
-        const weatherCurrentValue = this.currentlyData;
-        if (weatherCurrentValue) {
-          //
-        }
-      }
-    },
+    ...mapActions("weatherModule", ["getWeatherByWidget"]),
 
     async loadDataWidget() {
-      const keyCurrentValue = localStorage.getItem("keyCurrent");
-      if (keyCurrentValue) {
-        const keyCurrent = JSON.parse(keyCurrentValue);
-        await this.getWeatherWidget(keyCurrent);
+      debugger;
+      const locationLatLongValue = localStorage.getItem("locationLatLong");
+      if (locationLatLongValue) {
+        const convertLocation = JSON.parse(locationLatLongValue);
+        const latitudeValue = convertLocation.latitude;
+        const longitudeValue = convertLocation.longitude;
+        const keyLanguageStorage = this.$route.params.language
+          ? this.$route.params.language
+          : this.$i18n.locale;
+        const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitudeValue},${longitudeValue}?lang=${keyLanguageStorage}`;
+
+        const encodeDataWeather = encodeBase64(param);
+
+        await this.getWeatherByWidget(encodeDataWeather);
       }
     },
   },

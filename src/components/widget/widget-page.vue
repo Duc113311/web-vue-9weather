@@ -18,12 +18,12 @@
         </div>
       </div>
       <div class="w-full pl-4 pr-4 pb-4">
-        <div class="flex w-full justify-between p-4">
+        <div class="lg:flex block w-full justify-between p-4">
           <!-- Left -->
-          <div class="w-[50%] flex flex-col gap-4">
+          <div class="lg:w-[50%] flex flex-col gap-4">
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>Location</span>
+                <span>{{ $t("Location") }}</span>
               </div>
               <div class="w-full flex justify-start">
                 <el-select
@@ -34,18 +34,20 @@
                   :filter-method="() => true"
                   no-data-text="No data"
                   @input="handleInput"
+                  @change="onChangeChoose"
                 >
                   <el-option
                     v-for="(item, index) in options"
                     :key="index"
                     :label="item.label"
+                    :value="item"
                   />
                 </el-select>
               </div>
             </div>
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>Sampling</span>
+                <span>{{ $t("Select_template") }}</span>
               </div>
               <div class="w-full flex justify-start">
                 <el-select
@@ -180,7 +182,7 @@
             </div>
           </div>
           <!-- right -->
-          <div class="w-[50%] h-full pl-8 pr-8">
+          <div class="lg:w-[50%] h-full lg:pl-8 lg:pr-8">
             <div class="title-switch">
               <!--  -->
               <div class="w-full text-left txt_regular">
@@ -195,52 +197,58 @@
                 />
               </div>
             </div>
-            <div class="form-widget w-full p-2">
-              <div class="w-full h-full flex justify-center items-center">
+            <!-- Option 1 -->
+            <div
+              v-if="valueSampling === 'option_1'"
+              class="form-widget w-full p-2"
+            >
+              <div
+                v-if="isVisible && renderObjectWidget"
+                :key="reloadKey"
+                class="w-full h-full flex justify-center items-center"
+              >
                 <!--  -->
                 <div
                   :style="{
                     width: valueSliderWidth + 'px',
-                    'background-color': titleBackgroundColor,
+                    background: titleBackgroundColor,
                   }"
-                  class="widget-form-new p-6 text-black overflow-hidden"
+                  class="widget-form-new text-black overflow-hidden"
                 >
                   <!--  -->
-                  <div class="w-full items-center">
+                  <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
                     <!-- Nhiệt độ -->
                     <div class="flex w-full">
-                      <div
-                        class="text-left h-full w-[50%]"
-                        :style="{ color: titleColor }"
-                      >
-                        <p class="temp-ture">
-                          <span class="txt_regular_title_50">{{
-                            convertTemperature(
-                              renderObjectWidget?.currently?.temperature
-                            )
-                          }}</span>
-                          <span class="relative h-full txt_regular_title_30">
-                            <span class="absolute top-0 left-0">°</span>
-                            <span class="absolute bottom-0 left-0">{{
-                              convertUnitTemperature()
-                            }}</span>
-                          </span>
-                        </p>
-                        <a class="txt_regular_city_40" href="">{{
-                          renderObjectWidget.titleName
-                        }}</a>
-                        <p>
-                          <span
-                            >{{ $t("real_feel") }}
-                            {{
+                      <div class="text-left h-full w-auto">
+                        <div :style="{ color: titleColor }">
+                          <p class="temp-ture">
+                            <span class="txt_regular_title_50">{{
                               convertTemperature(
-                                renderObjectWidget?.currently
-                                  ?.apparentTemperature
+                                renderObjectWidget?.currently?.temperature
                               )
-                            }}°</span
-                          >
-                        </p>
-                        <p><span>Moderate rain</span></p>
+                            }}</span>
+                          </p>
+                          <a class="txt_regular_city_40" href="">{{
+                            valueAddressLocation
+                          }}</a>
+                        </div>
+                        <div
+                          class="txt_regular_des"
+                          :style="{ color: descriptionColor }"
+                        >
+                          <p>
+                            <span
+                              >{{ $t("real_feel") }}
+                              {{
+                                convertTemperature(
+                                  renderObjectWidget?.currently
+                                    ?.apparentTemperature
+                                )
+                              }}</span
+                            >
+                          </p>
+                          <p><span>Moderate rain</span></p>
+                        </div>
                       </div>
                       <div class="ml-4 h-full flex items-center pt-4">
                         <img
@@ -257,22 +265,27 @@
                   </div>
                   <!--  -->
                   <div
-                    class="h-[42%] w-full flex items-center justify-center"
+                    class="h-[42%] w-full flex items-center justify-center pb-4 pl-4 pr-4 txt_regular_des"
                     :style="{ color: textColor }"
                   >
                     <div class="w-full">
                       <div
-                        :style="{ 'border-bottom': `1px solid ${lineColor}` }"
+                        :style="{
+                          'border-bottom':
+                            index === renderObjectWidget.listDaily.length - 1
+                              ? 'none'
+                              : `1px solid ${lineColor}`,
+                        }"
                         class="flex justify-between items-center pt-2 pb-2 txt_light_14"
                         v-for="(item, index) in renderObjectWidget?.listDaily"
                         :key="index"
                       >
-                        <div>
+                        <div class="w-[60px]">
                           <span>{{ convertDayWeek(item.time) }}</span>
                         </div>
-                        <div class="flex items-center">
+                        <div class="flex text-right">
                           <img
-                            src="../../assets/images/svg/ic_droplets.svg"
+                            src="../../assets/images/svg_v2/ic_droplet_blue.svg"
                             alt=""
                             width="16"
                           />
@@ -284,19 +297,21 @@
                         </div>
                         <div class="flex items-center gap-1">
                           <span>
-                            {{ convertTemperature(item.temperatureMin) }}°
+                            {{ convertTemperatureNot(item.temperatureMin) }}°
                           </span>
                           <span>
-                            {{ convertTemperature(item.temperatureMax) }}°
+                            {{ convertTemperatureNot(item.temperatureMax) }}°
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="h-[calc(100%-80%)] w-full">
+                  <div
+                    class="h-[calc(100%-80%)] w-full bg-widget pl-4 pr-4 pt-2 pb-2"
+                  >
                     <div
-                      class="w-full flex justify-end items-center h-full gap-1 mt-2"
+                      class="w-full flex justify-end items-center h-full gap-1"
                     >
                       <div class="logoImg"></div>
                     </div>
@@ -304,7 +319,317 @@
                 </div>
                 <!--  -->
               </div>
+              <div
+                v-if="!isVisible && !renderObjectWidget"
+                class="h-[352px] w-full"
+              ></div>
             </div>
+
+            <!-- Option 2 -->
+            <div
+              v-if="valueSampling === 'option_2'"
+              class="form-widget w-full p-2"
+            >
+              <div
+                v-if="isVisible && renderObjectWidget"
+                :key="reloadKey"
+                class="w-full h-full flex justify-center items-center"
+              >
+                <!--  -->
+                <div
+                  :style="{
+                    width: valueSliderWidth + 'px',
+                    background: titleBackgroundColor,
+                  }"
+                  class="widget-form-new text-black overflow-hidden"
+                >
+                  <!--  -->
+                  <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
+                    <div class="w-full text-center text-white pt-2">
+                      <span class="txt_medium_30" href="">{{
+                        valueAddressLocation
+                      }}</span>
+                    </div>
+                    <!-- Nhiệt độ -->
+                    <div class="flex w-full">
+                      <div class="mr-4 h-full flex items-center pt-4">
+                        <img
+                          width="70"
+                          :src="
+                            convertIconCurrently(
+                              renderObjectWidget?.currently?.icon
+                            )
+                          "
+                        />
+                      </div>
+                      <div class="text-left h-full w-auto">
+                        <div :style="{ color: titleColor }">
+                          <p class="temp-ture">
+                            <span class="txt_regular_title_50">{{
+                              convertTemperature(
+                                renderObjectWidget?.currently?.temperature
+                              )
+                            }}</span>
+                          </p>
+                        </div>
+                        <div
+                          class="txt_regular_des"
+                          :style="{ color: descriptionColor }"
+                        >
+                          <p>
+                            <span
+                              >{{ $t("real_feel") }}
+                              {{
+                                convertTemperature(
+                                  renderObjectWidget?.currently
+                                    ?.apparentTemperature
+                                )
+                              }}</span
+                            >
+                          </p>
+                          <p><span>Moderate rain</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+                  <div
+                    class="h-[42%] w-full flex items-center justify-center pb-4 pl-4 pr-4 txt_regular_des"
+                    :style="{ color: textColor }"
+                  >
+                    <div class="w-full">
+                      <div
+                        :style="{
+                          'border-bottom':
+                            index === renderObjectWidget.listDaily.length - 1
+                              ? 'none'
+                              : `1px solid ${lineColor}`,
+                        }"
+                        class="flex justify-between items-center pt-2 pb-2 txt_light_14"
+                        v-for="(item, index) in renderObjectWidget?.listDaily"
+                        :key="index"
+                      >
+                        <div class="w-[60px]">
+                          <span>{{ convertDayWeek(item.time) }}</span>
+                        </div>
+                        <div class="flex text-right">
+                          <img
+                            src="../../assets/images/svg_v2/ic_droplet_blue.svg"
+                            alt=""
+                            width="16"
+                          />
+                          <span>{{ Math.round(item.humidity * 100) }}%</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <img :src="convertIconCurrently(item?.icon)" alt="" />
+                          <img :src="convertIconCurrently(item?.icon)" alt="" />
+                        </div>
+                        <div class="flex items-center gap-1">
+                          <span>
+                            {{ convertTemperatureNot(item.temperatureMin) }}°
+                          </span>
+                          <span>
+                            {{ convertTemperatureNot(item.temperatureMax) }}°
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="h-[calc(100%-80%)] w-full bg-widget pl-4 pr-4 pt-2 pb-2"
+                  >
+                    <div
+                      class="w-full flex justify-end items-center h-full gap-1"
+                    >
+                      <div class="logoImg"></div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+              </div>
+              <div
+                v-if="!isVisible && !renderObjectWidget"
+                class="h-[352px] w-full"
+              ></div>
+            </div>
+
+            <!-- Option 3 -->
+            <div
+              v-if="valueSampling === 'option_3'"
+              class="form-widget w-full p-2"
+            >
+              <div
+                v-if="isVisible && renderObjectWidget"
+                :key="reloadKey"
+                class="w-full h-full flex justify-center items-center"
+              >
+                <!--  -->
+                <div
+                  :style="{
+                    width: valueSliderWidth + 'px',
+                    background: titleBackgroundColor,
+                  }"
+                  class="widget-form-new text-black overflow-hidden"
+                >
+                  <!--  -->
+                  <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
+                    <div class="w-full text-left text-white pt-2">
+                      <span class="txt_medium_30" href="">{{
+                        valueAddressLocation
+                      }}</span>
+                    </div>
+                    <!-- Nhiệt độ -->
+                    <div class="flex w-full">
+                      <div class="mr-4 h-full flex items-center pt-4">
+                        <img
+                          width="70"
+                          :src="
+                            convertIconCurrently(
+                              renderObjectWidget?.currently?.icon
+                            )
+                          "
+                        />
+                      </div>
+                      <div class="text-left h-full w-auto">
+                        <div :style="{ color: titleColor }">
+                          <p class="temp-ture">
+                            <span class="txt_regular_title_50">{{
+                              convertTemperature(
+                                renderObjectWidget?.currently?.temperature
+                              )
+                            }}</span>
+                          </p>
+                        </div>
+                        <div
+                          class="txt_regular_des"
+                          :style="{ color: descriptionColor }"
+                        >
+                          <p>
+                            <span
+                              >{{ $t("real_feel") }}
+                              {{
+                                convertTemperature(
+                                  renderObjectWidget?.currently
+                                    ?.apparentTemperature
+                                )
+                              }}</span
+                            >
+                          </p>
+                          <p><span>Moderate rain</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+
+                  <div
+                    class="h-[calc(100%-80%)] w-full bg-widget pl-4 pr-4 pt-2 pb-2"
+                  >
+                    <div
+                      class="w-full flex justify-end items-center h-full gap-1"
+                    >
+                      <div class="logoImg"></div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+              </div>
+              <div
+                v-if="!isVisible && !renderObjectWidget"
+                class="h-[352px] w-full"
+              ></div>
+            </div>
+
+            <!-- Option 4 -->
+
+            <div
+              v-if="valueSampling === 'option_4'"
+              class="form-widget w-full p-2"
+            >
+              <div
+                v-if="isVisible && renderObjectWidget"
+                :key="reloadKey"
+                class="w-full h-full flex justify-center items-center"
+              >
+                <!--  -->
+                <div
+                  :style="{
+                    width: valueSliderWidth + 'px',
+                    background: titleBackgroundColor,
+                  }"
+                  class="widget-form-new text-black overflow-hidden"
+                >
+                  <!--  -->
+                  <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
+                    <div class="w-full text-left text-white pt-2">
+                      <span class="txt_medium_30" href="">{{
+                        valueAddressLocation
+                      }}</span>
+                    </div>
+                    <!-- Nhiệt độ -->
+                    <div class="flex w-full">
+                      <div class="mr-4 h-full flex items-center pt-4">
+                        <img
+                          width="70"
+                          :src="
+                            convertIconCurrently(
+                              renderObjectWidget?.currently?.icon
+                            )
+                          "
+                        />
+                      </div>
+                      <div class="text-left h-full w-auto">
+                        <div :style="{ color: titleColor }">
+                          <p class="temp-ture">
+                            <span class="txt_regular_title_50">{{
+                              convertTemperature(
+                                renderObjectWidget?.currently?.temperature
+                              )
+                            }}</span>
+                          </p>
+                        </div>
+                        <div
+                          class="txt_regular_des"
+                          :style="{ color: descriptionColor }"
+                        >
+                          <p>
+                            <span
+                              >{{ $t("real_feel") }}
+                              {{
+                                convertTemperature(
+                                  renderObjectWidget?.currently
+                                    ?.apparentTemperature
+                                )
+                              }}</span
+                            >
+                          </p>
+                          <p><span>Moderate rain</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+
+                  <div
+                    class="h-[calc(100%-80%)] w-full bg-widget pl-4 pr-4 pt-2 pb-2"
+                  >
+                    <div
+                      class="w-full flex justify-end items-center h-full gap-1"
+                    >
+                      <div class="logoImg"></div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+              </div>
+              <div
+                v-if="!isVisible && !renderObjectWidget"
+                class="h-[352px] w-full"
+              ></div>
+            </div>
+
+            <!--  -->
             <div class="w-full h-[100px] mt-4 bor-form-10">
               <textarea
                 type="textarea"
@@ -350,8 +675,8 @@ import { encodeBase64, urlEncodeString } from "../../utils/EncoderDecoderUtils";
 import {
   getIconHourlyForecastTheme,
   convertDayOfWeek,
-  fahrenheitToCelsius,
-  celsiusToFahrenheit,
+  convertFtoC,
+  convertCtoF,
   codeToFind,
 } from "../../utils/converValue.js";
 export default {
@@ -388,6 +713,10 @@ export default {
       valueSliderWidth: 300,
       color: "#ff0000",
       listAddressVietName: [],
+
+      reloadKey: 0,
+      isVisible: true,
+      valueAddressLocation: "",
     };
   },
 
@@ -406,6 +735,10 @@ export default {
         {
           value: "option_3",
           label: this.$t(`Sample_{number}`, { number: 3 }),
+        },
+        {
+          value: "option_4",
+          label: this.$t(`Sample_{number}`, { number: 4 }),
         },
       ];
     },
@@ -444,37 +777,78 @@ export default {
     },
 
     renderObjectWidget() {
-      return this.$store.state.commonModule.objectWidget;
+      return this.$store.state.weatherModule.objectWidget;
     },
 
     renderCountry() {
+      debugger;
       return this.$store.state.weatherModule.cityCountry;
     },
   },
 
   mounted() {
+    const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+
+    this.valueAddressLocation = retrievedArray.city;
+
     this.onClickCreateWidget();
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setTitleBackgroundColor"]),
-    ...mapMutations([
+    ...mapMutations("commonModule", [
+      "setTitleBackgroundColor",
       "setDescriptionColor",
       "setTitleColor",
       "setTextColor",
       "setLineColor",
-      "setDataWidget",
-      "setWeatherWidget",
       "setNumberDataDaily",
     ]),
+    ...mapMutations("weatherModule", ["setNumberDailyWeather"]),
+
     ...mapActions("commonModule", ["getFormattedAddress", "getWeatherWidget"]),
+    ...mapActions("weatherModule", ["getWeatherByWidget"]),
 
     onChangeSampling(value) {
       debugger;
       this.valueSampling = value;
+
+      if (value === "option_1") {
+        this.setTitleBackgroundColor("#0D274C");
+      }
+      if (value === "option_2") {
+        this.setTitleBackgroundColor(
+          "linear-gradient(102deg, #0b8429 17.75%, #085502 84.8%)"
+        );
+      }
+      if (value === "option_3") {
+        this.setTitleBackgroundColor(
+          "linear-gradient(102deg, #0b8429 17.75%, #085502 84.8%)"
+        );
+      }
+
+      if (value === "option_4") {
+        this.setTitleBackgroundColor(
+          "linear-gradient(102deg, #4f7ffa 17.75%, #335fd1 84.8%)"
+        );
+      }
     },
     onChangeSliderWidth(value) {
       this.valueSliderWidth = value;
+    },
+
+    async onChangeChoose(value) {
+      debugger;
+      this.valueAddressLocation = value.label;
+      const latitudeValue = value.lat;
+      const longitudeValue = value.lng;
+      const keyLanguageStorage = this.$route.params.language
+        ? this.$route.params.language
+        : this.$i18n.locale;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitudeValue},${longitudeValue}?lang=${keyLanguageStorage}`;
+
+      const encodeDataWeather = encodeBase64(param);
+
+      await this.getWeatherByWidget(encodeDataWeather);
     },
 
     async handleInput(event) {
@@ -534,22 +908,18 @@ export default {
     // },
 
     onChangeDescriptionColor(color) {
-      this.descriptionColor = color;
       this.setDescriptionColor(color);
     },
 
     onChangeTitleColor(color) {
-      this.titleColor = color;
       this.setTitleColor(color);
     },
 
     onChangeTextColor(color) {
-      this.textColor = color;
       this.setTextColor(color);
     },
 
     onChangeLineColor(color) {
-      this.lineColor = color;
       this.setLineColor(color);
     },
 
@@ -589,9 +959,24 @@ export default {
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
-        return celsiusToFahrenheit(value);
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
       } else {
-        return fahrenheitToCelsius(value);
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      }
+    },
+
+    convertTemperatureNot(value) {
+      console.log(value);
+
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return convertCtoF(value);
+      } else {
+        return convertFtoC(value);
       }
     },
 
@@ -605,6 +990,13 @@ export default {
     },
 
     onClickCreateWidget() {
+      this.isVisible = false;
+
+      // Tăng key và hiển thị lại component sau 100ms
+      setTimeout(() => {
+        this.reloadKey += 1; // Tăng key để Vue render lại component
+        this.isVisible = true; // Hiển thị lại component
+      }, 100); // Độ trễ 100ms để tạo hiệu ứng "nháy"
       const objectWidget = this.$store.state.commonModule.objectWidget;
       const objectWidgetString = JSON.stringify(objectWidget);
       localStorage.setItem("objectWidget", objectWidgetString);
@@ -668,13 +1060,13 @@ export default {
       this.valueNumberDay = value;
       switch (value) {
         case "number_5":
-          this.setNumberDataDaily(5);
+          this.setNumberDailyWeather(5);
           break;
         case "number_7":
-          this.setNumberDataDaily(7);
+          this.setNumberDailyWeather(7);
           break;
         default:
-          this.setNumberDataDaily(3);
+          this.setNumberDailyWeather(3);
           break;
       }
     },
@@ -725,10 +1117,14 @@ export default {
 .textarea-type:focus-visible {
   border: none;
 }
+
+.bg-widget {
+  background-color: #dfecff;
+}
 .logoImg {
-  background-image: url(../../assets/images/svg/logo_n_widget.svg);
+  background-image: url(../../assets/images/svg/logo_new.svg);
   width: 125px;
-  height: 40px;
+  height: 25px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
