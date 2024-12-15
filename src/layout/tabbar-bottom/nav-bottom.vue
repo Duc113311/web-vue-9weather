@@ -106,7 +106,7 @@
               }}</span>
             </div>
             <div
-              class="flex items-center cursor-pointer txt_medium_des_18"
+              class="flex items-center cursor-pointer txt_medium_des bg-bth pad-small"
               @click="onClickRechange()"
             >
               <span>{{ $t("rechange") }}</span>
@@ -359,6 +359,8 @@ export default {
 .bg-bth {
   background-color: #e3eefb;
   color: #0d2952;
+  padding: 6px 6px;
+  border-radius: 14px;
 }
 
 .mega-box {

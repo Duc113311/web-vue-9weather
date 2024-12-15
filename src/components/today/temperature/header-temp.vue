@@ -69,7 +69,7 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center">
-          <p>{{ $t("chance_of_rain") }}</p>
+          <p>{{ $t("Rainfall") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <img

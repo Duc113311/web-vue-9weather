@@ -117,7 +117,7 @@
                       alt=""
                       srcset=""
                     />
-                    <p>{{ $t("chance_of_rain") }}</p>
+                    <p>{{ $t("Rainfall") }}</p>
                   </div>
                   <div class="flex items-center">
                     <p>{{ item?.precipProbability * 100 }}%</p>

@@ -100,7 +100,7 @@
                 <p>{{ dailyOneData?.precipProbability * 100 }}%</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
-                <p>{{ $t("chance_of_rain") }}</p>
+                <p>{{ $t("Rainfall") }}</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
                 <p>{{ $t("precipitation") }}:</p>

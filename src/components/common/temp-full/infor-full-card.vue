@@ -94,7 +94,7 @@
             width="24"
             alt=""
           />
-          <p>{{ $t("chance_of_rain") }}</p>
+          <p>{{ $t("Rainfall") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%

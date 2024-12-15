@@ -10,7 +10,7 @@
               width="24"
               alt=""
             />
-            <span>{{ $t("Neighboring_provinces") }}</span>
+            <span>{{ $t("Cities_Provinces") }}</span>
           </div>
           <div
             v-if="

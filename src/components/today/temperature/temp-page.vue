@@ -9,7 +9,7 @@
             width="24"
             alt=""
           />
-          <span>{{ $t("Current_weather_today") }}</span>
+          <span>{{ $t(`{city}_Weather`, { city: wardParam?.city }) }}</span>
         </div>
       </template>
 
@@ -86,6 +86,16 @@ export default {
     indexState() {
       debugger;
       return this.$store.state.commonModule.indexComponent;
+    },
+
+    wardParam() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+      console.log("resultData", resultData);
+
+      return resultData;
     },
   },
 

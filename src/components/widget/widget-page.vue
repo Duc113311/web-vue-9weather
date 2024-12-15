@@ -6,7 +6,7 @@
       </div>
     </div>
     <!-- -->
-    <div class="w-full bg-from mb-10 card">
+    <div class="w-full bg-from mb-6 card">
       <div class="w-full pl-4 pr-4 pt-4 text-left bor-bottom">
         <div class="w-full p-4">
           <div class="txt_regular">
@@ -658,7 +658,7 @@
       </div>
     </div>
     <!-- <div v-html="valueCodeWidget"></div> -->
-    <div class="w-full h-[300px] flex justify-center items-center mb-6 mt-6">
+    <div class="w-full h-[300px] flex justify-center items-center">
       <div class="img-ads bg-ads w-full h-full">
         <!-- Ads -->
       </div>
@@ -1108,14 +1108,6 @@ export default {
   overflow: scroll;
   padding: 0.47rem 0.75rem;
   font-size: 0.8125rem;
-}
-
-.textarea-type:target {
-  border: none;
-}
-
-.textarea-type:focus-visible {
-  border: none;
 }
 
 .bg-widget {

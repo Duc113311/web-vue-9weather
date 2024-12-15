@@ -11,7 +11,7 @@
             />
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
-                $t(`Weather_in_{city}_district`, {
+                $t(`{city}_district_Weather`, {
                   city: convertToLowCase(wardParam?.city),
                 })
               }}</span

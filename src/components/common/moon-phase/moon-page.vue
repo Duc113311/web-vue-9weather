@@ -21,7 +21,7 @@
               <span>{{ moonPhaseName }}</span>
             </div>
             <div class="txt_regular_des_moon_12 pt-1">
-              <p v-html="formattedDate"></p>
+              <p>{{ moonPhaseInfo.dateFull }}</p>
             </div>
             <div class="mt-10">
               <div
@@ -35,7 +35,7 @@
                 class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
               >
                 <p>{{ $t("moonrise") }}:</p>
-                <p>{{ moonPhaseInfo.moonrise }}</p>
+                <p>{{ convertTime(moonPhaseInfo.moonrise) }}</p>
               </div>
               <!--  -->
               <div
@@ -112,6 +112,8 @@ import {
   getWindDirectionEmojiFromDegrees,
   getWindDirectionFromDegrees,
   convertToShortDay,
+  convertTimestampToHoursMinutes12,
+  convertTimestampToHoursMinutes,
 } from "../../../utils/converValue";
 import {
   Illumination,
@@ -164,8 +166,9 @@ export default {
     },
 
     formattedDate() {
-      const [date, time] = this.dateFull.split(" at ");
-      return `${date}<br>At ${time}`;
+      // const [date, time] = this.dateFull.split(" at ");
+      // return `${date}<br>At ${time}`;
+      return this.dateFull;
     },
   },
 
@@ -176,6 +179,20 @@ export default {
   },
 
   methods: {
+    convertTime(val) {
+      const offsetValue =
+        this.$store.state.weatherModule.locationOffset?.offset;
+
+      console.log("offsetValue", offsetValue);
+
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
+      } else {
+        return convertTimestampToHoursMinutes(val, 1, offsetValue);
+      }
+    },
+
     convertTimeDayNight(value) {
       const sunrise = value.sunriseTime;
       const sunset = value.sunsetTime;
@@ -261,15 +278,16 @@ export default {
               resultMoonRise = "--";
             } else {
               resultMoonRise = resultMoonRise.date;
-              const formattedHours = resultMoonRise
-                .getHours()
-                .toString()
-                .padStart(2, "0");
-              const formattedMinutes = resultMoonRise
-                .getMinutes()
-                .toString()
-                .padStart(2, "0");
-              resultMoonRise = `${formattedHours}:${formattedMinutes}`;
+              resultMoonRise = new Date(resultMoonRise).getTime();
+              // const formattedHours = resultMoonRise
+              //   .getHours()
+              //   .toString()
+              //   .padStart(2, "0");
+              // const formattedMinutes = resultMoonRise
+              //   .getMinutes()
+              //   .toString()
+              //   .padStart(2, "0");
+              // resultMoonRise = `${formattedHours}:${formattedMinutes}`;
             }
 
             let resultMoonSet = SearchRiseSet(
@@ -347,9 +365,7 @@ export default {
 
             const dateFull = formatterFull.format(date);
 
-            const formattedDate = date.toLocaleDateString("en-US", {
-              weekday: "short",
-            });
+            const formattedDate = date;
 
             dayData.push({
               date: formattedDate,

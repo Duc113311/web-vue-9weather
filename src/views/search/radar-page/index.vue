@@ -19,7 +19,7 @@
           <!--  -->
           <TempFullCard
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
-            :title="title"
+            :title="titleParam"
           ></TempFullCard>
           <div v-else class="w-full h-[510px]">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -71,7 +71,6 @@ export default {
   data() {
     return {
       overlayValue: "temp",
-      title: this.$t("Current_weather_today"),
     };
   },
 
@@ -82,6 +81,21 @@ export default {
 
     currentlyData() {
       return this.currentlyGetters;
+    },
+
+    wardParam() {
+      debugger;
+
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
+
+    titleParam() {
+      return this.$t(`{city}_Weather`, { city: this.wardParam?.city });
     },
   },
 

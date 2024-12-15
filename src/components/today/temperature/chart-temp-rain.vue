@@ -39,7 +39,7 @@
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>
-            <span class="txt_regular_des">{{ $t("chance_of_rain") }}</span>
+            <span class="txt_regular_des">{{ $t("Rainfall") }}</span>
           </div>
         </div>
       </div>
