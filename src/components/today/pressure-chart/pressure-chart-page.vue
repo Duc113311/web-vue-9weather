@@ -160,7 +160,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 15,
+            padding: 30,
           },
           plugins: {
             legend: {
@@ -210,8 +210,6 @@ export default {
     convertPrecipitation(val) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activePrecipitation_save === "mm") {
-        console.log(convertMillimet(val));
-
         return convertMillimet(val);
       } else {
         return convertMillimetToInch(val);

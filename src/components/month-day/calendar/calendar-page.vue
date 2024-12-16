@@ -69,7 +69,7 @@
 
                       <div class="flex items-center gap-1">
                         <img
-                          src="../../../assets/images/svg/ic_chance_of_rain_24.svg"
+                          src="../../../assets/images/svg_v2/ic_chance_of_rain_24.svg"
                           alt=""
                           class="size-img"
                         />
@@ -127,11 +127,8 @@ export default {
       const placeholders = Array.from({
         length: firstDay === 0 ? 6 : firstDay - 1,
       }).map(() => ({}));
-      console.log("renderCalendar", [...placeholders, ...this.renderCalendar]);
 
       // Kết hợp các ô trống với dữ liệu hiện tại
-
-      console.log("calendar", [...placeholders, ...this.renderCalendar]);
 
       return [...placeholders, ...this.renderCalendar];
       // Trả về mảng đã được điều chỉnh

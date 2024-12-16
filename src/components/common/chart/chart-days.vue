@@ -45,8 +45,8 @@ export default {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       const timestampValue =
         unitSetting.activeTime_save === "12h"
-          ? convertTimestampToHoursMinutes(value.time, 1, offsetValue)
-          : convertTimestampToHoursMinutes12(value.time, 1, offsetValue);
+          ? convertTimestampToHoursMinutes12(value.time, 1, offsetValue)
+          : convertTimestampToHoursMinutes(value.time, 1, offsetValue);
       const iconValue = getIconHourlyForecastTheme(value.icon);
       return {
         timestampValue: timestampValue,

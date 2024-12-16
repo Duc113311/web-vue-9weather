@@ -139,7 +139,6 @@ export default {
       const resultData = retrievedArray
         ? retrievedArray
         : this.breadcumsObjectGetters;
-      console.log("resultData", resultData);
 
       return resultData;
     },
@@ -148,11 +147,9 @@ export default {
       debugger;
 
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      console.log("retrievedArray", retrievedArray);
 
       if (retrievedArray) {
         if (retrievedArray?.country_key?.toLowerCase() === "vn") {
-          console.log("listCityAllGetters", this.listCityAllGetters);
           const cityKey = retrievedArray.city_key;
           debugger;
           const findData = this.listCityAllGetters.find(

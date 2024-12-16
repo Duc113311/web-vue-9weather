@@ -17,6 +17,7 @@
 import {
   convertTimestampNow12,
   convertTimestampToHoursMinutes,
+  convertTimestampToHoursMinutes12,
   getIconHourlyForecastTheme,
   getWindDirectionEmojiFromDegrees,
 } from "@/utils/converValue";
@@ -48,8 +49,8 @@ export default {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       const timestampValue =
         unitSetting.activeTime_save === "12h"
-          ? convertTimestampToHoursMinutes(value.time, 1, offsetValue)
-          : convertTimestampNow12(value.time, 1, offsetValue);
+          ? convertTimestampToHoursMinutes12(value.time, 1, offsetValue)
+          : convertTimestampToHoursMinutes(value.time, 1, offsetValue);
       return timestampValue;
     },
   },

@@ -879,8 +879,6 @@ export default {
       }
 
       // Kiểm tra DOM sau khi render
-
-      console.log("this.options", this.options);
     },
 
     // Khi giá trị thay đổi (chọn từ danh sách hoặc gõ xong)
@@ -955,8 +953,6 @@ export default {
     },
 
     convertTemperature(value) {
-      console.log(value);
-
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
         return (
@@ -970,8 +966,6 @@ export default {
     },
 
     convertTemperatureNot(value) {
-      console.log(value);
-
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
         return convertCtoF(value);

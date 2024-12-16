@@ -154,18 +154,13 @@ export default {
     },
 
     breadcumsObject() {
-      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-
-      console.log("retrievedArray", retrievedArray);
 
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
 
     objectCity() {
       const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
-      console.log("exist-weather", this.objectCityByLocationGetters);
-      console.log("retrievedArray", retrievedArray);
 
       return this.objectCityByLocationGetters.length !== 0
         ? this.objectCityByLocationGetters
@@ -206,14 +201,11 @@ export default {
       const normalizedStr = str
         .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
-      console.log("normalizedStr", normalizedStr);
       // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
       const resultConvert = normalizedStr
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
-
-      console.log("resultConvert", resultConvert);
 
       return resultConvert;
     },
@@ -433,6 +425,7 @@ export default {
 }
 
 .mega-box .region ul li:hover {
-  background-color: aqua;
+  background-color: #0e2950;
+  color: white;
 }
 </style>

@@ -10,8 +10,6 @@ function loadCommonMessages() {
     commonMessages[lang] = commonLocales(key); // Thêm tệp ngôn ngữ vào commonMessages
   });
 
-  console.log("commonMessages", commonMessages);
-
   return commonMessages;
 }
 
@@ -32,8 +30,6 @@ function loadVietnamMessages() {
     }
   });
 
-  console.log("vietnamMessages", vietnamMessages);
-
   return vietnamMessages;
 }
 // Kết hợp cả hai tệp ngôn ngữ
@@ -47,8 +43,6 @@ const messages = {
     ...loadCommonMessages().vi,
   },
 };
-
-console.log("messages-11", messages);
 
 // const messages = {
 //   en: {
@@ -73,7 +67,5 @@ const i18n = createI18n({
   fallbackLocale: defaultLanguage,
   messages,
 });
-
-console.log("i18n-11", i18n);
 
 export default i18n;

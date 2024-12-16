@@ -148,7 +148,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 15,
+            padding: 30,
           },
           plugins: {
             legend: {

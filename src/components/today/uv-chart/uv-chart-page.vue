@@ -16,7 +16,7 @@
               class="chart-container w-[89rem] mb-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="260" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="240" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -92,8 +92,6 @@ export default {
 
     listUvIndexData() {
       const unitSetting = this.objectSetting;
-
-      console.log("unitSetting", unitSetting);
 
       return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
     },

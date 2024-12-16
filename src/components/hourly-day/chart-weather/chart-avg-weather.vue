@@ -177,7 +177,6 @@ export default {
       const resultData = retrievedArray
         ? retrievedArray
         : this.breadcumsObjectGetters;
-      console.log("resultData", resultData);
 
       return resultData;
     },

@@ -945,7 +945,6 @@ export function getAQIColor(aqi) {
 export function getAirSummaryName(value) {
   value = parseInt(value);
 
-  console.log("i18n-value", i18n);
 
   if (value <= 50) {
     return i18n.global.t("Good");

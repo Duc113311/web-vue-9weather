@@ -97,11 +97,7 @@ export default {
       const iframe = this.$el.querySelector("iframe");
       if (iframe) {
         if (!document.fullscreenElement) {
-          iframe.requestFullscreen().catch((err) => {
-            console.log(
-              `Error attempting to enable fullscreen: ${err.message}`
-            );
-          });
+          iframe.requestFullscreen().catch((err) => {});
         } else {
           document.exitFullscreen();
         }

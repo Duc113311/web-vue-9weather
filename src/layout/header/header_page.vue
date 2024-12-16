@@ -778,8 +778,6 @@ export default {
         }
       }
 
-      console.log("item-search", item);
-
       window.location.reload();
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
@@ -1010,7 +1008,6 @@ export default {
       const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
       debugger;
 
-      console.log("responsive", responsive.data);
       // Xét giá trị để lưu Recent
       const dataResponsive = responsive.data.address;
 
@@ -1035,8 +1032,6 @@ export default {
       debugger;
       localStorage.setItem("objectBread", JSON.stringify(objectPosition));
       this.setBreadcumsAllowLocation(objectPosition);
-
-      console.log("responsive.data", responsive.data);
 
       this.setCityWeather(objectPosition);
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;

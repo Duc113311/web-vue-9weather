@@ -124,7 +124,6 @@ export default {
             `Failed to fetch data: ${response.status} ${response.statusText}`
           );
         const data = await response.json(); // Parse JSON data
-        console.log("data", data);
         this.provinceData = data;
         this.setObjectCityByLocation(this.provinceData);
       } catch (error) {
@@ -146,9 +145,7 @@ export default {
 
         provinces.push(provinceData);
       });
-      console.log("provinces", provinces);
       this.setListDetailCityAll(provinces);
-      console.log("provincesData", provincesData);
     },
 
     async handleLocationWorld(dataValue) {
@@ -156,7 +153,6 @@ export default {
       let longitude = dataValue.longitude;
 
       const paramsRouter = this.$route.params;
-      console.log(paramsRouter);
       debugger;
 
       if (Object.keys(paramsRouter).length === 0) {
@@ -355,7 +351,6 @@ export default {
       const responsive = await axios.get(url); // Lấy thành phố và quốc gia theo map
       debugger;
 
-      console.log("responsive", responsive.data);
       // Xét giá trị để lưu Recent
       const dataResponsive = responsive.data.address;
 
@@ -380,8 +375,6 @@ export default {
       debugger;
       localStorage.setItem("objectBread", JSON.stringify(objectPosition));
       this.setBreadcumsAllowLocation(objectPosition);
-
-      console.log("responsive.data", responsive.data);
 
       this.setCityWeather(objectPosition);
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
@@ -415,11 +408,9 @@ export default {
         const codeLocation = encodeBase64(value);
         await this.getWeatherDataIp(codeLocation).then(async (data) => {
           const valueNew = decodeBase64(data);
-          console.log("valueNew", valueNew);
           debugger;
           // API Lấy vị trí
           await this.getIpLocation(valueNew).then(async (data) => {
-            console.log("data-loc", data);
             // Xét Breadcum
             debugger;
 

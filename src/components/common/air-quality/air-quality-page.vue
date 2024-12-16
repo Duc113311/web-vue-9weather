@@ -127,7 +127,6 @@ export default {
         const airObject = decodeBase64(storageAir);
 
         const decodeAirObject = JSON.parse(airObject);
-        console.log("decodeAirObject", decodeAirObject);
 
         return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
       }

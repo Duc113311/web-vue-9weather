@@ -178,8 +178,6 @@ export default {
       const offsetValue =
         this.$store.state.weatherModule.locationOffset?.offset;
 
-      console.log("offsetValue", offsetValue);
-
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
         return convertTimestampToHoursMinutes12(val, 1, offsetValue);

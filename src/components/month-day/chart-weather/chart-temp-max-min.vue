@@ -45,7 +45,6 @@ export default {
 
   computed: {
     paramHourly() {
-      console.log("hourly24h", this.$store.state.weatherModule.listDaily30Day);
       return this.$store.state.weatherModule.listDaily30Day;
     },
 
@@ -56,8 +55,6 @@ export default {
     listTemperatureDataMax() {
       const unitSetting = this.objectSetting;
 
-      console.log("unitSetting", unitSetting);
-
       return this.paramHourly.map((element) =>
         unitSetting.activeTemperature_save === "f"
           ? convertCtoF(element.temperatureMax)
@@ -67,8 +64,6 @@ export default {
 
     listTemperatureDataMin() {
       const unitSetting = this.objectSetting;
-
-      console.log("unitSetting", unitSetting);
 
       return this.paramHourly.map((element) =>
         unitSetting.activeTemperature_save === "f"

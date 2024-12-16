@@ -32,7 +32,7 @@
               srcset=""
             />
             <span>{{
-              renderToCelsius(dailyOneDataRender?.apparentTemperatureMin)
+              renderToCelsius(dailyOneDataRender?.temperatureMin)
             }}</span>
           </div>
 
@@ -43,7 +43,7 @@
               srcset=""
             />
             <span>
-              {{ renderToCelsius(dailyOneDataRender?.apparentTemperatureMax) }}
+              {{ renderToCelsius(dailyOneDataRender?.temperatureMax) }}
             </span>
           </div>
         </div>
@@ -126,6 +126,8 @@ export default {
     },
 
     dailyOneDataRender() {
+      console.log("this.dailyOneData;", this.dailyOneData);
+
       return this.dailyOneData;
     },
   },

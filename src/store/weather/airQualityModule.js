@@ -36,8 +36,6 @@ const mutations = {
 
     const newDataAir = JSON.parse(decodeBase64(data));
 
-    console.log("newDataAir", newDataAir);
-
     state.airObject = newDataAir;
   },
 

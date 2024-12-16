@@ -45,7 +45,6 @@ export default {
 
   computed: {
     paramHourly() {
-      console.log("hourly24h", this.$store.state.weatherModule.hourly24h);
       return this.$store.state.weatherModule.hourly24h;
     },
 
@@ -55,8 +54,6 @@ export default {
 
     listTemperatureData() {
       const unitSetting = this.objectSetting;
-
-      console.log("unitSetting", unitSetting);
 
       return this.paramHourly.map((element) =>
         unitSetting.activeTemperature_save === "f"
@@ -130,7 +127,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 15,
+            padding: 30,
           },
           plugins: {
             legend: {

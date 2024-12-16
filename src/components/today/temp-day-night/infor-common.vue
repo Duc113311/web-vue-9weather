@@ -105,8 +105,6 @@ export default {
     ...mapGetters("weatherModule", ["currentlyGetters"]),
 
     currentlyData() {
-      console.log("currentlyGetters", this.currentlyGetters);
-
       return this.currentlyGetters;
     },
     dataDayNightRender() {
@@ -136,7 +134,6 @@ export default {
             valueData.maxTempDataNight?.temperature) /
           2;
       }
-      console.log("tempAvg", tempAvg);
 
       return tempAvg;
     },

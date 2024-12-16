@@ -8,7 +8,13 @@
   font-weight: 700; /* Corresponds to Bold */
   line-height: 1.5; /* Khoảng cách giữa các dòng */
 }
-
+.txt_bold_16 {
+  font-size: 14px;
+  font-family: "Helvetica Neue", sans-serif;
+  letter-spacing: 0.5px; /* Khoảng cách giữa các ký tự */
+  font-weight: 600; /* Corresponds to Bold */
+  line-height: 1.5; /* Khoảng cách giữa các dòng */
+}
 .txt_medium {
   font-size: 14px;
   font-family: "Helvetica Neue", sans-serif;
@@ -66,7 +72,7 @@
 }
 
 .txt_regular_des_moon {
-  font-size: 10px; /* Kích thước chữ mặc định */
+  font-size: 12px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 11.5px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */

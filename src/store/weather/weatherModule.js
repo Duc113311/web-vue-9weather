@@ -111,7 +111,6 @@ const mutations = {
     state.newArray = [];
     for (let index = 0; index < addressResult.length; index++) {
       const element = addressResult[index];
-      console.log("element-search", element);
 
       // const lastElement =
       //   element.address_components[element.address_components.length - 1];
@@ -210,8 +209,6 @@ const mutations = {
 
   setDataTop100City(state, data) {
     state.suggestionsTop100 = data;
-
-    console.log("state.suggestionsTop100", state.suggestionsTop100);
   },
 
   // Widget

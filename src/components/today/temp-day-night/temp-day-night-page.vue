@@ -121,8 +121,6 @@ export default {
 
       //
 
-      console.log("objectTemp", objectTemp);
-
       return objectTemp;
     },
   },

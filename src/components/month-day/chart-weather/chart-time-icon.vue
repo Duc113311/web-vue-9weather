@@ -29,8 +29,6 @@ export default {
   computed: {
     ...mapGetters("weatherModule", ["listDaily30DayGetters"]),
     paramHourly() {
-      console.log("this.listDaily30DayGetters", this.listDaily30DayGetters);
-
       return this.listDaily30DayGetters;
     },
   },
@@ -44,11 +42,7 @@ export default {
       return day;
     },
     renderHourly(value) {
-      console.log("value.time", value.time);
-
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-
-      console.log("offsetValue", offsetValue);
 
       const timestampValue = convertDayOfWeek(value.time);
       const iconValue = getIconHourlyForecastTheme(value.icon);

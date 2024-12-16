@@ -144,8 +144,6 @@ export default {
   computed: {
     ...mapGetters("weatherModule", ["currentlyGetters"]),
     currentlyData() {
-      console.log("currentlyGetters", this.currentlyGetters);
-
       return this.currentlyGetters;
     },
     progressColor() {
@@ -157,8 +155,6 @@ export default {
 
   methods: {
     convertUvIndexName(val) {
-      console.log(val);
-
       return getUvSummaryName(val);
     },
 

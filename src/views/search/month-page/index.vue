@@ -55,11 +55,12 @@
       <div class="header-b lg:flex w-full gap-4 h-full">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
-          <ItemTime24h
+
+          <ItemTime30Day
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
-          ></ItemTime24h>
+          ></ItemTime30Day>
           <div v-else class="w-full h-full mt-6">
-            <SkeletonLoader class="w-[820px] h-[960px]"> </SkeletonLoader>
+            <SkeletonLoader class="w-[700px] h-[960px]"> </SkeletonLoader>
           </div>
         </div>
 
@@ -129,9 +130,9 @@ import SunPage from "@/components/common/sun/sun-page.vue";
 import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
 import UvPage from "@/components/common/uv-index/uv-page.vue";
 import ChartAvgWeather from "@/components/hourly-day/chart-weather/chart-avg-weather.vue";
-import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24h.vue";
 import CalendarPage from "@/components/month-day/calendar/calendar-page.vue";
 import ChartMonthPage from "@/components/month-day/chart-weather/chart-month-page.vue";
+import ItemTime30Day from "@/components/month-day/item-weather/item-time-30-day.vue";
 import ListCountryPage from "@/components/today/country/list-country-page.vue";
 import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
@@ -147,7 +148,7 @@ export default {
     TempFullCard,
     ChartMonthPage,
     RadarPage,
-    ItemTime24h,
+    ItemTime30Day,
     SunPage,
     MoonPage,
     UvPage,

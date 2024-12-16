@@ -130,7 +130,6 @@ const getters = {
 
 const mutations = {
   setObjectCityByLocation(state, data) {
-    console.log("objectCityByLocation", data);
     sessionStorage.setItem("dataCityLog", JSON.stringify(data));
 
     state.objectCityByLocation = data;
@@ -295,9 +294,6 @@ const mutations = {
     }
     const weatherData = JSON.parse(jsonValue);
     if (weatherData) {
-      debugger;
-      console.log("weatherData-widget", weatherData.results[0]);
-
       const weatherDataConvert = weatherData.results[0];
       (state.weatherWidgetOption.label =
         weatherDataConvert.formatted_address).trim(),

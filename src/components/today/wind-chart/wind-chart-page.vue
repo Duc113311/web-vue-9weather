@@ -90,8 +90,6 @@ export default {
     listWindSpeedData() {
       const unitSetting = this.objectSetting;
 
-      console.log("unitSetting", unitSetting);
-
       return this.generateSeriesData(this.listHourly);
     },
   },
@@ -159,7 +157,9 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-
+          layout: {
+            padding: 30,
+          },
           plugins: {
             legend: {
               display: false,

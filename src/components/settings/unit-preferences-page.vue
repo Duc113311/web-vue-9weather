@@ -292,11 +292,6 @@ export default {
 
   computed: {
     renderUnitSetting() {
-      console.log(
-        "objectSetting",
-        this.$store.state.commonModule.objectSetting
-      );
-
       return this.$store.state.commonModule.objectSetting;
     },
   },
@@ -354,11 +349,6 @@ export default {
       this.successUnit();
       // this.$router.go();
       this.setIndexComponent(this.indexKey++);
-
-      console.log(
-        "objectSetting",
-        this.$store.state.commonModule.objectSetting
-      );
 
       this.setObjectSettingSaveDefault(this.renderUnitSetting);
 

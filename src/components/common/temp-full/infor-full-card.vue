@@ -24,7 +24,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_Temp.svg"
+            src="../../../assets/images/svg_v2/ic_Temp_db.svg"
             width="24"
             alt=""
           />
@@ -62,7 +62,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_UV_index.svg"
+            src="../../../assets/images/svg_v2/ic_UV_index_db.svg"
             width="24"
             alt=""
           />
@@ -89,7 +89,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_precititation.svg"
+            src="../../../assets/images/svg_v2/ic_Precititation_db.svg"
             width="24"
             alt=""
           />
@@ -160,7 +160,6 @@ export default {
         const airObject = decodeBase64(storageAir);
 
         const decodeAirObject = JSON.parse(airObject);
-        console.log("decodeAirObject", decodeAirObject);
 
         return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
       }

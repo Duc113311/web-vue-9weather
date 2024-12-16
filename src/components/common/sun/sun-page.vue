@@ -82,10 +82,6 @@ export default {
     timeHourly() {
       const timeValue = this.$store.state.weatherModule.currently;
 
-      console.log(
-        "timezone",
-        Math.round((convertTimeSun(timeValue.time, 0) * 100) / 24)
-      );
       return Math.round((convertTimeSun(timeValue.time, 0) * 100) / 24);
     },
   },
@@ -100,8 +96,6 @@ export default {
     convertTime(val) {
       const offsetValue =
         this.$store.state.weatherModule.locationOffset?.offset;
-
-      console.log("offsetValue", offsetValue);
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
@@ -209,8 +203,6 @@ export default {
       number
     ) {
       const posIndex = Math.floor((sunPosY.length * percent) / 100);
-
-      console.log("posIndex", posIndex);
 
       const posX = sunPosX[posIndex];
       const posY = sunPosY[posIndex];

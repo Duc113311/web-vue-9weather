@@ -52,11 +52,6 @@ export default {
 
   computed: {
     paramHourly() {
-      console.log(
-        "listDaily30Day",
-        this.$store.state.weatherModule.listDaily30Day
-      );
-
       return this.$store.state.weatherModule.listDaily30Day;
     },
 

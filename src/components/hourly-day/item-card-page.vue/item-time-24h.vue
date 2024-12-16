@@ -23,11 +23,10 @@
               <!--  -->
               <div class="flex items-center">
                 <p class="w-[100px] text-left">
-                  <span class="txt_medium">
+                  <span>
                     {{ convertTime(item?.time) }}
                   </span>
                 </p>
-
                 <p>
                   {{
                     convertCapitalizeWords(
@@ -107,7 +106,7 @@
                     <p class="txt_regular_des">{{ $t("real_feel") }}</p>
                   </div>
                   <div class="flex items-center">
-                    <p>{{ renderToCelsius(item?.temperature) }}</p>
+                    <p>{{ renderToCelsius(item?.apparentTemperature) }}</p>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
@@ -340,6 +339,8 @@ export default {
     ...mapGetters("airQualityModule", ["airObjectGetters"]),
 
     hourly24hGettersData() {
+      console.log("this.hourly24hGetters", this.hourly24hGetters);
+
       return this.hourly24hGetters;
     },
 
@@ -362,7 +363,6 @@ export default {
       const resultData = retrievedArray
         ? retrievedArray
         : this.breadcumsObjectGetters;
-      console.log("resultData", resultData);
 
       return resultData;
     },
@@ -373,7 +373,6 @@ export default {
         const airObject = decodeBase64(storageAir);
 
         const decodeAirObject = JSON.parse(airObject);
-        console.log("decodeAirObject", decodeAirObject);
 
         return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
       }
@@ -431,15 +430,13 @@ export default {
     },
 
     convertTime(val) {
-      console.log("timestamp", val);
-
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
-      } else {
         return convertTimestampToHoursMinutes(val, 1, offsetValue);
+      } else {
+        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
       }
     },
 
@@ -546,8 +543,6 @@ export default {
     },
 
     convertUvIndexName(val) {
-      console.log(val);
-
       return getUvSummaryName(val);
     },
 

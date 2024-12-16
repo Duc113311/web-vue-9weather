@@ -94,10 +94,7 @@ export default {
     },
 
     breadcumsObject() {
-      console.log("this.breadcumsObjectGetters", this.breadcumsObjectGetters);
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-
-      console.log("retrievedArray", retrievedArray);
 
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
