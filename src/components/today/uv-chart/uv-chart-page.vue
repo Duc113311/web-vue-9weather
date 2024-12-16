@@ -13,10 +13,10 @@
 
             <!-- Chart -->
             <div
-              class="chart-container w-[89rem]"
+              class="chart-container w-[89rem] mb-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="280" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="260" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -154,20 +154,20 @@ export default {
               pointBackgroundColor: "#ffffff",
               borderWidth: 1,
               pointBorderColor: "#C27021",
-              pointRadius: 5,
+              pointRadius: 10,
               backgroundColor: gradient,
               fill: true,
               data: displayData,
               pointHoverRadius: 8, // Tăng kích thước khi hover
+              borderRadius: 10,
+              barThickness: 30,
             },
           ],
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          layout: {
-            padding: 15,
-          },
+
           plugins: {
             legend: {
               display: false,

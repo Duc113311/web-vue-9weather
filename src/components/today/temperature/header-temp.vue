@@ -7,10 +7,9 @@
       </h2>
       <div class="txt_regular">
         {{
-          currentlyDataRender?.summary
-            ? currentlyDataRender.summary.charAt(0).toUpperCase() +
-              currentlyDataRender.summary.slice(1)
-            : "No summary available"
+          convertCapitalizeWords(
+            $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+          )
         }}
       </div>
       <div class="txt_regular_des">
@@ -56,7 +55,7 @@
         </div>
         <div class="icon-c flex justify-center p-4">
           <img
-            src="../../../assets/images/svg_v2/ic_precititation.svg"
+            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
             width="24"
           />
         </div>
@@ -69,11 +68,11 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center">
-          <p>{{ $t("Rainfall") }}</p>
+          <p>{{ $t("Chance_of_rain") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <img
-            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
+            src="../../../assets/images/svg_v2/ic_precititation.svg"
             width="24"
           />
         </div>
@@ -99,6 +98,7 @@ import {
   convertFtoC,
   convertMillimet,
   convertMillimetToInch,
+  capitalizeWords,
 } from "@/utils/converValue";
 
 export default {
@@ -131,6 +131,9 @@ export default {
   },
 
   methods: {
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
     renderToCelsius(value) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {

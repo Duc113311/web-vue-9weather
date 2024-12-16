@@ -1,6 +1,6 @@
 import axios from "axios";
 
-//API_IP_FIND
+//API_IP_FIND   https://ipfind.co
 export const httpIpFind = axios.create({
   baseURL: `/ipfind`,
   headers: {

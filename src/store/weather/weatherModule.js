@@ -62,6 +62,10 @@ const getters = {
   suggestionsTop100Getters(state) {
     return state.suggestionsTop100;
   },
+
+  listDaily30DayGetters(state) {
+    return state.listDaily30Day;
+  },
 };
 
 /**

@@ -11,10 +11,10 @@
           <div>
             <ChartDays></ChartDays>
             <div
-              class="chart-container w-[89rem] pt-8"
+              class="chart-container w-[89rem]"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="250" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -58,8 +58,14 @@ Chart.register(
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {
   codeToFind,
+  convertHpaToAtm,
+  convertHpaToInHg,
+  convertHpaToKpa,
+  convertHpaToMbar,
+  convertHpaToMmHg,
   convertMillimet,
   convertMillimetToInch,
+  formatHpa,
 } from "@/utils/converValue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
 
@@ -85,28 +91,8 @@ export default {
       return this.$store.state.commonModule.objectSettingSave;
     },
 
-    listPrecipIntensity() {
-      const unitSetting = this.objectSetting;
-
-      console.log("unitSetting", unitSetting);
-
-      console.log("this.listHourly", this.listHourly);
-
-      return this.listHourly.map((element) =>
-        Math.round(this.convertPrecipitation(element.precipIntensity))
-      );
-    },
-
-    listPrecipProbability() {
-      const unitSetting = this.objectSetting;
-
-      console.log("unitSetting", unitSetting);
-
-      console.log("this.listHourly", this.listHourly);
-
-      return this.listHourly.map((element) =>
-        Math.round(element.precipProbability * 100)
-      );
+    listPressure() {
+      return this.generateSeriesData(this.listHourly);
     },
   },
 
@@ -151,26 +137,21 @@ export default {
       gradient.addColorStop(0, "#00E1FF"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "#00E1FF"); // Màu dưới (#F5D400 với độ mờ 10%)
 
-      const displayData = this.listPrecipProbability.map((value) =>
-        value === 0.0 ? 0.5 : value
-      );
-      const unitSetting = this.$store.state.commonModule.objectSettingSave;
-
       this.chartInstance = new Chart(ctx, {
-        type: "bar",
+        type: "line",
         data: {
           labels: [...Array(24).keys()].map((i) => i + 1),
           datasets: [
             {
-              label: "Precipitation",
+              label: "Pressure",
               borderColor: "#FADB38",
               pointBackgroundColor: "#ffffff",
               borderWidth: 1,
               pointBorderColor: "#C27021",
-              pointRadius: 5,
+              pointRadius: 3,
               backgroundColor: gradient,
               fill: true,
-              data: displayData,
+              data: this.listPressure,
               pointHoverRadius: 8, // Tăng kích thước khi hover
             },
           ],
@@ -178,10 +159,13 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-
+          layout: {
+            padding: 15,
+          },
           plugins: {
             legend: {
               display: false,
+              position: "bottom",
             },
             tooltip: {
               enabled: true,
@@ -195,9 +179,7 @@ export default {
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return this.listPrecipIntensity[context.dataIndex] === 0
-                  ? "0 " + codeToFind(unitSetting.activePrecipitation_save)
-                  : value + codeToFind(unitSetting.activePrecipitation_save);
+                return `${value}`;
               },
             },
           },
@@ -212,7 +194,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 110,
+              max: 1900,
             },
           },
           elements: {
@@ -234,6 +216,31 @@ export default {
       } else {
         return convertMillimetToInch(val);
       }
+    },
+
+    generateSeriesData(data) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return data.map((item) => {
+        if (unitSetting.activePressure_save === "hPa") {
+          return formatHpa(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "mmHg") {
+          return convertHpaToMmHg(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "atm") {
+          return convertHpaToAtm(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "inHg") {
+          return convertHpaToInHg(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "mBar") {
+          return convertHpaToMbar(item?.pressure);
+        }
+        if (unitSetting.activePressure_save === "kPa") {
+          return convertHpaToKpa(item?.pressure);
+        }
+      });
     },
   },
 };

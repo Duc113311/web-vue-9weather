@@ -12,7 +12,11 @@
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
                 $t(`{city}_district_Weather`, {
-                  city: convertToLowCase(wardParam?.city),
+                  city: $t(
+                    `city.city_${languageParam}.${convertToLowCase(
+                      wardParam?.city_key
+                    )}`
+                  ),
                 })
               }}</span
             >
@@ -37,7 +41,9 @@
               this.wardParam?.country_key?.toLowerCase() === 'vn'
             "
           >
-            <span class="txt_regular_des_12">{{ $t("See_more") }}</span>
+            <span class="txt_regular_des_12 underline decoration-white">{{
+              $t("See_more")
+            }}</span>
           </div>
         </div>
       </template>

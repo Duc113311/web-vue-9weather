@@ -21,7 +21,7 @@
               <span>{{ moonPhaseName }}</span>
             </div>
             <div class="txt_regular_des_moon_12 pt-1">
-              <p>{{ moonPhaseInfo.dateFull }}</p>
+              <p>{{ dateFull }}</p>
             </div>
             <div class="mt-10">
               <div
@@ -42,7 +42,7 @@
                 class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
               >
                 <p>{{ $t("next_full_moon") }}:</p>
-                <p>{{ moonPhaseInfo.nextFullMoon }}</p>
+                <p>{{ moonPhaseInfo.nextFullMoon }} {{ $t("days") }}</p>
               </div>
             </div>
           </div>
@@ -114,6 +114,7 @@ import {
   convertToShortDay,
   convertTimestampToHoursMinutes12,
   convertTimestampToHoursMinutes,
+  getFormattedCurrentDate,
 } from "../../../utils/converValue";
 import {
   Illumination,
@@ -138,15 +139,15 @@ export default {
     return {
       numberOfSubChildren: 24,
       illuminate: 50,
-      moonPhaseName: "Full Moon",
-      dateFull: "Friday, August 2, 2024 06:00",
+      moonPhaseName: this.$t("Full_Moon"),
+      dateFull: "Monday, December 16, 2024 at 12:00 AM",
       rotationDegrees: 0,
       moonPhaseInfo: {
         moonPhaseName: "Waning Crescent",
         illumination: "5.57%",
         moonset: "23:23",
         moonrise: "--",
-        nextFullMoon: "7 days",
+        nextFullMoon: "7",
         nextNewMoon: "21 days",
         distance: "403,253 km",
         altitude: "4.7°",
@@ -163,12 +164,6 @@ export default {
   computed: {
     renderPosition() {
       return this.$store.state.weatherModule.cityCountry;
-    },
-
-    formattedDate() {
-      // const [date, time] = this.dateFull.split(" at ");
-      // return `${date}<br>At ${time}`;
-      return this.dateFull;
     },
   },
 
@@ -389,6 +384,7 @@ export default {
   },
 
   mounted() {
+    this.dateFull = getFormattedCurrentDate();
     this.container = this.$refs.container;
     if (this.renderPosition) {
       this.calculateNext30DaysMoonPhases(this.renderPosition);
@@ -405,6 +401,7 @@ export default {
         const parts = middleSubChild.id.split("-");
         const firstNumber = parseInt(parts[1], 10);
         const secondNumber = parseInt(parts[3], 10);
+        debugger;
         this.illuminate =
           this.next30DaysMoonPhases[firstNumber][secondNumber].illumination;
         this.moonPhaseName =

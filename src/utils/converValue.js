@@ -107,10 +107,22 @@ export function mphToBeaufort(mph) {
  * @returns
  */
 export function getUvSummaryName(value) {
+
+  // Kiểm tra nếu `value` không phải là số
+  if (typeof value !== "number" && typeof value !== "string") {
+    console.error("Giá trị không hợp lệ (không phải số hoặc chuỗi):", value);
+    return "Unknown";
+  }
+
   value = parseInt(value);
 
+  if (isNaN(value)) {
+    console.error("Giá trị không hợp lệ sau parseInt:", value);
+    return "Unknown";
+  }
+
   if (value <= 2) {
-    return i18n.global.t("Low");
+    return i18n.global.t("low");
   } else if (value <= 5) {
     return i18n.global.t("Moderate");
   } else if (value <= 7) {
@@ -118,7 +130,7 @@ export function getUvSummaryName(value) {
   } else if (value <= 10) {
     return i18n.global.t("Very_High");
   } else {
-    return i18n.global.t("Extreme");
+    return i18n.global.t("Extremely_high");
   }
 }
 
@@ -282,7 +294,7 @@ export function convertTimestampToHoursMinutes12(
 }
 
 export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
-  const date = new Date(timestamp);
+  const date = new Date(timestamp * 1000);
   const utcTime = date.getTime();
   const localTime = new Date(utcTime + offsetValue * 3600 * 1000);
 
@@ -395,6 +407,28 @@ export function convertTimestampToFormattedDate(timestamp, language = "vi") {
   } else {
     throw new Error("Unsupported language");
   }
+}
+
+
+
+export function getFormattedCurrentDate() {
+  const now = new Date(); // Lấy thời gian hiện tại
+
+  // Lấy tên ngày trong tuần và định dạng ngày tháng
+  const dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(now);
+  const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(now);
+  const day = now.getDate();
+  const year = now.getFullYear();
+
+  // Lấy giờ và định dạng AM/PM
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const isAM = hours < 12;
+  const formattedHours = hours % 12 || 12; // Chuyển sang định dạng 12 giờ
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  const period = isAM ? "AM" : "PM";
+
+  return `${dayOfWeek}, ${month} ${day}, ${year} at ${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 /**
@@ -1150,4 +1184,13 @@ export function convertToEnglishReplace(str) {
   }
   // Thay thế các ký tự tiếng Việt có dấu thành không dấu
   return str;
+}
+
+
+export function capitalizeWords(str) {
+  return str
+    .toLowerCase() // Chuyển tất cả các chữ cái về chữ thường
+    .split(" ") // Tách chuỗi thành mảng các từ
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Viết hoa chữ cái đầu
+    .join(" "); // Gộp các từ lại thành chuỗi
 }

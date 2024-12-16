@@ -218,11 +218,11 @@ export default {
 }
 
 .days li.weekend {
-  color: rgb(135 183 255);
+  color: #35d1de;
 }
 
 .weekend {
-  color: rgb(135 183 255);
+  color: #35d1de;
 }
 
 .days li::before {

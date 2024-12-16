@@ -7,10 +7,9 @@
       </h2>
       <div class="txt_regular">
         {{
-          currentlyData?.summary
-            ? currentlyData.summary.charAt(0).toUpperCase() +
-              currentlyData.summary.slice(1)
-            : "No summary available"
+          convertCapitalizeWords(
+            $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+          )
         }}
       </div>
       <div class="txt_regular_des">
@@ -77,7 +76,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_precititation.svg"
+            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
             width="24"
             alt=""
           />
@@ -90,11 +89,11 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <img
-            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
+            src="../../../assets/images/svg_v2/ic_precititation.svg"
             width="24"
             alt=""
           />
-          <p>{{ $t("Rainfall") }}</p>
+          <p>{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%
@@ -125,6 +124,7 @@
 </template>
 <script>
 import {
+  capitalizeWords,
   codeToFind,
   convertCtoF,
   convertFtoC,
@@ -169,6 +169,9 @@ export default {
   },
 
   methods: {
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
     convertAirIndexName(val) {
       return getAirSummaryName(val);
     },

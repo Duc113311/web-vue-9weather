@@ -18,7 +18,9 @@
               this.breadcumsObjectGetters.country === 'Vietnam'
             "
           >
-            <span class="txt_regular_des_12">{{ $t("See_more") }}</span>
+            <span class="txt_regular_des_12 decoration-white underline">{{
+              $t("See_more")
+            }}</span>
           </div>
         </div>
       </template>

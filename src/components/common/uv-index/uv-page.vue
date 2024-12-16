@@ -19,15 +19,15 @@
             <span>{{ Math.round(currentlyData?.uvIndex) }}</span>
           </div>
           <div class="txt_light" :style="{ color: progressColor }">
-            <!-- <span>
+            <span>
               {{ convertUvIndexName(currentlyData?.uvIndex) }}
-            </span> -->
+            </span>
           </div>
-          <div>
-            <p>{{ $t("The_air_is_mostly_okay") }}</p>
-          </div>
+          <span class="txt_regular_des_moon_12">
+            {{ $t("The_air_is_mostly_okay") }}</span
+          >
         </div>
-        <div class="w-full relative mt-2">
+        <div class="w-full relative mt-1 pr-2">
           <!-- <div class="chart-container">
             <div class="chart">
               <div
@@ -44,7 +44,7 @@
             type="bar"
             :options="chartOptions"
             :series="series"
-            height="100"
+            height="80"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@ export default {
     const series = ref([
       {
         name: "Data",
-        data: [6, 8, 8, 8, 6, 8, 6, 8, 8, 8, 8, 8],
+        data: [6, 7, 7, 8, 7, 4, 3, 8, 8, 5, 8, 8],
       },
     ]);
 
@@ -87,6 +87,7 @@ export default {
         bar: {
           columnWidth: "80%",
           distributed: true, // Tạo màu khác nhau cho từng cột
+          borderRadius: 6,
         },
       },
       colors: [
@@ -147,13 +148,6 @@ export default {
 
       return this.currentlyGetters;
     },
-
-    convertUvIndexName(val) {
-      console.log(val);
-
-      return getUvSummaryName(val);
-    },
-
     progressColor() {
       return this.getColorFromPercentage(
         Math.round(this.currentlyGetters?.uvIndex)
@@ -162,6 +156,12 @@ export default {
   },
 
   methods: {
+    convertUvIndexName(val) {
+      console.log(val);
+
+      return getUvSummaryName(val);
+    },
+
     getColorFromPercentage(percentage) {
       if (percentage) {
         if (percentage <= 2) return "#507a46";

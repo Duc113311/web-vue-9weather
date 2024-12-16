@@ -45,7 +45,7 @@
                 width="24"
                 alt=""
               />
-              <span>{{ $t("Temperature_today") }}</span>
+              <span>{{ $t("Current_weather") }}</span>
             </div>
           </template>
 
@@ -66,13 +66,21 @@
                   {{ renderToCelsius(dailyOneData?.temperatureMax) }}
                 </p>
               </div>
-              <div class="flex justify-start items-center pt-1 pb-1">
-                {{ dailyOneData?.summary }}
+              <div
+                class="flex justify-start items-center pt-1 pb-1 txt_regular_des_12"
+              >
+                {{
+                  convertCapitalizeWords(
+                    $t(`${dailyOneData?.summary.replace(/\s+/g, "_")}`)
+                  )
+                }}
               </div>
 
               <div class="flex justify-start items-center pt-1 pb-1">
-                <span class="text-left">{{ $t("real_feel") }}: </span> &nbsp;
-                <span>{{ convertFahrenheitToCelsiusAmtp(dailyOneData) }}</span>
+                <span class="text-left">{{ $t("real_feel") }}:</span>&nbsp;
+                <span class="txt_regular_des_12">{{
+                  convertFahrenheitToCelsiusAmtp(dailyOneData)
+                }}</span>
               </div>
             </div>
 
@@ -97,16 +105,19 @@
                 />
               </div>
               <div class="flex items-center justify-start pt-1 pb-1">
-                <p>{{ dailyOneData?.precipProbability * 100 }}%</p>
+                <span>{{ $t("Chance_of_rain") }}:</span>&nbsp;
+
+                <span class="txt_regular_des_12"
+                  >{{ dailyOneData?.precipProbability * 100 }}%</span
+                >
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
-                <p>{{ $t("Rainfall") }}</p>
+                <p>{{ $t("precipitation") }}</p>
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
-                <p>{{ $t("precipitation") }}:</p>
-              </div>
-              <div class="flex justify-start items-center pt-1 pb-1">
-                <p>{{ convertPrecipitation(dailyOneData?.precipIntensity) }}</p>
+                <span class="txt_regular_des_12">
+                  {{ convertPrecipitation(dailyOneData?.precipIntensity) }}
+                </span>
               </div>
             </div>
 
@@ -125,6 +136,7 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import ChartTempRain from "@/components/today/temperature/chart-temp-rain.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import {
+  capitalizeWords,
   codeToFind,
   convertCtoF,
   convertFtoC,
@@ -172,6 +184,9 @@ export default {
   },
 
   methods: {
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
     convertIconCurrently(value) {
       if (value) {
         const url = getIconHourlyForecastTheme(value);
