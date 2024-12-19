@@ -105,7 +105,9 @@ export default {
 </script>
 <style lang="scss">
 .district-card {
-  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0px 0px 56px rgb(255 255 255 / 17%),
+    inset -50px -50px 100px 0px rgb(251 251 251 / 0%),
+    inset 500px 500px 100px 0px rgb(243 243 243 / 12%);
   border-radius: 10px;
   padding: 10px;
   text-align: center;

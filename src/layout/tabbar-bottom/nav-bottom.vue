@@ -74,7 +74,7 @@
                           <li
                             v-for="(item1, index) in item?.states"
                             :key="index"
-                            @click="onClickSearchCity(item1, item)"
+                            @click="onClickSearchState(item1, item)"
                           >
                             {{ item1.nameState }}
                           </li>
@@ -114,16 +114,15 @@
               >
               <span
                 class="txt_medium_des_16 text-blue-400"
-                v-if="
-                  breadcumsObject?.country_key?.toLowerCase() === 'vn' &&
-                  breadcumsObject?.city
-                "
+                v-if="currentLocationChome?.country_key?.toLowerCase() === 'vn'"
                 >{{
-                  $t(`city.city_${languageParam}.${breadcumsObject?.city_key}`)
+                  $t(
+                    `city.city_${languageParam}.${currentLocationChome?.city_key}`
+                  )
                 }}</span
               >
               <span class="txt_medium_des_16 text-blue-400" v-else>{{
-                breadcumsObject?.city
+                currentLocationChome?.city
               }}</span>
             </div>
             <div
@@ -163,6 +162,7 @@ export default {
       "breadcumsObjectGetters",
       "objectCityByLocationGetters",
       "listStateAmericanGetters",
+      "locationChomeObjectGetters",
     ]),
     ...mapGetters("airQualityModule", [
       "airObjectGetters",
@@ -173,6 +173,14 @@ export default {
       return this.$route.params.language
         ? this.$route.params.language
         : this.$i18n.locale;
+    },
+
+    currentLocationChome() {
+      const retrievedArray = JSON.parse(
+        localStorage.getItem("currentLocationChome")
+      );
+
+      return retrievedArray ? retrievedArray : this.locationChomeObjectGetters;
     },
 
     breadcumsObject() {
@@ -255,6 +263,8 @@ export default {
       return slug;
     },
 
+    async onClickSearchState(value, valueCategory) {},
+
     async onClickSearchCity(value, valueCategory) {
       try {
         const nameCity = value.viNameLanguage;
@@ -271,7 +281,7 @@ export default {
 
         const objectBread = {
           country: newDataValue.country,
-          country_key: newDataValue.country_key,
+          country_key: newDataValue.country_key.toLowerCase(),
           city: nameCity,
           city_key: this.convertToConvertLowerCase(nameCity),
           district: "",

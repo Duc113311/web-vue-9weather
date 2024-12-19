@@ -9,9 +9,19 @@
             width="24"
             alt=""
           />
-          <span>{{
+          <span v-if="wardParam.country_key === 'vn'">{{
             $t(`{city}_Weather`, {
               city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+            })
+          }}</span>
+          <span v-else-if="wardParam.country_key === 'us'">{{
+            $t(`{city}_Weather`, {
+              city: $t(`${wardParam?.state}`),
+            })
+          }}</span>
+          <span v-else>{{
+            $t(`{city}_Weather`, {
+              city: $t(`${wardParam?.state}`),
             })
           }}</span>
         </div>

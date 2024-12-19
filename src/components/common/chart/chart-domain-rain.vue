@@ -103,32 +103,7 @@ export default {
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-          ],
+          labels: [...Array(24).keys()].map((i) => i + 1),
           datasets: [
             {
               label: "Chance of rain",
@@ -148,7 +123,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 30,
+            padding: 26,
           },
           plugins: {
             legend: {
@@ -168,7 +143,7 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 10,
+                size: 12,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu

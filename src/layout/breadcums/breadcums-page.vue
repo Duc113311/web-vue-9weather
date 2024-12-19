@@ -96,7 +96,7 @@
               src="../../assets/images/svg_v2/ic_move_down_left.svg"
               alt=""
             />
-            <div class="cursor-pointer">
+            <div class="cursor-pointer" @click="onClickStateUSA()">
               {{ breadcumsObject?.state }}
             </div>
           </div>
@@ -214,7 +214,10 @@ export default {
 
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
-    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
+    ...mapMutations("commonModule", [
+      "setBreadcumsNotAllowLocation",
+      "setBreadcumsAllowLocation",
+    ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
@@ -222,6 +225,54 @@ export default {
       "getWeatherDataCurrent",
       "getFormattedAddress",
     ]),
+
+    async onClickStateUSA() {
+      const breadcumsObject = this.breadcumsObject;
+      let objectBread = {
+        country: breadcumsObject.country,
+        country_key: breadcumsObject.country_key,
+        state: breadcumsObject.state,
+        state_key: breadcumsObject.state_key,
+        county: breadcumsObject.county,
+        cities: "",
+        latitude: breadcumsObject.latitude,
+        longitude: breadcumsObject.longitude,
+      };
+      localStorage.setItem("objectBread", JSON.stringify(objectBread));
+      this.setBreadcumsAllowLocation(objectBread);
+
+      await this.$router.push({
+        name: "today-weather",
+        params: {
+          language: this.languageParam,
+          location: [
+            objectBread.country_key.toLowerCase(),
+            removeAccents(objectBread.state),
+            this.removeWordAndAccents(objectBread.county, "County"),
+          ],
+        },
+      });
+
+      window.location.reload();
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
+      const resultAir = getAqiDataFromLocation(
+        objectBread.lat,
+        objectBread.lng
+      );
+      const value = encodeBase64(param);
+      const valueNewAir = encodeBase64(resultAir);
+
+      const airCode = getParamAirByCode(this.airObjectGetters.key);
+
+      const encodeAirCode = encodeBase64(airCode);
+
+      await Promise.all([
+        this.getWeatherDataCurrent(value),
+        this.getAirQualityByKey(valueNewAir),
+        this.getAirQuality(encodeAirCode),
+      ]);
+    },
 
     async onClickCity() {
       debugger;

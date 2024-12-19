@@ -47,7 +47,9 @@ export default {
 </script>
 <style lang="scss">
 .bg-color {
-  box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0px 0px 56px rgb(255 255 255 / 17%),
+    inset -50px -50px 100px 0px rgb(251 251 251 / 0%),
+    inset 500px 500px 100px 0px rgb(243 243 243 / 12%);
 
   border-radius: 20px;
 }

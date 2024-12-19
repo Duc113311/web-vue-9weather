@@ -15,7 +15,7 @@
               class="chart-container w-[89rem] pt-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="280" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -156,7 +156,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 30,
+            padding: 24,
           },
           plugins: {
             legend: {

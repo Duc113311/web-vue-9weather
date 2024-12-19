@@ -116,6 +116,7 @@ export default {
       "setAmericanStateRegions",
       "setListDetailCityAll",
       "setStateAmerican",
+      "setLocationChome",
     ]),
 
     ...mapActions("weatherModule", [
@@ -359,48 +360,9 @@ export default {
       };
       localStorage.setItem("locationLatLong", JSON.stringify(objectLatLong));
 
-      const paramsRouter = this.$route.params;
+      localStorage.setItem("objectBread", JSON.stringify(dataValue));
 
-      if (Object.keys(paramsRouter).length === 0) {
-        // Xét giá trị để lưu Recent
-        const objectPosition = {
-          latitude: latitude,
-          longitude: longitude,
-          country: dataValue.country,
-          country_key: dataValue.country_key,
-          city: dataValue.city,
-          city_key: dataValue.city_key,
-          district: "",
-          district_key: "",
-          ward: "",
-          ward_key: "",
-          // objectLocation: responsive.data.address,
-        };
-        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-        this.setBreadcumsAllowLocation(objectPosition);
-
-        this.setCityWeather(objectPosition);
-      } else {
-        const objectPosition = {
-          latitude: latitude,
-          longitude: longitude,
-          country: dataValue.country,
-          country_key: dataValue.country_key,
-          city: dataValue.city,
-          city_key: dataValue.city_key,
-          district: dataValue.district,
-          district_key: dataValue.district_key,
-          ward: dataValue.ward,
-          ward_key: dataValue.ward_key,
-          // objectLocation: responsive.data.address,
-        };
-        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-        this.setBreadcumsAllowLocation(objectPosition);
-
-        this.setCityWeather(objectPosition);
-      }
+      this.setBreadcumsAllowLocation(dataValue);
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
 
@@ -496,6 +458,11 @@ export default {
         console.log("objectPosition-vn", objectPosition);
 
         localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+        localStorage.setItem(
+          "currentLocationChome",
+          JSON.stringify(objectPosition)
+        );
+        this.setLocationChome(objectPosition);
         this.setBreadcumsAllowLocation(objectPosition);
 
         this.setCityWeather(objectPosition);

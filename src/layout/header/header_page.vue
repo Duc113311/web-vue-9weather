@@ -225,6 +225,7 @@ export default {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
     ...mapMutations("commonModule", [
       "setBreadcumsNotAllowLocation",
+      "setBreadcumsAllowLocation",
       "setBreadcumsTheWorld",
     ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
@@ -640,6 +641,13 @@ export default {
       return slug.replace(/\s+/g, "-").toLowerCase();
     },
 
+    removeWordAndAccents(str, wordToRemove) {
+      const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
+      return normalizedStr
+        .replace(new RegExp(`\\b${wordToRemove}\\b`, "gi"), "")
+        .trim();
+    },
+
     async handleSelect(item) {
       debugger;
       this.valueSearch = "";
@@ -720,6 +728,33 @@ export default {
             },
           });
         }
+      } else if (item?.country_key?.toLowerCase() === "us") {
+        let objectBread = {
+          country: item.country,
+          country_key: item.country_key,
+          state: item.state,
+          state_key: item.state_key,
+          county: item.county,
+          cities: item.cities,
+          latitude: item.lat,
+          longitude: item.lng,
+        };
+
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+        this.setBreadcumsAllowLocation(objectBread);
+
+        await this.$router.push({
+          name: "today-weather",
+          params: {
+            language: language,
+            location: [
+              objectBread.country_key.toLowerCase(),
+              removeAccents(objectBread.state),
+              this.removeWordAndAccents(objectBread.county, "County"),
+              removeAccents(objectBread.cities),
+            ],
+          },
+        });
       } else {
         debugger;
         let objectBread = {

@@ -54,30 +54,6 @@
     </div>
     <!--  -->
 
-    <div class="container local-c w-full flex items-center gap-4">
-      <div
-        class="left-location lg:w-[70%] w-[60%]"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
-        <!--  -->
-        <ListNearbyLocation></ListNearbyLocation>
-      </div>
-      <div v-else class="w-full h-[380px] mt-4">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-      </div>
-
-      <div
-        class="right-country lg:w-[30%] w-[40%]"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
-        <!--  -->
-        <ListCountryPage></ListCountryPage>
-      </div>
-      <div v-else class="w-full h-[380px] mt-4">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-      </div>
-    </div>
-
     <div class="container local-d lg:flex block w-full justify-between gap-4">
       <!--  -->
       <div class="md:flex block justify-between lg:w-[70%] w-full gap-4">
@@ -136,6 +112,30 @@
             class="img-logo"
           />
         </div>
+      </div>
+    </div>
+
+    <div class="container local-c w-full flex gap-4">
+      <div
+        class="left-location lg:w-[70%] w-[60%]"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
+        <!--  -->
+        <ListNearbyLocation></ListNearbyLocation>
+      </div>
+      <div v-else class="w-full h-[380px] mt-4">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+      </div>
+
+      <div
+        class="right-country lg:w-[30%] w-[40%]"
+        v-if="currentlyData && Object.keys(currentlyData).length > 0"
+      >
+        <!--  -->
+        <ListCountryPage></ListCountryPage>
+      </div>
+      <div v-else class="w-full h-[380px] mt-4">
+        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
     </div>
   </div>

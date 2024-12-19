@@ -149,6 +149,30 @@ const mutations = {
         (objectPush.address = element.formatted_address),
           (objectPush.lat = element.geometry.location.lat),
           (objectPush.lng = element.geometry.location.lng);
+      } else if (valueCountry.short_name === "US") {
+        const nameState = element.address_components.find((x) =>
+          ["administrative_area_level_1", "political"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
+
+        const nameCounty = element.address_components.find((x) =>
+          ["administrative_area_level_2", "political"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
+        const nameCities = element.address_components.find((x) =>
+          ["locality", "political"].every((type) => x.types.includes(type))
+        ) || { long_name: "" };
+        objectPush.country = valueCountry.long_name;
+        objectPush.country_key = valueCountry.short_name.toLowerCase();
+        objectPush.state = nameState.long_name;
+        objectPush.state_key = nameState.short_name.toLowerCase();
+        objectPush.county = nameCounty.long_name;
+        objectPush.cities = nameCities.long_name;
+        (objectPush.address = element.formatted_address),
+          (objectPush.lat = element.geometry.location.lat),
+          (objectPush.lng = element.geometry.location.lng);
       } else {
         debugger;
         const nameCity = element.address_components.find((x) =>

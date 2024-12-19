@@ -61,7 +61,7 @@
 
     <!--  -->
 
-    <div class="container w-full flex items-center gap-4">
+    <div class="container w-full flex gap-4">
       <div
         class="left-hourly lg:w-[68%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"

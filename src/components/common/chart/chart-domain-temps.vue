@@ -127,7 +127,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 30,
+            padding: 26,
           },
           plugins: {
             legend: {
@@ -147,7 +147,7 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 10,
+                size: 12,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu

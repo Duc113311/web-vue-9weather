@@ -101,6 +101,8 @@ const state = {
   listStateAmerican: [],
 
   indexComponent: 0,
+
+  locationChomeObject: {},
 };
 
 const getters = {
@@ -131,6 +133,10 @@ const getters = {
 
   listStateAmericanGetters(state) {
     return state.listStateAmerican;
+  },
+
+  locationChomeObjectGetters(state) {
+    return state.locationChomeObject;
   },
 
   weatherWidgetOptionGetters(state) {
@@ -204,6 +210,24 @@ const mutations = {
         (state.breadcumsObject.cities_key = data?.cities_key), //  us
         (state.breadcumsObject.latitude = data?.latitude), // longitude
         (state.breadcumsObject.longitude = data?.longitude); //  us
+    }
+  },
+
+  /**
+   * Xét giá trị mặc định Chome
+   * @param {*} state
+   * @param {*} data
+   */
+  setLocationChome(state, data) {
+    //
+    if (data?.country_key === "vn") {
+      //
+      (state.locationChomeObject.country = data?.country), // Quốc gia
+        (state.locationChomeObject.country_key = data?.country_key), // Quốc gia
+        (state.locationChomeObject.city = data?.city), // Thành phố
+        (state.locationChomeObject.city_key = data?.city_key), // Thành phố
+        (state.locationChomeObject.latitude = data?.latitude), // latitude
+        (state.locationChomeObject.longitude = data?.longitude); // longitude
     }
   },
 

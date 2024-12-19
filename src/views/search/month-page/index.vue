@@ -97,7 +97,7 @@
       </div>
     </div>
 
-    <div class="container local-c w-full flex items-center gap-4">
+    <div class="container local-c w-full flex gap-4">
       <div
         class="left-location lg:w-[68%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"

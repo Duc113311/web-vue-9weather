@@ -300,6 +300,13 @@ export default {
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
     },
 
+    removeWordAndAccents(str, wordToRemove) {
+      const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
+      return normalizedStr
+        .replace(new RegExp(`\\b${wordToRemove}\\b`, "gi"), "")
+        .trim();
+    },
+
     async onClickRouterView(value, index) {
       try {
         this.activeIndex = index;
@@ -355,6 +362,22 @@ export default {
 
           // Emit event để thông báo cho component cha biết route đã thay đổi
           this.$emit("route-changed", screamName);
+        } else if (countryKey.toLowerCase() === "us") {
+          await this.$router.push({
+            name: screamName,
+            params: {
+              language: this.renderLanguage,
+              location: [
+                this.breadcumsObject.country_key.toLowerCase(),
+                removeAccents(this.breadcumsObject.state),
+                this.removeWordAndAccents(
+                  this.breadcumsObject.county,
+                  "County"
+                ),
+                removeAccents(this.breadcumsObject.cities),
+              ],
+            },
+          });
         } else {
           let routeParams = {
             name: screamName,

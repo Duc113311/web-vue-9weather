@@ -40,18 +40,13 @@
               </span>
             </div>
             <div v-if="wardParam?.country_key === 'us'">
-              <span v-if="wardParam?.state"
+              <span v-if="wardParam?.state && !wardParam?.county"
                 >Weather {{ wardParam?.state }}</span
               >
               <span v-if="wardParam?.county"
                 >Weather {{ wardParam?.county }}</span
               >
             </div>
-          </div>
-          <div v-if="renderListCityAllGetters.length !== 0">
-            <span class="txt_regular_des_12 underline decoration-white">{{
-              $t("See_more")
-            }}</span>
           </div>
         </div>
       </template>
@@ -61,13 +56,26 @@
         v-if="renderListCityAllGetters.length !== 0"
       >
         <!--  -->
-        <div class="district-list">
-          <DistrictCardPage
-            v-for="(item, index) in renderListCityAllGetters"
-            :key="index"
-            :objectLocation="item"
-            @click="onClickShowDetailDistrict(item)"
-          ></DistrictCardPage>
+        <transition-group name="fade" tag="div">
+          <div class="district-list">
+            <DistrictCardPage
+              v-for="(item, index) in displayedItems"
+              :key="index"
+              :objectLocation="item"
+              @click="onClickShowDetailDistrict(item)"
+            ></DistrictCardPage>
+          </div>
+        </transition-group>
+        <div class="w-full text-left mt-3">
+          <button
+            type="button"
+            @click="onClickLoadMoreItems"
+            class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
+          >
+            <span class="txt_medium_12">
+              {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
+            >
+          </button>
         </div>
       </div>
       <div class="h-[240px] bg-color text-white overflow-hidden pad-big" v-else>
@@ -103,6 +111,9 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
+      showLessButton: false,
+      itemsPerPage: 8, // Số mục hiển thị ban đầu
+      currentPage: 1, // Trang hiện tại
     };
   },
 
@@ -117,6 +128,12 @@ export default {
       "airObjectGetters",
       "airKeyObjectGetters",
     ]),
+
+    displayedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = this.currentPage * this.itemsPerPage;
+      return this.renderListCityAllGetters.slice(0, end);
+    },
 
     itemSliceCount() {
       if (this.windowWidth <= 567) {
@@ -183,9 +200,9 @@ export default {
           }
         } else if (countryKey === "us") {
           //
-          const stateKey = this.wardParam.state_key;
+          const stateKey = this.wardParam.state;
           const findData = this.listAlabamaGetters.find(
-            (x) => x.keyAccentLanguage === stateKey
+            (x) => x.nameState === stateKey
           );
           if (findData) {
             if (this.wardParam?.county) {
@@ -299,6 +316,18 @@ export default {
         .trim();
     },
 
+    onClickLoadMoreItems() {
+      if (this.showLessButton) {
+        this.currentPage = 1; // Reset to show the initial items
+        this.showLessButton = false;
+      } else {
+        this.currentPage++;
+        this.showLessButton =
+          this.currentPage * this.itemsPerPage >=
+          this.renderListCityAllGetters.length;
+      }
+    },
+
     convertToLowCase(value) {
       const normalizedStr = value
         .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
@@ -409,6 +438,7 @@ export default {
 
     async onClickShowDetailDistrict(value) {
       debugger;
+
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
         : this.$i18n.locale;

@@ -2,7 +2,9 @@
   <div class="w-[89rem] flex justify-between items-center">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="text-sm pb-1">{{ renderHourly(item).timestampValue }}</div>
+      <div class="txt_regular_time pb-1">
+        {{ renderHourly(item).timestampValue }}
+      </div>
       <div class="flex justify-center items-center">
         <img :src="renderHourly(item).iconValue" alt="weather icon" />
       </div>

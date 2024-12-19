@@ -79,6 +79,22 @@
   font-weight: 400; /* Corresponds to Regular */
 }
 
+.txt_regular_time {
+  font-size: 12px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 11.5px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
+.txt-unit {
+  font-size: 10px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 11.5px; /* Khoảng cách giữa các dòng */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
 .txt_regular_des_moon_12 {
   font-size: 13px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;

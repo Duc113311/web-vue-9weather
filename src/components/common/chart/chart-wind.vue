@@ -2,11 +2,11 @@
   <div class="w-[89rem] flex justify-between items-center">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="text-sm pb-1">
+      <div class="txt_regular_time text-center pb-4">
         {{ convertDirectionEmoji(item?.windBearing) }}
       </div>
       <div class="flex justify-center items-center">
-        <div class="text-sm pb-1">
+        <div class="txt_regular_time pb-1">
           {{ renderHourly(item) }}
         </div>
       </div>

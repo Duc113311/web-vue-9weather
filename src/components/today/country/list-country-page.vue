@@ -12,16 +12,11 @@
             />
             <span>{{ $t("Cities_Provinces") }}</span>
           </div>
-          <div v-if="renderCityLocation.length !== 0">
-            <span class="txt_regular_des_12 decoration-white underline">{{
-              $t("See_more")
-            }}</span>
-          </div>
         </div>
       </template>
 
       <div
-        class="w-full h-[212px] show-scroll"
+        class="w-full h-auto show-scroll"
         v-if="renderCityLocation.length !== 0"
       >
         <div v-if="objectBreadParam.country_key === 'vn'">
