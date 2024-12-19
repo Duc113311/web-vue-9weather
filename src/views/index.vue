@@ -66,6 +66,10 @@ export default {
     await this.loadProvince();
 
     await this.loadAllFileJson();
+
+    await this.loadStateAmerican();
+
+    await this.loadProvinceAmerican();
     const objectBread = localStorage.getItem("objectBread");
     const routerLink = this.$route.params;
     debugger;
@@ -73,8 +77,10 @@ export default {
       this.getLocationBrowser();
     } else {
       const objectBreadValue = JSON.parse(objectBread);
-      if (objectBreadValue.country === "Vietnam") {
+      if (objectBreadValue.country_key === "vn") {
         this.handleLocation(objectBreadValue);
+      } else if (objectBreadValue.country_key === "us") {
+        this.handleLocationAmerican(objectBreadValue);
       } else {
         debugger;
         // localStorage.removeItem("objectBread");
@@ -91,6 +97,12 @@ export default {
       "airKeyObjectGetters",
       "airObjectGetters",
     ]),
+
+    ...mapGetters("commonModule", [
+      "listCityAllGetters",
+      "objectCityByLocationGetters",
+      "listAlabamaGetters",
+    ]),
   },
 
   created() {},
@@ -101,7 +113,9 @@ export default {
       "setBreadcumsNotAllowLocation",
       "setBreadcumsAllowLocation",
       "setObjectCityByLocation",
+      "setAmericanStateRegions",
       "setListDetailCityAll",
+      "setStateAmerican",
     ]),
 
     ...mapActions("weatherModule", [
@@ -117,35 +131,128 @@ export default {
 
     async loadProvince() {
       debugger;
-      try {
-        const response = await fetch("/json/city/city.json");
-        if (!response.ok)
-          throw new Error(
-            `Failed to fetch data: ${response.status} ${response.statusText}`
-          );
-        const data = await response.json(); // Parse JSON data
-        this.provinceData = data;
-        this.setObjectCityByLocation(this.provinceData);
-      } catch (error) {
-        console.error("Error loading file:", error.message);
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem("dataCityLog")
+      );
+      if (!dataCityVNSession) {
+        try {
+          const response = await fetch("/json/city/city.json");
+          if (!response.ok)
+            throw new Error(
+              `Failed to fetch data: ${response.status} ${response.statusText}`
+            );
+          const data = await response.json(); // Parse JSON data
+          this.provinceData = data;
+          this.setObjectCityByLocation(this.provinceData);
+        } catch (error) {
+          console.error("Error loading file:", error.message);
+        }
+      } else {
+        this.setObjectCityByLocation(dataCityVNSession);
+      }
+    },
+
+    async loadProvinceAmerican() {
+      debugger;
+      const dataStateAmericanSession = JSON.parse(
+        sessionStorage.getItem("dataStateAmerican")
+      );
+      if (!dataStateAmericanSession) {
+        try {
+          const response = await fetch("/json/city/american.json");
+          if (!response.ok)
+            throw new Error(
+              `Failed to fetch data: ${response.status} ${response.statusText}`
+            );
+          const data = await response.json(); // Parse JSON data
+          this.provinceData = data.regions;
+          this.setAmericanStateRegions(this.provinceData);
+        } catch (error) {
+          console.error("Error loading file:", error.message);
+        }
+      } else {
+        this.setAmericanStateRegions(dataStateAmericanSession);
       }
     },
 
     async loadAllFileJson() {
       let provinces = [];
-      const context = require.context(
-        "/public/json/vietnamese",
-        false,
-        /\.json$/
+      const dataCityLogVNSession = JSON.parse(
+        sessionStorage.getItem("dataCityAll")
       );
-      debugger;
-      // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
-      const provincesData = context.keys().map((key) => {
-        const provinceData = context(key); // Load dữ liệu từ file
+      if (!dataCityLogVNSession) {
+        const context = require.context(
+          "/public/json/vietnamese",
+          false,
+          /\.json$/
+        );
+        debugger;
+        // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+        const provincesData = context.keys().map((key) => {
+          const provinceData = context(key); // Load dữ liệu từ file
 
-        provinces.push(provinceData);
-      });
-      this.setListDetailCityAll(provinces);
+          provinces.push(provinceData);
+        });
+        this.setListDetailCityAll(provinces);
+      } else {
+        this.setListDetailCityAll(dataCityLogVNSession);
+      }
+    },
+
+    async loadStateAmerican() {
+      let provinces = [];
+      const dataCityLogVNSession = JSON.parse(
+        sessionStorage.getItem("dataAlabama")
+      );
+      if (!dataCityLogVNSession) {
+        const context = require.context(
+          "/public/json/american",
+          false,
+          /\.json$/
+        );
+        debugger;
+        // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+        const provincesData = context.keys().map((key) => {
+          const provinceData = context(key); // Load dữ liệu từ file
+
+          provinces.push(provinceData);
+        });
+        this.setStateAmerican(provinces);
+      } else {
+        this.setStateAmerican(dataCityLogVNSession);
+      }
+    },
+
+    async handleLocationAmerican(dataValue) {
+      let latitude = dataValue.latitude;
+      let longitude = dataValue.longitude;
+
+      localStorage.setItem("objectBread", JSON.stringify(dataValue));
+
+      this.setBreadcumsAllowLocation(dataValue);
+
+      this.setCityWeather(dataValue);
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+
+      // map url by lat,long
+      const resultAir = getAqiDataFromLocation(latitude, longitude);
+
+      const encodeDataWeather = encodeBase64(param);
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      // Lưu lại ở Storage để cache
+      localStorage.setItem("keyCurrent", JSON.stringify(encodeDataWeather));
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
     },
 
     async handleLocationWorld(dataValue) {
@@ -354,29 +461,79 @@ export default {
       // Xét giá trị để lưu Recent
       const dataResponsive = responsive.data.address;
 
-      // Xét giá trị để lưu Recent
-      const objectPosition = {
-        latitude: latitude,
-        longitude: longitude,
-        country: dataResponsive.country,
-        country_key: dataResponsive.country_code,
-        city: dataResponsive.city,
-        city_key: removeAccents(dataResponsive.city).replace(/ /g, "_"),
-        district: "",
-        district_key: "",
-        ward: "",
-        ward_key: "",
-        // objectLocation: responsive.data.address,
-      };
-      if (dataResponsive.city === "Thành phố Hà Nội") {
-        objectPosition.city = "Hà Nội";
-        objectPosition.city_key = "Ha_Noi";
-      }
       debugger;
-      localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-      this.setBreadcumsAllowLocation(objectPosition);
+      if (dataResponsive.country_code.toLowerCase() === "us") {
+        const objectPosition = {
+          latitude: latitude,
+          longitude: longitude,
+          country_key: dataResponsive.country_code.toLowerCase(), // us
+          country: dataResponsive.country, // us
+          state: dataResponsive.state, // State
+          state_key: dataResponsive.state.toLowerCase(), // State
+          county: dataResponsive.county, // county
+          cities: dataResponsive?.cities ? dataResponsive?.cities : "", // cities
+          // objectLocation: responsive.data.address,
+        };
 
-      this.setCityWeather(objectPosition);
+        console.log("objectPosition-us", objectPosition);
+
+        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+        this.setBreadcumsAllowLocation(objectPosition);
+      } else if (dataResponsive.country_code.toLowerCase() === "vn") {
+        const objectPosition = {
+          latitude: latitude,
+          longitude: longitude,
+          country: dataResponsive.country,
+          country_key: dataResponsive.country_code.toLowerCase(),
+          city: dataResponsive?.city,
+          city_key: this.convertToConvertLowerCase(dataResponsive?.city),
+          district: "",
+          district_key: "",
+          ward: "",
+          ward_key: "",
+        };
+
+        console.log("objectPosition-vn", objectPosition);
+
+        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+        this.setBreadcumsAllowLocation(objectPosition);
+
+        this.setCityWeather(objectPosition);
+      } else {
+        const objectPosition = {
+          latitude: latitude,
+          longitude: longitude,
+          country: dataResponsive.country, // United Kingdom
+          country_key: dataResponsive.country_code.toLowerCase(), // gb
+          state: dataResponsive.state, // England
+          regions: dataResponsive.state_district, // Greater London
+          regions_key: this.convertToConvertLowerCase(
+            dataResponsive.state_district
+          ), // Greater London
+          cities: dataResponsive?.neighbourhood // Covent Garden
+            ? dataResponsive?.neighbourhood
+            : "",
+          cities_key: dataResponsive?.neighbourhood // Covent Garden
+            ? this.convertToConvertLowerCase(dataResponsive?.neighbourhood)
+            : "",
+        };
+
+        console.log("objectPosition-other", objectPosition);
+
+        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
+        this.setBreadcumsAllowLocation(objectPosition);
+
+        this.setCityWeather(objectPosition);
+      }
+
+      // Xét giá trị để lưu Recent
+
+      // if (dataResponsive.city === "Thành phố Hà Nội") {
+      //   objectPosition.city = "Hà Nội";
+      //   objectPosition.city_key = "Ha_Noi";
+      // }
+      debugger;
+
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
 
       // map url by lat,long
@@ -397,6 +554,11 @@ export default {
       const encodeAirCode = encodeBase64(airCode);
       // API Get Air Quality Data
       await this.getAirQuality(encodeAirCode);
+    },
+
+    convertToConvertLowerCase(str) {
+      const slug = removeAccents(str).replace(/\s+/g, "_");
+      return slug;
     },
 
     /**

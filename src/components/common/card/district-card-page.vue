@@ -9,14 +9,37 @@
           width="36"
         />
       </div>
-      <h3 class="text-center txt_medium">
+      <h3
+        class="text-center txt_medium"
+        v-if="breadcumsObject.country_key === 'vn'"
+      >
         {{
-          $t(
-            `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
-              breadcumsObject.city
-            )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+          removeWordAndAccents(
+            $t(
+              `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
+                breadcumsObject.city
+              )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+            ),
+            "District"
           )
         }}
+      </h3>
+
+      <h3
+        class="text-center txt_medium"
+        v-if="breadcumsObject.country_key === 'us'"
+      >
+        <!-- {{
+          removeWordAndAccents(
+            $t(
+              `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
+                breadcumsObject.city
+              )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+            ),
+            "District"
+          )
+        }} -->
+        {{ objectLocation.name }}
       </h3>
     </div>
   </div>
@@ -57,6 +80,13 @@ export default {
   methods: {
     convertLanguage(data, language) {
       return data.languages[language];
+    },
+
+    removeWordAndAccents(str, wordToRemove) {
+      const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
+      return normalizedStr
+        .replace(new RegExp(`\\b${wordToRemove}\\b`, "gi"), "")
+        .trim();
     },
 
     removeDiacritics(str) {

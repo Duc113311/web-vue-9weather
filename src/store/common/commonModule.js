@@ -97,6 +97,8 @@ const state = {
 
   objectCityByLocation: [],
   listCityAll: [],
+  listAlabama: [],
+  listStateAmerican: [],
 
   indexComponent: 0,
 };
@@ -123,6 +125,14 @@ const getters = {
     return state.listCityAll;
   },
 
+  listAlabamaGetters(state) {
+    return state.listAlabama;
+  },
+
+  listStateAmericanGetters(state) {
+    return state.listStateAmerican;
+  },
+
   weatherWidgetOptionGetters(state) {
     return state.weatherWidgetOption;
   },
@@ -145,6 +155,18 @@ const mutations = {
 
     state.listCityAll = data;
   },
+
+  setStateAmerican(state, data) {
+    sessionStorage.setItem("dataAlabama", JSON.stringify(data));
+
+    state.listAlabama = data;
+  },
+
+  setAmericanStateRegions(state, data) {
+    sessionStorage.setItem("dataStateAmerican", JSON.stringify(data));
+
+    state.listStateAmerican = data;
+  },
   /**
    * Xét giá trị location khi cho phép truy cập
    * @param {*} state
@@ -152,16 +174,37 @@ const mutations = {
    */
   setBreadcumsAllowLocation(state, data) {
     debugger;
-    (state.breadcumsObject.country = data?.country), // Quốc gia
-      (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
-      (state.breadcumsObject.city = data?.city), // Thành phố
-      (state.breadcumsObject.city_key = data?.city_key), // Thành phố
-      (state.breadcumsObject.ward = data?.ward), // Phường xã
-      (state.breadcumsObject.ward_key = data?.ward_key), // Phường xã
-      (state.breadcumsObject.district = data?.district), // Quận huyện
-      (state.breadcumsObject.district_key = data?.district_key), // Quận huyện
-      (state.breadcumsObject.latitude = data?.latitude), // latitude
-      (state.breadcumsObject.longitude = data?.longitude); // longitude
+    if (data?.country_key === "vn") {
+      (state.breadcumsObject.country = data?.country), // Quốc gia
+        (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
+        (state.breadcumsObject.city = data?.city), // Thành phố
+        (state.breadcumsObject.city_key = data?.city_key), // Thành phố
+        (state.breadcumsObject.ward = data?.ward), // Phường xã
+        (state.breadcumsObject.ward_key = data?.ward_key), // Phường xã
+        (state.breadcumsObject.district = data?.district), // Quận huyện
+        (state.breadcumsObject.district_key = data?.district_key), // Quận huyện
+        (state.breadcumsObject.latitude = data?.latitude), // latitude
+        (state.breadcumsObject.longitude = data?.longitude); // longitude
+    } else if (data?.country_key === "us") {
+      (state.breadcumsObject.country_key = data?.country_key), //  us
+        (state.breadcumsObject.country = data?.country), // us
+        (state.breadcumsObject.state = data?.state), // State
+        (state.breadcumsObject.state_key = data?.state_key), // State key
+        (state.breadcumsObject.county = data?.county), // county
+        (state.breadcumsObject.cities = data?.cities), // cities
+        (state.breadcumsObject.latitude = data?.latitude), // latitude
+        (state.breadcumsObject.longitude = data?.longitude); // longitude
+    } else {
+      (state.breadcumsObject.country = data?.country), //  us
+        (state.breadcumsObject.country_key = data?.country_key), //  us
+        (state.breadcumsObject.state = data?.state), //  us
+        (state.breadcumsObject.regions = data?.regions), //  us
+        (state.breadcumsObject.regions_key = data?.regions_key), //  us
+        (state.breadcumsObject.cities = data?.cities), //  us
+        (state.breadcumsObject.cities_key = data?.cities_key), //  us
+        (state.breadcumsObject.latitude = data?.latitude), // longitude
+        (state.breadcumsObject.longitude = data?.longitude); //  us
+    }
   },
 
   /**

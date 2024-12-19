@@ -15,7 +15,7 @@
         >
           <TempPage></TempPage>
         </div>
-        <div v-else class="lg:w-[566px] w-full h-[850px]">
+        <div v-else class="lg:w-[566px] w-full h-[850px] mb-4 lg:mb-0">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
         <div class="right-today lg:w-3/6 w-full">

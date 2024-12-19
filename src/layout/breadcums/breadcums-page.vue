@@ -76,6 +76,41 @@
             </div>
           </div>
         </div>
+        <div
+          v-else-if="breadcumsObject?.country_key === 'us'"
+          class="flex items-center"
+        >
+          <div class="flex items-center" v-if="breadcumsObject?.country">
+            <img
+              class="transform"
+              src="../../assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer" @click="onClickHome()">
+              {{ breadcumsObject?.country }}
+            </div>
+          </div>
+          <div class="flex items-center" v-if="breadcumsObject?.state">
+            <img
+              class="transform"
+              src="../../assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer">
+              {{ breadcumsObject?.state }}
+            </div>
+          </div>
+          <div class="flex items-center" v-if="breadcumsObject?.county">
+            <img
+              class="transform"
+              src="@/assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer">
+              {{ breadcumsObject?.county }}
+            </div>
+          </div>
+        </div>
         <div v-else class="flex items-center">
           <div class="flex items-center" v-if="breadcumsObject?.country">
             <img
@@ -87,24 +122,34 @@
               {{ breadcumsObject?.country }}
             </div>
           </div>
-          <div class="flex items-center" v-if="breadcumsObject?.city">
+          <div class="flex items-center" v-if="breadcumsObject?.state">
             <img
               class="transform"
               src="../../assets/images/svg_v2/ic_move_down_left.svg"
               alt=""
             />
-            <div class="cursor-pointer" @click="onClickCity()">
-              {{ breadcumsObject?.city }}
+            <div class="cursor-pointer">
+              {{ breadcumsObject?.state }}
             </div>
           </div>
-          <div class="flex items-center" v-if="breadcumsObject?.district">
+          <div class="flex items-center" v-if="breadcumsObject?.regions">
             <img
               class="transform"
               src="@/assets/images/svg_v2/ic_move_down_left.svg"
               alt=""
             />
-            <div class="cursor-pointer" @click="onClickDistrict()">
-              {{ breadcumsObject?.district }}
+            <div class="cursor-pointer">
+              {{ breadcumsObject?.regions }}
+            </div>
+          </div>
+          <div class="flex items-center" v-if="breadcumsObject?.cities">
+            <img
+              class="transform"
+              src="@/assets/images/svg_v2/ic_move_down_left.svg"
+              alt=""
+            />
+            <div class="cursor-pointer">
+              {{ breadcumsObject?.cities }}
             </div>
           </div>
         </div>

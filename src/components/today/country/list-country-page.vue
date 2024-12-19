@@ -12,12 +12,7 @@
             />
             <span>{{ $t("Cities_Provinces") }}</span>
           </div>
-          <div
-            v-if="
-              renderCityLocation.length !== 0 &&
-              this.breadcumsObjectGetters.country === 'Vietnam'
-            "
-          >
+          <div v-if="renderCityLocation.length !== 0">
             <span class="txt_regular_des_12 decoration-white underline">{{
               $t("See_more")
             }}</span>
@@ -27,12 +22,9 @@
 
       <div
         class="w-full h-[212px] show-scroll"
-        v-if="
-          renderCityLocation.length !== 0 &&
-          this.breadcumsObjectGetters.country_key.toLowerCase() === 'vn'
-        "
+        v-if="renderCityLocation.length !== 0"
       >
-        <div>
+        <div v-if="objectBreadParam.country_key === 'vn'">
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
@@ -41,6 +33,23 @@
           >
             <div>
               {{ $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`) }}
+            </div>
+            <img
+              src="../../../assets/images/svg_v2/ic_rain_data.svg"
+              width="24"
+              alt=""
+            />
+          </div>
+        </div>
+        <div v-if="objectBreadParam.country_key === 'us'">
+          <div
+            v-for="(item, index) in renderCityLocation"
+            :key="index"
+            class="flex justify-between items-center pb-3 pt-3 pr-2"
+            :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
+          >
+            <div>
+              {{ item.nameState }}
             </div>
             <img
               src="../../../assets/images/svg_v2/ic_rain_data.svg"
@@ -76,6 +85,7 @@ export default {
     ...mapGetters("commonModule", [
       "objectCityByLocationGetters",
       "breadcumsObjectGetters",
+      "listStateAmericanGetters",
     ]),
 
     renderLanguage() {
@@ -84,34 +94,51 @@ export default {
         : this.$i18n.locale;
     },
 
+    objectBreadParam() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
+
     renderCityLocation() {
       debugger;
       const retrievedDataCity = sessionStorage.getItem("dataCityLog")
         ? JSON.parse(sessionStorage.getItem("dataCityLog"))
-        : null;
+        : [];
 
       if (!retrievedDataCity) {
         console.error("retrievedDataCity is null or invalid.");
         return [];
       }
 
-      const retrievedArray = localStorage.getItem("objectBread")
-        ? JSON.parse(localStorage.getItem("objectBread"))
-        : null;
-
-      if (retrievedArray) {
+      const countryCode = this.objectBreadParam.country_key;
+      if (countryCode === "vn") {
         for (const element of retrievedDataCity) {
           if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
             const findExistData = element.provinceCity.filter(
               (x) =>
                 x.keyAccentLanguage !==
-                this.removeDiacritics(retrievedArray.city_key)
+                this.removeDiacritics(this.objectBreadParam.city_key)
             );
             if (findExistData.length > 0) {
               return findExistData;
             }
           }
         }
+      } else if (countryCode === "us") {
+        for (const element of this.listStateAmericanGetters) {
+          const findExistData = element.states.filter(
+            (x) => x.nameState !== this.objectBreadParam.state
+          );
+          if (findExistData.length > 0) {
+            return findExistData;
+          }
+        }
+      } else {
+        return [];
       }
 
       return [];

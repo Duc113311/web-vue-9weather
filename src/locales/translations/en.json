@@ -13,7 +13,7 @@
   "Hourly": "Hourly",
   "Month": "Monthly",
   "Radar": "Radar",
-  "{city}_district_Weather": "{city} district Weather",
+  "{city}_district_Weather": "{city} districts Weather",
   "Weather_in_{city}_ward_and_commune": "Weather in {city} ward and commune",
   "temperature": "Temperature",
   "real_feel": "Real Feel",

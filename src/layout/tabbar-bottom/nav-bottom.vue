@@ -5,10 +5,7 @@
         <div class="w-full h-full flex justify-between items-center">
           <!-- left -->
           <div class="md:flex hidden items-center gap-4">
-            <div
-              v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
-              class="h-district pt-5 pb-5 hidden lg:block relative group"
-            >
+            <div class="h-district pt-5 pb-5 hidden lg:block relative group">
               <div class="flex items-center gap-2 cursor-pointer">
                 <img
                   src="../../assets/images/svg_v2/ic_city.svg"
@@ -27,7 +24,10 @@
               <div class="mega-box absolute hidden group-hover:block">
                 <div class="content">
                   <div class="container">
-                    <div class="container-c">
+                    <div
+                      class="container-c"
+                      v-if="breadcumsObject?.country_key === 'vn'"
+                    >
                       <!--  -->
                       <div
                         class="region"
@@ -52,6 +52,31 @@
                                 `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
                               )
                             }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div
+                      class="container-c"
+                      v-if="breadcumsObject?.country_key === 'us'"
+                    >
+                      <!--  -->
+                      <div
+                        class="region"
+                        v-for="(item, index) in objectCity"
+                        :key="index"
+                      >
+                        <h2>
+                          {{ item.regionName }}
+                        </h2>
+                        <ul>
+                          <li
+                            v-for="(item1, index) in item?.states"
+                            :key="index"
+                            @click="onClickSearchCity(item1, item)"
+                          >
+                            {{ item1.nameState }}
                           </li>
                         </ul>
                       </div>
@@ -94,11 +119,7 @@
                   breadcumsObject?.city
                 "
                 >{{
-                  $t(
-                    `city.city_${languageParam}.${convertToLowCase(
-                      breadcumsObject?.city_key
-                    )}`
-                  )
+                  $t(`city.city_${languageParam}.${breadcumsObject?.city_key}`)
                 }}</span
               >
               <span class="txt_medium_des_16 text-blue-400" v-else>{{
@@ -141,6 +162,7 @@ export default {
     ...mapGetters("commonModule", [
       "breadcumsObjectGetters",
       "objectCityByLocationGetters",
+      "listStateAmericanGetters",
     ]),
     ...mapGetters("airQualityModule", [
       "airObjectGetters",
@@ -160,11 +182,24 @@ export default {
     },
 
     objectCity() {
-      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      if (this.breadcumsObject.country_key === "vn") {
+        const retrievedArray = JSON.parse(
+          sessionStorage.getItem("dataCityLog")
+        );
 
-      return this.objectCityByLocationGetters.length !== 0
-        ? this.objectCityByLocationGetters
-        : retrievedArray;
+        return this.objectCityByLocationGetters.length !== 0
+          ? this.objectCityByLocationGetters
+          : retrievedArray;
+      } else if (this.breadcumsObject.country_key === "us") {
+        const retrievedArray = JSON.parse(
+          sessionStorage.getItem("dataStateAmerican")
+        );
+        return this.listStateAmericanGetters.length !== 0
+          ? this.listStateAmericanGetters
+          : retrievedArray;
+      } else {
+        return [];
+      }
     },
 
     languageParam() {

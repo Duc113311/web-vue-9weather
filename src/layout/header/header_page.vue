@@ -210,8 +210,8 @@ export default {
       this.updateTime();
     }, 1000);
 
-    this.loadDataTop100();
-    this.loadDataTopFull();
+    // this.loadDataTop100();
+    // this.loadDataTopFull();
     this.selectedActive = null;
 
     // const storageCity = localStorage.getItem("cityName");

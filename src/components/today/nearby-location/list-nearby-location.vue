@@ -9,38 +9,46 @@
               width="24"
               alt=""
             />
-            <span v-if="wardParam?.city && !wardParam?.district">
-              {{
-                $t(`{city}_district_Weather`, {
-                  city: $t(
-                    `city.city_${languageParam}.${convertToLowCase(
-                      wardParam?.city_key
-                    )}`
-                  ),
-                })
-              }}</span
+            <div
+              class="flex items-center"
+              v-if="wardParam?.country_key === 'vn'"
             >
-            <span v-if="wardParam?.district && !wardParam?.ward">
-              {{
-                $t(`Weather_in_{city}_ward_and_commune`, {
-                  city: wardParam?.district,
-                })
-              }}
-            </span>
-            <span v-if="wardParam?.ward">
-              {{
-                $t(`Weather_in_{city}_ward_and_commune`, {
-                  city: wardParam?.ward,
-                })
-              }}
-            </span>
+              <span v-if="wardParam?.city && !wardParam?.district">
+                {{
+                  $t(`{city}_district_Weather`, {
+                    city: $t(
+                      `city.city_${languageParam}.${convertToLowCase(
+                        wardParam?.city_key
+                      )}`
+                    ),
+                  })
+                }}</span
+              >
+              <span v-if="wardParam?.district && !wardParam?.ward">
+                {{
+                  $t(`Weather_in_{city}_ward_and_commune`, {
+                    city: wardParam?.district,
+                  })
+                }}
+              </span>
+              <span v-if="wardParam?.ward">
+                {{
+                  $t(`Weather_in_{city}_ward_and_commune`, {
+                    city: wardParam?.ward,
+                  })
+                }}
+              </span>
+            </div>
+            <div v-if="wardParam?.country_key === 'us'">
+              <span v-if="wardParam?.state"
+                >Weather {{ wardParam?.state }}</span
+              >
+              <span v-if="wardParam?.county"
+                >Weather {{ wardParam?.county }}</span
+              >
+            </div>
           </div>
-          <div
-            v-if="
-              renderListCityAllGetters.length !== 0 &&
-              this.wardParam?.country_key?.toLowerCase() === 'vn'
-            "
-          >
+          <div v-if="renderListCityAllGetters.length !== 0">
             <span class="txt_regular_des_12 underline decoration-white">{{
               $t("See_more")
             }}</span>
@@ -50,10 +58,7 @@
 
       <div
         class="w-full h-[244px]"
-        v-if="
-          renderListCityAllGetters.length !== 0 &&
-          this.wardParam?.country_key?.toLowerCase() === 'vn'
-        "
+        v-if="renderListCityAllGetters.length !== 0"
       >
         <!--  -->
         <div class="district-list">
@@ -105,6 +110,7 @@ export default {
     ...mapGetters("commonModule", [
       "listCityAllGetters",
       "breadcumsObjectGetters",
+      "listAlabamaGetters",
     ]),
 
     ...mapGetters("airQualityModule", [
@@ -146,11 +152,11 @@ export default {
     renderListCityAllGetters() {
       debugger;
 
-      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const countryKey = this.wardParam.country_key;
 
-      if (retrievedArray) {
-        if (retrievedArray?.country_key?.toLowerCase() === "vn") {
-          const cityKey = retrievedArray.city_key;
+      if (this.wardParam) {
+        if (countryKey === "vn") {
+          const cityKey = this.wardParam.city_key;
           debugger;
           const findData = this.listCityAllGetters.find(
             (x) => x.keyAccentLanguage === cityKey
@@ -158,11 +164,11 @@ export default {
 
           if (findData) {
             debugger;
-            if (retrievedArray.district_key) {
+            if (this.wardParam.district_key) {
               const findDataWard = findData.districtList?.find(
                 (x) =>
                   x.keyAccentLanguage ===
-                  this.removeDiacritics(retrievedArray.district)
+                  this.removeDiacritics(this.wardParam.district)
               );
               if (findDataWard) {
                 return findDataWard.wards.slice(0, this.itemSliceCount);
@@ -175,16 +181,98 @@ export default {
           } else {
             return [];
           }
+        } else if (countryKey === "us") {
+          //
+          const stateKey = this.wardParam.state_key;
+          const findData = this.listAlabamaGetters.find(
+            (x) => x.keyAccentLanguage === stateKey
+          );
+          if (findData) {
+            if (this.wardParam?.county) {
+              const countyRemove = this.removeWordAndAccents(
+                this.wardParam.county,
+                "County"
+              );
+              const findDataCities = findData.counties.find(
+                (x) => x.name === countyRemove
+              );
+              if (findDataCities) {
+                return findDataCities.cities.slice(0, this.itemSliceCount);
+              } else {
+                return [];
+              }
+            } else {
+              return findData.counties.slice(0, this.itemSliceCount);
+            }
+          } else {
+            return [];
+          }
         } else {
           return [];
         }
       } else {
-        const findData = this.listCityAllGetters.find(
-          (x) => x.keyLanguage === this.breadcumsObjectGetters.city_key
-        );
-        return findData?.districtList?.slice(0, this.itemSliceCount) || [];
+        return [];
       }
     },
+    // renderListCityAllGetters() {
+    //   try {
+    //     // Kiểm tra wardParam và listCityAllGetters
+    //     debugger;
+
+    //     const countryKey = this.wardParam.country_key;
+
+    //     if (countryKey === "vn") {
+    //       debugger;
+    //       const cityKey = this.wardParam.city_key;
+    //       const findData = this.listCityAllGetters.find(
+    //         (x) => x.keyAccentLanguage === cityKey
+    //       );
+
+    //       if (!findData) {
+    //         console.log("Không tìm thấy thành phố phù hợp.");
+    //         return [];
+    //       }
+
+    //       if (this.wardParam.district_key) {
+    //         const districtKey = this.removeDiacritics(this.wardParam.district);
+
+    //         if (typeof districtKey !== "string") {
+    //           console.log("district_key không hợp lệ.");
+    //           return [];
+    //         }
+
+    //         const findDataWard = findData.districtList?.find(
+    //           (x) => x.keyAccentLanguage === districtKey
+    //         );
+
+    //         if (findDataWard && Array.isArray(findDataWard.wards)) {
+    //           return findDataWard.wards.slice(0, this.itemSliceCount);
+    //         } else {
+    //           console.log(
+    //             "Không tìm thấy phường phù hợp hoặc wards không phải mảng."
+    //           );
+    //           return [];
+    //         }
+    //       } else {
+    //         return findData.districtList?.slice(0, this.itemSliceCount) || [];
+    //       }
+    //     } else if (countryKey === "us") {
+    //       // Xử lý cho US (cần bổ sung logic nếu cần)
+
+    //       const cityKey = this.wardParam.city_key;
+    //       const findData = this.listAlabamaGetters.find(
+    //         (x) => x.keyAccentLanguage === cityKey
+    //       );
+    //       return [];
+    //     } else {
+    //       console.log("Không hỗ trợ countryKey này.");
+    //       return [];
+    //     }
+    //   } catch (error) {
+    //     console.error("Lỗi xảy ra trong renderListCityAllGetters:", error);
+    //     return [];
+    //   }
+    // },
   },
 
   mounted() {
@@ -203,6 +291,13 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
+
+    removeWordAndAccents(str, wordToRemove) {
+      const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
+      return normalizedStr
+        .replace(new RegExp(`\\b${wordToRemove}\\b`, "gi"), "")
+        .trim();
+    },
 
     convertToLowCase(value) {
       const normalizedStr = value

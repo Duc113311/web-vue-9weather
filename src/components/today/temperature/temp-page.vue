@@ -9,7 +9,11 @@
             width="24"
             alt=""
           />
-          <span>{{ $t(`{city}_Weather`, { city: wardParam?.city }) }}</span>
+          <span>{{
+            $t(`{city}_Weather`, {
+              city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+            })
+          }}</span>
         </div>
       </template>
 
@@ -95,6 +99,14 @@ export default {
         : this.breadcumsObjectGetters;
 
       return resultData;
+    },
+
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
     },
   },
 
