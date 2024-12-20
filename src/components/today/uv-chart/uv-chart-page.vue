@@ -11,12 +11,11 @@
           <div>
             <ChartDays></ChartDays>
 
-            <!-- Chart -->
             <div
               class="chart-container w-[89rem] mb-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="240" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="260" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -122,17 +121,14 @@ export default {
         console.error("Canvas element not found");
         return;
       }
-
       const ctx = canvas.getContext("2d");
       if (!ctx) {
         console.error("Failed to get canvas context");
         return;
       }
-
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
-
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(0, "#FFD600"); // Màu trên (#F5A300 với độ mờ 50%)
@@ -140,7 +136,6 @@ export default {
       const displayData = this.listUvIndexData.map((value) =>
         value === 0 ? 0.5 : value
       );
-
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
@@ -165,7 +160,6 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-
           plugins: {
             legend: {
               display: false,
@@ -193,7 +187,6 @@ export default {
           scales: {
             x: {
               display: false,
-
               ticks: {
                 stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
@@ -216,7 +209,27 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style scoped>
+.horizontal >>> .v-hl-btn-prev {
+  display: none !important;
+  left: 10px !important;
+}
+.horizontal >>> .v-hl-btn-next {
+  display: none !important;
+
+  right: 10px !important;
+}
+.horizontal:hover >>> .v-hl-btn-prev {
+  display: flex !important;
+  left: 10px !important;
+  opacity: 0.5;
+}
+
+.horizontal:hover >>> .v-hl-btn-next {
+  display: flex !important;
+  right: 10px !important;
+  opacity: 0.5;
+}
 .bg-short {
   background-color: #507a46;
 }

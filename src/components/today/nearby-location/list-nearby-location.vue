@@ -51,10 +51,7 @@
         </div>
       </template>
 
-      <div
-        class="w-full h-[244px]"
-        v-if="renderListCityAllGetters.length !== 0"
-      >
+      <div class="w-full h-auto" v-if="renderListCityAllGetters.length !== 0">
         <!--  -->
         <transition-group name="fade" tag="div">
           <div class="district-list">
@@ -188,12 +185,12 @@ export default {
                   this.removeDiacritics(this.wardParam.district)
               );
               if (findDataWard) {
-                return findDataWard.wards.slice(0, this.itemSliceCount);
+                return findDataWard.wards;
               } else {
                 return [];
               }
             } else {
-              return findData.districtList?.slice(0, this.itemSliceCount) || [];
+              return findData.districtList || [];
             }
           } else {
             return [];
@@ -214,12 +211,12 @@ export default {
                 (x) => x.name === countyRemove
               );
               if (findDataCities) {
-                return findDataCities.cities.slice(0, this.itemSliceCount);
+                return findDataCities.cities;
               } else {
                 return [];
               }
             } else {
-              return findData.counties.slice(0, this.itemSliceCount);
+              return findData.counties;
             }
           } else {
             return [];

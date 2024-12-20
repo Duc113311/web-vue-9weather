@@ -229,6 +229,15 @@ const mutations = {
         (state.locationChomeObject.latitude = data?.latitude), // latitude
         (state.locationChomeObject.longitude = data?.longitude); // longitude
     }
+
+    if (data?.country_key === "us") {
+      (state.locationChomeObject.country = data?.country), // Quốc gia
+        (state.locationChomeObject.country_key = data?.country_key), // Quốc gia
+        (state.locationChomeObject.state = data?.state), // Thành phố
+        (state.locationChomeObject.state_key = data?.state_key), // Thành phố
+        (state.locationChomeObject.latitude = data?.latitude), // latitude
+        (state.locationChomeObject.longitude = data?.longitude); // longitude
+    }
   },
 
   /**

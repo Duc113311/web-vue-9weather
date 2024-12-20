@@ -439,6 +439,12 @@ export default {
 
         console.log("objectPosition-us", objectPosition);
 
+        localStorage.setItem(
+          "currentLocationChome",
+          JSON.stringify(objectPosition)
+        );
+        this.setLocationChome(objectPosition);
+
         localStorage.setItem("objectBread", JSON.stringify(objectPosition));
         this.setBreadcumsAllowLocation(objectPosition);
       } else if (dataResponsive.country_code.toLowerCase() === "vn") {

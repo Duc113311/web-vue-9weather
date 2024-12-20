@@ -425,7 +425,7 @@ export default {
 
 .active-tab {
   background-color: #ffffff;
-  color: #0062f5 !important;
+  color: #0062f5;
 
   .menu-icon {
     filter: invert(31%) sepia(98%) saturate(1946%) hue-rotate(201deg)

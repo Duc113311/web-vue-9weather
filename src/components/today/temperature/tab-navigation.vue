@@ -46,10 +46,14 @@ export default {
 
 .active-tab {
   background-color: #ffffff;
-  color: #0062f5 !important;
+  color: #0062f5;
 }
 
+.active-tab:hover {
+  color: #ffffff;
+}
 .item-tab:hover {
   background-color: #edfffe38;
+  color: #ffffff;
 }
 </style>

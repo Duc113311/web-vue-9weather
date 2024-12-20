@@ -121,6 +121,13 @@
                   )
                 }}</span
               >
+              <span
+                class="txt_medium_des_16 text-blue-400"
+                v-else-if="
+                  currentLocationChome?.country_key?.toLowerCase() === 'us'
+                "
+                >{{ currentLocationChome?.state }}</span
+              >
               <span class="txt_medium_des_16 text-blue-400" v-else>{{
                 currentLocationChome?.city
               }}</span>
