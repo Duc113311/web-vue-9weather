@@ -171,7 +171,9 @@ export default {
   name: "breadcums-page",
 
   data() {
-    return {};
+    return {
+      localBreadcums: null,
+    };
   },
 
   computed: {
@@ -179,6 +181,7 @@ export default {
       "breadcumsObjectGetters",
       "listCityAllGetters",
     ]),
+
     languageParam() {
       debugger;
       const languageRouter = this.$route.params;
@@ -189,9 +192,9 @@ export default {
     /**
      * Gán giá trị breadcums
      */
+
     breadcumsObject() {
-      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+      return this.localBreadcums;
     },
 
     cityBreadcums() {
@@ -225,6 +228,13 @@ export default {
       "getWeatherDataCurrent",
       "getFormattedAddress",
     ]),
+
+    updateLocalBreadcums() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      this.localBreadcums = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+    },
 
     async onClickStateUSA() {
       const breadcumsObject = this.breadcumsObject;
@@ -515,6 +525,11 @@ export default {
       // this.setCityWeather(objectPosition);
       debugger;
     },
+  },
+
+  mounted() {
+    debugger;
+    this.updateLocalBreadcums();
   },
 };
 </script>

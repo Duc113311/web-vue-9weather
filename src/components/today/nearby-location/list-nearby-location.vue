@@ -187,9 +187,7 @@ export default {
             debugger;
             if (this.wardParam.district_key) {
               const findDataWard = findData.districtList?.find(
-                (x) =>
-                  x.keyAccentLanguage ===
-                  this.removeDiacritics(this.wardParam.district)
+                (x) => x.keyAccentLanguage === this.wardParam.district_key
               );
               if (findDataWard) {
                 return findDataWard.wards;

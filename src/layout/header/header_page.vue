@@ -517,9 +517,12 @@ export default {
 
       // Lọc ra các từ có trong str2
       const commonWords = words1.filter((word) => words2.includes(word));
-
+      if (str2 === "Bac_Tu_Liem" || str2 === "Nam_Tu_Liem") {
+        return commonWords.length >= 3;
+      } else {
+        return commonWords.length >= 2;
+      }
       // Kiểm tra xem có ít nhất 2 từ chung không
-      return commonWords.length >= 2;
     },
 
     findCityData(value) {
@@ -662,14 +665,12 @@ export default {
           country_key: item.country_key.toLowerCase(),
           city: item.city ? this.findCityData(item).viNameLanguage : "",
           city_key: item.city ? this.findCityData(item).keyAccentLanguage : "",
-          district: item.district
-            ? this.findDistrictsData(item).viNameLanguage
-            : "",
+          district: item.district ? item.district : "",
           district_key:
             item.district && item.district.trim() !== ""
               ? this.findDistrictsData(item).keyAccentLanguage
               : "",
-          ward: item.ward ? this.findWardData(item).viNameLanguage : "",
+          ward: item.ward ? item.ward : "",
           ward_key: item.ward ? this.findWardData(item).keyAccentLanguage : "",
           latitude: item.lat,
           longitude: item.lng,

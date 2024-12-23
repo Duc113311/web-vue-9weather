@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-auto">
-    <BreadcumsPage></BreadcumsPage>
+    <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 
     <!--  -->
     <NavTabbar></NavTabbar>
@@ -22,6 +22,13 @@ export default {
 
   data() {
     return {};
+  },
+
+  computed: {
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
   },
 
   mounted() {

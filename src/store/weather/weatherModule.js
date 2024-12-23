@@ -122,7 +122,7 @@ const mutations = {
         ["country", "political"].every((type) => x.types.includes(type))
       ) || { long_name: "" };
 
-      if (valueCountry.long_name === "Vietnam") {
+      if (valueCountry.short_name === "VN") {
         const nameCity = element.address_components.find((x) =>
           ["administrative_area_level_1", "political"].every((type) =>
             x.types.includes(type)
