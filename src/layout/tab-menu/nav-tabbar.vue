@@ -8,7 +8,7 @@
         <div
           v-for="(menu, index) in menuItems"
           :key="index"
-          class="cursor-pointer weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center text-white"
+          class="cursor-pointer weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center"
           :class="{ 'active-tab': activeIndex === index }"
           @click="onClickRouterView(menu, index)"
         >
@@ -421,6 +421,7 @@ export default {
 .weather-menu-item {
   width: 130px;
   background-color: #5b6c86;
+  color: #ffffff;
 }
 
 .active-tab {

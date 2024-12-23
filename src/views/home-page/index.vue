@@ -70,7 +70,7 @@
           </div>
           <div
             class="w-full"
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            v-if="currentlyData && Object.keys(currentlyData).length < 0"
           >
             <MoonPage></MoonPage>
           </div>

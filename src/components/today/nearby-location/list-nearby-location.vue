@@ -15,27 +15,33 @@
             >
               <span v-if="wardParam?.city && !wardParam?.district">
                 {{
-                  $t(`{city}_district_Weather`, {
-                    city: $t(
-                      `city.city_${languageParam}.${convertToLowCase(
-                        wardParam?.city_key
-                      )}`
-                    ),
-                  })
+                  convertCapitalizeWords(
+                    $t(`{city}_district_Weather`, {
+                      city: $t(
+                        `city.city_${languageParam}.${convertToLowCase(
+                          wardParam?.city_key
+                        )}`
+                      ),
+                    })
+                  )
                 }}</span
               >
               <span v-if="wardParam?.district && !wardParam?.ward">
                 {{
-                  $t(`Weather_in_{city}_ward_and_commune`, {
-                    city: wardParam?.district,
-                  })
+                  convertCapitalizeWords(
+                    $t(`Weather_in_{city}_ward_and_commune`, {
+                      city: wardParam?.district,
+                    })
+                  )
                 }}
               </span>
               <span v-if="wardParam?.ward">
                 {{
-                  $t(`Weather_in_{city}_ward_and_commune`, {
-                    city: wardParam?.ward,
-                  })
+                  convertCapitalizeWords(
+                    $t(`Weather_in_{city}_ward_and_commune`, {
+                      city: wardParam?.ward,
+                    })
+                  )
                 }}
               </span>
             </div>
@@ -86,6 +92,7 @@
 <script>
 import DistrictCardPage from "@/components/common/card/district-card-page.vue";
 import ItemComponent from "@/components/common/itemComponent.vue";
+import { capitalizeWords } from "@/utils/converValue";
 import {
   decodeBase64,
   encodeBase64,
@@ -313,6 +320,10 @@ export default {
         .trim();
     },
 
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
+
     onClickLoadMoreItems() {
       if (this.showLessButton) {
         this.currentPage = 1; // Reset to show the initial items
@@ -458,7 +469,7 @@ export default {
           ? objectAddressNew.country
           : objectBreadStorage.country,
         country_key: objectAddressNew
-          ? objectAddressNew.country_key
+          ? objectAddressNew.country_key.toLowerCase()
           : objectBreadStorage.country_key,
         city: objectAddressNew
           ? this.convertToVietnamese(objectAddressNew.city).city

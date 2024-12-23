@@ -1,4 +1,6 @@
 import i18n from "../locales/i18n";
+import { DateTime } from "luxon";
+
 /* eslint-disable prettier/prettier */
 /**
  * Convert nhiệt độ Celsius sang Fahrenheit
@@ -199,6 +201,31 @@ export function getIconHourlyForecastTheme(value) {
   }
 }
 
+export function convertTimestampToMonthYear(timestamp) {
+  const date = new Date(timestamp * 1000); // Chuyển timestamp sang milliseconds
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const month = months[date.getMonth()]; // Lấy tháng
+  const year = date.getFullYear(); // Lấy năm
+
+  return `${month} ${year}`;
+}
+
+export function convertTimestampToDayMonth(timestamp) {
+  const date = new Date(timestamp * 1000); // Chuyển timestamp từ giây sang milliseconds
+  const day = date.getDate(); // Lấy ngày
+  const month = date.getMonth() + 1; // Lấy tháng (0-indexed, cần +1)
+  
+  // Đảm bảo ngày và tháng có định dạng 2 chữ số (01, 02, ...)
+  const formattedDay = day < 10 ? `0${day}` : day;
+  const formattedMonth = month < 10 ? `0${month}` : month;
+
+  return `${formattedDay}/${formattedMonth}`; // Kết quả dạng "23/11"
+}
+
 export function convertDayOfWeek(timestamp) {
   const date = new Date(timestamp * 1000);
   const now = new Date();
@@ -207,7 +234,7 @@ export function convertDayOfWeek(timestamp) {
     date.getMonth() === now.getMonth() &&
     date.getFullYear() === now.getFullYear()
   ) {
-    return i18n.global.t("Now");
+    return i18n.global.t("Today");
   } else {
     // Nếu không trùng, hiển thị ngày trong tuần
     const days = [
@@ -232,24 +259,24 @@ export function convertDayOfWeek(timestamp) {
 export function convertTimestampToHoursMinutes(
   timestamp,
   numberTime,
-  offsetValue
+  offsetValue,
+  timezone
 ) {
-  const date = new Date(timestamp * 1000);
-  const utcTime = date.getTime();
-  const localTime = new Date(utcTime + offsetValue * 3600 * 1000);
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
 
-  let hours = localTime.getUTCHours();
-  let minutes = localTime.getUTCMinutes();
+
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
 
   // Chuyển đổi giờ sang định dạng 12 giờ
   hours = hours % 24;
   hours = hours ? hours : 0; // Nếu giờ là 0 thì chuyển thành 12
   minutes = minutes < 10 ? "0" + minutes : minutes;
-  let now = new Date();
-  let hoursNow = now.getHours();
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour;
   // Trả về thời gian định dạng 12 giờ
   if (numberTime === 0) {
-    return hours + ":" + minutes;
+    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
   } else if (numberTime === 1) {
     if (hours < 10) {
       return "0" + hours + ":" + minutes;
@@ -257,30 +284,37 @@ export function convertTimestampToHoursMinutes(
     if (hours === hoursNow) {
       return i18n.global.t("Now");
     }
-    return hours + ":" + minutes;
+    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
   }
 }
 
 export function convertTimestampToHoursMinutes12(
   timestamp,
   numberTime,
-  offsetValue
+  offsetValue,
+  timezone
 ) {
-  const date = new Date(timestamp * 1000);
-  const utcTime = date.getTime();
-  const localTime = new Date(utcTime + offsetValue * 3600 * 1000);
+  // const date = new Date(timestamp * 1000);
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  debugger
+  // const utcTime = date.getTime();
+  // const localTime = new Date(utcTime + offsetValue * 3600 * 1000);
+  // Lấy giờ và phút
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
 
-  let hours = localTime.getUTCHours();
-  let minutes = localTime.getUTCMinutes();
+  // let hours = localTime.getUTCHours();
+  // let minutes = localTime.getUTCMinutes();
 
+
+  debugger;
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12;
-  hours = hours < 10 ? "0" + hours : 12; // Nếu giờ là 0 thì chuyển thành 12
-  minutes = minutes < 10 ? "0" + minutes : minutes;
+  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
 
-  let now = new Date();
-  let hoursNow = now.getHours() % 12 || 12; // Lấy giờ hiện tại theo định dạng 12 giờ
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour % 12 || 12;
 
   // Trả về thời gian định dạng 12 giờ
   if (numberTime === 0) {
@@ -535,6 +569,23 @@ export function getWindDirectionEmojiFromDegrees(windBearing) {
   }
 }
 
+
+export function convertMonth(timestamp){
+  const date = new Date(timestamp * 1000);
+  const dayMapping = {
+    Sunday: i18n.global.t("Sun"),
+    Monday: i18n.global.t("Mon"),
+    Tuesday: i18n.global.t("Tue"),
+    Wednesday: i18n.global.t("Wed"),
+    Friday: i18n.global.t("Fri"),
+    Thursday: i18n.global.t("Thu"),
+    Saturday: i18n.global.t("Sat"),
+  };
+
+  const month =date.getMonth()+1
+  return month
+}
+
 export function convertToShortDay(dateFull) {
   const dayMapping = {
     Sunday: i18n.global.t("Sun"),
@@ -553,7 +604,7 @@ export function convertToShortDay(dateFull) {
   });
 
   if (dayMapping[dayOfWeekNow] === dayMapping[dayOfWeek]) {
-    return i18n.global.t("Now");
+    return i18n.global.t("Today");
   }
 
   // Chuyển đổi ngày sang dạng ngắn

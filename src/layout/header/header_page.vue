@@ -135,6 +135,8 @@ export default {
       suggestions: [],
       suggestionsFull: [],
 
+      indexKey: 0,
+
       hour: "",
       minutes: "",
       second: "",
@@ -165,7 +167,6 @@ export default {
     ]),
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
@@ -227,6 +228,7 @@ export default {
       "setBreadcumsNotAllowLocation",
       "setBreadcumsAllowLocation",
       "setBreadcumsTheWorld",
+      "setIndexComponent",
     ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
@@ -650,12 +652,14 @@ export default {
 
     async handleSelect(item) {
       debugger;
+
+      debugger;
       this.valueSearch = "";
       let language = this.languageParam;
       if (item?.country_key?.toLowerCase() === "vn") {
         let objectBread = {
           country: item.country,
-          country_key: item.country_key,
+          country_key: item.country_key.toLowerCase(),
           city: item.city ? this.findCityData(item).viNameLanguage : "",
           city_key: item.city ? this.findCityData(item).keyAccentLanguage : "",
           district: item.district

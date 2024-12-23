@@ -8,7 +8,7 @@
           alt=""
           srcset=""
         />
-        <p class="txt_regular text-white">{{ $t("Setting") }}</p>
+        <p class="txt_regular text-white">{{ $t("Settings") }}</p>
       </div>
       <div
         @click="onClickBack('settings')"
@@ -43,6 +43,18 @@
       >
         <div class="txt_regular flex items-center">
           <span>{{ $t(`Unit_preferences_settings`) }}</span>
+        </div>
+        <div>
+          <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
+        </div>
+      </div>
+      <div
+        v-if="namePage !== 'languages_settings'"
+        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
+        @click="onClickLanguagesSetting('languages_settings')"
+      >
+        <div class="txt_regular flex items-center">
+          <span>{{ $t(`languages_settings`) }}</span>
         </div>
         <div>
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
@@ -93,6 +105,10 @@ export default {
 
     onClickUnitSetting(value) {
       this.namePage = value;
+    },
+
+    onClickLanguagesSetting(value) {
+      debugger;
     },
 
     onClickCancel() {

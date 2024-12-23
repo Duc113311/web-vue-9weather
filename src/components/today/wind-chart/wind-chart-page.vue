@@ -23,7 +23,9 @@
           <div class="flex items-center text-left gap-2">
             <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_des">{{
-              $t("Wind_speed_in_the_coming_hours")
+              $t(`Wind_speed_{unit}`, {
+                unit: objectSetting.activeWindSpeed_save,
+              })
             }}</span>
           </div>
         </div>
@@ -227,8 +229,28 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style scoped>
+.horizontal >>> .v-hl-btn-prev {
+  display: none !important;
+  left: 10px !important;
+}
+.horizontal >>> .v-hl-btn-next {
+  display: none !important;
+
+  right: 10px !important;
+}
+.horizontal:hover >>> .v-hl-btn-prev {
+  display: flex !important;
+  left: 10px !important;
+  opacity: 0.5;
+}
+
+.horizontal:hover >>> .v-hl-btn-next {
+  display: flex !important;
+  right: 10px !important;
+  opacity: 0.5;
+}
 .bg-wind {
-  background-color: #878787;
+  background-color: #e6e6e6;
 }
 </style>

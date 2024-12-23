@@ -11,6 +11,7 @@ const state = {
     latitude: "",
     longitude: "",
     offset: 0,
+    timezone: "Asia/Bangkok",
   },
 
   currently: {},
@@ -84,6 +85,7 @@ const mutations = {
       state.locationOffset.latitude = state.weatherCurrentData.latitude;
       state.locationOffset.longitude = state.weatherCurrentData.longitude;
       state.locationOffset.offset = state.weatherCurrentData.offset;
+      state.locationOffset.timezone = state.weatherCurrentData.timezone;
 
       state.currently = state.weatherCurrentData.currently;
       state.dailyOne = state.weatherCurrentData.daily.data[0];
@@ -179,15 +181,23 @@ const mutations = {
           ["locality", "political"].every((type) => x.types.includes(type))
         ) || { long_name: "" };
 
-        const nameDistrict = element.address_components.find((x) =>
+        const nameState = element.address_components.find((x) =>
           ["administrative_area_level_1", "political"].every((type) =>
+            x.types.includes(type)
+          )
+        ) || { long_name: "" };
+        const nameArea = element.address_components.find((x) =>
+          ["administrative_area_level_2", "political"].every((type) =>
             x.types.includes(type)
           )
         ) || { long_name: "" };
         if (valueCountry.long_name.length !== 0) {
           objectPush.country = valueCountry.long_name;
-          objectPush.city = nameCity.long_name;
-          objectPush.district = nameDistrict.long_name;
+          objectPush.country_key = valueCountry.short_name.toLowerCase();
+          objectPush.state = nameState.long_name;
+          objectPush.state_key = nameState.short_name.toLowerCase();
+          objectPush.county = nameArea.long_name;
+          objectPush.cities = nameCity.long_name;
           (objectPush.address = element.formatted_address),
             (objectPush.lat = element.geometry.location.lat),
             (objectPush.lng = element.geometry.location.lng);

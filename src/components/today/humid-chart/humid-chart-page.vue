@@ -205,7 +205,27 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style scoped>
+.horizontal >>> .v-hl-btn-prev {
+  display: none !important;
+  left: 10px !important;
+}
+.horizontal >>> .v-hl-btn-next {
+  display: none !important;
+
+  right: 10px !important;
+}
+.horizontal:hover >>> .v-hl-btn-prev {
+  display: flex !important;
+  left: 10px !important;
+  opacity: 0.5;
+}
+
+.horizontal:hover >>> .v-hl-btn-next {
+  display: flex !important;
+  right: 10px !important;
+  opacity: 0.5;
+}
 .bg-humid {
   background-color: #0cffd3;
 }

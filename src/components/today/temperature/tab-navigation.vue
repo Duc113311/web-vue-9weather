@@ -49,9 +49,6 @@ export default {
   color: #0062f5;
 }
 
-.active-tab:hover {
-  color: #ffffff;
-}
 .item-tab:hover {
   background-color: #edfffe38;
   color: #ffffff;

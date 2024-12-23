@@ -162,6 +162,8 @@ export default {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       const offsetValue =
         this.$store.state.weatherModule?.locationOffset?.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule?.locationOffset?.timezone;
 
       if (data.length !== 0) {
         data.forEach((item, index) => {
@@ -171,7 +173,8 @@ export default {
             timeConvert = convertTimestampToHoursMinutes12(
               item?.time,
               0,
-              offsetValue
+              offsetValue,
+              timezoneValue
             );
           } else {
             timeConvert = convertTimestampToHoursMinutes(

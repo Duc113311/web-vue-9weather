@@ -96,10 +96,17 @@ export default {
     convertTime(val) {
       const offsetValue =
         this.$store.state.weatherModule.locationOffset?.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
+        return convertTimestampToHoursMinutes12(
+          val,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       } else {
         return convertTimestampToHoursMinutes(val, 1, offsetValue);
       }

@@ -220,8 +220,8 @@
       {
         "code": 34,
         "type": "Provincial City",
-        "viNameLanguage": "Huế",
-        "keyAccentLanguage": "Hue"
+        "viNameLanguage": "Thừa Thiên Huế",
+        "keyAccentLanguage": "Thua_Thien_Hue"
       }
     ]
   },
@@ -442,6 +442,18 @@
         "type": "Provincial City",
         "viNameLanguage": "Trà Vinh",
         "keyAccentLanguage": "Tra_Vinh"
+      },
+      {
+        "code": 69,
+        "type": "Provincial City",
+        "viNameLanguage": "Vĩnh Long",
+        "keyAccentLanguage": "Vinh_long"
+      },
+      {
+        "code":70,
+        "type": "Provincial City",
+        "viNameLanguage": "Đồng Tháp",
+        "keyAccentLanguage": "Dong_Thap"
       }
     ]
   }

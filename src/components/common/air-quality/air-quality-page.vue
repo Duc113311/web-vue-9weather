@@ -15,10 +15,10 @@
       <div class="w-full">
         <!--  -->
         <div class="text-left pad-big">
-          <div class="txt_bold" :style="{ color: progressColor }">
+          <div class="txt_bold">
             <span>{{ paramAirModule }}</span>
           </div>
-          <div class="txt_light">
+          <div class="txt_light" :style="{ color: progressColor }">
             <span>{{ convertAirIndexName(paramAirModule) }}</span>
           </div>
         </div>

@@ -8,7 +8,11 @@
         alt=""
       />
       <span>
-        {{ $t(`{city}_weather_by_hour`, { city: breadcumsObject?.city }) }}
+        {{
+          convertCapitalizeWords(
+            $t(`{city}_weather_by_hour`, { city: breadcumsObject?.city })
+          )
+        }}
       </span>
     </div>
     <div class="w-full h-full overflow-hidden">
@@ -120,9 +124,11 @@
                   </div>
                   <div class="flex items-center">
                     <p>
-                      {{ item?.uvIndex }} ({{
-                        convertUvIndexName(item?.uvIndex)
-                      }})
+                      {{ item?.uvIndex }}
+
+                      <span class="txt_regular_des"
+                        >({{ convertUvIndexName(item?.uvIndex) }})</span
+                      >
                     </p>
                   </div>
                 </div>
@@ -240,7 +246,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <img
-                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
+                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
                       alt=""
                       srcset=""
                     />
@@ -256,7 +262,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <img
-                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
+                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
                       alt=""
                       srcset=""
                     />
@@ -431,12 +437,18 @@ export default {
 
     convertTime(val) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes(val, 1, offsetValue);
+        return convertTimestampToHoursMinutes12(
+          val,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       } else {
-        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
+        return convertTimestampToHoursMinutes(val, 1, offsetValue);
       }
     },
 

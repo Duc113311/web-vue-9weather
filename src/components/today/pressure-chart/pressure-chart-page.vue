@@ -21,7 +21,7 @@
 
         <div class="absolute w-full bottom-0 left-0 flex justify-end">
           <div class="flex items-center text-left gap-2">
-            <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
+            <div class="bg-pressure rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_des">{{
               $t("Precipitation_in_the_coming_hours")
             }}</span>
@@ -148,7 +148,7 @@ export default {
               pointBackgroundColor: "#ffffff",
               borderWidth: 1,
               pointBorderColor: "#C27021",
-              pointRadius: 3,
+              pointRadius: 5,
               backgroundColor: gradient,
               fill: true,
               data: this.listPressure,
@@ -243,4 +243,28 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style scoped>
+.horizontal >>> .v-hl-btn-prev {
+  display: none !important;
+  left: 10px !important;
+}
+.horizontal >>> .v-hl-btn-next {
+  display: none !important;
+
+  right: 10px !important;
+}
+.horizontal:hover >>> .v-hl-btn-prev {
+  display: flex !important;
+  left: 10px !important;
+  opacity: 0.5;
+}
+
+.horizontal:hover >>> .v-hl-btn-next {
+  display: flex !important;
+  right: 10px !important;
+  opacity: 0.5;
+}
+.bg-pressure {
+  background-color: #00e1ff;
+}
+</style>

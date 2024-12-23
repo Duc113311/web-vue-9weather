@@ -2,13 +2,19 @@
   <div class="w-full h-full">
     <BaseComponent :height="heightAuto" :is-show-pad="false">
       <template v-slot:header>
-        <div class="flex items-center text-left gap-2">
-          <img
-            src="../../../assets/images/svg_v2/ic_cloud_sun.svg"
-            width="24"
-            alt=""
-          />
-          <span>Calendar</span>
+        <div class="flex items-center justify-between text-left gap-2">
+          <div class="flex items-center gap-2">
+            <img
+              src="../../../assets/images/svg_v2/ic_cloud_sun.svg"
+              width="24"
+              alt=""
+            />
+            <span>{{ $t("Calendar") }}</span>
+          </div>
+
+          <div>
+            {{ onvertToShortMonth(renderCalendar[0]?.time) }}
+          </div>
         </div>
       </template>
 
@@ -16,13 +22,13 @@
         <div class="w-full">
           <div class="calendar">
             <ul class="weeks bor-bottom bg-title-calender p-2">
-              <li>Mon</li>
-              <li>Tue</li>
-              <li>Wed</li>
-              <li>Thu</li>
-              <li>Fri</li>
-              <li class="weekend">Sat</li>
-              <li class="weekend">Sun</li>
+              <li>{{ $t("Monday") }}</li>
+              <li>{{ $t("Tuesday") }}</li>
+              <li>{{ $t("Wednesday") }}</li>
+              <li>{{ $t("Thursday") }}</li>
+              <li>{{ $t("Friday") }}</li>
+              <li class="weekend">{{ $t("Saturday") }}</li>
+              <li class="weekend">{{ $t("Sunday") }}</li>
             </ul>
             <ul class="days p-4">
               <li
@@ -98,6 +104,7 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import {
   convertCtoF,
   convertFtoC,
+  convertTimestampToMonthYear,
   getIconHourlyForecastTheme,
 } from "@/utils/converValue";
 
@@ -148,6 +155,9 @@ export default {
       const day = dateNew.getDate();
 
       return day;
+    },
+    onvertToShortMonth(value) {
+      return convertTimestampToMonthYear(value);
     },
 
     convertToShortToDay() {

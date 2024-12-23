@@ -157,7 +157,9 @@ export default {
             },
             datalabels: {
               display: true,
-              align: "top",
+              anchor: "end",
+              align: "end",
+              clip: false,
               font: {
                 size: 10,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
@@ -173,6 +175,8 @@ export default {
           scales: {
             x: {
               display: false,
+              categoryPercentage: 0.8,
+              barPercentage: 0.7,
               title: {
                 display: false,
                 stepSize: 2,
@@ -186,7 +190,7 @@ export default {
                 //   text: "Giá trị",
               },
               beginAtZero: true,
-              max: 13,
+              max: 15,
             },
           },
           elements: {

@@ -14,9 +14,11 @@
                 alt=""
               />
               <span>{{
-                $t(`Weather_forecast_for_{city}_in_the_coming_hours`, {
-                  city: wardParam?.city,
-                })
+                convertCapitalizeWords(
+                  $t(`Weather_forecast_for_{city}_in_the_coming_hours`, {
+                    city: wardParam?.city,
+                  })
+                )
               }}</span>
             </div>
           </template>
@@ -45,7 +47,7 @@
                 width="24"
                 alt=""
               />
-              <span>{{ $t("Current_weather") }}</span>
+              <span>{{ convertCapitalizeWords($t("Current_weather")) }}</span>
             </div>
           </template>
 
@@ -62,7 +64,7 @@
               <div class="flex items-center pt-1 pb-1">
                 <p>
                   {{ renderToCelsius(dailyOneData?.temperatureMin) }}
-                  -
+                  /
                   {{ renderToCelsius(dailyOneData?.temperatureMax) }}
                 </p>
               </div>

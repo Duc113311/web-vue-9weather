@@ -22,11 +22,11 @@
         <div class="absolute w-full bottom-0 left-0">
           <div class="flex justify-center items-center w-full">
             <div class="flex-1 bg-short text-white text-center pl-4 pr-4">
-              <p class="title-tab">{{ $t("Short") }}</p>
+              <p class="title-tab">{{ $t("Low") }}</p>
               <p class="des-atb">0-2</p>
             </div>
             <div class="flex-1 bg-Medium text-center">
-              <p class="title-tab">{{ $t("Medium") }}</p>
+              <p class="title-tab">{{ $t("Moderate") }}</p>
               <p class="des-atb">3-5</p>
             </div>
             <div class="flex-1 bg-High text-center">
@@ -38,7 +38,7 @@
               <p class="des-atb">8-10</p>
             </div>
             <div class="flex-1 bg-Extremely-high text-white text-center">
-              <p class="title-tab">{{ $t("Extremely_high") }}</p>
+              <p class="title-tab">{{ $t("Extreme") }}</p>
               <p class="des-atb">> 10</p>
             </div>
           </div>

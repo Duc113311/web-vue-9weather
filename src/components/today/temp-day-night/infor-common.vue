@@ -32,7 +32,7 @@
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.uvIndex) }}
-          {{ convertUvIndexName(currentlyData?.uvIndex) }}
+          ({{ convertUvIndexName(currentlyData?.uvIndex) }})
         </p>
       </div>
       <div class="flex justify-between items-center">

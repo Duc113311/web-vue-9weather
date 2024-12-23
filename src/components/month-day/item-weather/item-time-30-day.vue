@@ -151,9 +151,10 @@
                   </div>
                   <div class="flex items-center">
                     <p>
-                      {{ item?.uvIndex }} ({{
-                        convertUvIndexName(item?.uvIndex)
-                      }})
+                      {{ item?.uvIndex
+                      }}<span class="txt_regular_des"
+                        >({{ convertUvIndexName(item?.uvIndex) }})</span
+                      >
                     </p>
                   </div>
                 </div>
@@ -271,7 +272,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <img
-                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
+                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
                       alt=""
                       srcset=""
                     />
@@ -287,7 +288,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <img
-                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
+                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
                       alt=""
                       srcset=""
                     />
@@ -345,6 +346,7 @@ import {
   capitalizeWords,
   getAirSummaryName,
   convertDayOfWeek,
+  convertTimestampToDayMonth,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -415,12 +417,7 @@ export default {
 
   methods: {
     convertToShortDay(value) {
-      const date = new Date(value * 1000);
-      const dateNew = new Date(date);
-      const day = dateNew.getDate();
-      const month = dateNew.getMonth();
-
-      return day + `/` + month;
+      return convertTimestampToDayMonth(value);
     },
 
     renderHourly(value) {
@@ -555,10 +552,16 @@ export default {
 
     convertTimeUnit(value) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(value, 1, offsetValue);
+        return convertTimestampToHoursMinutes12(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       } else {
         return convertTimestampToHoursMinutes(value, 1, offsetValue);
       }
