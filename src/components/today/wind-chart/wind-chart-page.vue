@@ -194,7 +194,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 12,
+              max: 20,
             },
           },
           elements: {
@@ -218,7 +218,7 @@ export default {
         if (unitSetting.activeWindSpeed_save === "mi/h") {
           return item.windSpeed;
         }
-        if (unitSetting.activeWindSpeed_save === "Knot") {
+        if (unitSetting.activeWindSpeed_save === "knot") {
           return convertMiToKnot(item.windSpeed);
         }
         if (unitSetting.activeWindSpeed_save === "bft") {

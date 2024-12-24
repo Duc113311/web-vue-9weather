@@ -23,7 +23,9 @@
           <div class="flex items-center text-left gap-2">
             <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_des">{{
-              $t("Humidity_in_the_coming_hours")
+              $t(`Humidity_{unit}`, {
+                unit: "%",
+              })
             }}</span>
           </div>
         </div>
@@ -227,7 +229,7 @@ export default {
   opacity: 0.5;
 }
 .bg-humid {
-  background-color: #0cffd3;
+  background-color: #1c6295;
 }
 
 .bg-rain-c {

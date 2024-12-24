@@ -781,7 +781,6 @@ export default {
     },
 
     renderCountry() {
-      debugger;
       return this.$store.state.weatherModule.cityCountry;
     },
   },
@@ -809,7 +808,6 @@ export default {
     ...mapActions("weatherModule", ["getWeatherByWidget"]),
 
     onChangeSampling(value) {
-      debugger;
       this.valueSampling = value;
 
       if (value === "option_1") {
@@ -837,7 +835,6 @@ export default {
     },
 
     async onChangeChoose(value) {
-      debugger;
       this.valueAddressLocation = value.label;
       const latitudeValue = value.lat;
       const longitudeValue = value.lng;
@@ -852,7 +849,6 @@ export default {
     },
 
     async handleInput(event) {
-      debugger;
       const valueSearch = event.target.value;
       if (valueSearch.length === 0) {
         this.options = [];
@@ -883,7 +879,7 @@ export default {
 
     // Khi giá trị thay đổi (chọn từ danh sách hoặc gõ xong)
     // handleChange(event) {
-    //   debugger;
+    //
 
     //   const value = event.target.value;
     //   console.log("Changed value:", value);
@@ -900,7 +896,7 @@ export default {
 
     // Khi nhấn phím (ví dụ: để kiểm tra từng phím bấm)
     // handleKeyup(event) {
-    //   debugger;
+    //
 
     //   console.log("Key pressed:", event.key);
     // },
@@ -922,7 +918,6 @@ export default {
     },
 
     onChangeTitleBackgroundColor(color) {
-      debugger;
       this.setTitleBackgroundColor(color);
     },
 

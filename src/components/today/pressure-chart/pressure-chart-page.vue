@@ -23,7 +23,9 @@
           <div class="flex items-center text-left gap-2">
             <div class="bg-pressure rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_des">{{
-              $t("Precipitation_in_the_coming_hours")
+              $t(`Pressure_{unit}`, {
+                unit: `${objectSetting.activePressure_save}`,
+              })
             }}</span>
           </div>
         </div>

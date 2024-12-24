@@ -1,6 +1,13 @@
 import { httpWeather } from "../../configs/http-weather";
 import { decodeBase64 } from "../../utils/EncoderDecoderUtils";
+import removeAccents from "remove-accents";
 
+function removeWordAndAccents(str, wordToRemove) {
+  const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
+  return normalizedStr
+    .replace(new RegExp(`\\b${wordToRemove}\\b`, "gi"), "")
+    .trim();
+}
 /**
  * State
  */
@@ -108,7 +115,6 @@ const mutations = {
     const listResultAddress = JSON.parse(jsonValue);
 
     debugger;
-
     const addressResult = listResultAddress.results;
     state.newArray = [];
     for (let index = 0; index < addressResult.length; index++) {
@@ -116,7 +122,7 @@ const mutations = {
 
       // const lastElement =
       //   element.address_components[element.address_components.length - 1];
-      debugger;
+
       let objectPush = {};
       const valueCountry = element.address_components.find((x) =>
         ["country", "political"].every((type) => x.types.includes(type))
@@ -138,15 +144,34 @@ const mutations = {
           ) || { long_name: "" };
 
         const nameWard = element.address_components.find((x) =>
-          ["political", "sublocality", "sublocality_level_1"].every((type) =>
+          ["administrative_area_level_3", "political"].every((type) =>
             x.types.includes(type)
           )
-        ) || { long_name: "" };
+        ) ||
+          element.address_components.find((x) =>
+            ["neighborhood", "political"].every((type) =>
+              x.types.includes(type)
+            )
+          ) ||
+          element.address_components.find((x) =>
+            ["political", "sublocality", "sublocality_level_1"].every((type) =>
+              x.types.includes(type)
+            )
+          ) || { long_name: "" };
+
+        // const nameWard = element.address_components.find((x) =>
+        //   ["political", "sublocality", "sublocality_level_1"].every((type) =>
+        //     x.types.includes(type)
+        //   )
+        // ) || { long_name: "" };
 
         objectPush.country = valueCountry.long_name;
         objectPush.country_key = valueCountry.short_name;
         objectPush.city = nameCity.long_name;
-        objectPush.district = nameDistrict.long_name;
+        objectPush.district = removeWordAndAccents(
+          nameDistrict.long_name,
+          "District"
+        );
         objectPush.ward = nameWard.long_name;
         (objectPush.address = element.formatted_address),
           (objectPush.lat = element.geometry.location.lat),
@@ -176,7 +201,6 @@ const mutations = {
           (objectPush.lat = element.geometry.location.lat),
           (objectPush.lng = element.geometry.location.lng);
       } else {
-        debugger;
         const nameCity = element.address_components.find((x) =>
           ["locality", "political"].every((type) => x.types.includes(type))
         ) || { long_name: "" };
@@ -248,14 +272,12 @@ const mutations = {
   // Widget
 
   setWeatherByWidget(state, data) {
-    debugger;
     const widgetCurrently = JSON.parse(decodeBase64(data));
     state.weatherWidgetDefault = widgetCurrently;
 
     state.objectWidget.currently = widgetCurrently.currently;
 
     state.objectWidget.listDaily = widgetCurrently.daily.data.slice(0, 3);
-    debugger;
   },
 
   setNumberDailyWeather(state, data) {

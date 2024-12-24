@@ -5,7 +5,7 @@
       <div class="header-h h-full w-full flex gap-4">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
-          <ChartAvgWeather> </ChartAvgWeather>
+          <ChartAvgWeather :key="indexState + Math.random()"> </ChartAvgWeather>
         </div>
 
         <div class="right-hourly w-[30%] md:block hidden">
@@ -23,6 +23,7 @@
         <div class="left-hourly h-full lg:w-[68%] w-full">
           <!--  -->
           <ItemTime24h
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></ItemTime24h>
           <div v-else class="w-full h-[860px] mt-4">
@@ -32,24 +33,28 @@
 
         <div class="right-hourly lg:w-[30%] w-full">
           <SunPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></SunPage>
           <div v-else class="w-full h-[200px] mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <MoonPage
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            :key="indexState + Math.random()"
+            v-if="currentlyData && Object.keys(currentlyData).length < 0"
           ></MoonPage>
           <div v-else class="w-full h-[200px] mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <UvPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></UvPage>
           <div v-else class="w-full h-[200px] mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <AirQualityPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></AirQualityPage>
           <div v-else class="w-full h-[200px] mt-5">
@@ -66,7 +71,9 @@
         class="left-hourly lg:w-[68%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
-        <ListNearbyLocation></ListNearbyLocation>
+        <ListNearbyLocation
+          :key="indexState + Math.random()"
+        ></ListNearbyLocation>
       </div>
       <div v-else class="w-full h-[380px] mt-5">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -76,7 +83,7 @@
         class="right-hourly h-[280px] lg:w-[30%] w-[40%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
-        <RadarPage></RadarPage>
+        <RadarPage :key="indexState + Math.random()"></RadarPage>
       </div>
       <div v-else class="w-full h-[380px] mt-5">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -120,15 +127,20 @@ export default {
     currentlyData() {
       return this.currentlyGetters;
     },
+
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
   },
 
   mounted() {},
 
   methods: {},
-  beforeRouteLeave(to, from, next) {
-    window.location.replace(to.fullPath);
-    next(); // Cho phép chuyển route
-  },
+  // beforeRouteLeave(to, from, next) {
+  //   window.location.replace(to.fullPath);
+  //   next(); // Cho phép chuyển route
+  // },
 };
 </script>
 

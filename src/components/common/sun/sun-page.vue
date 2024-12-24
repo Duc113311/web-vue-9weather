@@ -47,7 +47,11 @@
 </template>
 <script>
 import BaseComponent from "../baseComponent.vue";
-import { convertTimeSun } from "../../../utils/converValue.js";
+import {
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
+  convertTimeSun,
+} from "../../../utils/converValue.js";
 import { mapGetters } from "vuex";
 import {
   convertTimestampToHoursMinutes,
@@ -101,14 +105,9 @@ export default {
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(
-          val,
-          1,
-          offsetValue,
-          timezoneValue
-        );
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
       } else {
-        return convertTimestampToHoursMinutes(val, 1, offsetValue);
+        return convertTimestamp24hSun(val, 1, offsetValue);
       }
     },
     async createProgressionSin() {

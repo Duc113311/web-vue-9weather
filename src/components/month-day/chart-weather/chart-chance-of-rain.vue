@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container-rain w-[89rem]">
     <div class="chart-wrapper w-full">
-      <canvas id="chart_hourly_rain" height="80" ref="canvas"></canvas>
+      <canvas id="chart_month_rain" height="80" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -20,7 +20,6 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 
 Chart.register(
   LineController,
@@ -34,6 +33,7 @@ Chart.register(
   Filler,
   ChartDataLabels
 );
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 export default {
   name: "chart-chance-of-rain",
@@ -63,7 +63,7 @@ export default {
     paramHourly(newData) {
       if (newData.length !== 0) {
         this.$nextTick(() => {
-          this.createChartRain24h();
+          this.createChartRain30Day();
         });
       }
     },
@@ -72,14 +72,14 @@ export default {
   mounted() {
     if (this.paramHourly && this.paramHourly.length) {
       this.$nextTick(() => {
-        this.createChartRain24h();
+        this.createChartRain30Day();
       });
     }
   },
 
   methods: {
-    createChartRain24h() {
-      const canvas = document.getElementById("chart_hourly_rain");
+    createChartRain30Day() {
+      const canvas = document.getElementById("chart_month_rain");
       if (!canvas) {
         console.error("Canvas element not found");
         return;
@@ -91,7 +91,7 @@ export default {
         return;
       }
 
-      // var chart_hourly_rain = Chart.getChart("chart_hourly_rain");
+      // var chart_month_rain = Chart.getChart("chart_month_rain");
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }

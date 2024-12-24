@@ -26,20 +26,42 @@
                   )
                 }}</span
               >
-              <span v-if="wardParam?.district && !wardParam?.ward">
+              <span
+                v-if="
+                  wardParam?.city && wardParam?.district && !wardParam?.ward
+                "
+              >
                 {{
                   convertCapitalizeWords(
                     $t(`Weather_in_{city}_ward_and_commune`, {
-                      city: wardParam?.district,
+                      city: $t(
+                        `${convertToSlugCity(
+                          wardParam?.city
+                        )}.${convertToSlugCity(
+                          wardParam?.city
+                        )}_${languageParam}.${convertToLowCase(
+                          wardParam?.district_key
+                        )}`
+                      ),
                     })
                   )
                 }}
               </span>
-              <span v-if="wardParam?.ward">
+              <span
+                v-if="wardParam?.city && wardParam?.district && wardParam?.ward"
+              >
                 {{
                   convertCapitalizeWords(
                     $t(`Weather_in_{city}_ward_and_commune`, {
-                      city: wardParam?.ward,
+                      city: $t(
+                        `${convertToSlugCity(
+                          wardParam?.city
+                        )}.${convertToSlugCity(
+                          wardParam?.city
+                        )}_${languageParam}.${convertToLowCase(
+                          wardParam?.ward_key
+                        )}`
+                      ),
                     })
                   )
                 }}
@@ -69,7 +91,10 @@
             ></DistrictCardPage>
           </div>
         </transition-group>
-        <div class="w-full text-left mt-3">
+        <div
+          class="w-full text-left mt-3"
+          v-if="renderListCityAllGetters.length > 8"
+        >
           <button
             type="button"
             @click="onClickLoadMoreItems"
@@ -152,7 +177,6 @@ export default {
     },
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
@@ -160,8 +184,6 @@ export default {
     },
 
     wardParam() {
-      debugger;
-
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       const resultData = retrievedArray
         ? retrievedArray
@@ -171,20 +193,17 @@ export default {
     },
 
     renderListCityAllGetters() {
-      debugger;
-
       const countryKey = this.wardParam.country_key;
 
       if (this.wardParam) {
         if (countryKey === "vn") {
           const cityKey = this.wardParam.city_key;
-          debugger;
+
           const findData = this.listCityAllGetters.find(
             (x) => x.keyAccentLanguage === cityKey
           );
 
           if (findData) {
-            debugger;
             if (this.wardParam.district_key) {
               const findDataWard = findData.districtList?.find(
                 (x) => x.keyAccentLanguage === this.wardParam.district_key
@@ -236,12 +255,12 @@ export default {
     // renderListCityAllGetters() {
     //   try {
     //     // Kiểm tra wardParam và listCityAllGetters
-    //     debugger;
+    //
 
     //     const countryKey = this.wardParam.country_key;
 
     //     if (countryKey === "vn") {
-    //       debugger;
+    //
     //       const cityKey = this.wardParam.city_key;
     //       const findData = this.listCityAllGetters.find(
     //         (x) => x.keyAccentLanguage === cityKey
@@ -311,6 +330,13 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
+    convertToSlugCity(str) {
+      const slug = removeAccents(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
+    },
     removeWordAndAccents(str, wordToRemove) {
       const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
       return normalizedStr
@@ -443,8 +469,6 @@ export default {
     },
 
     async onClickShowDetailDistrict(value) {
-      debugger;
-
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
         : this.$i18n.locale;
@@ -459,7 +483,7 @@ export default {
       const valueEncode = encodeBase64(urlParam);
       await this.getFormattedAddress(valueEncode);
       let objectAddressNew = this.$store.state.weatherModule.newArray[0];
-      debugger;
+
       let objectBreadStorage = JSON.parse(localStorage.getItem("objectBread"));
 
       let objectBread = {
@@ -500,7 +524,7 @@ export default {
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
       this.setBreadcumsNotAllowLocation(objectBread);
-      debugger;
+
       if (objectBread.city.length !== 0 && objectBread.district.length === 0) {
         await this.$router.push({
           name: "today-weather",

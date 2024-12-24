@@ -123,6 +123,7 @@ export default {
     convertDataDayNight(valueData, isDayNight) {
       let tempAvg = 0;
 
+      debugger;
       if (isDayNight === true) {
         tempAvg =
           (valueData.maxTempDataDay?.temperature +

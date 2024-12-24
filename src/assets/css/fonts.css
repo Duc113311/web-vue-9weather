@@ -23,6 +23,14 @@
   font-weight: 500; /* Corresponds to Medium */
 }
 
+.txt_regular_18 {
+  font-size: 16px;
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 24.28px; /* Khoảng cách dòng để văn bản dễ đọc */
+  text-align: left; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Medium */
+}
+
 .txt_medium_30 {
   font-size: 24px;
   font-family: "Helvetica Neue", sans-serif;

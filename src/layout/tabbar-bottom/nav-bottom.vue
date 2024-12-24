@@ -21,64 +21,69 @@
                 />
               </div>
 
-              <div class="mega-box absolute hidden group-hover:block">
-                <div class="content">
-                  <div class="container">
-                    <div
-                      class="container-c"
-                      v-if="breadcumsObject?.country_key === 'vn'"
-                    >
-                      <!--  -->
+              <div class="relative group">
+                <div
+                  class="mega-box absolute"
+                  :class="{ 'hidden-p': isMegaBoxVisible }"
+                >
+                  <div class="content">
+                    <div class="container">
                       <div
-                        class="region"
-                        v-for="(item, index) in objectCity"
-                        :key="index"
+                        class="container-c"
+                        v-if="breadcumsObject?.country_key === 'vn'"
                       >
-                        <h2>
-                          {{
-                            $t(
-                              `city.city_${renderLanguage}.${item.keyAccentLanguage}`
-                            )
-                          }}
-                        </h2>
-                        <ul>
-                          <li
-                            v-for="(item1, index) in item?.provinceCity"
-                            :key="index"
-                            @click="onClickSearchCity(item1, item)"
-                          >
+                        <!--  -->
+                        <div
+                          class="region"
+                          v-for="(item, index) in objectCity"
+                          :key="index"
+                        >
+                          <h2>
                             {{
                               $t(
-                                `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
+                                `city.city_${renderLanguage}.${item.keyAccentLanguage}`
                               )
                             }}
-                          </li>
-                        </ul>
+                          </h2>
+                          <ul>
+                            <li
+                              v-for="(item1, index) in item?.provinceCity"
+                              :key="index"
+                              @click="onClickSearchCity(item1, item)"
+                            >
+                              {{
+                                $t(
+                                  `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
+                                )
+                              }}
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
 
-                    <div
-                      class="container-c"
-                      v-if="breadcumsObject?.country_key === 'us'"
-                    >
-                      <!--  -->
                       <div
-                        class="region"
-                        v-for="(item, index) in objectCity"
-                        :key="index"
+                        class="container-c"
+                        v-if="breadcumsObject?.country_key === 'us'"
                       >
-                        <h2>
-                          {{ item.regionName }}
-                        </h2>
-                        <ul>
-                          <li
-                            v-for="(item1, index) in item?.states"
-                            :key="index"
-                            @click="onClickSearchState(item1, item)"
-                          >
-                            {{ item1.nameState }}
-                          </li>
-                        </ul>
+                        <!--  -->
+                        <div
+                          class="region"
+                          v-for="(item, index) in objectCity"
+                          :key="index"
+                        >
+                          <h2>
+                            {{ item.regionName }}
+                          </h2>
+                          <ul>
+                            <li
+                              v-for="(item1, index) in item?.states"
+                              :key="index"
+                              @click="onClickSearchState(item1, item)"
+                            >
+                              {{ item1.nameState }}
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -218,7 +223,6 @@ export default {
     },
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
@@ -227,7 +231,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
+    ...mapMutations("commonModule", [
+      "setBreadcumsNotAllowLocation",
+      "setKeyIndexComponent",
+    ]),
     ...mapActions("weatherModule", [
       "getWeatherDataCurrent",
       "getFormattedAddress",
@@ -275,7 +282,6 @@ export default {
     async onClickSearchCity(value, valueCategory) {
       try {
         const nameCity = value.viNameLanguage;
-        debugger;
         const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
           nameCity
         )}&key=TOH_KEY`;
@@ -286,6 +292,7 @@ export default {
         const newDataValue = this.$store.state.weatherModule.newArray[0];
         const language = this.languageParam;
 
+        debugger;
         const objectBread = {
           country: newDataValue.country,
           country_key: newDataValue.country_key.toLowerCase(),
@@ -303,7 +310,6 @@ export default {
         this.setBreadcumsNotAllowLocation(objectBread);
 
         const convertCityUrl = this.convertToConvert(objectBread.city);
-        debugger;
         // Chuyển hướng ngay lập tức
         await this.$router.push({
           name: "today-weather",
@@ -312,8 +318,12 @@ export default {
             location: [objectBread.country_key.toLowerCase(), convertCityUrl],
           },
         });
-
-        this.$router.go();
+        this.setKeyIndexComponent(1);
+        this.isMegaBoxVisible = true;
+        setTimeout(() => {
+          this.isMegaBoxVisible = false;
+        }, 50);
+        // this.$router.go();
 
         // Gọi các API sau khi chuyển hướng
         const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
@@ -355,29 +365,28 @@ export default {
       localStorage.removeItem("cityName");
       localStorage.removeItem("objectBread");
 
-      debugger;
-      // Lấy thông tin vị trí và thành phố
-      const cityCountryNow =
-        // Chuyển hướng đến router trước
-        this.$router.push({ path: "/" }).then(() => {
-          window.location.reload();
-        });
-      // Xử lý tiếp các tác vụ API trong nền
+      const currentLocationChome = JSON.parse(
+        localStorage.getItem("currentLocationChome")
+      );
 
+      // Lấy thông tin vị trí và thành phố
+      this.$router.push({ path: "/" }).then(() => {});
+      // Xử lý tiếp các tác vụ API trong nền
+      this.setKeyIndexComponent(1);
       const keyLanguage = this.$route.params.language;
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${cityCountryNow.latitude},${cityCountryNow.longitude}?lang=${keyLanguage}`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${currentLocationChome.latitude},${currentLocationChome.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(
-        cityCountryNow.latitude,
-        cityCountryNow.longitude
+        currentLocationChome.latitude,
+        currentLocationChome.longitude
       );
       const value = encodeBase64(param);
       const valueNewAir = encodeBase64(resultAir);
       const objectPosition = {
-        latitude: cityCountryNow.latitude,
-        longitude: cityCountryNow.longitude,
-        city: cityCountryNow.city,
-        country: cityCountryNow.city,
+        latitude: currentLocationChome.latitude,
+        longitude: currentLocationChome.longitude,
+        city: currentLocationChome.city,
+        country: currentLocationChome.cicountryty,
       };
       const airCode = getParamAirByCode(this.airObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
@@ -420,7 +429,7 @@ export default {
   transform: translateY(10px); // Đặt vị trí ban đầu
 }
 .h-district:hover .mega-box {
-  top: 50px;
+  top: 14px;
   opacity: 1;
   visibility: visible;
   z-index: 10;
@@ -479,5 +488,9 @@ export default {
 .mega-box .region ul li:hover {
   background-color: #0e2950;
   color: white;
+}
+
+.hidden-p {
+  display: none !important; /* Ẩn hoàn toàn khi không hover */
 }
 </style>

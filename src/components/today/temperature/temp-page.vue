@@ -9,11 +9,51 @@
             width="24"
             alt=""
           />
-          <span v-if="wardParam.country_key === 'vn'">{{
-            $t(`{city}_Weather`, {
-              city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
-            })
-          }}</span>
+          <div v-if="wardParam.country_key === 'vn'">
+            <span v-if="wardParam?.city && !wardParam?.district">{{
+              $t(`{city}_Weather`, {
+                city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+              })
+            }}</span>
+            <span
+              v-if="wardParam?.city && wardParam?.district && !wardParam?.ward"
+              >{{
+                convertCapitalizeWords(
+                  $t(`{city}_Weather`, {
+                    city: $t(
+                      `${convertToSlugCity(
+                        wardParam?.city
+                      )}.${convertToSlugCity(
+                        wardParam?.city
+                      )}_${languageParam}.${convertToLowCase(
+                        wardParam?.district_key
+                      )}`
+                    ),
+                  })
+                )
+              }}</span
+            >
+
+            <span
+              v-if="wardParam?.city && wardParam?.district && wardParam?.ward"
+              >{{
+                convertCapitalizeWords(
+                  $t(`{city}_Weather`, {
+                    city: $t(
+                      `${convertToSlugCity(
+                        wardParam?.city
+                      )}.${convertToSlugCity(
+                        wardParam?.city
+                      )}_${languageParam}.${convertToLowCase(
+                        wardParam?.ward_key
+                      )}`
+                    ),
+                  })
+                )
+              }}</span
+            >
+          </div>
+
           <span v-else-if="wardParam.country_key === 'us'">{{
             $t(`{city}_Weather`, {
               city: $t(`${wardParam?.state}`),
@@ -37,19 +77,25 @@
         <!--  -->
         <div class="w-auto h-[368px]">
           <ChartTempRain
-            :key="indexState + '_temp'"
+            :key="indexKey + Math.random()"
             v-show="indexChart === 0"
           ></ChartTempRain>
-          <UvChartPage :key="indexState + '_uvIndex'" v-show="indexChart === 1">
+          <UvChartPage
+            :key="indexKey + Math.random()"
+            v-show="indexChart === 1"
+          >
           </UvChartPage>
-          <WindChartPage :key="indexState + '_wind'" v-show="indexChart === 2">
+          <WindChartPage
+            :key="indexKey + Math.random()"
+            v-show="indexChart === 2"
+          >
           </WindChartPage>
           <HumidChartPage
-            :key="indexState + '_humid'"
+            :key="indexKey + Math.random()"
             v-show="indexChart === 3"
           ></HumidChartPage>
           <PressureChartPage
-            :key="indexState + '_pressure'"
+            :key="indexKey + Math.random()"
             v-show="indexChart === 4"
           ></PressureChartPage>
         </div>
@@ -69,6 +115,8 @@ import UvChartPage from "../uv-chart/uv-chart-page.vue";
 import WindChartPage from "../wind-chart/wind-chart-page.vue";
 import HumidChartPage from "../humid-chart/humid-chart-page.vue";
 import PressureChartPage from "../pressure-chart/pressure-chart-page.vue";
+import removeAccents from "remove-accents";
+import { capitalizeWords } from "@/utils/converValue";
 
 export default {
   name: "temp-page",
@@ -129,11 +177,28 @@ export default {
 
   methods: {
     ...mapMutations("commonModule", ["setIndexComponent"]),
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+    convertToSlugCity(str) {
+      const slug = removeAccents(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
+    },
     onChangeTabChart(value) {
       this.indexChart = value;
-      this.indexKey++;
+      this.indexKey = this.indexKey + 1;
 
-      this.setIndexComponent(this.indexKey++);
+      // this.setIndexComponent(this.indexKey);
     },
   },
 };

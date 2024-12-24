@@ -21,12 +21,15 @@
           <div class="txt_light" :style="{ color: progressColor }">
             <span>{{ convertAirIndexName(paramAirModule) }}</span>
           </div>
+          <span class="txt_regular_des_moon_12">
+            {{ $t("The_air_is_mostly_okay") }}</span
+          >
         </div>
 
         <div class="w-full items-center gap-2">
           <div id="chart" class="w-full">
             <apexchart
-              height="100"
+              height="80"
               type="area"
               :options="chartOptions"
               :series="series"

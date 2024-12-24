@@ -6,6 +6,7 @@
         <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <RadarMapPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
             :overlayValue="overlayValue"
           ></RadarMapPage>
@@ -18,6 +19,7 @@
         <div class="right-hourly lg:w-[30%] w-full lg:flex hidden">
           <!--  -->
           <TempFullCard
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
             :title="titleParam"
           ></TempFullCard>
@@ -32,6 +34,7 @@
         <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <OptionMapRadarPage
+            :key="indexState + Math.random()"
             @onStateValueMap="onChangeValueMap"
           ></OptionMapRadarPage>
         </div>
@@ -83,6 +86,11 @@ export default {
       return this.currentlyGetters;
     },
 
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
+
     wardParam() {
       debugger;
 
@@ -105,10 +113,10 @@ export default {
     },
   },
 
-  beforeRouteLeave(to, from, next) {
-    window.location.replace(to.fullPath);
-    next(); // Cho phép chuyển route
-  },
+  // beforeRouteLeave(to, from, next) {
+  //   window.location.replace(to.fullPath);
+  //   next(); // Cho phép chuyển route
+  // },
 };
 </script>
 

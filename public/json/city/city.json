@@ -300,8 +300,8 @@
       {
         "code": 46,
         "type": "Provincial City",
-        "viNameLanguage": "Kom Tum",
-        "keyAccentLanguage": "Kom_Tum"
+        "viNameLanguage": "Kon Tum",
+        "keyAccentLanguage": "Kon_Tum"
       },
       {
         "code": 47,
@@ -447,7 +447,7 @@
         "code": 69,
         "type": "Provincial City",
         "viNameLanguage": "Vĩnh Long",
-        "keyAccentLanguage": "Vinh_long"
+        "keyAccentLanguage": "Vinh_Long"
       },
       {
         "code":70,

@@ -40,7 +40,7 @@ export default {
     $route(to, from) {
       // Khi route thay đổi, đánh dấu là nội dung đang được load
       this.isContentLoaded = false;
-      debugger;
+
       const language = to.params.language; // Lấy ngôn ngữ từ route mới
       if (language) {
         localStorage.setItem("language", language); // Lưu ngôn ngữ vào localStorage
@@ -57,7 +57,6 @@ export default {
     this.nameRouter = this.$route.name;
     const unitValue = localStorage.getItem("unit");
     if (unitValue) {
-      debugger;
       const decodeAirObject = JSON.parse(unitValue);
       this.setObjectSetting(decodeAirObject);
       this.setObjectSettingNotLocal(decodeAirObject);
@@ -65,8 +64,6 @@ export default {
     this.$nextTick(() => {
       document.body.classList.add("content-loaded");
     });
-
-    debugger;
 
     const storedLanguage = localStorage.getItem("language");
     if (storedLanguage) {

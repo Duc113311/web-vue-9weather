@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <BaseComponent>
+    <BaseComponent :isShowPad="false">
       <!--  -->
       <template v-slot:header>
         <div class="flex justify-between items-center">
@@ -10,23 +10,23 @@
               width="24"
               alt=""
             />
-            <span>{{ $t("Cities_Provinces") }}</span>
+            <span>{{ convertCapitalizeWords($t("Cities_Provinces")) }}</span>
           </div>
         </div>
       </template>
 
       <div
-        class="w-full h-auto show-scroll"
+        class="w-full h-auto show-scroll pt-1 pb-1"
         v-if="renderCityLocation.length !== 0"
       >
         <div v-if="objectBreadParam.country_key === 'vn'">
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
-            class="flex justify-between items-center pb-3 pt-3 pr-2"
+            class="flex justify-between items-center pl-4 pr-4 pt-2 pb-2 cursor-pointer item-city"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
           >
-            <div>
+            <div class="txt_regular_16">
               {{ $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`) }}
             </div>
             <img
@@ -64,6 +64,7 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
+import { capitalizeWords } from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -141,6 +142,9 @@ export default {
   },
 
   methods: {
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
     convertKeyLanguage(value, keyLanguage) {
       return value.languages[keyLanguage];
     },
@@ -157,4 +161,8 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.item-city:hover {
+  background-color: rgba(239, 240, 242, 0.126);
+}
+</style>

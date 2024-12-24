@@ -62,13 +62,14 @@ export default {
 
   methods: {
     convertTempDayNight(value) {
-      const dataList = value.slice(1, 24);
+      const dataList = value.slice(0, 24);
       const dayData = [];
       const nightData = [];
 
       const morningData = [];
       const eveningData = [];
 
+      debugger;
       //   Ngày đêm
       dataList.forEach((data) => {
         const date = new Date(data.time * 1000); // Chuyển UNIX timestamp sang đối tượng Date

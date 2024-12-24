@@ -10,23 +10,25 @@
         />
       </div>
       <h3
-        class="text-center txt_medium"
+        class="text-center txt_regular_16"
         v-if="breadcumsObject.country_key === 'vn'"
       >
         {{
-          removeWordAndAccents(
-            $t(
-              `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
-                breadcumsObject.city
-              )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
-            ),
-            "District"
+          convertCapitalizeWords(
+            removeWordAndAccents(
+              $t(
+                `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
+                  breadcumsObject.city
+                )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+              ),
+              "District"
+            )
           )
         }}
       </h3>
 
       <h3
-        class="text-center txt_medium"
+        class="text-center txt_regular_16"
         v-if="breadcumsObject.country_key === 'us'"
       >
         <!-- {{
@@ -47,6 +49,7 @@
 <script>
 import { mapGetters } from "vuex";
 import removeAccents from "remove-accents";
+import { capitalizeWords } from "@/utils/converValue";
 
 export default {
   name: "district-card-page",
@@ -78,6 +81,9 @@ export default {
   },
 
   methods: {
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
     convertLanguage(data, language) {
       return data.languages[language];
     },

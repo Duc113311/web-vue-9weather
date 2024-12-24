@@ -294,20 +294,12 @@ export function convertTimestampToHoursMinutes12(
   offsetValue,
   timezone
 ) {
-  // const date = new Date(timestamp * 1000);
   const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-  debugger
-  // const utcTime = date.getTime();
-  // const localTime = new Date(utcTime + offsetValue * 3600 * 1000);
-  // Lấy giờ và phút
+    // Lấy giờ và phút
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
-  // let hours = localTime.getUTCHours();
-  // let minutes = localTime.getUTCMinutes();
-
-
-  debugger;
+  
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
@@ -354,6 +346,65 @@ export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
     return hours + ":" + minutes + " " + period;
   }
 }
+
+// 
+export function convertTimestamp24hSun(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+
+
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  hours = hours % 24;
+  hours = hours ? hours : 0; // Nếu giờ là 0 thì chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  const now = DateTime.now().setZone(timezone);
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
+  } else if (numberTime === 1) {
+    if (hours < 10) {
+      return "0" + hours + ":" + minutes;
+    }
+    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
+  }
+}
+
+export function convertTimestamp12hSun(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+    // Lấy giờ và phút
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+  
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  let period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+
+  const now = DateTime.now().setZone(timezone);
+
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    return hours + ":" + minutes + " " + period;
+  } else if (numberTime === 1) {
+    return hours + ":" + minutes + " " + period;
+  }
+}
+
+
+// 
 
 export function convertTimestampNow24(timestamp, numberTime, offsetValue) {
   const date = new Date(timestamp);
@@ -844,7 +895,7 @@ export function convertMiToKm(value) {
  * @returns
  */
 export function convertMiToKnot(value) {
-  return Math.round(value / 1.150779).toFixed(2);
+  return Math.round(value / 1.150779);
 }
 
 /**

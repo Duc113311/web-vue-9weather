@@ -23,18 +23,26 @@
                 class="w-full h-full relative horizontal"
               >
                 <div>
-                  <ChartTimeIcon></ChartTimeIcon>
+                  <ChartTimeIcon
+                    :key="indexState + Math.random()"
+                  ></ChartTimeIcon>
 
                   <!--  -->
 
-                  <ChartTempMaxMin></ChartTempMaxMin>
+                  <ChartTempMaxMin
+                    :key="indexState + Math.random()"
+                  ></ChartTempMaxMin>
 
                   <!--  -->
-                  <ChartChanceOfRain></ChartChanceOfRain>
+                  <ChartChanceOfRain
+                    :key="indexState + Math.random()"
+                  ></ChartChanceOfRain>
 
                   <!--  -->
 
-                  <ChartPrecipitation></ChartPrecipitation>
+                  <ChartPrecipitation
+                    :key="indexState + Math.random()"
+                  ></ChartPrecipitation>
                 </div>
               </vue-horizontal>
 
@@ -88,6 +96,13 @@ export default {
     return {
       heightAuto: "auto",
     };
+  },
+
+  computed: {
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
   },
 
   methods: {},

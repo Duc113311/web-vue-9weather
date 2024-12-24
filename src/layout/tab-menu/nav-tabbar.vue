@@ -30,7 +30,7 @@
 </template>
 <script>
 import { convertToEnglishReplace } from "@/utils/converValue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import removeAccents from "remove-accents";
 
 export default {
@@ -100,7 +100,6 @@ export default {
     },
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
@@ -125,14 +124,14 @@ export default {
       this.activeIndex = -1;
     }
 
-    debugger;
     this.setTitleScream(this.activeIndex);
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setKeyIndexComponent"]),
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng
@@ -147,7 +146,6 @@ export default {
     },
 
     setTitleScream(activeIndex) {
-      debugger;
       let districtKeyTitle = this.breadcumsObject?.district_key;
       let districtTitle = this.breadcumsObject?.district;
       let cityTitle = this.breadcumsObject?.city;
@@ -358,7 +356,7 @@ export default {
 
           // Chuyển route và đợi cho đến khi navigation hoàn tất
           await this.$router.push(routeParams);
-          this.$router.go();
+          this.setKeyIndexComponent(1);
 
           // Emit event để thông báo cho component cha biết route đã thay đổi
           this.$emit("route-changed", screamName);
@@ -405,7 +403,7 @@ export default {
 
           // Chuyển route và đợi cho đến khi navigation hoàn tất
           await this.$router.push(routeParams);
-          this.$router.go();
+          this.setKeyIndexComponent(1);
 
           // Emit event để thông báo cho component cha biết route đã thay đổi
           this.$emit("route-changed", screamName);

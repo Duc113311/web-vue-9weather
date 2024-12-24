@@ -152,7 +152,6 @@ const mutations = {
   },
 
   setIndexComponent(state, data) {
-    debugger;
     state.indexComponent = data;
   },
 
@@ -179,7 +178,6 @@ const mutations = {
    * @param {*} data
    */
   setBreadcumsAllowLocation(state, data) {
-    debugger;
     if (data?.country_key === "vn") {
       (state.breadcumsObject.country = data?.country), // Quốc gia
         (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
@@ -247,7 +245,7 @@ const mutations = {
    */
   setBreadcumsNotAllowLocation(state, data) {
     //
-    debugger;
+
     (state.breadcumsObject.country = data?.country), // Quốc gia
       (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
       (state.breadcumsObject.city = data?.city),
@@ -262,7 +260,7 @@ const mutations = {
 
   setBreadcumsTheWorld(state, data) {
     //
-    debugger;
+
     (state.breadcumsObject.country = data?.country), // Quốc gia
       (state.breadcumsObject.country_key = data?.country_key), // Quốc gia
       (state.breadcumsObject.city = data?.city),
@@ -384,7 +382,6 @@ const mutations = {
   },
 
   setNumberDataDaily(state, data) {
-    debugger;
     state.objectWidget.listDaily = state.weatherWidget.daily.data.slice(
       0,
       data

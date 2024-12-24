@@ -176,7 +176,7 @@
             </button>
             <button
               class="btn-unit w-auto"
-              :class="{ active: renderUnitSetting.activeWindSpeed === 'scale' }"
+              :class="{ active: renderUnitSetting.activeWindSpeed === 'bft' }"
               @click="setActiveButton('bft')"
             >
               <span class="txt_regular_14">Beaufort scale</span>

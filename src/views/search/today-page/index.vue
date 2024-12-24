@@ -6,7 +6,7 @@
           class="left-today lg:w-3/6 w-full h-full"
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
         >
-          <TempPage></TempPage>
+          <TempPage :key="indexState + Math.random()"></TempPage>
         </div>
         <div v-else class="lg:w-[566px] w-full h-[850px]">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -17,7 +17,10 @@
               class="left-main h-full"
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
             >
-              <TempDayNightPage :title="dayTime"></TempDayNightPage>
+              <TempDayNightPage
+                :key="indexState + Math.random()"
+                :title="dayTime"
+              ></TempDayNightPage>
             </div>
             <div v-else class="w-full h-full">
               <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -27,7 +30,11 @@
               class="right-main"
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
             >
-              <TempDayNightPage :title="nightTime"></TempDayNightPage>
+              <TempDayNightPage
+                :title="nightTime"
+                :isShowDayNight="isShowDayNight"
+                :key="indexState + Math.random()"
+              ></TempDayNightPage>
             </div>
             <div v-else class="w-full h-[444px]">
               <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -37,7 +44,7 @@
             class="main-bottom lg:h-[358px] mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <RadarPage></RadarPage>
+            <RadarPage :key="indexState + Math.random()"></RadarPage>
           </div>
           <div v-else class="w-full h-[380px] mt-6">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -56,7 +63,7 @@
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <SunPage></SunPage>
+            <SunPage :key="indexState + Math.random()"></SunPage>
           </div>
           <div v-else class="w-full h-[230px] mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -65,7 +72,7 @@
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length < 0"
           >
-            <MoonPage></MoonPage>
+            <MoonPage :key="indexState + Math.random()"></MoonPage>
           </div>
           <div v-else class="w-full h-[230px] mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -78,7 +85,7 @@
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <UvPage></UvPage>
+            <UvPage :key="indexState + Math.random()"></UvPage>
           </div>
           <div v-else class="w-full h-[230px] mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -88,7 +95,7 @@
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <AirQualityPage></AirQualityPage>
+            <AirQualityPage :key="indexState + Math.random()"></AirQualityPage>
           </div>
           <div v-else class="w-full h-[230px] mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -114,7 +121,9 @@
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
-        <ListNearbyLocation></ListNearbyLocation>
+        <ListNearbyLocation
+          :key="indexState + Math.random()"
+        ></ListNearbyLocation>
       </div>
       <div v-else class="w-full h-[300px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -125,7 +134,7 @@
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
-        <ListCountryPage></ListCountryPage>
+        <ListCountryPage :key="indexState + Math.random()"></ListCountryPage>
       </div>
       <div v-else class="w-full h-[300px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -165,6 +174,7 @@ export default {
     return {
       dayTime: this.$t("Daytime"),
       nightTime: this.$t("Nighttime"),
+      isShowDayNight: false,
     };
   },
 
@@ -182,6 +192,11 @@ export default {
     suggestionsTop100Data() {
       return this.suggestionsTop100Getters;
     },
+
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
   },
 
   mounted() {
@@ -191,10 +206,10 @@ export default {
     }
   },
 
-  beforeRouteLeave(to, from, next) {
-    window.location.replace(to.fullPath);
-    next(); // Cho phép chuyển route
-  },
+  // beforeRouteLeave(to, from, next) {
+  //   window.location.replace(to.fullPath);
+  //   next(); // Cho phép chuyển route
+  // },
 };
 </script>
 

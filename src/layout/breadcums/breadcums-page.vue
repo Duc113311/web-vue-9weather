@@ -43,14 +43,16 @@
             />
             <div class="cursor-pointer" @click="onClickDistrict()">
               {{
-                $t(
-                  `${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}.${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.district_key
-                  )}`
+                convertCapitalizeWords(
+                  $t(
+                    `${convertToSlugCity(
+                      breadcumsObject?.city
+                    )}.${convertToSlugCity(
+                      breadcumsObject?.city
+                    )}_${languageParam}.${convertToLowCase(
+                      breadcumsObject?.district_key
+                    )}`
+                  )
                 )
               }}
             </div>
@@ -63,14 +65,16 @@
             />
             <div class="cursor-pointer" @click="onClickWard()">
               {{
-                $t(
-                  `${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}.${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.ward_key
-                  )}`
+                convertCapitalizeWords(
+                  $t(
+                    `${convertToSlugCity(
+                      breadcumsObject?.city
+                    )}.${convertToSlugCity(
+                      breadcumsObject?.city
+                    )}_${languageParam}.${convertToLowCase(
+                      breadcumsObject?.ward_key
+                    )}`
+                  )
                 )
               }}
             </div>
@@ -159,7 +163,7 @@
 </template>
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import { convertToEnglish } from "@/utils/converValue";
+import { capitalizeWords, convertToEnglish } from "@/utils/converValue";
 import {
   encodeBase64,
   getAqiDataFromLocation,
@@ -183,7 +187,6 @@ export default {
     ]),
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
@@ -198,7 +201,6 @@ export default {
     },
 
     cityBreadcums() {
-      debugger;
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
       if (this.listCityAllGetters.length !== 0) {
@@ -229,6 +231,9 @@ export default {
       "getFormattedAddress",
     ]),
 
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
     updateLocalBreadcums() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       this.localBreadcums = retrievedArray
@@ -285,7 +290,6 @@ export default {
     },
 
     async onClickCity() {
-      debugger;
       const language = this.$route.params.language
         ? this.$route.params.language
         : this.$i18n.locale;
@@ -394,7 +398,6 @@ export default {
     },
 
     async onClickDistrict() {
-      debugger;
       const language = this.$route.params.language
         ? this.$route.params.language
         : this.$i18n.locale;
@@ -475,7 +478,7 @@ export default {
 
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng
@@ -486,7 +489,6 @@ export default {
     },
 
     async onClickHome() {
-      debugger;
       const retrievedArray = JSON.parse(
         localStorage.getItem("locationLatLong")
       );
@@ -523,12 +525,10 @@ export default {
       ]);
 
       // this.setCityWeather(objectPosition);
-      debugger;
     },
   },
 
   mounted() {
-    debugger;
     this.updateLocalBreadcums();
   },
 };

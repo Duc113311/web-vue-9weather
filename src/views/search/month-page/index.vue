@@ -6,6 +6,7 @@
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <CalendarPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></CalendarPage>
           <div v-else class="w-full h-full">
@@ -16,6 +17,7 @@
         <div class="right-hourly lg:w-[30%] w-full lg:block hidden">
           <!--  -->
           <TempFullCard
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
             :title="title"
           ></TempFullCard>
@@ -32,7 +34,8 @@
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ChartMonthPage
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            :key="indexState + Math.random()"
+            v-if="listDaily30DayData && listDaily30DayData.length > 0"
           ></ChartMonthPage>
           <div v-else class="w-full h-full mt-6">
             <SkeletonLoader class="w-[700px] h-[460px]"> </SkeletonLoader>
@@ -57,6 +60,7 @@
           <!--  -->
 
           <ItemTime30Day
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></ItemTime30Day>
           <div v-else class="w-full h-full mt-6">
@@ -67,6 +71,7 @@
         <div class="right-hourly lg:w-[30%] w-full">
           <!--  -->
           <SunPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></SunPage>
           <div v-else class="w-full h-[200px] mt-5">
@@ -74,13 +79,15 @@
           </div>
           <!--  -->
           <MoonPage
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            :key="indexState + Math.random()"
+            v-if="currentlyData && Object.keys(currentlyData).length < 0"
           ></MoonPage>
           <div v-else class="w-full h-[200px] mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <!--  -->
           <UvPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></UvPage>
           <div v-else class="w-full h-[200px] mt-5">
@@ -88,6 +95,7 @@
           </div>
           <!--  -->
           <AirQualityPage
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></AirQualityPage>
           <div v-else class="w-full h-[200px] mt-5">
@@ -102,7 +110,9 @@
         class="left-location lg:w-[68%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
-        <ListNearbyLocation></ListNearbyLocation>
+        <ListNearbyLocation
+          :key="indexState + Math.random()"
+        ></ListNearbyLocation>
       </div>
       <div v-else class="w-full h-[380px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -113,7 +123,7 @@
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
-        <ListCountryPage></ListCountryPage>
+        <ListCountryPage :key="indexState + Math.random()"></ListCountryPage>
       </div>
 
       <div v-else class="w-full h-[380px] mt-4">
@@ -165,7 +175,10 @@ export default {
 
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
-    ...mapGetters("weatherModule", ["currentlyGetters"]),
+    ...mapGetters("weatherModule", [
+      "currentlyGetters",
+      "listDaily30DayGetters",
+    ]),
 
     breadcumsObject() {
       return this.breadcumsObjectGetters;
@@ -174,10 +187,19 @@ export default {
     currentlyData() {
       return this.currentlyGetters;
     },
+
+    listDaily30DayData() {
+      return this.listDaily30DayGetters;
+    },
+
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
   },
 
-  mounted() {
-    this.getWeather30Day();
+  async created() {
+    await this.getWeather30Day();
   },
 
   methods: {
@@ -199,10 +221,10 @@ export default {
     },
   },
 
-  beforeRouteLeave(to, from, next) {
-    window.location.replace(to.fullPath);
-    next(); // Cho phép chuyển route
-  },
+  // beforeRouteLeave(to, from, next) {
+  //   window.location.replace(to.fullPath);
+  //   next(); // Cho phép chuyển route
+  // },
 };
 </script>
 
