@@ -135,7 +135,10 @@ export default {
   computed: {
     ...mapGetters("weatherModule", ["currentlyGetters", "dailyOneGetters"]),
 
-    ...mapGetters("commonModule", ["indexComponentGetters"]),
+    ...mapGetters("commonModule", [
+      "indexComponentGetters",
+      "breadcumsObjectGetters",
+    ]),
 
     currentlyData() {
       return this.currentlyGetters;

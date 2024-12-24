@@ -6,7 +6,6 @@
         <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <RadarMapPage
-            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
             :overlayValue="overlayValue"
           ></RadarMapPage>
@@ -34,7 +33,6 @@
         <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <OptionMapRadarPage
-            :key="indexState + Math.random()"
             @onStateValueMap="onChangeValueMap"
           ></OptionMapRadarPage>
         </div>
@@ -43,11 +41,7 @@
           <!--  -->
           <!-- <TempFullCard :title="title"></TempFullCard> -->
           <div>
-            <img
-              src="../../../assets/images/png/ic_app_download.png"
-              alt=""
-              class=""
-            />
+            <img src="../../../assets/images/png/ic_app_download.png" />
           </div>
         </div>
       </div>

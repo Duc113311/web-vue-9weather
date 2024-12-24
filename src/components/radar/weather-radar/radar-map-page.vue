@@ -24,14 +24,27 @@
 
           <!-- Thêm nút phóng to -->
           <div
-            class="absolute bottom-2 right-2 bg-white/80 hover:bg-white p-1.5 rounded cursor-pointer transition-all"
+            class="absolute bottom-2 bg-room right-2 p-1.5 rounded cursor-pointer transition-all"
             @click="toggleFullScreen"
           >
             <img
               src="../../../assets/images/svg_v2/ic_fullscreen.svg"
-              width="20"
-              height="20"
+              width="24"
+              height="24"
               alt="Fullscreen"
+            />
+          </div>
+
+          <!-- Thêm nút locate -->
+          <div
+            class="absolute bottom-4 left-4 bg-locate p-1.5 rounded cursor-pointer transition-all"
+            @click="onClickLocateFixed"
+          >
+            <img
+              src="../../../assets/images/svg_v2/ic_locate_fixed.svg"
+              width="24"
+              height="24"
+              alt="locate-fixed"
             />
           </div>
         </div>
@@ -59,9 +72,18 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["cityCountryGetters"]),
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
 
+    wardParam() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
     renderRadar() {
-      const dataPosition = this.cityCountryGetters;
+      const dataPosition = this.wardParam;
       const objectSetting = this.$store.state.commonModule.objectSettingSave;
       if (!dataPosition || !dataPosition.latitude || !dataPosition.longitude) {
         return null;
@@ -71,10 +93,12 @@ export default {
         objectSetting.activeTemperature_save === "f" ? "f" : "c"; // c, f
       const metricRainValue = "mm"; // mm, in
       const metricSnow = "cm"; // cm, in
-      const metricWind = "kmh"; // kmh, kt, bft, ms,mh
-      const metricPressure = "hpa"; // hpa, inhg, mmhg
+      const metricWind = this.convertMetricWind(
+        objectSetting.activeWindSpeed_save
+      ); // kmh, kt, bft, ms,mh
+      const metricPressure = objectSetting.activePressure_save; // hpa, inhg, mmhg
       const metricHumidity = "percent"; // percent
-      const metricClouds = "mm"; // mm, in
+      const metricClouds = objectSetting.activePrecipitation_save; // mm, in
       const urlHost =
         "https://maps.goweatherradar.com/en/widget/1bfe4f546eb8a1d9fbe2f73812e60361e616c57d";
       const urlIframe =
@@ -93,6 +117,24 @@ export default {
   },
 
   methods: {
+    convertMetricWind(value) {
+      if (value === "m/s") {
+        return "ms";
+      }
+      if (value === "km/h") {
+        return "kmh";
+      }
+      if (value === "mi/h") {
+        return "mh";
+      }
+      if (value === "knot") {
+        return "kt";
+      }
+      if (value === "bft") {
+        return "bft";
+      }
+    },
+
     toggleFullScreen() {
       const iframe = this.$el.querySelector("iframe");
       if (iframe) {
@@ -102,6 +144,10 @@ export default {
           document.exitFullscreen();
         }
       }
+    },
+
+    onClickLocateFixed() {
+      debugger;
     },
   },
 };
@@ -114,5 +160,20 @@ export default {
   width: 100vw;
   height: 100vh;
   z-index: 9999;
+}
+
+.bg-locate {
+  backdrop-filter: blur(56px);
+  box-shadow: inset 500px 500px 100px 0 rgba(243, 243, 243, 0.15),
+    inset -50px -50px 100px 0 rgba(243, 243, 243, 0.15);
+}
+.bg-locate,
+.bg-room {
+  transition: transform 0.3s ease; /* Hiệu ứng mượt khi thay đổi kích thước */
+}
+
+.bg-locate:hover,
+.bg-room:hover {
+  transform: scale(1.1); /* Phóng to 10% */
 }
 </style>
