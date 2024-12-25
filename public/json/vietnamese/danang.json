@@ -418,60 +418,6 @@
       "postalCode": "500008",
       "keyAccentLanguage": "Huyen_Hoang_Sa",
       "wards": []
-    },
-    {
-      "code": 64,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Hải Vân",
-      "postalCode": "500009",
-      "keyAccentLanguage": "Bien_Hai_Van",
-      "wards": []
-    },
-    {
-      "code": 64,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Sơn Trà",
-      "postalCode": "5000010",
-      "keyAccentLanguage": "Bien_Son_Tra",
-      "wards": []
-    },
-    {
-      "code": 64,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Bãi Bụt",
-      "postalCode": "5000011",
-      "keyAccentLanguage": "Bien_Bai_But",
-      "wards": []
-    },
-    {
-      "code": 64,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Bãi Rạng",
-      "postalCode": "5000012",
-      "keyAccentLanguage": "Bien_Bai_Rang",
-      "wards": []
-    },
-    {
-      "code": 64,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Mỹ Khê - Đà Nẵng",
-      "postalCode": "5000013",
-      "keyAccentLanguage": "Bien_My_Khe_-_Da_Nang",
-      "wards": []
-    },
-    {
-      "code": 64,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Thanh Bình",
-      "postalCode": "5000014",
-      "keyAccentLanguage": "Bien_Thanh_Binh",
-      "wards": []
     }
   ]
 }

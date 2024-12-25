@@ -1,14 +1,6 @@
 <template>
   <div class="w-full h-full">
     <!--  -->
-    <header>
-      <!-- Nội dung sẽ được chèn vào đây -->
-
-      <div class="text-left pad-t-b text-white">
-        <slot name="header"></slot>
-      </div>
-    </header>
-
     <div
       class="bg-color text-white overflow-hidden"
       :class="{ 'pad-big': isShowPad }"
@@ -20,7 +12,7 @@
 </template>
 <script>
 export default {
-  name: "BaseComponent",
+  name: "BaseList",
 
   data() {
     return {};

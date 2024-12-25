@@ -46,7 +46,7 @@
   "Xa_Phu_My": "Phu My commune",
   "Xa_Tan_Hoa_Thanh": "Tan Hoa Thanh commune",
   "Xa_Hung_Thanh": "Hung Thanh commune",
-  "Xa_Tan_Lap_1": "Tan Lap commune 1",
+  "Xa_Tan_Lap_1": "Tan Lap Commune 1",
   "Xa_Tan_Hoa_Tay": "Tan Hoa Tay commune",
   "Xa_Tan_Lap_2": "Tan Lap 2 commune",
   "Xa_Phuoc_Lap": "Phuoc Lap commune",
@@ -148,5 +148,18 @@
   "Xa_Tan_Thoi": "Tan Thoi commune",
   "Xa_Phu_Thanh": "Phu Thanh commune",
   "Xa_Phu_Dong": "Phu Dong commune",
-  "Xa_Phu_Tan": "Phu Tan commune"
+  "Xa_Phu_Tan": "Phu Tan commune",
+  "Huyen_Cai_Lay": "Cai Lay district",
+  "Xa_Cam_Son": "Cam Son commune",
+  "Xa_Hoi_Xuan": "Spring Society",
+  "Xa_Long_Tien": "Long Tien commune",
+  "Xa_Long_Trung": "Long Trung commune",
+  "Xa_My_Long": "My Long commune",
+  "Xa_My_Thanh_Nam": "My Thanh Nam commune",
+  "Xa_My_Thanh_Bac": "My Thanh Bac Commune",
+  "Xa_Ngu_Hiep": "Ngu Hiep commune",
+  "Xa_Phu_An": "Phu An commune",
+  "Xa_Phu_Cuong": "Phu Cuong commune",
+  "Xa_Tan_Phong": "Tan Phong commune",
+  "Xa_Thanh_Loc": "Thanh Loc commune"
 }

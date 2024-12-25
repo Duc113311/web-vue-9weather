@@ -14,13 +14,17 @@
           class="w-[114px] h-[114px] bg-img bor-radios-big relative"
           v-for="(item, index) in listMap"
           :key="index"
-          :style="{ 'background-image': `url(${item.urlImg})` }"
           @click="onClickActiveShowRadar(item, index)"
           :class="{ 'active-bg': isShowActive === index }"
         >
           <!--   -->
-          <div class="text-center absolute top-0 left-0 bg-color-title">
-            <span class="txt_regular_14">{{ item.title }}</span>
+          <div
+            class="w-full h-full"
+            :style="{ 'background-image': `url(${item.urlImg})` }"
+          >
+            <div class="text-center absolute top-0 left-0 bg-color-title">
+              <span class="txt_regular_14">{{ item.title }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -53,37 +57,37 @@ export default {
         {
           title: this.$t("temperature"),
           codeOverlay: "temp",
-          urlImg: require("../../../assets/images/svg_v2/ic_temp_radar.svg"),
+          urlImg: require("../../../assets/images/radar/temperature.png"),
         },
         {
           title: this.$t("Humid"),
           codeOverlay: "humidity",
-          urlImg: require("../../../assets/images/svg_v2/ic_humid_radar.svg"),
+          urlImg: require("../../../assets/images/radar/humidity.png"),
         },
         {
           title: this.$t("Rain"),
           codeOverlay: "rain",
-          urlImg: require("../../../assets/images/svg_v2/ic_rain_radar.svg"),
+          urlImg: require("../../../assets/images/radar/rain.png"),
         },
         {
           title: "Cloudy",
           codeOverlay: "clouds",
-          urlImg: require("../../../assets/images/svg_v2/ic_cloudy_radar.svg"),
+          urlImg: require("../../../assets/images/radar/cloudy.png"),
         },
         {
           title: this.$t("pressure"),
           codeOverlay: "pressure",
-          urlImg: require("../../../assets/images/svg_v2/ic_pressure_radar.svg"),
+          urlImg: require("../../../assets/images/radar/pressure.png"),
         },
         {
           title: this.$t("Snow"),
           codeOverlay: "snow",
-          urlImg: require("../../../assets/images/svg_v2/ic_snows_radar.svg"),
+          urlImg: require("../../../assets/images/radar/snow.png"),
         },
         {
           title: this.$t("wind_speed"),
           codeOverlay: "wind",
-          urlImg: require("../../../assets/images/svg_v2/ic_snows_radar.svg"),
+          urlImg: require("../../../assets/images/radar/wind.png"),
         },
       ],
     };

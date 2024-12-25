@@ -52,7 +52,7 @@
           </template>
 
           <div class="w-full gap-4 grid">
-            <div class="w-[160px] h-[170px]">
+            <div class="w-[160px] h-[163px]">
               <div class="flex justify-start items-center text-left">
                 <img
                   :src="convertIconCurrently(dailyOneData?.icon)"
@@ -97,7 +97,7 @@
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
         >
           <div class="w-full gap-4 grid">
-            <div class="w-[160px] h-[170px]">
+            <div class="w-[160px] h-[163px]">
               <div class="flex justify-start items-center text-left">
                 <img
                   src="../../../assets/images/svg_v2/ic_precititation.svg"

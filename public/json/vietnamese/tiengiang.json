@@ -1027,6 +1027,106 @@
           "keyAccentLanguage": "Xa_Phu_Tan"
         }
       ]
+    },
+    {
+      "code": 164,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Huyện Cai Lậy",
+      "postalCode": "8400011",
+      "keyAccentLanguage": "Huyen_Cai_Lay",
+      "wards": [
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Bình Phú",
+          "keyAccentLanguage": "Xa_Binh_Phu"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Cẩm Sơn",
+          "keyAccentLanguage": "Xa_Cam_Son"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Hội Xuân",
+          "keyAccentLanguage": "Xa_Hoi_Xuan"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Tiên",
+          "keyAccentLanguage": "Xa_Long_Tien"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Trung",
+          "keyAccentLanguage": "Xa_Long_Trung"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Mỹ Long",
+          "keyAccentLanguage": "Xa_My_Long"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Mỹ Thành Nam",
+          "keyAccentLanguage": "Xa_My_Thanh_Nam"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Mỹ Thành Bắc",
+          "keyAccentLanguage": "Xa_My_Thanh_Bac"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Ngũ Hiệp",
+          "keyAccentLanguage": "Xa_Ngu_Hiep"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú An",
+          "keyAccentLanguage": "Xa_Phu_An"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Cường",
+          "keyAccentLanguage": "Xa_Phu_Cuong"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Phong",
+          "keyAccentLanguage": "Xa_Tan_Phong"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Hội",
+          "keyAccentLanguage": "Xa_Tan_Hoi"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Phú",
+          "keyAccentLanguage": "Xa_Tan_Phu"
+        },
+        {
+          "code": 164,
+          "type": "Commune",
+          "viNameLanguage": "Xã Thạnh Lộc",
+          "keyAccentLanguage": "Xa_Thanh_Loc"
+        }
+      ]
     }
   ]
 }

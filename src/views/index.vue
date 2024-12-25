@@ -548,6 +548,15 @@ export default {
       return slug.replace(/\s+/g, "-").toLowerCase();
     },
 
+    replaceApostropheWithUnderscore(key) {
+      // Kiểm tra nếu chuỗi chứa dấu ' thì thay thế bằng _
+      if (key.includes("'")) {
+        return key.replace(/'/g, "_");
+      }
+      // Nếu không chứa dấu ', trả về chuỗi gốc
+      return key;
+    },
+
     findDistrictsData(value) {
       const listCityVN = this.listCityAllGetters;
 
@@ -559,6 +568,8 @@ export default {
 
       const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = this.convertToConvertLowerCase(value.district);
+
+      const replaceApos = this.replaceApostropheWithUnderscore(replaceDistrict);
 
       const findData = listCityVN.find(
         (x) => x.keyAccentLanguage === replaceCity
@@ -574,7 +585,7 @@ export default {
 
             const checkSub = this.checkSubstring(
               removeAccents(element.keyAccentLanguage),
-              replaceDistrict
+              replaceApos
             );
 
             if (checkSub) {

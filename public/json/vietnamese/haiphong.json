@@ -1378,33 +1378,6 @@
       "postalCode": "0400014",
       "keyAccentLanguage": "Huyen_Bach_Long_Vi",
       "wards": []
-    },
-    {
-      "code": 227,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Cát Bà",
-      "postalCode": "0400015",
-      "keyAccentLanguage": "Bien_Cat_Ba",
-      "wards": []
-    },
-    {
-      "code": 227,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Đồ Sơn",
-      "postalCode": "0400016",
-      "keyAccentLanguage": "Bien_Do_Son",
-      "wards": []
-    },
-    {
-      "code": 227,
-      "category": null,
-      "type": "Province",
-      "viNameLanguage": "Biển Hòn Dáu",
-      "postalCode": "0400017",
-      "keyAccentLanguage": "Bien_Hon_Dau",
-      "wards": []
     }
   ]
 }

@@ -105,57 +105,11 @@
       ]
     },
     {
-      "code": 17,
-      "category": null,
-      "type": "Town",
-      "viNameLanguage": "Thị xã Hồng Lĩnh",
-      "postalCode": "230002",
-      "keyAccentLanguage": "Thi_xa_Hong_Linh",
-      "wards": [
-        {
-          "code": 18,
-          "type": "Ward",
-          "viNameLanguage": "Phường Bắc Hồng",
-          "keyAccentLanguage": "Phuong_Bac_Hong"
-        },
-        {
-          "code": 19,
-          "type": "Ward",
-          "viNameLanguage": "Phường Nam Hồng",
-          "keyAccentLanguage": "Phuong_Nam_Hong"
-        },
-        {
-          "code": 20,
-          "type": "Ward",
-          "viNameLanguage": "Phường Trung Lương",
-          "keyAccentLanguage": "Phuong_Trung_Luong"
-        },
-        {
-          "code": 21,
-          "type": "Ward",
-          "viNameLanguage": "Phường Đức Thuận",
-          "keyAccentLanguage": "Phuong_Duc_Thuan"
-        },
-        {
-          "code": 22,
-          "type": "Ward",
-          "viNameLanguage": "Phường Đậu Liêu",
-          "keyAccentLanguage": "Phuong_Dau_Lieu"
-        },
-        {
-          "code": 23,
-          "type": "Commune",
-          "viNameLanguage": "Xã Thuận Lộc",
-          "keyAccentLanguage": "Xa_Thuan_Loc"
-        }
-      ]
-    },
-    {
       "code": 24,
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Hương Sơn",
-      "postalCode": "230003",
+      "postalCode": "230002",
       "keyAccentLanguage": "Huyen_Huong_Son",
       "wards": [
         {
@@ -315,7 +269,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Đức Thọ",
-      "postalCode": "230004",
+      "postalCode": "230003",
       "keyAccentLanguage": "Huyen_Duc_Tho",
       "wards": [
         {
@@ -415,7 +369,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Vũ Quang",
-      "postalCode": "230005",
+      "postalCode": "230004",
       "keyAccentLanguage": "Huyen_Vu_Quang",
       "wards": [
         {
@@ -479,7 +433,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Nghi Xuân",
-      "postalCode": "230006",
+      "postalCode": "230005",
       "keyAccentLanguage": "Huyen_Nghi_Xuan",
       "wards": [
         {
@@ -591,7 +545,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Can Lộc",
-      "postalCode": "230007",
+      "postalCode": "230006",
       "keyAccentLanguage": "Huyen_Can_Loc",
       "wards": [
         {
@@ -709,7 +663,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Hương Khê",
-      "postalCode": "230008",
+      "postalCode": "230007",
       "keyAccentLanguage": "Huyen_Huong_Khe",
       "wards": [
         {
@@ -839,7 +793,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Thạch Hà",
-      "postalCode": "230009",
+      "postalCode": "230008",
       "keyAccentLanguage": "Huyen_Thach_Ha",
       "wards": [
         {
@@ -975,7 +929,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Cẩm Xuyên",
-      "postalCode": "2300010",
+      "postalCode": "230009",
       "keyAccentLanguage": "Huyen_Cam_Xuyen",
       "wards": [
         {
@@ -1117,7 +1071,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Kỳ Anh",
-      "postalCode": "2300011",
+      "postalCode": "2300010",
       "keyAccentLanguage": "Huyen_Ky_Anh",
       "wards": [
         {
@@ -1247,7 +1201,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Lộc Hà",
-      "postalCode": "2300012",
+      "postalCode": "2300011",
       "keyAccentLanguage": "Huyen_Loc_Ha",
       "wards": [
         {
@@ -1315,6 +1269,82 @@
           "type": "Commune",
           "viNameLanguage": "Xã Mai Phụ",
           "keyAccentLanguage": "Xa_Mai_Phu"
+        }
+      ]
+    },
+    {
+      "code": 211,
+      "category": null,
+      "type": "Town",
+      "viNameLanguage": "Thị xã Kỳ Anh",
+      "postalCode": "2300012",
+      "keyAccentLanguage": "Thi_xa_Ky_Anh",
+      "wards": [
+        {
+          "code": 211,
+          "type": "Ward",
+          "viNameLanguage": "Phường Kỳ Long",
+          "keyAccentLanguage": "Phuong_Ky_Long"
+        },
+        {
+          "code": 211,
+          "type": "Ward",
+          "viNameLanguage": "Phường Kỳ Liên",
+          "keyAccentLanguage": "Phuong_Ky_Lien"
+        },
+        {
+          "code": 211,
+          "type": "Ward",
+          "viNameLanguage": "Phường Kỳ Phương",
+          "keyAccentLanguage": "Phuong_Ky_Phuong"
+        },
+        {
+          "code": 211,
+          "type": "Ward",
+          "viNameLanguage": "Phường Kỳ Thịnh",
+          "keyAccentLanguage": "Phuong_Ky_Thinh"
+        },
+        {
+          "code": 211,
+          "type": "Ward",
+          "viNameLanguage": "Phường Sông Trí",
+          "keyAccentLanguage": "Phuong_Song_Tri"
+        },
+        {
+          "code": 211,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kỳ Hà",
+          "keyAccentLanguage": "Xa_Ky_Ha"
+        },
+        {
+          "code": 211,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kỳ Hoa",
+          "keyAccentLanguage": "Xa_Ky_Hoa"
+        },
+        {
+          "code": 211,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kỳ Hưng",
+          "keyAccentLanguage": "Xa_Ky_Hung"
+        },
+        {
+          "code": 211,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kỳ Lợi",
+          "keyAccentLanguage": "Xa_Ky_Loi"
+        },
+        {
+          "code": 211,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kỳ Nam",
+          "keyAccentLanguage": "Xa_Ky_Nam"
+        },
+        {
+          "code": 211,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kỳ Ninh",
+          "keyAccentLanguage": "Xa_Ky_Ninh"
         }
       ]
     }

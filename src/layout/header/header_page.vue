@@ -578,6 +578,15 @@ export default {
       }
     },
 
+    replaceApostropheWithUnderscore(key) {
+      // Kiểm tra nếu chuỗi chứa dấu ' thì thay thế bằng _
+      if (key.includes("'")) {
+        return key.replace(/'/g, "_");
+      }
+      // Nếu không chứa dấu ', trả về chuỗi gốc
+      return key;
+    },
+
     findDistrictsData(value) {
       const listCityVN = this.listCityAllGetters;
 
@@ -590,6 +599,8 @@ export default {
       const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = this.convertToConvertLowerCase(value.district);
 
+      debugger;
+      const replaceApos = this.replaceApostropheWithUnderscore(replaceDistrict);
       const findData = listCityVN.find(
         (x) => x.keyAccentLanguage === replaceCity
       );
@@ -604,7 +615,7 @@ export default {
 
             const checkSub = this.checkSubstring(
               removeAccents(element.keyAccentLanguage),
-              replaceDistrict
+              replaceApos
             );
 
             if (checkSub) {
@@ -632,6 +643,10 @@ export default {
       const replaceDistrict = this.convertToConvertLowerCase(value.district);
       const replaceWard = this.convertToConvertLowerCase(value.ward);
 
+      const replaceAposDistrict =
+        this.replaceApostropheWithUnderscore(replaceDistrict);
+      const replaceAposWard = this.replaceApostropheWithUnderscore(replaceWard);
+
       const findData = listCityVN.find(
         (x) => x.keyAccentLanguage === replaceCity
       );
@@ -646,7 +661,7 @@ export default {
 
             const checkSub = this.checkSubstring(
               removeAccents(element.keyAccentLanguage),
-              replaceDistrict
+              replaceAposDistrict
             );
 
             if (checkSub) {
@@ -658,7 +673,7 @@ export default {
                   const elementWard = wardListData[index];
                   const checkSubWard = this.checkSubstring(
                     removeAccents(elementWard.keyAccentLanguage),
-                    replaceWard
+                    replaceAposWard
                   );
 
                   if (checkSubWard) {

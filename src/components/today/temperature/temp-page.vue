@@ -183,6 +183,15 @@ export default {
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
     },
+
+    escapeKey(key) {
+      // Kiểm tra nếu key chứa dấu ' thì escape
+      if (key.includes("'")) {
+        return key.replace(/'/g, "\\'");
+      }
+      // Nếu không chứa dấu ', trả về key như bình thường
+      return key;
+    },
     convertToLowCase(value) {
       const normalizedStr = value
         .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode

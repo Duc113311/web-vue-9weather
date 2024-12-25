@@ -218,7 +218,7 @@ export function convertTimestampToDayMonth(timestamp) {
   const date = new Date(timestamp * 1000); // Chuyển timestamp từ giây sang milliseconds
   const day = date.getDate(); // Lấy ngày
   const month = date.getMonth() + 1; // Lấy tháng (0-indexed, cần +1)
-  
+
   // Đảm bảo ngày và tháng có định dạng 2 chữ số (01, 02, ...)
   const formattedDay = day < 10 ? `0${day}` : day;
   const formattedMonth = month < 10 ? `0${month}` : month;
@@ -295,11 +295,11 @@ export function convertTimestampToHoursMinutes12(
   timezone
 ) {
   const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-    // Lấy giờ và phút
+  // Lấy giờ và phút
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
-  
+
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
@@ -319,6 +319,66 @@ export function convertTimestampToHoursMinutes12(
     return hours + ":" + minutes + " " + period;
   }
 }
+
+export function convertTime12hTimeZoneNotNow(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  // Lấy giờ và phút
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  let period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour % 12 || 12;
+  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
+
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    return hours + ":" + minutes + " " + period;
+  } else if (numberTime === 1) {
+    return hours + ":" + minutes + " " + period;
+  }
+}
+
+export function convertTime24hTimeZoneNotNow(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+
+
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  hours = hours % 24;
+  hours = hours ? hours : 0; // Nếu giờ là 0 thì chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour;
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
+  } else if (numberTime === 1) {
+    if (hours < 10) {
+      return "0" + hours + ":" + minutes;
+    }
+
+    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
+  }
+}
+
 
 export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
   const date = new Date(timestamp * 1000);
@@ -384,11 +444,11 @@ export function convertTimestamp12hSun(
   timezone
 ) {
   const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-    // Lấy giờ và phút
+  // Lấy giờ và phút
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
-  
+
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
@@ -622,7 +682,7 @@ export function getWindDirectionEmojiFromDegrees(windBearing) {
 }
 
 
-export function convertMonth(timestamp){
+export function convertMonth(timestamp) {
   const date = new Date(timestamp * 1000);
   const dayMapping = {
     Sunday: i18n.global.t("Sun"),
@@ -634,7 +694,7 @@ export function convertMonth(timestamp){
     Saturday: i18n.global.t("Sat"),
   };
 
-  const month =date.getMonth()+1
+  const month = date.getMonth() + 1
   return month
 }
 

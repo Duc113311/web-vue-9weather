@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!--   -->
-    <!-- <div class="flex items-center text-left gap-2 text-white mt-2">
+    <div class="flex items-center text-left gap-2 pad-t-b text-white">
       <img
         src="../../../assets/images/svg_v2/ic_cloud_sun.svg"
         width="24"
@@ -10,300 +10,266 @@
       <span>
         {{ $t(`{city}_weather_by_hour`, { city: breadcumsObject?.city }) }}
       </span>
-    </div> -->
+    </div>
     <div class="w-full h-full overflow-hidden">
       <transition-group name="fade" tag="div">
-        <BaseComponent v-for="(item, index) in displayedItems" :key="index">
-          <div class="w-full">
-            <!--  -->
-            <div
-              @click="onClickShowDetailCard(index)"
-              class="flex justify-between items-center w-full"
-            >
+        <div class="gap-4 flex flex-col cursor-pointer">
+          <BaseList v-for="(item, index) in displayedItems" :key="index">
+            <div class="w-full">
               <!--  -->
-              <div class="flex items-center">
-                <p class="w-[100px] text-left">
-                  <span class="txt_medium">
-                    {{ renderHourly(item).timestampValue }}
-                  </span>
+              <div
+                @click="onClickShowDetailCard(index)"
+                class="flex justify-between items-center w-full"
+              >
+                <!--  -->
+                <div class="flex items-center">
+                  <p class="w-[100px] text-left">
+                    <span class="txt_medium">
+                      {{ renderHourly(item).timestampValue }}
+                    </span>
 
-                  <span class="txt_regular_des_moon absolute ml-1">
-                    {{ convertToShortDay(item.time) }}
-                  </span>
-                </p>
+                    <span class="txt_regular_des_moon absolute ml-1">
+                      {{ convertToShortDay(item.time) }}
+                    </span>
+                  </p>
 
-                <p>
-                  {{
-                    convertCapitalizeWords(
-                      $t(`${item?.summary.replace(/\s+/g, "_")}`)
-                    )
-                  }}
-                </p>
-              </div>
-
-              <div class="flex items-center">
-                <div class="flex items-center gap-2 mr-4">
-                  <img :src="renderIcon(item)" alt="" />
                   <p>
-                    {{ renderToCelsius(item?.temperatureMin) }} /
-                    {{ renderToCelsius(item?.temperatureMax) }}
+                    {{
+                      convertCapitalizeWords(
+                        $t(`${item?.summary.replace(/\s+/g, "_")}`)
+                      )
+                    }}
                   </p>
                 </div>
-                <div>
-                  <img
-                    :id="'chevron-' + index"
-                    src="../../../assets/images/svg_v2/ic_chevron_right.png"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              v-if="index === valueChoose"
-              class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
-            >
-              <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
-                <div class="flex items-center justify-between w-full">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_Temp.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("temperature") }}</p>
-                  </div>
 
-                  <div class="flex items-center">
-                    <div class="flex items-center">
-                      <div class="flex items-center">
-                        <img
-                          src="../../../assets/images/svg_v2/ic_temperature_min.svg"
-                          alt=""
-                        />
-                        <p>
-                          {{
-                            convertFahrenheitToCelsiusNot(item?.temperatureMin)
-                          }}
-                        </p>
-                      </div>
-                      <div class="flex items-center">
-                        <img
-                          src="../../../assets/images/svg_v2/ic_temperature_max.svg"
-                          alt=""
-                        />
-                        <p>
-                          {{
-                            convertFahrenheitToCelsiusNot(item?.temperatureMax)
-                          }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_smile.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("real_feel") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <div class="flex items-center">
-                      <div class="flex items-center">
-                        <img
-                          src="../../../assets/images/svg_v2/ic_temperature_min.svg"
-                          alt=""
-                        />
-                        <p>
-                          {{
-                            convertFahrenheitToCelsiusNot(
-                              item?.apparentTemperatureMin
-                            )
-                          }}
-                        </p>
-                      </div>
-                      <div class="flex items-center">
-                        <img
-                          src="../../../assets/images/svg_v2/ic_temperature_max.svg"
-                          alt=""
-                        />
-                        <p>
-                          {{
-                            convertFahrenheitToCelsiusNot(
-                              item?.apparentTemperatureMax
-                            )
-                          }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_UV_index.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("uv") }}</p>
-                  </div>
-                  <div class="flex items-center">
+                <div class="flex items-center">
+                  <div class="flex items-center gap-2 mr-4">
+                    <img :src="renderIcon(item)" alt="" />
                     <p>
-                      {{ item?.uvIndex
-                      }}<span class="txt_regular_des"
-                        >({{ convertUvIndexName(item?.uvIndex) }})</span
-                      >
+                      {{ renderToCelsius(item?.temperatureMin) }} /
+                      {{ renderToCelsius(item?.temperatureMax) }}
                     </p>
                   </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
+                  <div>
                     <img
-                      src="../../../assets/images/svg_v2/ic_precititation.svg"
+                      :id="'chevron-' + index"
+                      src="../../../assets/images/svg_v2/ic_chevron_right.png"
                       alt=""
-                      srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("precipitation") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_droplet.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("Chance_of_rain") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>{{ item?.precipProbability * 100 }}%</p>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_Air_quality.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("air_quality") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>
-                      {{ Math.round(item?.uvIndex) }}
-
-                      <span class="txt_regular_des"
-                        >({{ convertAirIndexName(paramAirModule) }})</span
-                      >
-                    </p>
                   </div>
                 </div>
               </div>
+              <div
+                v-if="index === valueChoose"
+                class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
+              >
+                <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
+                  <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_Temp.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("temperature") }}</p>
+                    </div>
 
-              <!--  -->
-
-              <div class="w-[50%] flex flex-col gap-4 pl-6">
-                <div class="flex items-center justify-between w-full">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_wind.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("wind_speed") }}</p>
+                    <div class="flex items-center">
+                      <p>
+                        {{
+                          convertFahrenheitToCelsiusNot(
+                            (item?.temperatureMin + item?.temperatureMax) / 2
+                          )
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_smile.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("real_feel") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>
+                        {{
+                          convertFahrenheitToCelsiusNot(
+                            (item?.apparentTemperatureMin +
+                              item?.apparentTemperatureMax) /
+                              2
+                          )
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_UV_index.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("uv") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>
+                        {{ item?.uvIndex }}
+                        <span class="txt_regular_des"
+                          >({{ convertUvIndexName(item?.uvIndex) }})</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_precititation.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("precipitation") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_droplet.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("Chance_of_rain") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>{{ item?.precipProbability * 100 }}%</p>
+                    </div>
                   </div>
 
-                  <div class="flex items-center">
-                    <p>
-                      {{ convertWindSpeed(item.windSpeed) }}
-                      {{ convertUnitWindSpeed() }}
-                    </p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_Air_quality.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("air_quality") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>
+                        {{ Math.round(item?.uvIndex) }}
+
+                        <span class="txt_regular_des"
+                          >({{ convertAirIndexName(paramAirModule) }})</span
+                        >
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_wind_flag_svgrepo.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("wind_direction") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>{{ convertWindBearing(item?.windBearing) }}</p>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_cloud_fog.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("cloud_cover") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>{{ Math.round(item.cloudCover * 100) }}%</p>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/ic_pressure.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("pressure") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>
-                      {{ convertPressure(item?.pressure) }}
-                      {{ convertUnitPressure() }}
-                    </p>
-                  </div>
-                </div>
 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("sunrise") }}</p>
-                  </div>
-                  <div class="flex items-center">
-                    <p>
-                      {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
-                    </p>
-                  </div>
-                </div>
+                <!--  -->
 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <img
-                      src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
-                      alt=""
-                      srcset=""
-                    />
-                    <p class="txt_regular_des">{{ $t("sunset") }}</p>
+                <div class="w-[50%] flex flex-col gap-4 pl-6">
+                  <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_wind.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("wind_speed") }}</p>
+                    </div>
+
+                    <div class="flex items-center">
+                      <p>
+                        {{ convertWindSpeed(item.windSpeed) }}
+                        {{ convertUnitWindSpeed() }}
+                      </p>
+                    </div>
                   </div>
-                  <div class="flex items-center">
-                    <p>
-                      {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
-                    </p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_wind_flag_svgrepo.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("wind_direction") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>{{ convertWindBearing(item?.windBearing) }}</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_cloud_fog.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("cloud_cover") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>{{ Math.round(item.cloudCover * 100) }}%</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/ic_pressure.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("pressure") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>
+                        {{ convertPressure(item?.pressure) }}
+                        {{ convertUnitPressure() }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("sunrise") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>
+                        {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <img
+                        src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <p class="txt_regular_des">{{ $t("sunset") }}</p>
+                    </div>
+                    <div class="flex items-center">
+                      <p>
+                        {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </BaseComponent>
+          </BaseList>
+        </div>
       </transition-group>
 
       <div class="w-full text-left mt-3">
@@ -321,7 +287,7 @@
   </div>
 </template>
 <script>
-import BaseComponent from "@/components/common/baseComponent.vue";
+import BaseList from "@/components/common/baseList.vue";
 import {
   convertTimestampToHoursMinutes,
   convertTimestampToHoursMinutes12,
@@ -347,6 +313,9 @@ import {
   getAirSummaryName,
   convertDayOfWeek,
   convertTimestampToDayMonth,
+  convertTime12h,
+  convertTime12hTimeZoneNotNow,
+  convertTime24hTimeZoneNotNow,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -355,7 +324,7 @@ export default {
   name: "item-time-30-day",
 
   components: {
-    BaseComponent,
+    BaseList,
   },
   data() {
     return {
@@ -556,14 +525,14 @@ export default {
         this.$store.state.weatherModule.locationOffset.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(
+        return convertTime12hTimeZoneNotNow(
           value,
           1,
           offsetValue,
           timezoneValue
         );
       } else {
-        return convertTimestampToHoursMinutes(value, 1, offsetValue);
+        return convertTime24hTimeZoneNotNow(value, 1, offsetValue);
       }
     },
 

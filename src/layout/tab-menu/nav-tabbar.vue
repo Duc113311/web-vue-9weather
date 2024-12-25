@@ -298,11 +298,30 @@ export default {
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
     },
 
-    removeWordAndAccents(str, wordToRemove) {
-      const normalizedStr = removeAccents(str); // Loại bỏ dấu nếu có
-      return normalizedStr
-        .replace(new RegExp(`\\b${wordToRemove}\\b`, "gi"), "")
-        .trim();
+    convertLowerCase(str) {
+      const slug = removeAccents(str);
+      return slug.replace(/\s+/g, "-").toLowerCase();
+    },
+
+    removeWordAndAccents(str, wordsToRemove) {
+      const removeAccents = (s) =>
+        s
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D");
+
+      // Loại bỏ dấu và chuẩn hóa chuỗi
+      let normalizedStr = removeAccents(str);
+
+      // Loại bỏ từng từ trong danh sách wordsToRemove
+      wordsToRemove.forEach((word) => {
+        const normalizedWord = removeAccents(word);
+        const regex = new RegExp(`\\b${normalizedWord}\\b`, "gi");
+        normalizedStr = normalizedStr.replace(regex, "").trim();
+      });
+
+      return normalizedStr;
     },
 
     async onClickRouterView(value, index) {
@@ -333,21 +352,39 @@ export default {
           };
 
           // Xây dựng mảng location dựa vào điều kiện
-          if (this.breadcumsObject.city.length !== 0) {
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length === 0
+          ) {
             routeParams.params.location.push(
-              this.convertToSlug(this.breadcumsObject.city)
+              this.convertLowerCase(this.breadcumsObject.city)
             );
           }
 
-          if (this.breadcumsObject.district.length !== 0) {
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length !== 0 &&
+            this.breadcumsObject.ward.length === 0
+          ) {
             routeParams.params.location.push(
-              this.convertToSlug(this.breadcumsObject.district)
+              this.convertLowerCase(this.breadcumsObject.district)
             );
           }
 
-          if (this.breadcumsObject.ward.length !== 0) {
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length !== 0 &&
+            this.breadcumsObject.ward.length !== 0
+          ) {
             routeParams.params.location.push(
-              this.convertToSlug(this.breadcumsObject.ward)
+              this.convertToSlug(
+                this.removeWordAndAccents(this.breadcumsObject.ward, [
+                  "Xã",
+                  "Thị Xã",
+                  "Phường",
+                  "Thị Trấn",
+                ])
+              )
             );
           }
 

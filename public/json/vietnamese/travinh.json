@@ -641,6 +641,58 @@
           "keyAccentLanguage": "Xa_Dong_Hai"
         }
       ]
+    },
+    {
+      "code": 101,
+      "category": null,
+      "type": "Town",
+      "viNameLanguage": "Thị xã Duyên Hải",
+      "postalCode": "870009",
+      "keyAccentLanguage": "Thi_xa_Duyen_Hai",
+      "wards": [
+        {
+          "code": 102,
+          "type": "Ward",
+          "viNameLanguage": "Phường 1",
+          "keyAccentLanguage": "Phuong_1"
+        },
+        {
+          "code": 103,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Toàn",
+          "keyAccentLanguage": "Xa_Long_Toan"
+        },
+        {
+          "code": 104,
+          "type": "Ward",
+          "viNameLanguage": "Phường 2",
+          "keyAccentLanguage": "Phuong_2"
+        },
+        {
+          "code": 105,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Hữu",
+          "keyAccentLanguage": "Xa_Long_Huu"
+        },
+        {
+          "code": 106,
+          "type": "Commune",
+          "viNameLanguage": "Xã Dân Thành",
+          "keyAccentLanguage": "Xa_Dan_Thanh"
+        },
+        {
+          "code": 107,
+          "type": "Commune",
+          "viNameLanguage": "Xã Trường Long Hòa",
+          "keyAccentLanguage": "Xa_Truong_Long_Hoa"
+        },
+        {
+          "code": 108,
+          "type": "Commune",
+          "viNameLanguage": "Xã Hiệp Thạnh",
+          "keyAccentLanguage": "Xa_Hiep_Thanh"
+        }
+      ]
     }
   ]
 }

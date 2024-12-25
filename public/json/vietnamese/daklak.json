@@ -228,7 +228,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Ea H'leo",
       "postalCode": "630003",
-      "keyAccentLanguage": "Huyen_Ea_H'leo",
+      "keyAccentLanguage": "Huyen_Ea_H_leo",
       "wards": [
         {
           "code": 37,
@@ -240,7 +240,7 @@
           "code": 38,
           "type": "Commune",
           "viNameLanguage": "Xã Ea H'leo",
-          "keyAccentLanguage": "Xa_Ea_H'leo"
+          "keyAccentLanguage": "Xa_Ea_H_leo"
         },
         {
           "code": 39,
@@ -364,7 +364,7 @@
           "code": 58,
           "type": "Commune",
           "viNameLanguage": "Xã Cư M'Lan",
-          "keyAccentLanguage": "Xa_Cu_M'Lan"
+          "keyAccentLanguage": "Xa_Cu_M_Lan"
         }
       ]
     },
@@ -426,7 +426,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Cư M'gar",
       "postalCode": "630006",
-      "keyAccentLanguage": "Huyen_Cu_M'gar",
+      "keyAccentLanguage": "Huyen_Cu_M_gar",
       "wards": [
         {
           "code": 68,
@@ -468,13 +468,13 @@
           "code": 74,
           "type": "Commune",
           "viNameLanguage": "Xã Cư Dliê M'nông",
-          "keyAccentLanguage": "Xa_Cu_Dlie_M'nong"
+          "keyAccentLanguage": "Xa_Cu_Dlie_M_nong"
         },
         {
           "code": 75,
           "type": "Commune",
           "viNameLanguage": "Xã Ea H'đinh",
-          "keyAccentLanguage": "Xa_Ea_H'dinh"
+          "keyAccentLanguage": "Xa_Ea_H_dinh"
         },
         {
           "code": 76,
@@ -492,7 +492,7 @@
           "code": 78,
           "type": "Commune",
           "viNameLanguage": "Xã Ea M'DRóh",
-          "keyAccentLanguage": "Xa_Ea_M'DRoh"
+          "keyAccentLanguage": "Xa_Ea_M_DRoh"
         },
         {
           "code": 79,
@@ -504,19 +504,19 @@
           "code": 80,
           "type": "Commune",
           "viNameLanguage": "Xã Cư M'gar",
-          "keyAccentLanguage": "Xa_Cu_M'gar"
+          "keyAccentLanguage": "Xa_Cu_M_gar"
         },
         {
           "code": 81,
           "type": "Commune",
           "viNameLanguage": "Xã Ea D'Rơng",
-          "keyAccentLanguage": "Xa_Ea_D'Rong"
+          "keyAccentLanguage": "Xa_Ea_D_Rong"
         },
         {
           "code": 82,
           "type": "Commune",
           "viNameLanguage": "Xã Ea M'nang",
-          "keyAccentLanguage": "Xa_Ea_M'nang"
+          "keyAccentLanguage": "Xa_Ea_M_nang"
         },
         {
           "code": 83,
@@ -760,7 +760,7 @@
       "type": "District",
       "viNameLanguage": "Huyện M'Đrắk",
       "postalCode": "6300010",
-      "keyAccentLanguage": "Huyen_M'Drak",
+      "keyAccentLanguage": "Huyen_M_Drak",
       "wards": [
         {
           "code": 121,
@@ -784,7 +784,7 @@
           "code": 124,
           "type": "Commune",
           "viNameLanguage": "Xã Ea H'MLay",
-          "keyAccentLanguage": "Xa_Ea_H'MLay"
+          "keyAccentLanguage": "Xa_Ea_H_MLay"
         },
         {
           "code": 125,
@@ -796,7 +796,7 @@
           "code": 126,
           "type": "Commune",
           "viNameLanguage": "Xã Ea M' Doal",
-          "keyAccentLanguage": "Xa_Ea_M'_Doal"
+          "keyAccentLanguage": "Xa_Ea_M__Doal"
         },
         {
           "code": 127,
@@ -808,7 +808,7 @@
           "code": 128,
           "type": "Commune",
           "viNameLanguage": "Xã Cư M'ta",
-          "keyAccentLanguage": "Xa_Cu_M'ta"
+          "keyAccentLanguage": "Xa_Cu_M_ta"
         },
         {
           "code": 129,
@@ -1166,7 +1166,7 @@
           "code": 185,
           "type": "Commune",
           "viNameLanguage": "Xã Ea R'Bin",
-          "keyAccentLanguage": "Xa_Ea_R'Bin"
+          "keyAccentLanguage": "Xa_Ea_R_Bin"
         }
       ]
     },

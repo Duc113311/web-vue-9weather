@@ -46,7 +46,7 @@
           "code": 7,
           "type": "Commune",
           "viNameLanguage": "Xã Đăk R'Moan",
-          "keyAccentLanguage": "Xa_Dak_R'Moan"
+          "keyAccentLanguage": "Xa_Dak_R_Moan"
         },
         {
           "code": 8,
@@ -92,7 +92,7 @@
           "code": 14,
           "type": "Commune",
           "viNameLanguage": "Xã Đắk R'Măng",
-          "keyAccentLanguage": "Xa_Dak_R'Mang"
+          "keyAccentLanguage": "Xa_Dak_R_Mang"
         },
         {
           "code": 15,
@@ -126,7 +126,7 @@
           "code": 19,
           "type": "Town",
           "viNameLanguage": "Thị trấn Ea T'Ling",
-          "keyAccentLanguage": "Thi_tran_Ea_T'Ling"
+          "keyAccentLanguage": "Thi_tran_Ea_T_Ling"
         },
         {
           "code": 20,
@@ -190,7 +190,7 @@
           "code": 29,
           "type": "Commune",
           "viNameLanguage": "Xã Đắk R'La",
-          "keyAccentLanguage": "Xa_Dak_R'La"
+          "keyAccentLanguage": "Xa_Dak_R_La"
         },
         {
           "code": 30,
@@ -208,7 +208,7 @@
           "code": 32,
           "type": "Commune",
           "viNameLanguage": "Xã Đắk N'Drót",
-          "keyAccentLanguage": "Xa_Dak_N'Drot"
+          "keyAccentLanguage": "Xa_Dak_N_Drot"
         },
         {
           "code": 33,
@@ -314,7 +314,7 @@
           "code": 49,
           "type": "Commune",
           "viNameLanguage": "Xã Nâm N'Đir",
-          "keyAccentLanguage": "Xa_Nam_N'Dir"
+          "keyAccentLanguage": "Xa_Nam_N_Dir"
         }
       ]
     },
@@ -366,13 +366,13 @@
           "code": 57,
           "type": "Commune",
           "viNameLanguage": "Xã Đắk N'Dung",
-          "keyAccentLanguage": "Xa_Dak_N'Dung"
+          "keyAccentLanguage": "Xa_Dak_N_Dung"
         },
         {
           "code": 58,
           "type": "Commune",
           "viNameLanguage": "Xã Nâm N'Jang",
-          "keyAccentLanguage": "Xa_Nam_N'Jang"
+          "keyAccentLanguage": "Xa_Nam_N_Jang"
         },
         {
           "code": 59,
@@ -388,7 +388,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Đắk R'Lấp",
       "postalCode": "650007",
-      "keyAccentLanguage": "Huyen_Dak_R'Lap",
+      "keyAccentLanguage": "Huyen_Dak_R_Lap",
       "wards": [
         {
           "code": 61,
@@ -488,7 +488,7 @@
           "code": 76,
           "type": "Commune",
           "viNameLanguage": "Xã Đắk R'Tíh",
-          "keyAccentLanguage": "Xa_Dak_R'Tih"
+          "keyAccentLanguage": "Xa_Dak_R_Tih"
         },
         {
           "code": 77,

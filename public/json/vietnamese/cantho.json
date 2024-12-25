@@ -353,6 +353,220 @@
           "keyAccentLanguage": "Xa_Truong_Xuan_B"
         }
       ]
+    },
+    {
+      "code": 88,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Bình Thủy",
+      "postalCode": "940006",
+      "keyAccentLanguage": "Quan_Binh_Thuy",
+      "wards": [
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường An Thới",
+          "keyAccentLanguage": "Phuong_An_Thoi"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Bình Thủy",
+          "keyAccentLanguage": "Phuong_Binh_Thuy"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Bùi Hữu Nghĩa",
+          "keyAccentLanguage": "Phuong_Bui_Huu_Nghia"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Long Hòa",
+          "keyAccentLanguage": "Phuong_Long_Hoa"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Long Tuyền",
+          "keyAccentLanguage": "Phuong_Long_Tuyen"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thới An Đông",
+          "keyAccentLanguage": "Phuong_Thoi_An_Dong"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trà An",
+          "keyAccentLanguage": "Phuong_Tra_An"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trà Nóc",
+          "keyAccentLanguage": "Phuong_Tra_Noc"
+        }
+      ]
+    },
+    {
+      "code": 88,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Cái Răng",
+      "postalCode": "940007",
+      "keyAccentLanguage": "Quan_Cai_Rang",
+      "wards": [
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Ba Láng",
+          "keyAccentLanguage": "Phuong_Ba_Lang"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hưng Phú",
+          "keyAccentLanguage": "Phuong_Hung_Phu"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hưng Thạnh",
+          "keyAccentLanguage": "Phuong_Hung_Thanh"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Lê Bình",
+          "keyAccentLanguage": "Phuong_Le_Binh"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Phú Thứ",
+          "keyAccentLanguage": "Phuong_Phu_Thu"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tân Phú",
+          "keyAccentLanguage": "Phuong_Tan_Phu"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thường Thạnh",
+          "keyAccentLanguage": "Phuong_Thuong_Thanh"
+        }
+      ]
+    },
+    {
+      "code": 88,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Ô Môn",
+      "postalCode": "940008",
+      "keyAccentLanguage": "Quan_O_Mon",
+      "wards": [
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Châu Văn Liêm",
+          "keyAccentLanguage": "Phuong_Chau_Van_Liem"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Long Hưng",
+          "keyAccentLanguage": "Phuong_Long_Hung"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Phước Thới",
+          "keyAccentLanguage": "Phuong_Phuoc_Thoi"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thới An",
+          "keyAccentLanguage": "Phuong_Thoi_An"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thới Hòa",
+          "keyAccentLanguage": "Phuong_Thoi_Hoa"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thới Long",
+          "keyAccentLanguage": "Phuong_Thoi_Long"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trường Lạc",
+          "keyAccentLanguage": "Phuong_Truong_Lac"
+        }
+      ]
+    },
+    {
+      "code": 88,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Thốt Nốt",
+      "postalCode": "940009",
+      "keyAccentLanguage": "Quan_Thot_Not",
+      "wards": [
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thới Thuận",
+          "keyAccentLanguage": "Phuong_Thoi_Thuan"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thuận An",
+          "keyAccentLanguage": "Phuong_Thuan_An"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thuận Hưng",
+          "keyAccentLanguage": "Phuong_Thuan_Hung"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thuận Lộc",
+          "keyAccentLanguage": "Phuong_Thuan_Loc"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thốt Nốt",
+          "keyAccentLanguage": "Phuong_Thot_Not"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tân Hưng",
+          "keyAccentLanguage": "Phuong_Tan_Hung"
+        },
+        {
+          "code": 88,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tân Lộc",
+          "keyAccentLanguage": "Phuong_Tan_Loc"
+        }
+      ]
     }
   ]
 }

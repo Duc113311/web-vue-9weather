@@ -39,7 +39,7 @@
   "Huyen_Tieu_Can": "Tieu Can district",
   "Thi_tran_Cau_Quan": "Cau Quan town",
   "Xa_Phu_Can": "Phu Can commune",
-  "Xa_Hieu_Tu": "Hieu Tu Commune",
+  "Xa_Hieu_Tu": "Hieu Tu commune",
   "Xa_Hieu_Trung": "Hieu Trung commune",
   "Xa_Long_Thoi": "Long Thoi commune",
   "Xa_Hung_Hoa": "Hung Hoa commune",
@@ -100,5 +100,11 @@
   "Xa_Long_Khanh": "Long Khanh commune",
   "Xa_Ngu_Lac": "Ngu Lac commune",
   "Xa_Long_Vinh": "Long Vinh commune",
-  "Xa_Dong_Hai": "Dong Hai commune"
+  "Xa_Dong_Hai": "Dong Hai commune",
+  "Thi_xa_Duyen_Hai": "Duyen Hai town",
+  "Xa_Long_Toan": "Long Toan commune",
+  "Xa_Long_Huu": "Long Huu commune",
+  "Xa_Dan_Thanh": "Dan Thanh Commune",
+  "Xa_Truong_Long_Hoa": "Truong Long Hoa commune",
+  "Xa_Hiep_Thanh": "Hiep Thanh commune"
 }

@@ -1015,6 +1015,100 @@
           "keyAccentLanguage": "Xa_Vinh_Tan"
         }
       ]
+    },
+    {
+      "code": 26,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Huyện Xuân Lộc",
+      "postalCode": "7600011",
+      "keyAccentLanguage": "Huyen_Xuan_Loc",
+      "wards": [
+        {
+          "code": 26,
+          "type": "Town",
+          "viNameLanguage": "Thị trấn Gia Ray",
+          "keyAccentLanguage": "Thi_tran_Gia_Ray"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Bảo Hòa",
+          "keyAccentLanguage": "Xa_Bao_Hoa"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Lang Minh",
+          "keyAccentLanguage": "Xa_Lang_Minh"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Suối Cao",
+          "keyAccentLanguage": "Xa_Suoi_Cao"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Suối Cát",
+          "keyAccentLanguage": "Xa_Suoi_Cat"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Bắc",
+          "keyAccentLanguage": "Xa_Xuan_Bac"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Định",
+          "keyAccentLanguage": "Xa_Xuan_Dinh"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Hiệp",
+          "keyAccentLanguage": "Xa_Xuan_Hiep"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Hòa",
+          "keyAccentLanguage": "Xa_Xuan_Hoa"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Hưng",
+          "keyAccentLanguage": "Xa_Xuan_Hung"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Phú",
+          "keyAccentLanguage": "Xa_Xuan_Phu"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Tâm",
+          "keyAccentLanguage": "Xa_Xuan_Tam"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Thọ",
+          "keyAccentLanguage": "Xa_Xuan_Tho"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Xuân Trường",
+          "keyAccentLanguage": "Xa_Xuan_Truong"
+        }
+      ]
     }
   ]
 }

@@ -160,7 +160,7 @@ export default {
 
     getColorFromPercentage(percentage) {
       if (percentage) {
-        if (percentage <= 2) return "#507a46";
+        if (percentage <= 2) return "#9dc194";
         if (percentage <= 5) return "#cbd956";
         if (percentage <= 7) return "#ecc32b";
         if (percentage <= 10) return "#f9b81d";

@@ -179,7 +179,7 @@ export default {
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return `${value}`;
+                return `${this.formatWindSpeed(value)}`;
               },
             },
           },
@@ -205,6 +205,14 @@ export default {
         },
         plugins: [{}],
       });
+    },
+
+    formatWindSpeed(windSpeed) {
+      // Kiểm tra nếu là số nguyên thì thêm ".00"
+      if (Number.isInteger(windSpeed)) {
+        return windSpeed.toFixed(2); // Thêm 2 chữ số thập phân
+      }
+      return windSpeed.toString(); // Giữ nguyên nếu đã có phần thập phân
     },
     generateSeriesData(data) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;

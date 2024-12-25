@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container-rainfall w-[89rem]">
     <div class="chart-wrapper w-full">
-      <canvas id="chart_hourly_rainfall" height="100" ref="canvas"></canvas>
+      <canvas id="chart_hourly_rainfall" height="120" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -188,7 +188,7 @@ export default {
                 //   text: "Giá trị",
               },
               beginAtZero: true,
-              max: 13,
+              max: 25,
             },
           },
           elements: {

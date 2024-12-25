@@ -34,7 +34,7 @@
               <p class="des-atb">6-7</p>
             </div>
             <div class="flex-1 bg-Very-high text-white text-center">
-              <p class="title-tab">{{ $t("Very_high") }}</p>
+              <p class="title-tab">{{ $t("Very_High") }}</p>
               <p class="des-atb">8-10</p>
             </div>
             <div class="flex-1 bg-Extremely-high text-white text-center">
