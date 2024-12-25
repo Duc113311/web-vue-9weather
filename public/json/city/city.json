@@ -4,7 +4,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Đông Bắc Bộ",
-    "postalCode": "17000",
+    "postalCode": "94000",
     "keyAccentLanguage": "Dong_Bac_Bo",
     "provinceCity": [
       {
@@ -68,7 +68,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Tây Bắc Bộ",
-    "postalCode": "170001",
+    "postalCode": "940001",
     "keyAccentLanguage": "Tay_Bac_Bo",
     "provinceCity": [
       {
@@ -104,8 +104,8 @@
       {
         "code": 16,
         "type": "Provincial City",
-        "viNameLanguage": "Điện Biên",
-        "keyAccentLanguage": "Dien_Bien"
+        "viNameLanguage": "Điện Biên Phủ",
+        "keyAccentLanguage": "Dien_Bien_Phu"
       }
     ]
   },
@@ -114,7 +114,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Đồng bằng sông Hồng",
-    "postalCode": "170002",
+    "postalCode": "940002",
     "keyAccentLanguage": "Dong_bang_song_Hong",
     "provinceCity": [
       {
@@ -184,7 +184,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Bắc Trung Bộ",
-    "postalCode": "170003",
+    "postalCode": "940003",
     "keyAccentLanguage": "Bac_Trung_Bo",
     "provinceCity": [
       {
@@ -230,7 +230,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Nam Trung Bộ",
-    "postalCode": "170004",
+    "postalCode": "940004",
     "keyAccentLanguage": "Nam_Trung_Bo",
     "provinceCity": [
       {
@@ -288,7 +288,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Tây Nguyên",
-    "postalCode": "170005",
+    "postalCode": "940005",
     "keyAccentLanguage": "Tay_Nguyen",
     "provinceCity": [
       {
@@ -328,7 +328,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Đông Nam Bộ",
-    "postalCode": "170006",
+    "postalCode": "940006",
     "keyAccentLanguage": "Dong_Nam_Bo",
     "provinceCity": [
       {
@@ -374,7 +374,7 @@
     "category": null,
     "type": "Geographic Region",
     "viNameLanguage": "Đồng bằng sông Cửu Long",
-    "postalCode": "170007",
+    "postalCode": "940007",
     "keyAccentLanguage": "Dong_bang_song_Cuu_Long",
     "provinceCity": [
       {
@@ -450,7 +450,7 @@
         "keyAccentLanguage": "Vinh_Long"
       },
       {
-        "code":70,
+        "code": 70,
         "type": "Provincial City",
         "viNameLanguage": "Đồng Tháp",
         "keyAccentLanguage": "Dong_Thap"

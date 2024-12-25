@@ -404,7 +404,7 @@
           "code": 64,
           "type": "Commune",
           "viNameLanguage": "Xã Gio Mỹ",
-          "keyAccentLanguage": "Xa_Gio_Mỹ"
+          "keyAccentLanguage": "Xa_Gio_My"
         },
         {
           "code": 65,
@@ -833,6 +833,33 @@
       "viNameLanguage": "Huyện Cồn Cỏ",
       "postalCode": "4800010",
       "keyAccentLanguage": "Huyen_Con_Co",
+      "wards": []
+    },
+    {
+      "code": 132,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Cửa Việt",
+      "postalCode": "4800011",
+      "keyAccentLanguage": "Bien_Cua_Viet",
+      "wards": []
+    },
+    {
+      "code": 132,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Biển Cồn Cỏ",
+      "postalCode": "4800012",
+      "keyAccentLanguage": "Huyen_Con_Co",
+      "wards": []
+    },
+    {
+      "code": 132,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Mỹ Thủy",
+      "postalCode": "4800013",
+      "keyAccentLanguage": "Bien_My_Thuy",
       "wards": []
     }
   ]

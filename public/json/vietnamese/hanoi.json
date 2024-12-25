@@ -50,7 +50,7 @@
         },
         {
           "code": 8,
-          "type": "Ward",
+          "type": null,
           "viNameLanguage": "Phường Quán Thánh",
           "keyAccentLanguage": "Phuong_Quan_Thanh"
         },
@@ -1022,7 +1022,7 @@
           "code": 163,
           "type": "Commune",
           "viNameLanguage": "Xã Thuỵ Lâm",
-          "keyAccentLanguage": "Xa_Thuỵ_Lam"
+          "keyAccentLanguage": "Xa_Thuy_Lam"
         },
         {
           "code": 164,
@@ -1266,7 +1266,7 @@
           "code": 203,
           "type": "Commune",
           "viNameLanguage": "Xã Kiêu Kỵ",
-          "keyAccentLanguage": "Xa_Kieu_Kỵ"
+          "keyAccentLanguage": "Xa_Kieu_Ky"
         },
         {
           "code": 204,
@@ -1472,7 +1472,7 @@
           "code": 236,
           "type": "Commune",
           "viNameLanguage": "Xã Thanh Mỹ",
-          "keyAccentLanguage": "Xa_Thanh_Mỹ"
+          "keyAccentLanguage": "Xa_Thanh_My"
         },
         {
           "code": 237,
@@ -1650,7 +1650,7 @@
           "code": 265,
           "type": "Commune",
           "viNameLanguage": "Xã Thuần Mỹ",
-          "keyAccentLanguage": "Xa_Thuan_Mỹ"
+          "keyAccentLanguage": "Xa_Thuan_My"
         },
         {
           "code": 266,
@@ -1786,7 +1786,7 @@
           "code": 287,
           "type": "Commune",
           "viNameLanguage": "Xã Trạch Mỹ Lộc",
-          "keyAccentLanguage": "Xa_Trach_Mỹ_Loc"
+          "keyAccentLanguage": "Xa_Trach_My_Loc"
         },
         {
           "code": 288,
@@ -2128,7 +2128,7 @@
           "code": 342,
           "type": "Commune",
           "viNameLanguage": "Xã Ngọc Mỹ",
-          "keyAccentLanguage": "Xa_Ngoc_Mỹ"
+          "keyAccentLanguage": "Xa_Ngoc_My"
         },
         {
           "code": 343,
@@ -2340,7 +2340,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Chương Mỹ",
       "postalCode": "1000021",
-      "keyAccentLanguage": "Huyen_Chuong_Mỹ",
+      "keyAccentLanguage": "Huyen_Chuong_My",
       "wards": [
         {
           "code": 377,
@@ -2430,7 +2430,7 @@
           "code": 391,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Lương",
-          "keyAccentLanguage": "Xa_Mỹ_Luong"
+          "keyAccentLanguage": "Xa_My_Luong"
         },
         {
           "code": 392,
@@ -2620,7 +2620,7 @@
           "code": 422,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hưng",
-          "keyAccentLanguage": "Xa_Mỹ_Hung"
+          "keyAccentLanguage": "Xa_My_Hung"
         },
         {
           "code": 423,
@@ -2952,7 +2952,7 @@
           "code": 476,
           "type": "Commune",
           "viNameLanguage": "Xã Chuyên Mỹ",
-          "keyAccentLanguage": "Xa_Chuyen_Mỹ"
+          "keyAccentLanguage": "Xa_Chuyen_My"
         },
         {
           "code": 477,
@@ -3206,7 +3206,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Mỹ Đức",
       "postalCode": "1000026",
-      "keyAccentLanguage": "Huyen_Mỹ_Duc",
+      "keyAccentLanguage": "Huyen_My_Duc",
       "wards": [
         {
           "code": 518,
@@ -3218,7 +3218,7 @@
           "code": 519,
           "type": "Commune",
           "viNameLanguage": "Xã An Mỹ",
-          "keyAccentLanguage": "Xa_An_Mỹ"
+          "keyAccentLanguage": "Xa_An_My"
         },
         {
           "code": 520,
@@ -3296,7 +3296,7 @@
           "code": 532,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Thành",
-          "keyAccentLanguage": "Xa_Mỹ_Thanh"
+          "keyAccentLanguage": "Xa_My_Thanh"
         },
         {
           "code": 533,
@@ -3372,13 +3372,13 @@
           "code": 544,
           "type": "Ward",
           "viNameLanguage": "Phường Mỹ Đình 1",
-          "keyAccentLanguage": "Phuong_Mỹ_Dinh_1"
+          "keyAccentLanguage": "Phuong_My_Dinh_1"
         },
         {
           "code": 545,
           "type": "Ward",
           "viNameLanguage": "Phường Mỹ Đình 2",
-          "keyAccentLanguage": "Phuong_Mỹ_Dinh_2"
+          "keyAccentLanguage": "Phuong_My_Dinh_2"
         },
         {
           "code": 546,
@@ -3436,7 +3436,7 @@
           "code": 554,
           "type": "Commune",
           "viNameLanguage": "Xã Đông Mỹ",
-          "keyAccentLanguage": "Xa_Dong_Mỹ"
+          "keyAccentLanguage": "Xa_Dong_My"
         },
         {
           "code": 555,
@@ -3514,7 +3514,7 @@
           "code": 567,
           "type": "Commune",
           "viNameLanguage": "Xã Yên Mỹ",
-          "keyAccentLanguage": "Xa_Yen_Mỹ"
+          "keyAccentLanguage": "Xa_Yen_My"
         }
       ]
     },

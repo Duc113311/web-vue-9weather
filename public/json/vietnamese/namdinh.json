@@ -148,7 +148,7 @@
           "code": 24,
           "type": "Ward",
           "viNameLanguage": "Phường Mỹ Xá",
-          "keyAccentLanguage": "Phuong_Mỹ_Xa"
+          "keyAccentLanguage": "Phuong_My_Xa"
         },
         {
           "code": 25,
@@ -170,67 +170,185 @@
       "type": "District",
       "viNameLanguage": "Huyện Mỹ Lộc",
       "postalCode": "070002",
-      "keyAccentLanguage": "Huyen_Mỹ_Loc",
+      "keyAccentLanguage": "Huyen_My_Loc",
       "wards": [
         {
           "code": 28,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hà",
-          "keyAccentLanguage": "Xa_Mỹ_Ha"
+          "keyAccentLanguage": "Xa_My_Ha"
         },
         {
           "code": 29,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Tiến",
-          "keyAccentLanguage": "Xa_Mỹ_Tien"
+          "keyAccentLanguage": "Xa_My_Tien"
         },
         {
           "code": 30,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Thắng",
-          "keyAccentLanguage": "Xa_Mỹ_Thang"
+          "keyAccentLanguage": "Xa_My_Thang"
         },
         {
           "code": 31,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Trung",
-          "keyAccentLanguage": "Xa_Mỹ_Trung"
+          "keyAccentLanguage": "Xa_My_Trung"
         },
         {
           "code": 32,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Tân",
-          "keyAccentLanguage": "Xa_Mỹ_Tan"
+          "keyAccentLanguage": "Xa_My_Tan"
         },
         {
           "code": 33,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Phúc",
-          "keyAccentLanguage": "Xa_Mỹ_Phuc"
+          "keyAccentLanguage": "Xa_My_Phuc"
         },
         {
           "code": 34,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hưng",
-          "keyAccentLanguage": "Xa_Mỹ_Hung"
+          "keyAccentLanguage": "Xa_My_Hung"
         },
         {
           "code": 35,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Thuận",
-          "keyAccentLanguage": "Xa_Mỹ_Thuan"
+          "keyAccentLanguage": "Xa_My_Thuan"
         },
         {
           "code": 36,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Thịnh",
-          "keyAccentLanguage": "Xa_Mỹ_Thinh"
+          "keyAccentLanguage": "Xa_My_Thinh"
         },
         {
           "code": 37,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Thành",
-          "keyAccentLanguage": "Xa_Mỹ_Thanh"
+          "keyAccentLanguage": "Xa_My_Thanh"
+        }
+      ]
+    },
+    {
+      "code": 38,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Huyện Vụ Bản",
+      "postalCode": "070003",
+      "keyAccentLanguage": "Huyen_Vu_Ban",
+      "wards": [
+        {
+          "code": 39,
+          "type": "Town",
+          "viNameLanguage": "Thị trấn Gôi",
+          "keyAccentLanguage": "Thi_tran_Goi"
+        },
+        {
+          "code": 40,
+          "type": "Commune",
+          "viNameLanguage": "Xã Minh Thuận",
+          "keyAccentLanguage": "Xa_Minh_Thuan"
+        },
+        {
+          "code": 41,
+          "type": "Commune",
+          "viNameLanguage": "Xã Hiển Khánh",
+          "keyAccentLanguage": "Xa_Hien_Khanh"
+        },
+        {
+          "code": 42,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Khánh",
+          "keyAccentLanguage": "Xa_Tan_Khanh"
+        },
+        {
+          "code": 43,
+          "type": "Commune",
+          "viNameLanguage": "Xã Hợp Hưng",
+          "keyAccentLanguage": "Xa_Hop_Hung"
+        },
+        {
+          "code": 44,
+          "type": "Commune",
+          "viNameLanguage": "Xã Đại An",
+          "keyAccentLanguage": "Xa_Dai_An"
+        },
+        {
+          "code": 45,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Thành",
+          "keyAccentLanguage": "Xa_Tan_Thanh"
+        },
+        {
+          "code": 46,
+          "type": "Commune",
+          "viNameLanguage": "Xã Cộng Hòa",
+          "keyAccentLanguage": "Xa_Cong_Hoa"
+        },
+        {
+          "code": 47,
+          "type": "Commune",
+          "viNameLanguage": "Xã Trung Thành",
+          "keyAccentLanguage": "Xa_Trung_Thanh"
+        },
+        {
+          "code": 48,
+          "type": "Commune",
+          "viNameLanguage": "Xã Quang Trung",
+          "keyAccentLanguage": "Xa_Quang_Trung"
+        },
+        {
+          "code": 49,
+          "type": "Commune",
+          "viNameLanguage": "Xã Minh Tân",
+          "keyAccentLanguage": "Xa_Minh_Tan"
+        },
+        {
+          "code": 50,
+          "type": "Commune",
+          "viNameLanguage": "Xã Liên Bảo",
+          "keyAccentLanguage": "Xa_Lien_Bao"
+        },
+        {
+          "code": 51,
+          "type": "Commune",
+          "viNameLanguage": "Xã Thành Lợi",
+          "keyAccentLanguage": "Xa_Thanh_Loi"
+        },
+        {
+          "code": 52,
+          "type": "Commune",
+          "viNameLanguage": "Xã Kim Thái",
+          "keyAccentLanguage": "Xa_Kim_Thai"
+        },
+        {
+          "code": 53,
+          "type": "Commune",
+          "viNameLanguage": "Xã Liên Minh",
+          "keyAccentLanguage": "Xa_Lien_Minh"
+        },
+        {
+          "code": 54,
+          "type": "Commune",
+          "viNameLanguage": "Xã Đại Thắng",
+          "keyAccentLanguage": "Xa_Dai_Thang"
+        },
+        {
+          "code": 55,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tam Thanh",
+          "keyAccentLanguage": "Xa_Tam_Thanh"
+        },
+        {
+          "code": 56,
+          "type": "Commune",
+          "viNameLanguage": "Xã Vĩnh Hào",
+          "keyAccentLanguage": "Xa_Vinh_Hao"
         }
       ]
     },
@@ -239,7 +357,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Ý Yên",
-      "postalCode": "070003",
+      "postalCode": "070004",
       "keyAccentLanguage": "Huyen_Y_Yen",
       "wards": [
         {
@@ -318,7 +436,7 @@
           "code": 70,
           "type": "Commune",
           "viNameLanguage": "Xã Yên Mỹ",
-          "keyAccentLanguage": "Xa_Yen_Mỹ"
+          "keyAccentLanguage": "Xa_Yen_My"
         },
         {
           "code": 71,
@@ -435,7 +553,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Nghĩa Hưng",
-      "postalCode": "070004",
+      "postalCode": "070005",
       "keyAccentLanguage": "Huyen_Nghia_Hung",
       "wards": [
         {
@@ -532,7 +650,7 @@
           "code": 105,
           "type": "Town",
           "viNameLanguage": "Thị trấn Quỹ Nhất",
-          "keyAccentLanguage": "Thi_tran_Quỹ_Nhat"
+          "keyAccentLanguage": "Thi_tran_Quy_Nhat"
         },
         {
           "code": 106,
@@ -589,7 +707,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Nam Trực",
-      "postalCode": "070005",
+      "postalCode": "070006",
       "keyAccentLanguage": "Huyen_Nam_Truc",
       "wards": [
         {
@@ -602,7 +720,7 @@
           "code": 116,
           "type": "Commune",
           "viNameLanguage": "Xã Nam Mỹ",
-          "keyAccentLanguage": "Xa_Nam_Mỹ"
+          "keyAccentLanguage": "Xa_Nam_My"
         },
         {
           "code": 117,
@@ -719,7 +837,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Trực Ninh",
-      "postalCode": "070006",
+      "postalCode": "070007",
       "keyAccentLanguage": "Huyen_Truc_Ninh",
       "wards": [
         {
@@ -810,7 +928,7 @@
           "code": 150,
           "type": "Commune",
           "viNameLanguage": "Xã Trực Mỹ",
-          "keyAccentLanguage": "Xa_Truc_Mỹ"
+          "keyAccentLanguage": "Xa_Truc_My"
         },
         {
           "code": 151,
@@ -855,7 +973,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Xuân Trường",
-      "postalCode": "070007",
+      "postalCode": "070008",
       "keyAccentLanguage": "Huyen_Xuan_Truong",
       "wards": [
         {
@@ -979,7 +1097,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Giao Thủy",
-      "postalCode": "070008",
+      "postalCode": "070009",
       "keyAccentLanguage": "Huyen_Giao_Thuy",
       "wards": [
         {
@@ -1121,7 +1239,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Hải Hậu",
-      "postalCode": "070009",
+      "postalCode": "0700010",
       "keyAccentLanguage": "Huyen_Hai_Hau",
       "wards": [
         {

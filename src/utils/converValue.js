@@ -307,12 +307,13 @@ export function convertTimestampToHoursMinutes12(
 
   const now = DateTime.now().setZone(timezone);
   let hoursNow = now.hour % 12 || 12;
+  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
 
   // Trả về thời gian định dạng 12 giờ
   if (numberTime === 0) {
     return hours + ":" + minutes + " " + period;
   } else if (numberTime === 1) {
-    if (hours === hoursNow) {
+    if (hours === hoursNow && period === periodNow) {
       return i18n.global.t("Now");
     }
     return hours + ":" + minutes + " " + period;

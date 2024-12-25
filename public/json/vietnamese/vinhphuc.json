@@ -69,11 +69,81 @@
       ]
     },
     {
+      "code": 11,
+      "category": null,
+      "type": "City",
+      "viNameLanguage": "Thành phố Phúc Yên",
+      "postalCode": "150002",
+      "keyAccentLanguage": "Thanh_pho_Phuc_Yen",
+      "wards": [
+        {
+          "code": 11,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trưng Trắc",
+          "keyAccentLanguage": "Phuong_Trung_Trac"
+        },
+        {
+          "code": 12,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hùng Vương",
+          "keyAccentLanguage": "Phuong_Hung_Vuong"
+        },
+        {
+          "code": 13,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trưng Nhị",
+          "keyAccentLanguage": "Phuong_Trung_Nhi"
+        },
+        {
+          "code": 14,
+          "type": "Ward",
+          "viNameLanguage": "Phường Phúc Thắng",
+          "keyAccentLanguage": "Phuong_Phuc_Thang"
+        },
+        {
+          "code": 15,
+          "type": "Ward",
+          "viNameLanguage": "Phường Xuân Hoà",
+          "keyAccentLanguage": "Phuong_Xuan_Hoa"
+        },
+        {
+          "code": 16,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đồng Xuân",
+          "keyAccentLanguage": "Phuong_Dong_Xuan"
+        },
+        {
+          "code": 17,
+          "type": "Commune",
+          "viNameLanguage": "Xã Ngọc Thanh",
+          "keyAccentLanguage": "Xa_Ngoc_Thanh"
+        },
+        {
+          "code": 18,
+          "type": "Commune",
+          "viNameLanguage": "Xã Cao Minh",
+          "keyAccentLanguage": "Xa_Cao_Minh"
+        },
+        {
+          "code": 19,
+          "type": "Ward",
+          "viNameLanguage": "Phường Nam Viêm",
+          "keyAccentLanguage": "Phuong_Nam_Viem"
+        },
+        {
+          "code": 20,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tiền Châu",
+          "keyAccentLanguage": "Phuong_Tien_Chau"
+        }
+      ]
+    },
+    {
       "code": 21,
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Lập Thạch",
-      "postalCode": "150002",
+      "postalCode": "150003",
       "keyAccentLanguage": "Huyen_Lap_Thach",
       "wards": [
         {
@@ -86,7 +156,7 @@
           "code": 23,
           "type": "Commune",
           "viNameLanguage": "Xã Ngọc Mỹ",
-          "keyAccentLanguage": "Xa_Ngoc_Mỹ"
+          "keyAccentLanguage": "Xa_Ngoc_My"
         },
         {
           "code": 24,
@@ -197,7 +267,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Tam Dương",
-      "postalCode": "150003",
+      "postalCode": "150004",
       "keyAccentLanguage": "Huyen_Tam_Duong",
       "wards": [
         {
@@ -285,7 +355,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Tam Đảo",
-      "postalCode": "150004",
+      "postalCode": "150005",
       "keyAccentLanguage": "Huyen_Tam_Dao",
       "wards": [
         {
@@ -343,7 +413,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Bình Xuyên",
-      "postalCode": "150005",
+      "postalCode": "150006",
       "keyAccentLanguage": "Huyen_Binh_Xuyen",
       "wards": [
         {
@@ -362,7 +432,7 @@
           "code": 67,
           "type": "Commune",
           "viNameLanguage": "Xã Trung Mỹ",
-          "keyAccentLanguage": "Xa_Trung_Mỹ"
+          "keyAccentLanguage": "Xa_Trung_My"
         },
         {
           "code": 68,
@@ -431,7 +501,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Yên Lạc",
-      "postalCode": "150006",
+      "postalCode": "150007",
       "keyAccentLanguage": "Huyen_Yen_Lac",
       "wards": [
         {
@@ -537,7 +607,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Vĩnh Tường",
-      "postalCode": "150007",
+      "postalCode": "150008",
       "keyAccentLanguage": "Huyen_Vinh_Tuong",
       "wards": [
         {
@@ -709,7 +779,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Sông Lô",
-      "postalCode": "150008",
+      "postalCode": "150009",
       "keyAccentLanguage": "Huyen_Song_Lo",
       "wards": [
         {

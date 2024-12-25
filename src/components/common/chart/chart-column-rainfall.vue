@@ -157,7 +157,9 @@ export default {
             },
             datalabels: {
               display: true,
-              align: "top",
+              anchor: "end",
+              align: "end",
+              clip: false,
               font: {
                 size: 12,
                 //   weight: "bold", // Chỉnh độ đậm của chữ

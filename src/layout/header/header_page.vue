@@ -433,8 +433,29 @@ export default {
       return slug;
     },
 
+    convertToCamelCase(input) {
+      if (!input) return input; // Nếu chuỗi không có giá trị, trả về chính nó
+
+      // Loại bỏ khoảng trắng và chuyển đổi thành CamelCase
+      return input
+        .split(" ") // Tách chuỗi theo khoảng trắng
+        .map((word, index) => {
+          if (index === 0) {
+            return word; // Giữ nguyên từ đầu tiên
+          }
+          return word.charAt(0).toUpperCase() + word.slice(1); // Viết hoa chữ cái đầu của các từ còn lại
+        })
+        .join(""); // Nối lại chuỗi
+    },
+
     convertToVietnamese(input) {
       // Map các từ gốc sang từ có dấu
+
+      const data = this.removeWordAndAccents(input, ["Province"]);
+
+      const dataNew = this.convertToCamelCase(data);
+      console.log("data-new", data);
+
       const vietnameseMap = {
         Hanoi: "Hà Nội",
         Haiphong: "Hải Phòng",
@@ -455,7 +476,7 @@ export default {
         CaoBang: "Cao Bằng",
         DakLak: "Đắk Lắk",
         DakNong: "Đắk Nông",
-        DienBien: "Điện Biên",
+        DienBien: "Điện Biên Phủ",
         DongNai: "Đồng Nai",
         DongThap: "Đồng Tháp",
         GiaLai: "Gia Lai",
@@ -501,7 +522,7 @@ export default {
       };
 
       // Kiểm tra nếu chuỗi tồn tại trong map
-      const converted = vietnameseMap[input] || input;
+      const converted = vietnameseMap[dataNew] || dataNew;
 
       // Thay khoảng trắng bằng dấu gạch dưới
       return {
@@ -509,22 +530,41 @@ export default {
         cityConvert: this.convertToConvertLowerCase(converted),
       };
     },
+
+    convertToFormattedArray(input) {
+      if (!input) return []; // Nếu chuỗi không có giá trị, trả về mảng rỗng
+
+      return input
+        .split(" ") // Tách chuỗi theo khoảng trắng
+        .map((word, index) => {
+          if (index === 0) {
+            return word; // Từ đầu tiên chuyển thành chữ thường
+          }
+          return word.charAt(0) + word.slice(1); // Viết hoa chữ cái đầu cho từ còn lại
+        });
+    },
     checkSubstring(str1, str2) {
       const words1 = str1.replace(/[^\w\s]/g, "").split("_");
       const words2 = str2.replace(/[^\w\s]/g, "").split("_");
 
+      const convertArray = this.convertToFormattedArray(str2);
       // Lọc ra các từ có trong str2
       const commonWords = words1.filter((word) => words2.includes(word));
       if (str2 === "Bac_Tu_Liem" || str2 === "Nam_Tu_Liem") {
         return commonWords.length >= 3;
       } else {
-        return commonWords.length >= 2;
+        if (convertArray === 1) {
+          return commonWords.length >= 1;
+        } else {
+          return commonWords.length >= 2;
+        }
       }
       // Kiểm tra xem có ít nhất 2 từ chung không
     },
 
     findCityData(value) {
       const listCityVN = this.objectCityByLocationGetters;
+
       const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       for (let index = 0; index < listCityVN.length; index++) {
         const element = listCityVN[index];

@@ -52,25 +52,25 @@
           "code": 8,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Ngãi",
-          "keyAccentLanguage": "Xa_Mỹ_Ngai"
+          "keyAccentLanguage": "Xa_My_Ngai"
         },
         {
           "code": 9,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Tân",
-          "keyAccentLanguage": "Xa_Mỹ_Tan"
+          "keyAccentLanguage": "Xa_My_Tan"
         },
         {
           "code": 10,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Trà",
-          "keyAccentLanguage": "Xa_Mỹ_Tra"
+          "keyAccentLanguage": "Xa_My_Tra"
         },
         {
           "code": 11,
           "type": "Ward",
           "viNameLanguage": "Phường Mỹ Phú",
-          "keyAccentLanguage": "Phuong_Mỹ_Phu"
+          "keyAccentLanguage": "Phuong_My_Phu"
         },
         {
           "code": 12,
@@ -355,18 +355,100 @@
       ]
     },
     {
+      "code": 55,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Huyện Tam Nông",
+      "postalCode": "810006",
+      "keyAccentLanguage": "Huyen_Tam_Nong",
+      "wards": [
+        {
+          "code": 56,
+          "type": "Town",
+          "viNameLanguage": "Thị trấn Tràm Chim",
+          "keyAccentLanguage": "Thi_tran_Tram_Chim"
+        },
+        {
+          "code": 57,
+          "type": "Commune",
+          "viNameLanguage": "Xã Hoà Bình",
+          "keyAccentLanguage": "Xa_Hoa_Binh"
+        },
+        {
+          "code": 58,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Công Sính",
+          "keyAccentLanguage": "Xa_Tan_Cong_Sinh"
+        },
+        {
+          "code": 59,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Hiệp",
+          "keyAccentLanguage": "Xa_Phu_Hiep"
+        },
+        {
+          "code": 60,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Đức",
+          "keyAccentLanguage": "Xa_Phu_Duc"
+        },
+        {
+          "code": 61,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Thành B",
+          "keyAccentLanguage": "Xa_Phu_Thanh_B"
+        },
+        {
+          "code": 62,
+          "type": "Commune",
+          "viNameLanguage": "Xã An Hòa",
+          "keyAccentLanguage": "Xa_An_Hoa"
+        },
+        {
+          "code": 63,
+          "type": "Commune",
+          "viNameLanguage": "Xã An Long",
+          "keyAccentLanguage": "Xa_An_Long"
+        },
+        {
+          "code": 64,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Cường",
+          "keyAccentLanguage": "Xa_Phu_Cuong"
+        },
+        {
+          "code": 65,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Ninh",
+          "keyAccentLanguage": "Xa_Phu_Ninh"
+        },
+        {
+          "code": 66,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Thọ",
+          "keyAccentLanguage": "Xa_Phu_Tho"
+        },
+        {
+          "code": 67,
+          "type": "Commune",
+          "viNameLanguage": "Xã Phú Thành A",
+          "keyAccentLanguage": "Xa_Phu_Thanh_A"
+        }
+      ]
+    },
+    {
       "code": 68,
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Tháp Mười",
-      "postalCode": "810006",
+      "postalCode": "810007",
       "keyAccentLanguage": "Huyen_Thap_Muoi",
       "wards": [
         {
           "code": 69,
           "type": "Town",
           "viNameLanguage": "Thị trấn Mỹ An",
-          "keyAccentLanguage": "Thi_tran_Mỹ_An"
+          "keyAccentLanguage": "Thi_tran_My_An"
         },
         {
           "code": 70,
@@ -396,19 +478,19 @@
           "code": 74,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hòa",
-          "keyAccentLanguage": "Xa_Mỹ_Hoa"
+          "keyAccentLanguage": "Xa_My_Hoa"
         },
         {
           "code": 75,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Quý",
-          "keyAccentLanguage": "Xa_Mỹ_Quy"
+          "keyAccentLanguage": "Xa_My_Quy"
         },
         {
           "code": 76,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Đông",
-          "keyAccentLanguage": "Xa_Mỹ_Dong"
+          "keyAccentLanguage": "Xa_My_Dong"
         },
         {
           "code": 77,
@@ -420,7 +502,7 @@
           "code": 78,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ An",
-          "keyAccentLanguage": "Xa_Mỹ_An"
+          "keyAccentLanguage": "Xa_My_An"
         },
         {
           "code": 79,
@@ -438,7 +520,7 @@
           "code": 81,
           "type": "Commune",
           "viNameLanguage": "Xã Thanh Mỹ",
-          "keyAccentLanguage": "Xa_Thanh_Mỹ"
+          "keyAccentLanguage": "Xa_Thanh_My"
         }
       ]
     },
@@ -447,14 +529,14 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Cao Lãnh",
-      "postalCode": "810007",
+      "postalCode": "810008",
       "keyAccentLanguage": "Huyen_Cao_Lanh",
       "wards": [
         {
           "code": 83,
           "type": "Town",
           "viNameLanguage": "Thị trấn Mỹ Thọ",
-          "keyAccentLanguage": "Thi_tran_Mỹ_Tho"
+          "keyAccentLanguage": "Thi_tran_My_Tho"
         },
         {
           "code": 84,
@@ -478,7 +560,7 @@
           "code": 87,
           "type": "Commune",
           "viNameLanguage": "Xã Phong Mỹ",
-          "keyAccentLanguage": "Xa_Phong_Mỹ"
+          "keyAccentLanguage": "Xa_Phong_My"
         },
         {
           "code": 88,
@@ -496,13 +578,13 @@
           "code": 90,
           "type": "Commune",
           "viNameLanguage": "Xã Nhị Mỹ",
-          "keyAccentLanguage": "Xa_Nhi_Mỹ"
+          "keyAccentLanguage": "Xa_Nhi_My"
         },
         {
           "code": 91,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Thọ",
-          "keyAccentLanguage": "Xa_Mỹ_Tho"
+          "keyAccentLanguage": "Xa_My_Tho"
         },
         {
           "code": 92,
@@ -520,19 +602,19 @@
           "code": 94,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hội",
-          "keyAccentLanguage": "Xa_Mỹ_Hoi"
+          "keyAccentLanguage": "Xa_My_Hoi"
         },
         {
           "code": 95,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hiệp",
-          "keyAccentLanguage": "Xa_Mỹ_Hiep"
+          "keyAccentLanguage": "Xa_My_Hiep"
         },
         {
           "code": 96,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Long",
-          "keyAccentLanguage": "Xa_Mỹ_Long"
+          "keyAccentLanguage": "Xa_My_Long"
         },
         {
           "code": 97,
@@ -544,7 +626,7 @@
           "code": 98,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Xương",
-          "keyAccentLanguage": "Xa_Mỹ_Xuong"
+          "keyAccentLanguage": "Xa_My_Xuong"
         },
         {
           "code": 99,
@@ -565,7 +647,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Thanh Bình",
-      "postalCode": "810008",
+      "postalCode": "810009",
       "keyAccentLanguage": "Huyen_Thanh_Binh",
       "wards": [
         {
@@ -596,7 +678,7 @@
           "code": 106,
           "type": "Commune",
           "viNameLanguage": "Xã Tân Mỹ",
-          "keyAccentLanguage": "Xa_Tan_Mỹ"
+          "keyAccentLanguage": "Xa_Tan_My"
         },
         {
           "code": 107,
@@ -647,26 +729,26 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Lấp Vò",
-      "postalCode": "810009",
+      "postalCode": "8100010",
       "keyAccentLanguage": "Huyen_Lap_Vo",
       "wards": [
         {
           "code": 115,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ An Hưng A",
-          "keyAccentLanguage": "Xa_Mỹ_An_Hung_A"
+          "keyAccentLanguage": "Xa_My_An_Hung_A"
         },
         {
           "code": 116,
           "type": "Commune",
           "viNameLanguage": "Xã Tân Mỹ",
-          "keyAccentLanguage": "Xa_Tan_Mỹ"
+          "keyAccentLanguage": "Xa_Tan_My"
         },
         {
           "code": 117,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ An Hưng B",
-          "keyAccentLanguage": "Xa_Mỹ_An_Hung_B"
+          "keyAccentLanguage": "Xa_My_An_Hung_B"
         },
         {
           "code": 118,
@@ -729,7 +811,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Lai Vung",
-      "postalCode": "8100010",
+      "postalCode": "8100011",
       "keyAccentLanguage": "Huyen_Lai_Vung",
       "wards": [
         {
@@ -805,7 +887,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Châu Thành",
-      "postalCode": "8100011",
+      "postalCode": "8100012",
       "keyAccentLanguage": "Huyen_Chau_Thanh",
       "wards": [
         {

@@ -290,7 +290,7 @@
           "code": 45,
           "type": "Commune",
           "viNameLanguage": "Xã Hòa Mỹ",
-          "keyAccentLanguage": "Xa_Hoa_Mỹ"
+          "keyAccentLanguage": "Xa_Hoa_My"
         },
         {
           "code": 46,
@@ -342,7 +342,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Vị Thuỷ",
       "postalCode": "950006",
-      "keyAccentLanguage": "Huyen_Vi_Thuỷ",
+      "keyAccentLanguage": "Huyen_Vi_Thuy",
       "wards": [
         {
           "code": 54,
@@ -406,7 +406,7 @@
       "type": "District",
       "viNameLanguage": "Huyện Long Mỹ",
       "postalCode": "950007",
-      "keyAccentLanguage": "Huyen_Long_Mỹ",
+      "keyAccentLanguage": "Huyen_Long_My",
       "wards": [
         {
           "code": 64,
@@ -455,6 +455,70 @@
           "type": "Commune",
           "viNameLanguage": "Xã Xà Phiên",
           "keyAccentLanguage": "Xa_Xa_Phien"
+        }
+      ]
+    },
+    {
+      "code": 72,
+      "category": null,
+      "type": "Town",
+      "viNameLanguage": "Thị xã Long Mỹ",
+      "postalCode": "950008",
+      "keyAccentLanguage": "Thi_Xa_Long_My",
+      "wards": [
+        {
+          "code": 72,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thuận An",
+          "keyAccentLanguage": "Phuong_Thuan_An"
+        },
+        {
+          "code": 73,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trà Lồng",
+          "keyAccentLanguage": "Phuong_Tra_Long"
+        },
+        {
+          "code": 74,
+          "type": "Ward",
+          "viNameLanguage": "Phường Bình Thạnh",
+          "keyAccentLanguage": "Phuong_Binh_Thanh"
+        },
+        {
+          "code": 75,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Bình",
+          "keyAccentLanguage": "Xa_Long_Binh"
+        },
+        {
+          "code": 76,
+          "type": "Ward",
+          "viNameLanguage": "Phường Vĩnh Tường",
+          "keyAccentLanguage": "Phuong_Vinh_Tuong"
+        },
+        {
+          "code": 77,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Trị",
+          "keyAccentLanguage": "Xa_Long_Tri"
+        },
+        {
+          "code": 78,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Trị A",
+          "keyAccentLanguage": "Xa_Long_Tri_A"
+        },
+        {
+          "code": 79,
+          "type": "Commune",
+          "viNameLanguage": "Xã Long Phú",
+          "keyAccentLanguage": "Xa_Long_Phu"
+        },
+        {
+          "code": 80,
+          "type": "Commune",
+          "viNameLanguage": "Xã Tân Phú",
+          "keyAccentLanguage": "Xa_Tan_Phu"
         }
       ]
     }

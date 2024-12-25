@@ -36,12 +36,12 @@
   "Phuong_Nai_Hien_Dong": "Nai Hien Dong Ward",
   "Phuong_Man_Thai": "Man Thai Ward",
   "Phuong_An_Hai_Bac": "An Hai Bac Ward",
-  "Phuong_Phuoc_Mỹ": "Phuoc My Ward",
+  "Phuong_Phuoc_My": "Phuoc My Ward",
   "Phuong_An_Hai_Tay": "An Hai Tay Ward",
   "Phuong_An_Hai_Dong": "An Hai Dong Ward",
   "Quan_Ngu_Hanh_Son": "Ngu Hanh Son District",
-  "Phuong_Mỹ_An": "My An Ward",
-  "Phuong_Khue_Mỹ": "Khue My Ward",
+  "Phuong_My_An": "My An Ward",
+  "Phuong_Khue_My": "Khue My Ward",
   "Phuong_Hoa_Quy": "Hoa Quy Ward",
   "Phuong_Hoa_Hai": "Hoa Hai Ward",
   "Quan_Cam_Le": "Cam Le District",
@@ -63,5 +63,11 @@
   "Xa_Hoa_Tien": "Hoa Tien Commune",
   "Xa_Hoa_Phuoc": "Hoa Phuoc commune",
   "Xa_Hoa_Khuong": "Hoa Khuong commune",
-  "Huyen_Hoang_Sa": "Hoang Sa district"
+  "Huyen_Hoang_Sa": "Hoang Sa district",
+  "Bien_Hai_Van": "Hai Van Beach",
+  "Bien_Son_Tra": "Son Tra Beach",
+  "Bien_Bai_But": "Bai But Beach",
+  "Bien_Bai_Rang": "Bai Rang Beach",
+  "Bien_My_Khe_-_Da_Nang": "My Khe Beach - Da Nang",
+  "Bien_Thanh_Binh": "Thanh Binh Beach"
 }

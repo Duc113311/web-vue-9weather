@@ -1145,20 +1145,52 @@
       "viNameLanguage": "Huyện Cô Tô",
       "postalCode": "0100013",
       "keyAccentLanguage": "Huyen_Co_To",
-      "wards": [
-        {
-          "code": 183,
-          "type": "Commune",
-          "viNameLanguage": "Xã Đồng Tiến",
-          "keyAccentLanguage": "Xa_Dong_Tien"
-        },
-        {
-          "code": 184,
-          "type": "Commune",
-          "viNameLanguage": "Xã Thanh Lân",
-          "keyAccentLanguage": "Xa_Thanh_Lan"
-        }
-      ]
+      "wards": []
+    },
+    {
+      "code": 183,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Tuần Châu",
+      "postalCode": "0100014",
+      "keyAccentLanguage": "Bien_Tuan_Chau",
+      "wards": []
+    },
+    {
+      "code": 184,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Trà Cổ",
+      "postalCode": "0100015",
+      "keyAccentLanguage": "Bien_Tra_Co",
+      "wards": []
+    },
+    {
+      "code": 184,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Vân Đồn",
+      "postalCode": "0100016",
+      "keyAccentLanguage": "Bien_Van_Don",
+      "wards": []
+    },
+    {
+      "code": 184,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Bãi Cháy",
+      "postalCode": "0100017",
+      "keyAccentLanguage": "Bien_Bai_Chay",
+      "wards": []
+    },
+    {
+      "code": 185,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Vịnh Hạ Long",
+      "postalCode": "0100018",
+      "keyAccentLanguage": "Vinh_Ha_Long",
+      "wards": []
     }
   ]
 }

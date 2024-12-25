@@ -68,7 +68,7 @@
     </div>
 
     <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
-      <span>{{ $t(`Version`) }} 2/ 18.11.2024</span>
+      <span>{{ $t("version") }} 2/ 18.11.2024</span>
     </div>
   </div>
 </template>

@@ -81,11 +81,99 @@
       ]
     },
     {
+      "code": 13,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Huyện Bảo Lâm",
+      "postalCode": "210002",
+      "keyAccentLanguage": "Huyen_Bao_Lam",
+      "wards": [
+        {
+          "code": 14,
+          "type": "Town",
+          "viNameLanguage": "Thị trấn Pác Miầu",
+          "keyAccentLanguage": "Thi_tran_Pac_Miau"
+        },
+        {
+          "code": 15,
+          "type": "Commune",
+          "viNameLanguage": "Xã Đức Hạnh",
+          "keyAccentLanguage": "Xa_Duc_Hanh"
+        },
+        {
+          "code": 16,
+          "type": "Commune",
+          "viNameLanguage": "Xã Lý Bôn",
+          "keyAccentLanguage": "Xa_Ly_Bon"
+        },
+        {
+          "code": 17,
+          "type": "Commune",
+          "viNameLanguage": "Xã Nam Cao",
+          "keyAccentLanguage": "Xa_Nam_Cao"
+        },
+        {
+          "code": 18,
+          "type": "Commune",
+          "viNameLanguage": "Xã Nam Quang",
+          "keyAccentLanguage": "Xa_Nam_Quang"
+        },
+        {
+          "code": 19,
+          "type": "Commune",
+          "viNameLanguage": "Xã Vĩnh Quang",
+          "keyAccentLanguage": "Xa_Vinh_Quang"
+        },
+        {
+          "code": 20,
+          "type": "Commune",
+          "viNameLanguage": "Xã Quảng Lâm",
+          "keyAccentLanguage": "Xa_Quang_Lam"
+        },
+        {
+          "code": 21,
+          "type": "Commune",
+          "viNameLanguage": "Xã Thạch Lâm",
+          "keyAccentLanguage": "Xa_Thach_Lam"
+        },
+        {
+          "code": 22,
+          "type": "Commune",
+          "viNameLanguage": "Xã Vĩnh Phong",
+          "keyAccentLanguage": "Xa_Vinh_Phong"
+        },
+        {
+          "code": 23,
+          "type": "Commune",
+          "viNameLanguage": "Xã Mông Ân",
+          "keyAccentLanguage": "Xa_Mong_An"
+        },
+        {
+          "code": 24,
+          "type": "Commune",
+          "viNameLanguage": "Xã Thái Học",
+          "keyAccentLanguage": "Xa_Thai_Hoc"
+        },
+        {
+          "code": 25,
+          "type": "Commune",
+          "viNameLanguage": "Xã Thái Sơn",
+          "keyAccentLanguage": "Xa_Thai_Son"
+        },
+        {
+          "code": 26,
+          "type": "Commune",
+          "viNameLanguage": "Xã Yên Thổ",
+          "keyAccentLanguage": "Xa_Yen_Tho"
+        }
+      ]
+    },
+    {
       "code": 27,
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Bảo Lạc",
-      "postalCode": "210002",
+      "postalCode": "210003",
       "keyAccentLanguage": "Huyen_Bao_Lac",
       "wards": [
         {
@@ -191,7 +279,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Hà Quảng",
-      "postalCode": "210003",
+      "postalCode": "210004",
       "keyAccentLanguage": "Huyen_Ha_Quang",
       "wards": [
         {
@@ -300,7 +388,7 @@
           "code": 62,
           "type": "Commune",
           "viNameLanguage": "Xã Hồng Sỹ",
-          "keyAccentLanguage": "Xa_Hong_Sỹ"
+          "keyAccentLanguage": "Xa_Hong_Sy"
         },
         {
           "code": 63,
@@ -327,7 +415,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Trùng Khánh",
-      "postalCode": "210004",
+      "postalCode": "210005",
       "keyAccentLanguage": "Huyen_Trung_Khanh",
       "wards": [
         {
@@ -400,7 +488,7 @@
           "code": 78,
           "type": "Commune",
           "viNameLanguage": "Xã Đàm Thuỷ",
-          "keyAccentLanguage": "Xa_Dam_Thuỷ"
+          "keyAccentLanguage": "Xa_Dam_Thuy"
         },
         {
           "code": 79,
@@ -457,7 +545,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Hạ Lang",
-      "postalCode": "210005",
+      "postalCode": "210006",
       "keyAccentLanguage": "Huyen_Ha_Lang",
       "wards": [
         {
@@ -545,7 +633,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Quảng Hòa",
-      "postalCode": "210006",
+      "postalCode": "210007",
       "keyAccentLanguage": "Huyen_Quang_Hoa",
       "wards": [
         {
@@ -660,7 +748,7 @@
           "code": 120,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Hưng",
-          "keyAccentLanguage": "Xa_Mỹ_Hung"
+          "keyAccentLanguage": "Xa_My_Hung"
         }
       ]
     },
@@ -669,7 +757,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Hoà An",
-      "postalCode": "210007",
+      "postalCode": "210008",
       "keyAccentLanguage": "Huyen_Hoa_An",
       "wards": [
         {
@@ -769,7 +857,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Nguyên Bình",
-      "postalCode": "210008",
+      "postalCode": "210009",
       "keyAccentLanguage": "Huyen_Nguyen_Binh",
       "wards": [
         {
@@ -875,7 +963,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Thạch An",
-      "postalCode": "210009",
+      "postalCode": "2100010",
       "keyAccentLanguage": "Huyen_Thach_An",
       "wards": [
         {

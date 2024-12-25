@@ -36,12 +36,12 @@
   "Phuong_Nai_Hien_Dong": "Phường Nại Hiên Đông",
   "Phuong_Man_Thai": "Phường Mân Thái",
   "Phuong_An_Hai_Bac": "Phường An Hải Bắc",
-  "Phuong_Phuoc_Mỹ": "Phường Phước Mỹ",
+  "Phuong_Phuoc_My": "Phường Phước Mỹ",
   "Phuong_An_Hai_Tay": "Phường An Hải Tây",
   "Phuong_An_Hai_Dong": "Phường An Hải Đông",
   "Quan_Ngu_Hanh_Son": "Quận Ngũ Hành Sơn",
-  "Phuong_Mỹ_An": "Phường Mỹ An",
-  "Phuong_Khue_Mỹ": "Phường Khuê Mỹ",
+  "Phuong_My_An": "Phường Mỹ An",
+  "Phuong_Khue_My": "Phường Khuê Mỹ",
   "Phuong_Hoa_Quy": "Phường Hoà Quý",
   "Phuong_Hoa_Hai": "Phường Hoà Hải",
   "Quan_Cam_Le": "Quận Cẩm Lệ",
@@ -63,5 +63,11 @@
   "Xa_Hoa_Tien": "Xã Hòa Tiến",
   "Xa_Hoa_Phuoc": "Xã Hòa Phước",
   "Xa_Hoa_Khuong": "Xã Hòa Khương",
-  "Huyen_Hoang_Sa": "Huyện Hoàng Sa"
+  "Huyen_Hoang_Sa": "Huyện Hoàng Sa",
+  "Bien_Hai_Van": "Biển Hải Vân",
+  "Bien_Son_Tra": "Biển Sơn Trà",
+  "Bien_Bai_But": "Biển Bãi Bụt",
+  "Bien_Bai_Rang": "Biển Bãi Rạng",
+  "Bien_My_Khe_-_Da_Nang": "Biển Mỹ Khê - Đà Nẵng",
+  "Bien_Thanh_Binh": "Biển Thanh Bình"
 }

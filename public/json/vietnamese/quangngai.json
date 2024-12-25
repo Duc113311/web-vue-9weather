@@ -278,7 +278,7 @@
           "code": 45,
           "type": "Commune",
           "viNameLanguage": "Xã Bình Mỹ",
-          "keyAccentLanguage": "Xa_Binh_Mỹ"
+          "keyAccentLanguage": "Xa_Binh_My"
         },
         {
           "code": 46,
@@ -566,7 +566,7 @@
           "code": 91,
           "type": "Commune",
           "viNameLanguage": "Xã Nghĩa Mỹ",
-          "keyAccentLanguage": "Xa_Nghia_Mỹ"
+          "keyAccentLanguage": "Xa_Nghia_My"
         }
       ]
     },
@@ -1157,6 +1157,24 @@
       "viNameLanguage": "Huyện Lý Sơn",
       "postalCode": "5300013",
       "keyAccentLanguage": "Huyen_Ly_Son",
+      "wards": []
+    },
+    {
+      "code": 184,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Mỹ Khê - Quảng Ngãi",
+      "postalCode": "5300014",
+      "keyAccentLanguage": "Bien_My_Khe_Quang_Ngai",
+      "wards": []
+    },
+    {
+      "code": 184,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Sa Huỳnh",
+      "postalCode": "5300015",
+      "keyAccentLanguage": "Bien_Sa_Huynh",
       "wards": []
     }
   ]

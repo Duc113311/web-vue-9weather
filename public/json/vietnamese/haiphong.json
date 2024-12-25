@@ -92,7 +92,7 @@
           "code": 14,
           "type": "Ward",
           "viNameLanguage": "Phường Vạn Mỹ",
-          "keyAccentLanguage": "Phuong_Van_Mỹ"
+          "keyAccentLanguage": "Phuong_Van_My"
         },
         {
           "code": 15,
@@ -151,12 +151,286 @@
       ]
     },
     {
+      "code": 24,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Lê Chân",
+      "postalCode": "040003",
+      "keyAccentLanguage": "Quan_Le_Chan",
+      "wards": [
+        {
+          "code": 25,
+          "type": "Ward",
+          "viNameLanguage": "Phường Cát Dài",
+          "keyAccentLanguage": "Phuong_Cat_Dai"
+        },
+        {
+          "code": 26,
+          "type": "Ward",
+          "viNameLanguage": "Phường An Biên",
+          "keyAccentLanguage": "Phuong_An_Bien"
+        },
+        {
+          "code": 27,
+          "type": "Ward",
+          "viNameLanguage": "Phường Lam Sơn",
+          "keyAccentLanguage": "Phuong_Lam_Son"
+        },
+        {
+          "code": 28,
+          "type": "Ward",
+          "viNameLanguage": "Phường An Dương",
+          "keyAccentLanguage": "Phuong_An_Duong"
+        },
+        {
+          "code": 29,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trần Nguyên Hãn",
+          "keyAccentLanguage": "Phuong_Tran_Nguyen_Han"
+        },
+        {
+          "code": 30,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hồ Nam",
+          "keyAccentLanguage": "Phuong_Ho_Nam"
+        },
+        {
+          "code": 31,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trại Cau",
+          "keyAccentLanguage": "Phuong_Trai_Cau"
+        },
+        {
+          "code": 32,
+          "type": "Ward",
+          "viNameLanguage": "Phường Dư Hàng",
+          "keyAccentLanguage": "Phuong_Du_Hang"
+        },
+        {
+          "code": 33,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hàng Kênh",
+          "keyAccentLanguage": "Phuong_Hang_Kenh"
+        },
+        {
+          "code": 34,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đông Hải",
+          "keyAccentLanguage": "Phuong_Dong_Hai"
+        },
+        {
+          "code": 35,
+          "type": "Ward",
+          "viNameLanguage": "Phường Niệm Nghĩa",
+          "keyAccentLanguage": "Phuong_Niem_Nghia"
+        },
+        {
+          "code": 36,
+          "type": "Ward",
+          "viNameLanguage": "Phường Nghĩa Xá",
+          "keyAccentLanguage": "Phuong_Nghia_Xa"
+        },
+        {
+          "code": 37,
+          "type": "Ward",
+          "viNameLanguage": "Phường Dư Hàng Kênh",
+          "keyAccentLanguage": "Phuong_Du_Hang_Kenh"
+        },
+        {
+          "code": 38,
+          "type": "Ward",
+          "viNameLanguage": "Phường Kênh Dương",
+          "keyAccentLanguage": "Phuong_Kenh_Duong"
+        },
+        {
+          "code": 39,
+          "type": "Ward",
+          "viNameLanguage": "Phường Vĩnh Niệm",
+          "keyAccentLanguage": "Phuong_Vinh_Niem"
+        }
+      ]
+    },
+    {
+      "code": 40,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Hải An",
+      "postalCode": "040004",
+      "keyAccentLanguage": "Quan_Hai_An",
+      "wards": [
+        {
+          "code": 41,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đông Hải 1",
+          "keyAccentLanguage": "Phuong_Dong_Hai_1"
+        },
+        {
+          "code": 42,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đông Hải 2",
+          "keyAccentLanguage": "Phuong_Dong_Hai_2"
+        },
+        {
+          "code": 43,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đằng Lâm",
+          "keyAccentLanguage": "Phuong_Dang_Lam"
+        },
+        {
+          "code": 44,
+          "type": "Ward",
+          "viNameLanguage": "Phường Thành Tô",
+          "keyAccentLanguage": "Phuong_Thanh_To"
+        },
+        {
+          "code": 45,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đằng Hải",
+          "keyAccentLanguage": "Phuong_Dang_Hai"
+        },
+        {
+          "code": 46,
+          "type": "Ward",
+          "viNameLanguage": "Phường Nam Hải",
+          "keyAccentLanguage": "Phuong_Nam_Hai"
+        },
+        {
+          "code": 47,
+          "type": "Ward",
+          "viNameLanguage": "Phường Cát Bi",
+          "keyAccentLanguage": "Phuong_Cat_Bi"
+        },
+        {
+          "code": 48,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tràng Cát",
+          "keyAccentLanguage": "Phuong_Trang_Cat"
+        }
+      ]
+    },
+    {
+      "code": 49,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Kiến An",
+      "postalCode": "040005",
+      "keyAccentLanguage": "Quan_Kien_An",
+      "wards": [
+        {
+          "code": 50,
+          "type": "Ward",
+          "viNameLanguage": "Phường Quán Trữ",
+          "keyAccentLanguage": "Phuong_Quan_Tru"
+        },
+        {
+          "code": 51,
+          "type": "Ward",
+          "viNameLanguage": "Phường Lãm Hà",
+          "keyAccentLanguage": "Phuong_Lam_Ha"
+        },
+        {
+          "code": 52,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đồng Hoà",
+          "keyAccentLanguage": "Phuong_Dong_Hoa"
+        },
+        {
+          "code": 53,
+          "type": "Ward",
+          "viNameLanguage": "Phường Bắc Sơn",
+          "keyAccentLanguage": "Phuong_Bac_Son"
+        },
+        {
+          "code": 54,
+          "type": "Ward",
+          "viNameLanguage": "Phường Nam Sơn",
+          "keyAccentLanguage": "Phuong_Nam_Son"
+        },
+        {
+          "code": 55,
+          "type": "Ward",
+          "viNameLanguage": "Phường Ngọc Sơn",
+          "keyAccentLanguage": "Phuong_Ngoc_Son"
+        },
+        {
+          "code": 56,
+          "type": "Ward",
+          "viNameLanguage": "Phường Trần Thành Ngọ",
+          "keyAccentLanguage": "Phuong_Tran_Thanh_Ngo"
+        },
+        {
+          "code": 57,
+          "type": "Ward",
+          "viNameLanguage": "Phường Văn Đẩu",
+          "keyAccentLanguage": "Phuong_Van_Dau"
+        },
+        {
+          "code": 58,
+          "type": "Ward",
+          "viNameLanguage": "Phường Phù Liễn",
+          "keyAccentLanguage": "Phuong_Phu_Lien"
+        },
+        {
+          "code": 59,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tràng Minh",
+          "keyAccentLanguage": "Phuong_Trang_Minh"
+        }
+      ]
+    },
+    {
+      "code": 67,
+      "category": null,
+      "type": "District",
+      "viNameLanguage": "Quận Dương Kinh",
+      "postalCode": "040006",
+      "keyAccentLanguage": "Quan_Duong_Kinh",
+      "wards": [
+        {
+          "code": 68,
+          "type": "Ward",
+          "viNameLanguage": "Phường Đa Phúc",
+          "keyAccentLanguage": "Phuong_Da_Phuc"
+        },
+        {
+          "code": 69,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hưng Đạo",
+          "keyAccentLanguage": "Phuong_Hung_Dao"
+        },
+        {
+          "code": 70,
+          "type": "Ward",
+          "viNameLanguage": "Phường Anh Dũng",
+          "keyAccentLanguage": "Phuong_Anh_Dung"
+        },
+        {
+          "code": 71,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hải Thành",
+          "keyAccentLanguage": "Phuong_Hai_Thanh"
+        },
+        {
+          "code": 72,
+          "type": "Ward",
+          "viNameLanguage": "Phường Hoà Nghĩa",
+          "keyAccentLanguage": "Phuong_Hoa_Nghia"
+        },
+        {
+          "code": 73,
+          "type": "Ward",
+          "viNameLanguage": "Phường Tân Thành",
+          "keyAccentLanguage": "Phuong_Tan_Thanh"
+        }
+      ]
+    },
+    {
       "code": 74,
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Thuỷ Nguyên",
-      "postalCode": "040003",
-      "keyAccentLanguage": "Huyen_Thuỷ_Nguyen",
+      "postalCode": "040007",
+      "keyAccentLanguage": "Huyen_Thuy_Nguyen",
       "wards": [
         {
           "code": 75,
@@ -240,7 +514,7 @@
           "code": 88,
           "type": "Commune",
           "viNameLanguage": "Xã Chính Mỹ",
-          "keyAccentLanguage": "Xa_Chinh_Mỹ"
+          "keyAccentLanguage": "Xa_Chinh_My"
         },
         {
           "code": 89,
@@ -264,7 +538,7 @@
           "code": 92,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Đồng",
-          "keyAccentLanguage": "Xa_Mỹ_Dong"
+          "keyAccentLanguage": "Xa_My_Dong"
         },
         {
           "code": 93,
@@ -294,7 +568,7 @@
           "code": 97,
           "type": "Commune",
           "viNameLanguage": "Xã Thuỷ Triều",
-          "keyAccentLanguage": "Xa_Thuỷ_Trieu"
+          "keyAccentLanguage": "Xa_Thuy_Trieu"
         },
         {
           "code": 98,
@@ -342,13 +616,13 @@
           "code": 105,
           "type": "Commune",
           "viNameLanguage": "Xã Thuỷ Sơn",
-          "keyAccentLanguage": "Xa_Thuỷ_Son"
+          "keyAccentLanguage": "Xa_Thuy_Son"
         },
         {
           "code": 106,
           "type": "Commune",
           "viNameLanguage": "Xã Thuỷ Đường",
-          "keyAccentLanguage": "Xa_Thuỷ_Duong"
+          "keyAccentLanguage": "Xa_Thuy_Duong"
         },
         {
           "code": 107,
@@ -387,7 +661,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện An Dương",
-      "postalCode": "040004",
+      "postalCode": "040008",
       "keyAccentLanguage": "Huyen_An_Duong",
       "wards": [
         {
@@ -487,7 +761,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện An Lão",
-      "postalCode": "040005",
+      "postalCode": "040009",
       "keyAccentLanguage": "Huyen_An_Lao",
       "wards": [
         {
@@ -566,7 +840,7 @@
           "code": 141,
           "type": "Commune",
           "viNameLanguage": "Xã Mỹ Đức",
-          "keyAccentLanguage": "Xa_Mỹ_Duc"
+          "keyAccentLanguage": "Xa_My_Duc"
         },
         {
           "code": 142,
@@ -593,8 +867,8 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Kiến Thuỵ",
-      "postalCode": "040006",
-      "keyAccentLanguage": "Huyen_Kien_Thuỵ",
+      "postalCode": "0400010",
+      "keyAccentLanguage": "Huyen_Kien_Thuy",
       "wards": [
         {
           "code": 146,
@@ -648,7 +922,7 @@
           "code": 154,
           "type": "Commune",
           "viNameLanguage": "Xã Thuỵ Hương",
-          "keyAccentLanguage": "Xa_Thuỵ_Huong"
+          "keyAccentLanguage": "Xa_Thuy_Huong"
         },
         {
           "code": 155,
@@ -711,7 +985,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Tiên Lãng",
-      "postalCode": "040007",
+      "postalCode": "0400011",
       "keyAccentLanguage": "Huyen_Tien_Lang",
       "wards": [
         {
@@ -841,7 +1115,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Vĩnh Bảo",
-      "postalCode": "040008",
+      "postalCode": "0400012",
       "keyAccentLanguage": "Huyen_Vinh_Bao",
       "wards": [
         {
@@ -860,7 +1134,7 @@
           "code": 188,
           "type": "Commune",
           "viNameLanguage": "Xã Thắng Thuỷ",
-          "keyAccentLanguage": "Xa_Thang_Thuỷ"
+          "keyAccentLanguage": "Xa_Thang_Thuy"
         },
         {
           "code": 189,
@@ -1025,7 +1299,7 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Cát Hải",
-      "postalCode": "040009",
+      "postalCode": "0400013",
       "keyAccentLanguage": "Huyen_Cat_Hai",
       "wards": [
         {
@@ -1101,8 +1375,35 @@
       "category": null,
       "type": "District",
       "viNameLanguage": "Huyện Bạch Long Vĩ",
-      "postalCode": "0400010",
+      "postalCode": "0400014",
       "keyAccentLanguage": "Huyen_Bach_Long_Vi",
+      "wards": []
+    },
+    {
+      "code": 227,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Cát Bà",
+      "postalCode": "0400015",
+      "keyAccentLanguage": "Bien_Cat_Ba",
+      "wards": []
+    },
+    {
+      "code": 227,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Đồ Sơn",
+      "postalCode": "0400016",
+      "keyAccentLanguage": "Bien_Do_Son",
+      "wards": []
+    },
+    {
+      "code": 227,
+      "category": null,
+      "type": "Province",
+      "viNameLanguage": "Biển Hòn Dáu",
+      "postalCode": "0400017",
+      "keyAccentLanguage": "Bien_Hon_Dau",
       "wards": []
     }
   ]
