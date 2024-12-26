@@ -2,9 +2,12 @@
   <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2 class="txt_title_temp">
-        {{ renderToCelsius(currentlyDataRender?.temperature) }}
-      </h2>
+      <div class="flex items-center text-center gap-2">
+        <img width="50" :src="renderIcon(currentlyDataRender)" alt="" />
+        <h2 class="txt_title_temp">
+          {{ renderToCelsius(currentlyDataRender?.temperature) }}
+        </h2>
+      </div>
       <div class="txt_regular">
         {{
           convertCapitalizeWords(
@@ -99,6 +102,7 @@ import {
   convertMillimet,
   convertMillimetToInch,
   capitalizeWords,
+  getIconHourlyForecastTheme,
 } from "@/utils/converValue";
 
 export default {
@@ -133,6 +137,10 @@ export default {
   },
 
   methods: {
+    renderIcon(val) {
+      const iconValue = getIconHourlyForecastTheme(val.icon);
+      return iconValue;
+    },
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
     },

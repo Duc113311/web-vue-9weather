@@ -159,6 +159,14 @@
   font-weight: 300; /* Corresponds to Medium */
 }
 
+.txt_title_temp_50 {
+  font-size: 50px; /* Kích thước chữ mặc định */
+  font-family: "Poppins", sans-serif;
+  line-height: 84px; /* Khoảng cách dòng nhỏ hơn để tạo sự gọn gàng */
+  text-align: justify; /* Căn đều hai bên */
+  font-weight: 300; /* Corresponds to Medium */
+}
+
 /* Responsive */
 @media (min-width: 576px) {
   .txt_bold {

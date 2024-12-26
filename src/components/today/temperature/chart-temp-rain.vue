@@ -12,7 +12,7 @@
             <ChartDays></ChartDays>
 
             <!--  -->
-            <ChartDomainTemps></ChartDomainTemps>
+            <ChartDomainTemps :heightValue="heightValue"></ChartDomainTemps>
 
             <!--  -->
             <ChartDomainRain></ChartDomainRain>
@@ -69,7 +69,9 @@ export default {
     // ChartColumnRainfall,
   },
   data() {
-    return {};
+    return {
+      heightValue: "90",
+    };
   },
 
   methods: {},

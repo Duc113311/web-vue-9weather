@@ -8,7 +8,54 @@
             width="24"
             alt=""
           />
-          <span>{{ $t("temperature") }}</span>
+          <div v-if="wardParam.country_key === 'vn'">
+            <span v-if="wardParam?.city && !wardParam?.district">
+              {{
+                $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
+                  city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+                })
+              }}
+            </span>
+
+            <span
+              v-if="wardParam?.city && wardParam?.district && !wardParam?.ward"
+            >
+              {{
+                convertCapitalizeWords(
+                  $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
+                    city: $t(
+                      `${convertToSlugCity(
+                        wardParam?.city
+                      )}.${convertToSlugCity(
+                        wardParam?.city
+                      )}_${languageParam}.${convertToLowCase(
+                        wardParam?.district_key
+                      )}`
+                    ),
+                  })
+                )
+              }}
+            </span>
+
+            <span
+              v-if="wardParam?.city && wardParam?.district && wardParam?.ward"
+              >{{
+                convertCapitalizeWords(
+                  $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
+                    city: $t(
+                      `${convertToSlugCity(
+                        wardParam?.city
+                      )}.${convertToSlugCity(
+                        wardParam?.city
+                      )}_${languageParam}.${convertToLowCase(
+                        wardParam?.ward_key
+                      )}`
+                    ),
+                  })
+                )
+              }}</span
+            >
+          </div>
         </div>
       </template>
 
@@ -80,6 +127,9 @@ import ChartTempMaxMin from "./chart-temp-max-min.vue";
 import VueHorizontal from "vue-horizontal";
 import ChartChanceOfRain from "./chart-chance-of-rain.vue";
 import ChartPrecipitation from "./chart-precipitation.vue";
+import { capitalizeWords } from "@/utils/converValue";
+import removeAccents from "remove-accents";
+import { mapGetters } from "vuex";
 
 export default {
   name: "chart-month-page",
@@ -99,13 +149,53 @@ export default {
   },
 
   computed: {
+    ...mapGetters("weatherModule", ["dailyOneGetters", "currentlyGetters"]),
+
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
+    wardParam() {
+      debugger;
+
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
     indexState() {
       debugger;
       return this.$store.state.commonModule.indexComponent;
     },
   },
 
-  methods: {},
+  methods: {
+    convertToSlugCity(str) {
+      const slug = removeAccents(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
+    },
+
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+  },
 };
 </script>
 <style scoped>

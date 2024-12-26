@@ -2,17 +2,21 @@
   <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <h2 class="txt_title_temp">
-        {{ convertFahrenheitToCelsiusNot(dataDayNightRender) }}
-      </h2>
-      <div class="txt_regular">
+      <div class="flex items-center justify-center text-center gap-2">
+        <img width="50" :src="renderIcon(currentlyData)" alt="" />
+        <h2 class="txt_title_temp_50">
+          {{ convertFahrenheitToCelsiusNot(dataDayNightRender) }}
+        </h2>
+      </div>
+
+      <div class="txt_regular text-center">
         {{
           convertCapitalizeWords(
             $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
           )
         }}
       </div>
-      <div class="txt_regular_des">
+      <div class="txt_regular_des text-center">
         {{ $t("real_feel") }}
         {{ convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature) }}
       </div>
@@ -78,6 +82,7 @@ import {
   convertFtoC,
   convertMillimet,
   convertMillimetToInch,
+  getIconHourlyForecastTheme,
   getUvSummaryName,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
@@ -116,6 +121,10 @@ export default {
   },
 
   methods: {
+    renderIcon(val) {
+      const iconValue = getIconHourlyForecastTheme(val.icon);
+      return iconValue;
+    },
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
     },

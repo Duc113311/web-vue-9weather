@@ -4,7 +4,7 @@
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="90" ref="canvas"></canvas>
+      <canvas id="chart_hourly" :height="heightValue" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -60,6 +60,13 @@ export default {
           ? convertCtoF(element.temperature)
           : convertFtoC(element.temperature)
       );
+    },
+  },
+
+  props: {
+    heightValue: {
+      type: String,
+      default: "80",
     },
   },
 

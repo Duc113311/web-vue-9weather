@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="lg:flex items-center gap-4 w-full h-full">
       <div
-        class="left-i lg:w-[70%] w-full"
+        class="left-i w-full"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <BaseComponent>
@@ -13,18 +13,65 @@
                 width="24"
                 alt=""
               />
-              <span>{{
-                convertCapitalizeWords(
-                  $t(`Weather_forecast_for_{city}_in_the_coming_hours`, {
-                    city: wardParam?.city,
-                  })
-                )
-              }}</span>
+              <div v-if="wardParam.country_key === 'vn'">
+                <span v-if="wardParam?.city && !wardParam?.district">
+                  {{
+                    $t(`Temperature_and_chance_of_rain_{city}_hour`, {
+                      city: $t(
+                        `city.city_${languageParam}.${wardParam?.city_key}`
+                      ),
+                    })
+                  }}
+                </span>
+
+                <span
+                  v-if="
+                    wardParam?.city && wardParam?.district && !wardParam?.ward
+                  "
+                >
+                  {{
+                    convertCapitalizeWords(
+                      $t(`Temperature_and_chance_of_rain_{city}_hour`, {
+                        city: $t(
+                          `${convertToSlugCity(
+                            wardParam?.city
+                          )}.${convertToSlugCity(
+                            wardParam?.city
+                          )}_${languageParam}.${convertToLowCase(
+                            wardParam?.district_key
+                          )}`
+                        ),
+                      })
+                    )
+                  }}
+                </span>
+
+                <span
+                  v-if="
+                    wardParam?.city && wardParam?.district && wardParam?.ward
+                  "
+                  >{{
+                    convertCapitalizeWords(
+                      $t(`Temperature_and_chance_of_rain_{city}_hour`, {
+                        city: $t(
+                          `${convertToSlugCity(
+                            wardParam?.city
+                          )}.${convertToSlugCity(
+                            wardParam?.city
+                          )}_${languageParam}.${convertToLowCase(
+                            wardParam?.ward_key
+                          )}`
+                        ),
+                      })
+                    )
+                  }}</span
+                >
+              </div>
             </div>
           </template>
 
           <div class="w-full gap-4">
-            <div class="w-auto h-[374px]">
+            <div class="w-auto h-[393px] mt-2">
               <ChartTempRain></ChartTempRain>
             </div>
 
@@ -36,7 +83,7 @@
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
-      <div class="right-i lg:w-[30%] w-full lg:block flex gap-4">
+      <!-- <div class="right-i lg:w-[30%] w-full lg:block flex gap-4">
         <BaseComponent
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
         >
@@ -53,20 +100,18 @@
 
           <div class="w-full gap-4 grid">
             <div class="w-[160px] h-[163px]">
-              <div class="flex justify-start items-center text-left">
+              <div class="flex gap-2 justify-center items-center text-left">
                 <img
-                  :src="convertIconCurrently(dailyOneData?.icon)"
+                  :src="convertIconCurrently(currentlyData?.icon)"
                   width="40"
                   height="40"
                   class="object-cover"
                 />
-              </div>
-              <div class="flex items-center pt-1 pb-1">
-                <p>
-                  {{ renderToCelsius(dailyOneData?.temperatureMin) }}
-                  /
-                  {{ renderToCelsius(dailyOneData?.temperatureMax) }}
-                </p>
+                <div>
+                  <p class="txt_medium_30">
+                    {{ renderToCelsius(currentlyData?.temperature) }}
+                  </p>
+                </div>
               </div>
               <div
                 class="flex justify-start items-center pt-1 pb-1 txt_regular_des_12"
@@ -81,12 +126,10 @@
               <div class="flex justify-start items-center pt-1 pb-1">
                 <span class="text-left">{{ $t("real_feel") }}:</span>&nbsp;
                 <span class="txt_regular_des_12">{{
-                  convertFahrenheitToCelsiusAmtp(dailyOneData)
+                  convertFahrenheitToCelsiusAmtp(currentlyData)
                 }}</span>
               </div>
             </div>
-
-            <!--  -->
           </div>
         </BaseComponent>
         <div v-else class="w-full h-[230px]">
@@ -110,7 +153,9 @@
                 <span>{{ $t("Chance_of_rain") }}:</span>&nbsp;
 
                 <span class="txt_regular_des_12"
-                  >{{ dailyOneData?.precipProbability * 100 }}%</span
+                  >{{
+                    Math.round(currentlyData?.precipProbability * 100)
+                  }}%</span
                 >
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
@@ -118,18 +163,16 @@
               </div>
               <div class="flex justify-start items-center pt-1 pb-1">
                 <span class="txt_regular_des_12">
-                  {{ convertPrecipitation(dailyOneData?.precipIntensity) }}
+                  {{ convertPrecipitation(currentlyData?.precipIntensity) }}
                 </span>
               </div>
             </div>
-
-            <!--  -->
           </div>
         </BaseComponent>
         <div v-else class="w-full h-[230px] mt-4">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -147,6 +190,7 @@ import {
   getIconHourlyForecastTheme,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
+import removeAccents from "remove-accents";
 
 export default {
   name: "chart-avg-weather",
@@ -172,6 +216,14 @@ export default {
       return this.dailyOneGetters;
     },
 
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
     wardParam() {
       debugger;
 
@@ -195,6 +247,14 @@ export default {
       }
     },
 
+    convertToSlugCity(str) {
+      const slug = removeAccents(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
+    },
+
     convertPrecipitation(val) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activePrecipitation_save === "mm") {
@@ -213,17 +273,15 @@ export default {
     },
 
     convertFahrenheitToCelsiusAmtp(value) {
-      const tempMin = value.apparentTemperatureMin;
-      const tempMax = value.apparentTemperatureMax;
-      const avgTemp = (parseInt(tempMax) + parseInt(tempMin)) / 2;
+      const temp = value.apparentTemperature;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
         return (
-          convertCtoF(avgTemp) + codeToFind(unitSetting.activeTemperature_save)
+          convertCtoF(temp) + codeToFind(unitSetting.activeTemperature_save)
         );
       } else {
         return (
-          convertFtoC(avgTemp) + codeToFind(unitSetting.activeTemperature_save)
+          convertFtoC(temp) + codeToFind(unitSetting.activeTemperature_save)
         );
       }
     },
@@ -239,6 +297,14 @@ export default {
           convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
         );
       }
+    },
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
     },
   },
 };

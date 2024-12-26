@@ -226,7 +226,7 @@
   "Weather_Month_for_{district}_{city}_{country}": "Thời tiết theo tháng tại {district}, {city}, {country}",
   "Local_National_Global": "Dự báo thời tiết hàng ngày của địa phương, quốc gia và toàn cầu",
   "Cloudy_skies": "Bầu trời nhiều mây với làn gió mát. Có khả năng xuất hiện mưa nhẹ, vì vậy bạn nên mang theo áo khoác nhẹ trước khi ra ngoài.",
-  "Temperature_and_chance_of_rain_{city}": "Nhiệt độ và khả năng mưa {city} trong những giờ tới",
+  "Temperature_and_chance_of_rain_{city}_hour": "Nhiệt độ và khả năng mưa {city} trong những giờ tới",
   "Weather_forecast_for_{city}": "Dự báo thời tiết {city} những giờ tới",
   "Weather_{city}": "Thời tiết {city}",
   "Radar_weather_map_{city}": "Bản đồ thời tiết Radar {city}",

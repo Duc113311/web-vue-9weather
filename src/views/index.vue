@@ -65,24 +65,18 @@ export default {
   },
 
   async mounted() {
-    await this.loadProvince();
-
-    await this.loadAllFileJson();
-
-    await this.loadStateAmerican();
-
-    await this.loadProvinceAmerican();
     const objectBread = localStorage.getItem("objectBread");
     const routerLink = this.$route.params;
     if (!objectBread) {
       this.getLocationBrowser();
     } else {
+      debugger;
       const objectBreadValue = JSON.parse(objectBread);
       if (objectBreadValue.country_key === "vn") {
         if (Object.keys(routerLink).length !== 0) {
-          this.handleLocation(routerLink.location);
+          this.handleLocationVietNam(routerLink.location);
         } else {
-          this.handleLocationVNBread(objectBreadValue);
+          this.getLocationBrowser();
         }
       } else if (objectBreadValue.country_key === "us") {
         this.handleLocationAmerican(objectBreadValue);
@@ -113,6 +107,15 @@ export default {
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
         : this.$i18n.locale;
+    },
+
+    listCityVNData() {
+      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
     },
   },
 
@@ -396,7 +399,7 @@ export default {
       await this.getAirQuality(encodeAirCode);
     },
 
-    async handleLocation(dataValue) {
+    async handleLocationVietNam(dataValue) {
       const newArrayLocation = dataValue;
       const strName =
         newArrayLocation[newArrayLocation.length - 1] +
@@ -412,6 +415,7 @@ export default {
 
       const newDataHandleRouter = this.$store.state.weatherModule.newArray;
       const dataHandle = newDataHandleRouter[0];
+      debugger;
       debugger;
       let objectBread = {
         country: dataHandle.country,
@@ -571,6 +575,7 @@ export default {
 
       const replaceApos = this.replaceApostropheWithUnderscore(replaceDistrict);
 
+      debugger;
       const findData = listCityVN.find(
         (x) => x.keyAccentLanguage === replaceCity
       );
@@ -674,8 +679,9 @@ export default {
     },
 
     findCityData(value) {
-      const listCityVN = this.objectCityByLocationGetters;
+      const listCityVN = this.listCityVNData;
       const replaceCity = this.convertToVietnamese(value.city).cityConvert;
+      debugger;
       for (let index = 0; index < listCityVN.length; index++) {
         const element = listCityVN[index];
         const provinceCityData = element.provinceCity;
@@ -724,6 +730,10 @@ export default {
       const dataResponsive = responsive.data.address;
 
       if (dataResponsive.country_code.toLowerCase() === "us") {
+        await this.loadStateAmerican();
+
+        await this.loadProvinceAmerican();
+
         const objectPosition = {
           latitude: latitude,
           longitude: longitude,
@@ -747,6 +757,9 @@ export default {
         localStorage.setItem("objectBread", JSON.stringify(objectPosition));
         this.setBreadcumsAllowLocation(objectPosition);
       } else if (dataResponsive.country_code.toLowerCase() === "vn") {
+        await this.loadProvince();
+
+        await this.loadAllFileJson();
         const objectPosition = {
           latitude: latitude,
           longitude: longitude,

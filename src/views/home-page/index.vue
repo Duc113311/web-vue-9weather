@@ -41,7 +41,7 @@
             </div>
           </div>
           <div
-            class="main-bottom lg:h-[358px] mt-2"
+            class="main-bottom lg:h-[384px] mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <RadarPage></RadarPage>

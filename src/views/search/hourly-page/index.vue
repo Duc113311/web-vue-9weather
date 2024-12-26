@@ -10,8 +10,15 @@
 
         <div class="right-hourly w-[30%] md:block hidden">
           <!--  -->
-          <div class="flex justify-end items-center h-full w-full">
+          <!-- <div class="flex justify-end items-center h-full w-full">
             <img src="../../../assets/images/png/ic_app_download.png" alt="" />
+          </div> -->
+          <TempFullCard
+            :key="indexState + Math.random()"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></TempFullCard>
+          <div v-else class="w-full h-full">
+            <SkeletonLoader class="w-full h-[600px]"> </SkeletonLoader>
           </div>
         </div>
       </div>
@@ -96,6 +103,7 @@
 import AirQualityPage from "@/components/common/air-quality/air-quality-page.vue";
 import MoonPage from "@/components/common/moon-phase/moon-page.vue";
 import SunPage from "@/components/common/sun/sun-page.vue";
+import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
 import UvPage from "@/components/common/uv-index/uv-page.vue";
 import ChartAvgWeather from "@/components/hourly-day/chart-weather/chart-avg-weather.vue";
 import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24h.vue";
@@ -117,6 +125,7 @@ export default {
     SkeletonLoader,
     ListNearbyLocation,
     UvPage,
+    TempFullCard,
   },
   data() {
     return {};

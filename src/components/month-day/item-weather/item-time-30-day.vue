@@ -7,9 +7,64 @@
         width="24"
         alt=""
       />
-      <span>
-        {{ $t(`{city}_weather_by_hour`, { city: breadcumsObject?.city }) }}
-      </span>
+      <div v-if="breadcumsObject.country_key === 'vn'">
+        <span v-if="breadcumsObject?.city && !breadcumsObject?.district">
+          {{
+            $t(`{city}_weather_forecast_next_30_days`, {
+              city: $t(
+                `city.city_${languageParam}.${breadcumsObject?.city_key}`
+              ),
+            })
+          }}
+        </span>
+
+        <span
+          v-if="
+            breadcumsObject?.city &&
+            breadcumsObject?.district &&
+            !breadcumsObject?.ward
+          "
+        >
+          {{
+            convertCapitalizeWords(
+              $t(`{city}_weather_forecast_next_30_days`, {
+                city: $t(
+                  `${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}.${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}_${languageParam}.${convertToLowCase(
+                    breadcumsObject?.district_key
+                  )}`
+                ),
+              })
+            )
+          }}
+        </span>
+
+        <span
+          v-if="
+            breadcumsObject?.city &&
+            breadcumsObject?.district &&
+            breadcumsObject?.ward
+          "
+          >{{
+            convertCapitalizeWords(
+              $t(`{city}_weather_forecast_next_30_days`, {
+                city: $t(
+                  `${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}.${convertToSlugCity(
+                    breadcumsObject?.city
+                  )}_${languageParam}.${convertToLowCase(
+                    breadcumsObject?.ward_key
+                  )}`
+                ),
+              })
+            )
+          }}</span
+        >
+      </div>
     </div>
     <div class="w-full h-full overflow-hidden">
       <transition-group name="fade" tag="div">
@@ -319,6 +374,7 @@ import {
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
+import removeAccents from "remove-accents";
 
 export default {
   name: "item-time-30-day",
@@ -346,6 +402,14 @@ export default {
 
     hourly30DayhGettersData() {
       return this.listDaily30DayGetters;
+    },
+
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
     },
 
     dailyOneGettersData() {
@@ -571,6 +635,22 @@ export default {
 
     convertAirIndexName(val) {
       return getAirSummaryName(val);
+    },
+
+    convertToSlugCity(str) {
+      const slug = removeAccents(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
+    },
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
     },
   },
 };

@@ -110,6 +110,12 @@ const routes = [
       },
     ],
   },
+
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFoundComponent,
+  },
 ];
 
 const router = createRouter({

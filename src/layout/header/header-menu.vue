@@ -48,7 +48,7 @@
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
         </div>
       </div>
-      <div
+      <!-- <div
         v-if="namePage !== 'languages_settings'"
         class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         @click="onClickLanguagesSetting('languages_settings')"
@@ -59,7 +59,7 @@
         <div>
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
         </div>
-      </div>
+      </div> -->
 
       <!--  -->
       <UnitPreferencesPage
