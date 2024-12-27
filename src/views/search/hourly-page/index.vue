@@ -110,7 +110,7 @@ import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24
 import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "hourly-weather",
@@ -143,9 +143,13 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() {
+    this.setActiveTab(1);
+  },
 
-  methods: {},
+  methods: {
+    ...mapMutations("commonModule", ["setActiveTab"]),
+  },
   // beforeRouteLeave(to, from, next) {
   //   window.location.replace(to.fullPath);
   //   next(); // Cho phép chuyển route

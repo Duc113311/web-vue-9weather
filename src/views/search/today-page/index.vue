@@ -154,7 +154,7 @@ import RadarPage from "@/components/today/radar/radar-page.vue";
 import TempDayNightPage from "@/components/today/temp-day-night/temp-day-night-page.vue";
 import TempPage from "@/components/today/temperature/temp-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "today-weather",
@@ -204,6 +204,11 @@ export default {
     if (keyLanguage) {
       localStorage.setItem("language", keyLanguage); // Lưu lại
     }
+    this.setActiveTab(0);
+  },
+
+  methods: {
+    ...mapMutations("commonModule", ["setActiveTab"]),
   },
 
   // beforeRouteLeave(to, from, next) {

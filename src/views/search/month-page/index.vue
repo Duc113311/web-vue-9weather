@@ -148,7 +148,7 @@ import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-l
 import RadarPage from "@/components/today/radar/radar-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { encodeBase64 } from "@/utils/EncoderDecoderUtils";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "month-weather",
@@ -202,9 +202,13 @@ export default {
     await this.getWeather30Day();
   },
 
+  mounted() {
+    this.setActiveTab(2);
+  },
+
   methods: {
     ...mapActions("weatherModule", ["getWeather30DayData"]),
-
+    ...mapMutations("commonModule", ["setActiveTab"]),
     async getWeather30Day() {
       debugger;
       const objectLocationLatLong = JSON.parse(

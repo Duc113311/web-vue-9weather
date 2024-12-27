@@ -103,6 +103,8 @@ const state = {
   indexComponent: 0,
 
   locationChomeObject: {},
+
+  activeTab: -1,
 };
 
 const getters = {
@@ -117,6 +119,10 @@ const getters = {
 
   indexComponentGetters(state) {
     return state.indexComponent;
+  },
+
+  activeTabGetters(state) {
+    return state.activeTab;
   },
 
   objectCityByLocationGetters(state) {
@@ -153,6 +159,10 @@ const mutations = {
 
   setIndexComponent(state, data) {
     state.indexComponent = data;
+  },
+
+  setActiveTab(state, data) {
+    state.activeTab = data;
   },
 
   setListDetailCityAll(state, data) {

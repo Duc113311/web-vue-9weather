@@ -153,7 +153,7 @@ import TempPage from "@/components/today/temperature/temp-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import BreadcumsPage from "@/layout/breadcums/breadcums-page.vue";
 import NavTabbar from "@/layout/tab-menu/nav-tabbar.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "home-page",
@@ -191,7 +191,13 @@ export default {
     },
   },
 
-  methods: {},
+  mounted() {
+    this.setActiveTab(-1);
+  },
+
+  methods: {
+    ...mapMutations("commonModule", ["setActiveTab"]),
+  },
 };
 </script>
 <style lang="scss">

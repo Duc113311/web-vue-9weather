@@ -239,12 +239,12 @@ export function convertDayOfWeek(timestamp) {
     // Nếu không trùng, hiển thị ngày trong tuần
     const days = [
       i18n.global.t("Sunday"),
-      i18n.global.t("Mon"),
-      i18n.global.t("Tue"),
-      i18n.global.t("Wed"),
-      i18n.global.t("Fri"),
-      i18n.global.t("Thu"),
-      i18n.global.t("Sat"),
+      i18n.global.t("Monday"),
+      i18n.global.t("Tuesday"),
+      i18n.global.t("Wednesday"),
+      i18n.global.t("Thursday"),
+      i18n.global.t("Friday"),
+      i18n.global.t("Saturday"),
     ];
     const dayOfWeek = days[date.getDay()];
     return dayOfWeek;

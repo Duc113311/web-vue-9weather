@@ -272,8 +272,16 @@ export default {
       return slug;
     },
 
+    removeAccentsUnicode(str) {
+      return str
+        .normalize("NFD") // Chuẩn hóa Unicode thành dạng tổ hợp ký tự và dấu
+        .replace(/[\u0300-\u036f]/g, "") // Loại bỏ tổ hợp dấu
+        .replace(/đ/g, "d") // Xử lý riêng cho chữ "đ"
+        .replace(/Đ/g, "D");
+    },
+
     convertToConvertLowerCase(str) {
-      const slug = removeAccents(str).replace(/\s+/g, "_");
+      const slug = this.removeAccentsUnicode(str).replace(/\s+/g, "_");
       return slug;
     },
 

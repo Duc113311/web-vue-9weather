@@ -54,7 +54,7 @@ import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
 import OptionMapRadarPage from "@/components/radar/option-radar/option-map-radar-page.vue";
 import RadarMapPage from "@/components/radar/weather-radar/radar-map-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "radar-weather",
@@ -71,7 +71,9 @@ export default {
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.setActiveTab(3);
+  },
 
   computed: {
     ...mapGetters("weatherModule", ["currentlyGetters"]),
@@ -102,6 +104,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setActiveTab"]),
     onChangeValueMap(value) {
       this.overlayValue = value;
     },

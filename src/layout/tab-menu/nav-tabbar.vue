@@ -9,14 +9,14 @@
           v-for="(menu, index) in menuItems"
           :key="index"
           class="cursor-pointer weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center"
-          :class="{ 'active-tab': activeIndex === index }"
+          :class="{ 'active-tab': activeTabGettersParam === index }"
           @click="onClickRouterView(menu, index)"
         >
           <div class="flex items-center txt-medium gap-2 cursor-pointer">
             <img
               :src="menu.icon"
               class="menu-icon"
-              :class="{ 'active-icon': activeIndex === index }"
+              :class="{ 'active-icon': activeTabGettersParam === index }"
               :alt="menu.label"
               width="18"
             />
@@ -43,7 +43,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
+    ...mapGetters("commonModule", [
+      "breadcumsObjectGetters",
+      "activeTabGetters",
+    ]),
     menuItems() {
       return [
         {
@@ -105,6 +108,10 @@ export default {
         ? languageRouter.language
         : this.$i18n.locale;
     },
+
+    activeTabGettersParam() {
+      return this.activeTabGetters;
+    },
   },
 
   watch: {
@@ -128,7 +135,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setKeyIndexComponent"]),
+    ...mapMutations("commonModule", ["setKeyIndexComponent", "setActiveTab"]),
     convertToSlugCity(str) {
       const slug = removeAccents(str);
 
@@ -328,14 +335,21 @@ export default {
       try {
         this.activeIndex = index;
 
+        debugger;
         let screamName = "today-weather";
+        if (this.activeIndex === 0) {
+          this.setActiveTab(0);
+        }
         if (this.activeIndex === 1) {
+          this.setActiveTab(1);
           screamName = "hourly-weather";
         }
         if (this.activeIndex === 2) {
+          this.setActiveTab(2);
           screamName = "month-weather";
         }
         if (this.activeIndex === 3) {
+          this.setActiveTab(3);
           screamName = "radar-weather";
         }
         this.setTitleScream(this.activeIndex);
@@ -343,56 +357,12 @@ export default {
         const countryKey = this.breadcumsObject.country_key;
 
         if (countryKey.toLowerCase() === "vn") {
-          let routeParams = {
+          await this.$router.push({
             name: screamName,
-            params: {
-              language: this.renderLanguage,
-              location: [this.breadcumsObject.country_key.toLowerCase()],
-            },
-          };
-
-          // Xây dựng mảng location dựa vào điều kiện
-          if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length === 0
-          ) {
-            routeParams.params.location.push(
-              this.convertLowerCase(this.breadcumsObject.city)
-            );
-          }
-
-          if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length !== 0 &&
-            this.breadcumsObject.ward.length === 0
-          ) {
-            routeParams.params.location.push(
-              this.convertLowerCase(this.breadcumsObject.district)
-            );
-          }
-
-          if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length !== 0 &&
-            this.breadcumsObject.ward.length !== 0
-          ) {
-            routeParams.params.location.push(
-              this.convertToSlug(
-                this.removeWordAndAccents(this.breadcumsObject.ward, [
-                  "Xã",
-                  "Thị Xã",
-                  "Phường",
-                  "Thị Trấn",
-                ])
-              )
-            );
-          }
-
-          // Thêm query param để force component re-render
-          routeParams.params.timestamp = Date.now();
+            params: this.$route.params,
+          });
 
           // Chuyển route và đợi cho đến khi navigation hoàn tất
-          await this.$router.push(routeParams);
           this.setKeyIndexComponent(1);
 
           // Emit event để thông báo cho component cha biết route đã thay đổi

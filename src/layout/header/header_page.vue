@@ -194,6 +194,24 @@ export default {
       }
       return "";
     },
+
+    objectCityByLocationData() {
+      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.objectCityByLocationGetters;
+
+      return resultData;
+    },
+
+    listCityAllData() {
+      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityAll"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.listCityAllGetters;
+
+      return resultData;
+    },
   },
 
   watch: {
@@ -428,8 +446,20 @@ export default {
       };
     },
 
+    removeAccentsUnicode(str) {
+      return str
+        .normalize("NFD") // Chuẩn hóa Unicode thành dạng tổ hợp ký tự và dấu
+        .replace(/[\u0300-\u036f]/g, "") // Loại bỏ tổ hợp dấu
+        .replace(/đ/g, "d") // Xử lý riêng cho chữ "đ"
+        .replace(/Đ/g, "D");
+    },
+
     convertToConvertLowerCase(str) {
-      const slug = removeAccents(str).replace(/\s+/g, "_");
+      console.log("slug", str);
+
+      const slug = this.removeAccentsUnicode(str).replace(/\s+/g, "_");
+      console.log("slug", slug);
+
       return slug;
     },
 
@@ -453,7 +483,7 @@ export default {
 
       const data = this.removeWordAndAccents(input, ["Province"]);
 
-      const dataNew = this.convertToCamelCase(data);
+      // const dataNew = this.convertToCamelCase(data);
       console.log("data-new", data);
 
       const vietnameseMap = {
@@ -522,7 +552,9 @@ export default {
       };
 
       // Kiểm tra nếu chuỗi tồn tại trong map
-      const converted = vietnameseMap[dataNew] || dataNew;
+      const converted = vietnameseMap[data] || data;
+
+      console.log("converted", converted);
 
       // Thay khoảng trắng bằng dấu gạch dưới
       return {
@@ -553,7 +585,7 @@ export default {
       if (str2 === "Bac_Tu_Liem" || str2 === "Nam_Tu_Liem") {
         return commonWords.length >= 3;
       } else {
-        if (convertArray === 1) {
+        if (convertArray.length === 1) {
           return commonWords.length >= 1;
         } else {
           return commonWords.length >= 2;
@@ -563,8 +595,9 @@ export default {
     },
 
     findCityData(value) {
-      const listCityVN = this.objectCityByLocationGetters;
+      const listCityVN = this.objectCityByLocationData;
 
+      debugger;
       const replaceCity = this.convertToVietnamese(value.city).cityConvert;
       for (let index = 0; index < listCityVN.length; index++) {
         const element = listCityVN[index];
@@ -588,7 +621,7 @@ export default {
     },
 
     findDistrictsData(value) {
-      const listCityVN = this.listCityAllGetters;
+      const listCityVN = this.listCityAllData;
 
       // Kiểm tra xem listCityVN có tồn tại không
       if (!listCityVN) {
@@ -631,7 +664,7 @@ export default {
     },
 
     findWardData(value) {
-      const listCityVN = this.listCityAllGetters;
+      const listCityVN = this.listCityAllData;
 
       // Kiểm tra xem listCityVN có tồn tại không
       if (!listCityVN) {
@@ -715,7 +748,8 @@ export default {
           country_key: item.country_key.toLowerCase(),
           city: item.city ? this.findCityData(item).viNameLanguage : "",
           city_key: item.city ? this.findCityData(item).keyAccentLanguage : "",
-          district: item.district ? item.district : "",
+          district:
+            item.district && this.findDistrictsData(item) ? item.district : "",
           district_key:
             item.district &&
             item.district.trim() !== "" &&

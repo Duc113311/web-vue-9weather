@@ -668,12 +668,17 @@ export default {
       const words1 = str1.replace(/[^\w\s]/g, "").split("_");
       const words2 = str2.replace(/[^\w\s]/g, "").split("_");
 
+      const convertArray = this.convertToFormattedArray(str2);
       // Lọc ra các từ có trong str2
       const commonWords = words1.filter((word) => words2.includes(word));
       if (str2 === "Bac_Tu_Liem" || str2 === "Nam_Tu_Liem") {
         return commonWords.length >= 3;
       } else {
-        return commonWords.length >= 2;
+        if (convertArray.length === 1) {
+          return commonWords.length >= 1;
+        } else {
+          return commonWords.length >= 2;
+        }
       }
       // Kiểm tra xem có ít nhất 2 từ chung không
     },
@@ -840,8 +845,16 @@ export default {
       await this.getAirQuality(encodeAirCode);
     },
 
+    removeAccentsUnicode(str) {
+      return str
+        .normalize("NFD") // Chuẩn hóa Unicode thành dạng tổ hợp ký tự và dấu
+        .replace(/[\u0300-\u036f]/g, "") // Loại bỏ tổ hợp dấu
+        .replace(/đ/g, "d") // Xử lý riêng cho chữ "đ"
+        .replace(/Đ/g, "D");
+    },
+
     convertToConvertLowerCase(str) {
-      const slug = removeAccents(str).replace(/\s+/g, "_");
+      const slug = this.removeAccentsUnicode(str).replace(/\s+/g, "_");
       return slug;
     },
 
