@@ -2,22 +2,29 @@
   <div class="w-full">
     <!--  -->
     <div class="c-temp text-left">
-      <div class="flex items-center text-center gap-2">
+      <div class="flex items-start text-start gap-2">
         <img width="50" :src="renderIcon(currentlyDataRender)" alt="" />
-        <h2 class="txt_title_temp">
-          {{ renderToCelsius(currentlyDataRender?.temperature) }}
-        </h2>
+        <div class="flex items-start text-start">
+          <p class="txt_poppins_87">
+            {{ renderToCelsius(currentlyDataRender?.temperature) }}
+          </p>
+          <p class="txt_poppins_40">
+            {{ renderUnit(currentlyDataRender?.temperature) }}
+          </p>
+        </div>
       </div>
-      <div class="txt_regular">
-        {{
-          convertCapitalizeWords(
-            $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
-          )
-        }}
-      </div>
-      <div class="txt_regular_des">
-        {{ $t("real_feel") }}
-        {{ renderToCelsius(currentlyDataRender?.apparentTemperature) }}
+      <div class="flex flex-col gap-1.5">
+        <div class="txt_regular_17 text-start">
+          {{
+            convertCapitalizeWords(
+              $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+            )
+          }}
+        </div>
+        <div class="txt_regular_12 text-start">
+          {{ $t("real_feel") }}
+          {{ renderToCelsius(currentlyDataRender?.apparentTemperature) }}
+        </div>
       </div>
     </div>
 
@@ -147,14 +154,15 @@ export default {
     renderToCelsius(value) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
-        return (
-          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
-        );
+        return convertCtoF(value);
       } else {
-        return (
-          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
-        );
+        return convertFtoC(value);
       }
+    },
+
+    renderUnit(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activeTemperature_save);
     },
 
     convertPrecipitation(val) {

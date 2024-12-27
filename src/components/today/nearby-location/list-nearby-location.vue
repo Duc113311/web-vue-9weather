@@ -368,15 +368,7 @@ export default {
       const convertArray = this.convertToFormattedArray(str2);
       // Lọc ra các từ có trong str2
       const commonWords = words1.filter((word) => words2.includes(word));
-      if (str2 === "Bac_Tu_Liem" || str2 === "Nam_Tu_Liem") {
-        return commonWords.length >= 3;
-      } else {
-        if (convertArray.length === 1) {
-          return commonWords.length >= 1;
-        } else {
-          return commonWords.length >= 2;
-        }
-      }
+      return commonWords.length >= 2;
       // Kiểm tra xem có ít nhất 2 từ chung không
     },
     convertToSlugCity(str) {

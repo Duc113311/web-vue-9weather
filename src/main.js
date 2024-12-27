@@ -10,6 +10,7 @@ import ElementPlus from "element-plus";
 // eslint-disable-next-line prettier/prettier
 import "element-plus/dist/index.css";
 import "../src/assets/css/style.css";
+import "../src/assets/css/fonts.css";
 import "../src/assets/style/tailwind.css";
 import "../src/assets/style/global.css";
 

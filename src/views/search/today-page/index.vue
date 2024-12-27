@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <div class="container mt-5">
+    <div class="container">
       <div class="header h-full w-full lg:flex gap-4">
         <div
           class="left-today lg:w-3/6 w-full h-full"

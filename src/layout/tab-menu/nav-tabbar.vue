@@ -3,12 +3,12 @@
     <!--  -->
     <div class="container overflow-hidden">
       <div
-        class="weather-menu-inner w-max flex justify-between items-center mt-2 pt-1"
+        class="weather-menu-inner w-full flex items-center pad-l-r-20 pad-t-b-10"
       >
         <div
           v-for="(menu, index) in menuItems"
           :key="index"
-          class="cursor-pointer weather-menu-item mr-4 pad-t-b-l-r bor-radios-big flex justify-center"
+          class="cursor-pointer weather-menu-item pad_btn flex justify-center"
           :class="{ 'active-tab': activeTabGettersParam === index }"
           @click="onClickRouterView(menu, index)"
         >
@@ -18,10 +18,10 @@
               class="menu-icon"
               :class="{ 'active-icon': activeTabGettersParam === index }"
               :alt="menu.label"
-              width="18"
+              width="24"
             />
 
-            <span class="txt_regular_16">{{ menu.label }}</span>
+            <span class="txt_regular_17">{{ menu.label }}</span>
           </div>
         </div>
       </div>
@@ -424,22 +424,22 @@ export default {
 </script>
 <style lang="scss">
 .weather-menu-item {
-  width: 130px;
+  width: 163px;
+  height: 44px;
   background-color: #5b6c86;
   color: #ffffff;
+}
+.weather-menu-inner {
+  gap: 20px;
 }
 
 .active-tab {
   background-color: #ffffff;
-  color: #0062f5;
+  color: #0074ff;
 
   .menu-icon {
-    filter: invert(31%) sepia(98%) saturate(1946%) hue-rotate(201deg)
+    filter: invert(71%) sepia(98%) saturate(1946%) hue-rotate(201deg)
       brightness(97%) contrast(107%);
   }
-}
-
-.menu-icon {
-  filter: brightness(0) invert(1);
 }
 </style>

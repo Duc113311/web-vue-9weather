@@ -110,17 +110,20 @@ export default {
         return [];
       }
 
-      const countryCode = this.objectBreadParam.country_key;
+      const countryCode = this.objectBreadParam.country_key.toLowerCase();
+      debugger;
       if (countryCode === "vn") {
         for (const element of retrievedDataCity) {
+          const listCity = element.provinceCity;
           if (Object.keys(this.breadcumsObjectGetters).length !== 0) {
-            const findExistData = element.provinceCity.filter(
-              (x) =>
-                x.keyAccentLanguage !==
-                this.removeDiacritics(this.objectBreadParam.city_key)
+            const findExistData = listCity.filter(
+              (x) => x.keyAccentLanguage === this.objectBreadParam.city_key
             );
             if (findExistData.length > 0) {
-              return findExistData;
+              const findExistNew = listCity.filter(
+                (x) => x.keyAccentLanguage !== this.objectBreadParam.city_key
+              );
+              return findExistNew;
             }
           }
         }

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[50px] bg-nav flex items-center">
+  <div class="w-full h-[60px] bg-nav flex items-center">
     <div class="w-full h-full pl-4 pr-4 text-white">
       <div class="w-full h-full container">
         <div class="w-full h-full flex justify-between items-center">
@@ -9,11 +9,11 @@
               <div class="flex items-center gap-2 cursor-pointer">
                 <img
                   src="../../assets/images/svg_v2/ic_city.svg"
-                  width="16"
+                  width="20"
                   alt=""
                   srcset=""
                 />
-                <span class="txt_regular_16">{{ $t("District_City") }}</span>
+                <span class="txt_regular_17">{{ $t("District_City") }}</span>
                 <img
                   src="../../assets/images/svg_v2/ic_chevron_up.svg"
                   width="24"
@@ -49,6 +49,10 @@
                             <li
                               v-for="(item1, index) in item?.provinceCity"
                               :key="index"
+                              :class="{
+                                'active-item':
+                                  activeCities === item1.keyAccentLanguage,
+                              }"
                               @click="onClickSearchCity(item1, item)"
                             >
                               {{
@@ -96,12 +100,12 @@
               @click="onClickShowWidget()"
             >
               <img
-                src="../../assets/images/svg_v2/ic_widget_tab.svg"
+                src="../../assets/images/svg_v2/ic_layer.svg"
                 width="20"
                 alt=""
                 srcset=""
               />
-              <span class="txt_regular_16">{{ $t("Widget") }}</span>
+              <span class="txt_regular_17">{{ $t("Widget") }}</span>
             </div>
           </div>
           <!-- right -->
@@ -114,11 +118,11 @@
             />
 
             <div class="flex items-center mr-2 gap-2">
-              <span class="txt_regular_16"
+              <span class="txt_regular_17"
                 >{{ $t("Your_current_location") }}:</span
               >
               <span
-                class="txt_medium_des_16 text-blue-400"
+                class="txt_medium_17"
                 v-if="currentLocationChome?.country_key?.toLowerCase() === 'vn'"
                 >{{
                   $t(
@@ -138,7 +142,7 @@
               }}</span>
             </div>
             <div
-              class="flex items-center cursor-pointer txt_medium_des bg-bth pad-small"
+              class="flex items-center cursor-pointer txt_regular_17 bg-bth pad_bth_change"
               @click="onClickRechange()"
             >
               <span>{{ $t("rechange") }}</span>
@@ -180,6 +184,18 @@ export default {
       "airObjectGetters",
       "airKeyObjectGetters",
     ]),
+
+    activeCities() {
+      const paramCity = this.$route.params;
+      debugger;
+      if (Object.keys(paramCity).length !== 0) {
+        const newData = paramCity.location[1];
+
+        const newConvert = this.convertToSnakeCase(newData);
+        return newConvert;
+      }
+      return "";
+    },
 
     renderLanguage() {
       return this.$route.params.language
@@ -248,6 +264,13 @@ export default {
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
 
       return normalizedStr;
+    },
+
+    convertToSnakeCase(str) {
+      return str
+        .split("-") // Tách chuỗi dựa trên dấu "-"
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Viết hoa chữ cái đầu của từng từ
+        .join("_"); // Nối lại bằng dấu "_"
     },
 
     toggleMegaBox() {
@@ -420,8 +443,10 @@ export default {
 .bg-bth {
   background-color: #e3eefb;
   color: #0d2952;
-  padding: 6px 6px;
-  border-radius: 14px;
+}
+.bg-bth:hover {
+  background-color: #0e2950;
+  color: #ffffff;
 }
 
 .mega-box {
@@ -500,5 +525,8 @@ export default {
 
 .hidden-p {
   display: none !important; /* Ẩn hoàn toàn khi không hover */
+}
+.active-item {
+  color: rgb(22, 34, 165);
 }
 </style>

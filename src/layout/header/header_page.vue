@@ -64,9 +64,7 @@
           </div>
           <!-- Time -->
           <div class="nav-menu w-full flex h-full justify-end items-center">
-            <div
-              class="lg:flex hidden items-center mr-4 txt_regular_des_moon_12"
-            >
+            <div class="lg:flex hidden items-center mr-4 txt_regular_17">
               <div class="flex items-center gap-1">
                 <img
                   class="size-img"
@@ -582,15 +580,9 @@ export default {
       const convertArray = this.convertToFormattedArray(str2);
       // Lọc ra các từ có trong str2
       const commonWords = words1.filter((word) => words2.includes(word));
-      if (str2 === "Bac_Tu_Liem" || str2 === "Nam_Tu_Liem") {
-        return commonWords.length >= 3;
-      } else {
-        if (convertArray.length === 1) {
-          return commonWords.length >= 1;
-        } else {
-          return commonWords.length >= 2;
-        }
-      }
+
+      return commonWords.length >= 2;
+
       // Kiểm tra xem có ít nhất 2 từ chung không
     },
 

@@ -9,7 +9,7 @@
             width="24"
             alt=""
           />
-          <div v-if="wardParam.country_key === 'vn'">
+          <div class="txt_medium_14" v-if="wardParam.country_key === 'vn'">
             <span v-if="wardParam?.city && !wardParam?.district">{{
               $t(`{city}_Weather`, {
                 city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),

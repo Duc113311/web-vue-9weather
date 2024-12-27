@@ -108,10 +108,22 @@ const mutations = {
   },
 
   setFormattedAddress(state, data) {
+    console.log("data", data);
+
+    const datanew =
+      "IhWwmH4sIAAAAAAwASpVAAA+1Uy07CQBTd8xWTWTekD151h0oQjEAAicSQydiOMEk7U9spaAg/49Lf4MecKURbijyiS7tppvfcOefee26XBQAADEkUeyKC4AI8qg/yWW7fKoxdVyIi5HA/4IywLDKH32Z5nE0Rwz5RYDhcvzMwXn8wcE0jEVJHQC2XEs14KM7MEW8B2ehRQn3KFBQLOicIhwQjj8yJh0yoARhwjwrqYA+CSeaelXZWLZfYAU2K2fR4CYegpyk3/lL5iBIhD8d1jzpHBDs8ZiJ8Oyzu+zRJ3QafeehjIYiLts76Ydoa+GqfBvZIh1PCfaJUyPxs6fBJ6nOjfEDFmCx1RnAk9oaTruEkZhrFUsU2jaqda0aCkmOVKEOvFA3bKlm6sYta7Wk0j8VsQU4it3RbLx+j1vWybeaID7lEmsKRPuNsf3tS/NVa2dStfBFp+lq1bJmVk/iQclAy7Hqv1+8+tO7qw8aO0eCckkUgJ/Q/u91TWhEMPOwQRN2knVezVvtl/Dq4Mer3nWGjLwZ8YbMm8ttOZmF+97NMpGw2GUYCi3izuN1bWFgVPgFCfyYLSgYAAA==4GqRg";
+    const jsonValueTest = decodeBase64(datanew);
+    if (!jsonValueTest) {
+      return;
+    }
+
     const jsonValue = decodeBase64(data);
     if (!jsonValue) {
       return;
     }
+    console.log("jsonValue", jsonValue);
+    console.log("jsonValueTest", jsonValueTest);
+
     const listResultAddress = JSON.parse(jsonValue);
 
     debugger;
