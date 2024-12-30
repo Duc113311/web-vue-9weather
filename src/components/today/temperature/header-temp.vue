@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full border-b pad-l-r-20 pad-t">
     <!--  -->
     <div class="c-temp text-left">
       <div class="flex items-start text-start gap-2">
@@ -9,11 +9,12 @@
             {{ renderToCelsius(currentlyDataRender?.temperature) }}
           </p>
           <p class="txt_poppins_40">
-            {{ renderUnit(currentlyDataRender?.temperature) }}
+            °
+            <!-- {{ renderUnit(currentlyDataRender?.temperature) }} -->
           </p>
         </div>
       </div>
-      <div class="flex flex-col gap-1.5">
+      <div class="flex flex-col gap-1.5 pt-2 pb-2">
         <div class="txt_regular_17 text-start">
           {{
             convertCapitalizeWords(
@@ -31,7 +32,9 @@
     <!--  -->
     <div class="c-temp-row w-full flex items-center mt-2">
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
-        <div class="h-flex flex items-center justify-center pb-14">
+        <div
+          class="h-flex flex items-center justify-center pb-14 txt_regular_14"
+        >
           <p>{{ $t("temperature") }}</p>
         </div>
         <div class="flex justify-center items-center">
@@ -41,8 +44,8 @@
               alt=""
               srcset=""
             />
-            <span>{{
-              renderToCelsius(dailyOneDataRender?.temperatureMin)
+            <span class="txt_medium_17">{{
+              renderToCelsiusAndUnit(dailyOneDataRender?.temperatureMin)
             }}</span>
           </div>
 
@@ -52,15 +55,15 @@
               alt=""
               srcset=""
             />
-            <span>
-              {{ renderToCelsius(dailyOneDataRender?.temperatureMax) }}
+            <span class="txt_medium_17">
+              {{ renderToCelsiusAndUnit(dailyOneDataRender?.temperatureMax) }}
             </span>
           </div>
         </div>
       </div>
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
-        <div class="h-flex flex items-center justify-center">
+        <div class="h-flex flex items-center justify-center txt_regular_14">
           <p>{{ $t("precipitation") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
@@ -69,7 +72,7 @@
             width="24"
           />
         </div>
-        <div class="text-c text-center items-center txt_medium">
+        <div class="text-c text-center items-center txt_medium_17">
           <p>
             {{ convertPrecipitation(currentlyDataRender?.precipIntensity) }}
           </p>
@@ -77,7 +80,7 @@
       </div>
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
-        <div class="h-flex flex items-center justify-center">
+        <div class="h-flex flex items-center justify-center txt_regular_14">
           <p>{{ $t("Chance_of_rain") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
@@ -86,7 +89,7 @@
             width="24"
           />
         </div>
-        <div class="text-c text-center items-center txt_medium">
+        <div class="text-c text-center items-center txt_medium_17">
           <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
         </div>
       </div>
@@ -94,7 +97,7 @@
 
     <!--  -->
 
-    <div class="text-left w-full pt-4 pb-4 txt_regular_des_12">
+    <div class="text-left w-full pt-6 pb-3 txt_regular_14">
       <p>
         {{ $t("weather_description") }}
       </p>
@@ -157,6 +160,19 @@ export default {
         return convertCtoF(value);
       } else {
         return convertFtoC(value);
+      }
+    },
+
+    renderToCelsiusAndUnit(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      } else {
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
       }
     },
 

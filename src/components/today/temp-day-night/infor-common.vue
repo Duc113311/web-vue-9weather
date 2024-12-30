@@ -1,24 +1,31 @@
 <template>
-  <div class="w-full">
+  <div class="w-full pad-l-r-20 pad-t">
     <!--  -->
-    <div class="c-temp text-left">
-      <div class="flex items-center justify-center text-center gap-2">
+    <div class="c-temp text-left pt-2">
+      <div class="flex items-center justify-start text-center gap-2">
         <img width="50" :src="renderIcon(currentlyData)" alt="" />
-        <h2 class="txt_title_temp_50">
-          {{ convertFahrenheitToCelsiusNot(dataDayNightRender) }}
-        </h2>
+        <div class="flex items-start text-start">
+          <p class="txt_poppins_68">
+            {{ convertFahrenheitToCelsiusNotUnit(dataDayNightRender) }}
+          </p>
+          <p class="txt_poppins_30">°</p>
+        </div>
       </div>
 
-      <div class="txt_regular text-center">
-        {{
-          convertCapitalizeWords(
-            $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
-          )
-        }}
-      </div>
-      <div class="txt_regular_des text-center">
-        {{ $t("real_feel") }}
-        {{ convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature) }}
+      <div class="flex flex-col gap-1.5 pt-6 pb-2">
+        <div class="txt_regular_17 text-left">
+          {{
+            convertCapitalizeWords(
+              $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+            )
+          }}
+        </div>
+        <div class="txt_regular_12 text-left">
+          {{ $t("real_feel") }}
+          {{
+            convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature)
+          }}
+        </div>
       </div>
     </div>
 
@@ -32,12 +39,17 @@
             width="24"
             alt=""
           />
-          <p>{{ $t("uv") }}</p>
+          <p class="txt_regular_14">{{ $t("uv") }}</p>
         </div>
-        <p class="txt_medium_des">
-          {{ Math.round(currentlyData?.uvIndex) }}
-          ({{ convertUvIndexName(currentlyData?.uvIndex) }})
-        </p>
+        <div class="items-center flex gap-1">
+          <span class="txt_medium_17">{{
+            Math.round(currentlyData?.uvIndex)
+          }}</span>
+
+          <span class="txt_regular_14"
+            >({{ convertUvIndexName(currentlyData?.uvIndex) }})</span
+          >
+        </div>
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
@@ -46,9 +58,9 @@
             width="24"
             alt=""
           />
-          <p>{{ $t("precipitation") }}</p>
+          <p class="txt_regular_14">{{ $t("precipitation") }}</p>
         </div>
-        <p class="txt_medium_des">
+        <p class="txt_medium_17">
           {{ convertPrecipitation(currentlyData?.precipIntensity) }}
         </p>
       </div>
@@ -59,15 +71,15 @@
             width="24"
             alt=""
           />
-          <p>{{ $t("Chance_of_rain") }}</p>
+          <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
-        <p class="txt_medium_des">
+        <p class="txt_medium_17">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%
         </p>
       </div>
     </div>
 
-    <div class="text-left w-full txt_regular_des_12">
+    <div class="text-left w-full txt_regular_14 pt-4 pb-6">
       <p>
         {{ $t("Cloudy_skies") }}
       </p>
@@ -158,6 +170,15 @@ export default {
         return (
           convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
         );
+      }
+    },
+
+    convertFahrenheitToCelsiusNotUnit(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return convertCtoF(value);
+      } else {
+        return convertFtoC(value);
       }
     },
 

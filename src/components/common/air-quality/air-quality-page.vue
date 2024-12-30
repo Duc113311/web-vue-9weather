@@ -9,31 +9,34 @@
             alt=""
             srcset=""
           />
-          <p>{{ $t("air_quality") }}</p>
+          <p class="txt_medium_14">{{ $t("air_quality") }}</p>
         </div>
       </template>
-      <div class="w-full">
+      <div class="w-full h-[211px]">
         <!--  -->
         <div class="text-left pad-big">
-          <div class="txt_bold">
+          <div class="txt_bold_24">
             <span>{{ paramAirModule }}</span>
           </div>
-          <div class="txt_light" :style="{ color: progressColor }">
+          <div
+            class="txt_regular_17 text-left"
+            :style="{ color: progressColor }"
+          >
             <span>{{ convertAirIndexName(paramAirModule) }}</span>
           </div>
-          <span class="txt_regular_des_moon_12">
+          <span class="txt_regular_12">
             {{ $t("The_air_is_mostly_okay") }}</span
           >
         </div>
 
         <div class="w-full items-center gap-2">
           <div id="chart" class="w-full">
-            <apexchart
-              height="80"
+            <!-- <apexchart
+              height="100"
               type="area"
               :options="chartOptions"
               :series="series"
-            />
+            /> -->
           </div>
         </div>
       </div>

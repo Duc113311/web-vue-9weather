@@ -10,7 +10,7 @@
         />
       </div>
       <h3
-        class="text-center txt_regular_16"
+        class="text-center txt_medium_17"
         v-if="breadcumsObject.country_key === 'vn'"
       >
         {{
@@ -28,7 +28,7 @@
       </h3>
 
       <h3
-        class="text-center txt_regular_16"
+        class="text-center txt_medium_17"
         v-if="breadcumsObject.country_key === 'us'"
       >
         <!-- {{

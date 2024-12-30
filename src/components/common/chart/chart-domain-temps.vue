@@ -120,11 +120,12 @@ export default {
               label: "Temperature",
               borderColor: "#FADB38",
               pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
-              pointBorderColor: "#C27021",
-              pointRadius: 3,
+              pointBorderWidth: 1, // Độ dày viền của điểm
+              borderWidth: 2, // Độ dày đường
+              pointBorderColor: "#ffffff",
+              pointRadius: 5, // Bán kính điểm
               backgroundColor: gradient,
-              fill: true,
+              fill: true, // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 8, // Tăng kích thước khi hover
             },
@@ -134,7 +135,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 26,
+            padding: 25,
           },
           plugins: {
             legend: {
@@ -154,13 +155,14 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 12,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
-              color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
+              color: "#FADB38", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
                 return `${value}°`;
               },
+              offset: 4,
             },
           },
           scales: {

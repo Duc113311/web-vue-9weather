@@ -12,18 +12,21 @@
           <p>{{ $t("uv_index") }}</p>
         </div>
       </template>
-      <div class="w-full h-[168px]">
+      <div class="w-full h-[183px]">
         <!--  -->
         <div class="text-left">
-          <div class="txt_bold">
+          <div class="txt_bold_24">
             <span>{{ Math.round(currentlyData?.uvIndex) }}</span>
           </div>
-          <div class="txt_light" :style="{ color: progressColor }">
+          <div
+            class="txt_regular_17 text-left"
+            :style="{ color: progressColor }"
+          >
             <span>
               {{ convertUvIndexName(currentlyData?.uvIndex) }}
             </span>
           </div>
-          <span class="txt_regular_des_moon_12">
+          <span class="txt_regular_12">
             {{ $t("The_air_is_mostly_okay") }}</span
           >
         </div>
@@ -44,7 +47,7 @@
             type="bar"
             :options="chartOptions"
             :series="series"
-            height="80"
+            height="110"
           />
         </div>
       </div>

@@ -14,12 +14,14 @@
               class="chart-container w-[89rem]"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="300" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
 
-        <div class="absolute w-full bottom-0 left-0 flex justify-end">
+        <div
+          class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
+        >
           <div class="flex items-center text-left gap-2">
             <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_des">{{
@@ -174,7 +176,7 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 12,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
@@ -245,11 +247,11 @@ export default {
 .horizontal >>> .v-hl-btn-next {
   display: none !important;
 
-  right: 10px !important;
+  right: 24px !important;
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  left: 10px !important;
+  left: 24px !important;
   opacity: 0.5;
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!--  -->
-    <BaseComponent>
+    <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -75,7 +75,7 @@
         <!--  -->
         <TabNavigation @onChangeTabChart="onChangeTabChart"></TabNavigation>
         <!--  -->
-        <div class="w-auto h-[368px]">
+        <div class="w-auto h-[378px]">
           <ChartTempRain
             :key="indexKey + Math.random()"
             v-show="indexChart === 0"

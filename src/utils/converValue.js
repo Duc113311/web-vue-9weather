@@ -109,7 +109,6 @@ export function mphToBeaufort(mph) {
  * @returns
  */
 export function getUvSummaryName(value) {
-
   // Kiểm tra nếu `value` không phải là số
   if (typeof value !== "number" && typeof value !== "string") {
     console.error("Giá trị không hợp lệ (không phải số hoặc chuỗi):", value);
@@ -204,8 +203,18 @@ export function getIconHourlyForecastTheme(value) {
 export function convertTimestampToMonthYear(timestamp) {
   const date = new Date(timestamp * 1000); // Chuyển timestamp sang milliseconds
   const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const month = months[date.getMonth()]; // Lấy tháng
@@ -264,7 +273,6 @@ export function convertTimestampToHoursMinutes(
 ) {
   const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
 
-
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
@@ -299,7 +307,6 @@ export function convertTimestampToHoursMinutes12(
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
-
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
@@ -311,12 +318,13 @@ export function convertTimestampToHoursMinutes12(
 
   // Trả về thời gian định dạng 12 giờ
   if (numberTime === 0) {
-    return hours + ":" + minutes + " " + period;
+    // return hours + ":" + minutes + " " + period;
+    return hours + " " + period;
   } else if (numberTime === 1) {
     if (hours === hoursNow && period === periodNow) {
       return i18n.global.t("Now");
     }
-    return hours + ":" + minutes + " " + period;
+    return hours + " " + period;
   }
 }
 
@@ -330,7 +338,6 @@ export function convertTime12hTimeZoneNotNow(
   // Lấy giờ và phút
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
-
 
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
@@ -357,7 +364,6 @@ export function convertTime24hTimeZoneNotNow(
 ) {
   const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
 
-
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
@@ -378,7 +384,6 @@ export function convertTime24hTimeZoneNotNow(
     return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
   }
 }
-
 
 export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
   const date = new Date(timestamp * 1000);
@@ -408,7 +413,7 @@ export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
   }
 }
 
-// 
+//
 export function convertTimestamp24hSun(
   timestamp,
   numberTime,
@@ -416,7 +421,6 @@ export function convertTimestamp24hSun(
   timezone
 ) {
   const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-
 
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
@@ -448,7 +452,6 @@ export function convertTimestamp12hSun(
   let hours = dateTime.hour; // Giờ
   let minutes = dateTime.minute; // Phút
 
-
   // Chuyển đổi giờ sang định dạng 12 giờ
   let period = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
@@ -464,8 +467,7 @@ export function convertTimestamp12hSun(
   }
 }
 
-
-// 
+//
 
 export function convertTimestampNow24(timestamp, numberTime, offsetValue) {
   const date = new Date(timestamp);
@@ -533,11 +535,18 @@ export function convertTimestampToAmPm(timestamp) {
   return amPm;
 }
 
-
 export function convertTimestampToFormattedDate(timestamp, language = "vi") {
   const daysOfWeek = {
     vi: ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"],
-    en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    en: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
   };
 
   const date = new Date(timestamp); // Chuyển đổi từ timestamp
@@ -555,13 +564,13 @@ export function convertTimestampToFormattedDate(timestamp, language = "vi") {
   }
 }
 
-
-
 export function getFormattedCurrentDate() {
   const now = new Date(); // Lấy thời gian hiện tại
 
   // Lấy tên ngày trong tuần và định dạng ngày tháng
-  const dayOfWeek = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(now);
+  const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+  }).format(now);
   const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(now);
   const day = now.getDate();
   const year = now.getFullYear();
@@ -574,7 +583,8 @@ export function getFormattedCurrentDate() {
   const formattedMinutes = minutes.toString().padStart(2, "0");
   const period = isAM ? "AM" : "PM";
 
-  return `${dayOfWeek}, ${month} ${day}, ${year} at ${formattedHours}:${formattedMinutes} ${period}`;
+  // return `${dayOfWeek}, ${month} ${day}, ${year} at ${formattedHours}:${formattedMinutes} ${period}`;
+  return `${dayOfWeek}, ${month} ${day}, ${year}`;
 }
 
 /**
@@ -681,7 +691,6 @@ export function getWindDirectionEmojiFromDegrees(windBearing) {
   }
 }
 
-
 export function convertMonth(timestamp) {
   const date = new Date(timestamp * 1000);
   const dayMapping = {
@@ -694,8 +703,8 @@ export function convertMonth(timestamp) {
     Saturday: i18n.global.t("Sat"),
   };
 
-  const month = date.getMonth() + 1
-  return month
+  const month = date.getMonth() + 1;
+  return month;
 }
 
 export function convertToShortDay(dateFull) {
@@ -737,9 +746,9 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-    Math.cos(toRad(latNearest)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRad(latNearest)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Khoảng cách tính bằng km
 
@@ -1108,7 +1117,6 @@ export function getAQIColor(aqi) {
 export function getAirSummaryName(value) {
   value = parseInt(value);
 
-
   if (value <= 50) {
     return i18n.global.t("Good");
   } else if (value <= 100) {
@@ -1348,11 +1356,10 @@ export function convertToEnglishReplace(str) {
   return str;
 }
 
-
 export function capitalizeWords(str) {
   return str
     .toLowerCase() // Chuyển tất cả các chữ cái về chữ thường
     .split(" ") // Tách chuỗi thành mảng các từ
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Viết hoa chữ cái đầu
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Viết hoa chữ cái đầu
     .join(" "); // Gộp các từ lại thành chuỗi
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full">
     <div class="container">
-      <div class="header h-full w-full lg:flex gap-4">
+      <div class="header h-full w-full lg:flex gap-20-px">
         <div
           class="left-today lg:w-3/6 w-full h-full"
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div
-            class="main-bottom lg:h-[384px] mt-2"
+            class="main-bottom lg:h-[364px] mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <RadarPage :key="indexState + Math.random()"></RadarPage>

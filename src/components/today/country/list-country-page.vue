@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <BaseComponent :isShowPad="false">
+    <BaseComponent>
       <!--  -->
       <template v-slot:header>
         <div class="flex justify-between items-center">
@@ -10,7 +10,9 @@
               width="24"
               alt=""
             />
-            <span>{{ convertCapitalizeWords($t("Cities_Provinces")) }}</span>
+            <span class="txt_medium_14">{{
+              convertCapitalizeWords($t("Cities_Provinces"))
+            }}</span>
           </div>
         </div>
       </template>
@@ -23,10 +25,10 @@
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
-            class="flex justify-between items-center pl-4 pr-4 pt-2 pb-2 cursor-pointer item-city"
+            class="flex justify-between items-center pt-2 pb-2 cursor-pointer item-city"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
           >
-            <div class="txt_regular_16">
+            <div class="txt_regular_17">
               {{ $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`) }}
             </div>
             <img

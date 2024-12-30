@@ -151,8 +151,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: displayData,
-              pointHoverRadius: 8, // Tăng kích thước khi hover
-              borderRadius: 10,
+              borderRadius: 4,
               barThickness: 30,
             },
           ],
@@ -173,7 +172,7 @@ export default {
               align: "end", // Position labels at the end of each bar
               anchor: "end", // Anchor labels to the end of each bar
               font: {
-                size: 12,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
@@ -188,7 +187,7 @@ export default {
             x: {
               display: false,
               ticks: {
-                stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
+                stepSize: 3, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
             },
             y: {
@@ -221,13 +220,13 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  left: 10px !important;
+  left: 24px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  right: 10px !important;
+  right: 24px !important;
   opacity: 0.5;
 }
 .bg-short {

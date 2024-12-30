@@ -9,28 +9,28 @@
             alt=""
             srcset=""
           />
-          <p>{{ $t("Sun") }}</p>
+          <p class="txt_medium_14">{{ $t("Sun") }}</p>
         </div>
       </template>
-      <div class="w-full h-full">
+      <div class="w-full h-[211px]">
         <!--  -->
         <div class="sun-rise-progression w-full relative">
           <div
             class="flex items-center justify-between w-full absolute bottom-24"
           >
             <div class="flex flex-col gap-2 items-center">
-              <p class="txt_medium_des pl-2 text-center">
+              <p class="txt_medium_14 pl-2 text-center">
                 <span>{{ convertTime(paramDailyOne?.sunriseTime) }}</span
                 ><br />
-                <span class="txt_regular_des_moon_12">{{ $t("sunrise") }}</span>
+                <span class="txt_regular_12">{{ $t("sunrise") }}</span>
               </p>
             </div>
             <!--  -->
             <div class="flex flex-col gap-2 items-center">
-              <p class="txt_medium_des pr-2 text-center">
+              <p class="txt_medium_14 pr-2 text-center">
                 <span>{{ convertTime(paramDailyOne?.sunsetTime) }}</span
                 ><br />
-                <span class="txt_regular_des_moon_12">{{ $t("sunset") }}</span>
+                <span class="txt_regular_12">{{ $t("sunset") }}</span>
               </p>
             </div>
           </div>

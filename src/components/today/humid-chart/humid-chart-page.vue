@@ -19,7 +19,9 @@
             </div>
           </div>
         </vue-horizontal>
-        <div class="absolute w-full bottom-0 left-0 flex justify-end">
+        <div
+          class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
+        >
           <div class="flex items-center text-left gap-2">
             <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_des">{{
@@ -172,7 +174,7 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 12,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu

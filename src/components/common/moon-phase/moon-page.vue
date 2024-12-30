@@ -9,37 +9,37 @@
             alt=""
             srcset=""
           />
-          <p>{{ $t("moonphase") }}</p>
+          <p class="txt_medium_14">{{ $t("moonphase") }}</p>
         </div>
       </template>
-      <div class="w-full">
+      <div class="w-full h-[183px]">
         <!--  -->
 
-        <div class="flex items-center w-full">
-          <div class="text-left w-[182px]">
-            <div class="txt_medium">
+        <div class="flex items-center w-full relative h-full">
+          <div class="text-left relative h-full">
+            <div class="txt_medium_17 text-left">
               <span>{{ moonPhaseName }}</span>
             </div>
-            <div class="txt_regular_des_moon_12 pt-1">
+            <div class="txt_regular_12 pt-1">
               <p>{{ dateFull }}</p>
             </div>
-            <div class="mt-10">
+            <div class="absolute bottom-0">
               <div
-                class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
+                class="flex justify-between items-center txt_regular_12 pt-1 pb-1"
               >
                 <p>{{ $t("moon_illumination") }}:</p>
                 <p>{{ moonPhaseInfo.illumination }} %</p>
               </div>
               <!--  -->
               <div
-                class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
+                class="flex justify-between items-center txt_regular_12 pt-1 pb-1"
               >
                 <p>{{ $t("moonrise") }}:</p>
                 <p>{{ convertTime(moonPhaseInfo.moonrise) }}</p>
               </div>
               <!--  -->
               <div
-                class="flex justify-between items-center txt_regular_des_moon_12 pt-1 pb-1"
+                class="flex justify-between items-center txt_regular_12 pt-1 pb-1"
               >
                 <p>{{ $t("next_full_moon") }}:</p>
                 <p>{{ moonPhaseInfo.nextFullMoon }} {{ $t("days") }}</p>
@@ -47,9 +47,7 @@
             </div>
           </div>
 
-          <div
-            class="flex flex-col w-[calc(100%-182px)] justify-center items-center"
-          >
+          <div class="flex flex-col justify-center items-center">
             <div
               class="pb-5"
               :style="{ transform: `rotate(${rotationDegrees}deg)` }"
@@ -140,7 +138,7 @@ export default {
       numberOfSubChildren: 24,
       illuminate: 50,
       moonPhaseName: this.$t("Full_Moon"),
-      dateFull: "Monday, December 16, 2024 at 12:00 AM",
+      dateFull: "Monday, December 16, 2024",
       rotationDegrees: 0,
       moonPhaseInfo: {
         moonPhaseName: "Waning Crescent",

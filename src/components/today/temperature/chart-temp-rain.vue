@@ -28,18 +28,20 @@
 
         <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
 
-        <div class="absolute w-full bottom-0 left-0 flex justify-between">
+        <div
+          class="absolute w-full bottom-0 left-0 flex justify-between pad-t-b-10 pad-r-l-10"
+        >
           <div class="flex items-center text-left gap-2">
             <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
-            <span class="txt_regular_des">{{ $t("temperature") }}</span>
+            <span class="txt_regular_12">{{ $t("temperature") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
-            <span class="txt_regular_des">{{ $t("Chance_of_rain") }}</span>
+            <span class="txt_regular_12">{{ $t("Chance_of_rain") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>
-            <span class="txt_regular_des">{{ $t("precipitation") }}</span>
+            <span class="txt_regular_12">{{ $t("precipitation") }}</span>
           </div>
         </div>
       </div>
@@ -89,13 +91,13 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  left: 10px !important;
+  left: 24px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  right: 10px !important;
+  right: 24px !important;
   opacity: 0.5;
 }
 

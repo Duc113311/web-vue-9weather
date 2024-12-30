@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!--  -->
-    <BaseComponent>
+    <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -10,7 +10,7 @@
             alt=""
             srcset=""
           />
-          <p>{{ title }}</p>
+          <p class="txt_medium_14">{{ title }}</p>
         </div>
       </template>
       <InforCommon

@@ -40,10 +40,6 @@
   border-right: 1px solid #ffffff;
 }
 
-.bor-c {
-  border: 1px solid #f9f9f9;
-}
-
 .bor-b {
   border-bottom: 1px solid #ffffff54;
 }
@@ -85,18 +81,39 @@
   border-radius: 20px;
 }
 
-
-.pad_bth_change{
+.pad_bth_change {
   padding: 10px;
   border-radius: 14px;
 }
-.pad-l-r-20{
+.pad-l-r-20 {
   padding-left: 20px;
   padding-right: 20px;
 }
 
-.pad-t-b-10{
+.pad-t-b-10 {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.pad-r-l-10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
+.pad-t {
+  padding-top: 20px;
+}
+.pad-b {
+  padding-bottom: 20px;
+}
+
+.border-b {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bor-c {
+  border: 1px solid rgba(249, 249, 249, 0.5);
+}
+
+.gap-20-px {
+  gap: 20px;
+}

@@ -12,6 +12,13 @@
 .txt_regular_12 {
   font-size: 12px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
+  line-height: 11.5px; /* Khoảng cách giữa các dòng */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
+.txt_regular_10 {
+  font-size: 10px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 14.32px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
@@ -35,12 +42,19 @@
 }
 .txt_medium_17 {
   font-size: 17px; /* Kích thước chữ mặc định */
-  font-family: "Roboto-Medium", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   line-height: 20.76px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
   font-weight: 500; /* Corresponds to Regular */
 }
 
+/* Bold */
+.txt_bold_24 {
+  font-size: 24px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 29.3px; /* Khoảng cách giữa các dòng */
+  font-weight: 700; /* Corresponds to Regular */
+}
 /*  */
 .txt_poppins_87 {
   font-size: 78px; /* Kích thước chữ mặc định */
@@ -50,10 +64,26 @@
   font-weight: 300; /* Corresponds to Regular */
 }
 
+.txt_poppins_68 {
+  font-size: 68px; /* Kích thước chữ mặc định */
+  font-family: "Poppins";
+  line-height: 42px; /* Khoảng cách giữa các dòng */
+  text-align: center; /* Căn trái mặc định */
+  font-weight: 300; /* Corresponds to Regular */
+}
+
 .txt_poppins_40 {
   font-size: 40px; /* Kích thước chữ mặc định */
   font-family: "Poppins";
   line-height: 42px; /* Khoảng cách giữa các dòng */
+  text-align: center; /* Căn trái mặc định */
+  font-weight: 300; /* Corresponds to Regular */
+}
+
+.txt_poppins_30 {
+  font-size: 36px; /* Kích thước chữ mặc định */
+  font-family: "Poppins";
+  line-height: 18px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
   font-weight: 300; /* Corresponds to Regular */
 }

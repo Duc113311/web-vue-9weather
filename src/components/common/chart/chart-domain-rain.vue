@@ -107,11 +107,12 @@ export default {
           datasets: [
             {
               label: "Chance of rain",
-              borderColor: "#F4F5F8",
+              borderColor: "#00E3F5",
               pointBackgroundColor: "#00E3F5",
-              borderWidth: 1,
-              pointBorderColor: "#474A8D",
-              pointRadius: 3,
+              pointBorderWidth: 1, // Độ dày viền của điểm
+              borderWidth: 2,
+              pointBorderColor: "#00E3F5",
+              pointRadius: 5,
               backgroundColor: gradient,
               fill: true,
               data: this.listDataProbability,
@@ -123,7 +124,7 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 26,
+            padding: 25,
           },
           plugins: {
             legend: {
@@ -143,12 +144,12 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 12,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return `${value} %`;
+                return `${value}%`;
               },
             },
           },

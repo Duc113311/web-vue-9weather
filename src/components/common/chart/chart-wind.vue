@@ -1,14 +1,13 @@
 <template>
-  <div class="w-[89rem] flex justify-between items-center">
+  <div class="w-[89rem] flex justify-between items-center p-chart">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_time text-center pb-4">
-        {{ convertDirectionEmoji(item?.windBearing) }}
+
+      <div class="txt_regular_17 pt-2 pb-1">
+        {{ renderHourly(item) }}
       </div>
-      <div class="flex justify-center items-center">
-        <div class="txt_regular_time pb-1">
-          {{ renderHourly(item) }}
-        </div>
+      <div class="txt_regular_17 text-center">
+        {{ convertDirectionEmoji(item?.windBearing) }}
       </div>
     </div>
   </div>
@@ -63,3 +62,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.p-chart {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+</style>

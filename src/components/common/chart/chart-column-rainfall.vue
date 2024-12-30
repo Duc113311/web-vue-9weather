@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container-rainfall w-[89rem]">
-    <div class="chart-wrapper w-full">
-      <canvas id="chart_hourly_rainfall" height="120" ref="canvas"></canvas>
+    <div class="chart-wrapper w-full relative">
+      <canvas id="chart_hourly_rainfall" height="110" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -138,7 +138,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: displayData,
-              borderRadius: 30,
+              borderRadius: 4,
               barThickness: 30,
             },
           ],
@@ -161,7 +161,7 @@ export default {
               align: "end",
               clip: false,
               font: {
-                size: 12,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
@@ -177,7 +177,7 @@ export default {
               display: false,
               title: {
                 display: false,
-                stepSize: 2,
+                stepSize: 3,
                 //   text: "Tháng",
               },
             },
@@ -206,9 +206,5 @@ export default {
 <style lang="scss">
 .chart-wrapper {
   width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
-}
-
-.chart-container-rainfall {
-  left: -10px;
 }
 </style>
