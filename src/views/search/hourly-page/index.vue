@@ -2,7 +2,7 @@
   <div class="w-full h-full">
     <!-- -->
     <div class="container mt-5">
-      <div class="header-h h-full w-full flex gap-4">
+      <div class="header-h h-full w-full flex gap-20-px">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ChartAvgWeather :key="indexState + Math.random()"> </ChartAvgWeather>
@@ -26,7 +26,7 @@
 
     <!--  -->
     <div class="container">
-      <div class="lg:flex w-full h-full pt-2 gap-4">
+      <div class="lg:flex w-full h-full pt-4 gap-20-px">
         <div class="left-hourly h-full lg:w-[68%] w-full">
           <!--  -->
           <ItemTime24h

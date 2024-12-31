@@ -1,11 +1,11 @@
 <template>
   <div class="w-full">
-    <div class="lg:flex items-center gap-4 w-full h-full">
+    <div class="lg:flex items-center gap-20-px w-full h-full">
       <div
         class="left-i w-full"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
-        <BaseComponent>
+        <BaseComponent :isShowPad="false">
           <template v-slot:header>
             <div class="flex items-center text-left gap-2">
               <img
@@ -13,7 +13,7 @@
                 width="24"
                 alt=""
               />
-              <div v-if="wardParam.country_key === 'vn'">
+              <div class="txt_medium_14" v-if="wardParam.country_key === 'vn'">
                 <span v-if="wardParam?.city && !wardParam?.district">
                   {{
                     $t(`Temperature_and_chance_of_rain_{city}_hour`, {
@@ -71,7 +71,7 @@
           </template>
 
           <div class="w-full gap-4">
-            <div class="w-auto h-[393px] mt-2">
+            <div class="w-auto h-[426px] pad-l-r-20 pad-t pad-b-10">
               <ChartTempRain></ChartTempRain>
             </div>
 

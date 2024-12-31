@@ -8,13 +8,15 @@
             width="24"
             alt=""
           />
-          <span>Radar Map</span>
+          <span class="txt_medium_14">Radar Map</span>
         </div>
       </template>
 
       <div class="w-full h-[430px]">
         <div class="w-full h-full relative">
           <iframe
+            ref="radarIframe"
+            :key="iframeKey"
             :src="renderRadar"
             width="100%"
             height="100%"
@@ -54,13 +56,22 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "radar-map-page",
 
   components: {
     BaseComponent,
+  },
+
+  data() {
+    return {
+      heightAuto: "auto",
+      originalPosition: null,
+      userLocation: null,
+      iframeKey: 0,
+    };
   },
 
   props: {
@@ -83,7 +94,7 @@ export default {
       return resultData;
     },
     renderRadar() {
-      const dataPosition = this.wardParam;
+      const dataPosition = this.originalPosition;
       const objectSetting = this.$store.state.commonModule.objectSettingSave;
       if (!dataPosition || !dataPosition.latitude || !dataPosition.longitude) {
         return null;
@@ -110,13 +121,17 @@ export default {
     },
   },
 
-  data() {
-    return {
-      heightAuto: "auto",
-    };
+  watch: {
+    originalPosition: {
+      handler() {
+        // Khi originalPosition thay đổi, iframe sẽ tự động cập nhật
+      },
+      deep: true,
+    },
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
     convertMetricWind(value) {
       if (value === "m/s") {
         return "ms";
@@ -136,19 +151,51 @@ export default {
     },
 
     toggleFullScreen() {
-      const iframe = this.$el.querySelector("iframe");
-      if (iframe) {
-        if (!document.fullscreenElement) {
-          iframe.requestFullscreen().catch((err) => {});
-        } else {
-          document.exitFullscreen();
-        }
-      }
+      // const iframe = this.$el.querySelector("iframe");
+      // if (iframe) {
+      //   if (!document.fullscreenElement) {
+      //     iframe.requestFullscreen().catch((err) => {});
+      //   } else {
+      //     document.exitFullscreen();
+      //   }
+      // }
+      this.$router.push("");
     },
 
-    onClickLocateFixed() {
-      debugger;
+    moveToPosition(position) {
+      // Giả sử bạn có một phương thức để di chuyển iframe
+      const jsCommand = `map.setView([${position.latitude}, ${position.longitude}], 7, { animate: true });`;
+
+      // Gửi lệnh JavaScript đến iframe
+      this.$refs.radarIframe.contentWindow.postMessage(
+        { action: "executeJS", command: jsCommand },
+        "*"
+      );
+
+      // Thêm hiệu ứng di chuyển (ví dụ: thông báo cho người dùng)
+      console.log(
+        `Di chuyển đến vị trí: ${position.latitude}, ${position.longitude}`
+      );
     },
+
+    // onClickLocateFixed() {},
+
+    onClickLocateFixed() {
+      // this.iframeKey += 1;
+      const initialPosition = {
+        latitude: this.wardParam.latitude,
+        longitude: this.wardParam.longitude,
+      };
+      this.moveToPosition(initialPosition);
+      // this.iframeKey += 1;
+    },
+  },
+
+  mounted() {
+    this.originalPosition = {
+      latitude: this.wardParam.latitude,
+      longitude: this.wardParam.longitude,
+    };
   },
 };
 </script>
@@ -175,5 +222,15 @@ export default {
 .bg-locate:hover,
 .bg-room:hover {
   transform: scale(1.1); /* Phóng to 10% */
+}
+
+iframe {
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent; /* Default border */
+}
+
+iframe.active-radar {
+  border: 2px solid #4caf50; /* Highlight border */
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.8); /* Optional glow effect */
 }
 </style>

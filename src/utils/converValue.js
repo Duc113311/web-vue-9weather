@@ -328,6 +328,63 @@ export function convertTimestampToHoursMinutes12(
   }
 }
 
+export function convertTimestampUnit12(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  // Lấy giờ và phút
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  let period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour % 12 || 12;
+  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
+
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    // return hours + ":" + minutes + " " + period;
+    return period;
+  } else if (numberTime === 1) {
+    return period;
+  }
+}
+
+export function convertTime12hTimeZoneNotNowUnit(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  // Lấy giờ và phút
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  let period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour % 12 || 12;
+  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
+
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    return hours + ":" + minutes;
+  } else if (numberTime === 1) {
+    return hours + ":" + minutes;
+  }
+}
+
 export function convertTime12hTimeZoneNotNow(
   timestamp,
   numberTime,

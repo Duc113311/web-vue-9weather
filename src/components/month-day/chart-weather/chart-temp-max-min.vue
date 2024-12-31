@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container w-[89rem]"
+    class="chart-container w-[89rem] mt-2"
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_tem_month" height="100" ref="canvas"></canvas>
+      <canvas id="chart_tem_month" height="140" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -133,11 +133,12 @@ export default {
           datasets: [
             {
               label: "Temperature",
-              borderColor: "#FADB38",
+              borderColor: "#EC9D00",
               pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
-              pointBorderColor: "#C27021",
-              pointRadius: 3,
+              pointBorderWidth: 0, // Độ dày viền của điểm
+              borderWidth: 2,
+              pointBorderColor: "#EC9D00",
+              pointRadius: 5,
               backgroundColor: gradient,
               fill: false,
               data: this.listTemperatureDataMax,
@@ -145,13 +146,13 @@ export default {
               datalabels: {
                 display: true,
                 align: "top",
-                borderRadius: 3,
+                borderRadius: 1,
                 font: {
-                  size: 10,
+                  size: 14,
                   //   weight: "bold", // Chỉnh độ đậm của chữ
                 },
-                color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-                offset: 1,
+                color: "#EC9D00", // Thay đổi màu sắc của nhãn dữ liệu
+                offset: 4,
                 formatter: (value, context) => {
                   return `${value}°`;
                 },
@@ -159,11 +160,12 @@ export default {
             },
             {
               label: "Temperature",
-              borderColor: "#FADB38",
+              borderColor: "#00D354",
               pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
+              pointBorderWidth: 0, // Độ dày viền của điểm
+              borderWidth: 2,
               pointBorderColor: "#C27021",
-              pointRadius: 3,
+              pointRadius: 5,
               backgroundColor: gradient,
               fill: "-1",
               data: this.listTemperatureDataMin,
@@ -173,10 +175,10 @@ export default {
                 align: "bottom",
                 borderRadius: 3,
                 font: {
-                  size: 10,
+                  size: 14,
                 },
-                color: "#ffffff",
-                offset: 2,
+                color: "#00D354",
+                offset: 4,
                 formatter: (value) => `${value}°`,
               },
             },
@@ -187,12 +189,7 @@ export default {
           maintainAspectRatio: false,
 
           layout: {
-            padding: {
-              top: 20, // Padding trên
-              right: 0, // Padding phải (nếu cần)
-              bottom: 20, // Padding dưới (nếu cần)
-              left: 0, // Padding trái (nếu cần)
-            },
+            padding: 20,
           },
           plugins: {
             legend: {

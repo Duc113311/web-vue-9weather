@@ -2,8 +2,10 @@
   <div class="w-[89rem] flex justify-between items-center">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="text-sm pb-1">{{ renderHourly(item).timestampValue }}</div>
-      <div class="text-xs pb-1">{{ convertToShortDay(item.time) }}</div>
+      <div class="txt_regular_14 pb-1">
+        {{ renderHourly(item).timestampValue }}
+      </div>
+      <div class="txt_regular_14 pb-1">{{ convertToShortDay(item.time) }}</div>
 
       <div class="flex justify-center items-center">
         <img :src="renderHourly(item).iconValue" alt="weather icon" />
@@ -55,4 +57,9 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.p-chart {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+</style>

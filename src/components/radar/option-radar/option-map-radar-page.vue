@@ -7,7 +7,7 @@
       class="w-full relative horizontal"
     >
       <div
-        class="w-full flex gap-3 h-auto mb-4 overflow-x-auto"
+        class="w-full flex gap-22-px h-auto mb-4 overflow-x-auto"
         style="scrollbar-width: thin"
       >
         <div

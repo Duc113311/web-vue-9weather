@@ -1,13 +1,13 @@
 <template>
   <div class="w-full">
     <!--   -->
-    <div class="flex items-center text-left gap-2 text-white mt-2">
+    <div class="flex items-center text-left gap-2 pad-t-b text-white">
       <img
         src="../../../assets/images/svg_v2/ic_cloud_sun.svg"
         width="24"
         alt=""
       />
-      <div v-if="breadcumsObject.country_key === 'vn'">
+      <div class="txt_medium_14" v-if="breadcumsObject.country_key === 'vn'">
         <span v-if="breadcumsObject?.city && !breadcumsObject?.district">
           {{
             $t(`weather_forecast_for_{city}`, {
@@ -67,8 +67,8 @@
       </div>
     </div>
     <div class="w-full h-full overflow-hidden">
-      <transition-group name="fade" tag="div">
-        <BaseComponent v-for="(item, index) in displayedItems" :key="index">
+      <transition-group name="fade" tag="div" class="gap-10-px flex flex-col">
+        <BaseList v-for="(item, index) in displayedItems" :key="index">
           <div class="w-full">
             <!--  -->
             <div
@@ -77,12 +77,12 @@
             >
               <!--  -->
               <div class="flex items-center">
-                <p class="w-[100px] text-left">
+                <p class="w-[100px] text-left txt_regular_17">
                   <span>
                     {{ convertTime(item?.time) }}
                   </span>
                 </p>
-                <p>
+                <p class="txt_regular_17">
                   {{
                     convertCapitalizeWords(
                       $t(`${item?.summary.replace(/\s+/g, "_")}`)
@@ -93,14 +93,17 @@
 
               <div class="flex items-center">
                 <div class="flex items-center gap-2 mr-4">
-                  <img :src="renderIcon(item)" alt="" />
-                  <p>{{ renderToCelsius(item?.temperature) }}</p>
+                  <img :src="renderIcon(item)" width="32" alt="" />
+                  <p class="txt_medium_20">
+                    {{ renderToCelsius(item?.temperature) }}
+                  </p>
                 </div>
                 <div>
                   <img
                     :id="'chevron-' + index"
                     src="../../../assets/images/svg_v2/ic_chevron_right.png"
                     alt=""
+                    width="28"
                   />
                 </div>
               </div>
@@ -114,10 +117,11 @@
                   <div class="flex items-center gap-2">
                     <img
                       src="../../../assets/images/svg_v2/ic_Temp.svg"
+                      width="24"
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("temperature") }}</p>
+                    <p class="txt_regular_14">{{ $t("temperature") }}</p>
                   </div>
 
                   <div class="flex items-center">
@@ -125,9 +129,10 @@
                       <div class="flex items-center">
                         <img
                           src="../../../assets/images/svg_v2/ic_temperature_min.svg"
+                          width="24"
                           alt=""
                         />
-                        <p>
+                        <p class="txt_medium_17">
                           {{
                             convertFahrenheitToCelsiusNot(
                               dailyOneGettersData?.apparentTemperatureMin
@@ -139,8 +144,9 @@
                         <img
                           src="../../../assets/images/svg_v2/ic_temperature_max.svg"
                           alt=""
+                          width="24"
                         />
-                        <p>
+                        <p class="txt_medium_17">
                           {{
                             convertFahrenheitToCelsiusNot(
                               dailyOneGettersData?.apparentTemperatureMax
@@ -156,11 +162,12 @@
                     <img
                       src="../../../assets/images/svg_v2/ic_smile.svg"
                       alt=""
+                      width="24"
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("real_feel") }}</p>
+                    <p class="txt_regular_14">{{ $t("real_feel") }}</p>
                   </div>
-                  <div class="flex items-center">
+                  <div class="flex items-center txt_medium_17">
                     <p>{{ renderToCelsius(item?.apparentTemperature) }}</p>
                   </div>
                 </div>
@@ -171,16 +178,15 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("uv") }}</p>
+                    <p class="txt_regular_14">{{ $t("uv") }}</p>
                   </div>
-                  <div class="flex items-center">
-                    <p>
+                  <div class="flex items-center gap-1">
+                    <span class="txt_medium_17">
                       {{ item?.uvIndex }}
-
-                      <span class="txt_regular_des"
-                        >({{ convertUvIndexName(item?.uvIndex) }})</span
-                      >
-                    </p>
+                    </span>
+                    <span class="txt_regular_14">
+                      ({{ convertUvIndexName(item?.uvIndex) }})
+                    </span>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
@@ -190,9 +196,9 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("precipitation") }}</p>
+                    <p class="txt_regular_14">{{ $t("precipitation") }}</p>
                   </div>
-                  <div class="flex items-center">
+                  <div class="flex items-center txt_medium_17">
                     <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
                   </div>
                 </div>
@@ -203,9 +209,9 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("Chance_of_rain") }}</p>
+                    <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
                   </div>
-                  <div class="flex items-center">
+                  <div class="flex items-center txt_medium_17">
                     <p>{{ item?.precipProbability * 100 }}%</p>
                   </div>
                 </div>
@@ -217,16 +223,16 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("air_quality") }}</p>
+                    <p class="txt_regular_14">{{ $t("air_quality") }}</p>
                   </div>
                   <div class="flex items-center">
-                    <p>
-                      {{ Math.round(item?.uvIndex) }}
+                    <span class="txt_medium_17">{{
+                      Math.round(item?.uvIndex)
+                    }}</span>
 
-                      <span class="txt_regular_des"
-                        >({{ convertAirIndexName(paramAirModule) }})</span
-                      >
-                    </p>
+                    <span class="txt_regular_14"
+                      >({{ convertAirIndexName(paramAirModule) }})</span
+                    >
                   </div>
                 </div>
               </div>
@@ -241,14 +247,16 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("wind_speed") }}</p>
+                    <p class="txt_regular_14">{{ $t("wind_speed") }}</p>
                   </div>
 
                   <div class="flex items-center">
-                    <p>
+                    <p class="txt_medium_17">
                       {{ convertWindSpeed(item.windSpeed) }}
-                      {{ convertUnitWindSpeed() }}
                     </p>
+                    <span class="txt_regular_14">{{
+                      convertUnitWindSpeed()
+                    }}</span>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
@@ -258,10 +266,12 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("wind_direction") }}</p>
+                    <p class="txt_regular_14">{{ $t("wind_direction") }}</p>
                   </div>
                   <div class="flex items-center">
-                    <p>{{ convertWindBearing(item?.windBearing) }}</p>
+                    <p class="txt_medium_17">
+                      {{ convertWindBearing(item?.windBearing) }}
+                    </p>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
@@ -271,10 +281,12 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("cloud_cover") }}</p>
+                    <p class="txt_regular_14">{{ $t("cloud_cover") }}</p>
                   </div>
                   <div class="flex items-center">
-                    <p>{{ Math.round(item.cloudCover * 100) }}%</p>
+                    <p class="txt_medium_17">
+                      {{ Math.round(item.cloudCover * 100) }}%
+                    </p>
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
@@ -284,13 +296,15 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("pressure") }}</p>
+                    <p class="txt_regular_14">{{ $t("pressure") }}</p>
                   </div>
-                  <div class="flex items-center">
-                    <p>
+                  <div class="flex items-center gap-1">
+                    <p class="txt_medium_17">
                       {{ convertPressure(item?.pressure) }}
-                      {{ convertUnitPressure() }}
                     </p>
+                    <span class="txt_regular_14">{{
+                      convertUnitPressure()
+                    }}</span>
                   </div>
                 </div>
 
@@ -301,12 +315,17 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("sunrise") }}</p>
+                    <p class="txt_regular_14">{{ $t("sunrise") }}</p>
                   </div>
-                  <div class="flex items-center">
-                    <p>
+                  <div class="flex items-center gap-1">
+                    <span class="txt_medium_17">
                       {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
-                    </p>
+                    </span>
+                    <span class="txt_regular_14"
+                      >({{
+                        convertTimeUnit12(dailyOneGettersData?.sunriseTime)
+                      }})</span
+                    >
                   </div>
                 </div>
 
@@ -317,18 +336,23 @@
                       alt=""
                       srcset=""
                     />
-                    <p class="txt_regular_des">{{ $t("sunset") }}</p>
+                    <p class="txt_regular_14">{{ $t("sunset") }}</p>
                   </div>
-                  <div class="flex items-center">
-                    <p>
+                  <div class="flex items-center gap-1">
+                    <span class="txt_medium_17">
                       {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
-                    </p>
+                    </span>
+                    <span class="txt_regular_14"
+                      >({{
+                        convertTimeUnit12(dailyOneGettersData?.sunriseTime)
+                      }})</span
+                    >
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </BaseComponent>
+        </BaseList>
       </transition-group>
 
       <div class="w-full text-left mt-3">
@@ -370,16 +394,19 @@ import {
   getUvSummaryName,
   capitalizeWords,
   getAirSummaryName,
+  convertTime12hTimeZoneNotNowUnit,
+  convertTimestampUnit12,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
 import removeAccents from "remove-accents";
+import BaseList from "@/components/common/baseList.vue";
 
 export default {
   name: "item-time-24h",
 
   components: {
-    BaseComponent,
+    BaseList,
   },
   data() {
     return {
@@ -577,9 +604,20 @@ export default {
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(value, 1, offsetValue);
+        return convertTime12hTimeZoneNotNowUnit(value, 1, offsetValue);
       } else {
         return convertTimestampToHoursMinutes(value, 1, offsetValue);
+      }
+    },
+
+    convertTimeUnit12(value) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestampUnit12(value, 1, offsetValue);
+      } else {
+        return "";
       }
     },
 

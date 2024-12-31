@@ -10,7 +10,7 @@
             width="24"
             alt=""
           />
-          <span>Radar</span>
+          <span class="txt_medium_14">Radar</span>
         </div>
       </template>
       <div v-if="renderRadar !== null" class="h-[100%]">

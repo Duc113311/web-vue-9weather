@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!--  -->
-    <BaseComponent :height="heightAuto">
+    <BaseComponent :height="heightAuto" :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -10,7 +10,7 @@
             alt=""
             srcset=""
           />
-          <div v-if="wardParam.country_key === 'vn'">
+          <div class="txt_medium_14" v-if="wardParam.country_key === 'vn'">
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
                 $t(`Weather_{city}`, {

@@ -2,7 +2,7 @@
   <div class="w-full h-full">
     <!-- -->
     <div class="container mt-5">
-      <div class="header-m h-full lg:flex w-full gap-4">
+      <div class="header-m h-full lg:flex w-full gap-20-px">
         <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <RadarMapPage
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="header-r h-full lg:flex w-full gap-4 mt-5">
+      <div class="header-r h-full lg:flex w-full gap-20-px mt-5">
         <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <OptionMapRadarPage

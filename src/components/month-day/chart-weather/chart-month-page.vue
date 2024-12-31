@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <BaseComponent :height="heightAuto">
+    <BaseComponent :height="heightAuto" :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <img
@@ -8,7 +8,7 @@
             width="24"
             alt=""
           />
-          <div v-if="wardParam.country_key === 'vn'">
+          <div class="txt_medium_14" v-if="wardParam.country_key === 'vn'">
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
                 $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
@@ -60,7 +60,7 @@
       </template>
 
       <div class="w-full gap-4">
-        <div class="w-auto h-[374px]">
+        <div class="w-auto h-[426px] pad-l-r-20 pad-t pad-b-10">
           <!-- <ChartTempRain></ChartTempRain> -->
           <div class="w-full relative h-full">
             <div class="w-full h-full relative">
@@ -93,22 +93,22 @@
                 </div>
               </vue-horizontal>
 
-              <div class="absolute w-full bottom-0 left-0 flex justify-between">
+              <div
+                class="absolute w-full bottom-0 left-0 flex justify-between pad-t-b-10"
+              >
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
-                  <span class="txt_regular_des">{{ $t("temperature") }}</span>
+                  <span class="txt_regular_12">{{ $t("temperature") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
-                  <span class="txt_regular_des">{{
-                    $t("Chance_of_rain")
-                  }}</span>
+                  <span class="txt_regular_12">{{ $t("Chance_of_rain") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
                   <div
                     class="bg-rainfall-c rounded-full w-[15px] h-[15px]"
                   ></div>
-                  <span class="txt_regular_des">{{ $t("precipitation") }}</span>
+                  <span class="txt_regular_12">{{ $t("precipitation") }}</span>
                 </div>
               </div>
             </div>

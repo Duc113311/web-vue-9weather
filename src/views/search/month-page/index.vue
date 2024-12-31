@@ -2,7 +2,7 @@
   <div class="w-full h-full">
     <!-- -->
     <div class="container mt-5">
-      <div class="header-m flex w-full gap-4 h-full">
+      <div class="header-m flex w-full gap-20-px h-full">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <CalendarPage
@@ -30,7 +30,7 @@
     </div>
 
     <div class="container">
-      <div class="header-b ld:block flex w-full gap-4 h-full">
+      <div class="header-b ld:block flex w-full gap-20-px h-full mt-4">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ChartMonthPage
@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full lg:h-[400px]">
+        <div class="right-hourly lg:w-[30%] w-full lg:h-[425px]">
           <!--  -->
           <RadarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -55,7 +55,7 @@
     </div>
 
     <div class="container">
-      <div class="header-b lg:flex w-full gap-4 h-full">
+      <div class="header-b lg:flex w-full gap-20-px mt-4 h-full">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
 

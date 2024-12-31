@@ -9,10 +9,10 @@
               width="24"
               alt=""
             />
-            <span>{{ $t("Calendar") }}</span>
+            <span class="txt_medium_14">{{ $t("Calendar") }}</span>
           </div>
 
-          <div>
+          <div class="txt_regular_17">
             {{ onvertToShortMonth(renderCalendar[0]?.time) }}
           </div>
         </div>
@@ -22,13 +22,13 @@
         <div class="w-full">
           <div class="calendar">
             <ul class="weeks bor-bottom bg-title-calender p-2">
-              <li>{{ $t("Monday") }}</li>
-              <li>{{ $t("Tuesday") }}</li>
-              <li>{{ $t("Wednesday") }}</li>
-              <li>{{ $t("Thursday") }}</li>
-              <li>{{ $t("Friday") }}</li>
-              <li class="weekend">{{ $t("Saturday") }}</li>
-              <li class="weekend">{{ $t("Sunday") }}</li>
+              <li class="txt_regular_14">{{ $t("Monday") }}</li>
+              <li class="txt_regular_14">{{ $t("Tuesday") }}</li>
+              <li class="txt_regular_14">{{ $t("Wednesday") }}</li>
+              <li class="txt_regular_14">{{ $t("Thursday") }}</li>
+              <li class="txt_regular_14">{{ $t("Friday") }}</li>
+              <li class="weekend txt_regular_14">{{ $t("Saturday") }}</li>
+              <li class="weekend txt_regular_14">{{ $t("Sunday") }}</li>
             </ul>
             <ul class="days p-4">
               <li
@@ -45,9 +45,9 @@
                 >
                   <template #reference>
                     <div
-                      class="flex flex-col p-1 justify-start gap-0.5 txt_light_14 rounded-xl"
+                      class="flex flex-col p-1 justify-start gap-1 txt_light_14 rounded-xl"
                     >
-                      <span class="txt_medium_des_16 text-right">{{
+                      <span class="txt_regular_12 text-right">{{
                         convertToShortDay(day.time)
                       }}</span>
                       <div class="flex justify-between">
@@ -67,19 +67,19 @@
                           class="size-img"
                           alt=""
                         /> -->
-                        <p class="txt_regular_14">
+                        <p class="txt_regular_12">
                           {{ convertTemperature(day.temperatureMax) }}° /
                           {{ convertTemperature(day.temperatureMin) }}°
                         </p>
                       </div>
 
-                      <div class="flex items-center gap-1">
+                      <div class="flex items-center gap-0.5">
                         <img
                           src="../../../assets/images/svg_v2/ic_chance_of_rain_24.svg"
                           alt=""
-                          class="size-img"
+                          width="14"
                         />
-                        <p class="weekend txt_regular_14">
+                        <p class="weekend txt_regular_12">
                           {{ Math.round(day.precipProbability * 100) }}%
                         </p>
                       </div>
@@ -199,13 +199,11 @@ export default {
 
 .calendar li {
   width: calc(100% / 7);
-  font-size: 1.07rem;
   position: relative; /* Make sure tooltip is positioned correctly */
   border-radius: 10px;
 }
 
 .calendar .weeks li {
-  font-weight: 500;
   cursor: default;
 }
 
@@ -229,7 +227,7 @@ export default {
 }
 
 .weekend {
-  color: #35d1de;
+  color: #00e3f5;
 }
 
 .days li::before {

@@ -138,7 +138,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: displayData,
-              borderRadius: 30,
+              borderRadius: 4,
               barThickness: 30,
             },
           ],
@@ -161,7 +161,7 @@ export default {
               align: "end",
               clip: false,
               font: {
-                size: 10,
+                size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu

@@ -6,6 +6,7 @@ import WidgetView from "../views/widget-create/form-iframe/index.vue";
 import NotFoundComponent from "../views/404/index.vue";
 import DashPage from "../views/index.vue";
 import SearchPage from "../views/search/index.vue";
+import RadarMap from "../views/radar-map/index.vue";
 
 const routes = [
   {
@@ -18,6 +19,12 @@ const routes = [
   { path: "/404", name: "404-page", component: NotFoundComponent }, // Component cho trang 404
 
   // v2
+
+  {
+    path: "/:location",
+    name: "radar-map",
+    component: RadarMap,
+  },
 
   {
     path: "",
