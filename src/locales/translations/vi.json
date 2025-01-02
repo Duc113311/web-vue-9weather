@@ -227,10 +227,12 @@
   "Weather_Month_for_{district}_{city}_{country}": "Thời tiết theo tháng tại {district}, {city}, {country}",
   "Local_National_Global": "Dự báo thời tiết hàng ngày của địa phương, quốc gia và toàn cầu",
   "Cloudy_skies": "Bầu trời nhiều mây với làn gió mát. Có khả năng xuất hiện mưa nhẹ, vì vậy bạn nên mang theo áo khoác nhẹ trước khi ra ngoài.",
+  "Heavy_rain_expected": "Heavy rain expected around 11 a.m., tapering off by early afternoon. Temperatures will remain mild, but the rain could be intense, so plan accordingly.",
   "Temperature_and_chance_of_rain_{city}_hour": "Nhiệt độ và khả năng mưa {city} trong những giờ tới",
   "Weather_forecast_for_{city}": "Dự báo thời tiết {city} những giờ tới",
   "Weather_{city}": "Thời tiết {city}",
   "Radar_weather_map_{city}": "Bản đồ thời tiết Radar {city}",
   "{city}_weather_forecast_next_30_days": "Dự báo thời tiết {city} 30 ngày tới",
-  "Temperature_and_chance_of_rain_{city}_next_30_days": "Nhiệt độ và khả năng mưa {city} trong 30 ngày tới"
+  "Temperature_and_chance_of_rain_{city}_next_30_days": "Nhiệt độ và khả năng mưa {city} trong 30 ngày tới",
+  "Lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies nunc. Nullam nec purus nec nunc ultricies"
 }

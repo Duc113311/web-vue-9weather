@@ -4,12 +4,7 @@
     <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <img
-            src="../../../assets/images/svg_v2/ic_cloud_rain_wind.svg"
-            width="24"
-            alt=""
-            srcset=""
-          />
+          <img :src="srcDayNight" width="24" alt="" srcset="" />
           <p class="txt_medium_14">{{ title }}</p>
         </div>
       </template>
@@ -45,6 +40,11 @@ export default {
     isShowDayNight: {
       type: Boolean,
       default: true,
+    },
+
+    srcDayNight: {
+      type: String,
+      default: "",
     },
   },
 

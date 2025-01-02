@@ -37,8 +37,8 @@
           <canvas
             id="draw_progression"
             class="w-full"
-            height="370"
-            width="680"
+            height="400"
+            width="700"
           ></canvas>
         </div>
       </div>
@@ -152,9 +152,9 @@ export default {
 
       ctx.clearRect(1, 0, canvas.width, canvas.height);
 
-      ctxDowner.strokeStyle = "#C1C1C1";
-      ctxUpper.strokeStyle = "#C4E032";
-      ctx.strokeStyle = "#FFFFFF";
+      ctxDowner.strokeStyle = "#C5C5C5";
+      ctxUpper.strokeStyle = "#F4DA2E";
+      ctx.strokeStyle = "#C9C9C9";
       ctxUpper.lineWidth = 5;
       ctxDowner.lineWidth = 5;
       ctx.lineWidth = 4;
@@ -163,7 +163,7 @@ export default {
       ctxUpper.stroke(path); // Vẽ đường cong
       ctxDowner.stroke(path); // Vẽ đường cong
 
-      ctxDowner.clearRect(0, 0, canvas.width, canvas.height * 0.3);
+      ctxDowner.clearRect(0, 0, canvas.width, canvas.height * 0.6);
       ctxUpper.clearRect(0, canvas.height * 0.6, canvas.width, canvas.height);
 
       ctx.drawImage(canvasDowner, 0, 0); // Vẽ canvas canvasDowner lên ctx

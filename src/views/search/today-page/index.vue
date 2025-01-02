@@ -20,6 +20,7 @@
               <TempDayNightPage
                 :key="indexState + Math.random()"
                 :title="dayTime"
+                :srcDayNight="srcDaytime"
               ></TempDayNightPage>
             </div>
             <div v-else class="w-full h-full">
@@ -32,6 +33,7 @@
             >
               <TempDayNightPage
                 :title="nightTime"
+                :srcDayNight="srcNighttime"
                 :isShowDayNight="isShowDayNight"
                 :key="indexState + Math.random()"
               ></TempDayNightPage>
@@ -177,6 +179,10 @@ export default {
       dayTime: this.$t("Daytime"),
       nightTime: this.$t("Nighttime"),
       isShowDayNight: false,
+      srcDaytime: require("../../../assets/images/svg_v2/ic_sun_daytime.svg"),
+      srcNighttime: require("../../../assets/images/svg_v2/ic_nighttime.svg"),
+      descriptDaytime: this.$t("Lorem_ipsum"),
+      descriptNighttime: this.$t("Lorem_ipsum"),
     };
   },
 
