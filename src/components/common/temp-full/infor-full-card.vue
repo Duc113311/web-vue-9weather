@@ -47,11 +47,7 @@
               alt=""
             />
             <p class="txt_medium_17">
-              {{
-                convertFahrenheitToCelsiusNot(
-                  dailyOneData?.apparentTemperatureMin
-                )
-              }}
+              {{ convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMin) }}
             </p>
           </div>
           <div class="flex items-center">
@@ -60,11 +56,7 @@
               alt=""
             />
             <p class="txt_medium_17">
-              {{
-                convertFahrenheitToCelsiusNot(
-                  dailyOneData?.apparentTemperatureMax
-                )
-              }}
+              {{ convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMax) }}
             </p>
           </div>
         </div>

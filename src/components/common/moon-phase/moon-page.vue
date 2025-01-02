@@ -16,30 +16,30 @@
         <!--  -->
 
         <div class="flex items-center w-full relative h-full">
-          <div class="text-left relative h-full">
+          <div class="text-left relative h-full w-[50%]">
             <div class="txt_medium_17 text-left">
               <span>{{ moonPhaseName }}</span>
             </div>
             <div class="txt_regular_12 pt-1">
               <p>{{ dateFull }}</p>
             </div>
-            <div class="absolute bottom-0">
+            <div class="absolute bottom-0 w-full">
               <div
-                class="flex justify-between items-center txt_regular_12 pt-1 pb-1"
+                class="flex w-full justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("moon_illumination") }}:</p>
                 <p>{{ moonPhaseInfo.illumination }} %</p>
               </div>
               <!--  -->
               <div
-                class="flex justify-between items-center txt_regular_12 pt-1 pb-1"
+                class="flex justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("moonrise") }}:</p>
                 <p>{{ convertTime(moonPhaseInfo.moonrise) }}</p>
               </div>
               <!--  -->
               <div
-                class="flex justify-between items-center txt_regular_12 pt-1 pb-1"
+                class="flex justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("next_full_moon") }}:</p>
                 <p>{{ moonPhaseInfo.nextFullMoon }} {{ $t("days") }}</p>
@@ -47,55 +47,8 @@
             </div>
           </div>
 
-          <div class="flex flex-col justify-center items-center">
-            <div
-              class="pb-5"
-              :style="{ transform: `rotate(${rotationDegrees}deg)` }"
-            >
-              <GlobalMoonIcon
-                :illuminate-percent="illuminate"
-                :is-clip-from-start="true"
-                :width="80"
-                :height="80"
-              >
-              </GlobalMoonIcon>
-            </div>
-            <div class="wrapper">
-              <div class="arrow">↓</div>
-              <div class="container-moon hover:cursor-pointer" ref="container">
-                <div
-                  class="flex flex-row"
-                  v-for="(dayData, index0) in next30DaysMoonPhases"
-                  :key="index0"
-                  :id="'child-' + index0"
-                >
-                  <div class="flex flex-col txt_regular_des_moon_12 mt-2">
-                    <div class="child pt-1 pb-1">
-                      <div
-                        v-for="(item, index) in numberOfSubChildren"
-                        :key="'child-' + index0 + '-sub-' + index"
-                        :id="'child-' + index0 + '-sub-' + index"
-                        class="sub-child"
-                      >
-                        <div
-                          v-if="index % 24 === 0"
-                          class="border border-white h-4"
-                        ></div>
-                        <div
-                          v-else-if="index % 4 === 0"
-                          class="border border-gray-500 h-3 opacity-70"
-                        ></div>
-                        <div
-                          v-else
-                          class="border border-white h-3 opacity-0"
-                        ></div>
-                      </div>
-                    </div>
-                    <!-- <p>{{ convertDayFull(dayData[0].dateFull) }}</p> -->
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="flex flex-col justify-center items-center w-[50%]">
+            <div class="text-center">Coming soon</div>
           </div>
         </div>
       </div>
@@ -130,7 +83,7 @@ export default {
   name: "moon-page",
   components: {
     BaseComponent,
-    GlobalMoonIcon,
+    // GlobalMoonIcon,
   },
 
   data() {
@@ -386,37 +339,37 @@ export default {
       this.calculateNext30DaysMoonPhases(this.renderPosition);
     }
 
-    this.container.addEventListener("mousedown", this.handleMouseDown);
-    this.container.addEventListener("mouseup", this.handleMouseUp);
-    this.container.addEventListener("mousemove", this.handleMouseMove);
-    this.container.addEventListener("mouseleave", this.handleMouseUp); // Để xử lý trường hợp khi chuột ra ngoài phần tử
+    // this.container.addEventListener("mousedown", this.handleMouseDown);
+    // this.container.addEventListener("mouseup", this.handleMouseUp);
+    // this.container.addEventListener("mousemove", this.handleMouseMove);
+    // this.container.addEventListener("mouseleave", this.handleMouseUp); // Để xử lý trường hợp khi chuột ra ngoài phần tử
 
-    this.$refs.container.addEventListener("scroll", () => {
-      const middleSubChild = this.getMiddleSubChild();
-      if (middleSubChild) {
-        const parts = middleSubChild.id.split("-");
-        const firstNumber = parseInt(parts[1], 10);
-        const secondNumber = parseInt(parts[3], 10);
-        debugger;
-        this.illuminate =
-          this.next30DaysMoonPhases[firstNumber][secondNumber].illumination;
-        this.moonPhaseName =
-          this.next30DaysMoonPhases[firstNumber][secondNumber].moonPhase;
-        this.dateFull =
-          this.next30DaysMoonPhases[firstNumber][secondNumber].dateFull;
-        this.rotationDegrees =
-          this.next30DaysMoonPhases[firstNumber][secondNumber].rotation;
-        this.moonPhaseInfo =
-          this.next30DaysMoonPhases[firstNumber][secondNumber].moonPhaseInfo;
-      }
-    });
+    // this.$refs.container.addEventListener("scroll", () => {
+    //   const middleSubChild = this.getMiddleSubChild();
+    //   if (middleSubChild) {
+    //     const parts = middleSubChild.id.split("-");
+    //     const firstNumber = parseInt(parts[1], 10);
+    //     const secondNumber = parseInt(parts[3], 10);
+    //     debugger;
+    //     this.illuminate =
+    //       this.next30DaysMoonPhases[firstNumber][secondNumber].illumination;
+    //     this.moonPhaseName =
+    //       this.next30DaysMoonPhases[firstNumber][secondNumber].moonPhase;
+    //     this.dateFull =
+    //       this.next30DaysMoonPhases[firstNumber][secondNumber].dateFull;
+    //     this.rotationDegrees =
+    //       this.next30DaysMoonPhases[firstNumber][secondNumber].rotation;
+    //     this.moonPhaseInfo =
+    //       this.next30DaysMoonPhases[firstNumber][secondNumber].moonPhaseInfo;
+    //   }
+    // });
   },
 
   beforeUnmount() {
-    this.container.removeEventListener("mousedown", this.handleMouseDown);
-    this.container.removeEventListener("mouseup", this.handleMouseUp);
-    this.container.removeEventListener("mousemove", this.handleMouseMove);
-    this.container.removeEventListener("mouseleave", this.handleMouseUp);
+    // this.container.removeEventListener("mousedown", this.handleMouseDown);
+    // this.container.removeEventListener("mouseup", this.handleMouseUp);
+    // this.container.removeEventListener("mousemove", this.handleMouseMove);
+    // this.container.removeEventListener("mouseleave", this.handleMouseUp);
   },
 };
 </script>

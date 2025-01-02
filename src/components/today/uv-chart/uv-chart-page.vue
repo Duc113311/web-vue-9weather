@@ -15,30 +15,34 @@
               class="chart-container w-[89rem] mb-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="260" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="270" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
         <div class="absolute w-full bottom-0 left-0">
           <div class="flex justify-center items-center w-full">
-            <div class="flex-1 bg-short text-white text-center pl-4 pr-4">
-              <p class="title-tab">{{ $t("Low") }}</p>
+            <div class="flex-1 bg-short text-white text-center pl-4 pr-4 pt-2">
+              <p class="txt_regular_12">{{ $t("Low") }}</p>
               <p class="des-atb">0-2</p>
             </div>
-            <div class="flex-1 bg-Medium text-center">
-              <p class="title-tab">{{ $t("Moderate") }}</p>
+            <div class="flex-1 bg-Medium text-center pl-4 pr-4 pt-2">
+              <p class="txt_regular_12">{{ $t("Moderate") }}</p>
               <p class="des-atb">3-5</p>
             </div>
-            <div class="flex-1 bg-High text-center">
-              <p class="title-tab">{{ $t("High") }}</p>
+            <div class="flex-1 bg-High text-center pl-4 pr-4 pt-2">
+              <p class="txt_regular_12">{{ $t("High") }}</p>
               <p class="des-atb">6-7</p>
             </div>
-            <div class="flex-1 bg-Very-high text-white text-center">
-              <p class="title-tab">{{ $t("Very_High") }}</p>
+            <div
+              class="flex-1 bg-Very-high text-white text-center pl-4 pr-4 pt-2"
+            >
+              <p class="txt_regular_12">{{ $t("Very_High") }}</p>
               <p class="des-atb">8-10</p>
             </div>
-            <div class="flex-1 bg-Extremely-high text-white text-center">
-              <p class="title-tab">{{ $t("Extreme") }}</p>
+            <div
+              class="flex-1 bg-Extremely-high text-white text-center pl-4 pr-4 pt-2"
+            >
+              <p class="txt_regular_12">{{ $t("Extreme") }}</p>
               <p class="des-atb">> 10</p>
             </div>
           </div>
@@ -136,6 +140,15 @@ export default {
       const displayData = this.listUvIndexData.map((value) =>
         value === 0 ? 0.5 : value
       );
+
+      // Thay đổi màu sắc của từng cột dựa trên giá trị
+      const backgroundColors = displayData.map((value) => {
+        if (value <= 2) return "#389311"; // Màu cho giá trị thấp
+        if (value <= 5) return "#F3E52B"; // Màu cho giá trị trung bình
+        if (value <= 7) return "#EE621D"; // Màu cho giá trị cao
+        if (value <= 10) return "#CF2526"; // Màu cho giá trị rất cao
+        return "#9064CB"; // Màu cho giá trị cực cao
+      });
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
@@ -143,12 +156,11 @@ export default {
           datasets: [
             {
               label: "Uv Index",
-              borderColor: "#FADB38",
               pointBackgroundColor: "#ffffff",
               borderWidth: 1,
               pointBorderColor: "#C27021",
               pointRadius: 10,
-              backgroundColor: gradient,
+              backgroundColor: backgroundColors,
               fill: true,
               data: displayData,
               borderRadius: 4,
@@ -230,22 +242,22 @@ export default {
   opacity: 0.5;
 }
 .bg-short {
-  background-color: #507a46;
+  background-color: #389311;
 }
 
 .bg-Medium {
-  background-color: #cbd956;
+  background-color: #f3e52b;
 }
 
 .bg-High {
-  background-color: #ecc32b;
+  background-color: #ee621d;
 }
 
 .bg-Very-high {
-  background-color: #ff6272;
+  background-color: #cf2526;
 }
 
 .bg-Extremely-high {
-  background-color: #ff38a2;
+  background-color: #9064cb;
 }
 </style>

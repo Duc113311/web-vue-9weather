@@ -147,7 +147,7 @@ export default {
                 size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
-              color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
+              color: "#00E3F5", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
                 return `${value}%`;
               },
@@ -169,7 +169,7 @@ export default {
                 //   text: "Giá trị",
               },
               beginAtZero: true,
-              max: 110,
+              max: 120,
             },
           },
           elements: {

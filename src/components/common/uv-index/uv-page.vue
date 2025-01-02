@@ -163,11 +163,11 @@ export default {
 
     getColorFromPercentage(percentage) {
       if (percentage) {
-        if (percentage <= 2) return "#9dc194";
-        if (percentage <= 5) return "#cbd956";
-        if (percentage <= 7) return "#ecc32b";
-        if (percentage <= 10) return "#f9b81d";
-        return "#ff0dd3"; // Giá trị phần trăm từ 90 đến 100
+        if (percentage <= 2) return "#389311";
+        if (percentage <= 5) return "#F3E52B";
+        if (percentage <= 7) return "#EE621D";
+        if (percentage <= 10) return "#CF2526";
+        return "#9064CB"; // Giá trị phần trăm từ 90 đến 100
       }
     },
   },

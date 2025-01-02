@@ -28,7 +28,7 @@
             class="flex justify-between items-center pt-2 pb-2 cursor-pointer item-city"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
           >
-            <div class="txt_regular_17">
+            <div class="txt_medium_15">
               {{ $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`) }}
             </div>
             <img

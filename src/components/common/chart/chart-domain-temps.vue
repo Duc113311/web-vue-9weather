@@ -119,10 +119,10 @@ export default {
             {
               label: "Temperature",
               borderColor: "#FADB38",
-              pointBackgroundColor: "#ffffff",
+              pointBackgroundColor: "#FADB38",
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: "#ffffff",
+              pointBorderColor: "#FADB38",
               pointRadius: 5, // Bán kính điểm
               backgroundColor: gradient,
               fill: true, // Tô nền dưới line

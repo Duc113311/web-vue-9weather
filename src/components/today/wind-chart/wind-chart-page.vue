@@ -14,7 +14,7 @@
               class="chart-container w-[89rem]"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="310" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -24,7 +24,7 @@
         >
           <div class="flex items-center text-left gap-2">
             <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
-            <span class="txt_regular_des">{{
+            <span class="txt_regular_12">{{
               $t(`Wind_speed_{unit}`, {
                 unit: objectSetting.activeWindSpeed_save,
               })
@@ -247,7 +247,7 @@ export default {
 .horizontal >>> .v-hl-btn-next {
   display: none !important;
 
-  right: 24px !important;
+  right: 10px !important;
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
@@ -257,7 +257,7 @@ export default {
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  right: 10px !important;
+  right: 24px !important;
   opacity: 0.5;
 }
 .bg-wind {

@@ -91,22 +91,24 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
+  bottom: 90px !important;
   left: 24px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
+  bottom: 90px !important;
   right: 24px !important;
   opacity: 0.5;
 }
 
 .bg-temp-c {
-  background-color: #ec9d00;
+  background-color: #fadb38;
 }
 
 .bg-rain-c {
-  background-color: #39e4f2;
+  background-color: #00e3f5;
 }
 
 .bg-rainfall-c {

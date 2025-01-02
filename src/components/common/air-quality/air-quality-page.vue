@@ -31,12 +31,12 @@
 
         <div class="w-full items-center gap-2">
           <div id="chart" class="w-full">
-            <!-- <apexchart
-              height="100"
+            <apexchart
+              height="120"
               type="area"
               :options="chartOptions"
               :series="series"
-            /> -->
+            />
           </div>
         </div>
       </div>

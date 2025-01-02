@@ -54,10 +54,12 @@
     </div>
     <!--  -->
 
-    <div class="container local-d lg:flex block w-full justify-between gap-4">
+    <div
+      class="container local-d lg:flex block w-full justify-between gap-20-px pt-4 pb-4"
+    >
       <!--  -->
-      <div class="md:flex block justify-between lg:w-[70%] w-full gap-4">
-        <div class="left-c md:w-[50%] w-full">
+      <div class="md:flex block justify-between lg:w-[70%] w-full gap-20-px">
+        <div class="left-c md:w-[50%] w-full flex flex-col gap-20-px">
           <!--  -->
           <div
             class="w-full"
@@ -70,7 +72,7 @@
           </div>
           <div
             class="w-full"
-            v-if="currentlyData && Object.keys(currentlyData).length < 0"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <MoonPage :key="indexState + Math.random()"></MoonPage>
           </div>
@@ -79,7 +81,7 @@
           </div>
         </div>
 
-        <div class="center-c md:w-[50%] w-full">
+        <div class="center-c md:w-[50%] w-full flex flex-col gap-20-px">
           <!--  -->
           <div
             class="w-full"
@@ -115,7 +117,7 @@
       </div>
     </div>
 
-    <div class="container local-c w-full flex gap-4">
+    <div class="container local-c w-full flex gap-20-px">
       <div
         class="left-location lg:w-[70%] w-[60%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"

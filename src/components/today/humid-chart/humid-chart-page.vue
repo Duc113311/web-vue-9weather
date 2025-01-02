@@ -24,7 +24,7 @@
         >
           <div class="flex items-center text-left gap-2">
             <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
-            <span class="txt_regular_des">{{
+            <span class="txt_regular_12">{{
               $t(`Humidity_{unit}`, {
                 unit: "%",
               })
@@ -221,13 +221,13 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  left: 10px !important;
+  left: 24px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  right: 10px !important;
+  right: 24px !important;
   opacity: 0.5;
 }
 .bg-humid {

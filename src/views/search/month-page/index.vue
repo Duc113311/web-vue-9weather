@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full lg:h-[425px]">
+        <div class="right-hourly lg:w-[30%] w-full lg:h-[463px]">
           <!--  -->
           <RadarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"

@@ -60,7 +60,7 @@
       </template>
 
       <div class="w-full gap-4">
-        <div class="w-auto h-[426px] pad-l-r-20 pad-t pad-b-10">
+        <div class="w-auto h-[465px] pad-l-r-20 pad-t pad-b-10">
           <!-- <ChartTempRain></ChartTempRain> -->
           <div class="w-full relative h-full">
             <div class="w-full h-full relative">
@@ -98,7 +98,11 @@
               >
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
-                  <span class="txt_regular_12">{{ $t("temperature") }}</span>
+                  <span class="txt_regular_12">{{ $t("High") }}</span>
+                </div>
+                <div class="flex items-center text-left gap-2">
+                  <div class="bg-temp-d rounded-full w-[15px] h-[15px]"></div>
+                  <span class="txt_regular_12">{{ $t("low") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
@@ -228,6 +232,9 @@ export default {
   background-color: #39e4f2;
 }
 
+.bg-temp-d {
+  background-color: #02cc55;
+}
 .bg-rainfall-c {
   background-color: #327cee;
 }

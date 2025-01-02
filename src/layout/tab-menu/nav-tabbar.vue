@@ -357,10 +357,61 @@ export default {
         const countryKey = this.breadcumsObject.country_key;
 
         if (countryKey.toLowerCase() === "vn") {
-          await this.$router.push({
+          // await this.$router.push({
+          //   name: screamName,
+          //   params: {
+          //     language: this.renderLanguage,
+          //     location: [this.breadcumsObject.country_key.toLowerCase()],
+          //   },
+          // });
+
+          let routeParams = {
             name: screamName,
-            params: this.$route.params,
-          });
+            params: {
+              language: this.renderLanguage,
+              location: [this.breadcumsObject.country_key.toLowerCase()],
+            },
+          };
+
+          // Xây dựng mảng location dựa vào điều kiện
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length === 0
+          ) {
+            routeParams.params.location.push(
+              this.convertLowerCase(this.breadcumsObject.city)
+            );
+          }
+
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length !== 0 &&
+            this.breadcumsObject.ward.length === 0
+          ) {
+            routeParams.params.location.push(
+              this.convertLowerCase(this.breadcumsObject.district)
+            );
+          }
+
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length !== 0 &&
+            this.breadcumsObject.ward.length !== 0
+          ) {
+            routeParams.params.location.push(
+              this.convertToSlug(
+                this.removeWordAndAccents(this.breadcumsObject.ward, [
+                  "Xã",
+                  "Thị Xã",
+                  "Phường",
+                  "Thị Trấn",
+                ])
+              )
+            );
+          }
+
+          // Thêm query param để force component re-render
+          await this.$router.push(routeParams);
 
           // Chuyển route và đợi cho đến khi navigation hoàn tất
           this.setKeyIndexComponent(1);

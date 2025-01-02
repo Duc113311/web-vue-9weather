@@ -134,7 +134,7 @@ export default {
             {
               label: "Temperature",
               borderColor: "#EC9D00",
-              pointBackgroundColor: "#ffffff",
+              pointBackgroundColor: "#EC9D00",
               pointBorderWidth: 0, // Độ dày viền của điểm
               borderWidth: 2,
               pointBorderColor: "#EC9D00",
@@ -161,7 +161,7 @@ export default {
             {
               label: "Temperature",
               borderColor: "#00D354",
-              pointBackgroundColor: "#ffffff",
+              pointBackgroundColor: "#00D354",
               pointBorderWidth: 0, // Độ dày viền của điểm
               borderWidth: 2,
               pointBorderColor: "#C27021",

@@ -24,7 +24,7 @@
         </div>
         <div class="txt_regular_12 text-start">
           {{ $t("real_feel") }}
-          {{ renderToCelsius(currentlyDataRender?.apparentTemperature) }}
+          {{ renderToCelsiusAndUnit(currentlyDataRender?.apparentTemperature) }}
         </div>
       </div>
     </div>

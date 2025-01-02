@@ -110,7 +110,7 @@
                       :id="'chevron-' + index"
                       src="../../../assets/images/svg_v2/ic_chevron_right.png"
                       alt=""
-                      width="28"
+                      width="24"
                     />
                   </div>
                 </div>
@@ -212,7 +212,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <img
-                        src="../../../assets/images/svg_v2/ic_precititation.svg"
+                        src="../../../assets/images/svg_v2/ic_droplet.svg"
                         alt=""
                         srcset=""
                       />
@@ -225,7 +225,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <img
-                        src="../../../assets/images/svg_v2/ic_droplet.svg"
+                        src="../../../assets/images/svg_v2/ic_precititation.svg"
                         alt=""
                         srcset=""
                       />
@@ -270,7 +270,7 @@
                       <p class="txt_regular_14">{{ $t("wind_speed") }}</p>
                     </div>
 
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
                         {{ convertWindSpeed(item.windSpeed) }}
                       </p>
@@ -339,12 +339,10 @@
                     </div>
                     <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
-                        {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
+                        {{ convertTimeUnit(item?.sunriseTime) }}
                       </p>
                       <span class="txt_regular_14"
-                        >({{
-                          convertTimeUnit12(dailyOneGettersData?.sunriseTime)
-                        }})</span
+                        >({{ convertTimeUnit12(item?.sunriseTime) }})</span
                       >
                     </div>
                   </div>
@@ -360,12 +358,10 @@
                     </div>
                     <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
-                        {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
+                        {{ convertTimeUnit(item?.sunsetTime).split(" ")[0] }}
                       </p>
                       <span class="txt_regular_14"
-                        >({{
-                          convertTimeUnit12(dailyOneGettersData?.sunriseTime)
-                        }})</span
+                        >({{ convertTimeUnit12(item?.sunriseTime) }})</span
                       >
                     </div>
                   </div>
@@ -451,6 +447,12 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     ...mapGetters("airQualityModule", ["airObjectGetters"]),
 
+    timePeriodSunsetTime() {
+      const timeString = this.convertTimeUnit(
+        this.dailyOneGettersData?.sunsetTime
+      );
+      return timeString.split(" ")[1]; // Lấy phần AM/PM
+    },
     hourly30DayhGettersData() {
       return this.listDaily30DayGetters;
     },
