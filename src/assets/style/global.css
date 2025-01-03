@@ -92,7 +92,7 @@
 .el-color-picker__color {
   border: none !important;
 }
-.el-color-picker__color{
+.el-color-picker__color {
   border: 1px solid #ebe4e4 !important;
 }
 .el-color-picker__trigger {
@@ -206,4 +206,8 @@
 .el-breadcrumb__inner.is-link:hover {
   color: #cfb5b5 !important;
   cursor: pointer;
+}
+
+.el-popover.el-popper {
+  background: #dfecff !important;
 }

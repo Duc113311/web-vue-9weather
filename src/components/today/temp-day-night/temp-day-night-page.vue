@@ -19,6 +19,7 @@
 import BaseComponent from "@/components/common/baseComponent.vue";
 import InforCommon from "./infor-common.vue";
 import { mapGetters } from "vuex";
+import { timeConvertUTC } from "@/utils/converValue";
 
 export default {
   name: "temp-day-night-page",
@@ -49,10 +50,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["hourly24hGetters"]),
+    ...mapGetters("weatherModule", [
+      "hourly24hGetters",
+      "locationOffsetGetters",
+      "dailyOneGetters",
+    ]),
 
     hourly24hData() {
-      return this.convertTempDayNight(this.hourly24hGetters);
+      return this.convertDataDayNight(this.hourly24hGetters);
     },
 
     isShowDayNightData() {
@@ -61,6 +66,123 @@ export default {
   },
 
   methods: {
+    convertDataDayNight(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      const timeSunrise = this.dailyOneGetters?.sunriseTime;
+      const timeSunsetTime = this.dailyOneGetters?.sunsetTime;
+
+      const listHourly24h = value.slice(0, 24);
+
+      const timeSunriseConvert = timeConvertUTC(
+        timeSunrise,
+        this.locationOffsetGetters.offset,
+        unitSetting.activeTime_save
+      );
+
+      const timeSunsetTimeConvert = timeConvertUTC(
+        timeSunsetTime,
+        this.locationOffsetGetters.offset,
+        unitSetting.activeTime_save
+      );
+
+      let listDaytimeData = [];
+      let listNighttimeData = [];
+
+      for (let index = 0; index < listHourly24h.length; index++) {
+        const element = listHourly24h[index];
+
+        const timeItem = timeConvertUTC(
+          element.time,
+          this.locationOffsetGetters?.offset,
+          unitSetting.activeTime_save
+        );
+
+        if (timeSunrise <= element.time && element.time <= timeSunsetTime) {
+          //
+          listDaytimeData.push(element);
+        } else {
+          listNighttimeData.push(element);
+        }
+      }
+
+      let totalDay = 0;
+      let totalDayProbability = 0;
+      let totalDayIntensity = 0;
+      for (let i = 0; i < listDaytimeData.length; i++) {
+        totalDay += listDaytimeData[i].temperature;
+        totalDayProbability += listDaytimeData[i].precipProbability;
+        totalDayIntensity += listDaytimeData[i].precipIntensity;
+      }
+      let totalNight = 0;
+      let totalNightProbability = 0;
+      let totalNightIntensity = 0;
+      for (let i = 0; i < listNighttimeData.length; i++) {
+        totalNight += listNighttimeData[i].temperature;
+        totalNightProbability += listNighttimeData[i].precipProbability;
+        totalNightIntensity += listNighttimeData[i].precipIntensity;
+      }
+
+      const avgTempDaytime = totalDay / listDaytimeData.length;
+      const avgTempNighttime = totalNight / listNighttimeData.length;
+
+      const avgProbabilityDaytime =
+        totalDayProbability / listDaytimeData.length;
+      const avgIntensityDaytime = totalDayIntensity / listDaytimeData.length;
+
+      const avgProbabilityNighttime =
+        totalNightProbability / listNighttimeData.length;
+      const avgIntensityNighttime =
+        totalNightIntensity / listNighttimeData.length;
+
+      const maxTemp = Math.max(
+        ...listDaytimeData.map((obj) => obj.temperature)
+      );
+
+      const maxObject = listDaytimeData.find(
+        (obj) => obj.temperature === maxTemp
+      );
+
+      const minTemp = Math.max(
+        ...listNighttimeData.map((obj) => obj.temperature)
+      );
+      const minObject = listNighttimeData.find(
+        (obj) => obj.temperature === minTemp
+      );
+
+      const maxUvIndex = Math.max(...listDaytimeData.map((obj) => obj.uvIndex));
+
+      const objectDaytime = {
+        tempAvg: avgTempDaytime,
+        tempMaxMin: maxTemp,
+        icon: maxObject.icon,
+        summary: maxObject.summary,
+        apparentTemperature: maxObject.apparentTemperature,
+        UvMax: maxUvIndex,
+        ChanceOfRainAvg: avgProbabilityDaytime,
+        SumRainfall: avgIntensityDaytime,
+      };
+
+      const objectNighttime = {
+        tempAvg: avgTempNighttime,
+        tempMaxMin: minTemp,
+        icon: minObject.icon,
+        summary: minObject.summary,
+        apparentTemperature: minObject.apparentTemperature,
+        UvMax: 0,
+        ChanceOfRainAvg: avgProbabilityNighttime,
+        SumRainfall: avgIntensityNighttime,
+      };
+
+      if (this.isShowDayNightData) {
+        console.log("objectDaytime", objectDaytime);
+
+        return objectDaytime;
+      }
+      console.log("objectNighttime", objectNighttime);
+
+      return objectNighttime;
+    },
     convertTempDayNight(value) {
       const dataList = value.slice(0, 24);
       const dayData = [];
@@ -69,9 +191,25 @@ export default {
       const morningData = [];
       const eveningData = [];
 
+      for (let index = 0; index < this.dailyDataGetters.length; index++) {
+        const element = this.dailyDataGetters[index];
+        const timeConvertUTCValue = timeConvertUTC(
+          element.time,
+          this.locationOffsetGetters?.offset
+        );
+
+        console.log("time-day", timeConvertUTCValue);
+      }
       debugger;
       //   Ngày đêm
       dataList.forEach((data) => {
+        const timeConvertUTCValue = timeConvertUTC(
+          data.time,
+          this.locationOffsetGetters?.offset
+        );
+
+        console.log("time-hourly", timeConvertUTCValue);
+
         const date = new Date(data.time * 1000); // Chuyển UNIX timestamp sang đối tượng Date
         const hours = date.getUTCHours(); // Lấy giờ UTC
 

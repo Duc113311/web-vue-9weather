@@ -3,10 +3,10 @@
     <!--  -->
     <div class="c-temp text-left pt-2">
       <div class="flex items-center justify-start text-center gap-2">
-        <img width="50" :src="renderIcon(currentlyData)" alt="" />
+        <img width="50" :src="renderIcon(dataDayNightRender?.icon)" alt="" />
         <div class="flex items-start text-start">
           <p class="txt_poppins_68">
-            {{ convertFahrenheitToCelsiusNotUnit(dataDayNightRender) }}
+            {{ convertFahrenheitToCelsiusNotUnit(dataDayNightRender?.tempAvg) }}
           </p>
           <p class="txt_poppins_30">°</p>
         </div>
@@ -16,14 +16,16 @@
         <div class="txt_regular_17 text-left">
           {{
             convertCapitalizeWords(
-              $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+              $t(`${dataDayNightRender?.summary.replace(/\s+/g, "_")}`)
             )
           }}
         </div>
         <div class="txt_regular_12 text-left">
           {{ $t("real_feel") }}
           {{
-            convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature)
+            convertFahrenheitToCelsiusNot(
+              dataDayNightRender?.apparentTemperature
+            )
           }}
         </div>
       </div>
@@ -43,11 +45,11 @@
         </div>
         <div class="items-center flex gap-1">
           <span class="txt_medium_17">{{
-            Math.round(currentlyData?.uvIndex)
+            Math.round(dataDayNightRender?.UvMax)
           }}</span>
 
           <span class="txt_regular_14"
-            >({{ convertUvIndexName(currentlyData?.uvIndex) }})</span
+            >({{ convertUvIndexName(dataDayNightRender?.UvMax) }})</span
           >
         </div>
       </div>
@@ -61,7 +63,7 @@
           <p class="txt_regular_14">{{ $t("precipitation") }}</p>
         </div>
         <p class="txt_medium_17">
-          {{ convertPrecipitation(currentlyData?.precipIntensity) }}
+          {{ convertPrecipitation(dataDayNightRender?.SumRainfall) }}
         </p>
       </div>
       <div class="flex justify-between items-center">
@@ -74,14 +76,14 @@
           <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_17">
-          {{ Math.round(currentlyData?.precipProbability * 100) }}%
+          {{ Math.round(dataDayNightRender?.ChanceOfRainAvg * 100) }}%
         </p>
       </div>
     </div>
 
     <div class="text-left w-full txt_regular_14 pt-4 pb-6">
       <p>
-        {{ $t("Cloudy_skies") }}
+        {{ $t("Lorem_ipsum") }}
       </p>
     </div>
   </div>
@@ -125,16 +127,13 @@ export default {
       return this.currentlyGetters;
     },
     dataDayNightRender() {
-      return this.convertDataDayNight(
-        this.renderTempoDay,
-        this.isShowDayNightData
-      );
+      return this.renderTempoDay;
     },
   },
 
   methods: {
     renderIcon(val) {
-      const iconValue = getIconHourlyForecastTheme(val.icon);
+      const iconValue = getIconHourlyForecastTheme(val);
       return iconValue;
     },
     convertCapitalizeWords(value) {

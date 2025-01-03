@@ -146,10 +146,10 @@ export default {
           datasets: [
             {
               label: "Wind speed",
-              borderColor: "#FADB38",
-              pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
-              pointBorderColor: "#C27021",
+              borderColor: "#e6e6e6",
+              pointBackgroundColor: "#e6e6e6",
+              borderWidth: 2,
+              pointBorderColor: "#e6e6e6",
               pointRadius: 5,
               backgroundColor: gradient,
               fill: true,

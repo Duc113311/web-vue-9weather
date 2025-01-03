@@ -25,7 +25,10 @@
               class="left-main h-full"
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
             >
-              <TempDayNightPage :title="dayTime"></TempDayNightPage>
+              <TempDayNightPage
+                :title="dayTime"
+                :srcDayNight="srcDaytime"
+              ></TempDayNightPage>
             </div>
             <div v-else class="w-full h-full">
               <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -35,7 +38,11 @@
               class="right-main"
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
             >
-              <TempDayNightPage :title="nightTime"></TempDayNightPage>
+              <TempDayNightPage
+                :title="nightTime"
+                :srcDayNight="srcNighttime"
+                :isShowDayNight="isShowDayNight"
+              ></TempDayNightPage>
             </div>
             <div v-else class="w-full h-[444px]">
               <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -179,7 +186,10 @@ export default {
   data() {
     return {
       dayTime: this.$t("Daytime"),
+      isShowDayNight: false,
       nightTime: this.$t("Nighttime"),
+      srcDaytime: require("../../assets/images/svg_v2/ic_sun_daytime.svg"),
+      srcNighttime: require("../../assets/images/svg_v2/ic_nighttime.svg"),
     };
   },
 

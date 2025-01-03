@@ -122,7 +122,8 @@
                 >{{ $t("Your_current_location") }}:</span
               >
               <span
-                class="txt_medium_17"
+                class="txt_medium_17 cursor-pointer"
+                @click="onClickRechange()"
                 v-if="currentLocationChome?.country_key?.toLowerCase() === 'vn'"
                 >{{
                   $t(

@@ -134,8 +134,8 @@ export default {
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "#0CFFD3"); // Màu trên (#F5A300 với độ mờ 50%)
-      gradient.addColorStop(1, "#0066FF00"); // Màu dưới (#F5D400 với độ mờ 10%)
+      gradient.addColorStop(0, "rgba(12, 255, 211, 0)"); // Màu trên (#F5A300 với độ mờ 50%)
+      gradient.addColorStop(1, "rgba(0, 102, 255, 1)"); // Màu dưới (#F5D400 với độ mờ 10%)
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -144,10 +144,12 @@ export default {
           datasets: [
             {
               label: "Humidity",
-              borderColor: "#FADB38",
+              borderColor: "#1EB092",
               pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
-              pointBorderColor: "#C27021",
+              pointBorderWidth: 1, // Độ dày viền của điểm
+
+              borderWidth: 2,
+              pointBorderColor: "#ffffff",
               pointRadius: 5,
               backgroundColor: gradient,
               fill: true,
@@ -177,10 +179,11 @@ export default {
                 size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
-              color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
+              color: "#1EB193", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
                 return `${value}%`;
               },
+              offset: 4,
             },
           },
           scales: {

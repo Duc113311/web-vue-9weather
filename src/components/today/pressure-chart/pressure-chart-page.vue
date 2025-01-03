@@ -138,8 +138,8 @@ export default {
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "#00E1FF"); // Màu trên (#F5A300 với độ mờ 50%)
-      gradient.addColorStop(1, "#00E1FF"); // Màu dưới (#F5D400 với độ mờ 10%)
+      gradient.addColorStop(0, "#7527D5"); // Màu trên (#F5A300 với độ mờ 50%)
+      gradient.addColorStop(1, "#2863AA"); // Màu dưới (#F5D400 với độ mờ 10%)
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -148,9 +148,10 @@ export default {
           datasets: [
             {
               label: "Pressure",
-              borderColor: "#FADB38",
+              borderColor: "#BC41F2",
               pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
+              pointBorderWidth: 1, // Độ dày viền của điểm
+              borderWidth: 2,
               pointBorderColor: "#C27021",
               pointRadius: 5,
               backgroundColor: gradient,
@@ -185,6 +186,7 @@ export default {
               formatter: (value, context) => {
                 return `${value}`;
               },
+              offset: 4,
             },
           },
           scales: {

@@ -27,7 +27,7 @@
             </span>
           </div>
           <span class="txt_regular_12">
-            {{ $t("The_air_is_mostly_okay") }}</span
+            {{ convertInformationUVIndex(currentlyData?.uvIndex) }}</span
           >
         </div>
         <div class="w-full relative mt-1 pr-2">
@@ -47,7 +47,8 @@
             type="bar"
             :options="chartOptions"
             :series="series"
-            height="110"
+            height="100"
+            width="100%"
           />
         </div>
       </div>
@@ -57,9 +58,10 @@
 <script>
 import BaseComponent from "../baseComponent.vue";
 import ApexCharts from "vue3-apexcharts";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { mapGetters } from "vuex";
-import { getUvSummaryName } from "@/utils/converValue";
+import { getInformationUVIndex, getUvSummaryName } from "@/utils/converValue";
+import { useStore } from "vuex"; // Nhập useStore từ vuex
 
 export default {
   name: "uv-page",
@@ -73,12 +75,35 @@ export default {
   },
 
   setup() {
+    const store = useStore();
+    const listHourly = computed(() => {
+      return store.state.weatherModule.hourly24h;
+    });
+    const listUvIndexData = computed(() => {
+      return listHourly.value
+        .map((element) => Math.round(element.uvIndex) || 0)
+        .slice(0, 10);
+    });
+
+    const displayData = listUvIndexData.value.map((value) =>
+      value === 0 ? 0.5 : value
+    );
+    const max = Math.max(...displayData);
+
     const series = ref([
       {
         name: "Data",
-        data: [6, 7, 7, 8, 7, 4, 3, 8, 8, 5, 8, 8],
+        data: displayData,
       },
     ]);
+
+    const backgroundColors = series.value[0].data.map((value) => {
+      if (value <= 2) return "#389311"; // Màu cho giá trị thấp
+      if (value <= 5) return "#F3E52B"; // Màu cho giá trị trung bình
+      if (value <= 7) return "#EE621D"; // Màu cho giá trị cao
+      if (value <= 10) return "#CF2526"; // Màu cho giá trị rất cao
+      return "#9064CB"; // Màu cho giá trị cực cao
+    });
 
     const chartOptions = ref({
       chart: {
@@ -90,43 +115,38 @@ export default {
         bar: {
           columnWidth: "80%",
           distributed: true, // Tạo màu khác nhau cho từng cột
-          borderRadius: 6,
+          borderRadius: 2,
         },
       },
-      colors: [
-        "#00FF7F",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-        "#00FF7F",
-        "#FFD700",
-        "#00FF7F",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-        "#FFD700",
-      ],
+      colors: backgroundColors,
       dataLabels: {
-        enabled: false,
+        enabled: true,
+
         style: {
           colors: ["#fff"], // Màu số trên đỉnh cột
         },
-        offsetY: 10,
+        formatter: (value, context) => {
+          if (context.dataPointIndex === 0) {
+            return value; // Hiển thị giá trị đầu tiên
+          }
+          return "";
+        },
       },
       xaxis: {
-        labels: { show: false }, // Ẩn trục X
+        labels: { show: true }, // Ẩn trục X
         axisBorder: { show: false },
-        axisTicks: { show: false },
+        axisTicks: { show: true },
       },
       yaxis: {
-        labels: { show: false }, // Ẩn trục Y
+        labels: { show: true }, // Ẩn trục Y
+        max: 13,
       },
       grid: {
         show: false, // Không hiện lưới
       },
       tooltip: {
-        enabled: false, // Tắt tooltip
+        enabled: true, // Tắt tooltip
+        theme: "dark", // Chủ đề tối (hoặc 'light' nếu muốn sáng)
       },
       responsive: [
         {
@@ -134,7 +154,7 @@ export default {
           options: {
             plotOptions: {
               bar: {
-                columnWidth: "45%", // Điều chỉnh cột cho các màn hình nhỏ hơn
+                columnWidth: "50%", // Điều chỉnh cột cho các màn hình nhỏ hơn
               },
             },
           },
@@ -159,6 +179,10 @@ export default {
   methods: {
     convertUvIndexName(val) {
       return getUvSummaryName(val);
+    },
+
+    convertInformationUVIndex(val) {
+      return getInformationUVIndex(val);
     },
 
     getColorFromPercentage(percentage) {

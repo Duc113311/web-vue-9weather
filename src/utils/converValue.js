@@ -135,6 +135,20 @@ export function getUvSummaryName(value) {
   }
 }
 
+export function getInformationUVIndex(value){
+  if (value <= 2) {
+    return i18n.global.t("Low_UV_levels");
+  } else if (value <= 5) {
+    return i18n.global.t("There_is_a_moderate");
+  } else if (value <= 7) {
+    return i18n.global.t("UV_rays_are_highly");
+  } else if (value <= 10) {
+    return i18n.global.t("The_risk_from_UV_is_very_high");
+  } else {
+    return i18n.global.t("UV_rays_are_extremely_dangerous");
+  }
+}
+
 export function getUvSummaryImage(value) {
   const sun_svgrepo_com_1 = require("../assets/images/svg/sun_svgrepo_com_1.svg");
   const sun_svgrepo_com_2 = require("../assets/images/svg/sun_svgrepo_com_2.svg");
@@ -334,7 +348,7 @@ export function convertTimestampUnit12(
   offsetValue,
   timezone
 ) {
-const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
   // Lấy giờ
   let hours = dateTime.hour; // Giờ
 
@@ -1185,26 +1199,26 @@ export function getAirSummaryName(value) {
 export function getAqiHealthyInformationInfo(aqi) {
   if (aqi <= 50)
     return i18n.global.t(
-      "Air_quality_is_satisfactory,_and_air_pollution_poses_little_or_no_risk."
+      "Air_quality_is_satisfactory"
     );
   if (aqi <= 100)
     return i18n.global.t(
-      "Air_quality_is_acceptable._However,_there_may_be_a_risk_for_some_people,_particularly_those_who_are_unusually_sensitive_to_air_pollution."
+      "Sensitive_individuals_should_avoid"
     );
   if (aqi <= 150)
     return i18n.global.t(
-      "Members_of_sensitive_groups_may_experience_health_effects._The_general_public_is_less_likely_to_be_affected."
+      "General_public_and_sensitive"
     );
   if (aqi <= 200)
     return i18n.global.t(
-      "Some_members_of_the_general_public_may_experience_health_effects;_members_of_sensitive_groups_may_experience_more_serious_health_effects."
+      "Increased_likelihood_of_adverse"
     );
   if (aqi <= 300)
     return i18n.global.t(
-      "Health_alert:_The_risk_of_health_effects_is_increased_for_everyone."
+      "General_public_will"
     );
   return i18n.global.t(
-    "Health_warning_of_emergency_conditions:_everyone_is_more_likely_to_be_affected."
+    "General_public_at_high_risk"
   );
 }
 
@@ -1227,7 +1241,7 @@ export function getAqiRecommendedPrecautionsInfo(aqi) {
       "People_with_respiratory_or_heart_disease,_the_elderly_and_children_should_avoid_any_outdoor_activity;_everyone_else_should_avoid_prolonged_exertion."
     );
   return i18n.global.t(
-    "Everyone should avoid any outdoor exertion; people with respiratory or heart disease, the elderly and children should remain indoors."
+    "Everyone_should_avoid_any_outdoor_exertion_people_with_respiratory_or_heart_disease,_the_elderly_and_children_should_remain_indoors."
   );
 }
 
@@ -1413,3 +1427,39 @@ export function capitalizeWords(str) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Viết hoa chữ cái đầu
     .join(" "); // Gộp các từ lại thành chuỗi
 }
+
+// Convert time
+
+export function timeConvertUTC(timestamp, offset, typeTime) {
+  // Chuyển đổi timestamp sang UTC Date
+  const utcDate = new Date(timestamp * 1000); // Tính bằng mili giây
+  // Tính giờ địa phương bằng offset
+  const localDate = new Date(utcDate.getTime() + offset * 60 * 60 * 1000);
+
+  // Định dạng thời gian 12h
+  const time12h = localDate.toLocaleString("en-US", {
+    hour12: true,
+    hour: "2-digit",
+    minute: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  // Định dạng thời gian 24h
+  const time24h = localDate.toLocaleString("en-GB", {
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  if (typeTime === "12h") {
+    return time12h;
+  }
+  return time24h;
+}
+
+// Convert Day

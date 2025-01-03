@@ -15,18 +15,43 @@
       <div class="w-full h-[211px]">
         <!--  -->
         <div class="text-left pad-big">
-          <div class="txt_bold_24">
-            <span>{{ paramAirModule }}</span>
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="txt_bold_24">
+                <span>{{ paramAirModule }}</span>
+              </div>
+              <div
+                class="txt_regular_17 text-left"
+                :style="{ color: progressColor }"
+              >
+                <span>{{ convertAirIndexName(paramAirModule) }}</span>
+              </div>
+              <span class="txt_regular_12">
+                {{ convertAqiHealthyInformationInfo(paramAirModule) }}</span
+              >
+            </div>
+            <el-popover placement="top" :width="200" trigger="hover">
+              <template #reference>
+                <img
+                  src="../../../assets/images/svg_v2/ic_waring.svg"
+                  alt=""
+                  srcset=""
+                />
+              </template>
+              <template #default>
+                <div class="color_0D2952">
+                  <div class="">
+                    <p class="txt_medium_14">{{ titleRecommended }}</p>
+                  </div>
+                  <div class="text-left">
+                    <span class="txt_regular_12">{{
+                      convertAqiRecommendedPrecautionsInfo(110)
+                    }}</span>
+                  </div>
+                </div>
+              </template>
+            </el-popover>
           </div>
-          <div
-            class="txt_regular_17 text-left"
-            :style="{ color: progressColor }"
-          >
-            <span>{{ convertAirIndexName(paramAirModule) }}</span>
-          </div>
-          <span class="txt_regular_12">
-            {{ $t("The_air_is_mostly_okay") }}</span
-          >
         </div>
 
         <div class="w-full items-center gap-2">
@@ -46,14 +71,24 @@
 <script>
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import BaseComponent from "../baseComponent.vue";
-import { ref } from "vue";
-import { getAirSummaryName } from "@/utils/converValue";
+import { ref, computed } from "vue";
+import {
+  getAirSummaryName,
+  getAqiHealthyInformationInfo,
+  getAqiRecommendedPrecautionsInfo,
+} from "@/utils/converValue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "air-quality-page",
   components: {
     BaseComponent,
+  },
+
+  data() {
+    return {
+      titleRecommended: this.$t("Recommended_Precautions"),
+    };
   },
 
   setup() {
@@ -63,6 +98,29 @@ export default {
         data: [300, 200, 210, 200, 250, 220, 295, 230, 180, 190], // Dữ liệu mẫu
       },
     ]);
+
+    const paramAirModule = computed(() => {
+      const storageAir = localStorage.getItem("airObject");
+      if (storageAir) {
+        const airObject = decodeBase64(storageAir);
+        const decodeAirObject = JSON.parse(airObject);
+        return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
+      }
+      return 0; // Hoặc giá trị mặc định khác
+    });
+
+    const getColorFromPercentage = (percentage) => {
+      if (percentage <= 50) return "#9dc194";
+      if (percentage <= 100) return "#cbd956";
+      if (percentage <= 150) return "#ecc32b";
+      if (percentage <= 200) return "#f9b81d";
+      if (percentage <= 300) return "#ff6272";
+      return "#ff38a2"; // Giá trị phần trăm từ 90 đến 100
+    };
+
+    const progressColor = computed(() => {
+      return getColorFromPercentage(paramAirModule.value);
+    });
 
     const chartOptions = ref({
       chart: {
@@ -74,7 +132,7 @@ export default {
       stroke: {
         curve: "smooth",
         width: 5,
-        colors: ["#FFD700"],
+        colors: [progressColor.value],
       },
       fill: {
         type: "gradient",
@@ -122,28 +180,20 @@ export default {
       },
     });
 
-    return { series, chartOptions };
+    return {
+      series,
+      chartOptions,
+      progressColor,
+      paramAirModule,
+      getColorFromPercentage,
+    };
   },
 
   computed: {
     ...mapGetters("airQualityModule", ["airObjectGetters"]),
-    paramAirModule() {
-      const storageAir = localStorage.getItem("airObject");
-      if (storageAir) {
-        const airObject = decodeBase64(storageAir);
-
-        const decodeAirObject = JSON.parse(airObject);
-
-        return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
-      }
-      return this.airObjectGetters?.aqi ? this.airObjectGetters?.aqi : 0;
-    },
 
     dotStyle() {
       return { left: `${(parseInt(this.paramAirModule) / 500) * 100}%` };
-    },
-    progressColor() {
-      return this.getColorFromPercentage(this.paramAirModule);
     },
   },
 
@@ -152,14 +202,22 @@ export default {
       return getAirSummaryName(val);
     },
 
-    getColorFromPercentage(percentage) {
-      if (percentage <= 50) return "#9dc194";
-      if (percentage <= 100) return "#cbd956";
-      if (percentage <= 150) return "#ecc32b";
-      if (percentage <= 200) return "#f9b81d";
-      if (percentage <= 300) return "#ff6272";
-      return "#ff38a2"; // Giá trị phần trăm từ 90 đến 100
+    convertAqiHealthyInformationInfo(val) {
+      return getAqiHealthyInformationInfo(val);
     },
+
+    convertAqiRecommendedPrecautionsInfo(val) {
+      return getAqiRecommendedPrecautionsInfo(val);
+    },
+
+    // getColorFromPercentage(percentage) {
+    //   if (percentage <= 50) return "#9dc194";
+    //   if (percentage <= 100) return "#cbd956";
+    //   if (percentage <= 150) return "#ecc32b";
+    //   if (percentage <= 200) return "#f9b81d";
+    //   if (percentage <= 300) return "#ff6272";
+    //   return "#ff38a2"; // Giá trị phần trăm từ 90 đến 100
+    // },
   },
 };
 </script>
