@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-auto pad-big">
+  <div class="w-full h-auto">
     <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 
     <!--  -->
