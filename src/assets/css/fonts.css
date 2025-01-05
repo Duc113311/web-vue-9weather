@@ -103,6 +103,22 @@
   text-align: center; /* Căn trái mặc định */
   font-weight: 300; /* Corresponds to Regular */
 }
+
+/*  */
+
+.txt_line_48 {
+  font-size: 48px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 58.08px; /* Khoảng cách giữa các dòng */
+  font-weight: 700; /* Corresponds to Regular */
+}
+.txt_line_24 {
+  font-size: 24px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 36px; /* Khoảng cách giữa các dòng */
+  font-weight: 400; /* Corresponds to Regular */
+}
+
 /* Responsive */
 @media (min-width: 576px) {
   .txt_bold {

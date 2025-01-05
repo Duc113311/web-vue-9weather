@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-auto p-2 bg-footer mt-10">
+  <div class="w-full h-auto p-2 bg-footer">
     <div class="container">
       <!-- footer -->
       <div class="w-full justify-between flex items-center">
