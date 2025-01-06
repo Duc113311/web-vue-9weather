@@ -80,7 +80,7 @@
           <!--  -->
           <MoonPage
             :key="indexState + Math.random()"
-            v-if="currentlyData && Object.keys(currentlyData).length < 0"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></MoonPage>
           <div v-else class="w-full h-[200px] mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>

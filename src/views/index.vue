@@ -928,7 +928,29 @@ export default {
       }
     },
 
+    removeWordAndAccents(str, wordsToRemove) {
+      const removeAccents = (s) =>
+        s
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D");
+
+      // Loại bỏ dấu và chuẩn hóa chuỗi
+      let normalizedStr = removeAccents(str);
+
+      // Loại bỏ từng từ trong danh sách wordsToRemove
+      wordsToRemove.forEach((word) => {
+        const normalizedWord = removeAccents(word);
+        const regex = new RegExp(`\\b${normalizedWord}\\b`, "gi");
+        normalizedStr = normalizedStr.replace(regex, "").trim();
+      });
+
+      return normalizedStr;
+    },
+
     convertToVietnamese(input) {
+      const data = this.removeWordAndAccents(input, ["City"]);
       // Map các từ gốc sang từ có dấu
       const vietnameseMap = {
         Hanoi: "Hà Nội",
@@ -996,7 +1018,7 @@ export default {
       };
 
       // Kiểm tra nếu chuỗi tồn tại trong map
-      const converted = vietnameseMap[input] || input;
+      const converted = vietnameseMap[data] || data;
 
       // Thay khoảng trắng bằng dấu gạch dưới
       return {

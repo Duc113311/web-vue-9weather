@@ -364,17 +364,19 @@ export default {
           objectBread.latitude,
           objectBread.longitude
         );
-        const [valueEncodeW, valueNewAir, encodeAirCode] = [
-          encodeBase64(param),
-          encodeBase64(resultAir),
-          encodeBase64(getParamAirByCode(this.airObjectGetters.key)),
-        ];
 
-        await Promise.all([
-          this.getWeatherDataCurrent(valueEncodeW),
-          this.getAirQualityByKey(valueNewAir),
-          this.getAirQuality(encodeAirCode),
-        ]);
+        const encodeDataWeather = encodeBase64(param);
+        // API Get Weather Current
+        await this.getWeatherDataCurrent(encodeDataWeather);
+
+        const encodeKeyAir = encodeBase64(resultAir);
+        // API Get Air Quality By Key
+        await this.getAirQualityByKey(encodeKeyAir);
+
+        const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+        const encodeAirCode = encodeBase64(airCode);
+        // API Get Air Quality Data
+        await this.getAirQuality(encodeAirCode);
       } catch (error) {
         console.error("Error while searching city:", error);
         // Hiển thị thông báo lỗi cho người dùng

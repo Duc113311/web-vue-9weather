@@ -76,6 +76,11 @@ export default {
 
   setup() {
     const store = useStore();
+    const getterCurrent = computed(() => {
+      return store.state.weatherModule.currently;
+    });
+    const currentWeather = getterCurrent.value; // Ví dụ về cách sử dụng
+
     const listHourly = computed(() => {
       return store.state.weatherModule.hourly24h;
     });
@@ -99,9 +104,9 @@ export default {
 
     const backgroundColors = series.value[0].data.map((value) => {
       if (value <= 2) return "#389311"; // Màu cho giá trị thấp
-      if (value <= 5) return "#F3E52B"; // Màu cho giá trị trung bình
-      if (value <= 7) return "#EE621D"; // Màu cho giá trị cao
-      if (value <= 10) return "#CF2526"; // Màu cho giá trị rất cao
+      if ((2 <= value) & (value <= 5)) return "#F3E52B"; // Màu cho giá trị trung bình
+      if ((5 <= value) & (value <= 7)) return "#EE621D"; // Màu cho giá trị cao
+      if ((7 <= value) & (value <= 10)) return "#CF2526"; // Màu cho giá trị rất cao
       return "#9064CB"; // Màu cho giá trị cực cao
     });
 
@@ -115,7 +120,8 @@ export default {
         bar: {
           columnWidth: "80%",
           distributed: true, // Tạo màu khác nhau cho từng cột
-          borderRadius: 2,
+          borderRadius: 10,
+          borderRadiusApplication: "end",
         },
       },
       colors: backgroundColors,
@@ -126,11 +132,20 @@ export default {
           colors: ["#fff"], // Màu số trên đỉnh cột
         },
         formatter: (value, context) => {
-          if (context.dataPointIndex === 0) {
-            return value; // Hiển thị giá trị đầu tiên
+          if (
+            value === 0.5 ? "0" : value === Math.round(currentWeather?.uvIndex)
+          ) {
+            return value === 0.5 ? "0" : value;
           }
           return "";
         },
+        position: (value) => {
+          if (value <= 2) {
+            return "top"; // Đặt ở đỉnh cột
+          }
+          return "center"; // Đặt ở giữa cột
+        },
+        offset: 0,
       },
       xaxis: {
         labels: { show: true }, // Ẩn trục X
@@ -188,9 +203,9 @@ export default {
     getColorFromPercentage(percentage) {
       if (percentage) {
         if (percentage <= 2) return "#389311";
-        if (percentage <= 5) return "#F3E52B";
-        if (percentage <= 7) return "#EE621D";
-        if (percentage <= 10) return "#CF2526";
+        if ((2 <= percentage) & (percentage <= 5)) return "#F3E52B";
+        if ((5 <= percentage) & (percentage <= 7)) return "#EE621D";
+        if ((7 <= percentage) & (percentage <= 10)) return "#CF2526";
         return "#9064CB"; // Giá trị phần trăm từ 90 đến 100
       }
     },

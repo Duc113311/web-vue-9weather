@@ -7,6 +7,7 @@ import { decodeBase64 } from "../../utils/EncoderDecoderUtils";
 const state = {
   airObject: {},
   airKeyObject: {},
+  apiValue: 0,
 };
 
 /**
@@ -20,6 +21,10 @@ const getters = {
   airKeyObjectGetters(state) {
     return state.airKeyObject;
   },
+
+  apiValueGetters(state) {
+    return state.apiValue;
+  },
 };
 
 /**
@@ -32,11 +37,13 @@ const mutations = {
    * @param {*} data
    */
   setAirQuality(state, data) {
-    localStorage.setItem("airObject", data);
-
     const newDataAir = JSON.parse(decodeBase64(data));
 
+    console.log("newDataAir", newDataAir);
+    localStorage.setItem("airObject", newDataAir);
     state.airObject = newDataAir;
+    state.apiValue = newDataAir.aqi;
+    console.log("state.apiValue", state.apiValue);
   },
 
   /**

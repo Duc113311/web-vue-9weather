@@ -573,17 +573,29 @@ export default {
           return word.charAt(0) + word.slice(1); // Viết hoa chữ cái đầu cho từ còn lại
         });
     },
+
+    splitStingWard(inputString) {
+      return inputString.split("_").slice(1).join("_");
+    },
+
     checkSubstring(str1, str2) {
+      // Kiểm tra nếu str1 giống hoàn toàn str2
+      if (str1 === str2) {
+        return true;
+      }
+
+      // Tách các từ bằng cách loại bỏ ký tự không phải chữ và chia nhỏ theo dấu "_"
       const words1 = str1.replace(/[^\w\s]/g, "").split("_");
       const words2 = str2.replace(/[^\w\s]/g, "").split("_");
 
+      // Chuyển đổi str2 thành mảng đã định dạng (giả sử convertToFormattedArray là cần thiết)
       const convertArray = this.convertToFormattedArray(str2);
-      // Lọc ra các từ có trong str2
+
+      // Lọc ra các từ chung giữa words1 và words2
       const commonWords = words1.filter((word) => words2.includes(word));
 
+      // Kiểm tra có ít nhất 2 từ chung
       return commonWords.length >= 2;
-
-      // Kiểm tra xem có ít nhất 2 từ chung không
     },
 
     findCityData(value) {
@@ -698,7 +710,7 @@ export default {
                   const elementWard = wardListData[index];
                   const checkSubWard = this.checkSubstring(
                     removeAccents(elementWard.keyAccentLanguage),
-                    replaceAposWard
+                    this.splitStingWard(replaceAposWard)
                   );
 
                   if (checkSubWard) {
@@ -911,18 +923,19 @@ export default {
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
       const resultAir = getAqiDataFromLocation(item.lat, item.lng);
-      const value = encodeBase64(param);
-      const valueNewAir = encodeBase64(resultAir);
+      const encodeDataWeather = encodeBase64(param);
 
-      const airCode = getParamAirByCode(this.airObjectGetters.key);
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
 
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
-
-      await Promise.all([
-        this.getWeatherDataCurrent(value),
-        this.getAirQualityByKey(valueNewAir),
-        this.getAirQuality(encodeAirCode),
-      ]);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
     },
 
     removeWordAndAccents(str, wordsToRemove) {

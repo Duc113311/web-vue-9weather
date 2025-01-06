@@ -4,7 +4,7 @@
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" :height="heightValue" ref="canvas"></canvas>
+      <canvas id="chart_hourly" height="100" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default {
   props: {
     heightValue: {
       type: String,
-      default: "80",
+      default: "90",
     },
   },
 
@@ -107,9 +107,10 @@ export default {
       }
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
-      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height * 2);
       gradient.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "rgba(245, 212, 0, 0.1)"); // Màu dưới (#F5D400 với độ mờ 10%)
+      // Vẽ một hình chữ nhật bao phủ toàn bộ canvas
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -118,11 +119,11 @@ export default {
           datasets: [
             {
               label: "Temperature",
-              borderColor: "#FADB38",
-              pointBackgroundColor: "#FADB38",
+              borderColor: "#EBAB3F",
+              pointBackgroundColor: "#EBAB3F",
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: "#FADB38",
+              pointBorderColor: "#EBAB3F",
               pointRadius: 5, // Bán kính điểm
               backgroundColor: gradient,
               fill: true, // Tô nền dưới line
@@ -158,7 +159,7 @@ export default {
                 size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
-              color: "#FADB38", // Thay đổi màu sắc của nhãn dữ liệu
+              color: "#EBAB3F", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
                 return `${value}°`;
               },

@@ -132,7 +132,7 @@ export default {
           labels: [...Array(30).keys()].map((i) => i + 1),
           datasets: [
             {
-              label: "Temperature",
+              label: "Temperature Min",
               borderColor: "#EC9D00",
               pointBackgroundColor: "#EC9D00",
               pointBorderWidth: 0, // Độ dày viền của điểm
@@ -159,7 +159,7 @@ export default {
               },
             },
             {
-              label: "Temperature",
+              label: "Temperature Max",
               borderColor: "#00D354",
               pointBackgroundColor: "#00D354",
               pointBorderWidth: 0, // Độ dày viền của điểm

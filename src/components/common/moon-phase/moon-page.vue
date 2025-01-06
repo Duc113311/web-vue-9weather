@@ -28,7 +28,7 @@
                 class="flex w-full justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("moon_illumination") }}:</p>
-                <p>{{ moonPhaseInfo.illumination }} %</p>
+                <p>{{ moonPhaseInfo.illumination }}</p>
               </div>
               <!--  -->
               <div
@@ -48,7 +48,14 @@
           </div>
 
           <div class="flex flex-col justify-center items-center w-[50%]">
-            <div class="text-center">Coming soon</div>
+            <!-- <GlobalMoonIcon
+              :illuminate-percent="illuminate"
+              :is-clip-from-start="true"
+              :width="100"
+              :height="100"
+            >
+            </GlobalMoonIcon> -->
+            <!-- <div class="text-center">Coming soon</div> -->
           </div>
         </div>
       </div>
@@ -66,6 +73,8 @@ import {
   convertTimestampToHoursMinutes12,
   convertTimestampToHoursMinutes,
   getFormattedCurrentDate,
+  convertTime12hTimeZoneNotNowUnit,
+  convertTime24hTimeZoneNotNow,
 } from "../../../utils/converValue";
 import {
   Illumination,
@@ -97,7 +106,7 @@ export default {
         moonPhaseName: "Waning Crescent",
         illumination: "5.57%",
         moonset: "23:23",
-        moonrise: "--",
+        moonrise: Math.floor(Date.now() / 1000),
         nextFullMoon: "7",
         nextNewMoon: "21 days",
         distance: "403,253 km",
@@ -131,9 +140,9 @@ export default {
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestampToHoursMinutes12(val, 1, offsetValue);
+        return convertTime12hTimeZoneNotNowUnit(val, 1, offsetValue);
       } else {
-        return convertTimestampToHoursMinutes(val, 1, offsetValue);
+        return convertTime24hTimeZoneNotNow(val, 1, offsetValue);
       }
     },
 

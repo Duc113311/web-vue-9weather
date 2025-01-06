@@ -17,8 +17,8 @@
         <div class="text-left pad-big">
           <div class="flex justify-between items-start">
             <div>
-              <div class="txt_bold_24">
-                <span>{{ paramAirModule }}</span>
+              <div class="txt_bold_24" v-if="apiValue">
+                <span>{{ apiValue }}</span>
               </div>
               <div
                 class="txt_regular_17 text-left"
@@ -78,6 +78,7 @@ import {
   getAqiRecommendedPrecautionsInfo,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
+import { useStore } from "vuex"; // Nhập useStore từ vuex
 
 export default {
   name: "air-quality-page",
@@ -95,27 +96,26 @@ export default {
     const series = ref([
       {
         name: "Air Quality Index",
-        data: [300, 200, 210, 200, 250, 220, 295, 230, 180, 190], // Dữ liệu mẫu
+        data: [280, 290, 270, 260, 280, 250, 290, 295, 280, 270], // Dữ liệu mẫu
       },
     ]);
+    const store = useStore();
+    const paramAir = computed(() => {
+      return store.state.airQualityModule.apiValue;
+    });
 
     const paramAirModule = computed(() => {
-      const storageAir = localStorage.getItem("airObject");
-      if (storageAir) {
-        const airObject = decodeBase64(storageAir);
-        const decodeAirObject = JSON.parse(airObject);
-        return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
-      }
-      return 0; // Hoặc giá trị mặc định khác
+      const storageAir = paramAir.value;
+      return storageAir;
     });
 
     const getColorFromPercentage = (percentage) => {
-      if (percentage <= 50) return "#9dc194";
-      if (percentage <= 100) return "#cbd956";
-      if (percentage <= 150) return "#ecc32b";
-      if (percentage <= 200) return "#f9b81d";
-      if (percentage <= 300) return "#ff6272";
-      return "#ff38a2"; // Giá trị phần trăm từ 90 đến 100
+      if (percentage <= 50) return "#41E11F";
+      if ((50 <= percentage) & (percentage <= 100)) return "#FCFF2F";
+      if ((100 <= percentage) & (percentage <= 150)) return "#F68421";
+      if ((150 <= percentage) & (percentage <= 200)) return "#F42E1C";
+      if ((200 <= percentage) & (percentage <= 300)) return "#8C4396";
+      return "#781125"; // Giá trị phần trăm từ 90 đến 100
     };
 
     const progressColor = computed(() => {
@@ -190,7 +190,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters("airQualityModule", ["airObjectGetters"]),
+    ...mapGetters("airQualityModule", ["airObjectGetters", "apiValueGetters"]),
+
+    apiValue() {
+      return this.$store.state.airQualityModule.apiValue;
+    },
 
     dotStyle() {
       return { left: `${(parseInt(this.paramAirModule) / 500) * 100}%` };
