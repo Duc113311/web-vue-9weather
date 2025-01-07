@@ -479,7 +479,7 @@ export default {
     convertToVietnamese(input) {
       // Map các từ gốc sang từ có dấu
 
-      const data = this.removeWordAndAccents(input, ["Province"]);
+      const data = this.removeWordAndAccents(input, ["Province", "City"]);
 
       // const dataNew = this.convertToCamelCase(data);
       console.log("data-new", data);

@@ -122,7 +122,7 @@ export default {
       return getColorFromPercentage(paramAirModule.value);
     });
 
-    const chartOptions = ref({
+    const chartOptions = computed(() => ({
       chart: {
         type: "area",
         toolbar: { show: false },
@@ -178,7 +178,7 @@ export default {
       tooltip: {
         enabled: false,
       },
-    });
+    }));
 
     return {
       series,

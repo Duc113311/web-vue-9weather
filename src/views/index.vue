@@ -950,7 +950,7 @@ export default {
     },
 
     convertToVietnamese(input) {
-      const data = this.removeWordAndAccents(input, ["City"]);
+      const data = this.removeWordAndAccents(input, ["City", "Province"]);
       // Map các từ gốc sang từ có dấu
       const vietnameseMap = {
         Hanoi: "Hà Nội",
