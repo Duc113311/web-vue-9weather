@@ -86,6 +86,11 @@
   height: 0px !important;
 }
 
+.el-switch__core {
+  height: 22px;
+  min-width: 36px;
+}
+
 .el-color-picker .el-color-picker__icon {
   display: none !important;
 }

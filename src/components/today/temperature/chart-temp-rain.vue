@@ -8,14 +8,14 @@
           :displacement="0.7"
           class="w-full h-full relative horizontal"
         >
-          <div>
+          <div class="w-full">
             <ChartDays></ChartDays>
 
             <!--  -->
             <ChartDomainTemps :heightValue="heightValue"></ChartDomainTemps>
 
             <!--  -->
-            <!-- <ChartDomainRain></ChartDomainRain> -->
+            <!-- <ChartDomainRain class="absolute inset-0"></ChartDomainRain> -->
 
             <!-- <ChartApexRain></ChartApexRain> -->
             <!-- <ChartColumnRainfall></ChartColumnRainfall> -->

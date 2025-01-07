@@ -144,12 +144,12 @@ export default {
           colorStops: [
             {
               offset: 0,
-              color: "#FFD700",
+              color: progressColor.value,
               opacity: 0.7,
             },
             {
               offset: 100,
-              color: "#001f3f",
+              color: "#ffffff",
               opacity: 0.4,
             },
           ],

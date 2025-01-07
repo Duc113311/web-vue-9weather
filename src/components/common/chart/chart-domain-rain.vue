@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container-rain w-[89rem]">
     <div class="chart-wrapper w-full">
-      <canvas id="chart_hourly_rain" height="80" ref="canvas"></canvas>
+      <canvas id="chart_hourly_rain" height="20" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -129,7 +129,7 @@ export default {
           plugins: {
             legend: {
               display: false,
-              position: "bottom",
+              position: "top",
             },
             tooltip: {
               enabled: true,

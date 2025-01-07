@@ -60,7 +60,14 @@ import BaseComponent from "../baseComponent.vue";
 import ApexCharts from "vue3-apexcharts";
 import { ref, computed } from "vue";
 import { mapGetters } from "vuex";
-import { getInformationUVIndex, getUvSummaryName } from "@/utils/converValue";
+import {
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
+  convertTimestampToHoursMinutes,
+  convertTimestampToHoursMinutes12,
+  getInformationUVIndex,
+  getUvSummaryName,
+} from "@/utils/converValue";
 import { useStore } from "vuex"; // Nhập useStore từ vuex
 
 export default {
@@ -90,14 +97,35 @@ export default {
         .slice(0, 10);
     });
 
+    const listUvIndexData24 = computed(() => {
+      return listHourly.value
+        .map((element) => Math.round(element.uvIndex) || 0)
+        .slice(0, 24);
+    });
+    const max = Math.max(...listUvIndexData24.value);
+
     const displayData = listUvIndexData.value.map((value) =>
       value === 0 ? 0.5 : value
     );
-    const max = Math.max(...displayData);
 
+    const convertTime = (val) => {
+      const offsetValue = store.state.weatherModule.locationOffset.offset;
+      const timezoneValue = store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    };
+    const labels = listHourly.value.slice(0, 10).map((item) => {
+      const date = item.time;
+      return convertTime(date);
+    });
     const series = ref([
       {
-        name: "Data",
+        name: "UV Index",
         data: displayData,
       },
     ]);
@@ -129,39 +157,46 @@ export default {
         enabled: true,
 
         style: {
-          colors: ["#fff"], // Màu số trên đỉnh cột
+          style: {
+            colors: ["#fff"], // Màu số trên đỉnh cột
+            fontSize: "14px", // Kích thước chữ
+            fontWeight: "bold", // Độ đậm của chữ (tùy chọn)
+            fontFamily: "Arial, sans-serif", // Kiểu chữ (tùy chọn)
+          },
         },
         formatter: (value, context) => {
-          if (
-            value === 0.5 ? "0" : value === Math.round(currentWeather?.uvIndex)
-          ) {
-            return value === 0.5 ? "0" : value;
+          if (context.dataPointIndex === 0) {
+            return value;
           }
           return "";
         },
-        position: (value) => {
-          if (value <= 2) {
-            return "top"; // Đặt ở đỉnh cột
-          }
-          return "center"; // Đặt ở giữa cột
-        },
+
         offset: 0,
       },
       xaxis: {
+        categories: labels, // Đặt nhãn thời gian cho trục X
         labels: { show: true }, // Ẩn trục X
         axisBorder: { show: false },
         axisTicks: { show: true },
       },
       yaxis: {
         labels: { show: true }, // Ẩn trục Y
-        max: 13,
+        max: max,
       },
       grid: {
         show: false, // Không hiện lưới
       },
       tooltip: {
-        enabled: true, // Tắt tooltip
-        theme: "dark", // Chủ đề tối (hoặc 'light' nếu muốn sáng)
+        enabled: true,
+        theme: "dark",
+        callbacks: {
+          label: function (tooltipItem) {
+            const dataIndex = tooltipItem.dataIndex; // Lấy chỉ số dữ liệu
+            const timeLabel = labels[dataIndex]; // Lấy nhãn thời gian từ mảng labels
+            const value = tooltipItem.raw; // Lấy giá trị UV Index
+            return `Time: ${timeLabel}, UV Index: ${value}`;
+          },
+        },
       },
       responsive: [
         {

@@ -48,7 +48,7 @@
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
         </div>
       </div>
-      <!-- <div
+      <div
         v-if="namePage !== 'languages_settings'"
         class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         @click="onClickLanguagesSetting('languages_settings')"
@@ -59,7 +59,25 @@
         <div>
           <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
         </div>
-      </div> -->
+      </div>
+      <div
+        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
+      >
+        <div class="txt_regular flex items-center">
+          <span>Live Activity</span>
+        </div>
+        <div>
+          <el-switch
+            v-model="valueLive"
+            @change="onChangeLiveActivity"
+            class="ml-2"
+            style="
+              --el-switch-on-color: #0c61ee;
+              --el-switch-off-color: #d4cccc;
+            "
+          />
+        </div>
+      </div>
 
       <!--  -->
       <UnitPreferencesPage
@@ -87,6 +105,8 @@ export default {
   data() {
     return {
       namePage: "setting",
+      valueLive: true,
+      theme: "light",
     };
   },
 
@@ -117,6 +137,14 @@ export default {
 
     onClickBack(value) {
       this.namePage = value;
+    },
+
+    onChangeLiveActivity(value) {
+      debugger;
+      this.valueLive = value;
+      this.theme = this.valueLive ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
+      localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage
     },
   },
 };

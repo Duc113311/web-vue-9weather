@@ -918,11 +918,11 @@ export function convertCtoF(value) {
  * @returns Precipitation
  */
 export function convertMillimetToInch(value) {
-  return Math.round(value * 0.03937).toFixed(2);
+  return Math.round(value * 0.03937);
 }
 
 export function convertMillimet(value) {
-  return Math.round(value).toFixed(2);
+  return Math.round(value);
 }
 
 /**
@@ -1446,6 +1446,21 @@ export function timeConvertUTC(timestamp, offset, typeTime) {
     return time12h;
   }
   return time24h;
+}
+
+export function formatDateFull(timestamp, offset, locale = "en-US") {
+  try {
+    const date = new Date((timestamp + offset * 3600) * 1000); // Điều chỉnh timestamp với offset
+    return new Intl.DateTimeFormat(locale, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  } catch (error) {
+    console.error("Error in formatDateWithOffset:", error);
+    return "Invalid date";
+  }
 }
 
 // Convert Day

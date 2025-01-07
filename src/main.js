@@ -3,7 +3,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import './assets/css/variables.css'; // Đường dẫn tới tệp variables.css
+// import './assets/css/variables.css'; // Đường dẫn tới tệp variables.css
+import './assets/css/light-theme.css'; // Đường dẫn tới tệp variables.css
+import './assets/css/dark-theme.css'; // Đường dẫn tới tệp variables.css
 
 // eslint-disable-next-line prettier/prettier
 import ElementPlus from "element-plus";

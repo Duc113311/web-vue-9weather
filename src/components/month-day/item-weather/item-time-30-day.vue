@@ -246,9 +246,7 @@
                       <p class="txt_regular_14">{{ $t("air_quality") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
-                      <span class="txt_medium_15">{{
-                        Math.round(item?.uvIndex)
-                      }}</span>
+                      <span class="txt_medium_15">{{ paramAirModule }}</span>
 
                       <span class="txt_regular_14"
                         >({{ convertAirIndexName(paramAirModule) }})</span
@@ -339,10 +337,12 @@
                     </div>
                     <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
-                        {{ convertTimeUnit(item?.sunriseTime) }}
+                        {{ convertTimeUnit(item?.sunriseTime).split(" ")[0] }}
                       </p>
-                      <span class="txt_regular_14"
-                        >({{ convertTimeUnit12(item?.sunriseTime) }})</span
+                      <span
+                        class="txt_regular_14"
+                        v-if="timePeriodSunriseTime(item?.sunriseTime)"
+                        >({{ timePeriodSunriseTime(item?.sunriseTime) }})</span
                       >
                     </div>
                   </div>
@@ -360,8 +360,10 @@
                       <p class="txt_medium_15">
                         {{ convertTimeUnit(item?.sunsetTime).split(" ")[0] }}
                       </p>
-                      <span class="txt_regular_14"
-                        >({{ convertTimeUnit12(item?.sunriseTime) }})</span
+                      <span
+                        class="txt_regular_14"
+                        v-if="timePeriodSunsetTime(item?.sunriseTime)"
+                        >({{ timePeriodSunsetTime(item?.sunriseTime) }})</span
                       >
                     </div>
                   </div>
@@ -447,12 +449,12 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     ...mapGetters("airQualityModule", ["airObjectGetters"]),
 
-    timePeriodSunsetTime() {
-      const timeString = this.convertTimeUnit(
-        this.dailyOneGettersData?.sunsetTime
-      );
-      return timeString.split(" ")[1]; // Lấy phần AM/PM
-    },
+    // timePeriodSunsetTime() {
+    //   const timeString = this.convertTimeUnit(
+    //     this.dailyOneGettersData?.sunsetTime
+    //   );
+    //   return timeString.split(" ")[1]; // Lấy phần AM/PM
+    // },
     hourly30DayhGettersData() {
       return this.listDaily30DayGetters;
     },
@@ -489,21 +491,25 @@ export default {
     },
 
     paramAirModule() {
-      const storageAir = localStorage.getItem("airObject");
-      if (storageAir) {
-        const airObject = decodeBase64(storageAir);
+      const storageAir = this.$store.state.airQualityModule.apiValue;
 
-        const decodeAirObject = JSON.parse(airObject);
-
-        return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
-      }
-      return this.airObjectGetters?.aqi ? this.airObjectGetters?.aqi : 0;
+      return storageAir;
     },
   },
 
   methods: {
     convertToShortDay(value) {
       return convertTimestampToDayMonth(value);
+    },
+
+    timePeriodSunsetTime(value) {
+      const timeString = this.convertTimeUnit(value);
+      return timeString.split(" ")[1]; // Lấy phần AM/PM
+    },
+
+    timePeriodSunriseTime(value) {
+      const timeString = this.convertTimeUnit(value);
+      return timeString.split(" ")[1]; // Lấy phần AM/PM
     },
 
     renderHourly(value) {

@@ -164,15 +164,9 @@ export default {
     },
 
     paramAirModule() {
-      const storageAir = localStorage.getItem("airObject");
-      if (storageAir) {
-        const airObject = decodeBase64(storageAir);
+      const storageAir = this.$store.state.airQualityModule.apiValue;
 
-        const decodeAirObject = JSON.parse(airObject);
-
-        return decodeAirObject.aqi ? decodeAirObject.aqi : 0;
-      }
-      return this.airObjectGetters?.aqi ? this.airObjectGetters?.aqi : 0;
+      return storageAir;
     },
   },
 

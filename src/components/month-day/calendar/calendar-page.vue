@@ -40,7 +40,7 @@
                   ref="popover"
                   placement="right"
                   :width="400"
-                  trigger="none"
+                  trigger="click"
                   v-if="day && day.time"
                 >
                   <template #reference>
@@ -85,9 +85,11 @@
                       </div>
                     </div>
                   </template>
-                  <!-- <template #default>
-                    <FormTemperature :objTemperature="day"></FormTemperature>
-                  </template> -->
+                  <template #default>
+                    <PopupCalendarDetail
+                      :objTemperature="day"
+                    ></PopupCalendarDetail>
+                  </template>
                 </el-popover>
               </li>
             </ul>
@@ -107,12 +109,14 @@ import {
   convertTimestampToMonthYear,
   getIconHourlyForecastTheme,
 } from "@/utils/converValue";
+import PopupCalendarDetail from "../popup/popup-calendar-detail.vue";
 
 export default {
   name: "calendar-page",
 
   components: {
     BaseComponent,
+    PopupCalendarDetail,
   },
   data() {
     return {

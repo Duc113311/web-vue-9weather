@@ -71,6 +71,9 @@ export default {
     }
 
     document.title = this.$t("Local_National_Global") + " " + "| 9Weather";
+
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
   },
 
   methods: {
