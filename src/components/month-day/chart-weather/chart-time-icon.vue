@@ -8,7 +8,7 @@
       <div class="txt_regular_14 pb-1">{{ convertToShortDay(item.time) }}</div>
 
       <div class="flex justify-center items-center">
-        <img :src="renderHourly(item).iconValue" alt="weather icon" />
+        <component :is="renderHourly(item).iconValue"></component>
       </div>
     </div>
   </div>

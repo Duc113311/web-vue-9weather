@@ -71,6 +71,12 @@
   line-height: 29.3px; /* Khoảng cách giữa các dòng */
   font-weight: 700; /* Corresponds to Regular */
 }
+.txt_bold_34 {
+  font-size: 34px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 41.51px; /* Khoảng cách giữa các dòng */
+  font-weight: 700; /* Corresponds to Regular */
+}
 /*  */
 .txt_poppins_87 {
   font-size: 78px; /* Kích thước chữ mặc định */

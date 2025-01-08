@@ -3,12 +3,7 @@
     <BaseComponent>
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <img
-            src="../../../assets/images/svg_v2/ic_moon.svg"
-            width="24"
-            alt=""
-            srcset=""
-          />
+          <IcMoonphase></IcMoonphase>
           <p>Moonphase</p>
         </div>
       </template>
@@ -23,11 +18,13 @@
 import BaseComponent from "../baseComponent.vue";
 import ApexCharts from "vue3-apexcharts";
 import { onMounted, ref } from "vue";
+import IcMoonphase from "@/components/icons/IcMoonphase.vue";
 
 export default {
   name: "moon-page",
   components: {
     BaseComponent,
+    IcMoonphase,
   },
   setup() {
     const sunPathCanvas = ref(null);

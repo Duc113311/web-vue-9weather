@@ -3,12 +3,7 @@
     <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <img
-            src="../../../assets/images/svg_v2/ic_fluent_emoji_high_contrast_sun.svg"
-            width="24"
-            alt=""
-            srcset=""
-          />
+          <IcTitleSun></IcTitleSun>
           <p class="txt_medium_14">{{ $t("Sun") }}</p>
         </div>
       </template>
@@ -57,10 +52,12 @@ import {
   convertTimestampToHoursMinutes,
   convertTimestampToHoursMinutes12,
 } from "../../../utils/converValue.js";
+import IcTitleSun from "@/components/icons/IcTitleSun.vue";
 export default {
   name: "sun-page",
   components: {
     BaseComponent,
+    IcTitleSun,
   },
 
   data() {

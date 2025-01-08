@@ -172,7 +172,7 @@
               <button
                 @click="onClickCreateWidget()"
                 type="button"
-                class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-4 py-2.5 text-center me-2 mb-2"
+                class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-4 py-2.5 text-center me-2 mb-2"
               >
                 <div class="flex items-center justify-center gap-1">
                   <img src="../../assets/images/svg/ic_create.svg" alt="" />
@@ -292,8 +292,14 @@
                           <span>{{ Math.round(item.humidity * 100) }}%</span>
                         </div>
                         <div class="flex items-center gap-2">
-                          <img :src="convertIconCurrently(item?.icon)" alt="" />
-                          <img :src="convertIconCurrently(item?.icon)" alt="" />
+                          <component
+                            :is="convertIconCurrently(item?.icon)"
+                          ></component>
+                          <component
+                            :is="convertIconCurrently(item?.icon)"
+                          ></component>
+                          <!-- <img :src="convertIconCurrently(item?.icon)" alt="" />
+                          <img :src="convertIconCurrently(item?.icon)" alt="" /> -->
                         </div>
                         <div class="flex items-center gap-1">
                           <span>
@@ -345,7 +351,7 @@
                 >
                   <!--  -->
                   <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
-                    <div class="w-full text-center text-white pt-2">
+                    <div class="w-full text-center pt-2">
                       <span class="txt_medium_30" href="">{{
                         valueAddressLocation
                       }}</span>
@@ -421,8 +427,15 @@
                           <span>{{ Math.round(item.humidity * 100) }}%</span>
                         </div>
                         <div class="flex items-center gap-2">
-                          <img :src="convertIconCurrently(item?.icon)" alt="" />
-                          <img :src="convertIconCurrently(item?.icon)" alt="" />
+                          <component
+                            :is="convertIconCurrently(item?.icon)"
+                          ></component>
+                          <component
+                            :is="convertIconCurrently(item?.icon)"
+                          ></component>
+
+                          <!-- <img :src="convertIconCurrently(item?.icon)" alt="" />
+                          <img :src="convertIconCurrently(item?.icon)" alt="" /> -->
                         </div>
                         <div class="flex items-center gap-1">
                           <span>
@@ -474,7 +487,7 @@
                 >
                   <!--  -->
                   <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
-                    <div class="w-full text-left text-white pt-2">
+                    <div class="w-full text-left pt-2">
                       <span class="txt_medium_30" href="">{{
                         valueAddressLocation
                       }}</span>
@@ -562,7 +575,7 @@
                 >
                   <!--  -->
                   <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
-                    <div class="w-full text-left text-white pt-2">
+                    <div class="w-full text-left pt-2">
                       <span class="txt_medium_30" href="">{{
                         valueAddressLocation
                       }}</span>
@@ -645,7 +658,7 @@
               <button
                 @click="onClickCopyWidget"
                 type="button"
-                class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-4 py-2.5 text-center me-2 mb-2"
+                class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-4 py-2.5 text-center me-2 mb-2"
               >
                 <div class="flex items-center justify-center gap-1">
                   <img src="../../assets/images/svg/ic_copy.svg" alt="" />

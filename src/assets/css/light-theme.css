@@ -5,5 +5,22 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-text-align: left;
-  --bs-body-bg: #ffffff;
+  --bs-body-bg: #e6f0fe;
+  --bs-header-bg: #2b528c;
+  --bg-title-logo: #ffffff;
+  --bg-input-search: rgba(243, 243, 243, 0.2);
+  --color-input-ic: #ffffff;
+  --bg-nav-top: rgba(0, 58, 145, 0.32);
+  --bg-nav-bottom: rgba(0, 98, 245, 0.16);
+  --color-txt: #333333;
+  --bg-compo-1: rgb(147 135 135 / 17%);
+  --bg-compo-2: rgb(161 129 141 / 14%);
+  --bg-compo-3: rgb(206 186 186 / 12%);
+  --bg-button: #ffffff;
+  --color-icon-df: #333333;
+  --color-border: rgb(66 36 36 / 20%);
+  --bg-tab-btn: rgb(65 54 54 / 10%);
+  --bg-title-calendar: rgba(0, 98, 245, 0.4);
+  --color-txt-rain: #0062f5;
+  --bg-btn-location: #dfecff;
 }

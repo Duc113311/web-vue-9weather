@@ -6,21 +6,24 @@
         <div
           class="logo-app lg:w-[600px] h-full flex justify-center items-center"
         >
-          <div class="flex w-full items-center cursor-pointer">
+          <div class="flex w-full items-center gap-2 cursor-pointer">
             <div class="imgLogo cursor-pointer"></div>
+            <div class="txt_bold_34 color-title-logo">9Weather</div>
           </div>
         </div>
-        <div class="tab-proxy flex items-center">
+        <div class="tab-proxy flex items-center color-title-logo">
           <div>
-            <span class="underline">Tems of Use</span>
+            <span class="underline">
+              <a href="http://">Tems of Use</a>
+            </span>
           </div>
           &nbsp;|&nbsp;
           <div>
-            <span class="underline">Privacy Policy</span>
+            <span class="underline"><a href="http://">Privacy Policy</a></span>
           </div>
           &nbsp;|&nbsp;
           <div>
-            <span class="underline">Cookie Policy</span>
+            <span class="underline"><a href="http://">Cookie Policy</a></span>
           </div>
         </div>
       </div>
@@ -34,6 +37,6 @@ export default {
 </script>
 <style lang="scss">
 .bg-footer {
-  background-color: #dfecff;
+  background-color: var(--bs-header-bg);
 }
 </style>

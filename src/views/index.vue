@@ -16,7 +16,7 @@
 
     <div class="body-app relative body-n flex-grow">
       <NavBottom></NavBottom>
-      <div class="w-full pad-big">
+      <div class="w-full pad-big color-txt-df">
         <router-view />
       </div>
     </div>

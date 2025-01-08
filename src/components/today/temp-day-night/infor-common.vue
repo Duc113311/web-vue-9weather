@@ -3,7 +3,11 @@
     <!--  -->
     <div class="c-temp text-left pt-2">
       <div class="flex items-center justify-start text-center gap-2">
-        <img width="50" :src="renderIcon(dataDayNightRender?.icon)" alt="" />
+        <component
+          :width="40"
+          :height="40"
+          :is="renderIcon(dataDayNightRender?.icon)"
+        ></component>
         <div class="flex items-start text-start">
           <p class="txt_poppins_68">
             {{ convertFahrenheitToCelsiusNotUnit(dataDayNightRender?.tempAvg) }}
@@ -36,11 +40,7 @@
     <div class="pt-2 pb-2 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_UV_index.svg"
-            width="24"
-            alt=""
-          />
+          <IcUvIndex></IcUvIndex>
           <p class="txt_regular_14">{{ $t("uv") }}</p>
         </div>
         <div class="items-center flex gap-1">
@@ -55,11 +55,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
-            width="24"
-            alt=""
-          />
+          <IcPrecipitation></IcPrecipitation>
           <p class="txt_regular_14">{{ $t("precipitation") }}</p>
         </div>
         <p class="txt_medium_17">
@@ -68,11 +64,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_precititation.svg"
-            width="24"
-            alt=""
-          />
+          <IcChanceOfRain></IcChanceOfRain>
           <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_17">
@@ -89,6 +81,9 @@
   </div>
 </template>
 <script>
+import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
+import IcUvIndex from "@/components/icons/IcUvIndex.vue";
 import {
   capitalizeWords,
   codeToFind,
@@ -103,6 +98,11 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "infor-common",
+  components: {
+    IcChanceOfRain,
+    IcUvIndex,
+    IcPrecipitation,
+  },
 
   data() {
     return {};

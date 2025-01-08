@@ -1,5 +1,17 @@
+import IcSun from "@/components/icons/IcSun.vue";
 import i18n from "../locales/i18n";
 import { DateTime } from "luxon";
+import IcCloudy from "@/components/icons/IcCloudy.vue";
+import IcCloudFog from "@/components/icons/IcCloudFog.vue";
+import IcRain from "@/components/icons/IcRain.vue";
+import IcTornado from "@/components/icons/IcTornado.vue";
+import IcWind from "@/components/icons/IcWind.vue";
+import IcSnow from "@/components/icons/IcSnow.vue";
+import IcMoon from "@/components/icons/IcMoon.vue";
+import IcCloudLightning from "@/components/icons/IcCloudLightning.vue";
+import IcCloudHail from "@/components/icons/IcCloudHail.vue";
+import IcCloudMoon from "@/components/icons/IcCloudMoon.vue";
+import IcCloudSun from "@/components/icons/IcCloudSun.vue";
 
 /* eslint-disable prettier/prettier */
 /**
@@ -171,19 +183,20 @@ export function getUvSummaryImage(value) {
 }
 
 export function getIconHourlyForecastTheme(value) {
-  const ic_clear_day_hourly = require("../assets/images/svg_v2/icon-thoitiet/sun.svg");
-  const ic_cloudy_hourly = require("../assets/images/svg_v2/icon-thoitiet/cloud.svg");
-  const ic_fog = require("../assets/images/svg_v2/icon-thoitiet/cloud-fog.svg");
-  const ic_partly_cloudy_day_hourly = require("../assets/images/svg/theme_icon_1/ic_partly_cloudy_day_hourly.svg");
-  const ic_partly_cloudy_night_hourly = require("../assets/images/svg/theme_icon_1/ic_partly_cloudy_night_hourly.svg");
-  const ic_rain_hourly = require("../assets/images/svg_v2/icon-thoitiet/cloud-rain-wind.svg");
-  const ic_sleet_hourly = require("../assets/images/svg/theme_icon_1/ic_sleet_hourly.svg");
-  const ic_tornado_hourly = require("../assets/images/svg_v2/icon-thoitiet/tornado.svg");
-  const ic_thunderstorm_hourly = require("../assets/images/svg/theme_icon_1/ic_thunderstorm_hourly.svg");
-  const ic_wind_hourly = require("../assets/images/svg/theme_icon_1/ic_wind_hourly.svg");
-  const ic_snow_hourly = require("../assets/images/svg_v2/icon-thoitiet/cloud-snow.svg");
-  const ic_clear_night_hourly = require("../assets/images/svg/theme_icon_1/ic_clear_night_hourly.svg");
-  value = value.toString();
+  const ic_clear_day_hourly = IcSun;
+  const ic_cloudy_hourly = IcCloudy;
+  const ic_fog = IcCloudFog;
+  const ic_partly_cloudy_day_hourly = IcCloudSun;
+  const ic_partly_cloudy_night_hourly = IcCloudMoon;
+  const ic_rain_hourly = IcRain;
+  const ic_sleet_hourly = IcCloudHail;
+  const ic_tornado_hourly = IcTornado;
+  const ic_thunderstorm_hourly = IcCloudLightning;
+  const ic_wind_hourly = IcWind;
+  const ic_snow_hourly = IcSnow;
+  const ic_clear_night_hourly = IcMoon;
+  
+  value = value.toString();    
   switch (value) {
     case "cloudy":
       return ic_cloudy_hourly;
@@ -198,8 +211,8 @@ export function getIconHourlyForecastTheme(value) {
     case "clear_night":
       return ic_clear_night_hourly;
     case "sleet":
-      return ic_sleet_hourly;
-    case "fog":
+      return  ;
+    case "fog": 
       return ic_fog;
     case "wind":
       return ic_wind_hourly;

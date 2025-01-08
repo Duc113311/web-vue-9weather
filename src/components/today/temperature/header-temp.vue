@@ -2,8 +2,12 @@
   <div class="w-full border-b pad-l-r-20 pad-t">
     <!--  -->
     <div class="c-temp text-left">
-      <div class="flex items-start text-start gap-2">
-        <img width="50" :src="renderIcon(currentlyDataRender)" alt="" />
+      <div class="flex items-center text-start gap-2">
+        <component
+          :is="renderIcon(currentlyDataRender)"
+          :width="40"
+          :height="40"
+        ></component>
         <div class="flex items-start text-start">
           <p class="txt_poppins_87">
             {{ renderToCelsius(currentlyDataRender?.temperature) }}
@@ -39,22 +43,14 @@
         </div>
         <div class="flex justify-center items-center">
           <div class="text-left flex txt_medium gap-1">
-            <img
-              src="../../../assets/images/svg_v2/ic_temperature_min.svg"
-              alt=""
-              srcset=""
-            />
+            <IcTemptMin></IcTemptMin>
             <span class="txt_medium_17">{{
               renderToCelsiusAndUnit(dailyOneDataRender?.temperatureMin)
             }}</span>
           </div>
 
           <div class="text-right flex txt_medium gap-1">
-            <img
-              src="../../../assets/images/svg_v2/ic_temperature_max.svg"
-              alt=""
-              srcset=""
-            />
+            <IcTemptMax></IcTemptMax>
             <span class="txt_medium_17">
               {{ renderToCelsiusAndUnit(dailyOneDataRender?.temperatureMax) }}
             </span>
@@ -67,10 +63,7 @@
           <p>{{ $t("precipitation") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
-          <img
-            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
-            width="24"
-          />
+          <IcPrecipitation></IcPrecipitation>
         </div>
         <div class="text-c text-center items-center txt_medium_17">
           <p>
@@ -84,10 +77,7 @@
           <p>{{ $t("Chance_of_rain") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
-          <img
-            src="../../../assets/images/svg_v2/ic_precititation.svg"
-            width="24"
-          />
+          <IcChanceOfRain></IcChanceOfRain>
         </div>
         <div class="text-c text-center items-center txt_medium_17">
           <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
@@ -105,6 +95,10 @@
   </div>
 </template>
 <script>
+import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
+import IcTemptMax from "@/components/icons/IcTemptMax.vue";
+import IcTemptMin from "@/components/icons/IcTemptMin.vue";
 import {
   codeToFind,
   convertCtoF,
@@ -117,6 +111,12 @@ import {
 
 export default {
   name: "header-temp",
+  components: {
+    IcTemptMax,
+    IcTemptMin,
+    IcPrecipitation,
+    IcChanceOfRain,
+  },
 
   data() {
     return {};

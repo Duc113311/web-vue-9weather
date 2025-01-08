@@ -1,7 +1,7 @@
 .el-input__wrapper {
   /* border-radius: 10px !important; */
   color: white !important;
-  background: #0d29521a !important;
+  background: var(--bg-input-search) !important;
   /* border: 1px solid #0D2952 !important; */
   box-shadow: none !important;
   /* border-radius: 20px !important; */
@@ -24,10 +24,10 @@
 }
 
 .el-input__prefix {
-  color: #0d2952;
+  color: var(--color-input-ic);
 }
 .el-input__inner::placeholder {
-  color: #0d2952;
+  color: var(--color-input-ic);
 }
 /*  */
 

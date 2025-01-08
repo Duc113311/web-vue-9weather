@@ -3,7 +3,11 @@
     <!--  -->
     <div class="c-temp text-left pt-2">
       <div class="flex items-center justify-start text-center gap-2">
-        <img width="50" :src="renderIcon(currentlyData)" alt="" />
+        <component
+          :width="40"
+          :height="40"
+          :is="renderIcon(currentlyData)"
+        ></component>
         <div class="flex items-start text-start">
           <p class="txt_poppins_68">
             {{ convertFahrenheitToCelsiusNotUnit(currentlyData?.temperature) }}
@@ -33,28 +37,18 @@
     <div class="pt-2 pb-2 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_Temp_db.svg"
-            width="24"
-            alt=""
-          />
+          <IcTempt></IcTempt>
           <p class="txt_regular_14">{{ $t("temperature") }}</p>
         </div>
         <div class="flex items-center">
           <div class="flex items-center">
-            <img
-              src="../../../assets/images/svg_v2/ic_temperature_min.svg"
-              alt=""
-            />
+            <IcTemptMin></IcTemptMin>
             <p class="txt_medium_17">
               {{ convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMin) }}
             </p>
           </div>
           <div class="flex items-center">
-            <img
-              src="../../../assets/images/svg_v2/ic_temperature_max.svg"
-              alt=""
-            />
+            <IcTemptMax></IcTemptMax>
             <p class="txt_medium_17">
               {{ convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMax) }}
             </p>
@@ -63,11 +57,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_UV_index_db.svg"
-            width="24"
-            alt=""
-          />
+          <IcUvIndex></IcUvIndex>
           <p class="txt_regular_14">{{ $t("uv") }}</p>
         </div>
         <div class="items-center flex gap-1">
@@ -81,11 +71,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_droplet_blue.svg"
-            width="24"
-            alt=""
-          />
+          <IcPrecipitation></IcPrecipitation>
           <p class="txt_regular_14">{{ $t("precipitation") }}</p>
         </div>
         <p class="txt_medium_des">
@@ -94,11 +80,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_Precititation_db.svg"
-            width="24"
-            alt=""
-          />
+          <IcChanceOfRain></IcChanceOfRain>
           <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_des">
@@ -107,11 +89,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <img
-            src="../../../assets/images/svg_v2/ic_Air_quality.svg"
-            width="24"
-            alt=""
-          />
+          <IcTitleAir></IcTitleAir>
           <p class="txt_regular_14">{{ $t("air_quality") }}</p>
         </div>
         <div class="items-center flex gap-1">
@@ -131,6 +109,13 @@
   </div>
 </template>
 <script>
+import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
+import IcTempt from "@/components/icons/IcTempt.vue";
+import IcTemptMax from "@/components/icons/IcTemptMax.vue";
+import IcTemptMin from "@/components/icons/IcTemptMin.vue";
+import IcTitleAir from "@/components/icons/IcTitleAir.vue";
+import IcUvIndex from "@/components/icons/IcUvIndex.vue";
 import {
   capitalizeWords,
   codeToFind,
@@ -147,6 +132,16 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "infor-full-card",
+
+  components: {
+    IcChanceOfRain,
+    IcPrecipitation,
+    IcTempt,
+    IcTemptMax,
+    IcTemptMin,
+    IcTitleAir,
+    IcUvIndex,
+  },
 
   data() {
     return {};

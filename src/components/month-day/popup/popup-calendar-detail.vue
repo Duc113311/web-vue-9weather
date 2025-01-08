@@ -3,15 +3,13 @@
     <!--  -->
     <div class="w-full flex justify-center items-center p-2">
       <p class="txt_regular_14">
-        {{ convertTimeFormatDateFull(renderObjTemperature?.time) }}
+        <!-- {{ convertTimeFormatDateFull(renderObjTemperature?.time) }} -->
       </p>
     </div>
     <div class="flex w-full items-center justify-center">
-      <img
-        :src="convertIconCurrently(renderObjTemperature?.icon)"
-        width="40"
-        alt=""
-      />
+      <component
+        :is="convertIconCurrently(renderObjTemperature?.icon)"
+      ></component>
     </div>
     <div class="flex items-center gap-1 p-2 justify-center w-full">
       <p class="txt_regular_14">

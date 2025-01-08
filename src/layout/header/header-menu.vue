@@ -1,5 +1,5 @@
 <template>
-  <div class="header-menu text-white">
+  <div class="header-menu">
     <!--  -->
     <div class="flex w-full items-center justify-between">
       <div class="flex items-center gap-2" v-if="namePage !== 'unit_settings'">
@@ -8,7 +8,7 @@
           alt=""
           srcset=""
         />
-        <p class="txt_regular text-white">{{ $t("Settings") }}</p>
+        <p class="txt_regular">{{ $t("Settings") }}</p>
       </div>
       <div
         @click="onClickBack('settings')"
@@ -16,7 +16,7 @@
         v-if="namePage === 'unit_settings'"
       >
         <img src="../../assets/images/svg_v2/ic_back_st.svg" alt="" srcset="" />
-        <p class="txt_regular text-white">
+        <p class="txt_regular">
           <span>{{ $t(`Unit_preferences_settings`) }}</span>
         </p>
       </div>
@@ -31,8 +31,22 @@
     </div>
 
     <div class="address-now pt-4 pb-4 text-left cursor-pointer text-blue-300">
-      {{ convertToEnglishRender(breadcumsObject?.city) }},
-      {{ breadcumsObject?.country }}
+      <div
+        class="flex"
+        v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
+      >
+        <p v-if="breadcumsObject?.city">
+          {{
+            $t(
+              `city.city_${languageParam}.${convertToLowCase(
+                breadcumsObject?.city_key
+              )}`
+            )
+          }},
+        </p>
+        &nbsp;
+        <p v-if="breadcumsObject?.country">{{ breadcumsObject?.country }}</p>
+      </div>
     </div>
 
     <div class="w-full">
@@ -113,8 +127,15 @@ export default {
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
 
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
     breadcumsObject() {
-      return this.breadcumsObjectGetters;
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
   },
 
@@ -122,7 +143,13 @@ export default {
     convertToEnglishRender(value) {
       return convertToEnglish(value);
     },
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
 
+      return normalizedStr;
+    },
     onClickUnitSetting(value) {
       this.namePage = value;
     },
@@ -167,7 +194,7 @@ export default {
     background-repeat: no-repeat;
     -webkit-box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
-    color: #000;
+    color: #f9f9f9;
     padding: 20px 20px 0;
     position: absolute;
     right: 0;

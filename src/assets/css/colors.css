@@ -1,6 +1,7 @@
 .bg-header {
-  background: #dfecff;
-  color: #0d2952;
+  background: var(--bs-header-bg);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(56px);
 }
 .bg-body {
   background-position: center;
@@ -123,7 +124,7 @@
 
 /* New */
 .color_f9f9f9 {
-  color: #f9f9f9;
+  color: var(--color-txt);
 }
 
 .color_0D2952 {
@@ -135,9 +136,52 @@
 }
 
 .color_fffff_10 {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--bg-tab-btn);
 }
 
 .txt-line {
+  color: #0d2952;
+}
+
+.color-title-logo {
+  color: var(--bg-title-logo);
+}
+
+.color-text {
+  color: var(--color-input-ic);
+}
+
+.icon-path {
+  fill: var(--color-input-ic); /* Áp dụng màu qua biến CSS */
+}
+
+.bg-nav {
+  background: linear-gradient(
+    180deg,
+    var(--bg-nav-top),
+    var(--bg-nav-bottom)
+  ); /* Màu đen với opacity 5% */
+  backdrop-filter: blur(56px);
+  box-shadow: -50px -50px 100px rgba(243, 243, 243, 0.15),
+    500px 500px 100px rgba(243, 243, 243, 0.15); /* Shadow 2: bên phải và dưới */
+}
+
+.color-txt-df {
+  color: var(--color-txt);
+}
+.bg-color {
+  box-shadow: inset 0px 0px 56px var(--bg-compo-1),
+    inset -50px -50px 100px 0px var(--bg-compo-2),
+    inset 500px 500px 100px 0px var(--bg-compo-3);
+
+  border-radius: 20px;
+}
+
+.bg-title-calender {
+  background-color: var(--bg-title-calendar);
+}
+
+.bg-bth {
+  background-color: var(--bg-btn-location);
   color: #0d2952;
 }

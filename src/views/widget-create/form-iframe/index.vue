@@ -72,8 +72,7 @@
                 <span>{{ item.humidity * 100 }}%</span>
               </div>
               <div class="flex items-center gap-2">
-                <img :src="convertIconCurrently(item?.icon)" alt="" />
-                <img :src="convertIconCurrently(item?.icon)" alt="" />
+                <component :is="convertIconCurrently(item?.icon)"></component>
               </div>
               <div class="flex items-center gap-1">
                 <span> {{ convertTemperature(item.temperatureMin) }}° </span>

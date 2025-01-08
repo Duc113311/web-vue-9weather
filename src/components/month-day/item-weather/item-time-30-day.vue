@@ -1,12 +1,22 @@
 <template>
   <div class="w-full">
     <!--   -->
-    <div class="flex items-center text-left gap-2 pad-t-b text-white">
-      <img
-        src="../../../assets/images/svg_v2/ic_cloud_sun.svg"
-        width="24"
-        alt=""
-      />
+    <div class="flex items-center text-left gap-2 pad-t-b">
+      <svg
+        width="25"
+        height="24"
+        viewBox="0 0 25 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12.167 2V4M5.09717 4.92993L6.50717 6.33993M20.167 12H22.167M19.2371 4.92993L17.8271 6.33993M16.114 12.6501C16.237 11.9046 16.1464 11.1395 15.8527 10.4433C15.5589 9.74717 15.0739 9.14847 14.454 8.71654C13.834 8.28461 13.1044 8.03711 12.3496 8.00269C11.5948 7.96827 10.8457 8.14835 10.189 8.52206M13.167 22H7.16695C6.22092 21.9998 5.29436 21.7312 4.49487 21.2255C3.69539 20.7197 3.0558 19.9975 2.65038 19.1427C2.24496 18.288 2.09035 17.3358 2.20451 16.3966C2.31867 15.4575 2.69691 14.5701 3.29531 13.8373C3.89371 13.1046 4.6877 12.5567 5.58507 12.2572C6.48244 11.9577 7.44637 11.9189 8.36489 12.1454C9.28342 12.3718 10.1188 12.8542 10.7742 13.5366C11.4295 14.2189 11.8777 15.0731 12.067 16H13.167C13.9626 16 14.7257 16.3161 15.2883 16.8787C15.8509 17.4413 16.167 18.2044 16.167 19C16.167 19.7956 15.8509 20.5587 15.2883 21.1213C14.7257 21.6839 13.9626 22 13.167 22Z"
+          stroke="var(--color-icon-df)"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
       <div class="txt_medium_14" v-if="breadcumsObject.country_key === 'vn'">
         <span v-if="breadcumsObject?.city && !breadcumsObject?.district">
           {{
@@ -99,19 +109,29 @@
 
                 <div class="flex items-center">
                   <div class="flex items-center gap-2 mr-4">
-                    <img :src="renderIcon(item)" alt="" />
+                    <component :is="renderIcon(item)"></component>
                     <p class="txt_medium_15">
                       {{ renderToCelsius(item?.temperatureMin) }} /
                       {{ renderToCelsius(item?.temperatureMax) }}
                     </p>
                   </div>
                   <div>
-                    <img
+                    <svg
                       :id="'chevron-' + index"
-                      src="../../../assets/images/svg_v2/ic_chevron_right.png"
-                      alt=""
                       width="24"
-                    />
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18 9L12 15L6 9"
+                        stroke="var(--color-icon-df)"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -122,11 +142,7 @@
                 <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
                   <div class="flex items-center justify-between w-full">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_Temp.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTempt></IcTempt>
                       <p class="txt_regular_14">{{ $t("temperature") }}</p>
                     </div>
 
@@ -140,11 +156,7 @@
                       </p> -->
                       <div class="flex items-center">
                         <div class="flex items-center">
-                          <img
-                            src="../../../assets/images/svg_v2/ic_temperature_min.svg"
-                            width="24"
-                            alt=""
-                          />
+                          <IcTemptMin></IcTemptMin>
                           <p class="txt_medium_15">
                             {{
                               convertFahrenheitToCelsiusNot(
@@ -154,11 +166,7 @@
                           </p>
                         </div>
                         <div class="flex items-center">
-                          <img
-                            src="../../../assets/images/svg_v2/ic_temperature_max.svg"
-                            alt=""
-                            width="24"
-                          />
+                          <IcTemptMax></IcTemptMax>
                           <p class="txt_medium_15">
                             {{
                               convertFahrenheitToCelsiusNot(
@@ -172,11 +180,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_smile.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleReadFeel></IcTitleReadFeel>
                       <p class="txt_regular_14">{{ $t("real_feel") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -193,11 +197,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_UV_index.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcUvIndex></IcUvIndex>
                       <p class="txt_regular_14">{{ $t("uv") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -211,11 +211,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_droplet.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcPrecipitation></IcPrecipitation>
                       <p class="txt_regular_14">{{ $t("precipitation") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -224,11 +220,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_precititation.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcChanceOfRain></IcChanceOfRain>
                       <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -238,11 +230,7 @@
 
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_Air_quality.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleAir></IcTitleAir>
                       <p class="txt_regular_14">{{ $t("air_quality") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -260,11 +248,7 @@
                 <div class="w-[50%] flex flex-col gap-4 pl-6">
                   <div class="flex items-center justify-between w-full">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_wind.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleWindSpeed></IcTitleWindSpeed>
                       <p class="txt_regular_14">{{ $t("wind_speed") }}</p>
                     </div>
 
@@ -279,11 +263,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_wind_flag_svgrepo.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleWindDirection></IcTitleWindDirection>
                       <p class="txt_regular_14">{{ $t("wind_direction") }}</p>
                     </div>
                     <div class="flex items-center">
@@ -294,11 +274,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_cloud_fog.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleCloudCover></IcTitleCloudCover>
                       <p class="txt_regular_14">{{ $t("cloud_cover") }}</p>
                     </div>
                     <div class="flex items-center">
@@ -309,11 +285,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/ic_pressure.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitlePressure></IcTitlePressure>
                       <p class="txt_regular_14">{{ $t("pressure") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -328,11 +300,7 @@
 
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-1">
-                      <img
-                        src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 2.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleSunrise></IcTitleSunrise>
                       <p class="txt_regular_14">{{ $t("sunrise") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -349,11 +317,7 @@
 
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <img
-                        src="../../../assets/images/svg_v2/weather-icons-34-svgrepo-com 1.svg"
-                        alt=""
-                        srcset=""
-                      />
+                      <IcTitleSunset></IcTitleSunset>
                       <p class="txt_regular_14">{{ $t("sunset") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -378,7 +342,7 @@
         <button
           type="button"
           @click="onClickLoadMoreItems"
-          class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
+          class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
         >
           <span class="txt_medium_12">
             {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
@@ -424,12 +388,38 @@ import {
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
 import removeAccents from "remove-accents";
+import IcTempt from "@/components/icons/IcTempt.vue";
+import IcTemptMin from "@/components/icons/IcTemptMin.vue";
+import IcTemptMax from "@/components/icons/IcTemptMax.vue";
+import IcTitleReadFeel from "@/components/icons/IcTitleReadFeel.vue";
+import IcUvIndex from "@/components/icons/IcUvIndex.vue";
+import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcTitleAir from "@/components/icons/IcTitleAir.vue";
+import IcTitleWindSpeed from "@/components/icons/IcTitleWindSpeed.vue";
+import IcTitleWindDirection from "@/components/icons/IcTitleWindDirection.vue";
+import IcTitleCloudCover from "@/components/icons/IcTitleCloudCover.vue";
+import IcTitlePressure from "@/components/icons/IcTitlePressure.vue";
+import IcTitleSunrise from "@/components/icons/IcTitleSunrise.vue";
+import IcTitleSunset from "@/components/icons/IcTitleSunset.vue";
 
 export default {
   name: "item-time-30-day",
 
   components: {
     BaseList,
+    IcTempt,
+    IcTemptMin,
+    IcTemptMax,
+    IcTitleReadFeel,
+    IcUvIndex,
+    IcChanceOfRain,
+    IcTitleAir,
+    IcTitleWindSpeed,
+    IcTitleWindDirection,
+    IcTitleCloudCover,
+    IcTitlePressure,
+    IcTitleSunrise,
+    IcTitleSunset,
   },
   data() {
     return {

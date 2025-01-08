@@ -21,7 +21,7 @@
         </vue-horizontal>
         <div class="absolute w-full bottom-0 left-0">
           <div class="flex justify-center items-center w-full">
-            <div class="flex-1 bg-short text-white text-center pl-4 pr-4 pt-2">
+            <div class="flex-1 bg-short text-center pl-4 pr-4 pt-2">
               <p class="txt_regular_12">{{ $t("Low") }}</p>
               <p class="des-atb">0-2</p>
             </div>
@@ -33,15 +33,11 @@
               <p class="txt_regular_12">{{ $t("High") }}</p>
               <p class="des-atb">6-7</p>
             </div>
-            <div
-              class="flex-1 bg-Very-high text-white text-center pl-4 pr-4 pt-2"
-            >
+            <div class="flex-1 bg-Very-high text-center pl-4 pr-4 pt-2">
               <p class="txt_regular_12">{{ $t("Very_High") }}</p>
               <p class="des-atb">8-10</p>
             </div>
-            <div
-              class="flex-1 bg-Extremely-high text-white text-center pl-4 pr-4 pt-2"
-            >
+            <div class="flex-1 bg-Extremely-high text-center pl-4 pr-4 pt-2">
               <p class="txt_regular_12">{{ $t("Extreme") }}</p>
               <p class="des-atb">> 10</p>
             </div>

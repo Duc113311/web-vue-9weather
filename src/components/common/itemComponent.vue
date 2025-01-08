@@ -3,12 +3,12 @@
     <header>
       <!-- Nội dung sẽ được chèn vào đây -->
 
-      <div class="text-left pad-t-b text-white">
+      <div class="text-left pad-t-b">
         <slot name="header"></slot>
       </div>
     </header>
 
-    <div class="text-white">
+    <div class="">
       <slot></slot>
     </div>
   </div>

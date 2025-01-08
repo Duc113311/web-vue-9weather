@@ -13,13 +13,18 @@
           @click="onClickRouterView(menu, index)"
         >
           <div class="flex items-center txt-medium gap-2 cursor-pointer">
-            <img
+            <component
+              :is="menu.icon"
+              class="menu-icon"
+              :class="{ 'active-icon': activeTabGettersParam === index }"
+            />
+            <!-- <img
               :src="menu.icon"
               class="menu-icon"
               :class="{ 'active-icon': activeTabGettersParam === index }"
               :alt="menu.label"
               width="24"
-            />
+            /> -->
 
             <span class="txt_regular_17">{{ menu.label }}</span>
           </div>
@@ -32,7 +37,10 @@
 import { convertToEnglishReplace } from "@/utils/converValue";
 import { mapGetters, mapMutations } from "vuex";
 import removeAccents from "remove-accents";
-
+import IcCloudSun from "@/components/icons/IcCloudSun.vue";
+import IcCalendar from "@/components/icons/IcCalendar.vue";
+import IcOclock from "@/components/icons/IcOclock.vue";
+import IcRadar from "@/components/icons/IcRadar.vue";
 export default {
   name: "nav-tabbar",
 
@@ -52,22 +60,22 @@ export default {
         {
           name: "today-weather",
           label: this.$t("Today"),
-          icon: require("../../assets/images/svg_v2/ic_cloud_sun.svg"),
+          icon: IcCloudSun,
         },
         {
           name: "hourly-weather",
           label: this.$t("Hourly"),
-          icon: require("../../assets/images/svg_v2/ic_oclock.svg"),
+          icon: IcOclock,
         },
         {
           name: "month-weather",
           label: this.$t("Month"),
-          icon: require("../../assets/images/svg_v2/ic_calendar_days.svg"),
+          icon: IcCalendar,
         },
         {
           name: "radar-weather",
           label: this.$t("Radar"),
-          icon: require("../../assets/images/svg_v2/ic_radar.svg"),
+          icon: IcRadar,
         },
       ];
     },
@@ -477,8 +485,8 @@ export default {
 .weather-menu-item {
   width: 163px;
   height: 44px;
-  background-color: #5b6c86;
-  color: #ffffff;
+  background-color: var(--bg-button);
+  color: var(--color-txt);
 }
 .weather-menu-inner {
   gap: 20px;

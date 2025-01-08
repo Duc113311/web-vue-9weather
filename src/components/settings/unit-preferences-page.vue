@@ -250,7 +250,7 @@
       <button
         type="button"
         @click="onClickDoneUnit()"
-        class="w-[300px] text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-5 py-3 text-center me-2 mb-2"
+        class="w-[300px] bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-5 py-3 text-center me-2 mb-2"
       >
         <span class="txt_medium">{{ $t("Done") }}</span>
       </button>

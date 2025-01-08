@@ -121,8 +121,6 @@ const mutations = {
     if (!jsonValue) {
       return;
     }
-    console.log("jsonValue", jsonValue);
-    console.log("jsonValueTest", jsonValueTest);
 
     const listResultAddress = JSON.parse(jsonValue);
 

@@ -3,12 +3,7 @@
     <BaseComponent>
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <img
-            src="../../../assets/images/svg_v2/ic_moon.svg"
-            width="24"
-            alt=""
-            srcset=""
-          />
+          <IcMoonphase></IcMoonphase>
           <p class="txt_medium_14">{{ $t("moonphase") }}</p>
         </div>
       </template>
@@ -87,11 +82,13 @@ import {
   Horizon,
   SearchMoonPhase,
 } from "astronomy-engine";
+import IcMoonphase from "@/components/icons/IcMoonphase.vue";
 
 export default {
   name: "moon-page",
   components: {
     BaseComponent,
+    IcMoonphase,
     GlobalMoonIcon,
   },
 
@@ -161,7 +158,7 @@ export default {
     },
     getWindDirectionEmoji() {
       const azimuth = parseFloat(this.moonPhaseInfo.azimuth); // Ensure correct type
-      return `${getWindDirectionFromDegrees(azimuth)} 
+      return `${getWindDirectionFromDegrees(azimuth)}
         ${getWindDirectionEmojiFromDegrees(azimuth)}`;
     },
     handleMouseDown(event) {

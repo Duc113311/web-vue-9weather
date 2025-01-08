@@ -1,97 +1,44 @@
 <template>
-  <div class="w-full h-[60px] bg-nav flex items-center">
-    <div class="w-full h-full pl-4 pr-4 text-white">
+  <div class="w-full h-[60px] bg-nav flex items-center color-txt-df">
+    <div class="w-full h-full pl-4 pr-4">
       <div class="w-full h-full container">
         <div class="w-full h-full flex justify-between items-center">
           <!-- left -->
           <div class="md:flex hidden items-center gap-4">
             <div class="h-district pt-5 pb-5 hidden lg:block relative group">
               <div class="flex items-center gap-2 cursor-pointer">
-                <img
-                  src="../../assets/images/svg_v2/ic_city.svg"
-                  width="20"
-                  alt=""
-                  srcset=""
-                />
-                <span class="txt_regular_17">{{ $t("District_City") }}</span>
-                <img
-                  src="../../assets/images/svg_v2/ic_chevron_up.svg"
+                <svg
                   width="24"
-                  alt=""
-                />
-              </div>
-
-              <div class="relative group">
-                <div
-                  class="mega-box absolute"
-                  :class="{ 'hidden-p': isMegaBoxVisible }"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <div class="content">
-                    <div class="container">
-                      <div
-                        class="container-c"
-                        v-if="breadcumsObject?.country_key === 'vn'"
-                      >
-                        <!--  -->
-                        <div
-                          class="region"
-                          v-for="(item, index) in objectCity"
-                          :key="index"
-                        >
-                          <h2>
-                            {{
-                              $t(
-                                `city.city_${renderLanguage}.${item.keyAccentLanguage}`
-                              )
-                            }}
-                          </h2>
-                          <ul>
-                            <li
-                              v-for="(item1, index) in item?.provinceCity"
-                              :key="index"
-                              :class="{
-                                'active-item':
-                                  activeCities === item1.keyAccentLanguage,
-                              }"
-                              @click="onClickSearchCity(item1, item)"
-                            >
-                              {{
-                                $t(
-                                  `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
-                                )
-                              }}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                  <path
+                    d="M6 22V4C6 3.46957 6.21071 2.96086 6.58579 2.58579C6.96086 2.21071 7.46957 2 8 2H16C16.5304 2 17.0391 2.21071 17.4142 2.58579C17.7893 2.96086 18 3.46957 18 4V22M6 22H18M6 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V14C2 13.4696 2.21071 12.9609 2.58579 12.5858C2.96086 12.2107 3.46957 12 4 12H6M18 22H20C20.5304 22 21.0391 21.7893 21.4142 21.4142C21.7893 21.0391 22 20.5304 22 20V11C22 10.4696 21.7893 9.96086 21.4142 9.58579C21.0391 9.21071 20.5304 9 20 9H18M10 6H14M10 10H14M10 14H14M10 18H14"
+                    stroke="var(--color-icon-df)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
 
-                      <div
-                        class="container-c"
-                        v-if="breadcumsObject?.country_key === 'us'"
-                      >
-                        <!--  -->
-                        <div
-                          class="region"
-                          v-for="(item, index) in objectCity"
-                          :key="index"
-                        >
-                          <h2>
-                            {{ item.regionName }}
-                          </h2>
-                          <ul>
-                            <li
-                              v-for="(item1, index) in item?.states"
-                              :key="index"
-                              @click="onClickSearchState(item1, item)"
-                            >
-                              {{ item1.nameState }}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <span class="txt_regular_17">{{ $t("District_City") }}</span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M18 9L12 15L6 9"
+                    stroke="var(--color-icon-df)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </div>
             </div>
 
@@ -99,23 +46,39 @@
               class="flex items-center gap-2 cursor-pointer"
               @click="onClickShowWidget()"
             >
-              <img
-                src="../../assets/images/svg_v2/ic_layer.svg"
+              <svg
                 width="20"
-                alt=""
-                srcset=""
-              />
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 16V3C19 2.45 18.55 2 18 2H3C2.45 2 2 2.45 2 3V16C2 16.55 2.45 17 3 17H18C18.55 17 19 16.55 19 16ZM4 4H17V8H4V4ZM5 5V7H8V5H5ZM9 5V7H12V5H9ZM13 5V7H16V5H13ZM4.5 10C4.78 10 5 10.22 5 10.5C5 10.78 4.78 11 4.5 11C4.22 11 4 10.78 4 10.5C4 10.22 4.22 10 4.5 10ZM6 10H10V11H6V10ZM12 10H17V15H12V10ZM4.5 12C4.78 12 5 12.22 5 12.5C5 12.78 4.78 13 4.5 13C4.22 13 4 12.78 4 12.5C4 12.22 4.22 12 4.5 12ZM6 12H10V13H6V12ZM13 12V14H16V12H13ZM4.5 14C4.78 14 5 14.22 5 14.5C5 14.78 4.78 15 4.5 15C4.22 15 4 14.78 4 14.5C4 14.22 4.22 14 4.5 14ZM6 14H10V15H6V14Z"
+                  fill="var(--color-icon-df)"
+                />
+              </svg>
+
               <span class="txt_regular_17">{{ $t("Widget") }}</span>
             </div>
           </div>
           <!-- right -->
           <div class="flex items-center gap-2">
-            <img
-              src="../../assets/images/svg_v2/ic_locate_fixed.svg"
-              width="16"
-              alt=""
-              srcset=""
-            />
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 12H5M5 12C5 15.866 8.13401 19 12 19M5 12C5 8.13401 8.13401 5 12 5M19 12H22M19 12C19 15.866 15.866 19 12 19M19 12C19 8.13401 15.866 5 12 5M12 2V5M12 19V22M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
+                stroke="var(--color-icon-df)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
 
             <div class="flex items-center mr-2 gap-2">
               <span class="txt_regular_17"
@@ -439,18 +402,6 @@ export default {
 </script>
 <style lang="scss">
 //
-.bg-nav {
-  background-color: #43546c; /* Màu đen với opacity 5% */
-}
-
-.bg-bth {
-  background-color: #e3eefb;
-  color: #0d2952;
-}
-.bg-bth:hover {
-  background-color: #0e2950;
-  color: #ffffff;
-}
 
 .mega-box {
   display: block;
@@ -480,19 +431,18 @@ export default {
     z-index: -1; /* Đưa mega-box ra khỏi z-index */
   }
 }
-.mega-box .content {
+.content {
   display: flex;
   justify-content: space-between;
   position: absolute;
   width: 100%;
 }
 
-.mega-box .region {
+.region {
   width: 228px;
   margin-top: 10px;
 }
-
-.mega-box .container-c {
+.container-c {
   flex-wrap: wrap;
   justify-content: left;
   padding: 10px 10px;
@@ -503,25 +453,25 @@ export default {
   background: #ffffff;
 }
 
-.mega-box .region h2 {
+.region h2 {
   font-size: 14px;
   margin-top: 0;
   color: #007bff;
   padding-left: 20px;
 }
 
-.mega-box .region ul {
+.region ul {
   list-style-type: none;
   padding: 0;
 }
 
-.mega-box .region ul li {
+.region ul li {
   font-size: 12px;
   padding: 6px 18px;
   cursor: pointer;
 }
 
-.mega-box .region ul li:hover {
+.region ul li:hover {
   background-color: #0e2950;
   color: white;
 }

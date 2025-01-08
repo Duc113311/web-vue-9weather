@@ -6,7 +6,7 @@
         {{ renderHourly(item).timestampValue }}
       </div>
       <div class="flex justify-center items-center">
-        <img :src="renderHourly(item).iconValue" alt="weather icon" />
+        <component :is="renderHourly(item).iconValue"></component>
       </div>
     </div>
   </div>

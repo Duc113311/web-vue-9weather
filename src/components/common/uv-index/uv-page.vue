@@ -3,13 +3,8 @@
     <BaseComponent>
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <img
-            src="../../../assets/images/svg_v2/ic_UV_index.svg"
-            width="24"
-            alt=""
-            srcset=""
-          />
-          <p>{{ $t("uv_index") }}</p>
+          <IcUvIndex></IcUvIndex>
+          <p class="txt_medium_14">{{ $t("uv_index") }}</p>
         </div>
       </template>
       <div class="w-full h-[183px]">
@@ -69,12 +64,14 @@ import {
   getUvSummaryName,
 } from "@/utils/converValue";
 import { useStore } from "vuex"; // Nhập useStore từ vuex
+import IcUvIndex from "@/components/icons/IcUvIndex.vue";
 
 export default {
   name: "uv-page",
   components: {
     BaseComponent,
     apexchart: ApexCharts,
+    IcUvIndex,
   },
 
   data() {
