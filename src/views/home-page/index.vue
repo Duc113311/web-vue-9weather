@@ -156,6 +156,8 @@ import AirQualityPage from "@/components/common/air-quality/air-quality-page.vue
 import MoonPage from "@/components/common/moon-phase/moon-page.vue";
 import SunPage from "@/components/common/sun/sun-page.vue";
 import UvPage from "@/components/common/uv-index/uv-page.vue";
+import IcTitleDaytime from "@/components/icons/IcTitleDaytime.vue";
+import IcTitleNighttime from "@/components/icons/IcTitleNighttime.vue";
 import ListCountryPage from "@/components/today/country/list-country-page.vue";
 import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
@@ -189,8 +191,8 @@ export default {
       dayTime: this.$t("Daytime"),
       isShowDayNight: false,
       nightTime: this.$t("Nighttime"),
-      srcDaytime: require("../../assets/images/svg_v2/ic_sun_daytime.svg"),
-      srcNighttime: require("../../assets/images/svg_v2/ic_nighttime.svg"),
+      srcDaytime: IcTitleDaytime,
+      srcNighttime: IcTitleNighttime,
     };
   },
 

@@ -5,8 +5,8 @@
         <div class="w-full h-full flex justify-between items-center">
           <!-- left -->
           <div class="md:flex hidden items-center gap-4">
-            <div class="h-district pt-5 pb-5 hidden lg:block relative group">
-              <div class="flex items-center gap-2 cursor-pointer">
+            <div class="h-district pt-5 pb-5 hidden lg:block">
+              <div class="flex items-center gap-2 cursor-pointer hover-target">
                 <svg
                   width="24"
                   height="24"
@@ -39,6 +39,75 @@
                     stroke-linejoin="round"
                   />
                 </svg>
+              </div>
+              <div class="block mega-box">
+                <div>
+                  <div class="content">
+                    <div class="container">
+                      <div
+                        class="container-c"
+                        v-if="breadcumsObject?.country_key === 'vn'"
+                      >
+                        <!--  -->
+                        <div
+                          class="region"
+                          v-for="(item, index) in objectCity"
+                          :key="index"
+                        >
+                          <h2>
+                            {{
+                              $t(
+                                `city.city_${renderLanguage}.${item.keyAccentLanguage}`
+                              )
+                            }}
+                          </h2>
+                          <ul>
+                            <li
+                              v-for="(item1, index) in item?.provinceCity"
+                              :key="index"
+                              :class="{
+                                'active-item':
+                                  activeCities === item1.keyAccentLanguage,
+                              }"
+                              @click="onClickSearchCity(item1, item)"
+                            >
+                              {{
+                                $t(
+                                  `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
+                                )
+                              }}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div
+                        class="container-c"
+                        v-if="breadcumsObject?.country_key === 'us'"
+                      >
+                        <!--  -->
+                        <div
+                          class="region"
+                          v-for="(item, index) in objectCity"
+                          :key="index"
+                        >
+                          <h2>
+                            {{ item.regionName }}
+                          </h2>
+                          <ul>
+                            <li
+                              v-for="(item1, index) in item?.states"
+                              :key="index"
+                              @click="onClickSearchState(item1, item)"
+                            >
+                              {{ item1.nameState }}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -406,8 +475,8 @@ export default {
 .mega-box {
   display: block;
   position: absolute;
-  left: 0;
-  top: 115px;
+  left: 324px;
+  top: 49px;
   opacity: 0;
   visibility: visible;
   color: black;
@@ -415,21 +484,20 @@ export default {
   transition: opacity 0.3s ease, transform 0.3s ease; // Thêm hiệu ứng trượt
   transform: translateY(10px); // Đặt vị trí ban đầu
 }
-.h-district:hover .mega-box {
-  top: 14px;
+.hover-target:hover + .mega-box {
   opacity: 1;
   visibility: visible;
-  z-index: 10;
+  z-index: 100;
   width: 100%;
   transform: translateY(0); // Trở về vị trí ban đầu
 }
 
 @media (max-width: 768px) {
-  .h-district:hover .mega-box {
-    opacity: 0; /* Ẩn mega-box */
-    visibility: hidden; /* Ẩn mega-box */
-    z-index: -1; /* Đưa mega-box ra khỏi z-index */
-  }
+  // .h-district:hover .mega-box {
+  //   opacity: 0; /* Ẩn mega-box */
+  //   visibility: hidden; /* Ẩn mega-box */
+  //   z-index: -1; /* Đưa mega-box ra khỏi z-index */
+  // }
 }
 .content {
   display: flex;
