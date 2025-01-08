@@ -6,7 +6,7 @@
           <!-- left -->
           <div class="md:flex hidden items-center gap-4">
             <div class="h-district pt-5 pb-5 hidden lg:block">
-              <div class="flex items-center gap-2 cursor-pointer hover-target">
+              <div class="flex items-center gap-2 cursor-pointer">
                 <svg
                   width="24"
                   height="24"
@@ -39,75 +39,6 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-              </div>
-              <div class="block mega-box">
-                <div>
-                  <div class="content">
-                    <div class="container">
-                      <div
-                        class="container-c"
-                        v-if="breadcumsObject?.country_key === 'vn'"
-                      >
-                        <!--  -->
-                        <div
-                          class="region"
-                          v-for="(item, index) in objectCity"
-                          :key="index"
-                        >
-                          <h2>
-                            {{
-                              $t(
-                                `city.city_${renderLanguage}.${item.keyAccentLanguage}`
-                              )
-                            }}
-                          </h2>
-                          <ul>
-                            <li
-                              v-for="(item1, index) in item?.provinceCity"
-                              :key="index"
-                              :class="{
-                                'active-item':
-                                  activeCities === item1.keyAccentLanguage,
-                              }"
-                              @click="onClickSearchCity(item1, item)"
-                            >
-                              {{
-                                $t(
-                                  `city.city_${renderLanguage}.${item1.keyAccentLanguage}`
-                                )
-                              }}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div
-                        class="container-c"
-                        v-if="breadcumsObject?.country_key === 'us'"
-                      >
-                        <!--  -->
-                        <div
-                          class="region"
-                          v-for="(item, index) in objectCity"
-                          :key="index"
-                        >
-                          <h2>
-                            {{ item.regionName }}
-                          </h2>
-                          <ul>
-                            <li
-                              v-for="(item1, index) in item?.states"
-                              :key="index"
-                              @click="onClickSearchState(item1, item)"
-                            >
-                              {{ item1.nameState }}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -469,85 +400,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-//
-
-.mega-box {
-  display: block;
-  position: absolute;
-  left: 324px;
-  top: 49px;
-  opacity: 0;
-  visibility: visible;
-  color: black;
-  z-index: -1;
-  transition: opacity 0.3s ease, transform 0.3s ease; // Thêm hiệu ứng trượt
-  transform: translateY(10px); // Đặt vị trí ban đầu
-}
-.hover-target:hover + .mega-box {
-  opacity: 1;
-  visibility: visible;
-  z-index: 100;
-  width: 100%;
-  transform: translateY(0); // Trở về vị trí ban đầu
-}
-
-@media (max-width: 768px) {
-  // .h-district:hover .mega-box {
-  //   opacity: 0; /* Ẩn mega-box */
-  //   visibility: hidden; /* Ẩn mega-box */
-  //   z-index: -1; /* Đưa mega-box ra khỏi z-index */
-  // }
-}
-.content {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  width: 100%;
-}
-
-.region {
-  width: 228px;
-  margin-top: 10px;
-}
-.container-c {
-  flex-wrap: wrap;
-  justify-content: left;
-  padding: 10px 10px;
-  text-align: left;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.413);
-  background: #ffffff;
-}
-
-.region h2 {
-  font-size: 14px;
-  margin-top: 0;
-  color: #007bff;
-  padding-left: 20px;
-}
-
-.region ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.region ul li {
-  font-size: 12px;
-  padding: 6px 18px;
-  cursor: pointer;
-}
-
-.region ul li:hover {
-  background-color: #0e2950;
-  color: white;
-}
-
-.hidden-p {
-  display: none !important; /* Ẩn hoàn toàn khi không hover */
-}
-.active-item {
-  color: rgb(22, 34, 165);
-}
-</style>
+<style lang="scss"></style>

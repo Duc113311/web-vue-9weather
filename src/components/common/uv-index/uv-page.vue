@@ -52,7 +52,6 @@
 </template>
 <script>
 import BaseComponent from "../baseComponent.vue";
-import ApexCharts from "vue3-apexcharts";
 import { ref, computed } from "vue";
 import { mapGetters } from "vuex";
 import {
@@ -70,7 +69,6 @@ export default {
   name: "uv-page",
   components: {
     BaseComponent,
-    apexchart: ApexCharts,
     IcUvIndex,
   },
 

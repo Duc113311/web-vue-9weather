@@ -946,8 +946,6 @@ export default {
       }
 
       // window.location.reload();
-      this.indexKey = this.indexKey + 1;
-      this.setIndexComponent(this.indexKey);
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
       const resultAir = getAqiDataFromLocation(item.lat, item.lng);
@@ -964,6 +962,8 @@ export default {
       const encodeAirCode = encodeBase64(airCode);
       // API Get Air Quality Data
       await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
     },
 
     removeWordAndAccents(str, wordsToRemove) {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="chart-container w-[78rem]"
-    v-if="paramHourly && paramHourly.length"
+    v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper w-full h-full">
       <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
@@ -170,9 +170,14 @@ export default {
       const maxDataValueIntensity = Math.max(...this.listDataPrecipIntensity);
       const yAxisMin = minDataValue - 2; // Giảm giá trị nhỏ nhất xuống thêm 5 đơn vị (tuỳ chỉnh)
 
-      const displayData = this.listDataPrecipIntensity.map((value) =>
-        value === 0 ? 0.5 : value
-      );
+      const displayData = this.listDataPrecipIntensity.map((value, index) => {
+        console.log(
+          `Index: ${index}, Original Value: ${value}, Processed Value: ${
+            value === 0 ? 0.5 : value
+          }`
+        );
+        return value === 0 ? 0.5 : value;
+      });
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
@@ -195,14 +200,16 @@ export default {
               datalabels: {
                 display: true,
                 align: "top",
+                anchor: "start", // Gắn nhãn ở đầu cột
                 font: {
                   size: 14,
                 },
                 color: "#00E3F5",
                 formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
-                offset: 2,
+                offset: 8,
               },
             },
+
             {
               label: "PrecipIntensity",
               type: "bar", // Kiểu dataset là line
@@ -217,17 +224,18 @@ export default {
               yAxisID: "y3", // Gán trục y cho Temperature
               datalabels: {
                 display: true,
-                align: "bottom",
+                anchor: "start", // Gắn nhãn ở đầu cột
+                align: "start", // Căn nhãn ở đầu cột
+                offset: 4, // Không di chuyển nhãn
                 font: {
                   size: 14,
                 },
                 color: "#ffffff",
                 formatter: (value, context) => {
-                  return this.listDataProbability[context.dataIndex] === 0
+                  return this.listDataPrecipIntensity[context.dataIndex] === 0
                     ? "0" + " " + this.unitPrecipitation
                     : value + " " + this.unitPrecipitation;
                 },
-                offset: 10,
               },
             },
 
@@ -248,12 +256,13 @@ export default {
               datalabels: {
                 display: true,
                 align: "top",
+                anchor: "start", // Gắn nhãn ở đầu cột
                 font: {
                   size: 14,
                 },
                 color: "#EBAB3F",
                 formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-                offset: 2,
+                offset: 8,
               },
             },
           ],
@@ -298,15 +307,19 @@ export default {
               // min: yAxisMin - 30,
             },
             y3: {
-              type: "linear",
               position: "right",
               display: false,
               beginAtZero: true,
-              max: maxDataValueIntensity,
-              min: yAxisMin,
+              max: maxDataValueIntensity - 1,
+              min: yAxisMin + 60,
               ticks: {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
+            },
+            y4: {
+              position: "right",
+              display: false,
+              beginAtZero: true,
             },
           },
           plugins: {
