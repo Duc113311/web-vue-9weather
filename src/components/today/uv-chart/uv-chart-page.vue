@@ -20,7 +20,7 @@
           </div>
         </vue-horizontal>
         <div class="absolute w-full bottom-0 left-0">
-          <div class="flex justify-center items-center w-full">
+          <div class="flex justify-center items-center w-full color-text">
             <div class="flex-1 bg-short text-center pl-4 pr-4 pt-2">
               <p class="txt_regular_12">{{ $t("Low") }}</p>
               <p class="des-atb">0-2</p>
@@ -145,6 +145,7 @@ export default {
         if (value <= 10) return "#CF2526"; // Màu cho giá trị rất cao
         return "#9064CB"; // Màu cho giá trị cực cao
       });
+      const savedTheme = localStorage.getItem("theme") || "light";
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
@@ -183,7 +184,7 @@ export default {
                 size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
-              color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
+              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
                 return this.listUvIndexData[context.dataIndex] === 0
                   ? "0"

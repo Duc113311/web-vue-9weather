@@ -78,7 +78,7 @@
         class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
       >
         <div class="txt_regular flex items-center">
-          <span>Live Activity</span>
+          <span>Theme Dark/Light</span>
         </div>
         <div>
           <el-switch
@@ -107,7 +107,7 @@
 <script>
 import UnitPreferencesPage from "@/components/settings/unit-preferences-page.vue";
 import { convertToEnglish } from "@/utils/converValue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "header-menu",
@@ -121,6 +121,7 @@ export default {
       namePage: "setting",
       valueLive: true,
       theme: "light",
+      indexKey: 0,
     };
   },
 
@@ -139,7 +140,18 @@ export default {
     },
   },
 
+  mounted() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    if (savedTheme === "light") {
+      this.valueLive = true;
+    } else {
+      this.valueLive = false;
+    }
+  },
+
   methods: {
+    ...mapMutations("commonModule", ["setIndexComponent", "updateThemeColor"]),
     convertToEnglishRender(value) {
       return convertToEnglish(value);
     },
@@ -169,6 +181,8 @@ export default {
     onChangeLiveActivity(value) {
       debugger;
       this.valueLive = value;
+      this.setIndexComponent(this.indexKey++);
+
       this.theme = this.valueLive ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
       localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage

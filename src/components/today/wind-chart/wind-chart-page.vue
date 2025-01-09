@@ -138,6 +138,7 @@ export default {
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(0, "#ffffff"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "#878787"); // Màu dưới (#F5D400 với độ mờ 10%)
+      const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -179,7 +180,7 @@ export default {
                 size: 14,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
-              color: "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
+              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
                 return `${this.formatWindSpeed(value)}`;
               },

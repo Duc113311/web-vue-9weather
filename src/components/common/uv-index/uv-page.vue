@@ -39,11 +39,10 @@
             </div>
           </div> -->
           <apexchart
+            height="80"
             type="bar"
             :options="chartOptions"
             :series="series"
-            height="100"
-            width="100%"
           />
         </div>
       </div>
@@ -88,13 +87,13 @@ export default {
     });
     const listUvIndexData = computed(() => {
       return listHourly.value
-        .map((element) => Math.round(element.uvIndex) || 0)
+        .map((element) => element.uvIndex || 0)
         .slice(0, 10);
     });
 
     const listUvIndexData24 = computed(() => {
       return listHourly.value
-        .map((element) => Math.round(element.uvIndex) || 0)
+        .map((element) => element.uvIndex || 0)
         .slice(0, 24);
     });
     const max = Math.max(...listUvIndexData24.value);
@@ -160,8 +159,12 @@ export default {
           },
         },
         formatter: (value, context) => {
-          if (context.dataPointIndex === 0) {
-            return value;
+          if (displayData[context.dataPointIndex] === currentWeather.uvIndex) {
+            console.log("currentWeather", currentWeather);
+
+            return displayData[context.dataPointIndex] === 0.5
+              ? "0"
+              : Math.round(value);
           }
           return "";
         },
@@ -176,7 +179,9 @@ export default {
       },
       yaxis: {
         labels: { show: true }, // Ẩn trục Y
+        min: 0,
         max: max,
+        offset: 0,
       },
       grid: {
         show: false, // Không hiện lưới

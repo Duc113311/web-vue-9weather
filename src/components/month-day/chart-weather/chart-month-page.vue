@@ -91,15 +91,15 @@
                   ></ChartTempMaxMin>
 
                   <!--  -->
-                  <ChartChanceOfRain
+                  <!-- <ChartChanceOfRain
                     :key="indexState + Math.random()"
-                  ></ChartChanceOfRain>
+                  ></ChartChanceOfRain> -->
 
                   <!--  -->
 
-                  <ChartPrecipitation
+                  <!-- <ChartPrecipitation
                     :key="indexState + Math.random()"
-                  ></ChartPrecipitation>
+                  ></ChartPrecipitation> -->
                 </div>
               </vue-horizontal>
 
@@ -153,8 +153,8 @@ export default {
     ChartTimeIcon,
     ChartTempMaxMin,
     VueHorizontal,
-    ChartChanceOfRain,
-    ChartPrecipitation,
+    // ChartChanceOfRain,
+    // ChartPrecipitation,
   },
   data() {
     return {

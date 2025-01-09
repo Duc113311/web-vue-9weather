@@ -1220,7 +1220,7 @@ export function getAqiHealthyInformationInfo(aqi) {
   if ((200 <= aqi) & (aqi <= 300)) return i18n.global.t("General_public_will");
   return i18n.global.t("General_public_at_high_risk");
 }
-
+  
 export function getAqiRecommendedPrecautionsInfo(aqi) {
   if (aqi <= 50) return i18n.global.t("None.");
   if ((50 <= aqi) & (aqi <= 100))

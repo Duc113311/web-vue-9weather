@@ -15,6 +15,8 @@ import {
   convertMillimet,
   convertMillimetToInch,
   codeToFind,
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
 } from "../../../utils/converValue.js";
 import {
   Chart,
@@ -121,6 +123,20 @@ export default {
         return convertMillimetToInch(val);
       }
     },
+
+    convertTime(val) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    },
+
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -178,10 +194,21 @@ export default {
         );
         return value === 0 ? 0.5 : value;
       });
+
+      const labelList = this.paramHourly.slice(0, 24).map((item) => {
+        const date = item.time;
+        return this.convertTime(date);
+      });
+
+      const labelColor = "var(--color-txt-chart-precipitation)";
+      const savedTheme = localStorage.getItem("theme") || "light";
+
+      console.log("savedTheme", savedTheme);
+
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: [...Array(24).keys()].map((i) => i + 1),
+          labels: labelList,
           datasets: [
             {
               label: "Chance of rain",
@@ -204,7 +231,7 @@ export default {
                 font: {
                   size: 14,
                 },
-                color: "#00E3F5",
+                color: savedTheme === "light" ? "#333333" : "#00e3f5",
                 formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
                 offset: 8,
               },
@@ -230,7 +257,7 @@ export default {
                 font: {
                   size: 14,
                 },
-                color: "#ffffff",
+                color: savedTheme === "light" ? "#333333" : "#ffffff",
                 formatter: (value, context) => {
                   return this.listDataPrecipIntensity[context.dataIndex] === 0
                     ? "0" + " " + this.unitPrecipitation
@@ -329,6 +356,7 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
               callbacks: {
                 label: (context) => {
                   const label = context.dataset.label || "";

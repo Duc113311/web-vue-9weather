@@ -105,6 +105,8 @@ const state = {
   locationChomeObject: {},
 
   activeTab: -1,
+
+  themeColor: "var(--color-txt-chart-precipitation)",
 };
 
 const getters = {
@@ -151,6 +153,10 @@ const getters = {
 };
 
 const mutations = {
+  updateThemeColor(state, color) {
+    debugger;
+    state.themeColor = color;
+  },
   setObjectCityByLocation(state, data) {
     sessionStorage.setItem("dataCityLog", JSON.stringify(data));
 

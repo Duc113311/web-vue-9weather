@@ -104,7 +104,7 @@ export default {
 }
 
 .bg-temp-c {
-  background-color: #fadb38;
+  background-color: #ffa60d;
 }
 
 .bg-rain-c {

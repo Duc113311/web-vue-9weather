@@ -152,15 +152,22 @@ export default {
 
       const maxUvIndex = Math.max(...listDaytimeData.map((obj) => obj.uvIndex));
 
+      debugger;
       const objectDaytime = {
-        tempAvg: avgTempDaytime,
-        tempMaxMin: maxTemp,
-        icon: maxObject.icon,
-        summary: maxObject.summary,
-        apparentTemperature: maxObject.apparentTemperature,
-        UvMax: maxUvIndex,
-        ChanceOfRainAvg: avgProbabilityDaytime,
-        SumRainfall: avgIntensityDaytime,
+        tempAvg: avgTempDaytime ? avgTempDaytime : avgTempNighttime,
+        tempMaxMin: maxTemp ? maxTemp : minTemp,
+        icon: maxObject?.icon ? maxObject?.icon : minObject.icon,
+        summary: maxObject?.summary ? maxObject?.summary : minObject?.summary,
+        apparentTemperature: maxObject?.apparentTemperature
+          ? maxObject?.apparentTemperature
+          : minObject?.apparentTemperature,
+        UvMax: maxUvIndex !== -Infinity ? maxUvIndex : 0,
+        ChanceOfRainAvg: avgProbabilityDaytime
+          ? avgProbabilityDaytime
+          : avgProbabilityNighttime,
+        SumRainfall: avgIntensityDaytime
+          ? avgIntensityDaytime
+          : avgIntensityNighttime,
       };
 
       const objectNighttime = {

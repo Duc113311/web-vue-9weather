@@ -43,14 +43,14 @@
           </div>
 
           <div class="flex flex-col justify-center items-center w-[50%]">
-            <GlobalMoonIcon
+            <!-- <GlobalMoonIcon
               :illuminate-percent="illuminate"
               :is-clip-from-start="true"
               :width="100"
               :height="100"
             >
-            </GlobalMoonIcon>
-            <!-- <div class="text-center">Coming soon</div> -->
+            </GlobalMoonIcon> -->
+            <div class="text-center">Coming soon</div>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default {
   components: {
     BaseComponent,
     IcMoonphase,
-    GlobalMoonIcon,
+    // GlobalMoonIcon,
   },
 
   data() {
