@@ -15,13 +15,12 @@
     <div class="header-placeholder"></div>
 
     <div class="body-app relative body-n flex-grow">
-      <NavBottom></NavBottom>
-      <div class="w-full pad-big color-txt-df">
+      <!-- <NavBottom></NavBottom> -->
+      <div class="w-full h-full color-txt-df">
         <router-view />
       </div>
+      <!-- <FooterPage></FooterPage> -->
     </div>
-
-    <FooterPage></FooterPage>
 
     <!-- Header menu -->
   </div>
@@ -40,7 +39,7 @@ import removeAccents from "remove-accents";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import HeaderPage from "@/layout/header/header_page.vue";
 import NavBottom from "@/layout/tabbar-bottom/nav-bottom.vue";
-import FooterPage from "@/layout/footer/footer-page.vue";
+// import FooterPage from "@/layout/footer/footer-page.vue";
 import HeaderMenu from "@/layout/header/header-menu.vue";
 
 export default {
@@ -48,8 +47,8 @@ export default {
 
   components: {
     HeaderPage,
-    NavBottom,
-    FooterPage,
+    // NavBottom,
+    // FooterPage,
     HeaderMenu,
     // NavTabbar,
   },
@@ -1054,4 +1053,12 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.menu-open {
+  height: 60px;
+}
+
+.body-app {
+  height: calc(100vh - 60px);
+}
+</style>

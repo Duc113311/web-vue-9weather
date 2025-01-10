@@ -134,6 +134,16 @@
   background-size: cover;
   transition: width 0.3s ease, height 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
 }
+
+.imgLogo-footer {
+  background-image: url(@/assets/images/svg_v2/ic_logo.png);
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: width 0.3s ease, height 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
+}
 @media (min-width: 576px) {
   .imgLogo {
     width: 150px;

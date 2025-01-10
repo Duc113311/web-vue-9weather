@@ -8,6 +8,8 @@ import DashPage from "../views/index.vue";
 import SearchPage from "../views/search/index.vue";
 import RadarMap from "../views/radar-map/index.vue";
 
+// Home-v2
+import HomePageV3 from "../views/home-page/index-v3.vue";
 const routes = [
   {
     path: "/:language/widget-view",
@@ -26,6 +28,12 @@ const routes = [
     component: RadarMap,
   },
 
+  // {
+  //   path: "",
+  //   name: "home-page-v3",
+  //   component: HomePageV3,
+  // },
+
   {
     path: "",
     name: "dash-page",
@@ -35,7 +43,7 @@ const routes = [
       {
         path: "",
         name: "home-pages",
-        component: HomePageV2,
+        component: HomePageV3,
       },
       {
         path: ":language",

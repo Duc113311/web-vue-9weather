@@ -77,6 +77,13 @@
   line-height: 41.51px; /* Khoảng cách giữa các dòng */
   font-weight: 700; /* Corresponds to Regular */
 }
+
+.txt_bold_24 {
+  font-size: 24px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 41.51px; /* Khoảng cách giữa các dòng */
+  font-weight: 700; /* Corresponds to Regular */
+}
 /*  */
 .txt_poppins_87 {
   font-size: 78px; /* Kích thước chữ mặc định */
@@ -111,7 +118,13 @@
 }
 
 /*  */
-
+.txt_line_50 {
+  font-size: 50px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 70.18px; /* Khoảng cách giữa các dòng */
+  font-weight: 700; /* Corresponds to Regular */
+  text-decoration: underline;
+}
 .txt_line_48 {
   font-size: 48px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;

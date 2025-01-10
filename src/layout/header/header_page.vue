@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="w-full bg-header overflow-hidden sticky top-0 header-page">
+  <div class="w-full h-full bg-header overflow-hidden sticky top-0 header-page">
     <!--  -->
     <div class="w-full bg-header h-full pl-4 pr-4">
       <div class="w-full h-full container">
@@ -1297,11 +1297,11 @@ export default {
   z-index: 100;
 }
 
-@media (min-width: 768px) {
-  .basic-header .header-page {
-    height: 62px;
-  }
-}
+// @media (min-width: 768px) {
+//   .basic-header .header-page {
+//     height: 62px;
+//   }
+// }
 
 .basic-header {
   position: sticky;
@@ -1312,7 +1312,7 @@ export default {
 
 .basic-header .header-page {
   background-color: #1f1f1f;
-  height: 60px;
+  // height: 60px;
 }
 
 .bg-location-now {

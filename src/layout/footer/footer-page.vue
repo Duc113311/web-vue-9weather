@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-auto p-2 bg-footer mt-10">
+  <div class="w-full h-[60px] p-2 bg-footer">
     <div class="container">
       <!-- footer -->
       <div class="w-full justify-between flex items-center">
@@ -7,8 +7,8 @@
           class="logo-app lg:w-[600px] h-full flex justify-center items-center"
         >
           <div class="flex w-full items-center gap-2 cursor-pointer">
-            <div class="imgLogo cursor-pointer"></div>
-            <div class="txt_bold_34 color-title-logo">9Weather</div>
+            <div class="imgLogo-footer cursor-pointer"></div>
+            <div class="txt_bold_24 color-title-logo">9Weather</div>
           </div>
         </div>
         <div class="tab-proxy flex items-center color-title-logo">
