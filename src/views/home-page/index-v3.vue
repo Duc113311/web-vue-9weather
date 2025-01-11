@@ -1,13 +1,17 @@
 <template>
   <div class="w-full h-full">
     <!--  -->
-    <div class="ic_bg">
-      <div class="w-full h-full">
-        <div class="w-full flex justify-between items-center p-l-home">
+    <div class="ic_bg overflow-y-scroll xl:overflow-hidden">
+      <div class="w-full h-full relative container-full">
+        <div
+          class="w-full h-full lg:flex block lg:justify-between xl:items-center"
+        >
           <!--  -->
-          <div class="w-[700px] text-left flex flex-col gap-14">
+          <div
+            class="xl:w-[700px] lg:[w-565px] w-full text-center xl:text-left xl:flex xl:flex-col gap-14 p-20"
+          >
             <!--  -->
-            <div class="color_f9f9f9 flex flex-col gap-4">
+            <div class="flex flex-col gap-4">
               <div class="txt_line_48">Everything You Need to Know</div>
               <div>
                 <p class="txt_line_24">
@@ -20,27 +24,37 @@
               </div>
             </div>
             <!--  -->
-            <div class="flex flex-col gap-4">
-              <div class="ic-dow-apple cursor-pointer" alt="" srcset="" />
-              <div class="ic-dow-ch cursor-pointer" alt="" srcset="" />
+            <div class="flex xl:flex-col justify-center gap-4 mt-4 xl:mt-0">
+              <a href="http://">
+                <div class="ic-dow-apple cursor-pointer" alt="" srcset="" />
+              </a>
+              <a href="http://">
+                <div class="ic-dow-ch cursor-pointer" alt="" srcset="" />
+              </a>
             </div>
           </div>
-          <div class="w-[calc(100%-700px)] h-full overflow-hidden">
+          <div
+            class="xl:w-[calc(100%-620px)] lg:[calc(100%-565px)] w-full xl:h-full lg:absolute right-0 bottom-0 p-10"
+          >
             <!--  -->
-            <div class="flex items-center justify-center gap-10 h-full">
+            <div
+              class="flex items-center justify-center gap-8 h-full lg:flex-row md:flex-col flex-col"
+            >
               <div class="ic-dow-app"></div>
-              <div class="ic-dow-app-1 mb-44"></div>
-              <div class="ic-dow-app-2"></div>
+              <div
+                class="flex xl:flex-col lg:flex-row md:flex-row sm:flex-row gap-6 flex-col"
+              >
+                <div class="ic-dow-app-1"></div>
+                <div class="ic-dow-app-2"></div>
+              </div>
             </div>
           </div>
           <!--  -->
         </div>
       </div>
 
-      <div class="w-full flex justify-between items-center pl-80 pr-80">
-        <!--  -->
+      <!-- <div class="w-full flex justify-between items-center pl-80 pr-80">
         <div class="w-[700px] text-left flex flex-col gap-14">
-          <!--  -->
           <div class="color_f9f9f9 flex flex-col gap-4">
             <div class="txt_line_48">Everything You Need to Know</div>
             <div>
@@ -53,10 +67,8 @@
               <a href="http://9weather.com">9weather.com</a>
             </div>
           </div>
-          <!--  -->
         </div>
         <div class="w-[calc(100%-700px)] overflow-hidden">
-          <!--  -->
           <div class="flex items-center justify-center gap-20 h-[800px]">
             <div class="tilted-image gap-6 flex flex-col">
               <div class="ic-dow-app tilted-images"></div>
@@ -68,8 +80,7 @@
             </div>
           </div>
         </div>
-        <!--  -->
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -142,6 +153,11 @@ export default {
   padding-top: 10rem;
 }
 
+.container-full {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
 @media (min-width: 576px) {
 }
 
@@ -149,6 +165,21 @@ export default {
 }
 
 @media (min-width: 1024px) {
+  .container-full {
+    max-width: 1204px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-full {
+    max-width: 1311px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container-full {
+    max-width: 1402px;
+  }
 }
 .tilted-image {
   transform: rotate(30deg); /* Nghiêng ảnh sang phải 30 độ */

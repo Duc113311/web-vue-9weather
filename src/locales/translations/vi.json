@@ -234,5 +234,7 @@
   "Radar_weather_map_{city}": "Bản đồ thời tiết Radar {city}",
   "{city}_weather_forecast_next_30_days": "Dự báo thời tiết {city} 30 ngày tới",
   "Temperature_and_chance_of_rain_{city}_next_30_days": "Nhiệt độ và khả năng mưa {city} trong 30 ngày tới",
-  "Lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies nunc. Nullam nec purus nec nunc ultricies"
+  "Lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum mi nec, ultricies nunc. Nullam nec purus nec nunc ultricies",
+  "Everything_You_Need": "Mọi Thứ Bạn Cần Biết",
+  "Stay_prepared_with_live_updates": "Hãy luôn sẵn sàng với các cập nhật trực tiếp, dự báo chi tiết và cảnh báo. Tải ứng dụng ngay hôm nay!"
 }
