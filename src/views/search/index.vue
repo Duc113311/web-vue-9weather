@@ -1,5 +1,7 @@
 <template>
   <div class="w-full h-auto">
+    <NavBottom></NavBottom>
+
     <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 
     <!--  -->
@@ -8,11 +10,15 @@
     <div class="ads w-full h-[83px]"></div>
 
     <router-view></router-view>
+
+    <FooterPage></FooterPage>
   </div>
 </template>
 <script>
 import BreadcumsPage from "@/layout/breadcums/breadcums-page.vue";
+import FooterPage from "@/layout/footer/footer-page.vue";
 import NavTabbar from "@/layout/tab-menu/nav-tabbar.vue";
+import NavBottom from "@/layout/tabbar-bottom/nav-bottom.vue";
 // import { mapMutations } from "vuex";
 
 export default {
@@ -21,6 +27,8 @@ export default {
   components: {
     BreadcumsPage,
     NavTabbar,
+    FooterPage,
+    NavBottom,
   },
 
   data() {

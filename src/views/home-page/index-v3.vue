@@ -12,11 +12,10 @@
           >
             <!--  -->
             <div class="flex flex-col gap-4">
-              <div class="txt_line_48">Everything You Need to Know</div>
+              <div class="txt_line_48">{{ $t("Everything_You_Need") }}</div>
               <div>
                 <p class="txt_line_24">
-                  Stay prepared with live updates, detailed forecasts, and
-                  alerts. Get the app today!
+                  {{ $t("Stay_prepared_with_live_updates") }}
                 </p>
               </div>
               <div class="txt_line_50 mt-2">
