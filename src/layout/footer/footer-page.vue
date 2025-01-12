@@ -8,7 +8,9 @@
         >
           <div class="flex w-full items-center gap-2 cursor-pointer">
             <div class="imgLogo-footer cursor-pointer"></div>
-            <div class="txt_bold_24 color-title-logo">9Weather</div>
+            <div class="txt_bold_24 color-title-logo">
+              <a href="http://">9Weather</a>
+            </div>
           </div>
         </div>
         <div class="tab-proxy flex items-center color-title-logo">
