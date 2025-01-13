@@ -2,34 +2,44 @@
   <div class="w-[89rem] flex justify-between items-center p-chart-avg">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_14">
-        {{ renderHourlyTime(item) }}
+      <div class="flex justify-center items-center">
+        <el-tooltip placement="top">
+          <template #content>
+            <div>
+              <p>Custom Tooltip Content</p>
+            </div>
+          </template>
+          <component :is="renderHourlyIcon(index)"></component>
+        </el-tooltip>
       </div>
-      <div class="flex justify-center items-center item-precip">
-        <component :is="renderHourlyIcon(item)"></component>
+      <div class="txt_regular_14 pt-2 pb-1">
+        {{ Math.round(item.precipIntensity) }} {{ unitPrecipitation }}
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
 import {
-  getIconHourlyForecastTheme,
-  convertDayOfWeek,
-  convertTimestampToHoursMinutes12,
+  codeToFind,
   convertTimestampToHoursMinutes,
-  convertTimestampNow12,
-} from "../../../utils/converValue";
+  convertTimestampToHoursMinutes12,
+  getIconChartPrecipIntensity,
+  getIconHourlyForecastTheme,
+} from "@/utils/converValue";
+import { mapGetters } from "vuex";
+
 export default {
-  name: "chart-days",
-  data() {
-    return {};
-  },
+  name: "chart-precipitation-bar",
 
   computed: {
     ...mapGetters("weatherModule", ["hourly24hGetters"]),
     paramHourly() {
       return this.$store.state.weatherModule.hourly24h;
+    },
+
+    unitPrecipitation() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePrecipitation_save);
     },
   },
 
@@ -42,7 +52,7 @@ export default {
       return day;
     },
     renderHourlyIcon(value) {
-      const iconValue = getIconHourlyForecastTheme(value.icon);
+      const iconValue = getIconChartPrecipIntensity(value);
 
       return iconValue;
     },
@@ -68,4 +78,9 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.p-chart-avg {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+</style>

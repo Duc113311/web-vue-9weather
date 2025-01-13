@@ -22,7 +22,7 @@
         <div class="txt_regular_17 text-start">
           {{
             convertCapitalizeWords(
-              $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+              $t(`${currentlyDataRender?.summary.replace(/\s+/g, "_")}`)
             )
           }}
         </div>
@@ -136,12 +136,13 @@ export default {
 
   computed: {
     currentlyDataRender() {
+      console.log("this.currentlyData;", this.currentlyData);
       return this.currentlyData;
     },
 
     dailyOneDataRender() {
       console.log("this.dailyOneData;", this.dailyOneData);
-
+      debugger;
       return this.dailyOneData;
     },
   },

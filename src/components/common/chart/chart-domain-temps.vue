@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container w-[78rem]"
+    class="chart-container w-[89rem]"
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
+      <canvas id="chart_hourly" height="300" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -200,6 +200,10 @@ export default {
         return this.convertTime(date);
       });
 
+      console.log("labelList", labelList.length);
+
+      const displayDataImages = [0, 2, 4, 6, 8, 0]; // Dữ liệu của bạn
+
       const labelColor = "var(--color-txt-chart-precipitation)";
       const savedTheme = localStorage.getItem("theme") || "light";
 
@@ -210,61 +214,32 @@ export default {
         data: {
           labels: labelList,
           datasets: [
-            {
-              label: "Chance of rain",
-              type: "line", // Kiểu dataset là line
-              borderColor: "#00E3F5",
-              pointBackgroundColor: "#00E3F5",
-              pointBorderWidth: 1, // Độ dày viền của điểm
-              borderWidth: 2,
-              pointBorderColor: "#00E3F5",
-              pointRadius: 5,
-              backgroundColor: gradientRain,
-              fill: true,
-              data: this.listDataProbability,
-              pointHoverRadius: 8,
-              yAxisID: "y2", // Gán trục y cho Rain
-              datalabels: {
-                display: true,
-                align: "top",
-                anchor: "start", // Gắn nhãn ở đầu cột
-                font: {
-                  size: 14,
-                },
-                color: savedTheme === "light" ? "#333333" : "#00e3f5",
-                formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
-                offset: 8,
-              },
-            },
-
-            {
-              label: "PrecipIntensity",
-              type: "bar", // Kiểu dataset là line
-              borderColor: "#0062F5",
-              pointBackgroundColor: "#0062F5",
-              pointBorderColor: "#0062F5",
-              backgroundColor: "#0062F5",
-              fill: true, // Tô nền dưới line
-              data: displayData,
-              borderRadius: 20,
-              barThickness: 30,
-              yAxisID: "y3", // Gán trục y cho Temperature
-              datalabels: {
-                display: true,
-                anchor: "start", // Gắn nhãn ở đầu cột
-                align: "start", // Căn nhãn ở đầu cột
-                offset: 4, // Không di chuyển nhãn
-                font: {
-                  size: 14,
-                },
-                color: savedTheme === "light" ? "#333333" : "#ffffff",
-                formatter: (value, context) => {
-                  return this.listDataPrecipIntensity[context.dataIndex] === 0
-                    ? "0" + " " + this.unitPrecipitation
-                    : value + " " + this.unitPrecipitation;
-                },
-              },
-            },
+            // {
+            //   label: "Chance of rain",
+            //   type: "line", // Kiểu dataset là line
+            //   borderColor: "#00E3F5",
+            //   pointBackgroundColor: "#00E3F5",
+            //   pointBorderWidth: 1, // Độ dày viền của điểm
+            //   borderWidth: 2,
+            //   pointBorderColor: "#00E3F5",
+            //   pointRadius: 5,
+            //   backgroundColor: gradientRain,
+            //   fill: true,
+            //   data: this.listDataProbability,
+            //   pointHoverRadius: 8,
+            //   yAxisID: "y2", // Gán trục y cho Rain
+            //   datalabels: {
+            //     display: true,
+            //     align: "top",
+            //     anchor: "start", // Gắn nhãn ở đầu cột
+            //     font: {
+            //       size: 14,
+            //     },
+            //     color: savedTheme === "light" ? "#333333" : "#00e3f5",
+            //     formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
+            //     offset: 8,
+            //   },
+            // },
 
             {
               label: "Temperature",
@@ -289,7 +264,7 @@ export default {
                 },
                 color: "#EBAB3F",
                 formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-                offset: 8,
+                offset: 12,
               },
             },
           ],
@@ -332,21 +307,6 @@ export default {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
               // min: yAxisMin - 30,
-            },
-            y3: {
-              position: "right",
-              display: false,
-              beginAtZero: true,
-              max: maxDataValueIntensity - 1,
-              min: yAxisMin + 60,
-              ticks: {
-                padding: 0, // Giảm khoảng cách giữa nhãn và trục
-              },
-            },
-            y4: {
-              position: "right",
-              display: false,
-              beginAtZero: true,
             },
           },
           plugins: {

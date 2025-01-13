@@ -4,14 +4,22 @@ import { DateTime } from "luxon";
 import IcCloudy from "@/components/icons/IcCloudy.vue";
 import IcCloudFog from "@/components/icons/IcCloudFog.vue";
 import IcRain from "@/components/icons/IcRain.vue";
+import IcClearNight from "@/components/icons/IcClearNight.vue";
 import IcTornado from "@/components/icons/IcTornado.vue";
 import IcWind from "@/components/icons/IcWind.vue";
 import IcSnow from "@/components/icons/IcSnow.vue";
-import IcMoon from "@/components/icons/IcMoon.vue";
+import IcCloudKey from "@/components/icons/IcCloudKey.vue";
 import IcCloudLightning from "@/components/icons/IcCloudLightning.vue";
 import IcCloudHail from "@/components/icons/IcCloudHail.vue";
 import IcCloudMoon from "@/components/icons/IcCloudMoon.vue";
 import IcCloudSun from "@/components/icons/IcCloudSun.vue";
+
+import IcPrecip0 from "@/components/icons/precip-intensity/IcPrecip_0.vue";
+import IcPrecip20 from "@/components/icons/precip-intensity/IcPrecip_20.vue";
+import IcPrecip40 from "@/components/icons/precip-intensity/IcPrecip_40.vue";
+import IcPrecip60 from "@/components/icons/precip-intensity/IcPrecip_60.vue";
+import IcPrecip80 from "@/components/icons/precip-intensity/IcPrecip_80.vue";
+import IcPrecip100 from "@/components/icons/precip-intensity/IcPrecip_100.vue";
 
 /* eslint-disable prettier/prettier */
 /**
@@ -182,37 +190,66 @@ export function getUvSummaryImage(value) {
   }
 }
 
+export function getIconChartPrecipIntensity(value) {
+  console.log("PrecipIntensity", value);
+
+  const ic_precip_0 = IcPrecip0;
+  const ic_precip_20 = IcPrecip20;
+  const ic_precip_40 = IcPrecip40;
+  const ic_precip_60 = IcPrecip60;
+  const ic_precip_80 = IcPrecip80;
+  const ic_precip_100 = IcPrecip100;
+
+  // Sử dụng if-else để kiểm tra giá trị phạm vi
+  if (value < 2.5) {
+    return ic_precip_0;
+  } else if (value >= 2.5 && value < 7.5) {
+    return ic_precip_20;
+  } else if (value >= 7.5 && value < 20) {
+    return ic_precip_40;
+  } else if (value >= 20 && value < 50) {
+    return ic_precip_60;
+  } else if (value >= 50 && value < 100) {
+    return ic_precip_80;
+  } else if (value >= 100 && value < 1000) {
+    return ic_precip_100;
+  } else {
+    return ic_precip_0; // Default icon if value is outside the expected range
+  }
+}
+
 export function getIconHourlyForecastTheme(value) {
-  const ic_clear_day_hourly = IcSun;
   const ic_cloudy_hourly = IcCloudy;
-  const ic_fog = IcCloudFog;
-  const ic_partly_cloudy_day_hourly = IcCloudSun;
-  const ic_partly_cloudy_night_hourly = IcCloudMoon;
   const ic_rain_hourly = IcRain;
+  const ic_clear_day_hourly = IcSun;
+  const ic_partly_cloudy_night_hourly = IcCloudMoon;
+  const ic_clear_day = IcCloudSun;
+  const ic_clear_night = IcClearNight;
+  const ic_fog = IcCloudFog;
   const ic_sleet_hourly = IcCloudHail;
   const ic_tornado_hourly = IcTornado;
   const ic_thunderstorm_hourly = IcCloudLightning;
   const ic_wind_hourly = IcWind;
   const ic_snow_hourly = IcSnow;
-  const ic_clear_night_hourly = IcMoon;
-  
-  value = value.toString();    
+  const ic_cloudy = IcCloudKey;
+
+  value = value.toString();
   switch (value) {
     case "cloudy":
       return ic_cloudy_hourly;
     case "rain":
       return ic_rain_hourly;
     case "partly_cloudy_day":
-      return ic_partly_cloudy_day_hourly;
+      return ic_clear_day_hourly;
     case "partly_cloudy_night":
       return ic_partly_cloudy_night_hourly;
     case "clear_day":
-      return ic_clear_day_hourly;
+      return ic_clear_day;
     case "clear_night":
-      return ic_clear_night_hourly;
+      return ic_clear_night;
     case "sleet":
-      return  ;
-    case "fog": 
+      return ic_sleet_hourly;
+    case "fog":
       return ic_fog;
     case "wind":
       return ic_wind_hourly;
@@ -223,7 +260,7 @@ export function getIconHourlyForecastTheme(value) {
     case "snow":
       return ic_snow_hourly;
     default:
-      return ic_cloudy_hourly;
+      return ic_cloudy;
   }
 }
 
@@ -1220,7 +1257,7 @@ export function getAqiHealthyInformationInfo(aqi) {
   if ((200 <= aqi) & (aqi <= 300)) return i18n.global.t("General_public_will");
   return i18n.global.t("General_public_at_high_risk");
 }
-  
+
 export function getAqiRecommendedPrecautionsInfo(aqi) {
   if (aqi <= 50) return i18n.global.t("None.");
   if ((50 <= aqi) & (aqi <= 100))

@@ -74,6 +74,10 @@ Chart.register(
 );
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import {
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
+} from "@/utils/converValue";
 
 export default {
   name: "uv-chart-page",
@@ -115,6 +119,18 @@ export default {
   },
 
   methods: {
+    convertTime(val) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    },
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -137,19 +153,31 @@ export default {
         value === 0 ? 0.5 : value
       );
 
+      console.log("displayData", displayData.length);
+
       // Thay đổi màu sắc của từng cột dựa trên giá trị
       const backgroundColors = displayData.map((value) => {
         if (value <= 2) return "#389311"; // Màu cho giá trị thấp
-        if (value <= 5) return "#F3E52B"; // Màu cho giá trị trung bình
-        if (value <= 7) return "#EE621D"; // Màu cho giá trị cao
-        if (value <= 10) return "#CF2526"; // Màu cho giá trị rất cao
+        if (2 < value && value <= 5) return "#F3E52B"; // Màu cho giá trị trung bình
+        if (5 < value && value <= 7) return "#EE621D"; // Màu cho giá trị cao
+        if (7 < value && value <= 10) return "#CF2526"; // Màu cho giá trị rất cao
         return "#9064CB"; // Màu cho giá trị cực cao
       });
+
+      console.log("backgroundColors", backgroundColors.length);
+
+      const labelList = this.listHourly.map((item) => {
+        const date = item.time;
+        return this.convertTime(date);
+      });
+
+      console.log("labelList", labelList.length);
+
       const savedTheme = localStorage.getItem("theme") || "light";
       this.chartInstance = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: [...Array(24).keys()].map((i) => i + 1),
+          labels: labelList,
           datasets: [
             {
               label: "Uv Index",
@@ -186,18 +214,13 @@ export default {
               },
               color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return this.listUvIndexData[context.dataIndex] === 0
-                  ? "0"
-                  : value;
+                value;
               },
             },
           },
           scales: {
             x: {
               display: false,
-              ticks: {
-                stepSize: 3, // Điều chỉnh số lượng điểm hiển thị trên trục x
-              },
             },
             y: {
               display: false,

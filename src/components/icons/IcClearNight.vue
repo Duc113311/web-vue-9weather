@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  name: "Ic-Moon",
+  name: "Ic-Clear-Night",
   props: {
     width: {
       type: String,

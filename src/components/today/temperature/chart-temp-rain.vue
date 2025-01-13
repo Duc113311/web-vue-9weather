@@ -12,8 +12,20 @@
             <ChartDays></ChartDays>
 
             <!--  -->
-            <ChartDomainTemps :heightValue="heightValue"></ChartDomainTemps>
+            <div class="relative">
+              <ChartPrecipitationBar
+                class="absolute top-chart-pre z-40"
+              ></ChartPrecipitationBar>
 
+              <ChartDomainRain
+                class="z-30 absolute top-chart-rain"
+              ></ChartDomainRain>
+
+              <ChartDomainTemps
+                class="z-20"
+                :heightValue="heightValue"
+              ></ChartDomainTemps>
+            </div>
             <!--  -->
             <!-- <ChartDomainRain class="absolute inset-0"></ChartDomainRain> -->
 
@@ -55,6 +67,8 @@ import ChartColumnRainfall from "@/components/common/chart/chart-column-rainfall
 import ChartDays from "@/components/common/chart/chart-days.vue";
 import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
 import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
+import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
+import ChartPrecipitation from "@/components/month-day/chart-weather/chart-precipitation.vue";
 import VueHorizontal from "vue-horizontal";
 
 export default {
@@ -63,7 +77,8 @@ export default {
   components: {
     ChartDays,
     ChartDomainTemps,
-    // ChartDomainRain,
+    ChartPrecipitationBar,
+    ChartDomainRain,
     VueHorizontal,
     // ChartColumnRainfall,
     // ChartApexRain,
@@ -113,5 +128,11 @@ export default {
 
 .bg-rainfall-c {
   background-color: #327cee;
+}
+.top-chart-pre {
+  top: 158px;
+}
+.top-chart-rain {
+  top: 128px;
 }
 </style>

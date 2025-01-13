@@ -958,8 +958,8 @@ export default {
             itemData.ward && this.findWardData(itemData)
               ? this.findWardData(itemData).keyAccentLanguage
               : "",
-          latitude: itemData.lat,
-          longitude: itemData.lng,
+          latitude: itemData.latitude,
+          longitude: itemData.longitude,
         };
 
         localStorage.setItem("objectBread", JSON.stringify(objectBread));
@@ -1026,26 +1026,28 @@ export default {
           });
         }
       }
-      const keyLanguage = this.$route.params.language
-        ? this.$route.params.language
-        : this.$i18n.locale;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${itemData.latitude},${itemData.longitude}?lang=${language}`;
 
       // const latLong = localStorage.getItem("locationLatLong");
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${itemData.latitude},${itemData.longitude}?lang=${keyLanguage}`;
       const resultAir = getAqiDataFromLocation(
         itemData.latitude,
         itemData.longitude
       );
-      const value = encodeBase64(param);
-      await this.getWeatherDataCurrent(value);
+      const encodeDataWeather = encodeBase64(param);
 
-      const valueNewAir = encodeBase64(resultAir);
-      await this.getAirQualityByKey(valueNewAir);
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
 
-      const airCode = getParamAirByCode(this.airObjectGetters?.key);
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
       const encodeAirCode = encodeBase64(airCode);
-
+      // API Get Air Quality Data
       await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
     },
 
     resetComponentData() {
