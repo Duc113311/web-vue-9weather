@@ -264,7 +264,7 @@ export default {
                 },
                 color: "#EBAB3F",
                 formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-                offset: 12,
+                offset: 4,
               },
             },
           ],
@@ -293,6 +293,7 @@ export default {
               display: false,
               beginAtZero: true,
               max: maxDataValue + 2,
+              min: yAxisMin - 10,
               ticks: {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },

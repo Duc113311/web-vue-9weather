@@ -34,11 +34,13 @@
                 class="txt_regular_17 text-left"
                 :style="{ color: progressColor }"
               >
-                <span>{{ convertAirIndexName(paramAirModule) }}</span>
+                <p>{{ convertAirIndexName(paramAirModule) }}</p>
               </div>
-              <span class="txt_regular_12">
-                {{ convertAqiHealthyInformationInfo(paramAirModule) }}</span
-              >
+              <div class="txt_regular_12">
+                <p>
+                  {{ convertAqiHealthyInformationInfo(paramAirModule) }}
+                </p>
+              </div>
             </div>
             <el-popover placement="top" :width="200" trigger="hover">
               <template #reference>

@@ -65,7 +65,7 @@ export default {
       sunSize: 50,
       percentProgression: 50,
       imgTop: require("../../../assets/images/svg_v2/ic_Sun.svg"),
-      imgBottom: require("../../../assets/images/svg/ic_canvas_bottom.svg"),
+      imgBottom: require("../../../assets/images/svg_v2/ic_sun_night.svg"),
     };
   },
 

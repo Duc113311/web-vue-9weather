@@ -12,7 +12,7 @@
 .txt_regular_12 {
   font-size: 12px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
-  line-height: 11.5px; /* Khoảng cách giữa các dòng */
+  line-height: 16.5px; /* Khoảng cách giữa các dòng */
   font-weight: 400; /* Corresponds to Regular */
 }
 

@@ -209,14 +209,12 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <IcTitleAir></IcTitleAir>
-                    <p class="txt_regular_14">{{ $t("air_quality") }}</p>
+                    <p class="txt_regular_14">Dew point</p>
                   </div>
-                  <div class="flex items-center gap-1">
-                    <span class="txt_medium_15">{{ paramAirModule }}</span>
-
-                    <span class="txt_regular_14"
-                      >({{ convertAirIndexName(paramAirModule) }})</span
-                    >
+                  <div class="flex items-center">
+                    <span class="txt_regular_14">{{
+                      renderToCelsius(item?.dewPoint)
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -505,6 +503,7 @@ export default {
     },
 
     onClickShowDetailCard(value) {
+      debugger;
       const chevron = document.getElementById(`chevron-${value}`);
       if (this.isRotated) {
         chevron.style.transform = "rotate(0deg)"; // Trở về hướng ban đầu

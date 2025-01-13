@@ -14,7 +14,7 @@
             <!--  -->
             <div class="relative">
               <ChartPrecipitationBar
-                class="absolute top-chart-pre z-40"
+                class="absolute top-chart-pre z-20"
               ></ChartPrecipitationBar>
 
               <ChartDomainRain
@@ -133,6 +133,6 @@ export default {
   top: 158px;
 }
 .top-chart-rain {
-  top: 128px;
+  top: 126px;
 }
 </style>

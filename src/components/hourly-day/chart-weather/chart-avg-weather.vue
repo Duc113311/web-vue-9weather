@@ -81,7 +81,7 @@
           </template>
 
           <div class="w-full gap-4">
-            <div class="w-auto h-[426px] pad-l-r-20 pad-t pad-b-10">
+            <div class="w-auto h-[422px] pad-t pad-b-10">
               <ChartTempRain></ChartTempRain>
             </div>
 

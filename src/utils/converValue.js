@@ -158,11 +158,11 @@ export function getUvSummaryName(value) {
 export function getInformationUVIndex(value) {
   if (value <= 2) {
     return i18n.global.t("Low_UV_levels");
-  } else if ((2 <= value) & (value <= 5)) {
+  } else if ((2 < value) & (value <= 5)) {
     return i18n.global.t("There_is_a_moderate");
-  } else if ((5 <= value) & (value <= 7)) {
+  } else if ((5 < value) & (value <= 7)) {
     return i18n.global.t("UV_rays_are_highly");
-  } else if ((7 <= value) & (value <= 10)) {
+  } else if ((7 < value) & (value <= 10)) {
     return i18n.global.t("The_risk_from_UV_is_very_high");
   } else {
     return i18n.global.t("UV_rays_are_extremely_dangerous");
@@ -860,9 +860,9 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-      Math.cos(toRad(latNearest)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRad(latNearest)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Khoảng cách tính bằng km
 
@@ -1222,10 +1222,10 @@ export function convertTimeNew(seconds) {
 // convert AQI
 export function getAQIColor(aqi) {
   if (aqi <= 50) return "#41E11F";
-  if ((50 <= aqi) & (aqi <= 100)) return "#FCFF2F";
-  if ((100 <= aqi) & (aqi <= 150)) return "#F68421";
-  if ((150 <= aqi) & (aqi <= 200)) return "#F42E1C";
-  if ((200 <= aqi) & (aqi <= 300)) return "#8C4396";
+  if ((51 <= aqi) & (aqi <= 100)) return "#FCFF2F";
+  if ((101 <= aqi) & (aqi <= 150)) return "#F68421";
+  if ((151 <= aqi) & (aqi <= 200)) return "#F42E1C";
+  if ((201 <= aqi) & (aqi <= 250)) return "#8C4396";
   return "#781125"; // Giá trị phần trăm từ 90 đến 100
 }
 export function getAirSummaryName(value) {
@@ -1233,13 +1233,13 @@ export function getAirSummaryName(value) {
 
   if (value <= 50) {
     return i18n.global.t("Good");
-  } else if ((50 <= value) & (value <= 100)) {
+  } else if ((51 <= value) & (value <= 100)) {
     return i18n.global.t("Moderate");
-  } else if ((100 <= value) & (value <= 150)) {
+  } else if ((101 <= value) & (value <= 150)) {
     return i18n.global.t("Unhealthy_for_Sensitive_Groups");
-  } else if ((150 <= value) & (value <= 200)) {
+  } else if ((151 <= value) & (value <= 200)) {
     return i18n.global.t("Unhealthy");
-  } else if ((200 <= value) & (value <= 300)) {
+  } else if ((201 <= value) & (value <= 250)) {
     return i18n.global.t("Very_Unhealthy");
   } else {
     return i18n.global.t("Hazardous");
@@ -1248,31 +1248,31 @@ export function getAirSummaryName(value) {
 
 export function getAqiHealthyInformationInfo(aqi) {
   if (aqi <= 50) return i18n.global.t("Air_quality_is_satisfactory");
-  if ((50 <= aqi) & (aqi <= 100))
+  if ((51 <= aqi) & (aqi <= 100))
     return i18n.global.t("Sensitive_individuals_should_avoid");
-  if ((100 <= aqi) & (aqi <= 150))
+  if ((101 <= aqi) & (aqi <= 150))
     return i18n.global.t("General_public_and_sensitive");
-  if ((150 <= aqi) & (aqi <= 200))
+  if ((151 <= aqi) & (aqi <= 200))
     return i18n.global.t("Increased_likelihood_of_adverse");
-  if ((200 <= aqi) & (aqi <= 300)) return i18n.global.t("General_public_will");
+  if ((201 <= aqi) & (aqi <= 250)) return i18n.global.t("General_public_will");
   return i18n.global.t("General_public_at_high_risk");
 }
 
 export function getAqiRecommendedPrecautionsInfo(aqi) {
   if (aqi <= 50) return i18n.global.t("None.");
-  if ((50 <= aqi) & (aqi <= 100))
+  if ((51 <= aqi) & (aqi <= 100))
     return i18n.global.t(
       "Unusually_sensitive_people_should_consider_reducing_prolonged_or_heavy_exertion."
     );
-  if ((100 <= aqi) & (aqi <= 150))
+  if ((101 <= aqi) & (aqi <= 150))
     return i18n.global.t(
       "People_with_respiratory_or_heart_disease,_the_elderly_and_children_should_limit_prolonged_exertion."
     );
-  if ((150 <= aqi) & (aqi <= 200))
+  if ((151 <= aqi) & (aqi <= 200))
     return i18n.global.t(
       "People_with_respiratory_or_heart_disease,_the_elderly_and_children_should_avoid_prolonged_exertion;_everyone_else_should_limit_prolonged_exertion."
     );
-  if ((200 <= aqi) & (aqi <= 300))
+  if ((201 <= aqi) & (aqi <= 250))
     return i18n.global.t(
       "People_with_respiratory_or_heart_disease,_the_elderly_and_children_should_avoid_any_outdoor_activity;_everyone_else_should_avoid_prolonged_exertion."
     );
