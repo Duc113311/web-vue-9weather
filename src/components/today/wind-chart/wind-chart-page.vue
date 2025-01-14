@@ -22,13 +22,33 @@
         <div
           class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
         >
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
-            <span class="txt_regular_12">{{
-              $t(`Wind_speed_{unit}`, {
-                unit: objectSetting.activeWindSpeed_save,
-              })
-            }}</span>
+          <div class="w-full flex justify-between items-center">
+            <div class="flex items-center gap-1">
+              <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
+              <div class="txt_regular_12">
+                <p>Wind speed:</p>
+              </div>
+              <div class="flex items-center gap-0.5">
+                <p class="txt_medium_15">
+                  {{ this.generateSeriesDataObject(objectCurrently) }}
+                </p>
+                <p class="txt_regular_12">({{ convertUnitPressure() }})</p>
+              </div>
+              <p class="txt_medium_15">
+                {{ convertWindBearing(objectCurrently?.windBearing) }}
+              </p>
+            </div>
+            <div class="flex items-center text-left gap-2">
+              <span class="txt_regular_12">
+                {{
+                  $t(
+                    `city.city_${languageParam}.${convertToLowCase(
+                      breadcumsObjectValue?.city_key
+                    )}`
+                  )
+                }}, {{ breadcumsObjectValue?.country }}</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -40,10 +60,14 @@ import ChartWind from "@/components/common/chart/chart-wind.vue";
 import VueHorizontal from "vue-horizontal";
 
 import {
+  codeToFind,
   convertMiToBeaufortScale,
   convertMiToKm,
   convertMiToKnot,
   convertMPHtoMetPS,
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
+  getWindDirectionFromDegrees,
 } from "@/utils/converValue";
 
 import {
@@ -70,6 +94,7 @@ Chart.register(
 );
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { mapGetters } from "vuex";
 
 export default {
   name: "wind-chart-page",
@@ -83,8 +108,16 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", [
+      "breadcumsObjectGetters",
+      "listCityAllGetters",
+    ]),
     listHourly() {
       return this.$store.state.weatherModule.hourly24h;
+    },
+
+    objectCurrently() {
+      return this.$store.state.weatherModule.currently;
     },
 
     objectSetting() {
@@ -95,6 +128,18 @@ export default {
       const unitSetting = this.objectSetting;
 
       return this.generateSeriesData(this.listHourly);
+    },
+
+    breadcumsObjectValue() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
     },
   },
 
@@ -117,6 +162,33 @@ export default {
   },
 
   methods: {
+    convertUnitPressure() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePressure_save);
+    },
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+    convertWindBearing(value) {
+      return getWindDirectionFromDegrees(value);
+    },
+    convertTime(val) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    },
+
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -138,12 +210,22 @@ export default {
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(0, "#ffffff"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "#878787"); // Màu dưới (#F5D400 với độ mờ 10%)
+
+      const labelList = this.listHourly.map((item) => {
+        const date = item.time;
+        return this.convertTime(date);
+      });
+
+      const maxWindSpeedData = Math.max(...this.listWindSpeedData);
+
+      const unitSetting = this.objectSetting.activeWindSpeed_save;
+
       const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [...Array(24).keys()].map((i) => i + 1),
+          labels: labelList,
           datasets: [
             {
               label: "Wind speed",
@@ -155,7 +237,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: this.listWindSpeedData,
-              pointHoverRadius: 8, // Tăng kích thước khi hover
+              pointHoverRadius: 4, // Tăng kích thước khi hover
             },
           ],
         },
@@ -163,7 +245,12 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 24,
+            padding: {
+              top: 20, // Chỉ định padding phía trên
+              bottom: 25, // Chỉ định padding phía dưới
+              left: 20,
+              right: 20,
+            },
           },
           plugins: {
             legend: {
@@ -172,6 +259,14 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
+              callbacks: {
+                label: (context) => {
+                  const label = context.dataset.label || "";
+                  const value = context.raw || "";
+                  return `${label}: ${value} ${unitSetting}`; // Thông tin khi hover
+                },
+              },
             },
             datalabels: {
               display: true,
@@ -197,7 +292,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 20,
+              max: maxWindSpeedData + 2,
             },
           },
           elements: {
@@ -216,6 +311,26 @@ export default {
         return windSpeed.toFixed(2); // Thêm 2 chữ số thập phân
       }
       return windSpeed.toString(); // Giữ nguyên nếu đã có phần thập phân
+    },
+
+    generateSeriesDataObject(item) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeWindSpeed_save === "m/s") {
+        return convertMPHtoMetPS(item.windSpeed);
+      }
+      if (unitSetting.activeWindSpeed_save === "km/h") {
+        return convertMiToKm(item.windSpeed);
+      }
+      if (unitSetting.activeWindSpeed_save === "mi/h") {
+        return item.windSpeed;
+      }
+      if (unitSetting.activeWindSpeed_save === "knot") {
+        return convertMiToKnot(item.windSpeed);
+      }
+      if (unitSetting.activeWindSpeed_save === "bft") {
+        return convertMiToBeaufortScale(item.windSpeed);
+      }
     },
     generateSeriesData(data) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;

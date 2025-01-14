@@ -14,7 +14,7 @@
               class="chart-container w-[89rem]"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="310" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="320" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
@@ -22,13 +22,30 @@
         <div
           class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
         >
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-pressure rounded-full w-[10px] h-[10px]"></div>
-            <span class="txt_regular_12">{{
-              $t(`Pressure_{unit}`, {
-                unit: `${objectSetting.activePressure_save}`,
-              })
-            }}</span>
+          <div class="w-full flex justify-between items-center">
+            <div class="flex items-center gap-1">
+              <div class="bg-pressure rounded-full w-[10px] h-[10px]"></div>
+              <div class="txt_regular_12">
+                <p>Pressure:</p>
+              </div>
+              <div class="flex items-center gap-0.5">
+                <p class="txt_medium_15">
+                  {{ this.convertPressure(objectCurrently?.pressure) }}
+                </p>
+                <p class="txt_regular_12">({{ convertUnitPressure() }})</p>
+              </div>
+            </div>
+            <div class="flex items-center text-left gap-2">
+              <span class="txt_regular_12">
+                {{
+                  $t(
+                    `city.city_${languageParam}.${convertToLowCase(
+                      breadcumsObjectValue?.city_key
+                    )}`
+                  )
+                }}, {{ breadcumsObjectValue?.country }}</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -69,11 +86,14 @@ import {
   convertHpaToMmHg,
   convertMillimet,
   convertMillimetToInch,
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
   formatHpa,
 } from "@/utils/converValue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
 
 import VueHorizontal from "vue-horizontal";
+import { mapGetters } from "vuex";
 
 export default {
   name: "pressure-chart-page",
@@ -87,6 +107,13 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", [
+      "breadcumsObjectGetters",
+      "listCityAllGetters",
+    ]),
+    objectCurrently() {
+      return this.$store.state.weatherModule.currently;
+    },
     listHourly() {
       return this.$store.state.weatherModule.hourly24h;
     },
@@ -97,6 +124,18 @@ export default {
 
     listPressure() {
       return this.generateSeriesData(this.listHourly);
+      // return [1000, 920, 1000, 1100, 1040, 1080, 1020, 1090];
+    },
+    breadcumsObjectValue() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
     },
   },
 
@@ -119,6 +158,29 @@ export default {
   },
 
   methods: {
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+    convertUnitPressure() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePressure_save);
+    },
+    convertTime(val) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    },
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -140,12 +202,20 @@ export default {
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(0, "#7527D5"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "#2863AA"); // Màu dưới (#F5D400 với độ mờ 10%)
+
+      const labelList = this.listHourly.map((item) => {
+        const date = item.time;
+        return this.convertTime(date);
+      });
+      const maxWindSpeedData = Math.max(...this.listPressure);
+
+      const unitSetting = this.objectSetting.activePressure_save;
       const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [...Array(24).keys()].map((i) => i + 1),
+          labels: labelList,
           datasets: [
             {
               label: "Pressure",
@@ -175,6 +245,14 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
+              callbacks: {
+                label: (context) => {
+                  const label = context.dataset.label || "";
+                  const value = context.raw || "";
+                  return `${label}: ${value} ${unitSetting}`; // Thông tin khi hover
+                },
+              },
             },
             datalabels: {
               display: true,
@@ -201,7 +279,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 1900,
+              max: maxWindSpeedData + 20,
             },
           },
           elements: {
@@ -220,6 +298,27 @@ export default {
         return convertMillimet(val);
       } else {
         return convertMillimetToInch(val);
+      }
+    },
+    convertPressure(val) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activePressure_save === "hPa") {
+        return val;
+      }
+      if (unitSetting.activePressure_save === "mmHg") {
+        return convertHpaToMmHg(val);
+      }
+      if (unitSetting.activePressure_save === "atm") {
+        return convertHpaToAtm(val);
+      }
+      if (unitSetting.activePressure_save === "inHg") {
+        return convertHpaToInHg(val);
+      }
+      if (unitSetting.activePressure_save === "mBar") {
+        return convertHpaToMbar(val);
+      }
+      if (unitSetting.activePressure_save === "kPa") {
+        return convertHpaToKpa(val);
       }
     },
 
@@ -272,6 +371,6 @@ export default {
   opacity: 0.5;
 }
 .bg-pressure {
-  background-color: #00e1ff;
+  background-color: #3e52b6;
 }
 </style>

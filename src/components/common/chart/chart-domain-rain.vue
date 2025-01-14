@@ -4,7 +4,7 @@
     v-if="paramHourly && paramHourly.length && listDataProbability.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly_rain" height="180" ref="canvas_rain"></canvas>
+      <canvas id="chart_hourly_rain" ref="canvas_rain"></canvas>
     </div>
   </div>
 </template>
@@ -61,10 +61,10 @@ export default {
     },
 
     listDataProbability() {
-      // return this.paramHourly.map((element) => {
-      //   return Math.round(element.precipProbability * 100 || 0); // Tính toán và trả về kết quả
-      // });
-      return [1, 2, 3, 10, 100, 60, 40, 78, 29, 100, 29];
+      return this.paramHourly.map((element) => {
+        return Math.round(element.precipProbability * 100 || 0); // Tính toán và trả về kết quả
+      });
+      // return [1, 2, 3, 10, 100, 60, 40, 78, 29, 100, 29];
     },
   },
 

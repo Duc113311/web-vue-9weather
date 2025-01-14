@@ -160,7 +160,7 @@
                           <p class="txt_medium_15">
                             {{
                               convertFahrenheitToCelsiusNot(
-                                item?.apparentTemperatureMin
+                                item?.temperatureMin
                               )
                             }}
                           </p>
@@ -170,7 +170,7 @@
                           <p class="txt_medium_15">
                             {{
                               convertFahrenheitToCelsiusNot(
-                                item?.apparentTemperatureMax
+                                item?.temperatureMax
                               )
                             }}
                           </p>
@@ -231,14 +231,12 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitleAir></IcTitleAir>
-                      <p class="txt_regular_14">{{ $t("air_quality") }}</p>
+                      <p class="txt_regular_14">Dew point</p>
                     </div>
-                    <div class="flex items-center gap-1">
-                      <span class="txt_medium_15">{{ paramAirModule }}</span>
-
-                      <span class="txt_regular_14"
-                        >({{ convertAirIndexName(paramAirModule) }})</span
-                      >
+                    <div class="flex items-center">
+                      <span class="txt_regular_14">{{
+                        convertFahrenheitToCelsiusNot(item?.dewPoint)
+                      }}</span>
                     </div>
                   </div>
                 </div>

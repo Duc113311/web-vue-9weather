@@ -15,20 +15,38 @@
               class="chart-container w-[89rem] pt-4"
               v-if="listHourly && listHourly.length"
             >
-              <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
+              <canvas id="chart_hourly" height="300" ref="canvas"></canvas>
             </div>
           </div>
         </vue-horizontal>
+
         <div
           class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
         >
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
-            <span class="txt_regular_12">{{
-              $t(`Humidity_{unit}`, {
-                unit: "%",
-              })
-            }}</span>
+          <div class="w-full flex justify-between items-center">
+            <div class="flex items-center gap-1">
+              <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
+              <div class="txt_regular_12">
+                <p>Humidity:</p>
+              </div>
+              <div class="flex items-center gap-0.5">
+                <p class="txt_medium_15">
+                  {{ Math.round(objectCurrently?.humidity * 100) }}
+                </p>
+                <p class="txt_medium_15">%</p>
+              </div>
+            </div>
+            <div class="flex items-center text-left gap-2">
+              <span class="txt_regular_12">
+                {{
+                  $t(
+                    `city.city_${languageParam}.${convertToLowCase(
+                      breadcumsObjectValue?.city_key
+                    )}`
+                  )
+                }}, {{ breadcumsObjectValue?.country }}</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -63,6 +81,11 @@ Chart.register(
 );
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import {
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
+} from "@/utils/converValue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "humid-chart-page",
@@ -79,6 +102,24 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", [
+      "breadcumsObjectGetters",
+      "listCityAllGetters",
+    ]),
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
+    breadcumsObjectValue() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
+    objectCurrently() {
+      return this.$store.state.weatherModule.currently;
+    },
     listHourly() {
       return this.$store.state.weatherModule.hourly24h;
     },
@@ -115,6 +156,25 @@ export default {
   },
 
   methods: {
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
+    },
+    convertTime(val) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    },
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -136,12 +196,20 @@ export default {
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(0, "rgba(12, 255, 211, 0)"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "rgba(0, 102, 255, 1)"); // Màu dưới (#F5D400 với độ mờ 10%)
+
+      const maxWindSpeedData = Math.max(...this.listTemperatureData);
+
+      const labelList = this.listHourly.map((item) => {
+        const date = item.time;
+        return this.convertTime(date);
+      });
+
       const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [...Array(24).keys()].map((i) => i + 1),
+          labels: labelList,
           datasets: [
             {
               label: "Humidity",
@@ -155,7 +223,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: this.listTemperatureData,
-              pointHoverRadius: 8, // Tăng kích thước khi hover
+              pointHoverRadius: 4, // Tăng kích thước khi hover
             },
           ],
         },
@@ -172,6 +240,14 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
+              callbacks: {
+                label: (context) => {
+                  const label = context.dataset.label || "";
+                  const value = context.raw || "";
+                  return `${label}: ${value}%`; // Thông tin khi hover
+                },
+              },
             },
             datalabels: {
               display: true,
@@ -198,7 +274,7 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 110,
+              max: maxWindSpeedData + 20,
             },
           },
           elements: {
@@ -235,7 +311,7 @@ export default {
   opacity: 0.5;
 }
 .bg-humid {
-  background-color: #1c6295;
+  background-color: #0b78d5;
 }
 
 .bg-rain-c {

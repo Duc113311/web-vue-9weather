@@ -14,15 +14,15 @@
             <!--  -->
             <div class="relative">
               <ChartPrecipitationBar
-                class="absolute top-chart-pre z-20"
+                class="absolute top-chart-pre z-10"
               ></ChartPrecipitationBar>
 
-              <ChartDomainRain
+              <!-- <ChartDomainRain
                 class="z-30 absolute top-chart-rain"
-              ></ChartDomainRain>
+              ></ChartDomainRain> -->
 
               <ChartDomainTemps
-                class="z-20"
+                class="z-20 absolute"
                 :heightValue="heightValue"
               ></ChartDomainTemps>
             </div>
@@ -78,7 +78,7 @@ export default {
     ChartDays,
     ChartDomainTemps,
     ChartPrecipitationBar,
-    ChartDomainRain,
+    // ChartDomainRain,
     VueHorizontal,
     // ChartColumnRainfall,
     // ChartApexRain,
@@ -130,7 +130,7 @@ export default {
   background-color: #327cee;
 }
 .top-chart-pre {
-  top: 158px;
+  top: 148px;
 }
 .top-chart-rain {
   top: 126px;

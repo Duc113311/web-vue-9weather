@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full txt_light_summer p-2">
+  <div class="w-full h-full txt_light_summer">
     <!--  -->
     <div class="w-full flex justify-center items-center p-2">
       <p class="txt_regular_14">
@@ -21,7 +21,7 @@
       </p>
     </div>
 
-    <div class="flex items-center p-2 justify-between w-full">
+    <div class="flex items-center justify-between w-full">
       <!--  -->
       <div class="flex flex-col gap-1">
         <div class="flex items-center gap-1">
@@ -80,13 +80,13 @@
           </p>
         </div>
         <div class="flex items-center">
-          <span class="txt_light_14">{{ $t("air_quality") }}:&nbsp;</span>
+          <span class="txt_light_14">Dew point:&nbsp;</span>
           <div class="flex items-center gap-1">
-            <span class="txt_medium_15">{{ paramAirModule }}</span>
-
-            <span class="txt_regular_14"
-              >({{ convertAirIndexName(paramAirModule) }})</span
-            >
+            <p class="txt_medium_15">
+              {{
+                convertFahrenheitToCelsiusNot(renderObjTemperature?.dewPoint)
+              }}
+            </p>
           </div>
         </div>
       </div>

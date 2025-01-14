@@ -79,7 +79,7 @@
                 :displacement="0.7"
                 class="w-full h-full relative horizontal"
               >
-                <div>
+                <div class="relative">
                   <ChartTimeIcon
                     :key="indexState + Math.random()"
                   ></ChartTimeIcon>
@@ -87,6 +87,7 @@
                   <!--  -->
 
                   <ChartTempMaxMin
+                    class="z-20 absolute"
                     :key="indexState + Math.random()"
                   ></ChartTempMaxMin>
 
@@ -97,15 +98,14 @@
 
                   <!--  -->
 
-                  <!-- <ChartPrecipitation
+                  <ChartPrecipitation
+                    class="absolute bottom-chart-bar z-10"
                     :key="indexState + Math.random()"
-                  ></ChartPrecipitation> -->
+                  ></ChartPrecipitation>
                 </div>
               </vue-horizontal>
 
-              <div
-                class="absolute w-full bottom-0 left-0 flex justify-between pad-t-b-10"
-              >
+              <div class="absolute w-full bottom-0 left-0 flex justify-between">
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
                   <span class="txt_regular_12">{{ $t("High") }}</span>
@@ -154,7 +154,7 @@ export default {
     ChartTempMaxMin,
     VueHorizontal,
     // ChartChanceOfRain,
-    // ChartPrecipitation,
+    ChartPrecipitation,
   },
   data() {
     return {
@@ -247,5 +247,9 @@ export default {
 }
 .bg-rainfall-c {
   background-color: #327cee;
+}
+
+.bottom-chart-bar {
+  top: 260px;
 }
 </style>

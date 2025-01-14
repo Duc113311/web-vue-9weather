@@ -58,12 +58,12 @@
                 </svg>
               </template>
               <template #default>
-                <div class="color_0D2952">
+                <div class="">
                   <div class="">
                     <p class="txt_medium_14">{{ titleRecommended }}</p>
                   </div>
                   <div class="text-left">
-                    <span class="txt_regular_12">{{
+                    <span class="txt_regular_10">{{
                       convertAqiRecommendedPrecautionsInfo(110)
                     }}</span>
                   </div>

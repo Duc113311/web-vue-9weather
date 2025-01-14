@@ -4,7 +4,7 @@
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="300" ref="canvas"></canvas>
+      <canvas id="chart_hourly" height="290" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -72,8 +72,9 @@ export default {
 
     listDataProbability() {
       return this.paramHourly.map((element) =>
-        Math.round(element.precipProbability * 100 || 0)
+        Math.round(element.precipProbability * 100)
       );
+      // return [0, 1, 5, 10, 0, 4, 100, 26, 49, 0];
     },
 
     listDataPrecipIntensity() {
@@ -166,8 +167,8 @@ export default {
         0,
         ctx.canvas.height * 2
       ); // Gradient từ trên xuống dưới
-      gradientRain.addColorStop(0, "#00CCDC"); // Màu trên (100% độ mờ)
-      gradientRain.addColorStop(1, "#00848F00"); // Màu dưới (0% độ mờ)
+      gradientRain.addColorStop(0, "#ffffff17"); // Màu trên (100% độ mờ)
+      gradientRain.addColorStop(1, "#ffffff17"); // Màu dưới (0% độ mờ)
 
       const gradientPrecipIntensity = ctx.createLinearGradient(
         0,
@@ -186,12 +187,9 @@ export default {
       const maxDataValueIntensity = Math.max(...this.listDataPrecipIntensity);
       const yAxisMin = minDataValue - 2; // Giảm giá trị nhỏ nhất xuống thêm 5 đơn vị (tuỳ chỉnh)
 
-      const displayData = this.listDataPrecipIntensity.map((value, index) => {
-        console.log(
-          `Index: ${index}, Original Value: ${value}, Processed Value: ${
-            value === 0 ? 0.5 : value
-          }`
-        );
+      const displayData = this.listDataProbability.map((value, index) => {
+        console.log("value-listDataProbability", value);
+
         return value === 0 ? 0.5 : value;
       });
 
@@ -210,36 +208,36 @@ export default {
       console.log("savedTheme", savedTheme);
 
       this.chartInstance = new Chart(ctx, {
-        type: "bar",
+        type: "line",
         data: {
           labels: labelList,
           datasets: [
-            // {
-            //   label: "Chance of rain",
-            //   type: "line", // Kiểu dataset là line
-            //   borderColor: "#00E3F5",
-            //   pointBackgroundColor: "#00E3F5",
-            //   pointBorderWidth: 1, // Độ dày viền của điểm
-            //   borderWidth: 2,
-            //   pointBorderColor: "#00E3F5",
-            //   pointRadius: 5,
-            //   backgroundColor: gradientRain,
-            //   fill: true,
-            //   data: this.listDataProbability,
-            //   pointHoverRadius: 8,
-            //   yAxisID: "y2", // Gán trục y cho Rain
-            //   datalabels: {
-            //     display: true,
-            //     align: "top",
-            //     anchor: "start", // Gắn nhãn ở đầu cột
-            //     font: {
-            //       size: 14,
-            //     },
-            //     color: savedTheme === "light" ? "#333333" : "#00e3f5",
-            //     formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
-            //     offset: 8,
-            //   },
-            // },
+            {
+              label: "Chance of rain",
+              type: "line", // Kiểu dataset là line
+              borderColor: "#00E3F5",
+              pointBackgroundColor: "#00E3F5",
+              pointBorderWidth: 1, // Độ dày viền của điểm
+              borderWidth: 2,
+              pointBorderColor: "#00E3F5",
+              pointRadius: 5,
+              backgroundColor: gradientRain,
+              fill: true,
+              data: displayData,
+              pointHoverRadius: 4,
+              yAxisID: "y2", // Gán trục y cho Rain
+              datalabels: {
+                display: true,
+                align: "top",
+                anchor: "start", // Gắn nhãn ở đầu cột
+                font: {
+                  size: 14,
+                },
+                color: savedTheme === "light" ? "#333333" : "#00e3f5",
+                formatter: (value) => `${value === 0.5 ? 0 : value}%`, // Định dạng giá trị hiển thị
+                offset: 8,
+              },
+            },
 
             {
               label: "Temperature",
@@ -253,7 +251,7 @@ export default {
               backgroundColor: gradient,
               fill: true, // Tô nền dưới line
               data: this.listTemperatureData,
-              pointHoverRadius: 8, // Tăng kích thước khi hover
+              pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y1", // Gán trục y cho Temperature
               datalabels: {
                 display: true,
@@ -276,8 +274,8 @@ export default {
             padding: {
               top: 20, // Chỉ định padding phía trên
               bottom: 25, // Chỉ định padding phía dưới
-              left: 0,
-              right: 0,
+              left: 20,
+              right: 20,
             },
           },
           scales: {
@@ -303,7 +301,7 @@ export default {
               position: "right",
               display: false,
               beginAtZero: true,
-              max: maxDataValueRain + 100,
+              max: maxDataValueRain + 120,
               ticks: {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
@@ -322,7 +320,9 @@ export default {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value}`; // Thông tin khi hover
+                  return `${label}: ${value === 0.5 ? 0 : value}${
+                    label === "Temperature" ? "°" : "%"
+                  }`; // Thông tin khi hover
                 },
               },
             },

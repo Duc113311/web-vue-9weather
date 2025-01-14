@@ -78,7 +78,7 @@
         class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
       >
         <div class="txt_regular flex items-center">
-          <span>Theme Dark/Light</span>
+          <span>Dark/Light</span>
         </div>
         <div>
           <el-switch
@@ -119,7 +119,7 @@ export default {
   data() {
     return {
       namePage: "setting",
-      valueLive: true,
+      valueLive: false,
       theme: "light",
       indexKey: 0,
     };
@@ -144,9 +144,9 @@ export default {
     const savedTheme = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", savedTheme);
     if (savedTheme === "light") {
-      this.valueLive = true;
-    } else {
       this.valueLive = false;
+    } else {
+      this.valueLive = true;
     }
   },
 
@@ -183,7 +183,7 @@ export default {
       this.valueLive = value;
       this.setIndexComponent(this.indexKey++);
 
-      this.theme = this.valueLive ? "light" : "dark";
+      this.theme = this.valueLive ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
       localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage
     },

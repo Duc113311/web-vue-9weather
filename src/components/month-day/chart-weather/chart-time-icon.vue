@@ -1,8 +1,8 @@
 <template>
-  <div class="w-[89rem] flex justify-between items-center">
+  <div class="w-[96rem] flex justify-between items-center">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_14 pb-1">
+      <div class="txt_regular_12 pb-1">
         {{ renderHourly(item).timestampValue }}
       </div>
       <div class="txt_regular_14 pb-1">{{ convertToShortDay(item.time) }}</div>
@@ -58,8 +58,8 @@ export default {
 };
 </script>
 <style lang="scss">
-.p-chart {
-  padding-left: 6px;
-  padding-right: 6px;
+.p-chart-avg-new {
+  padding-left: 20x;
+  padding-right: 20px;
 }
 </style>

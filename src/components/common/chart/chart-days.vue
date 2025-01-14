@@ -2,10 +2,10 @@
   <div class="w-[89rem] flex justify-between items-center p-chart-avg">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_14">
+      <div class="txt_regular_12">
         {{ renderHourlyTime(item) }}
       </div>
-      <div class="flex justify-center items-center item-precip">
+      <div class="flex justify-center items-center">
         <component :is="renderHourlyIcon(item)"></component>
       </div>
     </div>
@@ -68,4 +68,9 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.p-chart-avg {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+</style>

@@ -4,7 +4,7 @@
     <div class="ic_bg overflow-y-scroll xl:overflow-hidden">
       <div class="w-full h-full relative container-full">
         <div
-          class="w-full h-full lg:flex block lg:justify-between xl:items-center"
+          class="w-full h-full lg:flex block lg:justify-between xl:items-center text-white"
         >
           <!--  -->
           <div

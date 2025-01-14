@@ -20,27 +20,93 @@
           </div>
         </vue-horizontal>
         <div class="absolute w-full bottom-0 left-0">
-          <div class="flex justify-center items-center w-full color-text">
-            <div class="flex-1 bg-short text-center pl-4 pr-4 pt-2">
-              <p class="txt_regular_12">{{ $t("Low") }}</p>
-              <p class="des-atb">0-2</p>
-            </div>
-            <div class="flex-1 bg-Medium text-center pl-4 pr-4 pt-2">
-              <p class="txt_regular_12">{{ $t("Moderate") }}</p>
-              <p class="des-atb">3-5</p>
-            </div>
-            <div class="flex-1 bg-High text-center pl-4 pr-4 pt-2">
-              <p class="txt_regular_12">{{ $t("High") }}</p>
-              <p class="des-atb">6-7</p>
-            </div>
-            <div class="flex-1 bg-Very-high text-center pl-4 pr-4 pt-2">
-              <p class="txt_regular_12">{{ $t("Very_High") }}</p>
-              <p class="des-atb">8-10</p>
-            </div>
-            <div class="flex-1 bg-Extremely-high text-center pl-4 pr-4 pt-2">
-              <p class="txt_regular_12">{{ $t("Extreme") }}</p>
-              <p class="des-atb">> 10</p>
-            </div>
+          <div class="flex justify-center items-center w-full">
+            <el-popover placement="bottom" :width="200" trigger="hover">
+              <template #reference>
+                <div class="flex-1 bg-short text-center pl-4 pr-4 pt-2">
+                  <p class="txt_regular_12">{{ $t("Low") }}</p>
+                  <p class="des-atb">0-2</p>
+                </div>
+              </template>
+              <template #default>
+                <div class="w-full">
+                  <p class="txt_regular_14">{{ $t("Low") }}</p>
+                  <p class="txt_regular_10 text-left">
+                    {{ $t("Low_UV_levels") }}
+                  </p>
+                </div>
+              </template>
+            </el-popover>
+
+            <el-popover placement="bottom" :width="200" trigger="hover">
+              <template #reference>
+                <div class="flex-1 bg-Medium text-center pl-4 pr-4 pt-2">
+                  <p class="txt_regular_12">{{ $t("Moderate") }}</p>
+                  <p class="des-atb">3-5</p>
+                </div>
+              </template>
+              <template #default>
+                <div class="w-full">
+                  <p class="txt_regular_14">{{ $t("Moderate") }}</p>
+                  <p class="txt_regular_10 text-left">
+                    {{ $t("There_is_a_moderate") }}
+                  </p>
+                </div>
+              </template>
+            </el-popover>
+
+            <el-popover placement="bottom" :width="200" trigger="hover">
+              <template #reference>
+                <div class="flex-1 bg-High text-center pl-4 pr-4 pt-2">
+                  <p class="txt_regular_12">{{ $t("High") }}</p>
+                  <p class="des-atb">6-7</p>
+                </div>
+              </template>
+              <template #default>
+                <div class="w-full">
+                  <p class="txt_regular_14">{{ $t("High") }}</p>
+                  <p class="txt_regular_10 text-left">
+                    {{ $t("UV_rays_are_highly") }}
+                  </p>
+                </div>
+              </template>
+            </el-popover>
+
+            <el-popover placement="bottom" :width="200" trigger="hover">
+              <template #reference>
+                <div class="flex-1 bg-Very-high text-center pl-4 pr-4 pt-2">
+                  <p class="txt_regular_12">{{ $t("Very_High") }}</p>
+                  <p class="des-atb">8-10</p>
+                </div>
+              </template>
+              <template #default>
+                <div class="w-full">
+                  <p class="txt_regular_14">{{ $t("Very_High") }}</p>
+                  <p class="txt_regular_10 text-left">
+                    {{ $t("The_risk_from_UV_is_very_high") }}
+                  </p>
+                </div>
+              </template>
+            </el-popover>
+
+            <el-popover placement="bottom" :width="200" trigger="hover">
+              <template #reference>
+                <div
+                  class="flex-1 bg-Extremely-high text-center pl-4 pr-4 pt-2"
+                >
+                  <p class="txt_regular_12">{{ $t("Extreme") }}</p>
+                  <p class="des-atb">> 10</p>
+                </div>
+              </template>
+              <template #default>
+                <div class="w-full">
+                  <p class="txt_regular_14">{{ $t("Extreme") }}</p>
+                  <p class="txt_regular_10 text-left">
+                    {{ $t("UV_rays_are_extremely_dangerous") }}
+                  </p>
+                </div>
+              </template>
+            </el-popover>
           </div>
         </div>
       </div>
@@ -97,6 +163,7 @@ export default {
       const unitSetting = this.objectSetting;
 
       return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
+      // return [1, 4, 6, 7, 10, 13, 0, 5, 3];
     },
   },
 
@@ -214,8 +281,9 @@ export default {
               },
               color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                value;
+                return value === 0.5 ? 0 : value;
               },
+              offset: 4,
             },
           },
           scales: {
@@ -225,7 +293,8 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: 13,
+              max: 15,
+              min: 0,
             },
           },
           elements: {

@@ -9,12 +9,17 @@
           <div class="logo-app w-full h-full flex justify-center items-center">
             <!--  -->
 
-            <div class="md:flex w-full items-center gap-2">
+            <div class="md:flex w-full items-center gap-2 cursor-pointer">
               <div
                 class="imgLogo cursor-pointer"
                 @click="onClickReloadHome()"
               ></div>
-              <div class="txt_bold_34 color-title-logo">9Weather</div>
+              <div
+                class="txt_bold_34 color-title-logo cursor-pointer"
+                @click="onClickReloadHome()"
+              >
+                9Weather
+              </div>
             </div>
           </div>
           <!-- Search -->

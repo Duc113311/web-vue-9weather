@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chart-container w-[89rem] mt-2"
+    class="chart-container w-[96rem] mt-2"
     v-if="paramHourly && paramHourly.length"
   >
     <div class="chart-wrapper w-full h-full">
@@ -15,6 +15,8 @@ import {
   convertMillimet,
   convertMillimetToInch,
   codeToFind,
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
 } from "../../../utils/converValue.js";
 import {
   Chart,
@@ -134,9 +136,25 @@ export default {
         return convertMillimetToInch(val);
       }
     },
+
+    convertTime(val) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+      } else {
+        return convertTimestamp24hSun(val, 1, offsetValue);
+      }
+    },
+
     createChartMonthly() {
-      const minData = Math.min(...this.listTemperatureDataMin);
-      const maxData = Math.max(...this.listTemperatureDataMax);
+      const maxDataMin = Math.max(...this.listTemperatureDataMin);
+      const minDataMin = Math.min(...this.listTemperatureDataMin);
+      const minDataMax = Math.max(...this.listTemperatureDataMax);
+      const maxDataMax = Math.min(...this.listTemperatureDataMax);
       const canvas = this.$refs.canvas;
       if (!canvas) {
         console.error("Canvas element not found");
@@ -168,6 +186,7 @@ export default {
       gradientRain.addColorStop(1, "#00848F00"); // Màu dưới (0% độ mờ)
 
       const maxDataValueRain = Math.max(...this.listDataProbability);
+      const minDataValueRain = Math.min(...this.listDataProbability);
 
       const displayData = this.listDataPrecipIntensity.map((value, index) => {
         console.log(
@@ -179,12 +198,17 @@ export default {
       });
       const maxDataValueIntensity = Math.max(...this.listDataPrecipIntensity);
 
+      const labelList = this.paramHourly.map((item) => {
+        const date = item.time;
+        return this.convertTime(date);
+      });
+
       const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [...Array(30).keys()].map((i) => i + 1),
+          labels: labelList,
           datasets: [
             {
               label: "Chance of rain",
@@ -198,54 +222,24 @@ export default {
               backgroundColor: gradientRain,
               fill: true,
               data: this.listDataProbability,
-              pointHoverRadius: 8,
+              pointHoverRadius: 4,
               yAxisID: "y3", // Gán trục y cho Rain
               datalabels: {
                 display: true,
                 align: "top",
-                anchor: "start", // Gắn nhãn ở đầu cột
+                anchor: "center", // Gắn nhãn ở đầu cột
                 font: {
                   size: 14,
                 },
                 color: savedTheme === "light" ? "#333333" : "#00e3f5",
                 formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
-                offset: 8,
+                offset: 4,
               },
             },
 
             {
-              label: "PrecipIntensity",
-              type: "bar", // Kiểu dataset là line
-              borderColor: "#0062F5",
-              pointBackgroundColor: "#0062F5",
-              pointBorderColor: "#0062F5",
-              backgroundColor: "#0062F5",
-              fill: true, // Tô nền dưới line
-              data: displayData,
-              borderRadius: 20,
-              barThickness: 30,
-              categoryPercentage: 0.8,
-              barPercentage: 0.9,
-              yAxisID: "y4", // Gán trục y cho Temperature
-              datalabels: {
-                display: true,
-                anchor: "start", // Gắn nhãn ở đầu cột
-                align: "start", // Căn nhãn ở đầu cột
-                offset: 4, // Không di chuyển nhãn
-                font: {
-                  size: 14,
-                },
-                color: savedTheme === "light" ? "#333333" : "#ffffff",
-                formatter: (value, context) => {
-                  return this.listDataPrecipIntensity[context.dataIndex] === 0
-                    ? "0" + " " + this.unitPrecipitation
-                    : value + " " + this.unitPrecipitation;
-                },
-              },
-            },
-
-            {
-              label: "Temperature Min",
+              label: "Temperature Max",
+              type: "line", // Kiểu dataset là line
               borderColor: "#EC9D00",
               pointBackgroundColor: "#EC9D00",
               pointBorderWidth: 0, // Độ dày viền của điểm
@@ -255,7 +249,7 @@ export default {
               backgroundColor: gradient,
               fill: true,
               data: this.listTemperatureDataMax,
-              pointHoverRadius: 8, // Tăng kích thước khi hove
+              pointHoverRadius: 4, // Tăng kích thước khi hove
               yAxisID: "y1", // Gán trục y cho Rain
               datalabels: {
                 display: true,
@@ -273,7 +267,8 @@ export default {
               },
             },
             {
-              label: "Temperature Max",
+              label: "Temperature Min",
+              type: "line", // Kiểu dataset là line
               borderColor: "#00D354",
               pointBackgroundColor: "#00D354",
               pointBorderWidth: 0, // Độ dày viền của điểm
@@ -281,9 +276,9 @@ export default {
               pointBorderColor: "#C27021",
               pointRadius: 5,
               backgroundColor: gradient,
-              fill: true,
+              fill: false,
               data: this.listTemperatureDataMin,
-              pointHoverRadius: 8, // Tăng kích thước khi hover
+              pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y2", // Gán trục y cho Rain
               datalabels: {
                 display: true,
@@ -306,9 +301,9 @@ export default {
           layout: {
             padding: {
               top: 20, // Chỉ định padding phía trên
-              bottom: 25, // Chỉ định padding phía dưới
-              left: 0,
-              right: 0,
+              bottom: 10, // Chỉ định padding phía dưới
+              left: 18,
+              right: 18,
             },
           },
           plugins: {
@@ -319,9 +314,14 @@ export default {
             tooltip: {
               enabled: true,
               callbacks: {
-                label: (tooltipItem) => {
-                  const value = tooltipItem.raw; // Get the raw value
-                  return `Temperature: ${value}°`; // Display value with percentage
+                label: (context) => {
+                  const label = context.dataset.label || "";
+                  const value = context.raw || "";
+                  return `${label}: ${value}${
+                    label === "Temperature Max" || label === "Temperature Min"
+                      ? "°"
+                      : "%"
+                  }`; // Thông tin khi hover
                 },
               },
             },
@@ -329,48 +329,42 @@ export default {
           scales: {
             x: {
               display: false,
-              offset: true,
+              offset: false,
               ticks: {
-                stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
+                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
             },
-
+            // Tempt Max
             y1: {
               display: false,
               beginAtZero: true,
-              max: maxData,
+              max: maxDataMax + 18,
+              min: minDataMax - 50,
               ticks: {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
             },
+            // Tempt Min
             y2: {
               display: false,
               beginAtZero: true,
-              max: maxData + 1,
+              max: maxDataMin + 10,
+              min: minDataMin - 22,
               ticks: {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
             },
             y3: {
               type: "linear",
-              position: "right",
+              position: "center",
               display: false,
               beginAtZero: true,
-              max: maxDataValueRain + 100,
+              max: maxDataValueRain + 180,
+              min: minDataValueRain - 6,
               ticks: {
                 padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
               // min: yAxisMin - 30,
-            },
-            y4: {
-              position: "right",
-              display: false,
-              beginAtZero: true,
-              max: maxDataValueIntensity + 30,
-              ticks: {
-                padding: 0, // Giảm khoảng cách giữa nhãn và trục
-                mirror: true,
-              },
             },
           },
           elements: {

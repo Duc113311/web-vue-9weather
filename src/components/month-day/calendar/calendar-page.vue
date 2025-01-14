@@ -150,6 +150,7 @@ export default {
   data() {
     return {
       heightAuto: "auto",
+      activeDayIndex: null,
     };
   },
   computed: {
@@ -157,21 +158,49 @@ export default {
       return this.$store.state.weatherModule.listDaily30Day;
     },
 
+    locationOffsetValue() {
+      return this.$store.state.weatherModule.locationOffset.offset;
+    },
+
     adjustedCalendar() {
       if (!this.renderCalendar.length) return [];
 
       // Lấy ngày đầu tiên trong mảng dữ liệu
-      const firstDay = new Date(this.renderCalendar[0].time).getDay();
+      const timestamp = this.renderCalendar[0].time;
+      const date = new Date(timestamp * 1000); // Chuyển timestamp Unix thành Date
 
-      // Xác định số lượng ô trống cần thêm trước ngày đầu tiên
+      // Điều chỉnh theo múi giờ
+      const utcTime = date.getTime();
+      const localTime = new Date(
+        utcTime + this.locationOffsetValue * 3600 * 1000
+      );
+
+      // Lấy ngày đầu tuần (firstDay)
+      const firstDay = localTime.getDay();
+      console.log("this.renderCalendar", this.renderCalendar);
+
+      console.log("firstDay", firstDay);
+
+      // Thứ Hai = 1, Chủ nhật = 0, cần điều chỉnh
       const placeholders = Array.from({
-        length: firstDay === 0 ? 6 : firstDay - 1,
+        length: firstDay === 0 ? 6 : firstDay - 1, // Số lượng ô trống trước ngày đầu tiên
       }).map(() => ({}));
 
-      // Kết hợp các ô trống với dữ liệu hiện tại
+      // Điều chỉnh ngày theo múi giờ (offset)
+      const adjustedDays = this.renderCalendar.map((day) => {
+        const date = new Date(day.time);
 
-      return [...placeholders, ...this.renderCalendar];
-      // Trả về mảng đã được điều chỉnh
+        // Nếu bạn cần sử dụng offset múi giờ, tính toán lại thời gian
+        const utcTime = date.getTime();
+        const localTime = new Date(
+          utcTime + this.locationOffsetValue * 3600 * 1000
+        );
+
+        return { ...day, adjustedTime: localTime };
+      });
+
+      // Kết hợp các ô trống với dữ liệu của tháng
+      return [...placeholders, ...adjustedDays];
     },
   },
 
@@ -183,11 +212,25 @@ export default {
       }
     },
     convertToShortDay(value) {
+      // Chuyển timestamp Unix thành Date (value là giây)
       const date = new Date(value * 1000);
-      const dateNew = new Date(date);
-      const day = dateNew.getDate();
 
-      return day;
+      // Lấy thời gian UTC
+      const utcTime = date.getTime();
+
+      // Điều chỉnh theo múi giờ người dùng (locationOffsetValue là giờ)
+      const localTime = new Date(
+        utcTime + this.locationOffsetValue * 3600 * 1000
+      );
+
+      // Lấy ngày và tháng
+      const day = localTime.getDate(); // Lấy ngày trong tháng
+      const month = localTime.getMonth() + 1; // Lấy tháng, cộng 1 vì tháng bắt đầu từ 0 (Jan = 0)
+
+      // Trả về định dạng "DD/MM"
+      return `${day < 10 ? "0" + day : day}/${
+        month < 10 ? "0" + month : month
+      }`;
     },
     onvertToShortMonth(value) {
       return convertTimestampToMonthYear(value);
@@ -196,7 +239,13 @@ export default {
     convertToShortToDay() {
       const today = new Date();
 
-      return today.getDate();
+      const day = today.getDate(); // Lấy ngày (1-31)
+      const month = today.getMonth() + 1; // Lấy tháng (0-11), cần cộng thêm 1 vì tháng bắt đầu từ 0
+
+      // Trả về ngày/tháng theo định dạng DD/MM
+      return `${day < 10 ? "0" + day : day}/${
+        month < 10 ? "0" + month : month
+      }`;
     },
 
     getStyle(value) {
@@ -207,6 +256,26 @@ export default {
         };
       } else {
         return { backgroundColor: "transparent" };
+      }
+    },
+
+    isActive(index) {
+      return this.activeDayIndex === index;
+    },
+
+    onClickActiveShow(value, index) {
+      if (this.activeDayIndex === index) {
+        this.activeDayIndex = null;
+      } else {
+        this.activeDayIndex = index; // Active ngày được click
+      }
+    },
+
+    closeIfClickedOutside(event) {
+      debugger;
+      const daysList = this.$refs.daysList;
+      if (daysList && !daysList.contains(event.target)) {
+        this.activeDayIndex = null; // Tắt active nếu click ra ngoài
       }
     },
 
