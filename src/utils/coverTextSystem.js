@@ -12,6 +12,12 @@ export function convertToSnakeCase(str) {
 
 export function convertToVietnamese(input) {
   // Map các từ gốc sang từ có dấu
+
+  const data = removeWordAndAccents(input);
+
+  // const dataNew = convertToCamelCase(data);
+  console.log("data-new", data);
+
   const vietnameseMap = {
     Hanoi: "Hà Nội",
     Haiphong: "Hải Phòng",
@@ -32,7 +38,7 @@ export function convertToVietnamese(input) {
     CaoBang: "Cao Bằng",
     DakLak: "Đắk Lắk",
     DakNong: "Đắk Nông",
-    DienBien: "Điện Biên",
+    DienBien: "Điện Biên Phủ",
     DongNai: "Đồng Nai",
     DongThap: "Đồng Tháp",
     GiaLai: "Gia Lai",
@@ -77,13 +83,34 @@ export function convertToVietnamese(input) {
     YenBai: "Yên Bái",
   };
 
-  // Ánh xạ tên địa danh
-  const converted = vietnameseMap[input] || input;
+  // Kiểm tra nếu chuỗi tồn tại trong map
+  const converted = vietnameseMap[data] || data;
+
+  console.log("converted", converted);
 
   // Thay khoảng trắng bằng dấu gạch dưới
-  return converted;
+  return {
+    city: converted,
+    cityConvert: convertToConvertLowerCase(converted),
+  };
 }
 
+export function convertToConvertLowerCase(str) {
+  console.log("slug", str);
+
+  const slug = removeAccentsUnicode(str).replace(/\s+/g, "_");
+  console.log("slug", slug);
+
+  return slug;
+}
+
+export function removeAccentsUnicode(str) {
+  return str
+    .normalize("NFD") // Chuẩn hóa Unicode thành dạng tổ hợp ký tự và dấu
+    .replace(/[\u0300-\u036f]/g, "") // Loại bỏ tổ hợp dấu
+    .replace(/đ/g, "d") // Xử lý riêng cho chữ "đ"
+    .replace(/Đ/g, "D");
+}
 /**
  * Xử lý chuỗi khu có ký tự ' VD: Dak R'Lay
  * @param {*} key
@@ -99,7 +126,14 @@ export function replaceApostropheWithUnderscore(key) {
 }
 
 export function removeWordAndAccents(str) {
-  const wordsToRemove = ["Xã", "Thị Xã", "Phường", "Thị Trấn"];
+  const wordsToRemove = [
+    "Xã",
+    "Thị Xã",
+    "Phường",
+    "Thị Trấn",
+    "Province",
+    "City",
+  ];
   const removeAccents = (s) =>
     s
       .normalize("NFD")
@@ -118,4 +152,42 @@ export function removeWordAndAccents(str) {
   });
 
   return normalizedStr;
+}
+
+export function convertLowerCase(str) {
+  const slug = removeAccents(str);
+  return slug.replace(/\s+/g, "-").toLowerCase();
+}
+
+export function checkSubstring(str1, str2) {
+  // Kiểm tra nếu str1 giống hoàn toàn str2
+  if (str1 === str2) {
+    return true;
+  }
+
+  // Tách các từ bằng cách loại bỏ ký tự không phải chữ và chia nhỏ theo dấu "_"
+  const words1 = str1.replace(/[^\w\s]/g, "").split("_");
+  const words2 = str2.replace(/[^\w\s]/g, "").split("_");
+
+  // Chuyển đổi str2 thành mảng đã định dạng (giả sử convertToFormattedArray là cần thiết)
+  // const convertArray = this.convertToFormattedArray(str2);
+
+  // Lọc ra các từ chung giữa words1 và words2
+  const commonWords = words1.filter((word) => words2.includes(word));
+
+  // Kiểm tra có ít nhất 2 từ chung
+  return commonWords.length >= 2;
+}
+
+export function convertToFormattedArray(input) {
+  if (!input) return []; // Nếu chuỗi không có giá trị, trả về mảng rỗng
+
+  return input
+    .split(" ") // Tách chuỗi theo khoảng trắng
+    .map((word, index) => {
+      if (index === 0) {
+        return word; // Từ đầu tiên chuyển thành chữ thường
+      }
+      return word.charAt(0) + word.slice(1); // Viết hoa chữ cái đầu cho từ còn lại
+    });
 }

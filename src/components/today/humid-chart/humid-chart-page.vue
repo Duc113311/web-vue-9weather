@@ -5,8 +5,8 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="0.7"
-          class="w-full h-full relative horizontal"
+          :displacement="1"
+          class="w-full h-full relative horizontal pl-2 pr-2"
         >
           <div>
             <ChartDays></ChartDays>
@@ -194,8 +194,9 @@ export default {
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "rgba(12, 255, 211, 0)"); // Màu trên (#F5A300 với độ mờ 50%)
-      gradient.addColorStop(1, "rgba(0, 102, 255, 1)"); // Màu dưới (#F5D400 với độ mờ 10%)
+      gradient.addColorStop(0, "rgba(12, 255, 211, 0.9)"); // Màu trên (#F5A300 với độ mờ 50%)
+      gradient.addColorStop(0, "rgba(0, 102, 255, 0.5)"); // Màu dưới (#F5D400 với độ mờ 10%)
+      gradient.addColorStop(1, "rgba(0, 102, 255, 0)"); // Màu dưới (#F5D400 với độ mờ 10%)
 
       const maxWindSpeedData = Math.max(...this.listTemperatureData);
 

@@ -3,7 +3,7 @@
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
 
-      <div class="txt_regular_12 pt-2 pb-1">
+      <div class="txt_regular_12">
         {{ renderHourly(item) }}
       </div>
       <div class="txt_regular_17 text-center">
@@ -65,7 +65,7 @@ export default {
 
 <style lang="scss">
 .p-chart {
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 </style>

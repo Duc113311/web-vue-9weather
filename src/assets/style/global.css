@@ -38,7 +38,7 @@
   height: 35px !important;
   font-size: 12px !important;
   font-family: "Roboto-Light", sans-serif;
-  color: #0d2952;
+  color: var(--text-search);
 }
 
 .el-autocomplete-suggestion li {

@@ -50,7 +50,7 @@ export default {
 }
 
 .item-tab:hover {
-  background-color: #edfffe38;
-  color: #ffffff;
+  background-color: #ba97af93;
+  // color: #ffffff;
 }
 </style>

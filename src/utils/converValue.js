@@ -1194,7 +1194,7 @@ export function codeToFind(value) {
     },
     {
       code: "inHg",
-      label: "kPa",
+      label: "inHg",
     },
     {
       code: "mBar",

@@ -5,8 +5,8 @@
       <div class="w-full h-full relative">
         <vue-horizontal
           responsive
-          :displacement="0.7"
-          class="w-full h-full relative horizontal"
+          :displacement="1"
+          class="w-full h-full relative horizontal pl-2 pr-2"
         >
           <div class="w-full">
             <ChartDays></ChartDays>
@@ -21,10 +21,18 @@
                 class="z-30 absolute top-chart-rain"
               ></ChartDomainRain> -->
 
-              <ChartDomainTemps
+              <ChartTemperatureBar
+                class="absolute top-0 z-20"
+              ></ChartTemperatureBar>
+
+              <ChartChanceOfRainBar
+                class="absolute z-20 top-chance-rain"
+              ></ChartChanceOfRainBar>
+
+              <!-- <ChartDomainTemps
                 class="z-20 absolute"
                 :heightValue="heightValue"
-              ></ChartDomainTemps>
+              ></ChartDomainTemps> -->
             </div>
             <!--  -->
             <!-- <ChartDomainRain class="absolute inset-0"></ChartDomainRain> -->
@@ -63,11 +71,13 @@
 <script>
 import ChartApexRain from "@/components/common/chart/chart-apex-rain.vue";
 import ChartBarRain from "@/components/common/chart/chart-bar-rain.vue";
+import ChartChanceOfRainBar from "@/components/common/chart/chart-chance-of-rain-bar.vue";
 import ChartColumnRainfall from "@/components/common/chart/chart-column-rainfall.vue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
 import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
 import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
 import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
+import ChartTemperatureBar from "@/components/common/chart/chart-temperature-bar.vue";
 import ChartPrecipitation from "@/components/month-day/chart-weather/chart-precipitation.vue";
 import VueHorizontal from "vue-horizontal";
 
@@ -76,10 +86,13 @@ export default {
 
   components: {
     ChartDays,
-    ChartDomainTemps,
+    // ChartDomainTemps,
     ChartPrecipitationBar,
+    ChartChanceOfRainBar,
+    ChartTemperatureBar,
     // ChartDomainRain,
     VueHorizontal,
+
     // ChartColumnRainfall,
     // ChartApexRain,
     // ChartBarRain,
@@ -123,7 +136,7 @@ export default {
 }
 
 .bg-rain-c {
-  background-color: #00e3f5;
+  background-color: var(--bg-radio-chance-of-rain);
 }
 
 .bg-rainfall-c {
@@ -134,5 +147,8 @@ export default {
 }
 .top-chart-rain {
   top: 126px;
+}
+.top-chance-rain {
+  top: 130px;
 }
 </style>

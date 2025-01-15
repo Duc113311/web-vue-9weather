@@ -59,7 +59,7 @@
           <p class="txt_regular_14">{{ $t("precipitation") }}</p>
         </div>
         <p class="txt_medium_17">
-          {{ convertPrecipitation(dataDayNightRender?.SumRainfall) }}
+          {{ convertPrecipitation(dataDayNightRender?.ChanceOfRainAvg) }}
         </p>
       </div>
       <div class="flex justify-between items-center">
@@ -68,7 +68,7 @@
           <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_17">
-          {{ Math.round(dataDayNightRender?.ChanceOfRainAvg * 100) }}%
+          {{ Math.round(dataDayNightRender?.SumRainfall * 100) }}%
         </p>
       </div>
     </div>

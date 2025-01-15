@@ -8,7 +8,7 @@
         <div
           v-for="(menu, index) in menuItems"
           :key="index"
-          class="cursor-pointer weather-menu-item pad_btn flex justify-center"
+          class="cursor-pointer weather-menu-item pad_btn flex justify-center bg-btn-hover"
           :class="{ 'active-tab': activeTabGettersParam === index }"
           @click="onClickRouterView(menu, index)"
         >
@@ -18,14 +18,6 @@
               class="menu-icon"
               :class="{ 'active-icon': activeTabGettersParam === index }"
             />
-            <!-- <img
-              :src="menu.icon"
-              class="menu-icon"
-              :class="{ 'active-icon': activeTabGettersParam === index }"
-              :alt="menu.label"
-              width="24"
-            /> -->
-
             <span class="txt_regular_17">{{ menu.label }}</span>
           </div>
         </div>
@@ -365,14 +357,6 @@ export default {
         const countryKey = this.breadcumsObject.country_key;
 
         if (countryKey.toLowerCase() === "vn") {
-          // await this.$router.push({
-          //   name: screamName,
-          //   params: {
-          //     language: this.renderLanguage,
-          //     location: [this.breadcumsObject.country_key.toLowerCase()],
-          //   },
-          // });
-
           let routeParams = {
             name: screamName,
             params: {
@@ -488,6 +472,7 @@ export default {
   background-color: var(--bg-button);
   color: var(--color-txt);
 }
+
 .weather-menu-inner {
   gap: 20px;
 }

@@ -105,6 +105,7 @@ const state = {
   locationChomeObject: {},
 
   activeTab: -1,
+  themeValue: "dark",
 
   themeColor: "var(--color-txt-chart-precipitation)",
 };
@@ -153,6 +154,9 @@ const getters = {
 };
 
 const mutations = {
+  setThemeState(state, value) {
+    state.themeValue = value;
+  },
   updateThemeColor(state, color) {
     debugger;
     state.themeColor = color;

@@ -1,106 +1,104 @@
 <template>
   <div class="header-menu">
     <!--  -->
-    <div class="flex w-full items-center justify-between">
-      <div class="flex items-center gap-2" v-if="namePage !== 'unit_settings'">
-        <img
-          src="../../assets/images/svg_v2/ic_settings.svg"
-          alt=""
-          srcset=""
-        />
-        <p class="txt_regular">{{ $t("Settings") }}</p>
-      </div>
-      <div
-        @click="onClickBack('settings')"
-        class="flex items-center gap-2 cursor-pointer"
-        v-if="namePage === 'unit_settings'"
-      >
-        <img src="../../assets/images/svg_v2/ic_back_st.svg" alt="" srcset="" />
-        <p class="txt_regular">
-          <span>{{ $t(`Unit_preferences_settings`) }}</span>
-        </p>
-      </div>
-
-      <img
-        @click="onClickCancel"
-        src="../../assets/images/svg_v2/ic_close.svg"
-        alt=""
-        width="24"
-        class="cursor-pointer"
-      />
-    </div>
-
-    <div class="address-now pt-4 pb-4 text-left cursor-pointer text-blue-300">
-      <div
-        class="flex"
-        v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
-      >
-        <p v-if="breadcumsObject?.city">
-          {{
-            $t(
-              `city.city_${languageParam}.${convertToLowCase(
-                breadcumsObject?.city_key
-              )}`
-            )
-          }},
-        </p>
-        &nbsp;
-        <p v-if="breadcumsObject?.country">{{ breadcumsObject?.country }}</p>
-      </div>
-    </div>
-
-    <div class="w-full">
-      <div
-        v-if="namePage !== 'unit_settings'"
-        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
-        @click="onClickUnitSetting('unit_settings')"
-      >
-        <div class="txt_regular flex items-center">
-          <span>{{ $t(`Unit_preferences_settings`) }}</span>
-        </div>
-        <div>
-          <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
-        </div>
-      </div>
-      <div
-        v-if="namePage !== 'languages_settings'"
-        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
-        @click="onClickLanguagesSetting('languages_settings')"
-      >
-        <div class="txt_regular flex items-center">
-          <span>{{ $t(`languages_settings`) }}</span>
-        </div>
-        <div>
-          <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
-        </div>
-      </div>
-      <div
-        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
-      >
-        <div class="txt_regular flex items-center">
-          <span>Dark/Light</span>
-        </div>
-        <div>
-          <el-switch
-            v-model="valueLive"
-            @change="onChangeLiveActivity"
-            class="ml-2"
-            style="
-              --el-switch-on-color: #0c61ee;
-              --el-switch-off-color: #d4cccc;
-            "
+    <div class="w-full h-full relative">
+      <div class="flex w-full items-center justify-between">
+        <div
+          class="flex items-center gap-2"
+          v-if="namePage !== 'unit_settings'"
+        >
+          <img
+            src="../../assets/images/svg_v2/ic_settings.svg"
+            alt=""
+            srcset=""
           />
+          <p class="txt_regular">{{ $t("Settings") }}</p>
+        </div>
+        <div
+          @click="onClickBack('settings')"
+          class="flex items-center gap-2 cursor-pointer"
+          v-if="namePage === 'unit_settings'"
+        >
+          <img
+            src="../../assets/images/svg_v2/ic_back_st.svg"
+            alt=""
+            srcset=""
+          />
+          <p class="txt_regular">
+            <span>{{ $t(`Unit_preferences_settings`) }}</span>
+          </p>
+        </div>
+
+        <img
+          @click="onClickCancel"
+          src="../../assets/images/svg_v2/ic_close.svg"
+          alt=""
+          width="24"
+          class="cursor-pointer"
+        />
+      </div>
+
+      <div class="address-now pt-4 pb-4 text-left cursor-pointer text-blue-300">
+        <div
+          class="flex"
+          v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
+        >
+          <p v-if="breadcumsObject?.city">
+            {{
+              $t(
+                `city.city_${languageParam}.${convertToLowCase(
+                  breadcumsObject?.city_key
+                )}`
+              )
+            }},
+          </p>
+          &nbsp;
+          <p v-if="breadcumsObject?.country">{{ breadcumsObject?.country }}</p>
         </div>
       </div>
 
-      <!--  -->
-      <UnitPreferencesPage
-        v-if="namePage === 'unit_settings'"
-      ></UnitPreferencesPage>
-    </div>
+      <div class="w-full">
+        <div
+          v-if="namePage !== 'unit_settings'"
+          class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
+          @click="onClickUnitSetting('unit_settings')"
+        >
+          <div class="txt_regular flex items-center">
+            <span>{{ $t(`Unit_preferences_settings`) }}</span>
+          </div>
+          <div>
+            <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
+          </div>
+        </div>
+        <div
+          v-if="namePage !== 'unit_settings'"
+          class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
+        >
+          <div class="txt_regular flex items-center">
+            <span>Dark/Light</span>
+          </div>
+          <div>
+            <el-switch
+              v-model="valueLives"
+              @change="onChangeLiveActivity"
+              class="ml-2"
+              style="
+                --el-switch-on-color: #0c61ee;
+                --el-switch-off-color: #d4cccc;
+              "
+            />
+          </div>
+        </div>
 
-    <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
-      <span>{{ $t("version") }} 2/ 18.11.2024</span>
+        <!--  -->
+        <UnitPreferencesPage
+          v-if="namePage === 'unit_settings'"
+        ></UnitPreferencesPage>
+      </div>
+
+      <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
+        <span>{{ $t("version") }} 2/ 18.11.2024</span>
+      </div>
     </div>
   </div>
 </template>
@@ -119,8 +117,8 @@ export default {
   data() {
     return {
       namePage: "setting",
-      valueLive: false,
-      theme: "light",
+      valueLives: false,
+      theme: "dark",
       indexKey: 0,
     };
   },
@@ -141,17 +139,21 @@ export default {
   },
 
   mounted() {
-    const savedTheme = localStorage.getItem("theme") || "light";
+    const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
     if (savedTheme === "light") {
-      this.valueLive = false;
-    } else {
       this.valueLive = true;
+    } else {
+      this.valueLive = false;
     }
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setIndexComponent", "updateThemeColor"]),
+    ...mapMutations("commonModule", [
+      "setIndexComponent",
+      "updateThemeColor",
+      "setThemeState",
+    ]),
     convertToEnglishRender(value) {
       return convertToEnglish(value);
     },
@@ -183,7 +185,8 @@ export default {
       this.valueLive = value;
       this.setIndexComponent(this.indexKey++);
 
-      this.theme = this.valueLive ? "dark" : "light";
+      this.theme = this.valueLive ? "light" : "dark";
+      this.setThemeState(this.theme);
       document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
       localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage
     },

@@ -5,8 +5,8 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="0.7"
-          class="w-full h-full relative horizontal"
+          :displacement="1"
+          class="w-full h-full relative horizontal pl-2 pr-2"
         >
           <div>
             <ChartWind></ChartWind>
@@ -164,7 +164,7 @@ export default {
   methods: {
     convertUnitPressure() {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
-      return codeToFind(unitSetting.activePressure_save);
+      return codeToFind(unitSetting.activeWindSpeed_save);
     },
     convertToLowCase(value) {
       const normalizedStr = value
@@ -208,8 +208,9 @@ export default {
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "#ffffff"); // Màu trên (#F5A300 với độ mờ 50%)
-      gradient.addColorStop(1, "#878787"); // Màu dưới (#F5D400 với độ mờ 10%)
+      gradient.addColorStop(0, "rgba(255, 255, 255, 0.7)"); // Màu trắng (#ffffff) với độ mờ 50% tại vị trí 0%
+      gradient.addColorStop(0, "rgba(255, 255, 255, 0.4)"); // Màu trắng (#ffffff) với độ mờ 50% tại vị trí 0%
+      gradient.addColorStop(1, "rgba(135, 135, 135, 0)"); // Màu xám (#878787) với độ mờ 10% tại vị trí 100%
 
       const labelList = this.listHourly.map((item) => {
         const date = item.time;

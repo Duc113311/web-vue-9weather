@@ -2,8 +2,8 @@
   <div class="w-full h-full">
     <!--  -->
     <div
-      class="bg-color overflow-hidden"
-      :class="{ 'pad-big': isShowPad }"
+      class="overflow-hidden"
+      :class="[isShowPad ? 'pad-big' : '', classThemeBg]"
       :style="{ height: `${heightValue}` }"
     >
       <slot></slot>
@@ -38,6 +38,16 @@ export default {
   computed: {
     heightValue() {
       return typeof this.height === "number" ? `${this.height}px` : this.height;
+    },
+    classThemeBg() {
+      const themeValue = this.$store.state.commonModule.themeValue;
+      const savedTheme = themeValue
+        ? themeValue
+        : localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        return "bg-color-light";
+      }
+      return "bg-color-dark";
     },
   },
 };

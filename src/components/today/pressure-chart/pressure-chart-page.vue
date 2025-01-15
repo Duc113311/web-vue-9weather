@@ -5,8 +5,8 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="0.7"
-          class="w-full h-full relative horizontal"
+          :displacement="1"
+          class="w-full h-full relative horizontal pl-2 pr-2"
         >
           <div>
             <ChartDays></ChartDays>
@@ -200,14 +200,15 @@ export default {
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "#7527D5"); // Màu trên (#F5A300 với độ mờ 50%)
-      gradient.addColorStop(1, "#2863AA"); // Màu dưới (#F5D400 với độ mờ 10%)
-
+      // Thêm các màu với độ mờ (opacity) khác nhau
+      gradient.addColorStop(0, "rgba(117, 39, 213, 1)"); // Màu #7527D5 (tím) với độ mờ 50% tại vị trí 0%
+      gradient.addColorStop(1, "rgba(40, 99, 170, 0.1)"); // Màu #2863AA (xanh dương) với độ mờ 10% tại vị trí 100%
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
       const maxWindSpeedData = Math.max(...this.listPressure);
+      const minWindSpeedData = Math.min(...this.listPressure);
 
       const unitSetting = this.objectSetting.activePressure_save;
       const savedTheme = localStorage.getItem("theme") || "light";
@@ -280,6 +281,7 @@ export default {
               display: false,
               beginAtZero: true,
               max: maxWindSpeedData + 20,
+              min: minWindSpeedData - 20,
             },
           },
           elements: {

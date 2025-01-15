@@ -67,7 +67,7 @@
         </div>
         <div class="text-c text-center items-center txt_medium_17">
           <p>
-            {{ convertPrecipitation(currentlyDataRender?.precipIntensity) }}
+            {{ convertPrecipitation(currentlyDataRender?.precipProbability) }}
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@
           <IcChanceOfRain></IcChanceOfRain>
         </div>
         <div class="text-c text-center items-center txt_medium_17">
-          <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
+          <p>{{ Math.round(currentlyDataRender?.precipIntensity * 100) }}%</p>
         </div>
       </div>
     </div>

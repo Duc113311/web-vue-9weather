@@ -5,8 +5,8 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="0.7"
-          class="w-full h-full relative horizontal"
+          :displacement="1"
+          class="w-full h-full relative horizontal pl-2 pr-2"
         >
           <div>
             <ChartDays></ChartDays>
@@ -255,7 +255,7 @@ export default {
               backgroundColor: backgroundColors,
               fill: true,
               data: displayData,
-              borderRadius: 4,
+              borderRadius: 20,
               barThickness: 30,
             },
           ],

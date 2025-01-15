@@ -399,6 +399,7 @@ import IcTitleCloudCover from "@/components/icons/IcTitleCloudCover.vue";
 import IcTitlePressure from "@/components/icons/IcTitlePressure.vue";
 import IcTitleSunrise from "@/components/icons/IcTitleSunrise.vue";
 import IcTitleSunset from "@/components/icons/IcTitleSunset.vue";
+import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
 
 export default {
   name: "item-time-30-day",
@@ -418,6 +419,7 @@ export default {
     IcTitlePressure,
     IcTitleSunrise,
     IcTitleSunset,
+    IcPrecipitation,
   },
   data() {
     return {

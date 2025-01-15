@@ -173,12 +173,36 @@
 .color-txt-df {
   color: var(--color-txt);
 }
-.bg-color {
-  box-shadow: inset 0px 0px 56px var(--bg-compo-1),
-    inset -50px -50px 100px 0px var(--bg-compo-2),
-    inset 500px 500px 100px 0px var(--bg-compo-3);
+.bg-color-light {
+  background: linear-gradient(
+    180deg,
+    rgba(92, 157, 255, 0.15) 0%,
+    rgba(0, 58, 145, 0.15) 100%
+  );
+
+  /* Hiệu ứng Glass Light */
+  box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.25),
+    /* Độ mờ 25% */ 0 56px 56px rgba(255, 255, 255, 0.5),
+    /* Độ mờ 50% */ inset -50px -50px 100px rgba(255, 255, 255, 0.05),
+    /* Độ mờ 5% với blur 100px */ inset 500px 500px 100px
+      rgba(255, 255, 255, 0.05); /* Độ mờ 5% với blur 100px */
 
   border-radius: 20px;
+}
+
+.bg-color-dark {
+  /* Gradient với màu #000000 và #F3F3F3 */
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(243, 243, 243, 0.1) 100%
+  );
+  border-radius: 20px;
+
+  /* Các hiệu ứng Glass light */
+  box-shadow: inset 0 56px 56px rgba(0, 0, 0, 0.1),
+    /* Độ mờ 5% */ inset -50px -50px 100px rgba(243, 243, 243, 0.1),
+    /* Độ mờ 10% */ inset 500px 500px 100px rgba(243, 243, 243, 0.15); /* Độ mờ 15% */
 }
 
 .bg-title-calender {
@@ -188,4 +212,8 @@
 .bg-bth {
   background-color: var(--bg-btn-location);
   color: #0d2952;
+}
+
+.bg-btn-hover:hover {
+  background-color: #afbed15a;
 }
