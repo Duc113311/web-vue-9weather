@@ -79,7 +79,7 @@
     <div class="w-full h-full overflow-hidden">
       <transition-group name="fade" tag="div" class="gap-10-px flex flex-col">
         <BaseList v-for="(item, index) in displayedItems" :key="index">
-          <div class="w-full">
+          <div class="w-full cursor-pointer">
             <!--  -->
             <div
               @click="onClickShowDetailCard(index)"
@@ -111,6 +111,7 @@
                 <div>
                   <svg
                     :id="'chevron-' + index"
+                    :class="{ 'rotate-180': activeIndex === index }"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -405,6 +406,7 @@ export default {
       itemsPerPage: 10, // Số mục hiển thị ban đầu
       currentPage: 1, // Trang hiện tại
       showLessButton: false,
+      activeIndex: null, // Lưu trạng thái mục đang mở
     };
   },
 
@@ -420,8 +422,6 @@ export default {
         : this.$i18n.locale;
     },
     hourly24hGettersData() {
-      console.log("this.hourly24hGetters", this.hourly24hGetters);
-
       return this.hourly24hGetters;
     },
 
@@ -504,14 +504,11 @@ export default {
 
     onClickShowDetailCard(value) {
       debugger;
-      const chevron = document.getElementById(`chevron-${value}`);
-      if (this.isRotated) {
-        chevron.style.transform = "rotate(0deg)"; // Trở về hướng ban đầu
+      if (this.activeIndex === value) {
+        this.activeIndex = null; // Đóng mục nếu đã mở
       } else {
-        chevron.style.transform = "rotate(90deg)"; // Xoay xuống dưới
+        this.activeIndex = value; // Mở mục mới
       }
-      this.isRotated = !this.isRotated; // Đảo ngược trạng thái
-
       if (this.valueChoose === value) {
         this.valueChoose = -1;
       } else {
@@ -675,4 +672,9 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.rotate-180 {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease; /* Thêm hiệu ứng quay mượt mà */
+}
+</style>

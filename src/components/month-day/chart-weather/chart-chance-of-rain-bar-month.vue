@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container w-[89rem]"
+    class="chart-container w-[96rem]"
     v-if="paramHourly && paramHourly.length && listDataPrecipIntensity.length"
   >
     <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="136" ref="canvas"></canvas>
+      <canvas id="chart_tem_month" height="136" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ Chart.register(
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 export default {
-  name: "chart-chance-of-rain-bar",
+  name: "chart-chance-of-rain-bar-month",
   data() {
     return {
       chart: null,
@@ -53,7 +53,7 @@ export default {
 
   computed: {
     paramHourly() {
-      return this.$store.state.weatherModule.hourly24h;
+      return this.$store.state.weatherModule.listDaily30Day;
     },
 
     objectSetting() {
@@ -158,7 +158,7 @@ export default {
       const minDataValue = Math.min(...this.listDataPrecipIntensity);
       const maxDataValue = Math.max(...this.listDataPrecipIntensity);
 
-      const labelList = this.paramHourly.slice(0, 24).map((item) => {
+      const labelList = this.paramHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
@@ -180,7 +180,7 @@ export default {
               borderColor: "#90bcf3",
               pointBackgroundColor: "#00E3F5",
               pointBorderWidth: 1, // Độ dày viền của điểm
-              borderWidth: 2, // Độ dày đường
+              borderWidth: 1, // Độ dày đường
               pointBorderColor: "#00E3F5",
               pointRadius: 5, // Bán kính điểm
               backgroundColor:
@@ -188,7 +188,7 @@ export default {
                   ? gradientPrecipIntensityLight
                   : gradientPrecipIntensityDark,
               fill: true, // Tô nền dưới line
-              data: displayData,
+              data: this.listDataPrecipIntensity,
               pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y1", // Gán trục y cho Temperature
               datalabels: {
@@ -199,7 +199,8 @@ export default {
                   size: 14,
                 },
                 color: savedTheme === "light" ? "#333333" : "#00e3f5",
-                formatter: (value) => `${value === 0.5 ? 0 : value}%`, // Định dạng giá trị hiển thị
+                formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
+
                 offset: 6,
               },
             },
@@ -212,15 +213,15 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 28,
-              right: 22,
+              left: 20,
+              right: 20,
             },
           },
           scales: {
             x: {
               display: false,
               ticks: {
-                stepSize: 0, // Điều chỉnh số lượng điểm hiển thị trên trục x
+                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
             },
             y1: {
@@ -258,7 +259,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0.5,
+              tension: 0,
             },
           },
         },
@@ -269,10 +270,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.chart-container {
-  width: 150%;
-}
-
 .chart-wrapper {
   width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
 }

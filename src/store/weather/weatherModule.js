@@ -87,7 +87,6 @@ const mutations = {
    */
   setWeatherDataCurrent(state, data) {
     state.weatherCurrentData = JSON.parse(decodeBase64(data));
-    console.log("state.weatherCurrentData", state.weatherCurrentData);
     if (state.weatherCurrentData) {
       state.locationOffset.latitude = state.weatherCurrentData.latitude;
       state.locationOffset.longitude = state.weatherCurrentData.longitude;
@@ -108,8 +107,6 @@ const mutations = {
   },
 
   setFormattedAddress(state, data) {
-    console.log("data", data);
-
     const datanew =
       "IhWwmH4sIAAAAAAwASpVAAA+1Uy07CQBTd8xWTWTekD151h0oQjEAAicSQydiOMEk7U9spaAg/49Lf4MecKURbijyiS7tppvfcOefee26XBQAADEkUeyKC4AI8qg/yWW7fKoxdVyIi5HA/4IywLDKH32Z5nE0Rwz5RYDhcvzMwXn8wcE0jEVJHQC2XEs14KM7MEW8B2ehRQn3KFBQLOicIhwQjj8yJh0yoARhwjwrqYA+CSeaelXZWLZfYAU2K2fR4CYegpyk3/lL5iBIhD8d1jzpHBDs8ZiJ8Oyzu+zRJ3QafeehjIYiLts76Ydoa+GqfBvZIh1PCfaJUyPxs6fBJ6nOjfEDFmCx1RnAk9oaTruEkZhrFUsU2jaqda0aCkmOVKEOvFA3bKlm6sYta7Wk0j8VsQU4it3RbLx+j1vWybeaID7lEmsKRPuNsf3tS/NVa2dStfBFp+lq1bJmVk/iQclAy7Hqv1+8+tO7qw8aO0eCckkUgJ/Q/u91TWhEMPOwQRN2knVezVvtl/Dq4Mer3nWGjLwZ8YbMm8ttOZmF+97NMpGw2GUYCi3izuN1bWFgVPgFCfyYLSgYAAA==4GqRg";
     const jsonValueTest = decodeBase64(datanew);
@@ -168,12 +165,6 @@ const mutations = {
               x.types.includes(type)
             )
           ) || { long_name: "" };
-
-        // const nameWard = element.address_components.find((x) =>
-        //   ["political", "sublocality", "sublocality_level_1"].every((type) =>
-        //     x.types.includes(type)
-        //   )
-        // ) || { long_name: "" };
 
         objectPush.country = valueCountry.long_name;
         objectPush.country_key = valueCountry.short_name;
@@ -238,39 +229,12 @@ const mutations = {
         }
       }
 
-      // const valueCity = element.address_components.find((x) =>
-      //   ["locality", "political"].every((type) => x.types.includes(type))
-      // ) || { long_name: "" };
-
-      // const valueDistrict = element.address_components.find((x) =>
-      //   ["administrative_area_level_2", "political"].every((type) =>
-      //     x.types.includes(type)
-      //   )
-      // );
-
-      // const valueStreet = element.address_components.find((x) =>
-      //   ["route"].every((type) => x.types.includes(type))
-      // );
-
-      // const objectAddress = {
-      //   country: valueCountry.long_name,
-      //   city: valueCity.long_name,
-      //   // district: valueDistrict.long_name,
-      //   // street: valueStreet.long_name,
-      //   address: element.formatted_address,
-      //   lat: element.geometry.location.lat,
-      //   lng: element.geometry.location.lng,
-      // };
-
-      // console.log("objectAddress", objectAddress);
-
       state.newArray.push(objectPush);
     }
   },
 
   setWeather30DayData(state, data) {
     state.weatherData30Day = JSON.parse(decodeBase64(data));
-    console.log("state.weatherData30Day", state.weatherData30Day);
 
     state.listDaily30Day = state.weatherData30Day.daily.data;
   },

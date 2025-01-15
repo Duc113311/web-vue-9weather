@@ -140,7 +140,6 @@ export default {
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
-        console.log("precipProbability", item.precipProbability);
 
         return this.convertTime(date);
       });

@@ -181,11 +181,6 @@ export default {
         { action: "executeJS", command: jsCommand },
         "*"
       );
-
-      // Thêm hiệu ứng di chuyển (ví dụ: thông báo cho người dùng)
-      console.log(
-        `Di chuyển đến vị trí: ${position.latitude}, ${position.longitude}`
-      );
     },
 
     // onClickLocateFixed() {},

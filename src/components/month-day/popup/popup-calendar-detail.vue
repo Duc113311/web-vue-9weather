@@ -31,13 +31,13 @@
               <p class="txt_medium_15">
                 {{
                   convertFahrenheitToCelsiusNot(
-                    renderObjTemperature?.apparentTemperatureMin
+                    renderObjTemperature?.temperatureMin
                   )
                 }}
                 /
                 {{
                   convertFahrenheitToCelsiusNot(
-                    renderObjTemperature?.apparentTemperatureMax
+                    renderObjTemperature?.temperatureMax
                   )
                 }}
               </p>
@@ -203,8 +203,6 @@ export default {
 
   computed: {
     renderObjTemperature() {
-      console.log("objTemperature", this.objTemperature);
-
       return this.objTemperature;
     },
 

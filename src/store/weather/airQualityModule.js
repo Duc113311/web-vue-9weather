@@ -39,11 +39,9 @@ const mutations = {
   setAirQuality(state, data) {
     const newDataAir = JSON.parse(decodeBase64(data));
 
-    console.log("newDataAir", newDataAir);
     localStorage.setItem("airObject", newDataAir);
     state.airObject = newDataAir;
     state.apiValue = newDataAir.aqi;
-    console.log("state.apiValue", state.apiValue);
   },
 
   /**

@@ -177,8 +177,6 @@ export default {
         .slice(0, 10)
         .map((value) => (value === 0 ? 0.5 : value));
 
-      console.log("displayData", displayData.length);
-
       // Thay đổi màu sắc của từng cột dựa trên giá trị
       const backgroundColors = displayData.map((value) => {
         if (value <= 2) return "#389311"; // Màu cho giá trị thấp
@@ -188,14 +186,10 @@ export default {
         return "#9064CB"; // Màu cho giá trị cực cao
       });
 
-      console.log("backgroundColors", backgroundColors.length);
-
       const labelList = this.listHourly.slice(0, 10).map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
-
-      console.log("labelList", labelList.length);
 
       const savedTheme = localStorage.getItem("theme") || "light";
       this.chartInstance = new Chart(ctx, {
@@ -245,8 +239,10 @@ export default {
               },
               color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
               formatter: (value, context) => {
-                return this.listUvIndexData[context.dataIndex] ===
-                  Math.round(this.currentlyData.uvIndex)
+                return context.dataIndex ===
+                  this.listUvIndexData.indexOf(
+                    Math.round(this.currentlyData.uvIndex)
+                  )
                   ? value === 0.5
                     ? 0
                     : value

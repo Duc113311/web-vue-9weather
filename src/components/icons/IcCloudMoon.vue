@@ -1,7 +1,7 @@
 <template lang="">
   <svg
-    :width="width"
-    :height="height"
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -18,16 +18,6 @@
 <script>
 export default {
   name: "Ic-Cloud-Moon",
-  props: {
-    width: {
-      type: String,
-      default: "24", // default value if no width is provided
-    },
-    height: {
-      type: String,
-      default: "24", // default value if no height is provided
-    },
-  },
 };
 </script>
 <style lang=""></style>

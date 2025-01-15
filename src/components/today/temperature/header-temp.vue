@@ -67,7 +67,7 @@
         </div>
         <div class="text-c text-center items-center txt_medium_17">
           <p>
-            {{ convertPrecipitation(currentlyDataRender?.precipProbability) }}
+            {{ convertPrecipitation(currentlyDataRender?.precipIntensity) }}
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@
           <IcChanceOfRain></IcChanceOfRain>
         </div>
         <div class="text-c text-center items-center txt_medium_17">
-          <p>{{ Math.round(currentlyDataRender?.precipIntensity * 100) }}%</p>
+          <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
         </div>
       </div>
     </div>
@@ -136,12 +136,10 @@ export default {
 
   computed: {
     currentlyDataRender() {
-      console.log("this.currentlyData;", this.currentlyData);
       return this.currentlyData;
     },
 
     dailyOneDataRender() {
-      console.log("this.dailyOneData;", this.dailyOneData);
       debugger;
       return this.dailyOneData;
     },

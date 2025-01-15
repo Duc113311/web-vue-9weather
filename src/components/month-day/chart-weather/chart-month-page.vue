@@ -86,11 +86,6 @@
 
                   <!--  -->
 
-                  <ChartTempMaxMin
-                    class="z-20 absolute"
-                    :key="indexState + Math.random()"
-                  ></ChartTempMaxMin>
-
                   <!--  -->
                   <!-- <ChartChanceOfRain
                     :key="indexState + Math.random()"
@@ -98,10 +93,21 @@
 
                   <!--  -->
 
-                  <ChartPrecipitation
-                    class="absolute bottom-chart-bar z-10"
-                    :key="indexState + Math.random()"
-                  ></ChartPrecipitation>
+                  <div class="relative">
+                    <ChartTempMaxMin
+                      class="z-20 absolute top-0"
+                      :key="indexState + Math.random()"
+                    ></ChartTempMaxMin>
+
+                    <ChartChanceOfRainBarMonth
+                      class="absolute bottom-chart-rain z-20"
+                    ></ChartChanceOfRainBarMonth>
+
+                    <ChartPrecipitation
+                      class="absolute bottom-chart-bar z-10"
+                      :key="indexState + Math.random()"
+                    ></ChartPrecipitation>
+                  </div>
                 </div>
               </vue-horizontal>
 
@@ -144,6 +150,7 @@ import ChartPrecipitation from "./chart-precipitation.vue";
 import { capitalizeWords } from "@/utils/converValue";
 import removeAccents from "remove-accents";
 import { mapGetters } from "vuex";
+import ChartChanceOfRainBarMonth from "./chart-chance-of-rain-bar-month.vue";
 
 export default {
   name: "chart-month-page",
@@ -155,6 +162,7 @@ export default {
     VueHorizontal,
     // ChartChanceOfRain,
     ChartPrecipitation,
+    ChartChanceOfRainBarMonth,
   },
   data() {
     return {
@@ -250,6 +258,9 @@ export default {
 }
 
 .bottom-chart-bar {
-  top: 260px;
+  top: 190px;
+}
+.bottom-chart-rain {
+  top: 174px;
 }
 </style>

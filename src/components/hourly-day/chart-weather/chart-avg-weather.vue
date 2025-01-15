@@ -80,9 +80,10 @@
             </div>
           </template>
 
-          <div class="w-full gap-4">
-            <div class="w-auto h-[422px] pad-t pad-b-10">
-              <ChartTempRain></ChartTempRain>
+          <div class="w-full">
+            <div class="w-auto h-[422px]">
+              <!-- <ChartTempRain></ChartTempRain> -->
+              <ChartSyntheticHourly></ChartSyntheticHourly>
             </div>
 
             <!--  -->
@@ -201,14 +202,16 @@ import {
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
 import removeAccents from "remove-accents";
+import ChartSyntheticHourly from "../chart-tempt-hourly/chart-synthetic-hourly.vue";
 
 export default {
   name: "chart-avg-weather",
 
   components: {
     BaseComponent,
-    ChartTempRain,
+    // ChartTempRain,
     SkeletonLoader,
+    ChartSyntheticHourly,
   },
   data() {
     return {};

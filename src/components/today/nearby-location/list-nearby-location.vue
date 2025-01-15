@@ -281,65 +281,6 @@ export default {
         return [];
       }
     },
-    // renderListCityAllGetters() {
-    //   try {
-    //     // Kiểm tra wardParam và listCityAllGetters
-    //
-
-    //     const countryKey = this.wardParam.country_key;
-
-    //     if (countryKey === "vn") {
-    //
-    //       const cityKey = this.wardParam.city_key;
-    //       const findData = this.listCityAllGetters.find(
-    //         (x) => x.keyAccentLanguage === cityKey
-    //       );
-
-    //       if (!findData) {
-    //         console.log("Không tìm thấy thành phố phù hợp.");
-    //         return [];
-    //       }
-
-    //       if (this.wardParam.district_key) {
-    //         const districtKey = this.removeDiacritics(this.wardParam.district);
-
-    //         if (typeof districtKey !== "string") {
-    //           console.log("district_key không hợp lệ.");
-    //           return [];
-    //         }
-
-    //         const findDataWard = findData.districtList?.find(
-    //           (x) => x.keyAccentLanguage === districtKey
-    //         );
-
-    //         if (findDataWard && Array.isArray(findDataWard.wards)) {
-    //           return findDataWard.wards.slice(0, this.itemSliceCount);
-    //         } else {
-    //           console.log(
-    //             "Không tìm thấy phường phù hợp hoặc wards không phải mảng."
-    //           );
-    //           return [];
-    //         }
-    //       } else {
-    //         return findData.districtList?.slice(0, this.itemSliceCount) || [];
-    //       }
-    //     } else if (countryKey === "us") {
-    //       // Xử lý cho US (cần bổ sung logic nếu cần)
-
-    //       const cityKey = this.wardParam.city_key;
-    //       const findData = this.listAlabamaGetters.find(
-    //         (x) => x.keyAccentLanguage === cityKey
-    //       );
-    //       return [];
-    //     } else {
-    //       console.log("Không hỗ trợ countryKey này.");
-    //       return [];
-    //     }
-    //   } catch (error) {
-    //     console.error("Lỗi xảy ra trong renderListCityAllGetters:", error);
-    //     return [];
-    //   }
-    // },
   },
 
   mounted() {
@@ -422,7 +363,6 @@ export default {
       const data = this.removeWordAndAccents(input, ["Province"]);
 
       // const dataNew = this.convertToCamelCase(data);
-      console.log("data-new", data);
       // Map các từ gốc sang từ có dấu
       const vietnameseMap = {
         Hanoi: "Hà Nội",
@@ -492,8 +432,6 @@ export default {
       // Kiểm tra nếu chuỗi tồn tại trong map
       const converted = vietnameseMap[data] || data;
 
-      console.log("converted", converted);
-
       // Thay khoảng trắng bằng dấu gạch dưới
       return {
         city: converted,
@@ -524,10 +462,8 @@ export default {
 
     convertToConvertLowerCase(str) {
       const name = this.removeAccentsUnicode(str);
-      console.log("name", name);
 
       const slug = this.removeAccentsUnicode(str).replace(/\s+/g, "_");
-      console.log(slug, slug);
 
       return slug;
     },

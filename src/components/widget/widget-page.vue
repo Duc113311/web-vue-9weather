@@ -895,7 +895,6 @@ export default {
     //
 
     //   const value = event.target.value;
-    //   console.log("Changed value:", value);
 
     //   // Tìm data-value tương ứng trong datalist
     //   const selectedOption = [...event.target.list.options].find(
@@ -903,7 +902,6 @@ export default {
     //   );
 
     //   if (selectedOption) {
-    //     console.log("Selected data-value:", selectedOption.dataset.value);
     //   }
     // },
 
@@ -911,7 +909,6 @@ export default {
     // handleKeyup(event) {
     //
 
-    //   console.log("Key pressed:", event.key);
     // },
 
     onChangeDescriptionColor(color) {

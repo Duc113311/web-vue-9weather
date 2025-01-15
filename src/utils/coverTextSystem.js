@@ -16,7 +16,6 @@ export function convertToVietnamese(input) {
   const data = removeWordAndAccents(input);
 
   // const dataNew = convertToCamelCase(data);
-  console.log("data-new", data);
 
   const vietnameseMap = {
     Hanoi: "Hà Nội",
@@ -86,8 +85,6 @@ export function convertToVietnamese(input) {
   // Kiểm tra nếu chuỗi tồn tại trong map
   const converted = vietnameseMap[data] || data;
 
-  console.log("converted", converted);
-
   // Thay khoảng trắng bằng dấu gạch dưới
   return {
     city: converted,
@@ -96,10 +93,7 @@ export function convertToVietnamese(input) {
 }
 
 export function convertToConvertLowerCase(str) {
-  console.log("slug", str);
-
   const slug = removeAccentsUnicode(str).replace(/\s+/g, "_");
-  console.log("slug", slug);
 
   return slug;
 }

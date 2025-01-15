@@ -177,9 +177,6 @@ export default {
 
       // Lấy ngày đầu tuần (firstDay)
       const firstDay = localTime.getDay();
-      console.log("this.renderCalendar", this.renderCalendar);
-
-      console.log("firstDay", firstDay);
 
       // Thứ Hai = 1, Chủ nhật = 0, cần điều chỉnh
       const placeholders = Array.from({

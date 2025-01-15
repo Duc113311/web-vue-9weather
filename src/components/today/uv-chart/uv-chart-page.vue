@@ -220,8 +220,6 @@ export default {
         value === 0 ? 0.5 : value
       );
 
-      console.log("displayData", displayData.length);
-
       // Thay đổi màu sắc của từng cột dựa trên giá trị
       const backgroundColors = displayData.map((value) => {
         if (value <= 2) return "#389311"; // Màu cho giá trị thấp
@@ -231,14 +229,10 @@ export default {
         return "#9064CB"; // Màu cho giá trị cực cao
       });
 
-      console.log("backgroundColors", backgroundColors.length);
-
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
-
-      console.log("labelList", labelList.length);
 
       const savedTheme = localStorage.getItem("theme") || "light";
       this.chartInstance = new Chart(ctx, {

@@ -63,7 +63,7 @@
                     <p class="txt_medium_14">{{ titleRecommended }}</p>
                   </div>
                   <div class="text-left">
-                    <span class="txt_regular_10">{{
+                    <span class="txt_regular_12">{{
                       convertAqiRecommendedPrecautionsInfo(110)
                     }}</span>
                   </div>

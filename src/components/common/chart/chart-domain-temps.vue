@@ -198,8 +198,6 @@ export default {
       const yAxisMin = minDataValue - 2; // Giảm giá trị nhỏ nhất xuống thêm 5 đơn vị (tuỳ chỉnh)
 
       const displayData = this.listDataProbability.map((value, index) => {
-        console.log("value-listDataProbability", value);
-
         return value === 0 ? 0.5 : value;
       });
 
@@ -208,14 +206,7 @@ export default {
         return this.convertTime(date);
       });
 
-      console.log("labelList", labelList.length);
-
-      const displayDataImages = [0, 2, 4, 6, 8, 0]; // Dữ liệu của bạn
-
-      const labelColor = "var(--color-txt-chart-precipitation)";
       const savedTheme = localStorage.getItem("theme") || "light";
-
-      console.log("savedTheme", savedTheme);
 
       this.chartInstance = new Chart(ctx, {
         type: "line",

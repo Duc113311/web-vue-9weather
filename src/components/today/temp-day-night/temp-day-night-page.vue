@@ -182,11 +182,8 @@ export default {
       };
 
       if (this.isShowDayNightData) {
-        console.log("objectDaytime", objectDaytime);
-
         return objectDaytime;
       }
-      console.log("objectNighttime", objectNighttime);
 
       return objectNighttime;
     },
@@ -204,8 +201,6 @@ export default {
           element.time,
           this.locationOffsetGetters?.offset
         );
-
-        console.log("time-day", timeConvertUTCValue);
       }
       debugger;
       //   Ngày đêm
@@ -214,8 +209,6 @@ export default {
           data.time,
           this.locationOffsetGetters?.offset
         );
-
-        console.log("time-hourly", timeConvertUTCValue);
 
         const date = new Date(data.time * 1000); // Chuyển UNIX timestamp sang đối tượng Date
         const hours = date.getUTCHours(); // Lấy giờ UTC

@@ -7,15 +7,19 @@
       </div>
       <el-tooltip placement="top" popper-class="dark-tooltip">
         <template #content>
-          <div class="cursor-pointer b">
+          <div class="cursor-pointer">
             <p>{{ convertTime(item?.time) }}</p>
             <div class="flex items-center gap-1">
               <div class="w-[10px] h-[10px] bg-precit"></div>
-              <p>Precipitation: {{ item.precipIntensity }}</p>
+              <p>
+                Precipitation:
+                {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
+                {{ unitPrecipitation }}
+              </p>
             </div>
           </div>
         </template>
-        <div>
+        <div class="cursor-default">
           <p class="txt_regular_14">
             {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
           </p>

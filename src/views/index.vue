@@ -581,8 +581,6 @@ export default {
           // objectLocation: responsive.data.address,
         };
 
-        console.log("objectPosition-us", objectPosition);
-
         localStorage.setItem(
           "currentLocationChome",
           JSON.stringify(objectPosition)
@@ -609,8 +607,6 @@ export default {
           ward_key: "",
         };
 
-        console.log("objectPosition-vn", objectPosition);
-
         localStorage.setItem("objectBread", JSON.stringify(objectPosition));
         localStorage.setItem(
           "currentLocationChome",
@@ -636,8 +632,6 @@ export default {
             ? convertToConvertLowerCase(dataResponsive?.neighbourhood)
             : "",
         };
-
-        console.log("objectPosition-other", objectPosition);
 
         localStorage.setItem("objectBread", JSON.stringify(objectPosition));
         this.setBreadcumsAllowLocation(objectPosition);

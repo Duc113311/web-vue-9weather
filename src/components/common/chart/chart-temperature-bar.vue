@@ -132,6 +132,7 @@ export default {
 
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
+
       if (!canvas) {
         console.error("Canvas element not found");
         return;
@@ -142,6 +143,10 @@ export default {
         console.error("Failed to get canvas context");
         return;
       }
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr, dpr);
 
       if (this.chartInstance) {
         this.chartInstance.destroy();
@@ -182,8 +187,6 @@ export default {
       });
 
       const savedTheme = localStorage.getItem("theme") || "light";
-
-      console.log("savedTheme", savedTheme);
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -228,7 +231,7 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 20,
+              left: 26,
               right: 20,
             },
           },
@@ -275,7 +278,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0.5,
+              tension: 0,
             },
           },
         },

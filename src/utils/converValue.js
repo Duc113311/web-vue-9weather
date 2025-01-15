@@ -191,8 +191,6 @@ export function getUvSummaryImage(value) {
 }
 
 export function getIconChartPrecipIntensity(value) {
-  console.log("PrecipIntensity", value);
-
   const ic_precip_0 = IcPrecip0;
   const ic_precip_20 = IcPrecip20;
   const ic_precip_40 = IcPrecip40;

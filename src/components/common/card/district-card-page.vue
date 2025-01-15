@@ -9,9 +9,9 @@
           alt=""
         />
       </div>
-      <!-- <div class="txt_regular_12">
-        <p>{{ objectLocation.viNameLanguage + " " + breadcumsObject.city }}</p>
-      </div> -->
+      <div class="txt_regular_12">
+        <p>{{ calculateDistance(objectLocation.location) }} km</p>
+      </div>
       <h3
         class="text-center txt_medium_15"
         v-if="breadcumsObject.country_key === 'vn'"
@@ -54,6 +54,7 @@ import { mapGetters } from "vuex";
 import removeAccents from "remove-accents";
 import { capitalizeWords } from "@/utils/converValue";
 import { encodeBase64, urlEncodeString } from "@/utils/EncoderDecoderUtils";
+import { getDistance } from "geolib";
 
 export default {
   name: "district-card-page",
@@ -66,7 +67,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      distanceKm: 0,
+    };
   },
 
   computed: {
@@ -85,6 +88,20 @@ export default {
   },
 
   methods: {
+    calculateDistance(value) {
+      const locationValue = {
+        latitude: value.lat,
+        longitude: value.lng,
+      };
+      const locationSearch = {
+        latitude: this.breadcumsObject.latitude,
+        longitude: this.breadcumsObject.longitude,
+      };
+      // Sử dụng geolib để tính khoảng cách
+      const distance = getDistance(locationValue, locationSearch);
+      this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km và làm tròn
+      return this.distanceKm;
+    },
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
     },

@@ -18,16 +18,6 @@
 <script>
 export default {
   name: "Ic-Cloud-Sun",
-  props: {
-    width: {
-      type: String,
-      default: "24", // default value if no width is provided
-    },
-    height: {
-      type: String,
-      default: "24", // default value if no height is provided
-    },
-  },
 };
 </script>
 <style lang=""></style>

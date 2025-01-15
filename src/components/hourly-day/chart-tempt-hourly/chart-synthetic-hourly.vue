@@ -1,52 +1,31 @@
 <template>
   <div class="w-full h-full">
-    <!--  -->
+    <!-- -->
     <div class="w-full relative h-full">
       <div class="w-full h-full relative">
         <vue-horizontal
-          responsive
-          :displacement="0.8"
-          class="w-full h-full relative horizontal pl-2 pr-2"
+          :displacement="1"
+          @slide="onSlide"
+          class="w-full h-full relative horizontals pl-2 pr-6 pt-4"
         >
-          <div class="w-full">
+          <div class="w-full relative">
             <ChartDays></ChartDays>
 
-            <!--  -->
             <div class="relative">
-              <ChartPrecipitationBar
-                class="absolute top-chart-pre z-10"
-              ></ChartPrecipitationBar>
-
-              <!-- <ChartDomainRain
-                class="z-30 absolute top-chart-rain"
-              ></ChartDomainRain> -->
-
               <ChartTemperatureBar
                 class="absolute top-0 z-20"
               ></ChartTemperatureBar>
 
               <ChartChanceOfRainBar
-                class="absolute z-20 top-chance-rain"
+                class="absolute z-20 top-chance-rain-hourly"
               ></ChartChanceOfRainBar>
 
-              <!-- <ChartDomainTemps
-                class="z-20 absolute"
-                :heightValue="heightValue"
-              ></ChartDomainTemps> -->
+              <ChartPrecipitationBar
+                class="absolute top-chart-pre-hourly z-10"
+              ></ChartPrecipitationBar>
             </div>
-            <!--  -->
-            <!-- <ChartDomainRain class="absolute inset-0"></ChartDomainRain> -->
-
-            <!-- <ChartApexRain></ChartApexRain> -->
-            <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
           </div>
         </vue-horizontal>
-
-        <!--  -->
-
-        <!-- <ChartBarRain></ChartBarRain> -->
-
-        <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
 
         <div
           class="absolute w-full bottom-0 left-0 flex justify-between pad-t-b-10 pad-r-l-10"
@@ -68,65 +47,55 @@
     </div>
   </div>
 </template>
+
 <script>
-import ChartApexRain from "@/components/common/chart/chart-apex-rain.vue";
-import ChartBarRain from "@/components/common/chart/chart-bar-rain.vue";
 import ChartChanceOfRainBar from "@/components/common/chart/chart-chance-of-rain-bar.vue";
-import ChartColumnRainfall from "@/components/common/chart/chart-column-rainfall.vue";
 import ChartDays from "@/components/common/chart/chart-days.vue";
-import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
-import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
 import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
 import ChartTemperatureBar from "@/components/common/chart/chart-temperature-bar.vue";
-import ChartPrecipitation from "@/components/month-day/chart-weather/chart-precipitation.vue";
 import VueHorizontal from "vue-horizontal";
 
 export default {
-  name: "chart-temp-rain",
+  name: "chart-synthetic-hourly",
 
   components: {
-    ChartDays,
-    // ChartDomainTemps,
-    ChartPrecipitationBar,
+    VueHorizontal,
     ChartChanceOfRainBar,
     ChartTemperatureBar,
-    // ChartDomainRain,
-    VueHorizontal,
-
-    // ChartColumnRainfall,
-    // ChartApexRain,
-    // ChartBarRain,
-    // ChartColumnRainfall,
+    ChartDays,
+    ChartPrecipitationBar,
   },
+
   data() {
-    return {
-      heightValue: "90",
-    };
+    return {};
   },
 
-  methods: {},
+  mounted() {},
+
+  methods: {
+    onSlide(index) {},
+  },
 };
 </script>
+
 <style scoped>
-.horizontal >>> .v-hl-btn-prev {
+.horizontals >>> .v-hl-btn-prev {
   display: none !important;
   left: 10px !important;
 }
-.horizontal >>> .v-hl-btn-next {
+.horizontals >>> .v-hl-btn-next {
   display: none !important;
 
   right: 10px !important;
 }
-.horizontal:hover >>> .v-hl-btn-prev {
+.horizontals:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  bottom: 90px !important;
   left: 24px !important;
   opacity: 0.5;
 }
 
-.horizontal:hover >>> .v-hl-btn-next {
+.horizontals:hover >>> .v-hl-btn-next {
   display: flex !important;
-  bottom: 90px !important;
   right: 24px !important;
   opacity: 0.5;
 }
@@ -142,13 +111,11 @@ export default {
 .bg-rainfall-c {
   background-color: #327cee;
 }
-.top-chart-pre {
-  top: 148px;
+
+.top-chance-rain-hourly {
+  top: 158px;
 }
-.top-chart-rain {
-  top: 126px;
-}
-.top-chance-rain {
-  top: 134px;
+.top-chart-pre-hourly {
+  top: 170px;
 }
 </style>

@@ -118,6 +118,7 @@
                   <div>
                     <svg
                       :id="'chevron-' + index"
+                      :class="{ 'rotate-180': activeIndex === index }"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -224,7 +225,7 @@
                       <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
-                      <p>{{ item?.precipProbability * 100 }}%</p>
+                      <p>{{ Math.round(item?.precipProbability * 100) }}%</p>
                     </div>
                   </div>
 
@@ -428,6 +429,7 @@ export default {
       itemsPerPage: 10, // Số mục hiển thị ban đầu
       currentPage: 1, // Trang hiện tại
       showLessButton: false,
+      activeIndex: null, // Lưu trạng thái mục đang mở
     };
   },
 
@@ -544,13 +546,11 @@ export default {
     },
 
     onClickShowDetailCard(value) {
-      const chevron = document.getElementById(`chevron-${value}`);
-      if (this.isRotated) {
-        chevron.style.transform = "rotate(0deg)"; // Trở về hướng ban đầu
+      if (this.activeIndex === value) {
+        this.activeIndex = null; // Đóng mục nếu đã mở
       } else {
-        chevron.style.transform = "rotate(90deg)"; // Xoay xuống dưới
+        this.activeIndex = value; // Mở mục mới
       }
-      this.isRotated = !this.isRotated; // Đảo ngược trạng thái
 
       if (this.valueChoose === value) {
         this.valueChoose = -1;

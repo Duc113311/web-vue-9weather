@@ -3,7 +3,7 @@
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
       <div class="flex justify-center items-center">
-        <component :is="renderHourlyIcon(item.precipProbability)"></component>
+        <component :is="renderHourlyIcon(item.precipIntensity)"></component>
       </div>
       <el-tooltip placement="top" popper-class="dark-tooltip">
         <template #content>
@@ -13,9 +13,7 @@
               <div class="w-[10px] h-[10px] bg-precit"></div>
               <p>
                 Precipitation:
-                {{
-                  item.precipProbability === 0 ? "0.00" : item.precipProbability
-                }}
+                {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
                 {{ unitPrecipitation }}
               </p>
             </div>
@@ -23,7 +21,7 @@
         </template>
         <div class="mt-1">
           <p class="txt_regular_14">
-            {{ item.precipProbability === 0 ? "0.00" : item.precipProbability }}
+            {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
           </p>
           <p class="txt_regular_12">{{ unitPrecipitation }}</p>
         </div>
