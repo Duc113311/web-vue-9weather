@@ -167,6 +167,7 @@ import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import BreadcumsPage from "@/layout/breadcums/breadcums-page.vue";
 import NavTabbar from "@/layout/tab-menu/nav-tabbar.vue";
 import { mapGetters, mapMutations } from "vuex";
+import { markRaw } from "vue";
 
 export default {
   name: "home-page",
@@ -191,8 +192,8 @@ export default {
       dayTime: this.$t("Daytime"),
       isShowDayNight: false,
       nightTime: this.$t("Nighttime"),
-      srcDaytime: IcTitleDaytime,
-      srcNighttime: IcTitleNighttime,
+      srcDaytime: markRaw(IcTitleDaytime),
+      srcNighttime: markRaw(IcTitleNighttime),
     };
   },
 

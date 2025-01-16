@@ -116,10 +116,8 @@
             </div>
           </div>
         </div>
-        <div
-          v-else-if="breadcumsObject?.country_key === 'us'"
-          class="flex items-center"
-        >
+        <!-- Trên thế giới -->
+        <div v-else class="flex items-center">
           <div class="flex items-center" v-if="breadcumsObject?.country">
             <svg
               width="24"
@@ -135,7 +133,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <div class="cursor-pointer" @click="onClickHome()">
+            <div class="cursor-pointer">
               {{ breadcumsObject?.country }}
             </div>
           </div>
@@ -154,7 +152,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <div class="cursor-pointer" @click="onClickStateUSA()">
+            <div class="cursor-pointer">
               {{ breadcumsObject?.state }}
             </div>
           </div>
@@ -175,65 +173,6 @@
             </svg>
             <div class="cursor-pointer">
               {{ breadcumsObject?.county }}
-            </div>
-          </div>
-        </div>
-        <div v-else class="flex items-center">
-          <div class="flex items-center" v-if="breadcumsObject?.country">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer" @click="onClickHome()">
-              {{ breadcumsObject?.country }}
-            </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.state">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer">
-              {{ breadcumsObject?.state }}
-            </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.regions">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer">
-              {{ breadcumsObject?.regions }}
             </div>
           </div>
           <div class="flex items-center" v-if="breadcumsObject?.cities">
@@ -288,6 +227,10 @@ export default {
     ...mapGetters("commonModule", [
       "breadcumsObjectGetters",
       "listCityAllGetters",
+    ]),
+    ...mapGetters("airQualityModule", [
+      "airObjectGetters",
+      "airKeyObjectGetters",
     ]),
 
     languageParam() {

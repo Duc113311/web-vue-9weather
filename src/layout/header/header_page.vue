@@ -542,10 +542,11 @@ export default {
             },
           });
         }
-      } else if (item?.country_key?.toLowerCase() === "us") {
+      } else {
+        // Trên thế giới
         let objectBread = {
           country: item.country,
-          country_key: item.country_key,
+          country_key: item.country_key.toLowerCase(),
           state: item.state,
           state_key: item.state_key,
           county: item.county,
@@ -557,67 +558,52 @@ export default {
         localStorage.setItem("objectBread", JSON.stringify(objectBread));
         this.setBreadcumsAllowLocation(objectBread);
 
-        await this.$router.push({
-          name: "today-weather",
-          params: {
-            language: language,
-            location: [
-              objectBread.country_key.toLowerCase(),
-              removeAccents(objectBread.state),
-              removeWordAndAccents(objectBread.county),
-              removeAccents(objectBread.cities),
-            ],
-          },
-        });
-      } else {
-        let objectBread = {
-          country: item.country,
-          country_key: item.country ? item.country.replace(/ /g, "_") : "",
-          city: item.city ? item.city : "",
-          city_key:
-            item.city && item.city.trim() !== ""
-              ? item.city.replace(/ /g, "_")
-              : "",
-          district: item.district,
-          district_key:
-            item.district && item.district.trim() !== ""
-              ? item.district.replace(/ /g, "_")
-              : "",
-
-          latitude: item.lat,
-          longitude: item.lng,
-        };
-
-        localStorage.setItem("objectBread", JSON.stringify(objectBread));
-
-        this.setBreadcumsTheWorld(objectBread);
-        if (
-          objectBread.city.length !== 0 &&
-          objectBread.district.length === 0
-        ) {
+        // Bang
+        if (objectBread.state.length !== 0 && objectBread.county.length === 0) {
           await this.$router.push({
             name: "today-weather",
             params: {
               language: language,
               location: [
-                objectBread.country.toLowerCase(),
-                this.convertToSlug(objectBread.city),
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.state),
               ],
             },
           });
         }
+        // Quận
         if (
-          objectBread.city.length !== 0 &&
-          objectBread.district.length !== 0
+          objectBread.state.length !== 0 &&
+          objectBread.county.length !== 0 &&
+          objectBread.cities.length === 0
         ) {
           await this.$router.push({
             name: "today-weather",
             params: {
               language: language,
               location: [
-                objectBread.country.toLowerCase(),
-                this.convertToSlug(objectBread.city),
-                this.convertToSlug(objectBread.district),
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.state),
+                convertLowerCase(objectBread.county),
+              ],
+            },
+          });
+        }
+        // Thành phố
+        if (
+          objectBread.state.length !== 0 &&
+          objectBread.county.length !== 0 &&
+          objectBread.cities.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.state),
+                convertLowerCase(objectBread.county),
+                convertLowerCase(objectBread.cities),
               ],
             },
           });
@@ -704,7 +690,142 @@ export default {
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
     },
 
-    onClickLocationView() {},
+    async onClickLocationView() {
+      const objectBreadValue = this.wardParam;
+
+      localStorage.setItem("objectBread", JSON.stringify(objectBreadValue));
+
+      this.setBreadcumsNotAllowLocation(objectBreadValue);
+
+      if (objectBreadValue.country_key.toLowerCase() === "vn") {
+        // tồn tại thành phố
+        if (
+          objectBreadValue.city.length !== 0 &&
+          objectBreadValue.district.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.city),
+              ],
+            },
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBreadValue.city.length !== 0 &&
+          objectBreadValue.district.length !== 0 &&
+          objectBreadValue.ward.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.city),
+                convertLowerCase(objectBreadValue.district),
+              ],
+            },
+          });
+        }
+        if (
+          objectBreadValue.city.length !== 0 &&
+          objectBreadValue.district.length !== 0 &&
+          objectBreadValue.ward.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.city),
+                convertLowerCase(objectBreadValue.district),
+                convertLowerCase(removeWordAndAccents(objectBreadValue.ward)),
+              ],
+            },
+          });
+        }
+      } else {
+        // tồn tại thành phố
+        if (
+          objectBreadValue.state.length !== 0 &&
+          objectBreadValue.county.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.state),
+              ],
+            },
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBreadValue.state.length !== 0 &&
+          objectBreadValue.county.length !== 0 &&
+          objectBreadValue.cities.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.state),
+                convertLowerCase(objectBreadValue.county),
+              ],
+            },
+          });
+        }
+        if (
+          objectBreadValue.state.length !== 0 &&
+          objectBreadValue.county.length !== 0 &&
+          objectBreadValue.cities.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.state),
+                convertLowerCase(objectBreadValue.county),
+                convertLowerCase(objectBreadValue.cities),
+              ],
+            },
+          });
+        }
+      }
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=${this.languageParam}`;
+      const resultAir = getAqiDataFromLocation(
+        objectBreadValue.latitude,
+        objectBreadValue.longitude
+      );
+      const encodeDataWeather = encodeBase64(param);
+
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
+    },
 
     resetComponentData() {
       // Reset dữ liệu trong component

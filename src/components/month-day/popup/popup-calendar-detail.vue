@@ -21,10 +21,10 @@
       </p>
     </div>
 
-    <div class="flex items-center justify-between w-full">
+    <div class="flex items-center w-full gap-2">
       <!--  -->
-      <div class="flex flex-col gap-1">
-        <div class="flex items-center gap-1">
+      <div class="flex flex-col gap-1 w-[49.5%] bor-rim-r pr-3">
+        <div class="flex items-center justify-between gap-1">
           <span class="txt_light_14"> {{ $t("temperature") }}:&nbsp;</span>
           <div class="flex items-center">
             <div class="flex items-center">
@@ -44,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center gap-1">
+        <div class="flex items-center justify-between gap-1">
           <span class="txt_light_14"> {{ $t("real_feel") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{
@@ -56,7 +56,7 @@
             }}
           </p>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14"> {{ $t("uv") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <span class="txt_medium_15">
@@ -67,19 +67,19 @@
             >
           </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">{{ $t("precipitation") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{ convertPrecipitation(renderObjTemperature?.precipIntensity) }}
           </p>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">{{ $t("Chance_of_rain") }}:&nbsp;</span>
           <p class="txt_regular_14">
-            {{ renderObjTemperature?.precipProbability * 100 }}%
+            {{ Math.round(renderObjTemperature?.precipProbability * 100) }}%
           </p>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">Dew point:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
@@ -91,8 +91,8 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-1">
-        <div class="flex items-center">
+      <div class="flex flex-col gap-1 w-[49.5%] pl-1">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14"> {{ $t("wind_speed") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
@@ -101,19 +101,19 @@
             <span class="txt_regular_14">{{ convertUnitWindSpeed() }}</span>
           </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">{{ $t("wind_direction") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{ convertWindBearing(renderObjTemperature?.windBearing) }}
           </p>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">{{ $t("cloud_cover") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{ Math.round(renderObjTemperature.cloudCover * 100) }}%
           </p>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14"> {{ $t("pressure") }}:&nbsp; </span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
@@ -122,7 +122,7 @@
             <span class="txt_regular_14">{{ convertUnitPressure() }}</span>
           </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">{{ $t("sunrise") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
@@ -139,7 +139,7 @@
             >
           </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
           <span class="txt_light_14">{{ $t("sunset") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">

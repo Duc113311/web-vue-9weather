@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full">
     <!--  -->
-    <div class="ic_bg overflow-y-scroll xl:overflow-hidden">
+    <div class="overflow-y-scroll xl:overflow-hidden" :class="[classThemeBg]">
       <div class="w-full h-full relative container-full">
         <div
           class="w-full h-full lg:flex block lg:justify-between xl:items-center text-white"
@@ -87,12 +87,35 @@
 export default {
   name: "home-page-v3",
   data() {
-    return {};
+    return {
+      isTheme: true,
+    };
+  },
+
+  computed: {
+    classThemeBg() {
+      const themeValue = this.$store.state.commonModule.themeValue;
+      const savedTheme = themeValue
+        ? themeValue
+        : localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        return "ic_bg_light";
+      }
+      return "ic_bg_dark";
+    },
   },
 };
 </script>
 <style lang="scss">
-.ic_bg {
+.ic_bg_light {
+  background-image: url("../../assets/images/svg_v2/bg-home1.png");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.ic_bg_dark {
   background-image: url("../../assets/images/svg_v2/bg-home.png");
   width: 100%;
   height: 100%;
@@ -188,4 +211,15 @@ export default {
 // .tilted-image:hover {
 //   transform: rotate(0deg); /* Reset khi hover */
 // }
+
+.text-appear {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.5s ease-in-out;
+}
+
+.text-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>

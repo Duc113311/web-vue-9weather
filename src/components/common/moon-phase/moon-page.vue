@@ -341,9 +341,9 @@ export default {
   mounted() {
     this.dateFull = getFormattedCurrentDate();
     this.container = this.$refs.container;
-    if (this.renderPosition) {
-      this.calculateNext30DaysMoonPhases(this.renderPosition);
-    }
+    // if (this.renderPosition) {
+    //   this.calculateNext30DaysMoonPhases(this.renderPosition);
+    // }
 
     // this.container.addEventListener("mousedown", this.handleMouseDown);
     // this.container.addEventListener("mouseup", this.handleMouseUp);

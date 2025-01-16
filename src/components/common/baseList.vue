@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full" :key="uniqueKey">
     <!--  -->
     <div
       class="overflow-hidden"
@@ -32,6 +32,10 @@ export default {
     height: {
       type: [Number, String],
       default: "100%",
+    },
+    uniqueKey: {
+      type: String,
+      required: true,
     },
   },
 

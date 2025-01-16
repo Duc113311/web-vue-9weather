@@ -37,7 +37,10 @@
               </div>
             </div>
             <div class="flex items-center text-left gap-2">
-              <span class="txt_regular_12">
+              <span
+                class="txt_regular_12"
+                v-if="breadcumsObjectValue?.country_key?.toLowerCase() === 'vn'"
+              >
                 {{
                   $t(
                     `city.city_${languageParam}.${convertToLowCase(
@@ -46,6 +49,10 @@
                   )
                 }}, {{ breadcumsObjectValue?.country }}</span
               >
+              <span v-else class="txt_regular_12">
+                {{ breadcumsObjectValue.state }},
+                {{ breadcumsObjectValue?.country }}
+              </span>
             </div>
           </div>
         </div>

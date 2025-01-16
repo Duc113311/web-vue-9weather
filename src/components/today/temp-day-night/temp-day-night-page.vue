@@ -44,7 +44,7 @@ export default {
     },
 
     srcDayNight: {
-      type: String,
+      type: [String, Object],
       default: "",
     },
   },

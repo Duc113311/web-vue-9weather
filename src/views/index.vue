@@ -74,6 +74,7 @@ export default {
     // Xóa cache
     if (!objectBread) {
       // Điều hướng về màn Home
+      this.getLocationBrowser();
       this.$router.push({ path: "/" }).then(() => {});
     }
     // Không xóa cache
@@ -86,11 +87,7 @@ export default {
         } else {
           this.getLocationBrowser();
         }
-      } else if (objectBreadValue.country_key === "us") {
-        this.handleLocationAmerican(objectBreadValue);
       } else {
-        // localStorage.removeItem("objectBread");
-        // this.getLocationBrowser();
         this.handleLocationWorld(objectBreadValue);
       }
     }
@@ -261,7 +258,7 @@ export default {
       }
     },
 
-    async handleLocationAmerican(dataValue) {
+    async handleLocationWorld(dataValue) {
       let latitude = dataValue.latitude;
       let longitude = dataValue.longitude;
 
@@ -291,142 +288,16 @@ export default {
       const encodeAirCode = encodeBase64(airCode);
       // API Get Air Quality Data
       await this.getAirQuality(encodeAirCode);
-    },
 
-    async handleLocationWorld(dataValue) {
-      let latitude = dataValue.latitude;
-      let longitude = dataValue.longitude;
-
-      const paramsRouter = this.$route.params;
-
-      if (Object.keys(paramsRouter).length === 0) {
-        // Xét giá trị để lưu Recent
-        const objectPosition = {
-          latitude: latitude,
-          longitude: longitude,
-          country: dataValue.country,
-          country_key: dataValue.country_key,
-          city: dataValue.city,
-          city_key: dataValue.city_key,
-          district: "",
-          district_key: "",
-          ward: "",
-          ward_key: "",
-          // objectLocation: responsive.data.address,
-        };
-        localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-        this.setBreadcumsAllowLocation(objectPosition);
-
-        this.setCityWeather(objectPosition);
-      } else {
-        if (paramsRouter.location && paramsRouter.location.length === 3) {
-          // Xét giá trị để lưu Recent
-          const objectPosition = {
-            latitude: latitude,
-            longitude: longitude,
-            country: dataValue.country,
-            country_key: dataValue.country_key,
-            city: dataValue.city,
-            city_key: dataValue.city_key,
-            district: "",
-            district_key: "",
-            ward: "",
-            ward_key: "",
-          };
-          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-          this.setBreadcumsAllowLocation(objectPosition);
-
-          this.setCityWeather(objectPosition);
-        }
-        if (paramsRouter.location && paramsRouter.location.length === 4) {
-          const objectPosition = {
-            latitude: latitude,
-            longitude: longitude,
-            country: dataValue.country,
-            country_key: dataValue.country_key,
-            city: dataValue.city,
-            city_key: dataValue.city_key,
-            district: dataValue.district,
-            district_key: dataValue.district_key,
-            ward: "",
-            ward_key: "",
-
-            // objectLocation: responsive.data.address,
-          };
-          localStorage.setItem("objectBread", JSON.stringify(objectPosition));
-
-          this.setBreadcumsAllowLocation(objectPosition);
-
-          this.setCityWeather(objectPosition);
-        }
-      }
-
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
-
-      // map url by lat,long
-      const resultAir = getAqiDataFromLocation(latitude, longitude);
-
-      const encodeDataWeather = encodeBase64(param);
-      // API Get Weather Current
-      await this.getWeatherDataCurrent(encodeDataWeather);
-
-      // Lưu lại ở Storage để cache
-      localStorage.setItem("keyCurrent", JSON.stringify(encodeDataWeather));
-
-      const encodeKeyAir = encodeBase64(resultAir);
-      // API Get Air Quality By Key
-      await this.getAirQualityByKey(encodeKeyAir);
-
-      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
-      const encodeAirCode = encodeBase64(airCode);
-      // API Get Air Quality Data
-      await this.getAirQuality(encodeAirCode);
-    },
-
-    async handleLocationVNBread(dataValue) {
-      const objectLatLong = {
-        latitude: dataValue.latitude,
-        longitude: dataValue.longitude,
-      };
-
-      localStorage.setItem("locationLatLong", JSON.stringify(dataValue));
-
-      localStorage.setItem("objectBread", JSON.stringify(dataValue));
-
-      this.setBreadcumsAllowLocation(dataValue);
-
-      this.setIndexComponent(1);
-
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectLatLong.latitude},${objectLatLong.longitude}?lang=en`;
-
-      // map url by lat,long
-      const resultAir = getAqiDataFromLocation(
-        objectLatLong.latitude,
-        objectLatLong.longitude
-      );
-
-      const encodeDataWeather = encodeBase64(param);
-      // API Get Weather Current
-      await this.getWeatherDataCurrent(encodeDataWeather);
-
-      // Lưu lại ở Storage để cache
-      localStorage.setItem("keyCurrent", JSON.stringify(encodeDataWeather));
-
-      const encodeKeyAir = encodeBase64(resultAir);
-      // API Get Air Quality By Key
-      await this.getAirQualityByKey(encodeKeyAir);
-
-      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
-      const encodeAirCode = encodeBase64(airCode);
-      // API Get Air Quality Data
-      await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey++;
+      this.setIndexComponent(this.indexKey);
     },
 
     async handleLocationVietNam(dataValue) {
       const objectBread = this.objectLocalBreadcums;
+      let nameScream = this.$route.name;
 
+      debugger;
       if (dataValue.length === 2) {
         let objectBreadValue = {
           country: objectBread.country,
@@ -443,7 +314,7 @@ export default {
         localStorage.setItem("objectBread", JSON.stringify(objectBreadValue));
         this.setBreadcumsAllowLocation(objectBreadValue);
         await this.$router.push({
-          name: "today-weather",
+          name: nameScream,
           params: {
             language: this.languageParam,
             location: [
@@ -470,7 +341,7 @@ export default {
 
         this.setBreadcumsAllowLocation(objectBreadValue);
         await this.$router.push({
-          name: "today-weather",
+          name: nameScream,
           params: {
             language: this.languageParam,
             location: [
@@ -497,7 +368,7 @@ export default {
 
         this.setBreadcumsAllowLocation(objectBreadValue);
         await this.$router.push({
-          name: "today-weather",
+          name: nameScream,
           params: {
             language: this.languageParam,
             location: [

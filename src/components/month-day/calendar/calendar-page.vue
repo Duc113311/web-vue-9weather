@@ -49,12 +49,15 @@
                 <el-popover
                   ref="popover"
                   placement="right"
-                  :width="400"
+                  :width="500"
                   trigger="click"
+                  @show="onShowPopover(index)"
+                  @before-leave="onBeforeLeavePopover"
                   v-if="day && day.time"
                 >
                   <template #reference>
                     <div
+                      :class="{ 'active-calender': activeIndex === index }"
                       class="flex flex-col p-1 justify-start gap-1 txt_light_14 rounded-xl"
                     >
                       <span class="txt_regular_12 text-right">{{
@@ -151,6 +154,7 @@ export default {
     return {
       heightAuto: "auto",
       activeDayIndex: null,
+      activeIndex: null, // Lưu trữ index của phần tử đang active
     };
   },
   computed: {
@@ -202,6 +206,15 @@ export default {
   },
 
   methods: {
+    // Thêm class khi popover hiển thị
+    onShowPopover(index) {
+      this.activeIndex = index; // Gán index của phần tử đang được click
+    },
+
+    // Khi Popover chuẩn bị đóng
+    onBeforeLeavePopover() {
+      this.activeIndex = null; // Xóa trạng thái active
+    },
     convertIconCurrently(value) {
       if (value) {
         const url = getIconHourlyForecastTheme(value);
@@ -351,5 +364,9 @@ export default {
 
 .days li:not(.active):hover::before {
   background: rgba(114, 149, 202, 0.5);
+}
+
+.active-calender {
+  background-color: rgba(114, 149, 202, 0.5); /* Ví dụ: thêm màu nền */
 }
 </style>

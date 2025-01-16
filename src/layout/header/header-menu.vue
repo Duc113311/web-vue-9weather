@@ -38,7 +38,10 @@
         />
       </div>
 
-      <div class="address-now pt-4 pb-4 text-left cursor-pointer text-blue-300">
+      <div
+        class="address-now pt-4 pb-4 text-left cursor-pointer text-blue-300"
+        :key="indexState + Math.random()"
+      >
         <div
           class="flex"
           v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
@@ -97,7 +100,7 @@
       </div>
 
       <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
-        <span>{{ $t("version") }} 2/ 18.11.2024</span>
+        <span>{{ $t("version") }} 3/ 16.01.2024</span>
       </div>
     </div>
   </div>
@@ -125,7 +128,10 @@ export default {
 
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
-
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
+    },
     languageParam() {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0

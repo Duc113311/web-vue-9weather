@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[90rem] flex justify-between items-center p-chart-avg">
+  <div class="w-[89rem] flex justify-between items-center p-chart-avg">
     <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
       <div class="txt_regular_12">
@@ -70,7 +70,7 @@ export default {
 </script>
 <style lang="scss">
 .p-chart-avg {
-  padding-left: 22px;
+  padding-left: 20px;
   padding-right: 10px;
 }
 </style>

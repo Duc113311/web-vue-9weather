@@ -75,11 +75,42 @@
           }}</span
         >
       </div>
+      <div class="txt_medium_14" v-else>
+        <span v-if="breadcumsObject?.state && !breadcumsObject?.county">{{
+          $t(`{city}_weather_forecast_next_30_days`, {
+            city: $t(`${breadcumsObject?.state}`),
+          })
+        }}</span>
+        <span
+          v-if="
+            breadcumsObject?.state &&
+            breadcumsObject?.county &&
+            !breadcumsObject?.cities
+          "
+          >{{
+            $t(`{city}_weather_forecast_next_30_days`, {
+              city: $t(`${breadcumsObject?.county}`),
+            })
+          }}</span
+        >
+        <span
+          v-if="
+            breadcumsObject?.state &&
+            breadcumsObject?.county &&
+            breadcumsObject?.cities
+          "
+          >{{
+            $t(`{city}_weather_forecast_next_30_days`, {
+              city: $t(`${breadcumsObject?.cities}`),
+            })
+          }}</span
+        >
+      </div>
     </div>
     <div class="w-full h-full overflow-hidden">
       <transition-group name="fade" tag="div">
         <div class="gap-4 flex flex-col cursor-pointer">
-          <BaseList v-for="(item, index) in displayedItems" :key="index">
+          <BaseList v-for="(item, index) in displayedItems" :key="item.time">
             <div class="w-full">
               <!--  -->
               <div

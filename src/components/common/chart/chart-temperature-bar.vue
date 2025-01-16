@@ -3,8 +3,12 @@
     class="chart-container w-[89rem]"
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
-    <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="200" ref="canvas"></canvas>
+    <div class="chart-wrapper w-full">
+      <canvas
+        id="chart_hourly"
+        ref="canvas"
+        style="height: heightChart"
+      ></canvas>
     </div>
   </div>
 </template>
@@ -48,6 +52,7 @@ export default {
     return {
       chart: null,
       chartInstance: null,
+      heightChart: 100,
     };
   },
 
@@ -88,13 +93,6 @@ export default {
     unitPrecipitation() {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       return codeToFind(unitSetting.activePrecipitation_save);
-    },
-  },
-
-  props: {
-    heightValue: {
-      type: String,
-      default: "90",
     },
   },
 
@@ -163,7 +161,7 @@ export default {
       gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // Màu #00CCDC với độ mờ 100% (vị trí 0%)
       gradientTemperatureDark.addColorStop(0.4, "rgba(245, 163, 0, 0.4)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
       gradientTemperatureDark.addColorStop(0.8, "rgba(245, 163, 0, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTemperatureDark.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
+      gradientTemperatureDark.addColorStop(1, "rgba(255, 255, 255, 0.1)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
 
       // Tạo gradient Temperature Dark
       const gradientTemperatureLight = ctx.createLinearGradient(
@@ -172,7 +170,6 @@ export default {
         0,
         ctx.canvas.height
       );
-
       gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientTemperatureLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
@@ -249,9 +246,6 @@ export default {
               beginAtZero: true,
               max: maxDataValue + 4,
               min: minDataValue - 10,
-              ticks: {
-                padding: 10, // Giảm khoảng cách giữa nhãn và trục
-              },
             },
           },
           plugins: {

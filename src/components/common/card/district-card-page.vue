@@ -9,11 +9,9 @@
           alt=""
         />
       </div>
-      <div class="txt_regular_12">
-        <p>{{ calculateDistance(objectLocation.location) }} km</p>
-      </div>
-      <h3
-        class="text-center txt_medium_15"
+
+      <div
+        class="text-center txt_medium_14"
         v-if="breadcumsObject.country_key === 'vn'"
       >
         {{
@@ -28,10 +26,10 @@
             )
           )
         }}
-      </h3>
+      </div>
 
-      <h3
-        class="text-center txt_medium_15"
+      <div
+        class="text-center txt_medium_14"
         v-if="breadcumsObject.country_key === 'us'"
       >
         <!-- {{
@@ -45,7 +43,11 @@
           )
         }} -->
         {{ objectLocation.name }}
-      </h3>
+      </div>
+
+      <div class="txt_regular_12 color_BFBFBF">
+        <p>({{ calculateDistance(objectLocation.location) }}km away)</p>
+      </div>
     </div>
   </div>
 </template>

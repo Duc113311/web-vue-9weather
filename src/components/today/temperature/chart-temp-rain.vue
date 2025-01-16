@@ -12,7 +12,7 @@
             <ChartDays></ChartDays>
 
             <!--  -->
-            <div class="relative">
+            <div class="relative w-full h-full">
               <ChartPrecipitationBar
                 class="absolute top-chart-pre z-10"
               ></ChartPrecipitationBar>
@@ -22,11 +22,11 @@
               ></ChartDomainRain> -->
 
               <ChartTemperatureBar
-                class="absolute top-0 z-20"
+                class="absolute top-tempt"
               ></ChartTemperatureBar>
 
               <ChartChanceOfRainBar
-                class="absolute z-20 top-chance-rain"
+                class="absolute z-30 top-chance-rain"
               ></ChartChanceOfRainBar>
 
               <!-- <ChartDomainTemps
@@ -150,5 +150,9 @@ export default {
 }
 .top-chance-rain {
   top: 134px;
+}
+
+.top-tempt {
+  top: 2px;
 }
 </style>

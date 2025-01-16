@@ -177,7 +177,7 @@ export default {
             {
               label: "Chance of rain",
               type: "line", // Kiểu dataset là line
-              borderColor: "#90bcf3",
+              borderColor: "#00E3F5",
               pointBackgroundColor: "#00E3F5",
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
@@ -228,7 +228,7 @@ export default {
               position: "left",
               display: false,
               beginAtZero: true,
-              max: maxDataValue + 15,
+              max: 115,
               ticks: {
                 padding: 10, // Giảm khoảng cách giữa nhãn và trục
               },

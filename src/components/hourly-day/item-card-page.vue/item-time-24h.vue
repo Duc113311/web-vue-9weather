@@ -37,7 +37,7 @@
         >
           {{
             convertCapitalizeWords(
-              $t(`weather_forecast_for_{city}`, {
+              $t(`Weather_forecast_for_{city}`, {
                 city: $t(
                   `${convertToSlugCity(
                     breadcumsObject?.city
@@ -60,7 +60,7 @@
           "
           >{{
             convertCapitalizeWords(
-              $t(`weather_forecast_for_{city}`, {
+              $t(`Weather_forecast_for_{city}`, {
                 city: $t(
                   `${convertToSlugCity(
                     breadcumsObject?.city
@@ -75,10 +75,45 @@
           }}</span
         >
       </div>
+      <div class="txt_medium_14" v-else>
+        <span v-if="breadcumsObject?.state && !breadcumsObject?.county">{{
+          $t(`Weather_forecast_for_{city}`, {
+            city: $t(`${breadcumsObject?.state}`),
+          })
+        }}</span>
+        <span
+          v-if="
+            breadcumsObject?.state &&
+            breadcumsObject?.county &&
+            !breadcumsObject?.cities
+          "
+          >{{
+            $t(`Weather_forecast_for_{city}`, {
+              city: $t(`${breadcumsObject?.county}`),
+            })
+          }}</span
+        >
+        <span
+          v-if="
+            breadcumsObject?.state &&
+            breadcumsObject?.county &&
+            breadcumsObject?.cities
+          "
+          >{{
+            $t(`Weather_forecast_for_{city}`, {
+              city: $t(`${breadcumsObject?.cities}`),
+            })
+          }}</span
+        >
+      </div>
     </div>
     <div class="w-full h-full overflow-hidden">
       <transition-group name="fade" tag="div" class="gap-10-px flex flex-col">
-        <BaseList v-for="(item, index) in displayedItems" :key="index">
+        <BaseList
+          v-for="(item, index) in displayedItems"
+          :uniqueKey="item.time"
+          :key="item.time"
+        >
           <div class="w-full cursor-pointer">
             <!--  -->
             <div
@@ -316,6 +351,7 @@
             </div>
           </div>
         </BaseList>
+        <!-- Đã thêm key -->
       </transition-group>
 
       <div class="w-full text-left mt-3">

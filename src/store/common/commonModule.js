@@ -209,7 +209,7 @@ const mutations = {
         (state.breadcumsObject.district_key = data?.district_key), // Quận huyện
         (state.breadcumsObject.latitude = data?.latitude), // latitude
         (state.breadcumsObject.longitude = data?.longitude); // longitude
-    } else if (data?.country_key === "us") {
+    } else {
       (state.breadcumsObject.country_key = data?.country_key), //  us
         (state.breadcumsObject.country = data?.country), // us
         (state.breadcumsObject.state = data?.state), // State
@@ -218,16 +218,6 @@ const mutations = {
         (state.breadcumsObject.cities = data?.cities), // cities
         (state.breadcumsObject.latitude = data?.latitude), // latitude
         (state.breadcumsObject.longitude = data?.longitude); // longitude
-    } else {
-      (state.breadcumsObject.country = data?.country), //  us
-        (state.breadcumsObject.country_key = data?.country_key), //  us
-        (state.breadcumsObject.state = data?.state), //  us
-        (state.breadcumsObject.regions = data?.regions), //  us
-        (state.breadcumsObject.regions_key = data?.regions_key), //  us
-        (state.breadcumsObject.cities = data?.cities), //  us
-        (state.breadcumsObject.cities_key = data?.cities_key), //  us
-        (state.breadcumsObject.latitude = data?.latitude), // longitude
-        (state.breadcumsObject.longitude = data?.longitude); //  us
     }
   },
 

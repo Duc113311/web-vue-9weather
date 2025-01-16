@@ -37,15 +37,21 @@
             :key="index"
             class="flex justify-between items-center pt-2 pb-2 cursor-pointer item-city"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
+            @click="onClickRenderCityLocation(item)"
           >
-            <div class="txt_medium_15">
-              {{ $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`) }}
+            <div class="flex gap-2 items-center">
+              <img src="../../../assets/images/svg_v2/ic_city.svg" alt="" />
+              <p class="txt_medium_14">
+                {{
+                  $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`)
+                }}
+              </p>
             </div>
-            <img
-              src="../../../assets/images/svg_v2/ic_rain_data.svg"
-              width="24"
-              alt=""
-            />
+            <div>
+              <p class="txt_medium_14 color_BFBFBF">
+                {{ calculateDistance(item.location) }}km away
+              </p>
+            </div>
           </div>
         </div>
         <div v-if="objectBreadParam.country_key === 'us'">
@@ -77,7 +83,14 @@
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
 import { capitalizeWords } from "@/utils/converValue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import { getDistance } from "geolib";
+import { convertLowerCase } from "@/utils/coverTextSystem";
+import {
+  encodeBase64,
+  getAqiDataFromLocation,
+  getParamAirByCode,
+} from "@/utils/EncoderDecoderUtils";
 
 export default {
   name: "list-country-page",
@@ -86,19 +99,27 @@ export default {
     BaseComponent,
   },
   data() {
-    return {};
+    return {
+      indexKey: 0,
+    };
   },
 
   computed: {
+    ...mapGetters("airQualityModule", [
+      "airObjectGetters",
+      "airKeyObjectGetters",
+    ]),
     ...mapGetters("commonModule", [
       "objectCityByLocationGetters",
       "breadcumsObjectGetters",
       "listStateAmericanGetters",
+      "locationChomeObjectGetters",
     ]),
 
     renderLanguage() {
-      return this.$route.params.language
-        ? this.$route.params.language
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
         : this.$i18n.locale;
     },
 
@@ -154,9 +175,97 @@ export default {
 
       return [];
     },
+
+    currentLocationChome() {
+      const retrievedArray = JSON.parse(
+        localStorage.getItem("currentLocationChome")
+      );
+
+      return retrievedArray ? retrievedArray : this.locationChomeObjectGetters;
+    },
   },
 
   methods: {
+    ...mapMutations("commonModule", [
+      "setIndexComponent",
+      "setBreadcumsAllowLocation",
+    ]),
+    ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
+
+    ...mapActions("weatherModule", [
+      "getWeatherDataCurrent",
+      "getFormattedAddress",
+    ]),
+    async onClickRenderCityLocation(value) {
+      debugger;
+      const objectBreadValue = this.currentLocationChome;
+      if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
+        let objectBread = {
+          country: objectBreadValue.country,
+          country_key: objectBreadValue.country_key,
+          city: value.viNameLanguage ? value.viNameLanguage : "",
+          city_key: value.keyAccentLanguage ? value.keyAccentLanguage : "",
+          district: "",
+          district_key: "",
+          ward: "",
+          ward_key: "",
+          latitude: value.location.lat,
+          longitude: value.location.lng,
+        };
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+        this.setBreadcumsAllowLocation(objectBread);
+
+        await this.$router.push({
+          name: "today-weather",
+          params: {
+            language: this.languageParam,
+            location: [
+              objectBread?.country_key?.toLowerCase(),
+              convertLowerCase(objectBread.city),
+            ],
+          },
+        });
+        debugger;
+        const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.renderLanguage}`;
+
+        // const latLong = localStorage.getItem("locationLatLong");
+        const resultAir = getAqiDataFromLocation(
+          objectBread.latitude,
+          objectBread.longitude
+        );
+        const encodeDataWeather = encodeBase64(param);
+
+        // API Get Weather Current
+        await this.getWeatherDataCurrent(encodeDataWeather);
+
+        const encodeKeyAir = encodeBase64(resultAir);
+        // API Get Air Quality By Key
+        await this.getAirQualityByKey(encodeKeyAir);
+
+        const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+        const encodeAirCode = encodeBase64(airCode);
+        // API Get Air Quality Data
+        await this.getAirQuality(encodeAirCode);
+        this.indexKey = this.indexKey + 1;
+        this.setIndexComponent(this.indexKey);
+      }
+    },
+    calculateDistance(value) {
+      const locationValue = {
+        latitude: value.lat,
+        longitude: value.lng,
+      };
+      const locationSearch = {
+        latitude: this.currentLocationChome.latitude,
+        longitude: this.currentLocationChome.longitude,
+      };
+      // Sử dụng geolib để tính khoảng cách
+      const distance = getDistance(locationValue, locationSearch);
+      this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km và làm tròn
+      return this.distanceKm;
+    },
+
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
     },

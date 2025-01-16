@@ -3,22 +3,27 @@
     <!--  -->
     <div class="container overflow-hidden">
       <div
-        class="weather-menu-inner w-full flex items-center pad-l-r-20 pad-t-b-10"
+        class="weather-menu-inner w-full flex items-center pad-l-r-10 pad-t-b-10"
       >
         <div
           v-for="(menu, index) in menuItems"
           :key="index"
           class="cursor-pointer weather-menu-item pad_btn flex justify-center bg-btn-hover"
-          :class="{ 'active-tab': activeTabGettersParam === index }"
+          :class="{
+            'active-tab': activeTabGettersParam === index,
+            'disabled-class': !menu.isRun,
+          }"
           @click="onClickRouterView(menu, index)"
         >
           <div class="flex items-center txt-medium gap-2 cursor-pointer">
             <component
               :is="menu.icon"
               class="menu-icon"
-              :class="{ 'active-icon': activeTabGettersParam === index }"
+              :class="{
+                'active-icon': activeTabGettersParam === index,
+              }"
             />
-            <span class="txt_regular_17">{{ menu.label }}</span>
+            <span class="txt_regular_14">{{ menu.label }}</span>
           </div>
         </div>
       </div>
@@ -33,12 +38,34 @@ import IcCloudSun from "@/components/icons/IcCloudSun.vue";
 import IcCalendar from "@/components/icons/IcCalendar.vue";
 import IcOclock from "@/components/icons/IcOclock.vue";
 import IcRadar from "@/components/icons/IcRadar.vue";
+import { convertLowerCase } from "@/utils/coverTextSystem";
+import IcApiTab from "@/components/icons/IcApiTab.vue";
+import IcUvIndex from "@/components/icons/IcUvIndex.vue";
+import IcTitleSun from "@/components/icons/IcTitleSun.vue";
+import IcMoonphase from "@/components/icons/IcMoonphase.vue";
+
+import { ElNotification } from "element-plus";
+
 export default {
   name: "nav-tabbar",
 
   data() {
     return {
       activeIndex: -1,
+    };
+  },
+
+  setup() {
+    const successUnit = () => {
+      ElNotification({
+        title: "Scream",
+        message: "Coming soon",
+        type: "warning",
+        position: "bottom-left",
+      });
+    };
+    return {
+      successUnit,
     };
   },
 
@@ -52,22 +79,50 @@ export default {
         {
           name: "today-weather",
           label: this.$t("Today"),
+          isRun: true,
           icon: IcCloudSun,
         },
         {
           name: "hourly-weather",
           label: this.$t("Hourly"),
+          isRun: true,
           icon: IcOclock,
         },
         {
           name: "month-weather",
           label: this.$t("Month"),
+          isRun: true,
           icon: IcCalendar,
         },
         {
           name: "radar-weather",
           label: this.$t("Radar"),
+          isRun: true,
           icon: IcRadar,
+        },
+        {
+          name: "api-weather",
+          label: this.$t("AQI"),
+          isRun: false,
+          icon: IcApiTab,
+        },
+        {
+          name: "uv-weather",
+          label: this.$t("UV"),
+          isRun: false,
+          icon: IcUvIndex,
+        },
+        {
+          name: "moon-phase-weather",
+          label: this.$t("Moon phase"),
+          isRun: false,
+          icon: IcMoonphase,
+        },
+        {
+          name: "sun-weather",
+          label: this.$t("Sun"),
+          isRun: false,
+          icon: IcTitleSun,
         },
       ];
     },
@@ -244,14 +299,17 @@ export default {
               break;
           }
         } else {
+          let stateTitle = this.breadcumsObject?.state;
+          let countyTitle = this.breadcumsObject?.county;
+          let countryTitle = this.breadcumsObject?.country;
           switch (activeIndex) {
             case 0:
               if (Object.keys(this.$route.params).length !== 0) {
                 document.title = `${this.$t(
                   `Weather_Today_for_{district}_{city}_{country}`,
                   {
-                    district: districtTitle ? `${districtTitle}, ` : "",
-                    city: cityTitle ? `${cityTitle}, ` : "",
+                    district: countyTitle ? `${countyTitle}, ` : "",
+                    city: stateTitle ? `${stateTitle}, ` : "",
                     country: countryTitle,
                   }
                 )} | 9weather`;
@@ -262,8 +320,8 @@ export default {
               document.title = `${this.$t(
                 `Weather_Hourly_for_{district}_{city}_{country}`,
                 {
-                  district: districtTitle ? `${districtTitle}, ` : "",
-                  city: cityTitle ? `${cityTitle}, ` : "",
+                  district: countyTitle ? `${countyTitle}, ` : "",
+                  city: stateTitle ? `${stateTitle}, ` : "",
                   country: countryTitle,
                 }
               )} | 9weather`;
@@ -272,8 +330,8 @@ export default {
               document.title = `${this.$t(
                 `Weather_Month_for_{district}_{city}_{country}`,
                 {
-                  district: districtTitle ? `${districtTitle}, ` : "",
-                  city: cityTitle ? `${cityTitle}, ` : "",
+                  district: countyTitle ? `${countyTitle}, ` : "",
+                  city: stateTitle ? `${stateTitle}, ` : "",
                   country: countryTitle,
                 }
               )} | 9weather`;
@@ -352,111 +410,137 @@ export default {
           this.setActiveTab(3);
           screamName = "radar-weather";
         }
-        this.setTitleScream(this.activeIndex);
+        if (this.activeIndex === 4) {
+          // this.setActiveTab(4);
+          screamName = "api-weather";
+          this.successUnit();
+        }
+        if (this.activeIndex === 5) {
+          // this.setActiveTab(5);
+          screamName = "uv-weather";
+          this.successUnit();
+        }
+        if (this.activeIndex === 6) {
+          // this.setActiveTab(6);
+          screamName = "moon-phase-weather";
+          this.successUnit();
+        }
+        if (this.activeIndex === 7) {
+          // this.setActiveTab(7);
+          screamName = "sun-weather";
+          this.successUnit();
+        }
 
-        const countryKey = this.breadcumsObject.country_key;
+        if (value.isRun) {
+          this.setTitleScream(this.activeIndex);
 
-        if (countryKey.toLowerCase() === "vn") {
-          let routeParams = {
-            name: screamName,
-            params: {
-              language: this.renderLanguage,
-              location: [this.breadcumsObject.country_key.toLowerCase()],
-            },
-          };
+          const countryKey = this.breadcumsObject.country_key;
 
-          // Xây dựng mảng location dựa vào điều kiện
-          if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length === 0
-          ) {
-            routeParams.params.location.push(
-              this.convertLowerCase(this.breadcumsObject.city)
-            );
+          if (countryKey.toLowerCase() === "vn") {
+            let routeParams = {
+              name: screamName,
+              params: {
+                language: this.renderLanguage,
+                location: [this.breadcumsObject.country_key.toLowerCase()],
+              },
+            };
+
+            // Xây dựng mảng location dựa vào điều kiện
+            if (
+              this.breadcumsObject.city.length !== 0 &&
+              this.breadcumsObject.district.length === 0
+            ) {
+              routeParams.params.location.push(
+                this.convertLowerCase(this.breadcumsObject.city)
+              );
+            }
+
+            if (
+              this.breadcumsObject.city.length !== 0 &&
+              this.breadcumsObject.district.length !== 0 &&
+              this.breadcumsObject.ward.length === 0
+            ) {
+              routeParams.params.location.push(
+                this.convertLowerCase(this.breadcumsObject.district)
+              );
+            }
+
+            if (
+              this.breadcumsObject.city.length !== 0 &&
+              this.breadcumsObject.district.length !== 0 &&
+              this.breadcumsObject.ward.length !== 0
+            ) {
+              routeParams.params.location.push(
+                this.convertToSlug(
+                  this.removeWordAndAccents(this.breadcumsObject.ward, [
+                    "Xã",
+                    "Thị Xã",
+                    "Phường",
+                    "Thị Trấn",
+                  ])
+                )
+              );
+            }
+
+            // Thêm query param để force component re-render
+            await this.$router.push(routeParams);
+
+            // Chuyển route và đợi cho đến khi navigation hoàn tất
+            this.setKeyIndexComponent(1);
+
+            // Emit event để thông báo cho component cha biết route đã thay đổi
+            this.$emit("route-changed", screamName);
+          } else {
+            let routeParams = {
+              name: screamName,
+              params: {
+                language: this.renderLanguage,
+                location: [this.breadcumsObject.country_key.toLowerCase()],
+              },
+            };
+
+            // Xây dựng mảng location dựa vào điều kiện
+            if (
+              this.breadcumsObject.state.length !== 0 &&
+              this.breadcumsObject.county.length === 0
+            ) {
+              routeParams.params.location.push(
+                convertLowerCase(this.breadcumsObject.state)
+              );
+            }
+
+            if (
+              this.breadcumsObject.state.length !== 0 &&
+              this.breadcumsObject.county.length !== 0 &&
+              this.breadcumsObject.cities.length === 0
+            ) {
+              routeParams.params.location.push(
+                convertLowerCase(this.breadcumsObject.state),
+                convertLowerCase(this.breadcumsObject.county)
+              );
+            }
+
+            if (
+              this.breadcumsObject.state.length !== 0 &&
+              this.breadcumsObject.county.length !== 0 &&
+              this.breadcumsObject.cities.length !== 0
+            ) {
+              routeParams.params.location.push(
+                convertLowerCase(this.breadcumsObject.state),
+                convertLowerCase(this.breadcumsObject.county),
+                convertLowerCase(this.breadcumsObject.cities)
+              );
+            }
+
+            // Thêm query param để force component re-render
+            await this.$router.push(routeParams);
+
+            // Chuyển route và đợi cho đến khi navigation hoàn tất
+            this.setKeyIndexComponent(1);
+
+            // Emit event để thông báo cho component cha biết route đã thay đổi
+            this.$emit("route-changed", screamName);
           }
-
-          if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length !== 0 &&
-            this.breadcumsObject.ward.length === 0
-          ) {
-            routeParams.params.location.push(
-              this.convertLowerCase(this.breadcumsObject.district)
-            );
-          }
-
-          if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length !== 0 &&
-            this.breadcumsObject.ward.length !== 0
-          ) {
-            routeParams.params.location.push(
-              this.convertToSlug(
-                this.removeWordAndAccents(this.breadcumsObject.ward, [
-                  "Xã",
-                  "Thị Xã",
-                  "Phường",
-                  "Thị Trấn",
-                ])
-              )
-            );
-          }
-
-          // Thêm query param để force component re-render
-          await this.$router.push(routeParams);
-
-          // Chuyển route và đợi cho đến khi navigation hoàn tất
-          this.setKeyIndexComponent(1);
-
-          // Emit event để thông báo cho component cha biết route đã thay đổi
-          this.$emit("route-changed", screamName);
-        } else if (countryKey.toLowerCase() === "us") {
-          await this.$router.push({
-            name: screamName,
-            params: {
-              language: this.renderLanguage,
-              location: [
-                this.breadcumsObject.country_key.toLowerCase(),
-                removeAccents(this.breadcumsObject.state),
-                this.removeWordAndAccents(
-                  this.breadcumsObject.county,
-                  "County"
-                ),
-                removeAccents(this.breadcumsObject.cities),
-              ],
-            },
-          });
-        } else {
-          let routeParams = {
-            name: screamName,
-            params: {
-              language: this.renderLanguage,
-              location: [this.breadcumsObject.country_key.toLowerCase()],
-            },
-          };
-
-          // Xây dựng mảng location dựa vào điều kiện
-          if (this.breadcumsObject.city.length !== 0) {
-            routeParams.params.location.push(
-              this.convertToSlug(this.breadcumsObject.city)
-            );
-          }
-
-          if (this.breadcumsObject.district.length !== 0) {
-            routeParams.params.location.push(
-              this.convertToSlug(this.breadcumsObject.district)
-            );
-          }
-
-          // Thêm query param để force component re-render
-          routeParams.params.timestamp = Date.now();
-
-          // Chuyển route và đợi cho đến khi navigation hoàn tất
-          await this.$router.push(routeParams);
-          this.setKeyIndexComponent(1);
-
-          // Emit event để thông báo cho component cha biết route đã thay đổi
-          this.$emit("route-changed", screamName);
         }
       } catch (err) {
         console.error("Navigation failed:", err);
@@ -468,13 +552,13 @@ export default {
 <style lang="scss">
 .weather-menu-item {
   width: 163px;
-  height: 44px;
+  height: 40px;
   background-color: var(--bg-button);
   color: var(--color-txt);
 }
 
 .weather-menu-inner {
-  gap: 20px;
+  gap: 10px;
 }
 
 .active-tab {
@@ -485,5 +569,9 @@ export default {
     filter: invert(71%) sepia(98%) saturate(1946%) hue-rotate(201deg)
       brightness(97%) contrast(107%);
   }
+}
+
+.disabled-class {
+  background-color: #839dcc3b;
 }
 </style>

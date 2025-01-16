@@ -71,6 +71,11 @@ const routes = [
             name: "radar-weather",
             component: () => import("@/views/search/radar-page/index.vue"), // Component cho route con
           },
+          {
+            path: `api-weather/:location*`, // Add ':language' as a dynamic segment
+            name: "radar-weather",
+            component: () => import("@/views/search/api-page/index.vue"), // Component cho route con
+          },
 
           // // Today
           // {

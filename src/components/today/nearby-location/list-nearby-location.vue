@@ -77,13 +77,42 @@
                 }}
               </span>
             </div>
-            <div v-if="wardParam?.country_key === 'us'">
-              <span v-if="wardParam?.state && !wardParam?.county"
-                >Weather {{ wardParam?.state }}</span
+            <div class="txt_medium_14" v-else>
+              <span v-if="wardParam?.state && !wardParam?.county">
+                {{
+                  convertCapitalizeWords(
+                    $t(`{city}_district_Weather`, {
+                      city: `${wardParam?.state}`,
+                    })
+                  )
+                }}
+              </span>
+              <span
+                v-if="
+                  wardParam?.state && wardParam?.county && !wardParam?.cities
+                "
               >
-              <span v-if="wardParam?.county"
-                >Weather {{ wardParam?.county }}</span
+                {{
+                  convertCapitalizeWords(
+                    $t(`Weather_in_{city}_ward_and_commune`, {
+                      city: `${wardParam?.county}`,
+                    })
+                  )
+                }}
+              </span>
+              <span
+                v-if="
+                  wardParam?.state && wardParam?.county && wardParam?.cities
+                "
               >
+                {{
+                  convertCapitalizeWords(
+                    $t(`Weather_in_{city}_ward_and_commune`, {
+                      city: `${wardParam?.cities}`,
+                    })
+                  )
+                }}
+              </span>
             </div>
           </div>
         </div>
@@ -91,15 +120,13 @@
 
       <div class="w-full h-auto" v-if="renderListCityAllGetters.length !== 0">
         <!--  -->
-        <transition-group name="fade" tag="div">
-          <div class="district-list">
-            <DistrictCardPage
-              v-for="(item, index) in displayedItems"
-              :key="index"
-              :objectLocation="item"
-              @click="onClickShowDetailDistrict(item)"
-            ></DistrictCardPage>
-          </div>
+        <transition-group name="fade" tag="div" class="district-list">
+          <DistrictCardPage
+            v-for="(item, index) in displayedItems"
+            :key="`district-${index}`"
+            :objectLocation="item"
+            @click="onClickShowDetailDistrict(item)"
+          ></DistrictCardPage>
         </transition-group>
         <div
           class="w-full text-left mt-3"
@@ -116,7 +143,11 @@
           </button>
         </div>
       </div>
-      <div class="h-[240px] bg-color overflow-hidden pad-big" v-else>
+      <div
+        class="h-[240px] bg-color overflow-hidden pad-big"
+        :class="[classThemeBg]"
+        v-else
+      >
         <div class="w-full h-full justify-center flex items-center">
           {{ $t("In_development") }}
         </div>
@@ -137,6 +168,7 @@ import {
 } from "@/utils/EncoderDecoderUtils";
 
 // import removeAccents from "remove-accents";
+import { ElNotification } from "element-plus";
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
@@ -153,6 +185,20 @@ export default {
       showLessButton: false,
       itemsPerPage: 8, // Số mục hiển thị ban đầu
       currentPage: 1, // Trang hiện tại
+    };
+  },
+
+  setup() {
+    const successUnit = () => {
+      ElNotification({
+        title: "District Ward",
+        message: "Coming soon",
+        type: "warning",
+        position: "bottom-left",
+      });
+    };
+    return {
+      successUnit,
     };
   },
 
@@ -185,6 +231,17 @@ export default {
         : this.objectCityByLocationGetters;
 
       return resultData;
+    },
+
+    classThemeBg() {
+      const themeValue = this.$store.state.commonModule.themeValue;
+      const savedTheme = themeValue
+        ? themeValue
+        : localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        return "bg-color-light";
+      }
+      return "bg-color-dark";
     },
 
     displayedItems() {
@@ -606,137 +663,7 @@ export default {
     },
 
     async onClickShowDetailDistrict(value) {
-      let language = this.languageParam;
-      const nameCity = value.viNameLanguage;
-
-      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-        nameCity
-      )}&key=TOH_KEY`;
-
-      const valueEncode = encodeBase64(urlParam);
-      await this.getFormattedAddress(valueEncode);
-      let objectAddressNew = this.$store.state.weatherModule.newArray[0];
-
-      let objectBreadStorage = JSON.parse(localStorage.getItem("objectBread"));
-
-      if (objectAddressNew?.country_key?.toLowerCase() === "vn") {
-        let objectBread = {
-          country: objectAddressNew.country,
-          country_key: objectAddressNew.country_key.toLowerCase(),
-          city: objectAddressNew.city
-            ? this.findCityData(objectAddressNew).viNameLanguage
-            : "",
-          city_key: objectAddressNew.city
-            ? this.findCityData(objectAddressNew).keyAccentLanguage
-            : "",
-          district:
-            objectAddressNew.district &&
-            this.findDistrictsData(objectAddressNew)
-              ? objectAddressNew.district
-              : "",
-          district_key:
-            objectAddressNew.district &&
-            objectAddressNew.district.trim() !== "" &&
-            this.findDistrictsData(objectAddressNew)
-              ? this.findDistrictsData(objectAddressNew).keyAccentLanguage
-              : "",
-          ward:
-            objectAddressNew.ward && this.findWardData(objectAddressNew)
-              ? this.findWardData(objectAddressNew).viNameLanguage
-              : "",
-          ward_key:
-            objectAddressNew.ward && this.findWardData(objectAddressNew)
-              ? this.findWardData(objectAddressNew).keyAccentLanguage
-              : "",
-          latitude: objectAddressNew.lat,
-          longitude: objectAddressNew.lng,
-        };
-
-        localStorage.setItem("objectBread", JSON.stringify(objectBread));
-
-        this.setBreadcumsNotAllowLocation(objectBread);
-
-        // tồn tại thành phố
-        if (
-          objectBread.city.length !== 0 &&
-          objectBread.district.length === 0
-        ) {
-          await this.$router.push({
-            name: "today-weather",
-            params: {
-              language: language,
-              location: [
-                objectBread.country_key.toLowerCase(),
-                this.convertLowerCase(objectBread.city),
-              ],
-            },
-          });
-        }
-        // Tồn tại quận
-        if (
-          objectBread.city.length !== 0 &&
-          objectBread.district.length !== 0 &&
-          objectBread.ward.length === 0
-        ) {
-          await this.$router.push({
-            name: "today-weather",
-            params: {
-              language: language,
-              location: [
-                objectBread.country_key.toLowerCase(),
-                this.convertLowerCase(objectBread.city),
-                this.convertLowerCase(objectBread.district),
-              ],
-            },
-          });
-        }
-
-        if (
-          objectBread.city.length !== 0 &&
-          objectBread.district.length !== 0 &&
-          objectBread.ward.length !== 0
-        ) {
-          await this.$router.push({
-            name: "today-weather",
-            params: {
-              language: language,
-              location: [
-                objectBread.country_key.toLowerCase(),
-                this.convertLowerCase(objectBread.city),
-                this.convertLowerCase(objectBread.district),
-                this.convertLowerCase(
-                  this.removeWordAndAccents(objectBread.ward, [
-                    "Xã",
-                    "Thị Xã",
-                    "Phường",
-                    "Thị Trấn",
-                  ])
-                ),
-              ],
-            },
-          });
-        }
-      }
-      debugger;
-
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectAddressNew.lat},${objectAddressNew.lng}?lang=en`;
-
-      const resultAir = getAqiDataFromLocation(
-        objectAddressNew.lat,
-        objectAddressNew.lng
-      );
-      const valueEncodeW = encodeBase64(param);
-      const valueNewAir = encodeBase64(resultAir);
-
-      const airCode = getParamAirByCode(this.airObjectGetters.key);
-
-      const encodeAirCode = encodeBase64(airCode);
-
-      await Promise.all([
-        this.getWeatherDataCurrent(valueEncodeW),
-        this.getAirQualityByKey(valueNewAir),
-        this.getAirQuality(encodeAirCode),
-      ]);
+      this.successUnit();
     },
 
     removeWordAndAccents(str, wordsToRemove) {

@@ -161,6 +161,7 @@ import TempDayNightPage from "@/components/today/temp-day-night/temp-day-night-p
 import TempPage from "@/components/today/temperature/temp-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters, mapMutations } from "vuex";
+import { markRaw } from "vue";
 
 export default {
   name: "today-weather",
@@ -181,8 +182,8 @@ export default {
       dayTime: this.$t("Daytime"),
       nightTime: this.$t("Nighttime"),
       isShowDayNight: false,
-      srcDaytime: IcTitleDaytime,
-      srcNighttime: IcTitleNighttime,
+      srcDaytime: markRaw(IcTitleDaytime),
+      srcNighttime: markRaw(IcTitleNighttime),
       descriptDaytime: this.$t("Lorem_ipsum"),
       descriptNighttime: this.$t("Lorem_ipsum"),
     };

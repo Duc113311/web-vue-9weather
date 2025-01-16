@@ -127,6 +127,7 @@ import {
 } from "@/utils/EncoderDecoderUtils";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import removeAccents from "remove-accents";
+import { ElNotification } from "element-plus";
 
 export default {
   name: "nav-bottom",
@@ -134,6 +135,20 @@ export default {
   data() {
     return {
       isMegaBoxVisible: false,
+    };
+  },
+
+  setup() {
+    const successUnit = () => {
+      ElNotification({
+        title: "Widget",
+        message: "Coming soon",
+        type: "warning",
+        position: "bottom-left",
+      });
+    };
+    return {
+      successUnit,
     };
   },
 
@@ -352,9 +367,10 @@ export default {
     },
 
     async onClickShowWidget() {
-      await this.$router.push({
-        path: `/${this.renderLanguage}/create-widget`,
-      });
+      // await this.$router.push({
+      //   path: `/${this.renderLanguage}/create-widget`,
+      // });
+      this.successUnit();
     },
 
     async onClickLocationNow() {

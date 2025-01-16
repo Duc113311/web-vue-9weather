@@ -54,6 +54,19 @@ export default {
   },
 
   mounted() {
+    // Kiểm tra nếu flag chưa được lưu trong localStorage
+    const isFirstVisit = localStorage.getItem("isFirstVisit");
+
+    // Nếu là lần truy cập đầu tiên, xóa cache và lưu flag
+    if (!isFirstVisit) {
+      // Xóa dữ liệu trong localStorage và sessionStorage
+      localStorage.clear(); // Xóa tất cả localStorage
+      sessionStorage.clear(); // Xóa tất cả sessionStorage
+
+      // Lưu flag vào localStorage để đánh dấu lần truy cập đầu tiên
+      localStorage.setItem("isFirstVisit", "false");
+    }
+
     this.nameRouter = this.$route.name;
     const unitValue = localStorage.getItem("unit");
     if (unitValue) {
