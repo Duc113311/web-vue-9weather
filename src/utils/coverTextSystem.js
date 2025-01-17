@@ -185,3 +185,11 @@ export function convertToFormattedArray(input) {
       return word.charAt(0) + word.slice(1); // Viết hoa chữ cái đầu cho từ còn lại
     });
 }
+
+export function convertToLowCase(value) {
+  const normalizedStr = value
+    .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+    .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+  return normalizedStr;
+}

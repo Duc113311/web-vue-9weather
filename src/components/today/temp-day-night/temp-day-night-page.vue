@@ -72,19 +72,11 @@ export default {
       const timeSunrise = this.dailyOneGetters?.sunriseTime;
       const timeSunsetTime = this.dailyOneGetters?.sunsetTime;
 
-      const listHourly24h = value.slice(0, 24);
+      console.log("timeSunrise", timeSunrise);
+      console.log("timeSunsetTime", timeSunsetTime);
+      console.log("dailyOneGetters", this.dailyOneGetters);
 
-      const timeSunriseConvert = timeConvertUTC(
-        timeSunrise,
-        this.locationOffsetGetters.offset,
-        unitSetting.activeTime_save
-      );
-
-      const timeSunsetTimeConvert = timeConvertUTC(
-        timeSunsetTime,
-        this.locationOffsetGetters.offset,
-        unitSetting.activeTime_save
-      );
+      const listHourly24h = value;
 
       let listDaytimeData = [];
       let listNighttimeData = [];
@@ -105,6 +97,8 @@ export default {
           listNighttimeData.push(element);
         }
       }
+      console.log("listDaytimeData", listDaytimeData);
+      console.log("listNighttimeData", listNighttimeData);
 
       let totalDay = 0;
       let totalDayProbability = 0;
@@ -161,7 +155,7 @@ export default {
         apparentTemperature: maxObject?.apparentTemperature
           ? maxObject?.apparentTemperature
           : minObject?.apparentTemperature,
-        UvMax: maxUvIndex !== -Infinity ? maxUvIndex : 0,
+        UvMax: maxUvIndex ? maxUvIndex : 0,
         ChanceOfRainAvg: avgProbabilityDaytime
           ? avgProbabilityDaytime
           : avgProbabilityNighttime,

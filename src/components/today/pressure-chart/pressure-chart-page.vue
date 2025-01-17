@@ -6,22 +6,22 @@
         <vue-horizontal
           responsive
           :displacement="1"
-          class="w-full h-full relative horizontal pl-2 pr-2"
+          class="w-full h-[calc(100%-40px)] relative horizontal"
         >
-          <div>
-            <ChartDays></ChartDays>
-            <div
-              class="chart-container w-[89rem]"
-              v-if="listHourly && listHourly.length"
-            >
-              <canvas id="chart_hourly" height="320" ref="canvas"></canvas>
+          <div class="w-full h-full relative">
+            <ChartDays class="h-[40px]"></ChartDays>
+            <div class="h-[calc(100%-40px)] w-full">
+              <div
+                class="chart-container-pressure w-[1550px] h-full p-chart-avg"
+                v-if="listHourly && listHourly.length"
+              >
+                <canvas id="chart_hourly" class="h-full" ref="canvas"></canvas>
+              </div>
             </div>
           </div>
         </vue-horizontal>
 
-        <div
-          class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
-        >
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="w-full flex justify-between items-center">
             <div class="flex items-center gap-1">
               <div class="bg-pressure rounded-full w-[10px] h-[10px]"></div>
@@ -201,6 +201,11 @@ export default {
         return;
       }
 
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr, dpr);
+
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
@@ -208,8 +213,20 @@ export default {
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       // Thêm các màu với độ mờ (opacity) khác nhau
-      gradient.addColorStop(0, "rgba(117, 39, 213, 1)"); // Màu #7527D5 (tím) với độ mờ 50% tại vị trí 0%
-      gradient.addColorStop(1, "rgba(40, 99, 170, 0.1)"); // Màu #2863AA (xanh dương) với độ mờ 10% tại vị trí 100%
+
+      // Màu bắt đầu: Xanh đậm (đậm nhất)
+      gradient.addColorStop(0, "rgba(117, 39, 213, 1)"); // #0E2950 với alpha = 1 (đậm)
+
+      // Màu trung gian: Xanh nhạt dần
+      gradient.addColorStop(0.5, "rgba(117, 39, 213, 0.3)"); // Alpha = 0.3 (nhạt)
+
+      // Gần cuối: Rất nhạt
+      gradient.addColorStop(0.7, "rgba(117, 39, 213, 0)"); // Alpha = 0.05 (rất mờ)
+      gradient.addColorStop(0.6, "rgba(117, 39, 213, 0)"); // Alpha = 0.05 (rất mờ)
+
+      // Màu kết thúc: Hoàn toàn trong suốt
+      gradient.addColorStop(1, "rgba(40, 99, 170, 0)"); // Alpha = 0 (trong suốt)
+
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
@@ -228,10 +245,10 @@ export default {
             {
               label: "Pressure",
               borderColor: "#BC41F2",
-              pointBackgroundColor: "#ffffff",
+              pointBackgroundColor: "#BC41F2",
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2,
-              pointBorderColor: "#C27021",
+              pointBorderColor: "#BC41F2",
               pointRadius: 5,
               backgroundColor: gradient,
               fill: true,
@@ -244,7 +261,12 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 24,
+            padding: {
+              top: 0, // Chỉ định padding phía trên
+              bottom: 0, // Chỉ định padding phía dưới
+              left: 18,
+              right: 18,
+            },
           },
           plugins: {
             legend: {
@@ -266,7 +288,7 @@ export default {
               display: true,
               align: "top",
               font: {
-                size: 14,
+                size: 12,
                 //   weight: "bold", // Chỉnh độ đậm của chữ
               },
               color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
@@ -279,7 +301,6 @@ export default {
           scales: {
             x: {
               display: false,
-
               ticks: {
                 stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
@@ -287,8 +308,14 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: maxWindSpeedData + 20,
-              min: minWindSpeedData - 20,
+              max:
+                unitSetting === "atm"
+                  ? maxWindSpeedData + 1
+                  : maxWindSpeedData + 20,
+              min:
+                unitSetting === "atm"
+                  ? minWindSpeedData - 1
+                  : minWindSpeedData - 20,
             },
           },
           elements: {
@@ -380,6 +407,6 @@ export default {
   opacity: 0.5;
 }
 .bg-pressure {
-  background-color: #3e52b6;
+  background-color: #b915ff;
 }
 </style>

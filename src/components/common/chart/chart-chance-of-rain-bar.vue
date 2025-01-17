@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container w-[89rem]"
+    class="chart-container-rain w-[1550px] p-chart-avg"
     v-if="paramHourly && paramHourly.length && listDataPrecipIntensity.length"
   >
-    <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_hourly" height="136" ref="canvas"></canvas>
+    <div class="chart-wrapper-rain w-full h-full">
+      <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -125,6 +125,10 @@ export default {
         console.error("Failed to get canvas context");
         return;
       }
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr, dpr);
 
       if (this.chartInstance) {
         this.chartInstance.destroy();
@@ -153,10 +157,6 @@ export default {
       gradientPrecipIntensityLight.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientPrecipIntensityLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientPrecipIntensityLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
-
-      // Lấy giá trị nhỏ nhất trong dữ liệu và giảm thêm padding
-      const minDataValue = Math.min(...this.listDataPrecipIntensity);
-      const maxDataValue = Math.max(...this.listDataPrecipIntensity);
 
       const labelList = this.paramHourly.slice(0, 24).map((item) => {
         const date = item.time;
@@ -212,8 +212,8 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 28,
-              right: 22,
+              left: 18,
+              right: 20,
             },
           },
           scales: {
@@ -229,8 +229,9 @@ export default {
               display: false,
               beginAtZero: true,
               max: 115,
+              min: -6,
               ticks: {
-                padding: 10, // Giảm khoảng cách giữa nhãn và trục
+                padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
             },
           },
@@ -258,7 +259,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0.5,
+              tension: 0.3,
             },
           },
         },
@@ -268,12 +269,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.chart-container {
-  width: 150%;
-}
-
-.chart-wrapper {
-  width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
-}
-</style>
+<style lang="scss"></style>

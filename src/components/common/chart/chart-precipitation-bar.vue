@@ -1,6 +1,10 @@
 <template>
-  <div class="w-[89rem] flex justify-between items-center pl-2">
-    <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
+  <div class="w-[1550px] flex justify-between items-center">
+    <div
+      class="weather-item w-[44px]"
+      v-for="(item, index) in paramHourly"
+      :key="index"
+    >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
       <div class="flex justify-center items-center">
         <component :is="renderHourlyIcon(item.precipIntensity)"></component>

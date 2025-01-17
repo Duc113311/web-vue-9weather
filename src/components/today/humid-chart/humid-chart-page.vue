@@ -5,24 +5,30 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="1"
-          class="w-full h-full relative horizontal pl-2 pr-2"
+          :displacement="0.8"
+          class="w-full h-[calc(100%-40px)] relative horizontal"
         >
-          <div>
-            <ChartDays></ChartDays>
+          <div class="w-full h-full relative">
+            <ChartDays class="h-[40px]"></ChartDays>
 
-            <div
-              class="chart-container w-[89rem] pt-4"
-              v-if="listHourly && listHourly.length"
-            >
-              <canvas id="chart_hourly" height="300" ref="canvas"></canvas>
+            <div class="h-[calc(100%-40px)] w-full">
+              <div
+                class="chart-container w-[1550px] h-full p-chart-avg"
+                v-if="listHourly && listHourly.length"
+              >
+                <div class="w-full h-full">
+                  <canvas
+                    id="chart_hourly"
+                    class="h-full"
+                    ref="canvas"
+                  ></canvas>
+                </div>
+              </div>
             </div>
           </div>
         </vue-horizontal>
 
-        <div
-          class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
-        >
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="w-full flex justify-between items-center">
             <div class="flex items-center gap-1">
               <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
@@ -93,6 +99,7 @@ import {
   convertTimestamp24hSun,
 } from "@/utils/converValue";
 import { mapGetters } from "vuex";
+import { convertToLowCase } from "@/utils/coverTextSystem";
 
 export default {
   name: "humid-chart-page",
@@ -141,6 +148,10 @@ export default {
       return this.listHourly.map(
         (element) => Math.round(element.humidity * 100) || 0
       );
+      // return [
+      //   10, 22, 0, 34, 100, 45, 10, 22, 34, 100, 56, 0, 10, 44, 66, 76, 23, 14,
+      //   34, 0, 5,
+      // ];
     },
   },
 
@@ -164,11 +175,7 @@ export default {
 
   methods: {
     convertToLowCase(value) {
-      const normalizedStr = value
-        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
-        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
-
-      return normalizedStr;
+      return convertToLowCase(value);
     },
     convertTime(val) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
@@ -195,6 +202,11 @@ export default {
         return;
       }
 
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr, dpr);
+
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
@@ -202,7 +214,7 @@ export default {
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
       gradient.addColorStop(0, "rgba(12, 255, 211, 0.9)"); // Màu trên (#F5A300 với độ mờ 50%)
-      gradient.addColorStop(0, "rgba(0, 102, 255, 0.5)"); // Màu dưới (#F5D400 với độ mờ 10%)
+      gradient.addColorStop(0, "rgba(0, 102, 255, 0.2)"); // Màu dưới (#F5D400 với độ mờ 10%)
       gradient.addColorStop(1, "rgba(0, 102, 255, 0)"); // Màu dưới (#F5D400 với độ mờ 10%)
 
       const maxWindSpeedData = Math.max(...this.listTemperatureData);
@@ -221,12 +233,11 @@ export default {
           datasets: [
             {
               label: "Humidity",
-              borderColor: "#1EB092",
-              pointBackgroundColor: "#ffffff",
+              borderColor: "#0b78d5",
+              pointBackgroundColor: "#0b78d5",
               pointBorderWidth: 1, // Độ dày viền của điểm
-
               borderWidth: 2,
-              pointBorderColor: "#ffffff",
+              pointBorderColor: "#0b78d5",
               pointRadius: 5,
               backgroundColor: gradient,
               fill: true,
@@ -239,7 +250,12 @@ export default {
           responsive: true,
           maintainAspectRatio: false,
           layout: {
-            padding: 24,
+            padding: {
+              top: 20, // Chỉ định padding phía trên
+              bottom: 0, // Chỉ định padding phía dưới
+              left: 18,
+              right: 20,
+            },
           },
           plugins: {
             legend: {
@@ -276,18 +292,23 @@ export default {
               display: false,
 
               ticks: {
-                stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
+                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
             },
             y: {
+              type: "linear",
+              position: "left",
               display: false,
               beginAtZero: true,
-              max: maxWindSpeedData + 20,
+              max: maxWindSpeedData + 4,
+              ticks: {
+                padding: 10, // Giảm khoảng cách giữa nhãn và trục
+              },
             },
           },
           elements: {
             line: {
-              tension: 0.5,
+              tension: 0.3,
             },
           },
         },

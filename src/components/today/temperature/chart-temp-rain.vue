@@ -6,34 +6,26 @@
         <vue-horizontal
           responsive
           :displacement="0.8"
-          class="w-full h-full relative horizontal pl-2 pr-2"
+          class="w-full h-[calc(100%-40px)] relative horizontal"
         >
-          <div class="w-full">
-            <ChartDays></ChartDays>
+          <div class="w-full h-full relative">
+            <ChartDays class="h-[40px]"></ChartDays>
 
             <!--  -->
-            <div class="relative w-full h-full">
-              <ChartPrecipitationBar
-                class="absolute top-chart-pre z-10"
-              ></ChartPrecipitationBar>
+            <ChartTemperatureBar class="h-[180px]"></ChartTemperatureBar>
 
-              <!-- <ChartDomainRain
-                class="z-30 absolute top-chart-rain"
-              ></ChartDomainRain> -->
+            <ChartPrecipitationBar
+              class="h-[150px] absolute bottom-0 z-10"
+            ></ChartPrecipitationBar>
 
-              <ChartTemperatureBar
-                class="absolute top-tempt"
-              ></ChartTemperatureBar>
+            <ChartChanceOfRainBar
+              class="h-[150px] absolute bottom-6 z-20"
+            ></ChartChanceOfRainBar>
 
-              <ChartChanceOfRainBar
-                class="absolute z-30 top-chance-rain"
-              ></ChartChanceOfRainBar>
-
-              <!-- <ChartDomainTemps
+            <!-- <ChartDomainTemps
                 class="z-20 absolute"
                 :heightValue="heightValue"
               ></ChartDomainTemps> -->
-            </div>
             <!--  -->
             <!-- <ChartDomainRain class="absolute inset-0"></ChartDomainRain> -->
 
@@ -48,19 +40,17 @@
 
         <!-- <ChartColumnRainfall></ChartColumnRainfall> -->
 
-        <div
-          class="absolute w-full bottom-0 left-0 flex justify-between pad-t-b-10 pad-r-l-10"
-        >
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="flex items-center text-left gap-2">
-            <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
+            <div class="bg-temp-c rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_12">{{ $t("temperature") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
-            <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
+            <div class="bg-rain-c rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_12">{{ $t("Chance_of_rain") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
-            <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>
+            <div class="bg-rainfall-c rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_12">{{ $t("precipitation") }}</span>
           </div>
         </div>
@@ -119,15 +109,13 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  bottom: 90px !important;
-  left: 24px !important;
+  left: 10px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  bottom: 90px !important;
-  right: 24px !important;
+  right: 10px !important;
   opacity: 0.5;
 }
 

@@ -5,108 +5,57 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="1"
-          class="w-full h-full relative horizontal pl-2 pr-2"
+          :displacement="0.8"
+          class="w-full h-[calc(100%-40px)] relative horizontal"
         >
-          <div>
-            <ChartDays></ChartDays>
+          <div class="w-full h-full relative">
+            <ChartDays class="h-[40px] pl-2"></ChartDays>
 
-            <div
-              class="chart-container w-[89rem] mb-4"
-              v-if="listHourly && listHourly.length"
-            >
-              <canvas id="chart_hourly" height="270" ref="canvas"></canvas>
+            <div class="h-[calc(100%-40px)] z-10 w-full">
+              <div
+                class="chart-container-uv h-full w-[1550px]"
+                v-if="listHourly && listHourly.length"
+              >
+                <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
+              </div>
             </div>
           </div>
         </vue-horizontal>
-        <div class="absolute w-full bottom-0 left-0">
-          <div class="flex justify-center items-center w-full">
-            <el-popover placement="bottom" :width="200" trigger="hover">
-              <template #reference>
-                <div class="flex-1 bg-short text-center pl-4 pr-4 pt-2">
-                  <p class="txt_regular_12">{{ $t("Low") }}</p>
-                  <p class="des-atb">0-2</p>
-                </div>
-              </template>
-              <template #default>
-                <div class="w-full">
-                  <p class="txt_regular_14">{{ $t("Low") }}</p>
-                  <p class="txt_regular_10 text-left">
-                    {{ $t("Low_UV_levels") }}
-                  </p>
-                </div>
-              </template>
-            </el-popover>
-
-            <el-popover placement="bottom" :width="200" trigger="hover">
-              <template #reference>
-                <div class="flex-1 bg-Medium text-center pl-4 pr-4 pt-2">
-                  <p class="txt_regular_12">{{ $t("Moderate") }}</p>
-                  <p class="des-atb">3-5</p>
-                </div>
-              </template>
-              <template #default>
-                <div class="w-full">
-                  <p class="txt_regular_14">{{ $t("Moderate") }}</p>
-                  <p class="txt_regular_10 text-left">
-                    {{ $t("There_is_a_moderate") }}
-                  </p>
-                </div>
-              </template>
-            </el-popover>
-
-            <el-popover placement="bottom" :width="200" trigger="hover">
-              <template #reference>
-                <div class="flex-1 bg-High text-center pl-4 pr-4 pt-2">
-                  <p class="txt_regular_12">{{ $t("High") }}</p>
-                  <p class="des-atb">6-7</p>
-                </div>
-              </template>
-              <template #default>
-                <div class="w-full">
-                  <p class="txt_regular_14">{{ $t("High") }}</p>
-                  <p class="txt_regular_10 text-left">
-                    {{ $t("UV_rays_are_highly") }}
-                  </p>
-                </div>
-              </template>
-            </el-popover>
-
-            <el-popover placement="bottom" :width="200" trigger="hover">
-              <template #reference>
-                <div class="flex-1 bg-Very-high text-center pl-4 pr-4 pt-2">
-                  <p class="txt_regular_12">{{ $t("Very_High") }}</p>
-                  <p class="des-atb">8-10</p>
-                </div>
-              </template>
-              <template #default>
-                <div class="w-full">
-                  <p class="txt_regular_14">{{ $t("Very_High") }}</p>
-                  <p class="txt_regular_10 text-left">
-                    {{ $t("The_risk_from_UV_is_very_high") }}
-                  </p>
-                </div>
-              </template>
-            </el-popover>
-
-            <el-popover placement="bottom" :width="200" trigger="hover">
-              <template #reference>
-                <div
-                  class="flex-1 bg-Extremely-high text-center pl-4 pr-4 pt-2"
-                >
-                  <p class="txt_regular_12">{{ $t("Extreme") }}</p>
-                  <p class="des-atb">> 10</p>
-                </div>
-              </template>
-              <template #default>
-                <div class="w-full">
-                  <p class="txt_regular_14">{{ $t("Extreme") }}</p>
-                  <p class="txt_regular_10 text-left">
-                    {{ $t("UV_rays_are_extremely_dangerous") }}
-                  </p>
-                </div>
-              </template>
-            </el-popover>
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
+          <div class="flex items-center text-left gap-2">
+            <div class="bg-short rounded-full w-[10px] h-[10px]"></div>
+            <div class="text-center">
+              <p class="txt_regular_12">{{ $t("Low") }}</p>
+              <p class="txt_regular_12">0-2</p>
+            </div>
+          </div>
+          <div class="flex items-center text-left gap-2">
+            <div class="bg-Medium rounded-full w-[10px] h-[10px]"></div>
+            <div class="text-center">
+              <p class="txt_regular_12">{{ $t("Moderate") }}</p>
+              <p class="txt_regular_12">3-5</p>
+            </div>
+          </div>
+          <div class="flex items-center text-left gap-2">
+            <div class="bg-High rounded-full w-[10px] h-[10px]"></div>
+            <div class="text-center">
+              <p class="txt_regular_12">{{ $t("High") }}</p>
+              <p class="txt_regular_12">6-7</p>
+            </div>
+          </div>
+          <div class="flex items-center text-left gap-2">
+            <div class="bg-Very-high rounded-full w-[10px] h-[10px]"></div>
+            <div class="text-center">
+              <p class="txt_regular_12">{{ $t("Very_High") }}</p>
+              <p class="txt_regular_12">8-10</p>
+            </div>
+          </div>
+          <div class="flex items-center text-left gap-2">
+            <div class="bg-Extremely-high rounded-full w-[10px] h-[10px]"></div>
+            <div class="text-center">
+              <p class="txt_regular_12">{{ $t("Extreme") }}</p>
+              <p class="txt_regular_12">> 10</p>
+            </div>
           </div>
         </div>
       </div>
@@ -163,7 +112,10 @@ export default {
       const unitSetting = this.objectSetting;
 
       return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
-      // return [1, 4, 6, 7, 10, 13, 0, 5, 3];
+      // return [
+      //   12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
+      //   13, 10, 15, 3, 12, 12,
+      // ];
     },
   },
 
@@ -217,7 +169,7 @@ export default {
       gradient.addColorStop(0, "#FFD600"); // Màu trên (#F5A300 với độ mờ 50%)
       gradient.addColorStop(1, "#FFA800"); // Màu dưới (#F5D400 với độ mờ 10%)
       const displayData = this.listUvIndexData.map((value) =>
-        value === 0 ? 0.5 : value
+        value === 0 ? 0.5 : value > 13 ? 13 : value
       );
 
       // Thay đổi màu sắc của từng cột dựa trên giá trị
@@ -236,27 +188,36 @@ export default {
 
       const savedTheme = localStorage.getItem("theme") || "light";
       this.chartInstance = new Chart(ctx, {
-        type: "bar",
+        type: "line",
         data: {
           labels: labelList,
           datasets: [
             {
               label: "Uv Index",
+              type: "bar",
               pointBackgroundColor: "#ffffff",
               borderWidth: 1,
               pointBorderColor: "#C27021",
-              pointRadius: 10,
+              pointRadius: 5,
               backgroundColor: backgroundColors,
               fill: true,
               data: displayData,
+              barThickness: 34,
               borderRadius: 20,
-              barThickness: 30,
             },
           ],
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          layout: {
+            padding: {
+              top: 0, // Chỉ định padding phía trên
+              bottom: 0, // Chỉ định padding phía dưới
+              left: 0,
+              right: 0,
+            },
+          },
           plugins: {
             legend: {
               display: false,
@@ -277,23 +238,26 @@ export default {
               formatter: (value, context) => {
                 return value === 0.5 ? 0 : value;
               },
-              offset: 4,
+              offset: 0,
             },
           },
           scales: {
             x: {
               display: false,
+              ticks: {
+                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
+              },
             },
             y: {
               display: false,
               beginAtZero: true,
-              max: 15,
+              max: 14,
               min: 0,
             },
           },
           elements: {
             line: {
-              tension: 0.5,
+              tension: 0.3,
             },
           },
         },
@@ -315,13 +279,13 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  left: 24px !important;
+  left: 10px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  right: 24px !important;
+  right: 10px !important;
   opacity: 0.5;
 }
 .bg-short {
@@ -342,5 +306,15 @@ export default {
 
 .bg-Extremely-high {
   background-color: #9064cb;
+}
+
+.chart-container {
+  padding: 0;
+  margin: 0;
+}
+canvas {
+  display: block;
+  padding: 0;
+  margin: 0;
 }
 </style>

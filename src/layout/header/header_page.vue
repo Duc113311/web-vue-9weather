@@ -371,7 +371,7 @@ export default {
       }
 
       // Gọi API để lấy dữ liệu gợi ý
-      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.radar.rain&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
         this.valueSearch
       )}&key=TOH_KEY`;
 

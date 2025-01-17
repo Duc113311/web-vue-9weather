@@ -1,14 +1,10 @@
 <template>
   <div
-    class="chart-container w-[89rem]"
+    class="chart-container-tempt h-full w-[1550px] p-chart-avg"
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
-    <div class="chart-wrapper w-full">
-      <canvas
-        id="chart_hourly"
-        ref="canvas"
-        style="height: heightChart"
-      ></canvas>
+    <div class="chart-wrapper-tempt w-full h-full">
+      <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -52,7 +48,6 @@ export default {
     return {
       chart: null,
       chartInstance: null,
-      heightChart: 100,
     };
   },
 
@@ -73,26 +68,14 @@ export default {
           ? convertCtoF(element.temperature)
           : convertFtoC(element.temperature)
       );
-      // return [5, 10, 12, 45, 15, 17, 10, 24, 30, 10, 40, 23];
+      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
+  },
 
-    listDataProbability() {
-      return this.paramHourly.map((element) =>
-        Math.round(element.precipProbability * 100)
-      );
-      // return [0, 1, 5, 10, 0, 4, 100, 26, 49, 0];
-    },
-
-    listDataPrecipIntensity() {
-      return this.paramHourly.map((element) =>
-        // this.convertPrecipitation(element.humidity * 100)
-        Math.round(this.convertPrecipitation(element.precipIntensity))
-      );
-    },
-
-    unitPrecipitation() {
-      const unitSetting = this.$store.state.commonModule.objectSettingSave;
-      return codeToFind(unitSetting.activePrecipitation_save);
+  props: {
+    heightValue: {
+      type: String,
+      default: "90",
     },
   },
 
@@ -130,7 +113,6 @@ export default {
 
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
-
       if (!canvas) {
         console.error("Canvas element not found");
         return;
@@ -158,10 +140,9 @@ export default {
         ctx.canvas.height
       );
 
-      gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // Màu #00CCDC với độ mờ 100% (vị trí 0%)
-      gradientTemperatureDark.addColorStop(0.4, "rgba(245, 163, 0, 0.4)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTemperatureDark.addColorStop(0.8, "rgba(245, 163, 0, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTemperatureDark.addColorStop(1, "rgba(255, 255, 255, 0.1)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
+      gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // 100% độ mờ
+      gradientTemperatureDark.addColorStop(0.7, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+      gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
 
       // Tạo gradient Temperature Dark
       const gradientTemperatureLight = ctx.createLinearGradient(
@@ -178,7 +159,7 @@ export default {
       const minDataValue = Math.min(...this.listTemperatureData);
       const maxDataValue = Math.max(...this.listTemperatureData);
 
-      const labelList = this.paramHourly.slice(0, 24).map((item) => {
+      const labelList = this.paramHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
@@ -191,7 +172,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: "Temperature",
+              label: "Chance of rain",
               type: "line", // Kiểu dataset là line
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",
@@ -228,7 +209,7 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 26,
+              left: 18,
               right: 20,
             },
           },
@@ -244,8 +225,11 @@ export default {
               position: "left",
               display: false,
               beginAtZero: true,
-              max: maxDataValue + 4,
-              min: minDataValue - 10,
+              max: maxDataValue + 2,
+              min: minDataValue - 2,
+              ticks: {
+                padding: 10, // Giảm khoảng cách giữa nhãn và trục
+              },
             },
           },
           plugins: {
@@ -260,7 +244,7 @@ export default {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value === 0.5 ? 0 : value}°`; // Thông tin khi hover
+                  return `${label}: ${value}%`; // Thông tin khi hover
                 },
               },
             },
@@ -272,7 +256,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0,
+              tension: 0.3,
             },
           },
         },
@@ -282,12 +266,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.chart-container {
-  width: 150%;
-}
-
-.chart-wrapper {
-  width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
-}
-</style>
+<style lang="scss"></style>

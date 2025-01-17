@@ -5,23 +5,24 @@
         <!--  -->
         <vue-horizontal
           responsive
-          :displacement="1"
-          class="w-full h-full relative horizontal pl-2 pr-2"
+          :displacement="0.8"
+          class="w-full h-[calc(100%-40px)] relative horizontal"
         >
-          <div>
-            <ChartWind></ChartWind>
-            <div
-              class="chart-container w-[89rem]"
-              v-if="listHourly && listHourly.length"
-            >
-              <canvas id="chart_hourly" height="310" ref="canvas"></canvas>
+          <div class="w-full h-full relative">
+            <ChartWind class="h-[40px]"></ChartWind>
+
+            <div class="h-[calc(100%-40px)] w-full">
+              <div
+                class="chart-container-win h-full w-[1550px] p-chart-avg"
+                v-if="listHourly && listHourly.length"
+              >
+                <canvas id="chart_hourly" class="h-full" ref="canvas"></canvas>
+              </div>
             </div>
           </div>
         </vue-horizontal>
 
-        <div
-          class="absolute w-full bottom-0 left-0 flex justify-end pad-t-b-10 pad-r-l-10"
-        >
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="w-full flex justify-between items-center">
             <div class="flex items-center gap-1">
               <div class="bg-wind rounded-full w-[10px] h-[10px]"></div>
@@ -209,15 +210,30 @@ export default {
         return;
       }
 
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr, dpr);
+
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
 
       // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
       const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 0.7)"); // Màu trắng (#ffffff) với độ mờ 50% tại vị trí 0%
-      gradient.addColorStop(0, "rgba(255, 255, 255, 0.4)"); // Màu trắng (#ffffff) với độ mờ 50% tại vị trí 0%
-      gradient.addColorStop(1, "rgba(135, 135, 135, 0)"); // Màu xám (#878787) với độ mờ 10% tại vị trí 100%
+
+      // Màu bắt đầu: Xanh đậm (đậm nhất)
+      gradient.addColorStop(0, "rgba(14, 41, 80, 1)"); // #0E2950 với alpha = 1 (đậm)
+
+      // Màu trung gian: Xanh nhạt dần
+      gradient.addColorStop(0.5, "rgba(14, 41, 80, 0.3)"); // Alpha = 0.3 (nhạt)
+
+      // Gần cuối: Rất nhạt
+      gradient.addColorStop(0.7, "rgba(14, 41, 80, 0)"); // Alpha = 0.05 (rất mờ)
+      gradient.addColorStop(0.6, "rgba(14, 41, 80, 0)"); // Alpha = 0.05 (rất mờ)
+
+      // Màu kết thúc: Hoàn toàn trong suốt
+      gradient.addColorStop(1, "rgba(14, 41, 80, 0)"); // Alpha = 0 (trong suốt)
 
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
@@ -237,10 +253,10 @@ export default {
           datasets: [
             {
               label: "Wind speed",
-              borderColor: "#e6e6e6",
-              pointBackgroundColor: "#e6e6e6",
+              borderColor: "#0E2950",
+              pointBackgroundColor: "#0E2950",
               borderWidth: 2,
-              pointBorderColor: "#e6e6e6",
+              pointBorderColor: "#0E2950",
               pointRadius: 5,
               backgroundColor: gradient,
               fill: true,
@@ -254,10 +270,10 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 20, // Chỉ định padding phía trên
-              bottom: 25, // Chỉ định padding phía dưới
-              left: 20,
-              right: 20,
+              top: 0, // Chỉ định padding phía trên
+              bottom: 0, // Chỉ định padding phía dưới
+              left: 18,
+              right: 18,
             },
           },
           plugins: {
@@ -300,12 +316,13 @@ export default {
             y: {
               display: false,
               beginAtZero: true,
-              max: maxWindSpeedData + 2,
+              max: maxWindSpeedData + 4,
+              min: 0,
             },
           },
           elements: {
             line: {
-              tension: 0.5,
+              tension: 0.3,
             },
           },
         },
@@ -385,6 +402,6 @@ export default {
   opacity: 0.5;
 }
 .bg-wind {
-  background-color: #e6e6e6;
+  background-color: #0e2950;
 }
 </style>
