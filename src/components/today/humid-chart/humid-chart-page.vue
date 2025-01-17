@@ -300,7 +300,7 @@ export default {
               position: "left",
               display: false,
               beginAtZero: true,
-              max: maxWindSpeedData + 4,
+              max: 114,
               ticks: {
                 padding: 10, // Giảm khoảng cách giữa nhãn và trục
               },
