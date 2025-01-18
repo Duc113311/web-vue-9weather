@@ -101,9 +101,9 @@ export default {
           icon: IcRadar,
         },
         {
-          name: "api-weather",
+          name: "air-quality-weather",
           label: this.$t("AQI"),
-          isRun: false,
+          isRun: true,
           icon: IcApiTab,
         },
         {
@@ -411,9 +411,9 @@ export default {
           screamName = "radar-weather";
         }
         if (this.activeIndex === 4) {
-          // this.setActiveTab(4);
-          screamName = "api-weather";
-          this.successUnit();
+          this.setActiveTab(4);
+          screamName = "air-quality-weather";
+          // this.successUnit();
         }
         if (this.activeIndex === 5) {
           // this.setActiveTab(5);
