@@ -4,7 +4,7 @@
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper-tempt w-full h-full">
-      <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
+      <canvas id="chart_hourly" class="h-full" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -225,8 +225,7 @@ export default {
               position: "left",
               display: false,
               beginAtZero: true,
-              max: maxDataValue + 2,
-              min: minDataValue - 2,
+              max: maxDataValue + 4,
               ticks: {
                 padding: 10, // Giảm khoảng cách giữa nhãn và trục
               },
