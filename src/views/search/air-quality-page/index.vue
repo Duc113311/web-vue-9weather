@@ -4,11 +4,30 @@
     <div class="container mt-5">
       <div class="header-h h-full w-full flex gap-20-px">
         <div class="left-hourly lg:w-[80%] w-full">
-          <SkeletonLoader class="w-full h-[320px]"> </SkeletonLoader>
+          <div class="flex justify-between w-full gap-20-px">
+            <!--  -->
+            <div class="w-full">
+              <GaugeAir
+                v-if="currentlyData && Object.keys(currentlyData).length > 0"
+                class="h-[280px]"
+              ></GaugeAir>
+              <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
+            </div>
+            <div class="w-full">
+              <RecommendedInfor
+                v-if="currentlyData && Object.keys(currentlyData).length < 0"
+              ></RecommendedInfor>
+              <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
+            </div>
+            <!--  -->
+          </div>
         </div>
         <div class="right-hourly w-[20%]">
           <div class="w-full h-full">
-            <SkeletonLoader class="w-full h-[320px]"> </SkeletonLoader>
+            <NoteAir
+              v-if="currentlyData && Object.keys(currentlyData).length > 0"
+            ></NoteAir>
+            <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
           </div>
         </div>
       </div>
@@ -16,49 +35,106 @@
 
     <!--  -->
     <div class="container mt-5">
+      <div class="header-h h-full w-full flex gap-20-px">
+        <div class="left-hourly w-full">
+          <ListAirPage
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></ListAirPage>
+          <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
       <div class="lg:flex w-full h-full gap-20-px">
-        <div class="left-hourly lg:w-[68%] w-full">
-          <!-- O3, PM2.5, PM10 -->
-          <div
-            class="w-full"
-            v-if="currentlyData && Object.keys(currentlyData).length < 0"
-          >
-            <!--  -->
-          </div>
-          <div v-else class="w-full h-[240px] mt-4">
-            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-          </div>
-          <!-- Air station -->
-          <div class="w-full gap-20-px mt-4 flex h-[310px]">
-            <!--  -->
-            <div class="w-[40%] h-full">
-              <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        <div class="left-hourly h-full lg:w-[68%] w-full">
+          <div class="w-full h-full">
+            <div class="lg:h-[350px] w-full">
+              <div class="w-full h-full flex justify-between gap-4">
+                <div class="w-full h-full">
+                  <ListStationPage
+                    class="lg:h-[306px]"
+                    v-if="
+                      currentlyData && Object.keys(currentlyData).length > 0
+                    "
+                  ></ListStationPage>
+                  <SkeletonLoader v-else class="w-full h-full">
+                  </SkeletonLoader>
+                </div>
+                <div class="w-full h-full">
+                  <RadarPage
+                    class="lg:h-[306px]"
+                    v-if="
+                      currentlyData && Object.keys(currentlyData).length > 0
+                    "
+                  ></RadarPage>
+                  <SkeletonLoader v-else class="w-full h-full">
+                  </SkeletonLoader>
+                </div>
+              </div>
             </div>
 
-            <div class="w-[60%] h-full">
-              <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+            <div class="h-full w-full">
+              <div class="w-full h-full">
+                <ListNearbyLocation
+                  v-if="currentlyData && Object.keys(currentlyData).length > 0"
+                ></ListNearbyLocation>
+                <SkeletonLoader v-else class="w-full h-full"> </SkeletonLoader>
+              </div>
+            </div>
+            <div class="h-full w-full">
+              <div class="w-full h-full">
+                <ListCountryPage
+                  v-if="currentlyData && Object.keys(currentlyData).length > 0"
+                ></ListCountryPage>
+                <SkeletonLoader v-else class="w-full h-full"> </SkeletonLoader>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full md:block hidden">
-          <TempFullCard
-            :key="indexState + Math.random()"
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
-          ></TempFullCard>
-          <div v-else class="w-full h-full">
-            <SkeletonLoader class="w-full h-[500px]"> </SkeletonLoader>
+        <!--  -->
+        <div class="right-hourly lg:w-[30%] w-full">
+          <div class="flex justify-center items-center h-auto">
+            <img
+              src="../../../assets/images/png/ic_app_download.png"
+              alt=""
+              class="img-logo"
+            />
           </div>
 
-          <div class="right-c pt-5 h-full w-full">
-            <!--  -->
-            <div class="flex justify-center items-center h-auto">
-              <img
-                src="../../../assets/images/png/ic_app_download.png"
-                alt=""
-                class="img-logo"
-              />
-            </div>
+          <!--  -->
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <SunPage :key="indexState + Math.random()"></SunPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <!--  -->
+
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <MoonPage :key="indexState + Math.random()"></MoonPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <!--  -->
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <UvPage :key="indexState + Math.random()"></UvPage>
+          </div>
+          <div v-else class="w-full h-[230px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
       </div>
@@ -67,7 +143,18 @@
   </div>
 </template>
 <script>
+import GaugeAir from "@/components/air-quality/gauge-air.vue";
+import ListAirPage from "@/components/air-quality/list-air-infor/list-air-page.vue";
+import NoteAir from "@/components/air-quality/note/note-air.vue";
+import RecommendedInfor from "@/components/air-quality/recommended-air.vue/recommended-infor.vue";
+import ListStationPage from "@/components/air-station/list-station-page.vue";
+import MoonPage from "@/components/common/moon-phase/moon-page.vue";
+import SunPage from "@/components/common/sun/sun-page.vue";
 import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
+import UvPage from "@/components/common/uv-index/uv-page.vue";
+import ListCountryPage from "@/components/today/country/list-country-page.vue";
+import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
+import RadarPage from "@/components/today/radar/radar-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters } from "vuex";
 
@@ -76,7 +163,18 @@ export default {
 
   components: {
     SkeletonLoader,
-    TempFullCard,
+    // TempFullCard,
+    RecommendedInfor,
+    NoteAir,
+    GaugeAir,
+    ListAirPage,
+    ListStationPage,
+    RadarPage,
+    SunPage,
+    MoonPage,
+    UvPage,
+    ListNearbyLocation,
+    ListCountryPage,
   },
 
   data() {

@@ -330,13 +330,13 @@ export default {
 }
 .horizontal:hover >>> .v-hl-btn-prev {
   display: flex !important;
-  left: 24px !important;
+  left: 10px !important;
   opacity: 0.5;
 }
 
 .horizontal:hover >>> .v-hl-btn-next {
   display: flex !important;
-  right: 24px !important;
+  right: 10px !important;
   opacity: 0.5;
 }
 .bg-humid {
