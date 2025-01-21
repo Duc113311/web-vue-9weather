@@ -3,7 +3,7 @@
     <!--  -->
     <div class="container mt-5">
       <div class="header-h h-full w-full flex gap-20-px">
-        <div class="left-hourly lg:w-[80%] w-full">
+        <div class="left-hourly lg:w-[85%] w-full">
           <div class="flex justify-between w-full gap-20-px">
             <!--  -->
             <div class="w-full">
@@ -22,7 +22,7 @@
             <!--  -->
           </div>
         </div>
-        <div class="right-hourly w-[20%]">
+        <div class="right-hourly w-[15%]">
           <div class="w-full h-full">
             <NoteAir
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -143,11 +143,11 @@
   </div>
 </template>
 <script>
+import ListStationPage from "@/components/air-quality/air-station/list-station-page.vue";
 import GaugeAir from "@/components/air-quality/gauge-air.vue";
 import ListAirPage from "@/components/air-quality/list-air-infor/list-air-page.vue";
 import NoteAir from "@/components/air-quality/note/note-air.vue";
-import RecommendedInfor from "@/components/air-quality/recommended-air.vue/recommended-infor.vue";
-import ListStationPage from "@/components/air-station/list-station-page.vue";
+import RecommendedInfor from "@/components/air-quality/recommended-air/recommended-infor.vue";
 import MoonPage from "@/components/common/moon-phase/moon-page.vue";
 import SunPage from "@/components/common/sun/sun-page.vue";
 import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
@@ -159,7 +159,7 @@ import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "api-page",
+  name: "air-quality-weather",
 
   components: {
     SkeletonLoader,

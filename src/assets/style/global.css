@@ -226,3 +226,11 @@
   height: 36px !important;
   cursor: pointer !important;
 }
+
+.el-carousel__mask {
+  opacity: 0 !important;
+}
+
+.el-carousel__indicators {
+  display: none !important;
+}

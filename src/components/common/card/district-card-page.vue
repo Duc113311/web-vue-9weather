@@ -1,7 +1,7 @@
 <template>
   <div class="cursor-pointer">
     <!--  -->
-    <div class="district-card">
+    <div class="district-card-km">
       <div class="flex items-center justify-center p-1">
         <img
           src="../../../assets/images/svg_v2/ic_rain_data.svg"
@@ -141,7 +141,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.district-card {
+.district-card-km {
   box-shadow: inset 0px 0px 56px var(--bg-compo-1),
     inset -50px -50px 100px 0px var(--bg-compo-2),
     inset 500px 500px 100px 0px var(--bg-compo-3);

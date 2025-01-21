@@ -77,6 +77,16 @@ const routes = [
             component: () =>
               import("@/views/search/air-quality-page/index.vue"), // Component cho route con
           },
+          {
+            path: `uv-weather/:location*`, // Add ':language' as a dynamic segment
+            name: "uv-weather",
+            component: () => import("@/views/search/uv-page/index.vue"), // Component cho route con
+          },
+          {
+            path: `moon-phase-weather/:location*`, // Add ':language' as a dynamic segment
+            name: "moon-phase-weather",
+            component: () => import("@/views/search/moon-phase-page/index.vue"), // Component cho route con
+          },
 
           // // Today
           // {

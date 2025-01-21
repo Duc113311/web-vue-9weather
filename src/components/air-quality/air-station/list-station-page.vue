@@ -35,7 +35,7 @@
             <div class="flex w-full justify-between gap-2 items-center">
               <div class="flex items-center">
                 <img
-                  src="../../assets/images/svg_v2/ic_solar_station_bold.svg"
+                  src="../../../assets/images/svg_v2/ic_solar_station_bold.svg"
                   alt=""
                   srcset=""
                 />
@@ -44,7 +44,7 @@
               <div class="flex items-center">
                 <p>5.5km</p>
                 <img
-                  src="../../assets/images/svg_v2/ic_distance_svgrepo_com.svg"
+                  src="../../../assets/images/svg_v2/ic_distance_svgrepo_com.svg"
                   alt=""
                   srcset=""
                 />
@@ -57,7 +57,7 @@
   </div>
 </template>
 <script>
-import BaseComponent from "../common/baseComponent.vue";
+import BaseComponent from "@/components/common/baseComponent.vue";
 
 export default {
   name: "list-station-page",

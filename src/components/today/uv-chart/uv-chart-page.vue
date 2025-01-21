@@ -9,7 +9,7 @@
           class="w-full h-[calc(100%-40px)] relative horizontal"
         >
           <div class="w-full h-full relative">
-            <ChartDays class="h-[40px] pl-2"></ChartDays>
+            <ChartDays class="h-[40px] pl-3 pr-3"></ChartDays>
 
             <div class="h-[calc(100%-40px)] z-10 w-full">
               <div
@@ -111,11 +111,11 @@ export default {
     listUvIndexData() {
       const unitSetting = this.objectSetting;
 
-      return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
-      // return [
-      //   12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
-      //   13, 10, 15, 3, 12, 12,
-      // ];
+      // return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
+      return [
+        12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
+        13, 10, 15, 3, 12, 12,
+      ];
     },
   },
 
@@ -202,7 +202,7 @@ export default {
               backgroundColor: backgroundColors,
               fill: true,
               data: displayData,
-              barThickness: 34,
+              barThickness: 30,
               borderRadius: 20,
             },
           ],

@@ -109,13 +109,13 @@ export default {
         {
           name: "uv-weather",
           label: this.$t("UV"),
-          isRun: false,
+          isRun: true,
           icon: IcUvIndex,
         },
         {
           name: "moon-phase-weather",
           label: this.$t("Moon phase"),
-          isRun: false,
+          isRun: true,
           icon: IcMoonphase,
         },
         {
@@ -179,6 +179,7 @@ export default {
   },
 
   mounted() {
+    debugger;
     const nameRouter = this.$route.name;
     this.activeIndex = this.menuItems.findIndex((x) => x.name === nameRouter);
 
@@ -187,6 +188,7 @@ export default {
     }
 
     this.setTitleScream(this.activeIndex);
+    this.setActiveTab(this.activeIndex);
   },
 
   methods: {
@@ -416,14 +418,14 @@ export default {
           // this.successUnit();
         }
         if (this.activeIndex === 5) {
-          // this.setActiveTab(5);
+          this.setActiveTab(5);
           screamName = "uv-weather";
-          this.successUnit();
+          // this.successUnit();
         }
         if (this.activeIndex === 6) {
-          // this.setActiveTab(6);
+          this.setActiveTab(6);
           screamName = "moon-phase-weather";
-          this.successUnit();
+          // this.successUnit();
         }
         if (this.activeIndex === 7) {
           // this.setActiveTab(7);
