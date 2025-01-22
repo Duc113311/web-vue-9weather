@@ -5,31 +5,27 @@
       <div class="w-full h-full relative">
         <vue-horizontal
           :displacement="1"
-          @slide="onSlide"
-          class="w-full h-full relative horizontals pl-2 pr-6 pt-4"
+          responsive
+          class="w-full h-[calc(100%-40px)] relative horizontals pl-2 pr-6 pt-4"
         >
-          <div class="w-full relative">
-            <ChartDays></ChartDays>
+          <div class="w-full h-full relative">
+            <ChartDays class="h-[40px]"></ChartDays>
 
-            <div class="relative">
-              <ChartTemperatureBar
-                class="absolute top-0 z-20"
-              ></ChartTemperatureBar>
+            <ChartTemperatureBar
+              class="h-[230px] absolute top-0"
+            ></ChartTemperatureBar>
 
-              <ChartChanceOfRainBar
-                class="absolute z-20 top-chance-rain-hourly"
-              ></ChartChanceOfRainBar>
+            <ChartPrecipitationBar
+              class="h-[150px] absolute bottom-0 z-10"
+            ></ChartPrecipitationBar>
 
-              <ChartPrecipitationBar
-                class="absolute top-chart-pre-hourly z-10"
-              ></ChartPrecipitationBar>
-            </div>
+            <ChartChanceOfRainBar
+              class="h-[150px] absolute bottom-6 z-20"
+            ></ChartChanceOfRainBar>
           </div>
         </vue-horizontal>
 
-        <div
-          class="absolute w-full bottom-0 left-0 flex justify-between pad-t-b-10 pad-r-l-10"
-        >
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="flex items-center text-left gap-2">
             <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
             <span class="txt_regular_12">{{ $t("temperature") }}</span>
@@ -113,7 +109,7 @@ export default {
 }
 
 .top-chance-rain-hourly {
-  top: 158px;
+  top: 10px;
 }
 .top-chart-pre-hourly {
   top: 170px;

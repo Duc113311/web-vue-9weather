@@ -212,7 +212,7 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 18,
+              left: 20,
               right: 20,
             },
           },

@@ -12,7 +12,9 @@
             <ChartDays class="h-[40px]"></ChartDays>
 
             <!--  -->
-            <ChartTemperatureBar class="h-[160px]"></ChartTemperatureBar>
+            <ChartTemperatureBar
+              class="h-[200px] absolute top-0"
+            ></ChartTemperatureBar>
 
             <ChartPrecipitationBar
               class="h-[150px] absolute bottom-0 z-10"

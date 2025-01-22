@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container-tempt h-full w-[1550px] p-chart-avg"
+    class="chart-container-tempt w-[1550px] p-chart-avg"
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper-tempt w-full h-full">
-      <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
+      <canvas id="chart_hourly" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -132,12 +132,26 @@ export default {
         this.chartInstance.destroy();
       }
 
+      // Lấy giá trị nhỏ nhất trong dữ liệu và giảm thêm padding
+      const minDataValue = Math.min(...this.listTemperatureData);
+      const maxDataValue = Math.max(...this.listTemperatureData);
+
+      const chartHeight = ctx.canvas.height;
+      const minPosition =
+        chartHeight -
+        ((minDataValue - minDataValue) / (maxDataValue - minDataValue)) *
+          chartHeight;
+      const maxPosition =
+        chartHeight -
+        ((maxDataValue - minDataValue) / (maxDataValue - minDataValue)) *
+          chartHeight;
+
       // Tạo gradient Temperature Dark
       const gradientTemperatureDark = ctx.createLinearGradient(
         0,
+        maxPosition,
         0,
-        0,
-        ctx.canvas.height
+        chartHeight
       );
 
       gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // 100% độ mờ
@@ -154,10 +168,6 @@ export default {
       gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientTemperatureLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
-
-      // Lấy giá trị nhỏ nhất trong dữ liệu và giảm thêm padding
-      const minDataValue = Math.min(...this.listTemperatureData);
-      const maxDataValue = Math.max(...this.listTemperatureData);
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
@@ -207,7 +217,7 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 0, // Chỉ định padding phía trên
+              top: 40, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
               left: 18,
               right: 20,

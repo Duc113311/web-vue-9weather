@@ -1,14 +1,18 @@
 <template>
-  <div class="w-[96rem] flex justify-between items-center">
-    <div class="weather-item" v-for="(item, index) in paramHourly" :key="index">
+  <div class="w-[1550px] flex justify-between items-center">
+    <div
+      class="weather-item w-[44px]"
+      v-for="(item, index) in paramHourly"
+      :key="index"
+    >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_12 pb-1">
+      <div class="txt_regular_12">
         {{ renderHourly(item).timestampValue }}
       </div>
-      <div class="txt_regular_14 pb-1">{{ convertToShortDay(item.time) }}</div>
+      <div class="txt_regular_12">{{ convertToShortDay(item.time) }}</div>
 
       <div class="flex justify-center items-center">
-        <component :is="renderHourly(item).iconValue"></component>
+        <component :is="renderHourly(item).iconValue" width="18"></component>
       </div>
     </div>
   </div>

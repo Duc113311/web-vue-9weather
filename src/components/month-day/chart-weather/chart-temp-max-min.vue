@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container w-[96rem] mt-2"
-    v-if="paramHourly && paramHourly.length"
+    class="chart-container-tempt w-[1550px] p-chart-avg"
+    v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
-    <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_tem_month" height="240" ref="canvas"></canvas>
+    <div class="chart-wrapper-tempt w-full h-full">
+      <canvas id="chart_hourly" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
       return this.$store.state.commonModule.objectSettingSave;
     },
 
-    listTemperatureDataMax() {
+    listTemperatureData() {
       const unitSetting = this.objectSetting;
 
       return this.paramHourly.map((element) =>
@@ -68,9 +68,10 @@ export default {
           ? convertCtoF(element.temperatureMax)
           : convertFtoC(element.temperatureMax)
       );
+      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
 
-    listTemperatureDataMin() {
+    listTemperatureMin() {
       const unitSetting = this.objectSetting;
 
       return this.paramHourly.map((element) =>
@@ -78,11 +79,14 @@ export default {
           ? convertCtoF(element.temperatureMin)
           : convertFtoC(element.temperatureMin)
       );
+      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
+  },
 
-    unitPrecipitation() {
-      const unitSetting = this.$store.state.commonModule.objectSettingSave;
-      return codeToFind(unitSetting.activePrecipitation_save);
+  props: {
+    heightValue: {
+      type: String,
+      default: "90",
     },
   },
 
@@ -90,12 +94,7 @@ export default {
     paramHourly(newData) {
       if (newData.length !== 0) {
         this.$nextTick(() => {
-          if (
-            this.listTemperatureDataMin.length !== 0 &&
-            this.listTemperatureDataMax.length !== 0
-          ) {
-            this.createChartMonthly();
-          }
+          this.createChartHourly24h();
         });
       }
     },
@@ -104,12 +103,7 @@ export default {
   mounted() {
     if (this.paramHourly && this.paramHourly.length) {
       this.$nextTick(() => {
-        if (
-          this.listTemperatureDataMin.length !== 0 &&
-          this.listTemperatureDataMax.length !== 0
-        ) {
-          this.createChartMonthly();
-        }
+        this.createChartHourly24h();
       });
     }
   },
@@ -128,11 +122,7 @@ export default {
       }
     },
 
-    createChartMonthly() {
-      const maxDataMin = Math.max(...this.listTemperatureDataMin);
-      const minDataMin = Math.min(...this.listTemperatureDataMin);
-      const minDataMax = Math.max(...this.listTemperatureDataMax);
-      const maxDataMax = Math.min(...this.listTemperatureDataMax);
+    createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
         console.error("Canvas element not found");
@@ -144,33 +134,65 @@ export default {
         console.error("Failed to get canvas context");
         return;
       }
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr, dpr);
 
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
 
-      // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
-      const gradientTempt = ctx.createLinearGradient(
-        0,
-        0,
-        0,
-        ctx.canvas.height
-      );
-      gradientTempt.addColorStop(0, "rgba(245, 163, 0, 1)"); // Màu #00CCDC với độ mờ 100% (vị trí 0%)
-      gradientTempt.addColorStop(0.4, "rgba(245, 163, 0, 0.4)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTempt.addColorStop(0.8, "rgba(245, 163, 0, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTempt.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
+      // Lấy giá trị nhỏ nhất trong dữ liệu và giảm thêm padding
+      const minDataValue = Math.min(...this.listTemperatureData);
+      const maxDataValue = Math.max(...this.listTemperatureData);
 
-      const gradientTemptMin = ctx.createLinearGradient(
+      const minDataValueMin = Math.min(...this.listTemperatureMin);
+      const maxDataValueMin = Math.max(...this.listTemperatureMin);
+
+      // Tạo gradient Temperature Dark Max
+      const gradientTemperatureDark = ctx.createLinearGradient(
         0,
         0,
         0,
         ctx.canvas.height
       );
-      gradientTemptMin.addColorStop(0, "rgba(0, 211, 84, 1)"); // Màu #00CCDC với độ mờ 100% (vị trí 0%)
-      gradientTemptMin.addColorStop(0.4, "rgba(0, 211, 84, 0.4)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTemptMin.addColorStop(0.8, "rgba(0, 211, 84, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
-      gradientTemptMin.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
+      gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // 100% độ mờ
+      gradientTemperatureDark.addColorStop(0.7, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+      gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+
+      // Tạo gradient Temperature Dark
+      const gradientTemperatureLight = ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        ctx.canvas.height
+      );
+      gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      gradientTemperatureLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
+
+      // Tạo gradient Temperature Dark Min
+      const gradientTemperatureDarkMin = ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        ctx.canvas.height
+      );
+      gradientTemperatureDarkMin.addColorStop(0, "rgba(0, 211, 84, 1)"); // 100% độ mờ
+      gradientTemperatureDarkMin.addColorStop(0.7, "rgba(0, 211, 84, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+      gradientTemperatureDarkMin.addColorStop(1, "rgba(0, 211, 84, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+
+      // Tạo gradient Temperature Dark
+      const gradientTemperatureLightMin = ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        ctx.canvas.height
+      );
+      gradientTemperatureLightMin.addColorStop(0, "rgba(0, 211, 84, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      gradientTemperatureLightMin.addColorStop(0, "rgba(0, 211, 84, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      gradientTemperatureLightMin.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
@@ -185,58 +207,62 @@ export default {
           labels: labelList,
           datasets: [
             {
+              label: "Temperature Max",
+              type: "line", // Kiểu dataset là line
+              borderColor: "#EBAB3F",
+              pointBackgroundColor: "#EBAB3F",
+              pointBorderWidth: 1, // Độ dày viền của điểm
+              borderWidth: 2, // Độ dày đường
+              pointBorderColor: "#EBAB3F",
+              pointRadius: 5, // Bán kính điểm
+              backgroundColor:
+                savedTheme === "light"
+                  ? gradientTemperatureLight
+                  : gradientTemperatureDark,
+              fill: true, // Tô nền dưới line
+              data: this.listTemperatureData,
+              pointHoverRadius: 4, // Tăng kích thước khi hover
+              yAxisID: "y1", // Gán trục y cho Temperature
+              datalabels: {
+                display: true,
+                align: "top",
+                anchor: "start", // Gắn nhãn ở đầu cột
+                font: {
+                  size: 14,
+                },
+                color: "#EBAB3F",
+                formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
+                offset: 6,
+              },
+            },
+
+            {
               label: "Temperature Min",
               type: "line", // Kiểu dataset là line
               borderColor: "#00D354",
               pointBackgroundColor: "#00D354",
-              pointBorderWidth: 0, // Độ dày viền của điểm
-              borderWidth: 1,
-              pointBorderColor: "#C27021",
-              pointRadius: 5,
-              backgroundColor: gradientTemptMin,
-              fill: true,
-              data: this.listTemperatureDataMin,
+              pointBorderWidth: 1, // Độ dày viền của điểm
+              borderWidth: 2, // Độ dày đường
+              pointBorderColor: "#00D354",
+              pointRadius: 5, // Bán kính điểm
+              backgroundColor:
+                savedTheme === "light"
+                  ? gradientTemperatureLightMin
+                  : gradientTemperatureDarkMin,
+              fill: true, // Tô nền dưới line
+              data: this.listTemperatureMin,
               pointHoverRadius: 4, // Tăng kích thước khi hover
-              yAxisID: "y2", // Gán trục y cho Rain
+              yAxisID: "y2", // Gán trục y cho Temperature
               datalabels: {
                 display: true,
                 align: "bottom",
-                borderRadius: 3,
+                anchor: "start", // Gắn nhãn ở đầu cột
                 font: {
                   size: 14,
                 },
                 color: "#00D354",
-                offset: 4,
-                formatter: (value) => `${value}°`,
-              },
-            },
-            {
-              label: "Temperature Max",
-              type: "line", // Kiểu dataset là line
-              borderColor: "#EC9D00",
-              pointBackgroundColor: "#EC9D00",
-              pointBorderWidth: 0, // Độ dày viền của điểm
-              borderWidth: 1,
-              pointBorderColor: "#EC9D00",
-              pointRadius: 5,
-              backgroundColor: gradientTempt,
-              fill: true,
-              data: this.listTemperatureDataMax,
-              pointHoverRadius: 4, // Tăng kích thước khi hove
-              yAxisID: "y1", // Gán trục y cho Rain
-              datalabels: {
-                display: true,
-                align: "top",
-                borderRadius: 1,
-                font: {
-                  size: 14,
-                  //   weight: "bold", // Chỉnh độ đậm của chữ
-                },
-                color: "#EC9D00", // Thay đổi màu sắc của nhãn dữ liệu
-                offset: 4,
-                formatter: (value, context) => {
-                  return `${value}°`;
-                },
+                formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
+                offset: 0,
               },
             },
           ],
@@ -244,13 +270,42 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-
           layout: {
             padding: {
-              top: 20, // Chỉ định padding phía trên
-              bottom: 10, // Chỉ định padding phía dưới
+              top: 40, // Chỉ định padding phía trên
+              bottom: 20, // Chỉ định padding phía dưới
               left: 18,
-              right: 18,
+              right: 20,
+            },
+          },
+          scales: {
+            x: {
+              display: false,
+              ticks: {
+                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
+              },
+            },
+            y1: {
+              type: "linear",
+              position: "left",
+              display: false,
+              beginAtZero: true,
+              max: maxDataValue + 2,
+              min: minDataValue - 8,
+              ticks: {
+                padding: 10, // Giảm khoảng cách giữa nhãn và trục
+              },
+            },
+            y2: {
+              type: "linear",
+              position: "left",
+              display: false,
+              beginAtZero: true,
+              max: maxDataValue + 4,
+              min: minDataValue - 8,
+              ticks: {
+                padding: 10, // Giảm khoảng cách giữa nhãn và trục
+              },
             },
           },
           plugins: {
@@ -260,46 +315,24 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
               callbacks: {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value}°`; // Thông tin khi hover
+                  return `${label}: ${value}%`; // Thông tin khi hover
                 },
               },
             },
+            datalabels: {
+              anchor: "end",
+              align: "top",
+            },
           },
-          scales: {
-            x: {
-              display: false,
-              offset: false,
-              ticks: {
-                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
-              },
-            },
-            // Tempt Max
-            y1: {
-              display: false,
-              beginAtZero: true,
-              max: maxDataMax + 20,
-              min: minDataMax - 30,
-              ticks: {
-                padding: 0, // Giảm khoảng cách giữa nhãn và trục
-              },
-            },
-            // Tempt Min
-            y2: {
-              display: false,
-              beginAtZero: true,
 
-              ticks: {
-                padding: 0, // Giảm khoảng cách giữa nhãn và trục
-              },
-            },
-          },
           elements: {
             line: {
-              tension: 0,
+              tension: 0.3,
             },
           },
         },
@@ -309,8 +342,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.chart-wrapper {
-  width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
-}
-</style>
+<style lang="scss"></style>

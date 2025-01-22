@@ -111,11 +111,11 @@ export default {
     listUvIndexData() {
       const unitSetting = this.objectSetting;
 
-      // return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
-      return [
-        12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
-        13, 10, 15, 3, 12, 12,
-      ];
+      return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
+      // return [
+      //   12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
+      //   13, 10, 15, 3, 12, 12,
+      // ];
     },
   },
 
@@ -212,7 +212,7 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 0, // Chỉ định padding phía trên
+              top: 10, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
               left: 0,
               right: 0,

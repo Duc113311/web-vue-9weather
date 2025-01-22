@@ -1,10 +1,10 @@
 <template>
   <div
-    class="chart-container w-[96rem]"
+    class="chart-container-rain w-[1550px] p-chart-avg"
     v-if="paramHourly && paramHourly.length && listDataPrecipIntensity.length"
   >
-    <div class="chart-wrapper w-full h-full">
-      <canvas id="chart_tem_month" height="136" ref="canvas"></canvas>
+    <div class="chart-wrapper-rain w-full h-full">
+      <canvas id="chart_tem_month" height="auto" ref="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -139,7 +139,7 @@ export default {
       );
 
       gradientPrecipIntensityDark.addColorStop(0, "rgba(0, 204, 220, 1)"); // Màu #00CCDC với độ mờ 100% (vị trí 0%)
-      gradientPrecipIntensityDark.addColorStop(0.6, "rgba(0, 132, 143, 0.2)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
+      gradientPrecipIntensityDark.addColorStop(0.3, "rgba(0, 132, 143, 0.6)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
       gradientPrecipIntensityDark.addColorStop(1, "rgba(0, 132, 143, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
 
       // Tạo gradient Temperature Dark
@@ -177,10 +177,10 @@ export default {
             {
               label: "Chance of rain",
               type: "line", // Kiểu dataset là line
-              borderColor: "#90bcf3",
+              borderColor: "#00E3F5",
               pointBackgroundColor: "#00E3F5",
               pointBorderWidth: 1, // Độ dày viền của điểm
-              borderWidth: 1, // Độ dày đường
+              borderWidth: 2, // Độ dày đường
               pointBorderColor: "#00E3F5",
               pointRadius: 5, // Bán kính điểm
               backgroundColor:
@@ -188,7 +188,7 @@ export default {
                   ? gradientPrecipIntensityLight
                   : gradientPrecipIntensityDark,
               fill: true, // Tô nền dưới line
-              data: this.listDataPrecipIntensity,
+              data: displayData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y1", // Gán trục y cho Temperature
               datalabels: {
@@ -199,9 +199,8 @@ export default {
                   size: 14,
                 },
                 color: savedTheme === "light" ? "#333333" : "#00e3f5",
-                formatter: (value) => `${value}%`, // Định dạng giá trị hiển thị
-
-                offset: 6,
+                formatter: (value) => `${value === 0.5 ? 0 : value}%`, // Định dạng giá trị hiển thị
+                offset: 4,
               },
             },
           ],
@@ -230,8 +229,9 @@ export default {
               display: false,
               beginAtZero: true,
               max: 115,
+              min: -6,
               ticks: {
-                padding: 10, // Giảm khoảng cách giữa nhãn và trục
+                padding: 0, // Giảm khoảng cách giữa nhãn và trục
               },
             },
           },
@@ -259,7 +259,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0,
+              tension: 0.3,
             },
           },
         },
@@ -269,8 +269,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.chart-wrapper {
-  width: 100%; /* Đặt chiều rộng lớn hơn để kích hoạt cuộn ngang nếu cần */
-}
-</style>
+<style lang="scss"></style>
