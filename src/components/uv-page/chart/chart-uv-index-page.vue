@@ -92,11 +92,11 @@ export default {
     listUvIndexData() {
       const unitSetting = this.objectSetting;
 
-      // return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
-      return [
-        12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
-        13, 10, 15, 3, 12, 12,
-      ];
+      return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
+      // return [
+      //   12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
+      //   13, 10, 15, 3, 12, 12,
+      // ];
     },
   },
 

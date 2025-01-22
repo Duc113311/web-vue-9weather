@@ -15,7 +15,7 @@
             </div>
             <div class="w-full">
               <RecommendedInfor
-                v-if="currentlyData && Object.keys(currentlyData).length < 0"
+                v-if="currentlyData && Object.keys(currentlyData).length > 0"
               ></RecommendedInfor>
               <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
             </div>
@@ -62,12 +62,13 @@
                   </SkeletonLoader>
                 </div>
                 <div class="w-full h-full">
-                  <RadarPage
+                  <GoogleMapPage
                     class="lg:h-[306px]"
                     v-if="
                       currentlyData && Object.keys(currentlyData).length > 0
                     "
-                  ></RadarPage>
+                  ></GoogleMapPage>
+
                   <SkeletonLoader v-else class="w-full h-full">
                   </SkeletonLoader>
                 </div>
@@ -145,6 +146,7 @@
 <script>
 import ListStationPage from "@/components/air-quality/air-station/list-station-page.vue";
 import GaugeAir from "@/components/air-quality/gauge-air.vue";
+import GoogleMapPage from "@/components/air-quality/google-map/google-map-page.vue";
 import ListAirPage from "@/components/air-quality/list-air-infor/list-air-page.vue";
 import NoteAir from "@/components/air-quality/note/note-air.vue";
 import RecommendedInfor from "@/components/air-quality/recommended-air/recommended-infor.vue";
@@ -154,7 +156,6 @@ import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
 import UvPage from "@/components/common/uv-index/uv-page.vue";
 import ListCountryPage from "@/components/today/country/list-country-page.vue";
 import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
-import RadarPage from "@/components/today/radar/radar-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters } from "vuex";
 
@@ -169,7 +170,7 @@ export default {
     GaugeAir,
     ListAirPage,
     ListStationPage,
-    RadarPage,
+    GoogleMapPage,
     SunPage,
     MoonPage,
     UvPage,
