@@ -2,22 +2,34 @@
   <div class="cursor-pointer">
     <!--  -->
     <div class="district-card">
-      <div class="text-center txt_medium_14">FullMoon</div>
+      <div class="text-center txt_medium_14">
+        {{ objectLocation.moonPhase }}
+      </div>
       <div class="txt_regular_12 color_BFBFBF">
-        <p>15:00, Thứ 3</p>
+        <p>{{ objectLocation.date }}/{{ objectLocation.monthDay }}</p>
       </div>
       <div class="flex items-center justify-center p-1">
-        <component :is="IcFullMoon"></component>
+        <component
+          :is="convertStringMoonIcon(objectLocation.moonPhase)"
+        ></component>
       </div>
 
       <div class="txt_regular_12 color_BFBFBF">
-        <p>Illumination: 91.3%</p>
+        <p>
+          Illumination: {{ objectLocation?.infoMoonPhaseDay?.illumination }}%
+        </p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import IcFirstQuarter from "@/components/icons/moon-phase/IcFirstQuarter.vue";
 import IcFullMoon from "@/components/icons/moon-phase/IcFullMoon.vue";
+import IcNewMoon from "@/components/icons/moon-phase/IcNewMoon.vue";
+import IcThirdQuarter from "@/components/icons/moon-phase/IcThirdQuarter.vue";
+import IcWaningGibbous from "@/components/icons/moon-phase/IcWaningGibbous.vue";
+import IcWaxingCrescent from "@/components/icons/moon-phase/IcWaxingCrescent.vue";
+import IcWaxingGibbous from "@/components/icons/moon-phase/IcWaxingGibbous.vue";
 import { markRaw } from "vue";
 
 export default {
@@ -33,6 +45,12 @@ export default {
   data() {
     return {
       IcFullMoon: markRaw(IcFullMoon),
+      IcFirstQuarter: markRaw(IcFirstQuarter),
+      IcNewMoon: markRaw(IcNewMoon),
+      IcThirdQuarter: markRaw(IcThirdQuarter),
+      IcWaningGibbous: markRaw(IcWaningGibbous),
+      IcWaxingCrescent: markRaw(IcWaxingCrescent),
+      IcWaxingGibbous: markRaw(IcWaxingGibbous),
     };
   },
 
@@ -46,6 +64,29 @@ export default {
     //   const value = encodeBase64(urlParam);
     //   await this.getFormattedAddress(value);
     // },
+
+    convertStringMoonIcon(value) {
+      const valueName = value.toString();
+
+      switch (valueName) {
+        case "Full Moon":
+          return this.IcFullMoon;
+        case "First Quarter":
+          return this.IcFirstQuarter;
+        case "New Moon":
+          return this.IcNewMoon;
+        case "Third Quarter":
+          return this.IcThirdQuarter;
+        case "Waning Gibbous":
+          return this.IcWaningGibbous;
+        case "Waxing Crescent":
+          return this.IcWaxingCrescent;
+        case "Waxing Gibbous":
+          return this.IcWaxingGibbous;
+        default:
+          return this.IcFullMoon;
+      }
+    },
   },
 };
 </script>

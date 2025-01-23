@@ -3,21 +3,21 @@
     <!--  -->
     <div class="container mt-5">
       <div class="header-h h-full w-full flex gap-20-px">
-        <div class="left-hourly lg:w-[70%] h-full w-full">
+        <div class="left-hourly h-full w-full">
           <ListCarouselMoon
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></ListCarouselMoon>
           <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
         </div>
 
-        <div class="right-hourly w-[30%]">
+        <!-- <div class="right-hourly w-[30%]">
           <div class="w-full">
             <FormMoonPage
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
             ></FormMoonPage>
             <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -147,7 +147,7 @@ export default {
     ListNearbyLocation,
     DescribeMoonPage,
     ListItemMoonPage,
-    FormMoonPage,
+    // FormMoonPage,
     ListCarouselMoon,
   },
 

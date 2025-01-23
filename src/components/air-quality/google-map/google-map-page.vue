@@ -54,6 +54,8 @@ export default {
 
   components: {
     BaseComponent,
+    Marker,
+    GoogleMap,
   },
 
   data() {

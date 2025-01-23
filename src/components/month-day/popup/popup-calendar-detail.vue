@@ -1,5 +1,10 @@
 <template>
   <div class="w-full h-full txt_light_summer">
+    <div>
+      <p>Weather Detail</p>
+    </div>
+  </div>
+  <div class="w-full h-full txt_light_summer">
     <!--  -->
     <div class="w-full flex justify-center items-center p-2">
       <p class="txt_regular_14">
@@ -9,6 +14,7 @@
     <div class="flex w-full items-center justify-center">
       <component
         :is="convertIconCurrently(renderObjTemperature?.icon)"
+        :width="100"
       ></component>
     </div>
     <div class="flex items-center gap-1 p-2 justify-center w-full">
@@ -23,7 +29,7 @@
 
     <div class="flex items-center w-full gap-2">
       <!--  -->
-      <div class="flex flex-col gap-1 w-[49.5%] bor-rim-r pr-3">
+      <div class="flex flex-col gap-1 w-[49.5%] pr-3">
         <div class="flex items-center justify-between gap-1">
           <span class="txt_light_14"> {{ $t("temperature") }}:&nbsp;</span>
           <div class="flex items-center">
@@ -62,7 +68,7 @@
             <span class="txt_medium_15">
               {{ renderObjTemperature?.uvIndex }}
             </span>
-            <span class="txt_regular_14"
+            <span class="txt_regular_12"
               >({{ convertUvIndexName(renderObjTemperature?.uvIndex) }})</span
             >
           </div>
@@ -119,7 +125,7 @@
             <p class="txt_medium_15">
               {{ convertPressure(renderObjTemperature?.pressure) }}
             </p>
-            <span class="txt_regular_14">{{ convertUnitPressure() }}</span>
+            <span class="txt_regular_12">{{ convertUnitPressure() }}</span>
           </div>
         </div>
         <div class="flex items-center justify-between">
@@ -131,7 +137,7 @@
               }}
             </p>
             <span
-              class="txt_regular_14"
+              class="txt_regular_12"
               v-if="timePeriodSunriseTime(renderObjTemperature?.sunriseTime)"
               >({{
                 timePeriodSunriseTime(renderObjTemperature?.sunriseTime)
@@ -148,7 +154,7 @@
               }}
             </p>
             <span
-              class="txt_regular_14"
+              class="txt_regular_12"
               v-if="timePeriodSunsetTime(renderObjTemperature?.sunsetTime)"
               >({{
                 timePeriodSunsetTime(renderObjTemperature?.sunsetTime)

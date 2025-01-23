@@ -100,7 +100,7 @@
       </div>
 
       <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
-        <span>{{ $t("version") }} 3/ 16.01.2024</span>
+        <span>{{ $t("version") }} 4/ 23.01.2024</span>
       </div>
     </div>
   </div>

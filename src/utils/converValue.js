@@ -216,6 +216,7 @@ export function getIconChartPrecipIntensity(value) {
   }
 }
 
+
 export function getIconHourlyForecastTheme(value) {
   const ic_cloudy_hourly = IcCloudy;
   const ic_rain_hourly = IcRain;

@@ -92,11 +92,11 @@
           <IcTitleAir></IcTitleAir>
           <p class="txt_regular_14">{{ $t("air_quality") }}</p>
         </div>
-        <div class="items-center text-right">
-          <p class="txt_medium_17 text-right">{{ paramAirModule }}</p>
-          <p class="txt_regular_14 text-right">
+        <div class="items-center flex gap-1">
+          <span class="txt_medium_17 text-right">{{ paramAirModule }}</span>
+          <span class="txt_regular_14 text-right">
             ({{ convertAirIndexName(paramAirModule) }})
-          </p>
+          </span>
         </div>
       </div>
     </div>

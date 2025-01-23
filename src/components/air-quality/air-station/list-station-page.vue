@@ -37,7 +37,7 @@
                 class="w-[30px] flex justify-center items-center h-[30px] rounded-full"
                 :style="{ backgroundColor: getAQIColorItem(item.v) }"
               >
-                <p class="txt_regular_12">{{ item.v }}</p>
+                <p class="txt_regular_12 text-station">{{ item.v }}</p>
               </div>
               <div class="text-left w-[calc(100%-130px)] pl-2 pr-2">
                 <p class="txt_medium_14 text-left">{{ item.nlo }}</p>
@@ -116,4 +116,8 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.text-station {
+  color: #0e2950;
+}
+</style>

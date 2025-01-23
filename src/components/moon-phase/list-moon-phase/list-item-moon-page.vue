@@ -19,30 +19,23 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <div
-              class="flex items-center txt_medium_14 text-left"
-              v-if="wardParam?.country_key === 'vn'"
-            >
-              <span>List item moon</span>
+            <div class="flex items-center txt_medium_14 text-left">
+              <span>List Moon phase</span>
             </div>
           </div>
         </div>
       </template>
 
-      <div class="w-full h-auto" v-if="renderListCityAllGetters.length !== 0">
+      <div class="w-full h-auto">
         <!--  -->
         <transition-group name="fade" tag="div" class="district-list">
           <CardMoonPage
             v-for="(item, index) in displayedItems"
             :key="`district-${index}`"
             :objectLocation="item"
-            @click="onClickShowDetailDistrict(item)"
           ></CardMoonPage>
         </transition-group>
-        <div
-          class="w-full text-left mt-3"
-          v-if="renderListCityAllGetters.length > 8"
-        >
+        <div class="w-full text-left mt-3">
           <button
             type="button"
             @click="onClickLoadMoreItems"
@@ -52,15 +45,6 @@
               {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
             >
           </button>
-        </div>
-      </div>
-      <div
-        class="h-[240px] bg-color overflow-hidden pad-big"
-        :class="[classThemeBg]"
-        v-else
-      >
-        <div class="w-full h-full justify-center flex items-center">
-          {{ $t("In_development") }}
         </div>
       </div>
     </ItemComponent>
@@ -78,6 +62,7 @@ import {
   getParamAirByCode,
   urlEncodeString,
 } from "@/utils/EncoderDecoderUtils";
+import { getInfoMoonPhase } from "@/utils/moonPhase";
 
 // import removeAccents from "remove-accents";
 import { ElNotification } from "element-plus";
@@ -98,6 +83,23 @@ export default {
       showLessButton: false,
       itemsPerPage: 8, // Số mục hiển thị ban đầu
       currentPage: 1, // Trang hiện tại
+
+      currentDate: "",
+      listMoonData: [],
+      months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
     };
   },
 
@@ -160,7 +162,7 @@ export default {
     displayedItems() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = this.currentPage * this.itemsPerPage;
-      return this.renderListCityAllGetters.slice(0, end);
+      return this.listMoonData.slice(0, end);
     },
 
     itemSliceCount() {
@@ -190,70 +192,10 @@ export default {
 
       return resultData;
     },
-
-    renderListCityAllGetters() {
-      const countryKey = this.wardParam.country_key;
-
-      if (this.wardParam) {
-        if (countryKey === "vn") {
-          const cityKey = this.wardParam.city_key;
-
-          const findData = this.listCityAllData.find(
-            (x) => x.keyAccentLanguage === cityKey
-          );
-
-          if (findData) {
-            if (this.wardParam.district_key) {
-              const findDataWard = findData.districtList?.find(
-                (x) => x.keyAccentLanguage === this.wardParam.district_key
-              );
-              if (findDataWard) {
-                return findDataWard.wards;
-              } else {
-                return [];
-              }
-            } else {
-              return findData.districtList || [];
-            }
-          } else {
-            return [];
-          }
-        } else if (countryKey === "us") {
-          //
-          const stateKey = this.wardParam.state;
-          const findData = this.listAlabamaGetters.find(
-            (x) => x.nameState === stateKey
-          );
-          if (findData) {
-            if (this.wardParam?.county) {
-              const countyRemove = this.removeWordAndAccents(
-                this.wardParam.county,
-                "County"
-              );
-              const findDataCities = findData.counties.find(
-                (x) => x.name === countyRemove
-              );
-              if (findDataCities) {
-                return findDataCities.cities;
-              } else {
-                return [];
-              }
-            } else {
-              return findData.counties;
-            }
-          } else {
-            return [];
-          }
-        } else {
-          return [];
-        }
-      } else {
-        return [];
-      }
-    },
   },
 
   mounted() {
+    this.renderListCityAllGetters();
     window.addEventListener("resize", this.handleResize);
   },
 
@@ -270,40 +212,6 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
-    convertToFormattedArray(input) {
-      if (!input) return []; // Nếu chuỗi không có giá trị, trả về mảng rỗng
-
-      return input
-        .split(" ") // Tách chuỗi theo khoảng trắng
-        .map((word, index) => {
-          if (index === 0) {
-            return word; // Từ đầu tiên chuyển thành chữ thường
-          }
-          return word.charAt(0) + word.slice(1); // Viết hoa chữ cái đầu cho từ còn lại
-        });
-    },
-    checkSubstring(str1, str2) {
-      const words1 = str1.replace(/[^\w\s]/g, "").split("_");
-      const words2 = str2.replace(/[^\w\s]/g, "").split("_");
-
-      const convertArray = this.convertToFormattedArray(str2);
-      // Lọc ra các từ có trong str2
-      const commonWords = words1.filter((word) => words2.includes(word));
-      return commonWords.length >= 2;
-      // Kiểm tra xem có ít nhất 2 từ chung không
-    },
-    convertToSlugCity(str) {
-      const slug = this.removeAccentsUnicode(str);
-      debugger;
-      return slug
-        .toLowerCase() // Chuyển thành chữ thường
-        .replace(/\s+/g, ""); // Xóa khoảng trắng
-    },
-
-    convertCapitalizeWords(value) {
-      return capitalizeWords(value);
-    },
-
     onClickLoadMoreItems() {
       if (this.showLessButton) {
         this.currentPage = 1; // Reset to show the initial items
@@ -311,293 +219,88 @@ export default {
       } else {
         this.currentPage++;
         this.showLessButton =
-          this.currentPage * this.itemsPerPage >=
-          this.renderListCityAllGetters.length;
+          this.currentPage * this.itemsPerPage >= this.listMoonData.length;
       }
     },
 
-    convertToLowCase(value) {
-      const normalizedStr = value
-        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
-        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+    renderListCityAllGetters() {
+      const dateNew = new Date();
+      const currYear = dateNew.getFullYear();
+      const currMonth = dateNew.getMonth();
+      const firstDayofMonth =
+        (new Date(currYear, currMonth, 1).getDay() + 6) % 7;
+      const lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
+      const lastDayofMonth = new Date(
+        currYear,
+        currMonth,
+        lastDateofMonth
+      ).getDay();
 
-      return normalizedStr;
-    },
-    removeDiacritics(value) {
-      const removeString = value
-        .normalize("NFD") // Tách ký tự dấu
-        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu
-      return removeString.replace(/ /g, "_");
-    },
-    convertToVietnamese(input) {
-      const data = this.removeWordAndAccents(input, ["Province"]);
+      const lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+      let dayList = [];
+      const infoMoonPhaseDay = getInfoMoonPhase(new Date(), 80, -90);
 
-      // const dataNew = this.convertToCamelCase(data);
-      // Map các từ gốc sang từ có dấu
-      const vietnameseMap = {
-        Hanoi: "Hà Nội",
-        Haiphong: "Hải Phòng",
-        Danang: "Đà Nẵng",
-        Hochiminh: "Hồ Chí Minh",
-        Cantho: "Cần Thơ",
-        AnGiang: "An Giang",
-        BacGiang: "Bắc Giang",
-        BacKan: "Bắc Kạn",
-        BacLieu: "Bạc Liêu",
-        BacNinh: "Bắc Ninh",
-        BenTre: "Bến Tre",
-        BinhDinh: "Bình Định",
-        BinhDuong: "Bình Dương",
-        BinhPhuoc: "Bình Phước",
-        BinhThuan: "Bình Thuận",
-        CaMau: "Cà Mau",
-        CaoBang: "Cao Bằng",
-        DakLak: "Đắk Lắk",
-        DakNong: "Đắk Nông",
-        DienBien: "Điện Biên",
-        DongNai: "Đồng Nai",
-        DongThap: "Đồng Tháp",
-        GiaLai: "Gia Lai",
-        HaGiang: "Hà Giang",
-        HaNam: "Hà Nam",
-        HaTinh: "Hà Tĩnh",
-        HaiDuong: "Hải Dương",
-        HauGiang: "Hậu Giang",
-        HoaBinh: "Hòa Bình",
-        HungYen: "Hưng Yên",
-        KhanhHoa: "Khánh Hòa",
-        KienGiang: "Kiên Giang",
-        KonTum: "Kon Tum",
-        LaiChau: "Lai Châu",
-        LamDong: "Lâm Đồng",
-        LangSon: "Lạng Sơn",
-        LaoCai: "Lào Cai",
-        LongAn: "Long An",
-        NamDinh: "Nam Định",
-        NgheAn: "Nghệ An",
-        NinhBinh: "Ninh Bình",
-        NinhThuan: "Ninh Thuận",
-        PhuTho: "Phú Thọ",
-        PhuYen: "Phú Yên",
-        QuangBinh: "Quảng Bình",
-        QuangNam: "Quảng Nam",
-        QuangNgai: "Quảng Ngãi",
-        QuangNinh: "Quảng Ninh",
-        QuangTri: "Quảng Trị",
-        SocTrang: "Sóc Trăng",
-        SonLa: "Sơn La",
-        TayNinh: "Tây Ninh",
-        ThaiBinh: "Thái Bình",
-        ThaiNguyen: "Thái Nguyên",
-        ThanhHoa: "Thanh Hóa",
-        ThuaThienHue: "Thừa Thiên Huế",
-        TienGiang: "Tiền Giang",
-        TraVinh: "Trà Vinh",
-        TuyenQuang: "Tuyên Quang",
-        VinhLong: "Vĩnh Long",
-        VinhPhuc: "Vĩnh Phúc",
-        YenBai: "Yên Bái",
-      };
+      // Ngày cuối của tháng trước
+      for (let i = firstDayofMonth; i > 0; i--) {
+        const monthDay = currMonth === 0 ? 12 : currMonth; // Tháng trước (1-12)
 
-      // Kiểm tra nếu chuỗi tồn tại trong map
-      const converted = vietnameseMap[data] || data;
+        dayList.push({
+          date: lastDateofLastMonth - i + 1,
+          inactive: true,
+          monthDay: monthDay,
+          weekend: false,
+          moonPhase: "Full Moon",
+          moonPhasePercentage: 0,
+          infoMoonPhaseDay: infoMoonPhaseDay,
+        });
+      }
+      // Ngày trong tháng hiện tại
+      for (let i = 1; i <= lastDateofMonth; i++) {
+        const isToday =
+          i === new Date().getDate() &&
+          currMonth === new Date().getMonth() &&
+          currYear === new Date().getFullYear();
+        const isWeekend =
+          new Date(currYear, currMonth, i).getDay() === 0 ||
+          new Date(currYear, currMonth, i).getDay() === 6;
 
-      // Thay khoảng trắng bằng dấu gạch dưới
-      return {
-        city: converted,
-        cityConvert: this.convertToConvertLowerCase(converted),
-      };
-    },
-
-    convertToSlug(str) {
-      // Bước 1: Loại bỏ dấu tiếng Việt
-      const normalizedStr = str
-        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
-        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
-
-      // Bước 2: Chuyển thành chữ thường và thay thế khoảng trắng bằng gạch ngang
-      return normalizedStr
-        .toLowerCase() // Chuyển thành chữ thường
-        .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
-        .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
-    },
-
-    removeAccentsUnicode(str) {
-      return str
-        .normalize("NFD") // Chuẩn hóa Unicode thành dạng tổ hợp ký tự và dấu
-        .replace(/[\u0300-\u036f]/g, "") // Loại bỏ tổ hợp dấu
-        .replace(/đ/g, "d") // Xử lý riêng cho chữ "đ"
-        .replace(/Đ/g, "D");
-    },
-
-    convertToConvertLowerCase(str) {
-      const name = this.removeAccentsUnicode(str);
-
-      const slug = this.removeAccentsUnicode(str).replace(/\s+/g, "_");
-
-      return slug;
-    },
-
-    findCityData(value) {
-      const listCityVN = this.objectCityByLocationData;
-
-      debugger;
-      const replaceCity = this.convertToVietnamese(value.city).cityConvert;
-      for (let index = 0; index < listCityVN.length; index++) {
-        const element = listCityVN[index];
-        const provinceCityData = element.provinceCity;
-        const findData = provinceCityData.find(
-          (x) => x.keyAccentLanguage === replaceCity
+        const infoMoonPhaseDay = getInfoMoonPhase(
+          new Date(currYear, currMonth, i),
+          80,
+          -90
         );
-        if (findData) {
-          return findData;
-        }
-      }
-    },
+        const monthDay = currMonth + 1; // Tháng hiện tại (1-12)
 
-    replaceApostropheWithUnderscore(key) {
-      // Kiểm tra nếu chuỗi chứa dấu ' thì thay thế bằng _
-      if (key.includes("'")) {
-        return key.replace(/'/g, "_");
-      }
-      // Nếu không chứa dấu ', trả về chuỗi gốc
-      return key;
-    },
-
-    convertLowerCase(str) {
-      const slug = this.removeAccentsUnicode(str);
-      return slug.replace(/\s+/g, "-").toLowerCase();
-    },
-
-    findDistrictsData(value) {
-      const listCityVN = this.listCityAllData;
-
-      // Kiểm tra xem listCityVN có tồn tại không
-      if (!listCityVN) {
-        console.error("listCityAllGetters không tồn tại");
-        return null; // Hoặc xử lý theo cách khác
+        dayList.push({
+          date: i,
+          monthDay: monthDay,
+          active: isToday,
+          weekend: isWeekend,
+          moonPhase: infoMoonPhaseDay.moonPhaseName,
+          moonPhasePercentage: infoMoonPhaseDay.moonPhasePercentage,
+          infoMoonPhaseDay: infoMoonPhaseDay,
+        });
       }
 
-      const replaceCity = this.convertToVietnamese(value.city).cityConvert;
-      const replaceDistrict = this.convertToConvertLowerCase(value.district);
-
-      debugger;
-      const replaceApos = this.replaceApostropheWithUnderscore(replaceDistrict);
-      const findData = listCityVN.find(
-        (x) => x.keyAccentLanguage === replaceCity
-      );
-
-      if (findData) {
-        const districtListData = findData.districtList;
-
-        // Kiểm tra districtListData có tồn tại và là mảng không
-        if (Array.isArray(districtListData)) {
-          for (let index = 0; index < districtListData.length; index++) {
-            const element = districtListData[index];
-
-            const checkSub = this.checkSubstring(
-              this.removeAccentsUnicode(element.keyAccentLanguage),
-              replaceApos
-            );
-
-            if (checkSub) {
-              return element; // Trả về district nếu tìm thấy
-            }
-          }
-        } else {
-          console.error("districtListData không phải là mảng");
-        }
+      // Ngày đầu của tháng sau
+      for (let i = lastDayofMonth; i < 6; i++) {
+        const monthDay = currMonth === 11 ? 1 : currMonth + 2; // Tháng sau (1-12)
+        dayList.push({
+          date: i - lastDayofMonth + 1,
+          monthDay: monthDay,
+          inactive: true,
+          weekend: false,
+          moonPhase: "Full Moon",
+          moonPhasePercentage: 0,
+          infoMoonPhaseDay: infoMoonPhaseDay,
+        });
       }
-
-      return null; // Trả về null nếu không tìm thấy district
-    },
-
-    findWardData(value) {
-      const listCityVN = this.listCityAllData;
-
-      // Kiểm tra xem listCityVN có tồn tại không
-      if (!listCityVN) {
-        console.error("listCityAllGetters không tồn tại");
-        return null; // Hoặc xử lý theo cách khác
-      }
-      debugger;
-      const replaceCity = this.convertToVietnamese(value.city).cityConvert;
-      const replaceDistrict = this.convertToConvertLowerCase(value.district);
-      const replaceWard = this.convertToConvertLowerCase(value.ward);
-
-      const replaceAposDistrict =
-        this.replaceApostropheWithUnderscore(replaceDistrict);
-      const replaceAposWard = this.replaceApostropheWithUnderscore(replaceWard);
-
-      const findData = listCityVN.find(
-        (x) => x.keyAccentLanguage === replaceCity
-      );
-
-      if (findData) {
-        const districtListData = findData.districtList;
-
-        // Kiểm tra districtListData có tồn tại và là mảng không
-        if (Array.isArray(districtListData)) {
-          for (let index = 0; index < districtListData.length; index++) {
-            const element = districtListData[index];
-
-            const checkSub = this.checkSubstring(
-              this.removeAccentsUnicode(element.keyAccentLanguage),
-              replaceAposDistrict
-            );
-
-            if (checkSub) {
-              const wardListData = element.wards;
-
-              // Kiểm tra wardListData có tồn tại và là mảng không
-              if (Array.isArray(wardListData)) {
-                for (let index = 0; index < wardListData.length; index++) {
-                  const elementWard = wardListData[index];
-                  const checkSubWard = this.checkSubstring(
-                    this.removeAccentsUnicode(elementWard.keyAccentLanguage),
-                    replaceAposWard
-                  );
-
-                  if (checkSubWard) {
-                    return elementWard;
-                  }
-                }
-              } else {
-                console.error("wardListData không phải là mảng");
-              }
-            }
-          }
-        } else {
-          console.error("districtListData không phải là mảng");
-        }
-      }
-
-      return null; // Trả về null nếu không tìm thấy ward
+      this.currentDate = `${this.months[currMonth]} ${currYear}`;
+      this.listMoonData = dayList;
     },
 
     async onClickShowDetailDistrict(value) {
       this.successUnit();
-    },
-
-    removeWordAndAccents(str, wordsToRemove) {
-      const removeAccents = (s) =>
-        s
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
-          .replace(/đ/g, "d")
-          .replace(/Đ/g, "D");
-
-      // Loại bỏ dấu và chuẩn hóa chuỗi
-      let normalizedStr = removeAccents(str);
-
-      // Loại bỏ từng từ trong danh sách wordsToRemove
-      wordsToRemove.forEach((word) => {
-        const normalizedWord = removeAccents(word);
-        const regex = new RegExp(`\\b${normalizedWord}\\b`, "gi");
-        normalizedStr = normalizedStr.replace(regex, "").trim();
-      });
-
-      return normalizedStr;
     },
 
     handleResize() {

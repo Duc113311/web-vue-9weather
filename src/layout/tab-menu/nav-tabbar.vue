@@ -493,6 +493,7 @@ export default {
             // Emit event để thông báo cho component cha biết route đã thay đổi
             this.$emit("route-changed", screamName);
           } else {
+            debugger;
             let routeParams = {
               name: screamName,
               params: {

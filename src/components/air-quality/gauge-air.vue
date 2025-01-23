@@ -35,6 +35,7 @@
           />
           <!-- Progress Arc -->
           <path
+            ref="progressPath"
             class="progress-bar"
             d="M20,100 A50,50 0 1,1 100,100"
             fill="none"
@@ -51,7 +52,6 @@
             :cy="dotPosition.y"
             r="6"
             fill="white"
-            style="stroke: black; stroke-width: 2; box-shadow: 0px 0px 5px red"
           />
 
           <!-- Inner Thin Line with Padding -->
@@ -61,7 +61,6 @@
             fill="none"
             stroke="white"
             stroke-width="1"
-            stroke-linecap="round"
           />
           <!-- Gradient Definition -->
           <defs>
@@ -83,8 +82,13 @@
         </svg>
         <!-- Text in Center -->
         <div class="progress-text">
-          <p>{{ status }}</p>
-          <h1>{{ progress }}</h1>
+          <p
+            class="w-[120px] txt_regular_14"
+            :style="{ color: progressColor(airQualityValue) }"
+          >
+            {{ convertAirIndexName(airQualityValue) }}
+          </p>
+          <p class="txt_medium_24 mt-2">{{ airQualityValue }}</p>
           <span>(AQI)</span>
         </div>
       </div>
@@ -92,6 +96,8 @@
   </div>
 </template>
 <script>
+import { getAirSummaryName } from "@/utils/converValue";
+
 export default {
   name: "gauge-air",
 
@@ -110,26 +116,35 @@ export default {
       radiusDot: 50, // Radius of the arc
       centerXDot: 60, // Center X coordinate of the arc
       centerYDot: 60, // Center Y coordinate of the arc
-      strokeWidthDot: 20, // Stroke width of the progress arc
+      strokeWidthDot: 30, // Stroke width of the progress arc
+
+      pathElement: null, // Reference to the path element
     };
   },
 
   computed: {
-    dotPosition() {
-      debugger;
-      // Calculate the angle for the current progress
-      const angle = Math.PI + (this.progress / 100) * Math.PI; // Start at 180° (Math.PI)
-
-      // Correct the radius to align the dot with the arc's centerline
-      const adjustedRadius = this.radiusDot - this.strokeWidthDot / 2;
-
-      // Calculate the x and y coordinates of the dot
-      return {
-        x: this.centerXDot + adjustedRadius * Math.cos(angle),
-        y: this.centerYDot + adjustedRadius * Math.sin(angle),
-      };
+    airQualityValue() {
+      return this.$store.state.airQualityModule.apiValue;
     },
+    dotPosition() {
+      // Kiểm tra sự tồn tại pathElement
+      if (!this.pathElement) return { x: 20, y: 100 };
 
+      // Láy tổng chiều dài của đường path pixel đường cong
+      // Nửa vòng tròn là 314px
+      const pathLength = this.pathElement.getTotalLength();
+
+      // Tính vị trí trên đường path
+      const position = (this.airQualityValue / 300) * pathLength;
+
+      // Láy ra tọa độ
+      const point = this.pathElement.getPointAtLength(position);
+
+      // Return the x and y coordinates of the dot
+      console.log("tọa độ ", { x: point.x, y: point.y });
+
+      return { x: point.x, y: point.y };
+    },
     innerLinePath() {
       // Calculate the radius for the dashed line with padding
       const innerRadius = this.radius - this.padding;
@@ -150,20 +165,10 @@ export default {
       // Generate the arc path with a small gap at the bottom
       return `M${startX},${startY} A${innerRadius},${innerRadius} 0 1,1 ${endX},${endY}`;
     },
-
-    knobPosition() {
-      // Convert animated progress percentage into radians
-      const angle = Math.PI + (this.animatedProgress / 100) * Math.PI; // Start at 180° (Math.PI)
-
-      // Calculate the x and y coordinates of the knob
-      return {
-        x: this.centerX + this.radius * Math.cos(angle),
-        y: this.centerY + this.radius * Math.sin(angle),
-      };
-    },
   },
 
   mounted() {
+    this.pathElement = this.$refs.progressPath;
     // Animate the progress from 0 to the target value
     const duration = 2000; // Animation duration in ms
     const fps = 60; // Frames per second
@@ -180,7 +185,20 @@ export default {
       }
     }, 1000 / fps);
   },
-  methods: {},
+  methods: {
+    convertAirIndexName(val) {
+      return getAirSummaryName(val);
+    },
+
+    progressColor(value) {
+      if (value <= 50) return "#41E11F";
+      if ((50 <= value) & (value <= 100)) return "#FCFF2F";
+      if ((100 <= value) & (value <= 150)) return "#F68421";
+      if ((150 <= value) & (value <= 200)) return "#F42E1C";
+      if ((200 <= value) & (value <= 300)) return "#8C4396";
+      return "#781125"; // Giá trị phần trăm từ 90 đến 100
+    },
+  },
 };
 </script>
 <style lang="scss">
