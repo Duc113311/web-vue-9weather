@@ -108,6 +108,8 @@ const state = {
   themeValue: "dark",
 
   themeColor: "var(--color-txt-chart-precipitation)",
+
+  isScroll: false,
 };
 
 const getters = {
@@ -118,6 +120,10 @@ const getters = {
    */
   breadcumsObjectGetters(state) {
     return state.breadcumsObject;
+  },
+
+  isScrollGetters(state) {
+    return state.isScroll;
   },
 
   indexComponentGetters(state) {
@@ -154,6 +160,9 @@ const getters = {
 };
 
 const mutations = {
+  setIsScroll(state, value) {
+    state.isScroll = value;
+  },
   setThemeState(state, value) {
     state.themeValue = value;
   },

@@ -141,7 +141,6 @@ export default {
       const point = this.pathElement.getPointAtLength(position);
 
       // Return the x and y coordinates of the dot
-      console.log("tọa độ ", { x: point.x, y: point.y });
 
       return { x: point.x, y: point.y };
     },

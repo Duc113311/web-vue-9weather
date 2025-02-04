@@ -33,7 +33,11 @@
             <p class="txt_regular_14">{{ item.date }}/{{ item.monthDay }}</p>
           </div>
           <div class="flex justify-center items-center w-full h-full">
-            <component :is="convertStringMoonIcon(item.moonPhase)"></component>
+            <component
+              :is="convertStringMoonIcon(item.moonPhase)"
+              width="130"
+              height="130"
+            ></component>
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -127,6 +131,24 @@ export default {
           return this.IcFullMoon;
       }
     },
+
+    rearrangeArray(arr, date, monthDay) {
+      // Tìm vị trí của `number` trong mảng
+      const index = arr.findIndex(
+        (item) => item.date === date && item.monthDay === monthDay
+      );
+
+      if (index === -1) {
+        return arr;
+      }
+
+      // Cắt mảng thành hai phần
+      const part1 = arr.slice(index); // Từ `number + 1` đến cuối
+      const part2 = arr.slice(0, index); // Từ đầu đến `number`
+
+      // Ghép lại theo thứ tự mới
+      return [...part1, ...part2];
+    },
     renderListCityAllGetters() {
       const dateNew = new Date();
       const currYear = dateNew.getFullYear();
@@ -200,7 +222,14 @@ export default {
         });
       }
       this.currentDate = `${this.months[currMonth]} ${currYear}`;
-      this.listMoonData = dayList;
+
+      const dateNow = new Date();
+      const day = dateNow.getDate(); // 4
+      const month = dateNow.getMonth() + 1;
+      debugger;
+      const findNumber = this.rearrangeArray(dayList, day, month);
+
+      this.listMoonData = findNumber;
     },
 
     onChangeMoon(value) {

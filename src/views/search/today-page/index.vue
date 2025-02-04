@@ -107,7 +107,7 @@
         </div>
       </div>
 
-      <div class="right-c pt-12 h-auto lg:w-[30%] w-full">
+      <div class="md:block hidden right-c pt-12 h-auto lg:w-[30%] w-full">
         <!--  -->
         <div class="flex justify-center items-center h-auto">
           <img
@@ -119,9 +119,9 @@
       </div>
     </div>
 
-    <div class="container local-c w-full flex gap-20-px">
+    <div class="container local-c w-full md:flex gap-20-px">
       <div
-        class="left-location lg:w-[70%] w-[60%]"
+        class="left-location lg:w-[70%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
@@ -134,7 +134,7 @@
       </div>
 
       <div
-        class="right-country lg:w-[30%] w-[40%]"
+        class="right-country lg:w-[30%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->

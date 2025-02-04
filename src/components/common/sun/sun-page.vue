@@ -7,7 +7,7 @@
           <p class="txt_medium_14">{{ $t("Sun") }}</p>
         </div>
       </template>
-      <div class="w-full h-[211px]">
+      <div class="w-full lg:h-[211px]">
         <!--  -->
         <div class="sun-rise-progression w-full relative">
           <div

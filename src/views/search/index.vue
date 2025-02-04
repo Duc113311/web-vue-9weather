@@ -7,7 +7,7 @@
     <!--  -->
     <NavTabbar></NavTabbar>
 
-    <div class="ads w-full h-[83px]"></div>
+    <!-- <div class="ads w-full h-[83px]"></div> -->
 
     <router-view></router-view>
 

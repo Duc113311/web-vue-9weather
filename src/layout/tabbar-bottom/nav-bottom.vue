@@ -106,7 +106,7 @@
               }}</span>
             </div>
             <div
-              class="flex items-center cursor-pointer txt_regular_17 bg-bth pad_bth_change bg-btn-hover"
+              class="md:flex hidden items-center cursor-pointer txt_regular_17 bg-bth pad_bth_change bg-btn-hover"
               @click="onClickRechange()"
             >
               <span>{{ $t("rechange") }}</span>

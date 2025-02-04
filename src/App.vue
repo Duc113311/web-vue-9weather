@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full" :class="[isShowScroll ? 'overflow-hidden' : '']">
     <router-view />
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "App-V2",
@@ -17,6 +17,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", ["isScrollGetters"]),
     currentHeader() {
       if (
         this.$route.name === "home-page" ||
@@ -33,6 +34,9 @@ export default {
       return this.currentHeader === "city"
         ? "h-[calc(100vh-72px)]"
         : "md:h-[calc(100vh-28rem)] h-[calc(100vh-20rem)]";
+    },
+    isShowScroll() {
+      return this.isScrollGetters;
     },
   },
 

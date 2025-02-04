@@ -123,7 +123,6 @@ const mutations = {
 
     debugger;
     const addressResult = listResultAddress.results;
-    console.log("addressResult", addressResult);
 
     state.newArray = [];
     for (let index = 0; index < addressResult.length; index++) {

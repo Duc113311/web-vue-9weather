@@ -60,7 +60,6 @@ const messages = {
 // };
 
 const storedLanguage = localStorage.getItem("language");
-console.log("storedLanguage", storedLanguage);
 const defaultLanguage = "en"; // Ngôn ngữ mặc định
 const i18n = createI18n({
   locale: storedLanguage || defaultLanguage, // Sử dụng ngôn ngữ từ localStorage nếu có, ngược lại sử dụng ngôn ngữ mặc định

@@ -217,7 +217,7 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 40, // Chỉ định padding phía trên
+              top: maxDataValue, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
               left: 18,
               right: 20,

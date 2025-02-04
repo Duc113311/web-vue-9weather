@@ -1,7 +1,7 @@
 <template>
   <svg
-    width="96"
-    height="97"
+    :width="width"
+    :height="height"
     viewBox="0 0 96 97"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -101,6 +101,17 @@
 <script>
 export default {
   name: "IcWaxingGibbous",
+
+  props: {
+    width: {
+      type: String,
+      default: "97", // default value if no width is provided
+    },
+    height: {
+      type: String,
+      default: "97", // default value if no height is provided
+    },
+  },
 };
 </script>
 <style lang=""></style>

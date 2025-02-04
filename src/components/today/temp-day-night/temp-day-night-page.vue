@@ -72,10 +72,6 @@ export default {
       const timeSunrise = this.dailyOneGetters?.sunriseTime;
       const timeSunsetTime = this.dailyOneGetters?.sunsetTime;
 
-      console.log("timeSunrise", timeSunrise);
-      console.log("timeSunsetTime", timeSunsetTime);
-      console.log("dailyOneGetters", this.dailyOneGetters);
-
       const listHourly24h = value;
 
       let listDaytimeData = [];
@@ -97,8 +93,6 @@ export default {
           listNighttimeData.push(element);
         }
       }
-      console.log("listDaytimeData", listDaytimeData);
-      console.log("listNighttimeData", listNighttimeData);
 
       let totalDay = 0;
       let totalDayProbability = 0;

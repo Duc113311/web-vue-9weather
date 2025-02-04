@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full md:block hidden">
     <!--  -->
     <div class="container overflow-hidden">
       <div
@@ -117,12 +117,6 @@ export default {
           label: this.$t("Moon phase"),
           isRun: true,
           icon: IcMoonphase,
-        },
-        {
-          name: "sun-weather",
-          label: this.$t("Sun"),
-          isRun: false,
-          icon: IcTitleSun,
         },
       ];
     },
@@ -426,11 +420,6 @@ export default {
           this.setActiveTab(6);
           screamName = "moon-phase-weather";
           // this.successUnit();
-        }
-        if (this.activeIndex === 7) {
-          // this.setActiveTab(7);
-          screamName = "sun-weather";
-          this.successUnit();
         }
 
         if (value.isRun) {

@@ -9,7 +9,7 @@
           <div class="logo-app w-full h-full flex justify-center items-center">
             <!--  -->
 
-            <div class="md:flex w-full items-center gap-2 cursor-pointer">
+            <div class="flex w-full items-center gap-2 cursor-pointer">
               <div
                 class="imgLogo cursor-pointer"
                 @click="onClickReloadHome()"
@@ -23,7 +23,7 @@
             </div>
           </div>
           <!-- Search -->
-          <div class="sm:block hidden w-[350px] h-full">
+          <div class="sm:block hidden md:w-[350px] w-[300px] h-full">
             <div class="flex justify-center items-center h-full">
               <div class="w-[40vh] block">
                 <el-autocomplete
@@ -71,7 +71,7 @@
           <!-- Time -->
           <div class="nav-menu w-full flex h-full justify-end items-center">
             <div
-              class="lg:flex hidden items-center mr-4 txt_regular_17 color-text"
+              class="lg:flex hidden items-center mr-4 txt_regular_15 color-text"
             >
               <div class="flex items-center gap-1">
                 <svg
@@ -99,9 +99,32 @@
               </span>
             </div>
 
-            <div class="cursor-pointer">
+            <div class="cursor-pointer hidden md:block">
               <svg
                 @click="onClickShowMenu"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="icon-path"
+                  d="M0.00756836 21.5C0.00756836 20.6716 0.679141 20 1.50757 20H11.5076C12.336 20 13.0076 20.6716 13.0076 21.5C13.0076 22.3284 12.336 23 11.5076 23H1.50757C0.679142 23 0.00756836 22.3284 0.00756836 21.5Z"
+                />
+                <path
+                  class="icon-path"
+                  d="M11.0076 2.5C11.0076 1.67157 11.6791 1 12.5076 1H22.5076C23.336 1 24.0076 1.67157 24.0076 2.5C24.0076 3.32843 23.336 4 22.5076 4H12.5076C11.6791 4 11.0076 3.32843 11.0076 2.5Z"
+                />
+                <path
+                  class="icon-path"
+                  d="M0.00769926 12.459C0.0119417 11.6306 0.686945 10.9625 1.51536 10.9667L22.3351 11.0733C23.1635 11.0776 23.8316 11.7526 23.8274 12.581C23.8231 13.4094 23.1481 14.0776 22.3197 14.0733L1.5 13.9667C0.67158 13.9624 0.00345683 13.2874 0.00769926 12.459Z"
+                />
+              </svg>
+            </div>
+            <div class="cursor-pointer md:hidden block">
+              <svg
+                @click="onClickShowMenuMobile"
                 width="20"
                 height="20"
                 viewBox="0 0 24 24"
@@ -298,6 +321,7 @@ export default {
       "setBreadcumsAllowLocation",
       "setBreadcumsTheWorld",
       "setIndexComponent",
+      "setIsScroll",
     ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
@@ -344,6 +368,16 @@ export default {
       if (this.isShowHeaderMenu) {
         return this.$emit("onChangeShowHeaderMenu", false);
       }
+      this.$emit("onChangeShowHeaderMenu", true);
+    },
+
+    onClickShowMenuMobile() {
+      if (this.isShowHeaderMenu) {
+        this.setIsScroll(false);
+
+        return this.$emit("onChangeShowHeaderMenu", false);
+      }
+      this.setIsScroll(true);
       this.$emit("onChangeShowHeaderMenu", true);
     },
 

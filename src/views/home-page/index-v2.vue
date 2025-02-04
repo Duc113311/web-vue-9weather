@@ -7,7 +7,7 @@ qq
     <!--  -->
     <NavTabbar></NavTabbar>
     <!-- Ads -->
-    <div class="ads w-full h-[83px]"></div>
+    <!-- <div class="ads w-full h-[83px]"></div> -->
 
     <div class="container">
       <div class="header h-full w-full lg:flex gap-20-px">
