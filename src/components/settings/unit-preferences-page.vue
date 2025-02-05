@@ -27,7 +27,7 @@
             width="24"
             alt=""
           />
-          <span>{{ $t("temperature") }}</span>
+          <span>{{ $t("Temperature") }}</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -83,7 +83,7 @@
             width="24"
             srcset=""
           />
-          <span>{{ $t("precipitation") }}</span>
+          <span>{{ $t("Precipitation") }}</span>
         </div>
         <div class="flex gap-2 justify-end">
           <button
@@ -142,7 +142,7 @@
             alt=""
             srcset=""
           />
-          <span>{{ $t("wind_speed") }}</span>
+          <span>{{ $t("Wind_speed") }}</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="flex gap-2 justify-end">
@@ -194,7 +194,7 @@
             alt=""
             srcset=""
           />
-          <span>{{ $t("pressure") }}</span>
+          <span>{{ $t("Pressure") }}</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="gap-2 flex justify-end">

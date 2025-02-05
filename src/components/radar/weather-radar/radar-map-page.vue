@@ -18,7 +18,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <span class="txt_medium_14">Radar Map</span>
+          <span class="txt_medium_14">{{ $t("Radar_Map") }}</span>
         </div>
       </template>
 

@@ -4,7 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <IcMoonphase></IcMoonphase>
-          <p class="txt_medium_14">{{ $t("moonphase") }}</p>
+          <p class="txt_medium_14">{{ $t("Moon_phase") }}</p>
         </div>
       </template>
       <div class="w-full h-[183px]">
@@ -22,21 +22,21 @@
               <div
                 class="flex w-full justify-between items-center txt_regular_12 pt-2 pb-2"
               >
-                <p>{{ $t("moon_illumination") }}:</p>
+                <p>{{ $t("Moon_illumination") }}:</p>
                 <p>{{ moonPhaseInfo.illumination }}</p>
               </div>
               <!--  -->
               <div
                 class="flex justify-between items-center txt_regular_12 pt-2 pb-2"
               >
-                <p>{{ $t("moonrise") }}:</p>
+                <p>{{ $t("Moonrise") }}:</p>
                 <p>{{ convertTime(moonPhaseInfo.moonrise) }}</p>
               </div>
               <!--  -->
               <div
                 class="flex justify-between items-center txt_regular_12 pt-2 pb-2"
               >
-                <p>{{ $t("next_full_moon") }}:</p>
+                <p>{{ $t("Next_full_moon") }}:</p>
                 <p>{{ moonPhaseInfo.nextFullMoon }} {{ $t("days") }}</p>
               </div>
             </div>
@@ -50,7 +50,7 @@
               :height="100"
             >
             </GlobalMoonIcon> -->
-            <div class="text-center">Coming soon</div>
+            <div class="text-center">{{ $t("Coming_soon") }}</div>
           </div>
         </div>
       </div>

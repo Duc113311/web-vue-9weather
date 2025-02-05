@@ -5,7 +5,15 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <component :is="srcDaytime"></component>
-          <p class="txt_medium_14">UV Index Current</p>
+          <p class="txt_medium_14">
+            {{
+              $t(`Current_UV_Index_In_{city}`, {
+                city: $t(
+                  `city.city_${languageParam}.${objectBreadcums?.city_key}`
+                ),
+              })
+            }}
+          </p>
         </div>
       </template>
       <div class="w-full text-left">
@@ -16,7 +24,9 @@
           </span>
         </div>
         <div class="w-full text-left flex flex-col gap-2 mt-2">
-          <p class="txt_regular_12">World Health Organization UVI</p>
+          <p class="txt_regular_12">
+            {{ $t("World_Health_Organization_UVI") }}
+          </p>
           <p
             v-if="objectBreadcums?.country_key?.toLowerCase() === 'vn'"
             class="txt_regular_17 text-left"
@@ -33,7 +43,7 @@
         <div class="w-full flex items-center justify-between mt-6 mb-4">
           <div class="flex items-center text-left gap-2 txt_regular_des">
             <IcTempt></IcTempt>
-            <p class="txt_regular_14">{{ $t("temperature") }}</p>
+            <p class="txt_regular_14">{{ $t("Temperature") }}</p>
           </div>
           <div class="flex items-center">
             <div class="flex items-center">

@@ -78,8 +78,8 @@
                           alt=""
                         /> -->
                         <p class="txt_regular_12">
-                          {{ convertTemperature(day.temperatureMax) }}° /
-                          {{ convertTemperature(day.temperatureMin) }}°
+                          {{ convertTemperature(day.temperatureMin) }}° /
+                          {{ convertTemperature(day.temperatureMax) }}°
                         </p>
                       </div>
 

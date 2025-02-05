@@ -130,7 +130,7 @@
                 </div>
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-d rounded-full w-[15px] h-[15px]"></div>
-                  <span class="txt_regular_12">{{ $t("low") }}</span>
+                  <span class="txt_regular_12">{{ $t("Low") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
@@ -140,7 +140,7 @@
                   <div
                     class="bg-rainfall-c rounded-full w-[15px] h-[15px]"
                   ></div>
-                  <span class="txt_regular_12">{{ $t("precipitation") }}</span>
+                  <span class="txt_regular_12">{{ $t("Precipitation") }}</span>
                 </div>
               </div>
             </div>

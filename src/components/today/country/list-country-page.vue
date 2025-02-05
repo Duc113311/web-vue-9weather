@@ -49,7 +49,7 @@
             </div>
             <div>
               <p class="txt_medium_14 color_BFBFBF">
-                {{ calculateDistance(item.location) }}km away
+                {{ calculateDistance(item.location) }}km {{ $t("Away") }}
               </p>
             </div>
           </div>

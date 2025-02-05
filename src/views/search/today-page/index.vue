@@ -179,8 +179,8 @@ export default {
   },
   data() {
     return {
-      dayTime: this.$t("Daytime"),
-      nightTime: this.$t("Nighttime"),
+      dayTime: this.$t("Day_time"),
+      nightTime: this.$t("Night_time"),
       isShowDayNight: false,
       srcDaytime: markRaw(IcTitleDaytime),
       srcNighttime: markRaw(IcTitleNighttime),

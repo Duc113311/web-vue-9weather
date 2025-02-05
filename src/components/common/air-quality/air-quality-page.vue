@@ -19,7 +19,7 @@
             />
           </svg>
 
-          <p class="txt_medium_14">{{ $t("air_quality") }}</p>
+          <p class="txt_medium_14">{{ $t("Air_quality") }}</p>
         </div>
       </template>
       <div class="w-full h-[211px]">

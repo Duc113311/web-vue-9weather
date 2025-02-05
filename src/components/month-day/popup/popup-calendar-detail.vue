@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full txt_light_summer">
     <div>
-      <p>Weather Detail</p>
+      <p>{{ $t("Weather_Detail") }}</p>
     </div>
   </div>
   <div class="w-full h-full txt_light_summer">
@@ -14,7 +14,6 @@
     <div class="flex w-full items-center justify-center">
       <component
         :is="convertIconCurrently(renderObjTemperature?.icon)"
-        :width="100"
       ></component>
     </div>
     <div class="flex items-center gap-1 p-2 justify-center w-full">
@@ -30,8 +29,8 @@
     <div class="flex items-center w-full gap-2">
       <!--  -->
       <div class="flex flex-col gap-1 w-[49.5%] pr-3">
-        <div class="flex items-center justify-between gap-1">
-          <span class="txt_light_14"> {{ $t("temperature") }}:&nbsp;</span>
+        <!-- <div class="flex items-center justify-between gap-1">
+          <span class="txt_light_14"> {{ $t("Temperature") }}:&nbsp;</span>
           <div class="flex items-center">
             <div class="flex items-center">
               <p class="txt_medium_15">
@@ -49,9 +48,9 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="flex items-center justify-between gap-1">
-          <span class="txt_light_14"> {{ $t("real_feel") }}:&nbsp;</span>
+          <span class="txt_light_14"> {{ $t("Real_feel") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{
               convertFahrenheitToCelsiusNot(
@@ -63,7 +62,15 @@
           </p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14"> {{ $t("uv") }}:&nbsp;</span>
+          <div class="flex items-center gap-2">
+            <p class="txt_light_14">{{ $t("Humid") }}:&nbsp;</p>
+          </div>
+          <div class="flex items-center txt_regular_14">
+            <p>{{ Math.round(renderObjTemperature?.humidity * 100) }}%</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="txt_light_14"> {{ $t("UV") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <span class="txt_medium_15">
               {{ renderObjTemperature?.uvIndex }}
@@ -74,7 +81,7 @@
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">{{ $t("precipitation") }}:&nbsp;</span>
+          <span class="txt_light_14">{{ $t("Precipitation") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{ convertPrecipitation(renderObjTemperature?.precipIntensity) }}
           </p>
@@ -86,7 +93,7 @@
           </p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">Dew point:&nbsp;</span>
+          <span class="txt_light_14">{{ $t("Dew_point") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
               {{
@@ -99,7 +106,7 @@
 
       <div class="flex flex-col gap-1 w-[49.5%] pl-1">
         <div class="flex items-center justify-between">
-          <span class="txt_light_14"> {{ $t("wind_speed") }}:&nbsp;</span>
+          <span class="txt_light_14"> {{ $t("Wind_speed") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
               {{ convertWindSpeed(renderObjTemperature.windSpeed) }}
@@ -108,19 +115,19 @@
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">{{ $t("wind_direction") }}:&nbsp;</span>
+          <span class="txt_light_14">{{ $t("Wind_direction") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{ convertWindBearing(renderObjTemperature?.windBearing) }}
           </p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">{{ $t("cloud_cover") }}:&nbsp;</span>
+          <span class="txt_light_14">{{ $t("Cloud_cover") }}:&nbsp;</span>
           <p class="txt_regular_14">
             {{ Math.round(renderObjTemperature.cloudCover * 100) }}%
           </p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14"> {{ $t("pressure") }}:&nbsp; </span>
+          <span class="txt_light_14"> {{ $t("Pressure") }}:&nbsp; </span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
               {{ convertPressure(renderObjTemperature?.pressure) }}
@@ -129,7 +136,7 @@
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">{{ $t("sunrise") }}:&nbsp;</span>
+          <span class="txt_light_14">{{ $t("Sunrise") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
               {{
@@ -146,7 +153,7 @@
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">{{ $t("sunset") }}:&nbsp;</span>
+          <span class="txt_light_14">{{ $t("Sunset") }}:&nbsp;</span>
           <div class="flex items-center gap-1">
             <p class="txt_medium_15">
               {{

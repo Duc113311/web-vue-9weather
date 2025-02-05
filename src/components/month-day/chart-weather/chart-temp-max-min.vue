@@ -17,6 +17,7 @@ import {
   codeToFind,
   convertTimestamp12hSun,
   convertTimestamp24hSun,
+  convertDayOfWeek,
 } from "../../../utils/converValue.js";
 import {
   Chart,
@@ -109,17 +110,13 @@ export default {
   },
 
   methods: {
-    convertTime(val) {
-      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-      const timezoneValue =
-        this.$store.state.weatherModule.locationOffset.timezone;
-      const unitSetting = this.$store.state.commonModule.objectSettingSave;
-
-      if (unitSetting.activeTime_save === "12h") {
-        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
-      } else {
-        return convertTimestamp24hSun(val, 1, offsetValue);
-      }
+    convertTime(value) {
+      const date = new Date(value * 1000);
+      const dateNew = new Date(date);
+      const day = dateNew.getDate();
+      const year = dateNew.getFullYear();
+      const timestampValue = convertDayOfWeek(value);
+      return timestampValue + " " + day + " " + year;
     },
 
     createChartHourly24h() {
@@ -320,7 +317,7 @@ export default {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value}%`; // Thông tin khi hover
+                  return `${label}: ${value}°`; // Thông tin khi hover
                 },
               },
             },

@@ -12,7 +12,7 @@
             alt=""
             srcset=""
           />
-          <p class="txt_regular">{{ $t("Settings") }}</p>
+          <p class="txt_regular">{{ $t("Setting") }}</p>
         </div>
         <div
           @click="onClickBack('settings')"
@@ -150,7 +150,7 @@
           class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         >
           <div class="txt_regular flex items-center">
-            <span>Dark/Light</span>
+            <span>{{ $t("Dark/Light") }}</span>
           </div>
           <div>
             <el-switch

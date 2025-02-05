@@ -24,7 +24,7 @@
           }}
         </div>
         <div class="txt_regular_12 text-left">
-          {{ $t("real_feel") }}
+          {{ $t("Real_feel") }}
           {{
             convertFahrenheitToCelsiusNot(currentlyData?.apparentTemperature)
           }}
@@ -38,7 +38,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcTempt></IcTempt>
-          <p class="txt_regular_14">{{ $t("temperature") }}</p>
+          <p class="txt_regular_14">{{ $t("Temperature") }}</p>
         </div>
         <div class="flex items-center">
           <div class="flex items-center">
@@ -58,7 +58,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcUvIndex></IcUvIndex>
-          <p class="txt_regular_14">{{ $t("uv") }}</p>
+          <p class="txt_regular_14">{{ $t("UV") }}</p>
         </div>
         <div class="items-center flex gap-1">
           <span class="txt_medium_17">{{
@@ -72,7 +72,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcPrecipitation></IcPrecipitation>
-          <p class="txt_regular_14">{{ $t("precipitation") }}</p>
+          <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ convertPrecipitation(currentlyData?.precipIntensity) }}
@@ -90,7 +90,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcTitleAir></IcTitleAir>
-          <p class="txt_regular_14">{{ $t("air_quality") }}</p>
+          <p class="txt_regular_14">{{ $t("Air_quality") }}</p>
         </div>
         <div class="items-center flex gap-1">
           <span class="txt_medium_17 text-right">{{ paramAirModule }}</span>
@@ -103,7 +103,7 @@
 
     <div class="text-left w-full txt_regular_14 pt-4 pb-6">
       <p>
-        {{ $t("weather_description") }}
+        {{ $t("Weather_description") }}
       </p>
     </div>
   </div>

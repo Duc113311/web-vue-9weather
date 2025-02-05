@@ -55,7 +55,7 @@ export default {
       isShowActive: 0,
       listMap: [
         {
-          title: this.$t("temperature"),
+          title: this.$t("Temperature"),
           codeOverlay: "temp",
           urlImg: require("../../../assets/images/radar/temperature.png"),
         },
@@ -70,12 +70,12 @@ export default {
           urlImg: require("../../../assets/images/radar/rain.png"),
         },
         {
-          title: "Cloudy",
+          title: "Cloud",
           codeOverlay: "clouds",
           urlImg: require("../../../assets/images/radar/cloudy.png"),
         },
         {
-          title: this.$t("pressure"),
+          title: this.$t("Pressure"),
           codeOverlay: "pressure",
           urlImg: require("../../../assets/images/radar/pressure.png"),
         },
@@ -85,7 +85,7 @@ export default {
           urlImg: require("../../../assets/images/radar/snow.png"),
         },
         {
-          title: this.$t("wind_speed"),
+          title: this.$t("Wind_speed"),
           codeOverlay: "wind",
           urlImg: require("../../../assets/images/radar/wind.png"),
         },

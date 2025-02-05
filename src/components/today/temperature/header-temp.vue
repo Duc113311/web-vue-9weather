@@ -27,7 +27,7 @@
           }}
         </div>
         <div class="txt_regular_12 text-start">
-          {{ $t("real_feel") }}
+          {{ $t("Real_feel") }}
           {{ renderToCelsiusAndUnit(currentlyDataRender?.apparentTemperature) }}
         </div>
       </div>
@@ -39,7 +39,7 @@
         <div
           class="h-flex flex items-center justify-center pb-14 txt_regular_14"
         >
-          <p>{{ $t("temperature") }}</p>
+          <p>{{ $t("Temperature") }}</p>
         </div>
         <div class="flex justify-center items-center">
           <div class="text-left flex txt_medium gap-1">
@@ -60,7 +60,7 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center txt_regular_14">
-          <p>{{ $t("precipitation") }}</p>
+          <p>{{ $t("Precipitation") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <IcPrecipitation></IcPrecipitation>
@@ -89,7 +89,7 @@
 
     <div class="text-left w-full pt-6 pb-3 txt_regular_14">
       <p>
-        {{ $t("weather_description") }}
+        {{ $t("Weather_description") }}
       </p>
     </div>
   </div>

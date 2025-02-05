@@ -114,7 +114,7 @@ export default {
         },
         {
           name: "moon-phase-weather",
-          label: this.$t("Moon phase"),
+          label: this.$t("Moon_phase"),
           isRun: true,
           icon: IcMoonphase,
         },

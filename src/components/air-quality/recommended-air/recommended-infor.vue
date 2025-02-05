@@ -3,7 +3,7 @@
     <div class="w-full h-full text-left flex flex-col gap-6">
       <div>
         <div class="w-full pt-2 pb-2">
-          <p class="txt_medium_17 text-left">Healthy Information</p>
+          <p class="txt_medium_17 text-left">{{ $t("Healthy_Information") }}</p>
         </div>
         <div class="text-left">
           <p class="txt_regular_14 text-left">
@@ -13,7 +13,9 @@
       </div>
       <div>
         <div class="pt-2 pb-2">
-          <p class="txt_medium_17 text-left">Recommended Precautions</p>
+          <p class="txt_medium_17 text-left">
+            {{ $t("Recommended_Precautions") }}
+          </p>
         </div>
         <div class="text-left">
           <p class="txt_regular_14 text-left">

@@ -172,48 +172,10 @@
                 class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
               >
                 <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
-                  <div class="flex items-center justify-between w-full">
-                    <div class="flex items-center gap-2">
-                      <IcTempt></IcTempt>
-                      <p class="txt_regular_14">{{ $t("temperature") }}</p>
-                    </div>
-
-                    <div class="flex items-center">
-                      <!-- <p>
-                        {{
-                          convertFahrenheitToCelsiusNot(
-                            (item?.temperatureMin + item?.temperatureMax) / 2
-                          )
-                        }}
-                      </p> -->
-                      <div class="flex items-center">
-                        <div class="flex items-center">
-                          <IcTemptMin></IcTemptMin>
-                          <p class="txt_medium_15">
-                            {{
-                              convertFahrenheitToCelsiusNot(
-                                item?.temperatureMin
-                              )
-                            }}
-                          </p>
-                        </div>
-                        <div class="flex items-center">
-                          <IcTemptMax></IcTemptMax>
-                          <p class="txt_medium_15">
-                            {{
-                              convertFahrenheitToCelsiusNot(
-                                item?.temperatureMax
-                              )
-                            }}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitleReadFeel></IcTitleReadFeel>
-                      <p class="txt_regular_14">{{ $t("real_feel") }}</p>
+                      <p class="txt_regular_14">{{ $t("Real_feel") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
                       <p>
@@ -229,8 +191,17 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
+                      <IcHumidity></IcHumidity>
+                      <p class="txt_regular_14">{{ $t("Humid") }}</p>
+                    </div>
+                    <div class="flex items-center txt_medium_15">
+                      <p>{{ Math.round(item?.humidity * 100) }}%</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
                       <IcUvIndex></IcUvIndex>
-                      <p class="txt_regular_14">{{ $t("uv") }}</p>
+                      <p class="txt_regular_14">{{ $t("UV") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
                       <span class="txt_medium_15">
@@ -244,7 +215,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcPrecipitation></IcPrecipitation>
-                      <p class="txt_regular_14">{{ $t("precipitation") }}</p>
+                      <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
                       <p>{{ convertPrecipitation(item?.precipIntensity) }}</p>
@@ -263,7 +234,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitleAir></IcTitleAir>
-                      <p class="txt_regular_14">Dew point</p>
+                      <p class="txt_regular_14">{{ $t("Dew_point") }}</p>
                     </div>
                     <div class="flex items-center">
                       <span class="txt_regular_14">{{
@@ -279,7 +250,7 @@
                   <div class="flex items-center justify-between w-full">
                     <div class="flex items-center gap-2">
                       <IcTitleWindSpeed></IcTitleWindSpeed>
-                      <p class="txt_regular_14">{{ $t("wind_speed") }}</p>
+                      <p class="txt_regular_14">{{ $t("Wind_speed") }}</p>
                     </div>
 
                     <div class="flex items-center gap-1">
@@ -294,7 +265,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitleWindDirection></IcTitleWindDirection>
-                      <p class="txt_regular_14">{{ $t("wind_direction") }}</p>
+                      <p class="txt_regular_14">{{ $t("Wind_direction") }}</p>
                     </div>
                     <div class="flex items-center">
                       <p class="txt_medium_15">
@@ -305,7 +276,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitleCloudCover></IcTitleCloudCover>
-                      <p class="txt_regular_14">{{ $t("cloud_cover") }}</p>
+                      <p class="txt_regular_14">{{ $t("Cloud_cover") }}</p>
                     </div>
                     <div class="flex items-center">
                       <p class="txt_medium_15">
@@ -316,7 +287,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitlePressure></IcTitlePressure>
-                      <p class="txt_regular_14">{{ $t("pressure") }}</p>
+                      <p class="txt_regular_14">{{ $t("Pressure") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
@@ -331,7 +302,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-1">
                       <IcTitleSunrise></IcTitleSunrise>
-                      <p class="txt_regular_14">{{ $t("sunrise") }}</p>
+                      <p class="txt_regular_14">{{ $t("Sunrise") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
@@ -348,7 +319,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcTitleSunset></IcTitleSunset>
-                      <p class="txt_regular_14">{{ $t("sunset") }}</p>
+                      <p class="txt_regular_14">{{ $t("Sunset") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
                       <p class="txt_medium_15">
@@ -432,6 +403,7 @@ import IcTitlePressure from "@/components/icons/IcTitlePressure.vue";
 import IcTitleSunrise from "@/components/icons/IcTitleSunrise.vue";
 import IcTitleSunset from "@/components/icons/IcTitleSunset.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
+import IcHumidity from "@/components/icons/IcHumidity.vue";
 
 export default {
   name: "item-time-30-day",
@@ -452,6 +424,7 @@ export default {
     IcTitleSunrise,
     IcTitleSunset,
     IcPrecipitation,
+    IcHumidity,
   },
   data() {
     return {

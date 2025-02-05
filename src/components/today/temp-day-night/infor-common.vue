@@ -25,7 +25,7 @@
           }}
         </div>
         <div class="txt_regular_12 text-left">
-          {{ $t("real_feel") }}
+          {{ $t("Real_feel") }}
           {{
             convertFahrenheitToCelsiusNot(
               dataDayNightRender?.apparentTemperature
@@ -41,7 +41,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcUvIndex></IcUvIndex>
-          <p class="txt_regular_14">{{ $t("uv") }}</p>
+          <p class="txt_regular_14">{{ $t("UV") }}</p>
         </div>
         <div class="items-center flex gap-1">
           <span class="txt_medium_17">{{
@@ -56,7 +56,7 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcPrecipitation></IcPrecipitation>
-          <p class="txt_regular_14">{{ $t("precipitation") }}</p>
+          <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
         </div>
         <p class="txt_medium_17">
           {{ convertPrecipitation(dataDayNightRender?.SumRainfall) }}

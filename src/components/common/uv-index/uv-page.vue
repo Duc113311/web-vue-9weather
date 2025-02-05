@@ -4,7 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <IcUvIndex></IcUvIndex>
-          <p class="txt_medium_14">{{ $t("uv_index") }}</p>
+          <p class="txt_medium_14">{{ $t("Uv_index") }}</p>
         </div>
       </template>
       <div class="w-full h-[183px]">

@@ -17,7 +17,7 @@
               <p class="txt_medium_14 pl-2 text-center">
                 <span>{{ convertTime(paramDailyOne?.sunriseTime) }}</span
                 ><br />
-                <span class="txt_regular_12">{{ $t("sunrise") }}</span>
+                <span class="txt_regular_12">{{ $t("Sunrise") }}</span>
               </p>
             </div>
             <!--  -->
@@ -25,7 +25,7 @@
               <p class="txt_medium_14 pr-2 text-center">
                 <span>{{ convertTime(paramDailyOne?.sunsetTime) }}</span
                 ><br />
-                <span class="txt_regular_12">{{ $t("sunset") }}</span>
+                <span class="txt_regular_12">{{ $t("Sunset") }}</span>
               </p>
             </div>
           </div>

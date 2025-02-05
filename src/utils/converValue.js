@@ -143,7 +143,7 @@ export function getUvSummaryName(value) {
   }
 
   if (value <= 2) {
-    return i18n.global.t("low");
+    return i18n.global.t("Low");
   } else if ((2 <= value) & (value <= 5)) {
     return i18n.global.t("Moderate");
   } else if ((5 <= value) & (value <= 7)) {
@@ -1356,6 +1356,370 @@ export function getStringPrimaryPollutantInfo(aqi) {
         "PM2.5_particles_are_small_enough_to_enter_the_bloodstream_and_typically_result_from_wildfires,_smoke_ashes,_bacteria_or_small_dust_particles"
       );
   }
+}
+
+export function getTextWeather(value) {
+  if (value == null) return "";
+  let trimmedValue = value.trim();
+  if (trimmedValue.endsWith(".")) {
+      trimmedValue = trimmedValue.substring(0, trimmedValue.length - 1);
+  }
+  if (trimmedValue === "") return "";
+
+  // Hàm chuyển đổi chuỗi thành key cho this.$t
+  const toKey = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/_+/g, '_').replace(/^_+|_+$/g, '');
+
+  let textWeather = "";
+  switch (trimmedValue.toLowerCase()) {
+      case "smoke":
+          textWeather = this.$t(toKey("smoke"));
+          break;
+      case "light intensity drizzle":
+          textWeather = this.$t(toKey("light_intensity_drizzle"));
+          break;
+      case "very heavy rain":
+          textWeather = this.$t(toKey("very_heavy_rain"));
+          break;
+      case "moderate or heavy rain with thunder":
+          textWeather = this.$t(toKey("moderate_or_heavy_rain_with_thunder"));
+          break;
+      case "blizzard":
+          textWeather = this.$t(toKey("blizzard"));
+          break;
+      case "blowing snow":
+          textWeather = this.$t(toKey("blowing_snow"));
+          break;
+      case "broken clouds":
+          textWeather = this.$t(toKey("broken_clouds"));
+          break;
+      case "clear":
+          textWeather = this.$t(toKey("clear"));
+          break;
+      case "clear sky":
+          textWeather = this.$t(toKey("clear_sky"));
+          break;
+      case "cloudy":
+          textWeather = this.$t(toKey("cloudy"));
+          break;
+      case "few clouds":
+          textWeather = this.$t(toKey("few_clouds"));
+          break;
+      case "fog":
+          textWeather = this.$t(toKey("fog"));
+          break;
+      case "foggy":
+          textWeather = this.$t(toKey("foggy"));
+          break;
+      case "freezing fog":
+          textWeather = this.$t(toKey("freezing_fog"));
+          break;
+      case "haze":
+          textWeather = this.$t(toKey("haze"));
+          break;
+      case "heavy intensity rain":
+          textWeather = this.$t(toKey("heavy_intensity_rain"));
+          break;
+      case "heavy rain":
+          textWeather = this.$t(toKey("heavy_rain"));
+          break;
+      case "heavy rain at times":
+          textWeather = this.$t(toKey("heavy_rain_at_times"));
+          break;
+      case "heavy snow":
+          textWeather = this.$t(toKey("heavy_snow"));
+          break;
+      case "humid":
+          textWeather = this.$t(toKey("humid"));
+          break;
+      case "humid and mostly cloudy":
+          textWeather = this.$t(toKey("humid_and_mostly_cloudy"));
+          break;
+      case "humid and overcast":
+          textWeather = this.$t(toKey("humid_and_overcast"));
+          break;
+      case "humid and partly cloudy":
+          textWeather = this.$t(toKey("humid_and_partly_cloudy"));
+          break;
+      case "light drizzle":
+          textWeather = this.$t(toKey("light_drizzle"));
+          break;
+      case "light freezing rain":
+          textWeather = this.$t(toKey("light_freezing_rain"));
+          break;
+      case "light rain":
+          textWeather = this.$t(toKey("light_rain"));
+          break;
+      case "light rain shower":
+          textWeather = this.$t(toKey("light_rain_shower"));
+          break;
+      case "light sleet":
+          textWeather = this.$t(toKey("light_sleet"));
+          break;
+      case "light sleet showers":
+          textWeather = this.$t(toKey("light_sleet_showers"));
+          break;
+      case "light snow":
+          textWeather = this.$t(toKey("light_snow"));
+          break;
+      case "light snow showers":
+          textWeather = this.$t(toKey("light_snow_showers"));
+          break;
+      case "mist":
+          textWeather = this.$t(toKey("mist"));
+          break;
+      case "moderate or heavy rain shower":
+          textWeather = this.$t(toKey("moderate_or_heavy_rain_shower"));
+          break;
+      case "moderate or heavy sleet":
+          textWeather = this.$t(toKey("moderate_or_heavy_sleet"));
+          break;
+      case "moderate or heavy sleet showers":
+          textWeather = this.$t(toKey("moderate_or_heavy_sleet_showers"));
+          break;
+      case "moderate or heavy snow showers":
+          textWeather = this.$t(toKey("moderate_or_heavy_snow_showers"));
+          break;
+      case "moderate or heavy snow with thunder":
+          textWeather = this.$t(toKey("moderate_or_heavy_snow_with_thunder"));
+          break;
+      case "moderate rain":
+          textWeather = this.$t(toKey("moderate_rain"));
+          break;
+      case "moderate rain at times":
+          textWeather = this.$t(toKey("moderate_rain_at_times"));
+          break;
+      case "moderate snow":
+          textWeather = this.$t(toKey("moderate_snow"));
+          break;
+      case "mostly cloudy":
+          textWeather = this.$t(toKey("mostly_cloudy"));
+          break;
+      case "overcast":
+          textWeather = this.$t(toKey("overcast"));
+          break;
+      case "overcast clouds":
+          textWeather = this.$t(toKey("overcast_clouds"));
+          break;
+      case "partly cloudy":
+          textWeather = this.$t(toKey("partly_cloudy"));
+          break;
+      case "patchy heavy snow":
+          textWeather = this.$t(toKey("patchy_heavy_snow"));
+          break;
+      case "patchy light drizzle":
+          textWeather = this.$t(toKey("patchy_light_drizzle"));
+          break;
+      case "patchy light rain":
+          textWeather = this.$t(toKey("patchy_light_rain"));
+          break;
+      case "patchy light rain with thunder":
+          textWeather = this.$t(toKey("patchy_light_rain_with_thunder"));
+          break;
+      case "patchy light snow":
+          textWeather = this.$t(toKey("patchy_light_snow"));
+          break;
+      case "patchy light snow with thunder":
+          textWeather = this.$t(toKey("patchy_light_snow_with_thunder"));
+          break;
+      case "patchy moderate snow":
+          textWeather = this.$t(toKey("patchy_moderate_snow"));
+          break;
+      case "patchy rain possible":
+          textWeather = this.$t(toKey("patchy_rain_possible"));
+          break;
+      case "patchy sleet possible":
+          textWeather = this.$t(toKey("patchy_sleet_possible"));
+          break;
+      case "patchy snow possible":
+          textWeather = this.$t(toKey("patchy_snow_possible"));
+          break;
+      case "possible light rain":
+          textWeather = this.$t(toKey("possible_light_rain"));
+          break;
+      case "possible light rain and humid":
+          textWeather = this.$t(toKey("possible_light_rain_and_humid"));
+          break;
+      case "rain":
+          textWeather = this.$t(toKey("rain"));
+          break;
+      case "rain and humid":
+          textWeather = this.$t(toKey("rain_and_humid"));
+          break;
+      case "rain and snow":
+          textWeather = this.$t(toKey("rain_and_snow"));
+          break;
+      case "scattered clouds":
+          textWeather = this.$t(toKey("scattered_clouds"));
+          break;
+      case "snow":
+          textWeather = this.$t(toKey("snow"));
+          break;
+      case "sunny":
+          textWeather = this.$t(toKey("sunny"));
+          break;
+      case "thundery outbreaks possible":
+          textWeather = this.$t(toKey("thundery_outbreaks_possible"));
+          break;
+      case "torrential rain shower":
+          textWeather = this.$t(toKey("torrential_rain_shower"));
+          break;
+      case "drizzle":
+          textWeather = this.$t(toKey("drizzle"));
+          break;
+      case "rain and breezy":
+          textWeather = this.$t(toKey("rain_and_breezy"));
+          break;
+      case "breezy":
+          textWeather = this.$t(toKey("breezy"));
+          break;
+      case "thunderstorm":
+          textWeather = this.$t(toKey("thunderstorm"));
+          break;
+      case "thunderstorms":
+          textWeather = this.$t(toKey("thunderstorms"));
+          break;
+      case "mostly clear":
+          textWeather = this.$t(toKey("mostly_clear"));
+          break;
+      case "light shower snow":
+          textWeather = this.$t(toKey("light_shower_snow"));
+          break;
+      case "some clouds":
+          textWeather = this.$t(toKey("some_clouds"));
+          break;
+      case "thunderstorm with light rain":
+          textWeather = this.$t(toKey("thunderstorm_with_light_rain"));
+          break;
+      case "thunderstorm with rain":
+          textWeather = this.$t(toKey("thunderstorm_with_rain"));
+          break;
+      case "thunderstorm with drizzle":
+          textWeather = this.$t(toKey("thunderstorm_with_drizzle"));
+          break;
+      case "clouds and sun":
+          textWeather = this.$t(toKey("clouds_and_sun"));
+          break;
+      case "partly sunny":
+          textWeather = this.$t(toKey("partly_sunny"));
+          break;
+      case "light intensity shower rain":
+          textWeather = this.$t(toKey("light_intensity_shower_rain"));
+          break;
+      case "shower rain":
+          textWeather = this.$t(toKey("shower_rain"));
+          break;
+      case "mostly sunny":
+          textWeather = this.$t(toKey("mostly_sunny"));
+          break;
+      case "showers":
+          textWeather = this.$t(toKey("showers"));
+          break;
+      case "dust":
+          textWeather = this.$t(toKey("dust"));
+          break;
+      case "partly sunny w/ showers":
+          textWeather = this.$t(toKey("partly_sunny_with_showers"));
+          break;
+      case "hot":
+          textWeather = this.$t(toKey("hot"));
+          break;
+      case "windy":
+          textWeather = this.$t(toKey("windy"));
+          break;
+      case "hazy sunshine":
+          textWeather = this.$t(toKey("hazy_sunshine"));
+          break;
+      case "intermittent clouds":
+          textWeather = this.$t(toKey("intermittent_clouds"));
+          break;
+      case "mostly cloudy throughout the day":
+          textWeather = this.$t(toKey("mostly_cloudy_throughout_the_day"));
+          break;
+      case "mostly cloudy w/ t-storms":
+          textWeather = this.$t(toKey("mostly_cloudy_with_thunderstorms"));
+          break;
+      case "clear throughout the day":
+          textWeather = this.$t(toKey("clear_throughout_the_day"));
+          break;
+      case "partly sunny w/ t-storms":
+          textWeather = this.$t(toKey("partly_sunny_with_thunderstorms"));
+          break;
+      case "extreme rain":
+          textWeather = this.$t(toKey("extreme_rain"));
+          break;
+      case "cloudy, overcast conditions":
+          textWeather = this.$t(toKey("cloudy_overcast_conditions"));
+          break;
+      case "rain and humid throughout the day":
+          textWeather = this.$t(toKey("rain_and_humid_throughout_the_day"));
+          break;
+      case "drizzle rain":
+          textWeather = this.$t(toKey("drizzle_rain"));
+          break;
+      case "overcast throughout the day":
+          textWeather = this.$t(toKey("overcast_throughout_the_day"));
+          break;
+      case "light intensity drizzle rain":
+          textWeather = this.$t(toKey("light_intensity_drizzle_rain"));
+          break;
+      case "partly cloudy throughout the day":
+          textWeather = this.$t(toKey("partly_cloudy_throughout_the_day"));
+          break;
+      case "drizzle or light rain":
+          textWeather = this.$t(toKey("drizzle_or_light_rain"));
+          break;
+      case "sand":
+          textWeather = this.$t(toKey("sand"));
+          break;
+      case "hazy moonlight":
+          textWeather = this.$t(toKey("hazy_moonlight"));
+          break;
+      case "light thunderstorm":
+          textWeather = this.$t(toKey("light_thunderstorm"));
+          break;
+      case "rain throughout the day":
+          textWeather = this.$t(toKey("rain_throughout_the_day"));
+          break;
+      case "humid throughout the day":
+          textWeather = this.$t(toKey("humid_throughout_the_day"));
+          break;
+      case "humid and partly cloudy throughout the day":
+          textWeather = this.$t(toKey("humid_and_partly_cloudy_throughout_the_day"));
+          break;
+      case "rain in the morning":
+          textWeather = this.$t(toKey("rain_in_the_morning"));
+          break;
+      case "possible light rain in the evening":
+          textWeather = this.$t(toKey("possible_light_rain_in_the_evening"));
+          break;
+      case "mostly cloudy w/ showers":
+          textWeather = this.$t(toKey("mostly_cloudy_with_showers"));
+          break;
+      case "partly cloudy w/ showers":
+          textWeather = this.$t(toKey("partly_cloudy_with_showers"));
+          break;
+      case "thunderstorm with heavy rain":
+          textWeather = this.$t(toKey("thunderstorm_with_heavy_rain"));
+          break;
+      case "heavy intensity shower rain":
+          textWeather = this.$t(toKey("heavy_intensity_shower_rain"));
+          break;
+      case "possible light rain in the morning":
+          textWeather = this.$t(toKey("possible_light_rain_in_the_morning"));
+          break;
+      case "rain in the evening and overnight":
+          textWeather = this.$t(toKey("rain_in_the_evening_and_overnight"));
+          break;
+      case "possible light rain in the morning and overnight":
+          textWeather = this.$t(toKey("possible_light_rain_in_the_morning_and_overnight"));
+          break;
+      default:
+          textWeather = "";
+          break;
+  }
+
+  if (textWeather === "") textWeather = value;
+  return textWeather
 }
 
 export function convertToWeekdayAndDate(unixTime, offsetValue) {

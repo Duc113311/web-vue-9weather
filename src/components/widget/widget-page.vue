@@ -238,7 +238,7 @@
                         >
                           <p>
                             <span
-                              >{{ $t("real_feel") }}
+                              >{{ $t("Real_feel") }}
                               {{
                                 convertTemperature(
                                   renderObjectWidget?.currently
@@ -384,7 +384,7 @@
                         >
                           <p>
                             <span
-                              >{{ $t("real_feel") }}
+                              >{{ $t("Real_feel") }}
                               {{
                                 convertTemperature(
                                   renderObjectWidget?.currently
@@ -520,7 +520,7 @@
                         >
                           <p>
                             <span
-                              >{{ $t("real_feel") }}
+                              >{{ $t("Real_feel") }}
                               {{
                                 convertTemperature(
                                   renderObjectWidget?.currently
@@ -608,7 +608,7 @@
                         >
                           <p>
                             <span
-                              >{{ $t("real_feel") }}
+                              >{{ $t("Real_feel") }}
                               {{
                                 convertTemperature(
                                   renderObjectWidget?.currently

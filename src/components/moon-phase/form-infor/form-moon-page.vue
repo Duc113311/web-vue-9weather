@@ -5,7 +5,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <component :is="srcDaytime"></component>
-          <p class="txt_medium_14">Parameters Of The Moon</p>
+          <p class="txt_medium_14">{{ $t("Moon_Parameters") }}</p>
         </div>
       </template>
       <div class="w-full text-left">
