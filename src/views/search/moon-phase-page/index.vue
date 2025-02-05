@@ -50,13 +50,13 @@
           </div>
 
           <div class="w-full">
-            <ItemTime24h
+            <!-- <ItemTime24h
               :key="indexState + Math.random()"
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
             ></ItemTime24h>
             <div v-else class="w-full h-[860px] mt-4">
               <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-            </div>
+            </div> -->
           </div>
 
           <!--  -->
@@ -143,7 +143,7 @@ export default {
     AirQualityPage,
     SunPage,
     UvPage,
-    ItemTime24h,
+    // ItemTime24h,
     ListNearbyLocation,
     DescribeMoonPage,
     ListItemMoonPage,

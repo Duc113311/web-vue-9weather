@@ -237,7 +237,7 @@ export default {
                       : "",
                     country: countryTitle,
                   }
-                )} | 9weather`;
+                )} | 9Weather`;
               }
               break;
 
@@ -263,7 +263,7 @@ export default {
                     : "",
                   country: countryTitle,
                 }
-              )} | 9weather`;
+              )} | 9Weather`;
               break;
             case 2:
               document.title = `${this.$t(
@@ -287,11 +287,11 @@ export default {
                     : "",
                   country: countryTitle,
                 }
-              )} | 9weather`;
+              )} | 9Weather`;
               break;
 
             default:
-              document.title = `${this.$t("Local_National_Global")} | 9weather`;
+              document.title = `${this.$t("Local_National_Global")} | 9Weather`;
               break;
           }
         } else {

@@ -254,7 +254,7 @@ export default {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value}%`; // Thông tin khi hover
+                  return `${label}: ${value}°`; // Thông tin khi hover
                 },
               },
             },

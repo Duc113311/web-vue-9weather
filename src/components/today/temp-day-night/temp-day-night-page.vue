@@ -149,7 +149,7 @@ export default {
         apparentTemperature: maxObject?.apparentTemperature
           ? maxObject?.apparentTemperature
           : minObject?.apparentTemperature,
-        UvMax: maxUvIndex ? maxUvIndex : 0,
+        UvMax: maxUvIndex === -Infinity ? 0 : maxUvIndex,
         ChanceOfRainAvg: avgProbabilityDaytime
           ? avgProbabilityDaytime
           : avgProbabilityNighttime,

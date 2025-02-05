@@ -11,7 +11,7 @@
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px] pl-3 pr-3"></ChartDays>
 
-            <div class="h-[calc(100%-40px)] z-10 w-full">
+            <div class="h-[calc(100%-45px)] z-10 w-full">
               <div
                 class="chart-container-uv h-full w-[1550px]"
                 v-if="listHourly && listHourly.length"
@@ -21,7 +21,7 @@
             </div>
           </div>
         </vue-horizontal>
-        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
+        <div class="w-full h-[45px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="flex items-center text-left gap-2">
             <div class="bg-short rounded-full w-[10px] h-[10px]"></div>
             <div class="text-center">
