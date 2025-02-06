@@ -52,6 +52,10 @@
             <span class="txt_regular_12">{{ $t("Chance_of_rain") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
+            <div class="bg-snow-c rounded-full w-[10px] h-[10px]"></div>
+            <span class="txt_regular_12">{{ $t("Chance_of_snow") }}</span>
+          </div>
+          <div class="flex items-center text-left gap-2">
             <div class="bg-rainfall-c rounded-full w-[10px] h-[10px]"></div>
             <span class="txt_regular_12">{{ $t("Precipitation") }}</span>
           </div>
@@ -127,6 +131,10 @@ export default {
 
 .bg-rain-c {
   background-color: var(--bg-radio-chance-of-rain);
+}
+
+.bg-snow-c {
+  background-color: var(--bg-radio-chance-of-snow);
 }
 
 .bg-rainfall-c {

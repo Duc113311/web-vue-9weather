@@ -130,11 +130,7 @@
                   </p>
 
                   <p class="txt_regular_14">
-                    {{
-                      convertCapitalizeWords(
-                        $t(`${item?.summary.replace(/\s+/g, "_")}`)
-                      )
-                    }}
+                    {{ convertSummary(item?.summary) }}
                   </p>
                 </div>
 
@@ -385,6 +381,7 @@ import {
   convertTime24hTimeZoneNotNow,
   convertTime12hTimeZoneNotNowUnit,
   convertTimestampUnit12,
+  getTextWeather,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -695,6 +692,10 @@ export default {
 
     convertUvIndexName(val) {
       return getUvSummaryName(val);
+    },
+
+    convertSummary(val) {
+      return getTextWeather(val);
     },
 
     convertAirIndexName(val) {

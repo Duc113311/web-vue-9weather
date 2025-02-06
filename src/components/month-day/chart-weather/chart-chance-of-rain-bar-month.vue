@@ -68,6 +68,12 @@ export default {
       // return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     },
 
+    listDataPrecipType() {
+      return this.paramHourly.map((element) => element.precipType);
+      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
+      // return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    },
+
     unitPrecipitation() {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       return codeToFind(unitSetting.activePrecipitation_save);
@@ -177,11 +183,29 @@ export default {
             {
               label: "Chance of rain",
               type: "line", // Kiểu dataset là line
-              borderColor: "#00E3F5",
-              pointBackgroundColor: "#00E3F5",
+              borderColor: "#29D2E2",
+              pointBackgroundColor: (context) => {
+                const { dataset, dataIndex } = context;
+                const value = dataset.data[dataIndex];
+
+                const precipType = this.listDataPrecipType[dataIndex];
+                // savedTheme === "light" ? "#333333" : "#00e3f5",
+
+                // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
+                return precipType === "Snow" ? "#BD8526" : "#00E3F5";
+              },
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: "#00E3F5",
+              pointBorderColor: (context) => {
+                const { dataset, dataIndex } = context;
+                const value = dataset.data[dataIndex];
+
+                const precipType = this.listDataPrecipType[dataIndex];
+                // savedTheme === "light" ? "#333333" : "#00e3f5",
+
+                // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
+                return precipType === "Snow" ? "#BD8526" : "#00E3F5";
+              },
               pointRadius: 5, // Bán kính điểm
               backgroundColor:
                 savedTheme === "light"
@@ -198,9 +222,18 @@ export default {
                 font: {
                   size: 14,
                 },
-                color: savedTheme === "light" ? "#333333" : "#00e3f5",
+                color: (context) => {
+                  const { dataset, dataIndex } = context;
+                  const value = dataset.data[dataIndex];
+
+                  const precipType = this.listDataPrecipType[dataIndex];
+                  // savedTheme === "light" ? "#333333" : "#00e3f5",
+
+                  // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
+                  return precipType === "Snow" ? "#BD8526" : "#00e3f5";
+                },
                 formatter: (value) => `${value === 0.5 ? 0 : value}%`, // Định dạng giá trị hiển thị
-                offset: 4,
+                offset: 6,
               },
             },
           ],
@@ -245,9 +278,20 @@ export default {
               theme: "dark",
               callbacks: {
                 label: (context) => {
-                  const label = context.dataset.label || "";
+                  const { dataset, dataIndex } = context;
+                  let labelValue = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value === 0.5 ? 0 : value}%`; // Thông tin khi hover
+
+                  const precipType = this.listDataPrecipType[dataIndex];
+                  // savedTheme === "light" ? "#333333" : "#00e3f5",
+                  if (precipType === "Snow") {
+                    labelValue = "Chance Of Snow";
+                  } else {
+                    labelValue = "Chance Of Rain";
+                  }
+                  // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
+                  // return precipType === "Snow" ? "#BD8526" : "#00e3f5";
+                  return `${labelValue}: ${value === 0.5 ? 0 : value}%`; // Thông tin khi hover
                 },
               },
             },

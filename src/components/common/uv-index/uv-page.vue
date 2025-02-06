@@ -9,7 +9,7 @@
       </template>
       <div class="w-full h-[183px]">
         <!--  -->
-        <div class="text-left h-[90px]">
+        <div class="text-left h-[100px]">
           <div class="txt_bold_24">
             <span>{{ Math.round(currentlyData?.uvIndex) }}</span>
           </div>
@@ -25,7 +25,7 @@
             <p>{{ convertInformationUVIndex(currentlyData?.uvIndex) }}</p>
           </div>
         </div>
-        <div class="w-full relative mt-1 pr-2 h-[calc(100%-90px)]">
+        <div class="w-full relative mt-1 pr-2 h-[calc(100%-100px)]">
           <!--  -->
           <div class="chart-container absolute bottom-0 w-full h-full">
             <!--  -->

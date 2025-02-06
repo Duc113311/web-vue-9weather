@@ -83,7 +83,7 @@
         <!-- Right -->
 
         <div class="right-hourly lg:w-[30%] w-full">
-          <div class="flex justify-center items-center h-auto">
+          <div class="flex justify-center items-center h-auto mt-4">
             <img
               src="../../../assets/images/png/ic_app_download.png"
               alt=""

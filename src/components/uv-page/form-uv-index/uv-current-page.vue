@@ -6,13 +6,7 @@
         <div class="flex items-center text-left gap-2">
           <component :is="srcDaytime"></component>
           <p class="txt_medium_14">
-            {{
-              $t(`Current_UV_Index_In_{city}`, {
-                city: $t(
-                  `city.city_${languageParam}.${objectBreadcums?.city_key}`
-                ),
-              })
-            }}
+            {{ $t(`Current_UV_Index`) }}
           </p>
         </div>
       </template>

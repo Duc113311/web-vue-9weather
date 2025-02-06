@@ -94,10 +94,12 @@ const mutations = {
       state.locationOffset.timezone = state.weatherCurrentData.timezone;
 
       state.currently = state.weatherCurrentData.currently;
-      state.dailyOne = state.weatherCurrentData.daily.data[1];
+      state.dailyOne = state.weatherCurrentData.daily.data[0];
       state.hourly24h = state.weatherCurrentData.hourly.data.slice(0, 24);
       state.hourly48h = state.weatherCurrentData.hourly.data;
       state.dailyData = state.weatherCurrentData.daily.data;
+
+      console.log("state.weatherCurrentData", state.weatherCurrentData);
     }
   },
 

@@ -216,7 +216,7 @@ export default {
                 savedTheme === "light"
                   ? gradientTemperatureLight
                   : gradientTemperatureDark,
-              fill: true, // Tô nền dưới line
+              fill: false, // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y1", // Gán trục y cho Temperature
@@ -244,9 +244,9 @@ export default {
               pointRadius: 5, // Bán kính điểm
               backgroundColor:
                 savedTheme === "light"
-                  ? gradientTemperatureLightMin
-                  : gradientTemperatureDarkMin,
-              fill: true, // Tô nền dưới line
+                  ? gradientTemperatureLight
+                  : gradientTemperatureDark,
+              fill: "-1", // Tô nền dưới line
               data: this.listTemperatureMin,
               pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y2", // Gán trục y cho Temperature

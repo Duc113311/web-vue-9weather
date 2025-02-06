@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full lg:h-[463px]">
+        <div class="right-hourly lg:w-[30%] w-full lg:h-[439px]">
           <!--  -->
           <RadarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -196,6 +196,11 @@ export default {
       debugger;
       return this.$store.state.commonModule.indexComponent;
     },
+
+    objectLocalBreadcums() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
   },
 
   async created() {
@@ -218,7 +223,10 @@ export default {
         const objectBreadValue = objectLocationLatLong;
         // const position = this.$route.params.coordinates;
         // const [latitude, longitude] = position.split(", ").map(Number);
-        const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=en`;
+        // const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=en`;
+
+        const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${this.objectLocalBreadcums.latitude},${this.objectLocalBreadcums.longitude}?lang=en`;
+
         const value = encodeBase64(param);
         await this.getWeather30DayData(value);
       }

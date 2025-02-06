@@ -149,13 +149,13 @@ export default {
       // Tạo gradient Temperature Dark
       const gradientTemperatureDark = ctx.createLinearGradient(
         0,
-        maxPosition,
         0,
-        chartHeight
+        0,
+        ctx.canvas.height
       );
 
       gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // 100% độ mờ
-      gradientTemperatureDark.addColorStop(0.7, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+      gradientTemperatureDark.addColorStop(0.6, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
       gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
 
       // Tạo gradient Temperature Dark
@@ -182,7 +182,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: "Chance of rain",
+              label: "Temperature",
               type: "line", // Kiểu dataset là line
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",
@@ -190,24 +190,78 @@ export default {
               borderWidth: 2, // Độ dày đường
               pointBorderColor: "#EBAB3F",
               pointRadius: 5, // Bán kính điểm
-              backgroundColor:
-                savedTheme === "light"
-                  ? gradientTemperatureLight
-                  : gradientTemperatureDark,
+              backgroundColor: (context) => {
+                const { chart } = context;
+
+                console.log("context", context);
+
+                const dataIndex = context.datasetIndex;
+                const dataset = context.dataset;
+                // data = dataset.data => [10, -5, 30, 50]
+                const value = dataset.data[dataIndex];
+                // console.log("dataIndex", dataIndex);
+                // console.log("alignForThisPoint", dataset.data.length);
+                const ctx = chart.ctx;
+
+                // Ví dụ bạn kiểm tra theme light/dark và các điều kiện top/bottom (hoặc giá trị âm/dương) ở đây:
+                const isLightTheme = this.savedTheme === "light";
+
+                // Giả sử ta có một hàm hoặc 1 biến xác định 'align' datalabel
+                // (trường hợp đơn giản: align = 'top' nếu >=0, 'bottom' nếu <0)
+
+                let gradient;
+                if (value >= 0) {
+                  // Vẽ gradient từ trên xuống
+                  gradient = ctx.createLinearGradient(
+                    0,
+                    0,
+                    0,
+                    ctx.canvas.height
+                  );
+                } else {
+                  // Vẽ gradient từ dưới lên
+                  gradient = ctx.createLinearGradient(
+                    0,
+                    ctx.canvas.height,
+                    0,
+                    0
+                  );
+                }
+
+                // Tuỳ theo theme ta chọn màu khác nhau
+                if (isLightTheme) {
+                  // Vd: Light theme: màu vàng đậm phía trên (hoặc dưới), dần chuyển sang trong suốt
+                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
+                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0)");
+                  gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
+                } else {
+                  // Vd: Dark theme: bạn có thể đổi các mã màu cho phù hợp
+                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
+                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0)");
+                  gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
+                }
+
+                return gradient;
+              },
+
               fill: true, // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
               yAxisID: "y1", // Gán trục y cho Temperature
               datalabels: {
                 display: true,
-                align: "top",
+                align: (context) => {
+                  const { dataset, dataIndex } = context;
+                  const value = dataset.data[dataIndex];
+                  // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
+                  return value < 0 ? "bottom" : "top";
+                },
                 anchor: "start", // Gắn nhãn ở đầu cột
                 font: {
                   size: 14,
                 },
                 color: "#EBAB3F",
                 formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-                offset: 6,
               },
             },
           ],

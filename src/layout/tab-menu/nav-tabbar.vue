@@ -165,11 +165,6 @@ export default {
 
   watch: {
     // Theo dõi sự thay đổi của breadcumsObjectGetters
-    breadcumsObjectGetters(newVal) {
-      if (newVal && Object.keys(newVal).length > 0) {
-        this.setTitleScream(this.activeIndex);
-      }
-    },
   },
 
   mounted() {
@@ -186,7 +181,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setKeyIndexComponent", "setActiveTab"]),
+    ...mapMutations("commonModule", [
+      "setKeyIndexComponent",
+      "setIndexComponent",
+      "setActiveTab",
+    ]),
     convertToSlugCity(str) {
       const slug = removeAccents(str);
 
@@ -386,10 +385,10 @@ export default {
     },
 
     async onClickRouterView(value, index) {
+      debugger;
       try {
         this.activeIndex = index;
 
-        debugger;
         let screamName = "today-weather";
         if (this.activeIndex === 0) {
           this.setActiveTab(0);
@@ -421,118 +420,120 @@ export default {
           screamName = "moon-phase-weather";
           // this.successUnit();
         }
+        debugger;
+        this.setTitleScream(this.activeIndex);
 
-        if (value.isRun) {
-          this.setTitleScream(this.activeIndex);
+        const countryKey = this.breadcumsObject.country_key;
 
-          const countryKey = this.breadcumsObject.country_key;
+        console.log("this.breadcumsObject", this.breadcumsObject);
 
-          if (countryKey.toLowerCase() === "vn") {
-            let routeParams = {
-              name: screamName,
-              params: {
-                language: this.renderLanguage,
-                location: [this.breadcumsObject.country_key.toLowerCase()],
-              },
-            };
+        if (countryKey.toLowerCase() === "vn") {
+          let routeParams = {
+            name: screamName,
+            params: {
+              language: this.renderLanguage,
+              location: [this.breadcumsObject.country_key.toLowerCase()],
+            },
+          };
 
-            // Xây dựng mảng location dựa vào điều kiện
-            if (
-              this.breadcumsObject.city.length !== 0 &&
-              this.breadcumsObject.district.length === 0
-            ) {
-              routeParams.params.location.push(
-                this.convertLowerCase(this.breadcumsObject.city)
-              );
-            }
-
-            if (
-              this.breadcumsObject.city.length !== 0 &&
-              this.breadcumsObject.district.length !== 0 &&
-              this.breadcumsObject.ward.length === 0
-            ) {
-              routeParams.params.location.push(
-                this.convertLowerCase(this.breadcumsObject.district)
-              );
-            }
-
-            if (
-              this.breadcumsObject.city.length !== 0 &&
-              this.breadcumsObject.district.length !== 0 &&
-              this.breadcumsObject.ward.length !== 0
-            ) {
-              routeParams.params.location.push(
-                this.convertToSlug(
-                  this.removeWordAndAccents(this.breadcumsObject.ward, [
-                    "Xã",
-                    "Thị Xã",
-                    "Phường",
-                    "Thị Trấn",
-                  ])
-                )
-              );
-            }
-
-            // Thêm query param để force component re-render
-            await this.$router.push(routeParams);
-
-            // Chuyển route và đợi cho đến khi navigation hoàn tất
-            this.setKeyIndexComponent(1);
-
-            // Emit event để thông báo cho component cha biết route đã thay đổi
-            this.$emit("route-changed", screamName);
-          } else {
-            debugger;
-            let routeParams = {
-              name: screamName,
-              params: {
-                language: this.renderLanguage,
-                location: [this.breadcumsObject.country_key.toLowerCase()],
-              },
-            };
-
-            // Xây dựng mảng location dựa vào điều kiện
-            if (
-              this.breadcumsObject.state.length !== 0 &&
-              this.breadcumsObject.county.length === 0
-            ) {
-              routeParams.params.location.push(
-                convertLowerCase(this.breadcumsObject.state)
-              );
-            }
-
-            if (
-              this.breadcumsObject.state.length !== 0 &&
-              this.breadcumsObject.county.length !== 0 &&
-              this.breadcumsObject.cities.length === 0
-            ) {
-              routeParams.params.location.push(
-                convertLowerCase(this.breadcumsObject.state),
-                convertLowerCase(this.breadcumsObject.county)
-              );
-            }
-
-            if (
-              this.breadcumsObject.state.length !== 0 &&
-              this.breadcumsObject.county.length !== 0 &&
-              this.breadcumsObject.cities.length !== 0
-            ) {
-              routeParams.params.location.push(
-                convertLowerCase(this.breadcumsObject.state),
-                convertLowerCase(this.breadcumsObject.county),
-                convertLowerCase(this.breadcumsObject.cities)
-              );
-            }
-
-            // Thêm query param để force component re-render
-            await this.$router.push(routeParams);
-
-            // Chuyển route và đợi cho đến khi navigation hoàn tất
-            this.setKeyIndexComponent(1);
-
-            // Emit event để thông báo cho component cha biết route đã thay đổi
-            this.$emit("route-changed", screamName);
+          // Xây dựng mảng location dựa vào điều kiện
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length === 0
+          ) {
+            routeParams.params.location.push(
+              this.convertLowerCase(this.breadcumsObject.city)
+            );
           }
+
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length !== 0 &&
+            this.breadcumsObject.ward.length === 0
+          ) {
+            routeParams.params.location.push(
+              this.convertLowerCase(this.breadcumsObject.district)
+            );
+          }
+
+          if (
+            this.breadcumsObject.city.length !== 0 &&
+            this.breadcumsObject.district.length !== 0 &&
+            this.breadcumsObject.ward.length !== 0
+          ) {
+            routeParams.params.location.push(
+              this.convertToSlug(
+                this.removeWordAndAccents(this.breadcumsObject.ward, [
+                  "Xã",
+                  "Thị Xã",
+                  "Phường",
+                  "Thị Trấn",
+                ])
+              )
+            );
+          }
+
+          // Thêm query param để force component re-render
+          await this.$router.push(routeParams);
+
+          // Chuyển route và đợi cho đến khi navigation hoàn tất
+          this.setKeyIndexComponent(1);
+          this.setIndexComponent(1);
+
+          // Emit event để thông báo cho component cha biết route đã thay đổi
+          this.$emit("route-changed", screamName);
+        } else {
+          debugger;
+          let routeParams = {
+            name: screamName,
+            params: {
+              language: this.renderLanguage,
+              location: [this.breadcumsObject.country_key.toLowerCase()],
+            },
+          };
+
+          // Xây dựng mảng location dựa vào điều kiện
+          if (
+            this.breadcumsObject.state.length !== 0 &&
+            this.breadcumsObject.county.length === 0
+          ) {
+            routeParams.params.location.push(
+              convertLowerCase(this.breadcumsObject.state)
+            );
+          }
+
+          if (
+            this.breadcumsObject.state.length !== 0 &&
+            this.breadcumsObject.county.length !== 0 &&
+            this.breadcumsObject.cities.length === 0
+          ) {
+            routeParams.params.location.push(
+              convertLowerCase(this.breadcumsObject.state),
+              convertLowerCase(this.breadcumsObject.county)
+            );
+          }
+
+          if (
+            this.breadcumsObject.state.length !== 0 &&
+            this.breadcumsObject.county.length !== 0 &&
+            this.breadcumsObject.cities.length !== 0
+          ) {
+            routeParams.params.location.push(
+              convertLowerCase(this.breadcumsObject.state),
+              convertLowerCase(this.breadcumsObject.county),
+              convertLowerCase(this.breadcumsObject.cities)
+            );
+          }
+
+          // Thêm query param để force component re-render
+          await this.$router.push(routeParams);
+
+          // Chuyển route và đợi cho đến khi navigation hoàn tất
+          this.setKeyIndexComponent(1);
+
+          this.setIndexComponent(1);
+          // Emit event để thông báo cho component cha biết route đã thay đổi
+          this.$emit("route-changed", screamName);
         }
       } catch (err) {
         console.error("Navigation failed:", err);

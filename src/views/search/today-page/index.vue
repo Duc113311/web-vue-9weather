@@ -20,7 +20,6 @@
               <TempDayNightPage
                 :key="indexState + Math.random()"
                 :title="dayTime"
-                :isShowDayNight="isShowDayNight"
                 :srcDayNight="srcDaytime"
               ></TempDayNightPage>
             </div>
@@ -35,6 +34,7 @@
               <TempDayNightPage
                 :title="nightTime"
                 :srcDayNight="srcNighttime"
+                :isShowDayNight="isShowDayNight"
                 :key="indexState + Math.random()"
               ></TempDayNightPage>
             </div>

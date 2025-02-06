@@ -4,7 +4,7 @@
     <div class="w-full relative h-full">
       <div class="w-full h-full relative">
         <vue-horizontal
-          :displacement="1"
+          :displacement="0.8"
           responsive
           class="w-full h-[calc(100%-40px)] relative horizontals pl-2 pr-6 pt-4"
         >
@@ -12,7 +12,7 @@
             <ChartDays class="h-[40px]"></ChartDays>
 
             <ChartTemperatureBar
-              class="h-[230px] absolute top-0"
+              class="h-[180px] absolute top-10"
             ></ChartTemperatureBar>
 
             <ChartPrecipitationBar
@@ -27,15 +27,19 @@
 
         <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="flex items-center text-left gap-2">
-            <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
+            <div class="bg-temp-c rounded-full w-[12px] h-[12px]"></div>
             <span class="txt_regular_12">{{ $t("Temperature") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
-            <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
+            <div class="bg-rain-c rounded-full w-[12px] h-[12px]"></div>
             <span class="txt_regular_12">{{ $t("Chance_of_rain") }}</span>
           </div>
           <div class="flex items-center text-left gap-2">
-            <div class="bg-rainfall-c rounded-full w-[15px] h-[15px]"></div>
+            <div class="bg-snow-c rounded-full w-[12px] h-[12px]"></div>
+            <span class="txt_regular_12">{{ $t("Chance_of_snow") }}</span>
+          </div>
+          <div class="flex items-center text-left gap-2">
+            <div class="bg-rainfall-c rounded-full w-[12px] h-[12px]"></div>
             <span class="txt_regular_12">{{ $t("Precipitation") }}</span>
           </div>
         </div>
@@ -102,6 +106,9 @@ export default {
 
 .bg-rain-c {
   background-color: var(--bg-radio-chance-of-rain);
+}
+.bg-snow-c {
+  background-color: var(--bg-radio-chance-of-snow);
 }
 
 .bg-rainfall-c {

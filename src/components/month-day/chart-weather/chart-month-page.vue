@@ -125,20 +125,24 @@
                 class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10"
               >
                 <div class="flex items-center text-left gap-2">
-                  <div class="bg-temp-c rounded-full w-[15px] h-[15px]"></div>
+                  <div class="bg-temp-c rounded-full w-[12px] h-[12px]"></div>
                   <span class="txt_regular_12">{{ $t("High") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
-                  <div class="bg-temp-d rounded-full w-[15px] h-[15px]"></div>
+                  <div class="bg-temp-d rounded-full w-[12px] h-[12px]"></div>
                   <span class="txt_regular_12">{{ $t("Low") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
-                  <div class="bg-rain-c rounded-full w-[15px] h-[15px]"></div>
+                  <div class="bg-rain-c rounded-full w-[12px] h-[12px]"></div>
                   <span class="txt_regular_12">{{ $t("Chance_of_rain") }}</span>
                 </div>
                 <div class="flex items-center text-left gap-2">
+                  <div class="bg-snow-c rounded-full w-[12px] h-[12px]"></div>
+                  <span class="txt_regular_12">{{ $t("Chance_of_snow") }}</span>
+                </div>
+                <div class="flex items-center text-left gap-2">
                   <div
-                    class="bg-rainfall-c rounded-full w-[15px] h-[15px]"
+                    class="bg-rainfall-c rounded-full w-[12px] h-[12px]"
                   ></div>
                   <span class="txt_regular_12">{{ $t("Precipitation") }}</span>
                 </div>
@@ -259,7 +263,11 @@ export default {
 }
 
 .bg-rain-c {
-  background-color: #39e4f2;
+  background-color: var(--bg-radio-chance-of-rain);
+}
+
+.bg-snow-c {
+  background-color: var(--bg-radio-chance-of-snow);
 }
 
 .bg-temp-d {

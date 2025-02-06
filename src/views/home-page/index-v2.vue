@@ -2,7 +2,7 @@ qq
 <template>
   <div class="w-full h-full pad-big">
     <!--  -->
-    <BreadcumsPage></BreadcumsPage>
+    <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 
     <!--  -->
     <NavTabbar></NavTabbar>
@@ -202,6 +202,11 @@ export default {
     ]),
     currentlyData() {
       return this.currentlyGetters;
+    },
+
+    indexState() {
+      debugger;
+      return this.$store.state.commonModule.indexComponent;
     },
   },
 

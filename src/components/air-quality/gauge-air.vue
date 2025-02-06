@@ -3,8 +3,86 @@
     <!--  -->
     <div class="flex items-center text-left gap-2 pad-t-b">
       <IcTitleAir></IcTitleAir>
-      <div class="txt_medium_14">
-        <span>{{ $t("Air_quality_City") }}</span>
+      <div class="txt_medium_14" v-if="breadcumsObject.country_key === 'vn'">
+        <span v-if="breadcumsObject?.city && !breadcumsObject?.district">{{
+          $t(`{city}_Air_Quality`, {
+            city: $t(`city.city_${languageParam}.${breadcumsObject?.city_key}`),
+          })
+        }}</span>
+        <span
+          v-if="
+            breadcumsObject?.city &&
+            breadcumsObject?.district &&
+            !breadcumsObject?.ward
+          "
+        >
+          {{
+            $t(`{city}_Air_Quality`, {
+              city: $t(
+                `${convertToSlugCity(
+                  breadcumsObject?.city
+                )}.${convertToSlugCity(
+                  breadcumsObject?.city
+                )}_${languageParam}.${convertToLowCase(
+                  breadcumsObject?.district_key
+                )}`
+              ),
+            })
+          }}
+        </span>
+        <span
+          v-if="
+            breadcumsObject?.city &&
+            breadcumsObject?.district &&
+            breadcumsObject?.ward
+          "
+        >
+          {{
+            $t(`{city}_Air_Quality`, {
+              city: $t(
+                `${convertToSlugCity(
+                  breadcumsObject?.city
+                )}.${convertToSlugCity(
+                  breadcumsObject?.city
+                )}_${languageParam}.${convertToLowCase(
+                  breadcumsObject?.ward_key
+                )}`
+              ),
+            })
+          }}
+        </span>
+      </div>
+      <div class="txt_medium_14" v-else>
+        <span v-if="breadcumsObject?.state && !breadcumsObject?.county">{{
+          $t(`{city}_Air_Quality`, {
+            city: $t(`${breadcumsObject?.state}`),
+          })
+        }}</span>
+        <span
+          v-if="
+            breadcumsObject?.state &&
+            breadcumsObject?.county &&
+            !breadcumsObject?.cities
+          "
+          >{{
+            $t(`{city}_Air_Quality`, {
+              city: $t(`${breadcumsObject?.county}`),
+            })
+          }}</span
+        >
+
+        <span
+          v-if="
+            breadcumsObject?.state &&
+            breadcumsObject?.county &&
+            breadcumsObject?.cities
+          "
+          >{{
+            $t(`{city}_Air_Quality`, {
+              city: $t(`${breadcumsObject?.cities}`),
+            })
+          }}</span
+        >
       </div>
     </div>
     <div class="w-full h-full overflow-hidden">
@@ -84,6 +162,8 @@
 <script>
 import { getAirSummaryName } from "@/utils/converValue";
 import IcTitleAir from "../icons/IcTitleAir.vue";
+import { mapGetters } from "vuex";
+import { removeAccentsUnicode } from "@/utils/coverTextSystem";
 
 export default {
   name: "gauge-air",
@@ -114,6 +194,22 @@ export default {
   },
 
   computed: {
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
+    breadcumsObject() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
     airQualityValue() {
       return this.$store.state.airQualityModule.apiValue;
     },
@@ -187,6 +283,22 @@ export default {
       if ((150 <= value) & (value <= 200)) return "#F42E1C";
       if ((200 <= value) & (value <= 300)) return "#8C4396";
       return "#781125"; // Giá trị phần trăm từ 90 đến 100
+    },
+
+    convertToSlugCity(str) {
+      const slug = removeAccentsUnicode(str);
+      debugger;
+      return slug
+        .toLowerCase() // Chuyển thành chữ thường
+        .replace(/\s+/g, ""); // Xóa khoảng trắng
+    },
+
+    convertToLowCase(value) {
+      const normalizedStr = value
+        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
+        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
+
+      return normalizedStr;
     },
   },
 };
