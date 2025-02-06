@@ -2,7 +2,7 @@ import axios from "axios";
 
 //API_IP_FIND   https://ipfind.co
 export const httpIpFind = axios.create({
-  baseURL: `/ipfind`,
+  baseURL: `https://ipfind.co/`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -13,7 +13,7 @@ export const httpIpFind = axios.create({
 
 //API_WEATHER : https://swtapi.tohapp.com
 export const httpWeather = axios.create({
-  baseURL: `/swtapi`,
+  baseURL: `https://swtapi.tohapp.com/`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -25,7 +25,7 @@ export const httpWeather = axios.create({
 
 //API_AQI : https://airapi.tohapp.com
 export const httpAqi = axios.create({
-  baseURL: `/airapi`,
+  baseURL: `https://airapi.tohapp.com/`,
   headers: {
     "Content-Type": "application/json",
   },

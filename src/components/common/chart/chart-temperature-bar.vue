@@ -236,8 +236,7 @@ export default {
                   gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
                 } else {
                   // Vd: Dark theme: bạn có thể đổi các mã màu cho phù hợp
-                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
-                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0)");
+                  gradient.addColorStop(0.5, "rgba(245, 163, 0, 0.2)");
                   gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
                 }
 
@@ -247,7 +246,6 @@ export default {
               fill: true, // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
-              yAxisID: "y1", // Gán trục y cho Temperature
               datalabels: {
                 display: true,
                 align: (context) => {
@@ -284,16 +282,13 @@ export default {
                 stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
             },
-            y1: {
+            y: {
               type: "linear",
               position: "left",
               display: false,
               beginAtZero: true,
               max: maxDataValue + 2,
-              min: minDataValue - 2,
-              ticks: {
-                padding: 10, // Giảm khoảng cách giữa nhãn và trục
-              },
+              min: minDataValue - 3,
             },
           },
           plugins: {

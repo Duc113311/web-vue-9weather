@@ -192,7 +192,7 @@ export default {
                 // savedTheme === "light" ? "#333333" : "#00e3f5",
 
                 // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                return precipType === "Snow" ? "#BD8526" : "#00E3F5";
+                return precipType === "Snow" ? "#ff8c00" : "#00E3F5";
               },
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
@@ -204,7 +204,7 @@ export default {
                 // savedTheme === "light" ? "#333333" : "#00e3f5",
 
                 // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                return precipType === "Snow" ? "#BD8526" : "#00E3F5";
+                return precipType === "Snow" ? "#ff8c00" : "#00E3F5";
               },
               pointRadius: 5, // Bán kính điểm
               backgroundColor:
@@ -230,7 +230,7 @@ export default {
                   // savedTheme === "light" ? "#333333" : "#00e3f5",
 
                   // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                  return precipType === "Snow" ? "#BD8526" : "#00e3f5";
+                  return precipType === "Snow" ? "#ff8c00" : "#00e3f5";
                 },
                 formatter: (value) => `${value === 0.5 ? 0 : value}%`, // Định dạng giá trị hiển thị
                 offset: 6,

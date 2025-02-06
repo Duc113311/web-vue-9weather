@@ -84,7 +84,7 @@
                       </div>
 
                       <div
-                        class="flex items-center gap-0.5 color_BC8637"
+                        class="flex items-center gap-0.5 color_ff8c00"
                         v-if="day.precipType === 'Snow'"
                       >
                         <svg

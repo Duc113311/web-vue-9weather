@@ -106,7 +106,7 @@
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
 
                   <ChartTempMaxMin
-                    class="h-[200px] absolute top-8"
+                    class="h-[150px] absolute top-15"
                     :key="indexState + Math.random()"
                   ></ChartTempMaxMin>
 

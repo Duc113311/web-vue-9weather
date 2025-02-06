@@ -13,7 +13,7 @@
 
             <!--  -->
             <ChartTemperatureBar
-              class="h-[150px] absolute top-10"
+              class="h-[120px] absolute top-10"
             ></ChartTemperatureBar>
 
             <ChartPrecipitationBar

@@ -147,7 +147,7 @@ export default {
 
     breadcumsObject() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-
+      debugger;
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
 
@@ -422,48 +422,48 @@ export default {
         }
         debugger;
         this.setTitleScream(this.activeIndex);
+        const objectBread = JSON.parse(localStorage.getItem("objectBread"));
+        const countryKey = objectBread.country_key;
 
-        const countryKey = this.breadcumsObject.country_key;
-
-        console.log("this.breadcumsObject", this.breadcumsObject);
+        console.log("this.breadcumsObject", objectBread);
 
         if (countryKey.toLowerCase() === "vn") {
           let routeParams = {
             name: screamName,
             params: {
               language: this.renderLanguage,
-              location: [this.breadcumsObject.country_key.toLowerCase()],
+              location: [objectBread.country_key.toLowerCase()],
             },
           };
 
           // Xây dựng mảng location dựa vào điều kiện
           if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length === 0
+            objectBread.city.length !== 0 &&
+            objectBread.district.length === 0
           ) {
             routeParams.params.location.push(
-              this.convertLowerCase(this.breadcumsObject.city)
+              this.convertLowerCase(objectBread.city)
             );
           }
 
           if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length !== 0 &&
-            this.breadcumsObject.ward.length === 0
+            objectBread.city.length !== 0 &&
+            objectBread.district.length !== 0 &&
+            objectBread.ward.length === 0
           ) {
             routeParams.params.location.push(
-              this.convertLowerCase(this.breadcumsObject.district)
+              this.convertLowerCase(objectBread.district)
             );
           }
 
           if (
-            this.breadcumsObject.city.length !== 0 &&
-            this.breadcumsObject.district.length !== 0 &&
-            this.breadcumsObject.ward.length !== 0
+            objectBread.city.length !== 0 &&
+            objectBread.district.length !== 0 &&
+            objectBread.ward.length !== 0
           ) {
             routeParams.params.location.push(
               this.convertToSlug(
-                this.removeWordAndAccents(this.breadcumsObject.ward, [
+                this.removeWordAndAccents(objectBread.ward, [
                   "Xã",
                   "Thị Xã",
                   "Phường",
@@ -488,40 +488,40 @@ export default {
             name: screamName,
             params: {
               language: this.renderLanguage,
-              location: [this.breadcumsObject.country_key.toLowerCase()],
+              location: [objectBread.country_key.toLowerCase()],
             },
           };
 
           // Xây dựng mảng location dựa vào điều kiện
           if (
-            this.breadcumsObject.state.length !== 0 &&
-            this.breadcumsObject.county.length === 0
+            objectBread.state.length !== 0 &&
+            objectBread.county.length === 0
           ) {
             routeParams.params.location.push(
-              convertLowerCase(this.breadcumsObject.state)
+              convertLowerCase(objectBread.state)
             );
           }
 
           if (
-            this.breadcumsObject.state.length !== 0 &&
-            this.breadcumsObject.county.length !== 0 &&
-            this.breadcumsObject.cities.length === 0
+            objectBread.state.length !== 0 &&
+            objectBread.county.length !== 0 &&
+            objectBread.cities.length === 0
           ) {
             routeParams.params.location.push(
-              convertLowerCase(this.breadcumsObject.state),
-              convertLowerCase(this.breadcumsObject.county)
+              convertLowerCase(objectBread.state),
+              convertLowerCase(objectBread.county)
             );
           }
 
           if (
-            this.breadcumsObject.state.length !== 0 &&
-            this.breadcumsObject.county.length !== 0 &&
-            this.breadcumsObject.cities.length !== 0
+            objectBread.state.length !== 0 &&
+            objectBread.county.length !== 0 &&
+            objectBread.cities.length !== 0
           ) {
             routeParams.params.location.push(
-              convertLowerCase(this.breadcumsObject.state),
-              convertLowerCase(this.breadcumsObject.county),
-              convertLowerCase(this.breadcumsObject.cities)
+              convertLowerCase(objectBread.state),
+              convertLowerCase(objectBread.county),
+              convertLowerCase(objectBread.cities)
             );
           }
 
