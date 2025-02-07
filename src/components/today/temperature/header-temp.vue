@@ -74,11 +74,18 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center txt_regular_14">
-          <p>{{ $t("Chance_of_rain") }}</p>
+          <p v-if="currentlyDataRender?.precipType === 'Snow'">
+            {{ $t("Chance_of_snow") }}
+          </p>
+          <p v-else>{{ $t("Chance_of_rain") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
-          <IcChanceOfRain></IcChanceOfRain>
+          <IcChanceOfRainSnow
+            v-if="currentlyDataRender?.precipType === 'Snow'"
+          ></IcChanceOfRainSnow>
+          <IcChanceOfRain v-else></IcChanceOfRain>
         </div>
+
         <div class="text-c text-center items-center txt_medium_17">
           <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
         </div>
@@ -96,6 +103,7 @@
 </template>
 <script>
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
 import IcTemptMax from "@/components/icons/IcTemptMax.vue";
 import IcTemptMin from "@/components/icons/IcTemptMin.vue";
@@ -116,6 +124,7 @@ export default {
     IcTemptMin,
     IcPrecipitation,
     IcChanceOfRain,
+    IcChanceOfRainSnow,
   },
 
   data() {

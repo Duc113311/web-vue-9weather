@@ -646,7 +646,7 @@ export default {
 
       // window.location.reload();
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
       const resultAir = getAqiDataFromLocation(item.lat, item.lng);
       const encodeDataWeather = encodeBase64(param);
 
@@ -839,7 +839,7 @@ export default {
         }
       }
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=${this.languageParam}`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=${this.languageParam}`;
       const resultAir = getAqiDataFromLocation(
         objectBreadValue.latitude,
         objectBreadValue.longitude

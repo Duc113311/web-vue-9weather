@@ -23,6 +23,13 @@
   text-align: center; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
 }
+.txt_regular_11 {
+  font-size: 11px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 14.32px; /* Khoảng cách giữa các dòng */
+  text-align: center; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
 
 .txt_regular_14 {
   font-size: 14px; /* Kích thước chữ mặc định */

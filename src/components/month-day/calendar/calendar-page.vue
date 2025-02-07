@@ -197,12 +197,13 @@ export default {
   },
   computed: {
     renderCalendar() {
-      console.log(
-        "listDaily30Day",
-        this.$store.state.weatherModule.listDaily30Day
-      );
+      const daily = this.$store.state.weatherModule.dailyData;
+      const listDaily30Day = this.$store.state.weatherModule.listDaily30Day;
+      if (daily.length !== 0) {
+        listDaily30Day.splice(0, 8, ...daily);
+      }
 
-      return this.$store.state.weatherModule.listDaily30Day;
+      return listDaily30Day;
     },
 
     locationOffsetValue() {
@@ -335,7 +336,7 @@ export default {
     convertTemperature(value) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTemperature_save === "f") {
-        return convertCtoF(value);
+        return convertFtoC(value);
       } else {
         return convertFtoC(value);
       }

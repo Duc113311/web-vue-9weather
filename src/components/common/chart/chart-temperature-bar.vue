@@ -132,6 +132,8 @@ export default {
         this.chartInstance.destroy();
       }
 
+      console.log("this.listTemperatureData", this.listTemperatureData);
+
       // Lấy giá trị nhỏ nhất trong dữ liệu và giảm thêm padding
       const minDataValue = Math.min(...this.listTemperatureData);
       const maxDataValue = Math.max(...this.listTemperatureData);
@@ -197,17 +199,11 @@ export default {
 
                 const dataIndex = context.datasetIndex;
                 const dataset = context.dataset;
-                // data = dataset.data => [10, -5, 30, 50]
                 const value = dataset.data[dataIndex];
-                // console.log("dataIndex", dataIndex);
-                // console.log("alignForThisPoint", dataset.data.length);
+
                 const ctx = chart.ctx;
 
-                // Ví dụ bạn kiểm tra theme light/dark và các điều kiện top/bottom (hoặc giá trị âm/dương) ở đây:
                 const isLightTheme = this.savedTheme === "light";
-
-                // Giả sử ta có một hàm hoặc 1 biến xác định 'align' datalabel
-                // (trường hợp đơn giản: align = 'top' nếu >=0, 'bottom' nếu <0)
 
                 let gradient;
                 if (value >= 0) {
@@ -218,6 +214,8 @@ export default {
                     0,
                     ctx.canvas.height
                   );
+                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
+                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0)");
                 } else {
                   // Vẽ gradient từ dưới lên
                   gradient = ctx.createLinearGradient(
@@ -226,17 +224,18 @@ export default {
                     0,
                     0
                   );
+                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
+                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0.2)");
                 }
 
                 // Tuỳ theo theme ta chọn màu khác nhau
                 if (isLightTheme) {
                   // Vd: Light theme: màu vàng đậm phía trên (hoặc dưới), dần chuyển sang trong suốt
                   gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
-                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0)");
+                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0.3)");
                   gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
                 } else {
                   // Vd: Dark theme: bạn có thể đổi các mã màu cho phù hợp
-                  gradient.addColorStop(0.5, "rgba(245, 163, 0, 0.2)");
                   gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
                 }
 
@@ -271,8 +270,8 @@ export default {
             padding: {
               top: maxDataValue, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 18,
-              right: 20,
+              left: 22,
+              right: 24,
             },
           },
           scales: {
@@ -299,11 +298,12 @@ export default {
             tooltip: {
               enabled: true,
               theme: "dark",
+              align: "left",
               callbacks: {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value}°`; // Thông tin khi hover
+                  return `${label}: ${Number(value) === 0 ? 0 : value}°`; // Thông tin khi hover
                 },
               },
             },
@@ -315,7 +315,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0.3,
+              tension: 0.5,
             },
           },
         },

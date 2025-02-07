@@ -1,63 +1,18 @@
 <template>
-  <div class="w-full h-full">
-    <div class="w-full relative h-full">
-      <div class="w-full h-full relative">
-        <!--  -->
-        <vue-horizontal
-          responsive
-          :displacement="0.8"
-          class="w-full h-[calc(100%-40px)] relative horizontal"
-        >
-          <div class="w-full h-full relative">
-            <ChartDays class="h-[40px] pl-3 pr-3"></ChartDays>
-
-            <DetailChartUv class="h-[calc(100%-45px)]"></DetailChartUv>
-          </div>
-        </vue-horizontal>
-        <div class="w-full h-[45px] flex justify-between pad-t-b-10 pad-r-l-10">
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-short rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Low") }}</p>
-              <p class="txt_regular_12">0-2</p>
-            </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-Medium rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Moderate") }}</p>
-              <p class="txt_regular_12">3-5</p>
-            </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-High rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("High") }}</p>
-              <p class="txt_regular_12">6-7</p>
-            </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-Very-high rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Very_High") }}</p>
-              <p class="txt_regular_12">8-10</p>
-            </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-Extremely-high rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Extreme") }}</p>
-              <p class="txt_regular_12">> 10</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="w-[1550px] z-10">
+    <div
+      class="chart-container-uv h-full w-full"
+      v-if="listHourly && listHourly.length"
+    >
+      <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
     </div>
   </div>
 </template>
 <script>
-import ChartDays from "@/components/common/chart/chart-days.vue";
-import VueHorizontal from "vue-horizontal";
+import {
+  convertTimestamp12hSun,
+  convertTimestamp24hSun,
+} from "@/utils/converValue";
 import {
   Chart,
   CategoryScale,
@@ -80,18 +35,14 @@ Chart.register(
   LineController,
   ChartDataLabels
 );
-
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import {
-  convertTimestamp12hSun,
-  convertTimestamp24hSun,
-} from "@/utils/converValue";
-import DetailChartUv from "./detail/detail-chart-uv.vue";
 
 export default {
-  name: "uv-chart-page",
+  name: "detail-chart-uv",
 
-  components: { ChartDays, VueHorizontal, DetailChartUv },
+  data() {
+    return {};
+  },
 
   computed: {
     listHourly() {
@@ -261,54 +212,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.horizontal >>> .v-hl-btn-prev {
-  display: none !important;
-  left: 10px !important;
-}
-.horizontal >>> .v-hl-btn-next {
-  display: none !important;
-
-  right: 10px !important;
-}
-.horizontal:hover >>> .v-hl-btn-prev {
-  display: flex !important;
-  left: 10px !important;
-  opacity: 0.5;
-}
-
-.horizontal:hover >>> .v-hl-btn-next {
-  display: flex !important;
-  right: 10px !important;
-  opacity: 0.5;
-}
-.bg-short {
-  background-color: #389311;
-}
-
-.bg-Medium {
-  background-color: #f3e52b;
-}
-
-.bg-High {
-  background-color: #ee621d;
-}
-
-.bg-Very-high {
-  background-color: #cf2526;
-}
-
-.bg-Extremely-high {
-  background-color: #9064cb;
-}
-
-.chart-container {
-  padding: 0;
-  margin: 0;
-}
-canvas {
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-</style>
+<style lang=""></style>

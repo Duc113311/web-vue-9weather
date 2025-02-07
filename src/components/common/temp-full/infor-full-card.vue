@@ -81,13 +81,16 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcChanceOfRain></IcChanceOfRain>
-          <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
+          <p class="txt_regular_14" v-if="currentlyData?.precipType === 'Snow'">
+            {{ $t("Chance_of_snow") }}
+          </p>
+          <p class="txt_regular_14" v-else>{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_des">
           {{ Math.round(currentlyData?.precipProbability * 100) }}%
         </p>
       </div>
-      <div class="flex justify-between items-center">
+      <!-- <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcTitleAir></IcTitleAir>
           <p class="txt_regular_14">{{ $t("Air_quality") }}</p>
@@ -98,7 +101,7 @@
             ({{ convertAirIndexName(paramAirModule) }})
           </span>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="text-left w-full txt_regular_14 pt-4 pb-6">

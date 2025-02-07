@@ -131,14 +131,6 @@ export default {
       const slug = removeAccents(str).toLowerCase().replace(/\s+/g, "");
       return slug;
     },
-
-    // async getAPIFindLocationWeather(searchData) {
-    //   const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-    //     searchData
-    //   )}&key=TOH_KEY`;
-    //   const value = encodeBase64(urlParam);
-    //   await this.getFormattedAddress(value);
-    // },
   },
 };
 </script>

@@ -87,7 +87,14 @@
           </p>
         </div>
         <div class="flex items-center justify-between">
-          <span class="txt_light_14">{{ $t("Chance_of_rain") }}:&nbsp;</span>
+          <span
+            class="txt_light_14"
+            v-if="renderObjTemperature?.precipType === 'Snow'"
+            >{{ $t("Chance_of_snow") }}:&nbsp;</span
+          >
+          <span class="txt_light_14" v-else
+            >{{ $t("Chance_of_rain") }}:&nbsp;</span
+          >
           <p class="txt_regular_14">
             {{ Math.round(renderObjTemperature?.precipProbability * 100) }}%
           </p>

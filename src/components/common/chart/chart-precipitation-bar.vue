@@ -1,7 +1,7 @@
 <template>
   <div class="w-[1550px] flex justify-between items-center">
     <div
-      class="weather-item w-[44px]"
+      class="weather-item w-[50px]"
       v-for="(item, index) in paramHourly"
       :key="index"
     >
@@ -12,7 +12,7 @@
       <el-tooltip placement="top" popper-class="dark-tooltip">
         <template #content>
           <div class="cursor-pointer">
-            <p>{{ convertTime(item?.time) }}</p>
+            <p class="txt_regular_11">{{ convertTime(item?.time) }}</p>
             <div class="flex items-center gap-1">
               <div class="w-[10px] h-[10px] bg-precit"></div>
               <p>
@@ -102,7 +102,12 @@ export default {
               offsetValue,
               timezoneValue
             )
-          : convertTimestampToHoursMinutes(value.time, 1, offsetValue);
+          : convertTimestampToHoursMinutes(
+              value.time,
+              1,
+              offsetValue,
+              timezoneValue
+            );
       return timestampValue;
     },
   },

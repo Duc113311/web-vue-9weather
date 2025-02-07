@@ -227,7 +227,7 @@ export default {
           },
         });
         debugger;
-        const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.renderLanguage}`;
+        const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.renderLanguage}`;
 
         // const latLong = localStorage.getItem("locationLatLong");
         const resultAir = getAqiDataFromLocation(

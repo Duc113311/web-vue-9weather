@@ -87,6 +87,7 @@ const mutations = {
    */
   setWeatherDataCurrent(state, data) {
     state.weatherCurrentData = JSON.parse(decodeBase64(data));
+    debugger;
     if (state.weatherCurrentData) {
       state.locationOffset.latitude = state.weatherCurrentData.latitude;
       state.locationOffset.longitude = state.weatherCurrentData.longitude;
@@ -221,6 +222,8 @@ const mutations = {
   setWeather30DayData(state, data) {
     state.weatherData30Day = JSON.parse(decodeBase64(data));
 
+    console.log("state.weatherData30Day", state.weatherData30Day);
+
     state.listDaily30Day = state.weatherData30Day.daily.data;
   },
 
@@ -263,6 +266,7 @@ const actions = {
         .get(`api.php?param=${data}`)
         .then((response) => {
           if (response.status === 200) {
+            debugger;
             commit("setWeatherDataCurrent", response.data);
             resolve(response.data);
           } else {

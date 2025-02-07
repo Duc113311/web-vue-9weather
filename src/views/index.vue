@@ -262,18 +262,24 @@ export default {
       let latitude = dataValue.latitude;
       let longitude = dataValue.longitude;
 
+      console.log("dataValue", dataValue);
+
       localStorage.setItem("objectBread", JSON.stringify(dataValue));
 
       this.setBreadcumsAllowLocation(dataValue);
 
       this.setCityWeather(dataValue);
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
 
-      // map url by lat,long
+      console.log("paramDay", param);
+
       const resultAir = getAqiDataFromLocation(latitude, longitude);
 
       const encodeDataWeather = encodeBase64(param);
+
+      console.log("encodeDataWeather", encodeDataWeather);
+
       // API Get Weather Current
       await this.getWeatherDataCurrent(encodeDataWeather);
 
@@ -382,7 +388,7 @@ export default {
       }
       debugger;
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
       // map url by lat,long
       const resultAir = getAqiDataFromLocation(
@@ -517,7 +523,7 @@ export default {
       //   objectPosition.city_key = "Ha_Noi";
       // }
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${latitude},${longitude}?lang=en`;
 
       // map url by lat,long
       const resultAir = getAqiDataFromLocation(latitude, longitude);
@@ -595,7 +601,7 @@ export default {
               country: data.country,
             };
             this.setCityWeather(objectPosition);
-            const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${data.latitude},${data.longitude}?lang=en`;
+            const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${data.latitude},${data.longitude}?lang=en`;
             const resultAir = getAqiDataFromLocation(
               data.latitude,
               data.longitude
@@ -632,7 +638,7 @@ export default {
      */
     async showError(error) {
       let param =
-        "version=1&type=1&app_id=amobi.weather.forecast.storm.radar&request=https://ipfind.co/me?auth=TOH_KEY";
+        "version=1&type=1&app_id=amobi.weather.forecast.radar.rain&request=https://ipfind.co/me?auth=TOH_KEY";
       switch (error.code) {
         case error.PERMISSION_DENIED:
           this.error = "User denied the request for Geolocation.";

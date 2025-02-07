@@ -63,7 +63,14 @@
         </p>
       </div>
       <div class="flex justify-between items-center">
-        <div class="flex items-center text-left gap-2 txt_regular_des">
+        <div
+          class="flex items-center text-left gap-2 txt_regular_des"
+          v-if="dataDayNightRender?.precipType === 'Snow'"
+        >
+          <IcChanceOfRainSnow></IcChanceOfRainSnow>
+          <p class="txt_regular_14">{{ $t("Chance_of_snow") }}</p>
+        </div>
+        <div class="flex items-center text-left gap-2 txt_regular_des" v-else>
           <IcChanceOfRain></IcChanceOfRain>
           <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
@@ -82,6 +89,7 @@
 </template>
 <script>
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
 import IcUvIndex from "@/components/icons/IcUvIndex.vue";
 import {
@@ -102,6 +110,7 @@ export default {
     IcChanceOfRain,
     IcUvIndex,
     IcPrecipitation,
+    IcChanceOfRainSnow,
   },
 
   data() {

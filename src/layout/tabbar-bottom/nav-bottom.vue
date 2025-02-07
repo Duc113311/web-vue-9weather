@@ -293,7 +293,7 @@ export default {
     async onClickSearchCity(value, valueCategory) {
       try {
         const nameCity = value.viNameLanguage;
-        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.storm.radar&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.radar.rain&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
           nameCity
         )}&key=TOH_KEY`;
         const valueEncode = encodeBase64(urlParam);
@@ -337,7 +337,7 @@ export default {
         // this.$router.go();
 
         // Gọi các API sau khi chuyển hướng
-        const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
+        const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
         const resultAir = getAqiDataFromLocation(
           objectBread.latitude,
@@ -420,7 +420,7 @@ export default {
         }
       }
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${currentChrome.latitude},${currentChrome.longitude}?lang=${this.languageParam}`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${currentChrome.latitude},${currentChrome.longitude}?lang=${this.languageParam}`;
 
       // const latLong = localStorage.getItem("locationLatLong");
       const resultAir = getAqiDataFromLocation(
@@ -493,7 +493,7 @@ export default {
         }
       }
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${currentChrome.latitude},${currentChrome.longitude}?lang=${this.languageParam}`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${currentChrome.latitude},${currentChrome.longitude}?lang=${this.languageParam}`;
 
       // const latLong = localStorage.getItem("locationLatLong");
       const resultAir = getAqiDataFromLocation(

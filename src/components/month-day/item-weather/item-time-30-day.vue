@@ -201,7 +201,7 @@
                     </div>
                     <div class="flex items-center gap-1">
                       <span class="txt_medium_15">
-                        {{ item?.uvIndex }}
+                        {{ Math.round(item?.uvIndex) }}
                       </span>
                       <span class="txt_regular_14"
                         >({{ convertUvIndexName(item?.uvIndex) }})</span
@@ -218,7 +218,14 @@
                     </div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
+                    <div
+                      class="flex items-center gap-2"
+                      v-if="item?.precipType === 'Snow'"
+                    >
+                      <IcChanceOfRainSnow></IcChanceOfRainSnow>
+                      <p class="txt_regular_14">{{ $t("Chance_of_snow") }}</p>
+                    </div>
+                    <div class="flex items-center gap-2" v-else>
                       <IcChanceOfRain></IcChanceOfRain>
                       <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
                     </div>
@@ -401,6 +408,7 @@ import IcTitleSunrise from "@/components/icons/IcTitleSunrise.vue";
 import IcTitleSunset from "@/components/icons/IcTitleSunset.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
 import IcHumidity from "@/components/icons/IcHumidity.vue";
+import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 
 export default {
   name: "item-time-30-day",
@@ -422,6 +430,7 @@ export default {
     IcTitleSunset,
     IcPrecipitation,
     IcHumidity,
+    IcChanceOfRainSnow,
   },
   data() {
     return {

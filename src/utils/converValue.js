@@ -334,29 +334,50 @@ export function convertTimestampToHoursMinutes(
   offsetValue,
   timezone
 ) {
-  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  // Chuyển timestamp từ giây sang milliseconds
+  const date = new Date(timestamp * 1000);
 
-  let hours = dateTime.hour; // Giờ
-  let minutes = dateTime.minute; // Phút
+  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timezone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23", // Định dạng 24h
+  });
 
-  // Chuyển đổi giờ sang định dạng 12 giờ
-  hours = hours % 24;
-  hours = hours ? hours : 0; // Nếu giờ là 0 thì chuyển thành 12
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  const now = DateTime.now().setZone(timezone);
-  let hoursNow = now.hour;
-  // Trả về thời gian định dạng 12 giờ
-  if (numberTime === 0) {
-    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
-  } else if (numberTime === 1) {
-    if (hours < 10) {
-      return "0" + hours + ":" + minutes;
-    }
-    if (hours === hoursNow) {
-      return i18n.global.t("Now");
-    }
-    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
+  // Chuyển timestamp thành đúng giờ theo timezone
+  let formattedTime = formatter.format(date);
+
+  // Cộng thêm offset (1 phút)
+  let [hours, minutes] = formattedTime.split(":").map(Number);
+
+  // Xử lý nếu phút >= 60
+  if (minutes >= 60) {
+    hours += 1;
+    minutes -= 60;
   }
+
+  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
+  const formattedHours = hours.toString().padStart(2, "0");
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+
+  // Lấy giờ hiện tại theo timezone
+  const now = new Date();
+  const nowFormatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timezone,
+    hour: "2-digit",
+    hourCycle: "h23", // Chỉ lấy giờ (không lấy phút)
+  });
+
+  // Chỉ lấy giờ hiện tại
+  const nowHours = nowFormatter.format(now);
+
+  // Nếu giờ trùng nhau, hiển thị "Now"
+  if (nowHours === formattedHours) {
+    return "Now";
+  }
+
+  return `${formattedHours}:${formattedMinutes}`;
 }
 
 export function convertTimestampToHoursMinutes12(
@@ -365,30 +386,48 @@ export function convertTimestampToHoursMinutes12(
   offsetValue,
   timezone
 ) {
-  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-  // Lấy giờ và phút
-  let hours = dateTime.hour; // Giờ
-  let minutes = dateTime.minute; // Phút
+  // Cộng offset vào timestamp trước khi chuyển đổi
+  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
+  const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
 
-  // Chuyển đổi giờ sang định dạng 12 giờ
-  let period = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
-  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // Định dạng 12h AM/PM
+  });
 
-  const now = DateTime.now().setZone(timezone);
-  let hoursNow = now.hour % 12 || 12;
-  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
+  // Chuyển timestamp thành đúng giờ theo timezone
+  let formattedTime = formatter.format(date);
+  let [time, period] = formattedTime.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
 
-  // Trả về thời gian định dạng 12 giờ
-  if (numberTime === 0) {
-    // return hours + ":" + minutes + " " + period;
-    return hours + " " + period;
-  } else if (numberTime === 1) {
-    if (hours === hoursNow && period === periodNow) {
-      return i18n.global.t("Now");
-    }
-    return hours + " " + period;
+  // Loại bỏ số 0 đứng trước nếu có
+  const formattedHours = parseInt(hours, 10).toString();
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+
+  // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
+  const now = new Date();
+  const nowFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    hour: "2-digit",
+    hour12: true,
+  });
+
+  // Lấy giờ hiện tại và loại bỏ số 0 đứng trước
+  let [nowHours, nowPeriod] = nowFormatter.format(now).split(" ");
+  nowHours = parseInt(nowHours, 10).toString(); // Xoá số 0 đứng trước
+
+  console.log("nowTime", nowHours + " " + nowPeriod);
+  console.log("timeData", formattedHours + " " + period);
+
+  // Nếu giờ trùng nhau, hiển thị "Now"
+  if (nowHours === formattedHours && nowPeriod === period) {
+    return "Now";
   }
+
+  return `${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 export function convertTimestampUnit12(
@@ -533,25 +572,34 @@ export function convertTimestamp24hSun(
   offsetValue,
   timezone
 ) {
-  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  const date = new Date(timestamp * 1000);
 
-  let hours = dateTime.hour; // Giờ
-  let minutes = dateTime.minute; // Phút
+  // Sử dụng Intl.DateTimeFormat để lấy thời gian theo timezone mong muốn
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timezone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23", // Định dạng 24h
+  });
 
-  // Chuyển đổi giờ sang định dạng 12 giờ
-  hours = hours % 24;
-  hours = hours ? hours : 0; // Nếu giờ là 0 thì chuyển thành 12
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  const now = DateTime.now().setZone(timezone);
-  // Trả về thời gian định dạng 12 giờ
-  if (numberTime === 0) {
-    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
-  } else if (numberTime === 1) {
-    if (hours < 10) {
-      return "0" + hours + ":" + minutes;
-    }
-    return (hours < 10 ? "0" + hours : hours) + ":" + minutes;
+  // Chuyển timestamp thành đúng giờ theo timezone
+  const formattedTime = formatter.format(date);
+
+  // Cộng thêm offset (1 phút)
+  let [hours, minutes] = formattedTime.split(":").map(Number);
+  minutes += offsetValue;
+
+  // Xử lý nếu phút >= 60
+  if (minutes >= 60) {
+    hours += 1;
+    minutes -= 60;
   }
+
+  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
+  const formattedHours = hours.toString().padStart(2, "0");
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+
+  return `${formattedHours}:${formattedMinutes}`;
 }
 
 export function convertTimestamp12hSun(
@@ -560,24 +608,41 @@ export function convertTimestamp12hSun(
   offsetValue,
   timezone
 ) {
-  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-  // Lấy giờ và phút
-  let hours = dateTime.hour; // Giờ
-  let minutes = dateTime.minute; // Phút
+  const date = new Date(timestamp * 1000);
 
-  // Chuyển đổi giờ sang định dạng 12 giờ
-  let period = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
-  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // Định dạng 12h AM/PM
+  });
 
-  const now = DateTime.now().setZone(timezone);
+  // Chuyển timestamp thành đúng giờ theo timezone
+  let formattedTime = formatter.format(date);
 
-  // Trả về thời gian định dạng 12 giờ
-  if (numberTime === 0) {
-    return hours + ":" + minutes + " " + period;
-  } else if (numberTime === 1) {
-    return hours + ":" + minutes + " " + period;
+  // Cộng thêm offset (1 phút)
+  let [time, period] = formattedTime.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
+  minutes += offsetValue;
+
+
+  // Xử lý nếu giờ >= 12h
+  if (hours >= 12) {
+    period = "PM";
+    if (hours > 12) hours -= 12;
+  } else {
+    period = "AM";
+    if (hours === 0) hours = 12;
   }
+
+  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
+  const formattedHours = hours.toString();
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+
+  return `${formattedHours}:${formattedMinutes} ${period}`;
+
+
 }
 
 //

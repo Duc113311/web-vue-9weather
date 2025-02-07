@@ -53,7 +53,14 @@ export default {
 
   computed: {
     paramHourly() {
-      return this.$store.state.weatherModule.listDaily30Day;
+      const daily = this.$store.state.weatherModule.dailyData;
+      const listDaily30Day = this.$store.state.weatherModule.listDaily30Day;
+
+      if (daily.length !== 0) {
+        listDaily30Day.splice(0, 8, ...daily);
+      }
+
+      return listDaily30Day;
     },
 
     objectSetting() {
@@ -183,7 +190,7 @@ export default {
             {
               label: "Chance of rain",
               type: "line", // Kiểu dataset là line
-              borderColor: "#29D2E2",
+              borderColor: "#ccc",
               pointBackgroundColor: (context) => {
                 const { dataset, dataIndex } = context;
                 const value = dataset.data[dataIndex];

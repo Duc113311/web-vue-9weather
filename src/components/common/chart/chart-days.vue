@@ -1,12 +1,12 @@
 <template>
   <div class="w-[1550px] flex justify-between items-center">
     <div
-      class="weather-item w-[44px]"
+      class="weather-item w-[50px]"
       v-for="(item, index) in paramHourly"
       :key="index"
     >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_12">
+      <div class="txt_regular_11">
         {{ renderHourlyTime(item) }}
       </div>
       <div class="flex justify-center items-center">
@@ -66,7 +66,12 @@ export default {
               offsetValue,
               timezoneValue
             )
-          : convertTimestampToHoursMinutes(value.time, 1, offsetValue);
+          : convertTimestampToHoursMinutes(
+              value.time,
+              1,
+              offsetValue,
+              timezoneValue
+            );
       return timestampValue;
     },
   },

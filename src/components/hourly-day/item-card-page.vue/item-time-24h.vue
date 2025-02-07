@@ -212,7 +212,14 @@
                   </div>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
+                  <div
+                    class="flex items-center gap-2"
+                    v-if="item?.precipType === 'Snow'"
+                  >
+                    <IcChanceOfRainSnow></IcChanceOfRainSnow>
+                    <p class="txt_regular_14">{{ $t("Chance_of_snow") }}</p>
+                  </div>
+                  <div class="flex items-center gap-2" v-else>
                     <IcChanceOfRain></IcChanceOfRain>
                     <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
                   </div>
@@ -394,6 +401,7 @@ import IcTemptMax from "@/components/icons/IcTemptMax.vue";
 import IcTemptMin from "@/components/icons/IcTemptMin.vue";
 import IcTempt from "@/components/icons/IcTempt.vue";
 import IcHumidity from "@/components/icons/IcHumidity.vue";
+import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 
 export default {
   name: "item-time-24h",
@@ -415,6 +423,7 @@ export default {
     IcTitlePressure,
     IcTitleSunrise,
     IcHumidity,
+    IcChanceOfRainSnow,
   },
   data() {
     return {

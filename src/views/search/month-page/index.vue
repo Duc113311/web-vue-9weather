@@ -221,11 +221,13 @@ export default {
       );
       if (objectLocationLatLong) {
         const objectBreadValue = objectLocationLatLong;
-        // const position = this.$route.params.coordinates;
-        // const [latitude, longitude] = position.split(", ").map(Number);
-        // const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=en`;
+        const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
 
-        const param = `version=1&type=10&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${this.objectLocalBreadcums.latitude},${this.objectLocalBreadcums.longitude}?lang=en`;
+        console.log("retrievedArray", retrievedArray);
+
+        const param = `version=1&type=10&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${retrievedArray.latitude},${retrievedArray.longitude}?lang=en`;
+
+        console.log("param30Day", param);
 
         const value = encodeBase64(param);
         await this.getWeather30DayData(value);

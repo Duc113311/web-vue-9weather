@@ -43,7 +43,7 @@ export default {
         const keyLanguageStorage = this.$route.params.language
           ? this.$route.params.language
           : this.$i18n.locale;
-        const param = `version=1&type=8&app_id=amobi.weather.forecast.storm.radar&request=https://api.forecast.io/forecast/TOH_KEY/${latitudeValue},${longitudeValue}?lang=${keyLanguageStorage}`;
+        const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${latitudeValue},${longitudeValue}?lang=${keyLanguageStorage}`;
 
         const encodeDataWeather = encodeBase64(param);
 

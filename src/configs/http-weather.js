@@ -1,6 +1,6 @@
 import axios from "axios";
 
-//API_IP_FIND   https://ipfind.co
+//API_IP_FIND   https://ipfind.co/
 export const httpIpFind = axios.create({
   baseURL: `/ipfind`,
   headers: {
@@ -11,7 +11,7 @@ export const httpIpFind = axios.create({
   withCredentials: false,
 });
 
-//API_WEATHER : https://swtapi.tohapp.com
+//API_WEATHER : https://swtapi.tohapp.com/
 export const httpWeather = axios.create({
   baseURL: `/swtapi`,
   headers: {
@@ -23,7 +23,7 @@ export const httpWeather = axios.create({
   withCredentials: false,
 });
 
-//API_AQI : https://airapi.tohapp.com
+//API_AQI : https://airapi.tohapp/
 export const httpAqi = axios.create({
   baseURL: `/airapi`,
   headers: {

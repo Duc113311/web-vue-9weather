@@ -325,7 +325,7 @@ export default {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value === 0.5 ? 0 : value}${
+                  return `${label}: ${Number(value) === 0 ? 0 : value}${
                     label === "Temperature" ? "°" : "%"
                   }`; // Thông tin khi hover
                 },

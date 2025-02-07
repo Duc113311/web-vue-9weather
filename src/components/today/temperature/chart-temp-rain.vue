@@ -4,6 +4,7 @@
     <div class="w-full relative h-full">
       <div class="w-full h-full relative">
         <vue-horizontal
+          v-if="paramHourly.length > 0"
           responsive
           :displacement="0.8"
           class="w-full h-[calc(100%-40px)] relative horizontal"
@@ -98,6 +99,12 @@ export default {
     return {
       heightValue: "90",
     };
+  },
+
+  computed: {
+    paramHourly() {
+      return this.$store.state.weatherModule.hourly24h;
+    },
   },
 
   methods: {},

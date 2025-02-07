@@ -62,7 +62,19 @@ export default {
 
     listDataPrecipIntensity() {
       return this.paramHourly.map((element) =>
-        Math.round(element.precipProbability * 100)
+        element.precipType !== "Snow"
+          ? Math.round(element.precipProbability * 100)
+          : 0
+      );
+      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
+      // return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    },
+
+    listDataPrecipIntensitySnow() {
+      return this.paramHourly.map((element) =>
+        element.precipType === "Snow"
+          ? Math.round(element.precipProbability * 100)
+          : 0
       );
       // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
       // return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -149,7 +161,7 @@ export default {
       );
 
       gradientPrecipIntensityDark.addColorStop(0, "rgba(0, 204, 220, 1)"); // Màu #00CCDC với độ mờ 100% (vị trí 0%)
-      gradientPrecipIntensityDark.addColorStop(0.6, "rgba(0, 132, 143, 0.2)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
+      gradientPrecipIntensityDark.addColorStop(0.6, "rgba(0, 132, 143, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
       gradientPrecipIntensityDark.addColorStop(1, "rgba(0, 132, 143, 0)"); // Màu #FFFFFF với độ mờ 0% (vị trí 100%)
 
       // Tạo gradient Temperature Dark
@@ -161,7 +173,7 @@ export default {
       );
 
       gradientPrecipIntensityLight.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
-      gradientPrecipIntensityLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      gradientPrecipIntensityLight.addColorStop(0, "rgba(245, 163, 0, 0)"); // Màu vàng cam (#F5A300) với độ mờ 50%
       gradientPrecipIntensityLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
 
       const labelList = this.paramHourly.slice(0, 24).map((item) => {
@@ -183,7 +195,7 @@ export default {
             {
               label: "Chance of rain",
               type: "line", // Kiểu dataset là line
-              borderColor: "#29D2E2",
+              borderColor: "#ccc",
               pointBackgroundColor: (context) => {
                 const { dataset, dataIndex } = context;
                 const value = dataset.data[dataIndex];
@@ -304,7 +316,7 @@ export default {
 
           elements: {
             line: {
-              tension: 0.3,
+              tension: 0,
             },
           },
         },

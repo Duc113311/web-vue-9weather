@@ -264,8 +264,8 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 18,
-              right: 18,
+              left: 22,
+              right: 24,
             },
           },
           plugins: {
