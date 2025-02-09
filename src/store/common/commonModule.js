@@ -139,6 +139,10 @@ const getters = {
     return state.objectCityByLocation;
   },
 
+  objectFormatLocationGetters(state) {
+    return state.objectFormattesLocation;
+  },
+
   listCityAllGetters(state) {
     return state.listCityAll;
   },

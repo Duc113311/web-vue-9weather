@@ -208,6 +208,7 @@ export default {
       "breadcumsObjectGetters",
       "listAlabamaGetters",
       "objectCityByLocationGetters",
+      "objectFormatLocationGetters",
     ]),
 
     ...mapGetters("airQualityModule", [
@@ -224,15 +225,19 @@ export default {
       return resultData;
     },
 
-    // listCityAllData() {
-    //   const
-    //   const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityAll"));
-    //   const resultData = retrievedArray
-    //     ? retrievedArray
-    //     : this.listCityAllGetters;
+    listCityWorldData() {
+      const retrievedValue = JSON.parse(localStorage.getItem("objectBread"));
+      const formattedCountry = retrievedValue.country.replace(/ /g, "_");
 
-    //   return resultData;
-    // },
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem(`data_${formattedCountry}`)
+      );
+      const resultData = dataCityVNSession
+        ? dataCityVNSession
+        : this.objectFormatLocationGetters;
+
+      return resultData;
+    },
 
     objectCityByLocationData() {
       const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
@@ -316,7 +321,17 @@ export default {
             return [];
           }
         } else if (countryKey === "us") {
-          return [];
+          const cityKey = this.wardParam.state.toLowerCase();
+
+          const findData = this.listCityWorldData.find(
+            (x) => x.keyAccentLanguage === cityKey
+          );
+          debugger;
+          if (findData) {
+            return findData.districtList;
+          } else {
+            return [];
+          }
         } else {
           return [];
         }

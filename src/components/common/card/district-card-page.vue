@@ -42,7 +42,7 @@
             "District"
           )
         }} -->
-        {{ objectLocation.name }}
+        {{ objectLocation.enNameLanguage }}
       </div>
 
       <div class="txt_regular_12 color_BFBFBF">
