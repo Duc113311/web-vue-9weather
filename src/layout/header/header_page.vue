@@ -322,6 +322,7 @@ export default {
       "setBreadcumsTheWorld",
       "setIndexComponent",
       "setIsScroll",
+      "setObjectFormattesLocation",
     ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
@@ -493,6 +494,8 @@ export default {
     async handleSelect(item) {
       this.valueSearch = "";
       debugger;
+
+      await this.loadProvinceWould(item.country);
       let language = this.languageParam;
       if (item?.country_key?.toLowerCase() === "vn") {
         let objectBread = {
@@ -663,6 +666,32 @@ export default {
       await this.getAirQuality(encodeAirCode);
       this.indexKey = this.indexKey + 1;
       this.setIndexComponent(this.indexKey);
+    },
+
+    async loadProvinceWould(value) {
+      const formattedCountry = value.replace(/ /g, "_");
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem(`data_${formattedCountry}`)
+      );
+      if (!dataCityVNSession) {
+        try {
+          const response = await fetch(`/json/city/${formattedCountry}.json`);
+          if (!response.ok)
+            throw new Error(
+              `Failed to fetch data: ${response.status} ${response.statusText}`
+            );
+          const data = await response.json(); // Parse JSON data
+          const objectState = {
+            provinceData: data,
+            keyStorage: formattedCountry,
+          };
+          this.setObjectFormattesLocation(objectState);
+        } catch (error) {
+          console.error("Error loading file:", error.message);
+        }
+      } else {
+        this.setObjectFormattesLocation(dataCityVNSession);
+      }
     },
 
     getWardsByLocation(value) {

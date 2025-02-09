@@ -224,6 +224,16 @@ export default {
       return resultData;
     },
 
+    // listCityAllData() {
+    //   const
+    //   const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityAll"));
+    //   const resultData = retrievedArray
+    //     ? retrievedArray
+    //     : this.listCityAllGetters;
+
+    //   return resultData;
+    // },
+
     objectCityByLocationData() {
       const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
       const resultData = retrievedArray
@@ -306,31 +316,7 @@ export default {
             return [];
           }
         } else if (countryKey === "us") {
-          //
-          const stateKey = this.wardParam.state;
-          const findData = this.listAlabamaGetters.find(
-            (x) => x.nameState === stateKey
-          );
-          if (findData) {
-            if (this.wardParam?.county) {
-              const countyRemove = this.removeWordAndAccents(
-                this.wardParam.county,
-                "County"
-              );
-              const findDataCities = findData.counties.find(
-                (x) => x.name === countyRemove
-              );
-              if (findDataCities) {
-                return findDataCities.cities;
-              } else {
-                return [];
-              }
-            } else {
-              return findData.counties;
-            }
-          } else {
-            return [];
-          }
+          return [];
         } else {
           return [];
         }

@@ -419,8 +419,8 @@ export function convertTimestampToHoursMinutes12(
   let [nowHours, nowPeriod] = nowFormatter.format(now).split(" ");
   nowHours = parseInt(nowHours, 10).toString(); // Xoá số 0 đứng trước
 
-  console.log("nowTime", nowHours + " " + nowPeriod);
-  console.log("timeData", formattedHours + " " + period);
+  // console.log("nowTime", nowHours + " " + nowPeriod);
+  // console.log("timeData", formattedHours + " " + period);
 
   // Nếu giờ trùng nhau, hiển thị "Now"
   if (nowHours === formattedHours && nowPeriod === period) {
@@ -1427,7 +1427,7 @@ export function getTextWeather(value) {
   if (value == null) return "";
   let trimmedValue = value.trim();
   if (trimmedValue.endsWith(".")) {
-      trimmedValue = trimmedValue.substring(0, trimmedValue.length - 1);
+    trimmedValue = trimmedValue.substring(0, trimmedValue.length - 1);
   }
   if (trimmedValue === "") return "";
 
@@ -1435,351 +1435,351 @@ export function getTextWeather(value) {
 
   let textWeather = "";
   switch (trimmedValue.toLowerCase()) {
-      case "smoke":
-          textWeather = i18n.global.t("smoke");
-          break;
-      case "light intensity drizzle":
-          textWeather = i18n.global.t("light_intensity_drizzle");
-          break;
-      case "very heavy rain":
-          textWeather = i18n.global.t("very_heavy_rain");
-          break;
-      case "moderate or heavy rain with thunder":
-          textWeather = i18n.global.t("moderate_or_heavy_rain_with_thunder");
-          break;
-      case "blizzard":
-          textWeather = i18n.global.t("blizzard");
-          break;
-      case "blowing snow":
-          textWeather = i18n.global.t("blowing_snow");
-          break;
-      case "broken clouds":
-          textWeather = i18n.global.t("broken_clouds");
-          break;
-      case "clear":
-          textWeather = i18n.global.t("clear");
-          break;
-      case "clear sky":
-          textWeather = i18n.global.t("clear_sky");
-          break;
-      case "cloudy":
-          textWeather = i18n.global.t("cloudy");
-          break;
-      case "few clouds":
-          textWeather = i18n.global.t("few_clouds");
-          break;
-      case "fog":
-          textWeather = i18n.global.t("fog");
-          break;
-      case "foggy":
-          textWeather = i18n.global.t("foggy");
-          break;
-      case "freezing fog":
-          textWeather = i18n.global.t("freezing_fog");
-          break;
-      case "haze":
-          textWeather = i18n.global.t("haze");
-          break;
-      case "heavy intensity rain":
-          textWeather = i18n.global.t("heavy_intensity_rain");
-          break;
-      case "heavy rain":
-          textWeather = i18n.global.t("heavy_rain");
-          break;
-      case "heavy rain at times":
-          textWeather = i18n.global.t("heavy_rain_at_times");
-          break;
-      case "heavy snow":
-          textWeather = i18n.global.t("heavy_snow");
-          break;
-      case "humid":
-          textWeather = i18n.global.t("humid");
-          break;
-      case "humid and mostly cloudy":
-          textWeather = i18n.global.t("humid_and_mostly_cloudy");
-          break;
-      case "humid and overcast":
-          textWeather = i18n.global.t("humid_and_overcast");
-          break;
-      case "humid and partly cloudy":
-          textWeather = i18n.global.t("humid_and_partly_cloudy");
-          break;
-      case "light drizzle":
-          textWeather = i18n.global.t("light_drizzle");
-          break;
-      case "light freezing rain":
-          textWeather = i18n.global.t("light_freezing_rain");
-          break;
-      case "light rain":
-          textWeather = i18n.global.t("light_rain");
-          break;
-      case "light rain shower":
-          textWeather = i18n.global.t("light_rain_shower");
-          break;
-      case "light sleet":
-          textWeather = i18n.global.t("light_sleet");
-          break;
-      case "light sleet showers":
-          textWeather = i18n.global.t("light_sleet_showers");
-          break;
-      case "light snow":
-          textWeather = i18n.global.t("light_snow");
-          break;
-      case "light snow showers":
-          textWeather = i18n.global.t("light_snow_showers");
-          break;
-      case "mist":
-          textWeather = i18n.global.t("mist");
-          break;
-      case "moderate or heavy rain shower":
-          textWeather = i18n.global.t("moderate_or_heavy_rain_shower");
-          break;
-      case "moderate or heavy sleet":
-          textWeather = i18n.global.t("moderate_or_heavy_sleet");
-          break;
-      case "moderate or heavy sleet showers":
-          textWeather = i18n.global.t("moderate_or_heavy_sleet_showers");
-          break;
-      case "moderate or heavy snow showers":
-          textWeather = i18n.global.t("moderate_or_heavy_snow_showers");
-          break;
-      case "moderate or heavy snow with thunder":
-          textWeather = i18n.global.t("moderate_or_heavy_snow_with_thunder");
-          break;
-      case "moderate rain":
-          textWeather = i18n.global.t("moderate_rain");
-          break;
-      case "moderate rain at times":
-          textWeather = i18n.global.t("moderate_rain_at_times");
-          break;
-      case "moderate snow":
-          textWeather = i18n.global.t("moderate_snow");
-          break;
-      case "mostly cloudy":
-          textWeather = i18n.global.t("mostly_cloudy");
-          break;
-      case "overcast":
-          textWeather = i18n.global.t("overcast");
-          break;
-      case "overcast clouds":
-          textWeather = i18n.global.t("overcast_clouds");
-          break;
-      case "partly cloudy":
-          textWeather = i18n.global.t("partly_cloudy");
-          break;
-      case "patchy heavy snow":
-          textWeather = i18n.global.t("patchy_heavy_snow");
-          break;
-      case "patchy light drizzle":
-          textWeather = i18n.global.t("patchy_light_drizzle");
-          break;
-      case "patchy light rain":
-          textWeather = i18n.global.t("patchy_light_rain");
-          break;
-      case "patchy light rain with thunder":
-          textWeather = i18n.global.t("patchy_light_rain_with_thunder");
-          break;
-      case "patchy light snow":
-          textWeather = i18n.global.t("patchy_light_snow");
-          break;
-      case "patchy light snow with thunder":
-          textWeather = i18n.global.t("patchy_light_snow_with_thunder");
-          break;
-      case "patchy moderate snow":
-          textWeather = i18n.global.t("patchy_moderate_snow");
-          break;
-      case "patchy rain possible":
-          textWeather = i18n.global.t("patchy_rain_possible");
-          break;
-      case "patchy sleet possible":
-          textWeather = i18n.global.t("patchy_sleet_possible");
-          break;
-      case "patchy snow possible":
-          textWeather = i18n.global.t("patchy_snow_possible");
-          break;
-      case "possible light rain":
-          textWeather = i18n.global.t("possible_light_rain");
-          break;
-      case "possible light rain and humid":
-          textWeather = i18n.global.t("possible_light_rain_and_humid");
-          break;
-      case "rain":
-          textWeather = i18n.global.t("rain");
-          break;
-      case "rain and humid":
-          textWeather = i18n.global.t("rain_and_humid");
-          break;
-      case "rain and snow":
-          textWeather = i18n.global.t("rain_and_snow");
-          break;
-      case "scattered clouds":
-          textWeather = i18n.global.t("scattered_clouds");
-          break;
-      case "snow":
-          textWeather = i18n.global.t("snow");
-          break;
-      case "sunny":
-          textWeather = i18n.global.t("sunny");
-          break;
-      case "thundery outbreaks possible":
-          textWeather = i18n.global.t("thundery_outbreaks_possible");
-          break;
-      case "torrential rain shower":
-          textWeather = i18n.global.t("torrential_rain_shower");
-          break;
-      case "drizzle":
-          textWeather = i18n.global.t("drizzle");
-          break;
-      case "rain and breezy":
-          textWeather = i18n.global.t("rain_and_breezy");
-          break;
-      case "breezy":
-          textWeather = i18n.global.t("breezy");
-          break;
-      case "thunderstorm":
-          textWeather = i18n.global.t("thunderstorm");
-          break;
-      case "thunderstorms":
-          textWeather = i18n.global.t("thunderstorms");
-          break;
-      case "mostly clear":
-          textWeather = i18n.global.t("mostly_clear");
-          break;
-      case "light shower snow":
-          textWeather = i18n.global.t("light_shower_snow");
-          break;
-      case "some clouds":
-          textWeather = i18n.global.t("some_clouds");
-          break;
-      case "thunderstorm with light rain":
-          textWeather = i18n.global.t("thunderstorm_with_light_rain");
-          break;
-      case "thunderstorm with rain":
-          textWeather = i18n.global.t("thunderstorm_with_rain");
-          break;
-      case "thunderstorm with drizzle":
-          textWeather = i18n.global.t("thunderstorm_with_drizzle");
-          break;
-      case "clouds and sun":
-          textWeather = i18n.global.t("clouds_and_sun");
-          break;
-      case "partly sunny":
-          textWeather = i18n.global.t("partly_sunny");
-          break;
-      case "light intensity shower rain":
-          textWeather = i18n.global.t("light_intensity_shower_rain");
-          break;
-      case "shower rain":
-          textWeather = i18n.global.t("shower_rain");
-          break;
-      case "mostly sunny":
-          textWeather = i18n.global.t("mostly_sunny");
-          break;
-      case "showers":
-          textWeather = i18n.global.t("showers");
-          break;
-      case "dust":
-          textWeather = i18n.global.t("dust");
-          break;
-      case "partly sunny w/ showers":
-          textWeather = i18n.global.t("partly_sunny_with_showers");
-          break;
-      case "hot":
-          textWeather = i18n.global.t("hot");
-          break;
-      case "windy":
-          textWeather = i18n.global.t("windy");
-          break;
-      case "hazy sunshine":
-          textWeather = i18n.global.t("hazy_sunshine");
-          break;
-      case "intermittent clouds":
-          textWeather = i18n.global.t("intermittent_clouds");
-          break;
-      case "mostly cloudy throughout the day":
-          textWeather = i18n.global.t("mostly_cloudy_throughout_the_day");
-          break;
-      case "mostly cloudy w/ t-storms":
-          textWeather = i18n.global.t("mostly_cloudy_with_thunderstorms");
-          break;
-      case "clear throughout the day":
-          textWeather = i18n.global.t("clear_throughout_the_day");
-          break;
-      case "partly sunny w/ t-storms":
-          textWeather = i18n.global.t("partly_sunny_with_thunderstorms");
-          break;
-      case "extreme rain":
-          textWeather = i18n.global.t("extreme_rain");
-          break;
-      case "cloudy, overcast conditions":
-          textWeather = i18n.global.t("cloudy_overcast_conditions");
-          break;
-      case "rain and humid throughout the day":
-          textWeather = i18n.global.t("rain_and_humid_throughout_the_day");
-          break;
-      case "drizzle rain":
-          textWeather = i18n.global.t("drizzle_rain");
-          break;
-      case "overcast throughout the day":
-          textWeather = i18n.global.t("overcast_throughout_the_day");
-          break;
-      case "light intensity drizzle rain":
-          textWeather = i18n.global.t("light_intensity_drizzle_rain");
-          break;
-      case "partly cloudy throughout the day":
-          textWeather = i18n.global.t("partly_cloudy_throughout_the_day");
-          break;
-      case "drizzle or light rain":
-          textWeather = i18n.global.t("drizzle_or_light_rain");
-          break;
-      case "sand":
-          textWeather = i18n.global.t("sand");
-          break;
-      case "hazy moonlight":
-          textWeather = i18n.global.t("hazy_moonlight");
-          break;
-      case "light thunderstorm":
-          textWeather = i18n.global.t("light_thunderstorm");
-          break;
-      case "rain throughout the day":
-          textWeather = i18n.global.t("rain_throughout_the_day");
-          break;
-      case "humid throughout the day":
-          textWeather = i18n.global.t("humid_throughout_the_day");
-          break;
-      case "humid and partly cloudy throughout the day":
-          textWeather = i18n.global.t("humid_and_partly_cloudy_throughout_the_day");
-          break;
-      case "rain in the morning":
-          textWeather = i18n.global.t("rain_in_the_morning");
-          break;
-      case "possible light rain in the evening":
-          textWeather = i18n.global.t("possible_light_rain_in_the_evening");
-          break;
-      case "mostly cloudy w/ showers":
-          textWeather = i18n.global.t("mostly_cloudy_with_showers");
-          break;
-      case "partly cloudy w/ showers":
-          textWeather = i18n.global.t("partly_cloudy_with_showers");
-          break;
-      case "thunderstorm with heavy rain":
-          textWeather = i18n.global.t("thunderstorm_with_heavy_rain");
-          break;
-      case "heavy intensity shower rain":
-          textWeather = i18n.global.t("heavy_intensity_shower_rain");
-          break;
-      case "possible light rain in the morning":
-          textWeather = i18n.global.t("possible_light_rain_in_the_morning");
-          break;
-      case "rain in the evening and overnight":
-          textWeather = i18n.global.t("rain_in_the_evening_and_overnight");
-          break;
-      case "possible light rain in the morning and overnight":
-          textWeather = i18n.global.t("possible_light_rain_in_the_morning_and_overnight");
-          break;
-      default:
-          textWeather = "";
-          break;
+    case "smoke":
+      textWeather = i18n.global.t("smoke");
+      break;
+    case "light intensity drizzle":
+      textWeather = i18n.global.t("light_intensity_drizzle");
+      break;
+    case "very heavy rain":
+      textWeather = i18n.global.t("very_heavy_rain");
+      break;
+    case "moderate or heavy rain with thunder":
+      textWeather = i18n.global.t("moderate_or_heavy_rain_with_thunder");
+      break;
+    case "blizzard":
+      textWeather = i18n.global.t("blizzard");
+      break;
+    case "blowing snow":
+      textWeather = i18n.global.t("blowing_snow");
+      break;
+    case "broken clouds":
+      textWeather = i18n.global.t("broken_clouds");
+      break;
+    case "clear":
+      textWeather = i18n.global.t("clear");
+      break;
+    case "clear sky":
+      textWeather = i18n.global.t("clear_sky");
+      break;
+    case "cloudy":
+      textWeather = i18n.global.t("cloudy");
+      break;
+    case "few clouds":
+      textWeather = i18n.global.t("few_clouds");
+      break;
+    case "fog":
+      textWeather = i18n.global.t("fog");
+      break;
+    case "foggy":
+      textWeather = i18n.global.t("foggy");
+      break;
+    case "freezing fog":
+      textWeather = i18n.global.t("freezing_fog");
+      break;
+    case "haze":
+      textWeather = i18n.global.t("haze");
+      break;
+    case "heavy intensity rain":
+      textWeather = i18n.global.t("heavy_intensity_rain");
+      break;
+    case "heavy rain":
+      textWeather = i18n.global.t("heavy_rain");
+      break;
+    case "heavy rain at times":
+      textWeather = i18n.global.t("heavy_rain_at_times");
+      break;
+    case "heavy snow":
+      textWeather = i18n.global.t("heavy_snow");
+      break;
+    case "humid":
+      textWeather = i18n.global.t("humid");
+      break;
+    case "humid and mostly cloudy":
+      textWeather = i18n.global.t("humid_and_mostly_cloudy");
+      break;
+    case "humid and overcast":
+      textWeather = i18n.global.t("humid_and_overcast");
+      break;
+    case "humid and partly cloudy":
+      textWeather = i18n.global.t("humid_and_partly_cloudy");
+      break;
+    case "light drizzle":
+      textWeather = i18n.global.t("light_drizzle");
+      break;
+    case "light freezing rain":
+      textWeather = i18n.global.t("light_freezing_rain");
+      break;
+    case "light rain":
+      textWeather = i18n.global.t("light_rain");
+      break;
+    case "light rain shower":
+      textWeather = i18n.global.t("light_rain_shower");
+      break;
+    case "light sleet":
+      textWeather = i18n.global.t("light_sleet");
+      break;
+    case "light sleet showers":
+      textWeather = i18n.global.t("light_sleet_showers");
+      break;
+    case "light snow":
+      textWeather = i18n.global.t("light_snow");
+      break;
+    case "light snow showers":
+      textWeather = i18n.global.t("light_snow_showers");
+      break;
+    case "mist":
+      textWeather = i18n.global.t("mist");
+      break;
+    case "moderate or heavy rain shower":
+      textWeather = i18n.global.t("moderate_or_heavy_rain_shower");
+      break;
+    case "moderate or heavy sleet":
+      textWeather = i18n.global.t("moderate_or_heavy_sleet");
+      break;
+    case "moderate or heavy sleet showers":
+      textWeather = i18n.global.t("moderate_or_heavy_sleet_showers");
+      break;
+    case "moderate or heavy snow showers":
+      textWeather = i18n.global.t("moderate_or_heavy_snow_showers");
+      break;
+    case "moderate or heavy snow with thunder":
+      textWeather = i18n.global.t("moderate_or_heavy_snow_with_thunder");
+      break;
+    case "moderate rain":
+      textWeather = i18n.global.t("moderate_rain");
+      break;
+    case "moderate rain at times":
+      textWeather = i18n.global.t("moderate_rain_at_times");
+      break;
+    case "moderate snow":
+      textWeather = i18n.global.t("moderate_snow");
+      break;
+    case "mostly cloudy":
+      textWeather = i18n.global.t("mostly_cloudy");
+      break;
+    case "overcast":
+      textWeather = i18n.global.t("overcast");
+      break;
+    case "overcast clouds":
+      textWeather = i18n.global.t("overcast_clouds");
+      break;
+    case "partly cloudy":
+      textWeather = i18n.global.t("partly_cloudy");
+      break;
+    case "patchy heavy snow":
+      textWeather = i18n.global.t("patchy_heavy_snow");
+      break;
+    case "patchy light drizzle":
+      textWeather = i18n.global.t("patchy_light_drizzle");
+      break;
+    case "patchy light rain":
+      textWeather = i18n.global.t("patchy_light_rain");
+      break;
+    case "patchy light rain with thunder":
+      textWeather = i18n.global.t("patchy_light_rain_with_thunder");
+      break;
+    case "patchy light snow":
+      textWeather = i18n.global.t("patchy_light_snow");
+      break;
+    case "patchy light snow with thunder":
+      textWeather = i18n.global.t("patchy_light_snow_with_thunder");
+      break;
+    case "patchy moderate snow":
+      textWeather = i18n.global.t("patchy_moderate_snow");
+      break;
+    case "patchy rain possible":
+      textWeather = i18n.global.t("patchy_rain_possible");
+      break;
+    case "patchy sleet possible":
+      textWeather = i18n.global.t("patchy_sleet_possible");
+      break;
+    case "patchy snow possible":
+      textWeather = i18n.global.t("patchy_snow_possible");
+      break;
+    case "possible light rain":
+      textWeather = i18n.global.t("possible_light_rain");
+      break;
+    case "possible light rain and humid":
+      textWeather = i18n.global.t("possible_light_rain_and_humid");
+      break;
+    case "rain":
+      textWeather = i18n.global.t("rain");
+      break;
+    case "rain and humid":
+      textWeather = i18n.global.t("rain_and_humid");
+      break;
+    case "rain and snow":
+      textWeather = i18n.global.t("rain_and_snow");
+      break;
+    case "scattered clouds":
+      textWeather = i18n.global.t("scattered_clouds");
+      break;
+    case "snow":
+      textWeather = i18n.global.t("snow");
+      break;
+    case "sunny":
+      textWeather = i18n.global.t("sunny");
+      break;
+    case "thundery outbreaks possible":
+      textWeather = i18n.global.t("thundery_outbreaks_possible");
+      break;
+    case "torrential rain shower":
+      textWeather = i18n.global.t("torrential_rain_shower");
+      break;
+    case "drizzle":
+      textWeather = i18n.global.t("drizzle");
+      break;
+    case "rain and breezy":
+      textWeather = i18n.global.t("rain_and_breezy");
+      break;
+    case "breezy":
+      textWeather = i18n.global.t("breezy");
+      break;
+    case "thunderstorm":
+      textWeather = i18n.global.t("thunderstorm");
+      break;
+    case "thunderstorms":
+      textWeather = i18n.global.t("thunderstorms");
+      break;
+    case "mostly clear":
+      textWeather = i18n.global.t("mostly_clear");
+      break;
+    case "light shower snow":
+      textWeather = i18n.global.t("light_shower_snow");
+      break;
+    case "some clouds":
+      textWeather = i18n.global.t("some_clouds");
+      break;
+    case "thunderstorm with light rain":
+      textWeather = i18n.global.t("thunderstorm_with_light_rain");
+      break;
+    case "thunderstorm with rain":
+      textWeather = i18n.global.t("thunderstorm_with_rain");
+      break;
+    case "thunderstorm with drizzle":
+      textWeather = i18n.global.t("thunderstorm_with_drizzle");
+      break;
+    case "clouds and sun":
+      textWeather = i18n.global.t("clouds_and_sun");
+      break;
+    case "partly sunny":
+      textWeather = i18n.global.t("partly_sunny");
+      break;
+    case "light intensity shower rain":
+      textWeather = i18n.global.t("light_intensity_shower_rain");
+      break;
+    case "shower rain":
+      textWeather = i18n.global.t("shower_rain");
+      break;
+    case "mostly sunny":
+      textWeather = i18n.global.t("mostly_sunny");
+      break;
+    case "showers":
+      textWeather = i18n.global.t("showers");
+      break;
+    case "dust":
+      textWeather = i18n.global.t("dust");
+      break;
+    case "partly sunny w/ showers":
+      textWeather = i18n.global.t("partly_sunny_with_showers");
+      break;
+    case "hot":
+      textWeather = i18n.global.t("hot");
+      break;
+    case "windy":
+      textWeather = i18n.global.t("windy");
+      break;
+    case "hazy sunshine":
+      textWeather = i18n.global.t("hazy_sunshine");
+      break;
+    case "intermittent clouds":
+      textWeather = i18n.global.t("intermittent_clouds");
+      break;
+    case "mostly cloudy throughout the day":
+      textWeather = i18n.global.t("mostly_cloudy_throughout_the_day");
+      break;
+    case "mostly cloudy w/ t-storms":
+      textWeather = i18n.global.t("mostly_cloudy_with_thunderstorms");
+      break;
+    case "clear throughout the day":
+      textWeather = i18n.global.t("clear_throughout_the_day");
+      break;
+    case "partly sunny w/ t-storms":
+      textWeather = i18n.global.t("partly_sunny_with_thunderstorms");
+      break;
+    case "extreme rain":
+      textWeather = i18n.global.t("extreme_rain");
+      break;
+    case "cloudy, overcast conditions":
+      textWeather = i18n.global.t("cloudy_overcast_conditions");
+      break;
+    case "rain and humid throughout the day":
+      textWeather = i18n.global.t("rain_and_humid_throughout_the_day");
+      break;
+    case "drizzle rain":
+      textWeather = i18n.global.t("drizzle_rain");
+      break;
+    case "overcast throughout the day":
+      textWeather = i18n.global.t("overcast_throughout_the_day");
+      break;
+    case "light intensity drizzle rain":
+      textWeather = i18n.global.t("light_intensity_drizzle_rain");
+      break;
+    case "partly cloudy throughout the day":
+      textWeather = i18n.global.t("partly_cloudy_throughout_the_day");
+      break;
+    case "drizzle or light rain":
+      textWeather = i18n.global.t("drizzle_or_light_rain");
+      break;
+    case "sand":
+      textWeather = i18n.global.t("sand");
+      break;
+    case "hazy moonlight":
+      textWeather = i18n.global.t("hazy_moonlight");
+      break;
+    case "light thunderstorm":
+      textWeather = i18n.global.t("light_thunderstorm");
+      break;
+    case "rain throughout the day":
+      textWeather = i18n.global.t("rain_throughout_the_day");
+      break;
+    case "humid throughout the day":
+      textWeather = i18n.global.t("humid_throughout_the_day");
+      break;
+    case "humid and partly cloudy throughout the day":
+      textWeather = i18n.global.t("humid_and_partly_cloudy_throughout_the_day");
+      break;
+    case "rain in the morning":
+      textWeather = i18n.global.t("rain_in_the_morning");
+      break;
+    case "possible light rain in the evening":
+      textWeather = i18n.global.t("possible_light_rain_in_the_evening");
+      break;
+    case "mostly cloudy w/ showers":
+      textWeather = i18n.global.t("mostly_cloudy_with_showers");
+      break;
+    case "partly cloudy w/ showers":
+      textWeather = i18n.global.t("partly_cloudy_with_showers");
+      break;
+    case "thunderstorm with heavy rain":
+      textWeather = i18n.global.t("thunderstorm_with_heavy_rain");
+      break;
+    case "heavy intensity shower rain":
+      textWeather = i18n.global.t("heavy_intensity_shower_rain");
+      break;
+    case "possible light rain in the morning":
+      textWeather = i18n.global.t("possible_light_rain_in_the_morning");
+      break;
+    case "rain in the evening and overnight":
+      textWeather = i18n.global.t("rain_in_the_evening_and_overnight");
+      break;
+    case "possible light rain in the morning and overnight":
+      textWeather = i18n.global.t("possible_light_rain_in_the_morning_and_overnight");
+      break;
+    default:
+      textWeather = "";
+      break;
   }
 
   if (textWeather === "") textWeather = value;
@@ -1789,12 +1789,12 @@ export function getTextWeather(value) {
 function toTitleCase(str) {
   // Tách chuỗi thành mảng các từ
   const words = str.split(" ");
-  
+
   // Viết hoa ký tự đầu mỗi từ, phần còn lại viết thường
   const capitalizedWords = words.map((word) => {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   });
-  
+
   // Ghép mảng từ đã thay đổi thành chuỗi
   return capitalizedWords.join(" ");
 }

@@ -96,6 +96,7 @@ const state = {
   weatherWidgetOption: {},
 
   objectCityByLocation: [],
+  objectFormattesLocation: [],
   listCityAll: [],
   listAlabama: [],
   listStateAmerican: [],
@@ -174,6 +175,15 @@ const mutations = {
     sessionStorage.setItem("dataCityLog", JSON.stringify(data));
 
     state.objectCityByLocation = data;
+  },
+
+  setObjectFormattesLocation(state, data) {
+    sessionStorage.setItem(
+      `data_${data.keyStorage}`,
+      JSON.stringify(data.provinceData)
+    );
+
+    state.objectFormattesLocation = data.provinceData;
   },
 
   setIndexComponent(state, data) {
