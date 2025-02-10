@@ -78,29 +78,15 @@
                 >
               </div>
               <div v-else class="txt_medium_14">
-                <span v-if="wardParam?.state && !wardParam?.county">
+                <span v-if="wardParam?.state && !wardParam?.cities">
                   {{
                     $t(`Temperature_and_chance_of_rain_{city}_hour`, {
                       city: $t(`${wardParam?.state}`),
                     })
                   }}
                 </span>
-                <span
-                  v-if="
-                    wardParam?.state && wardParam?.county && !wardParam?.cities
-                  "
-                >
-                  {{
-                    $t(`Temperature_and_chance_of_rain_{city}_hour`, {
-                      city: $t(`${wardParam?.state}`),
-                    })
-                  }}
-                </span>
-                <span
-                  v-if="
-                    wardParam?.state && wardParam?.county && wardParam?.cities
-                  "
-                >
+
+                <span v-if="wardParam?.state && wardParam?.cities">
                   {{
                     $t(`Temperature_and_chance_of_rain_{city}_hour`, {
                       city: $t(`${wardParam?.state}`),

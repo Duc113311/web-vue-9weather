@@ -128,6 +128,7 @@ import {
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import removeAccents from "remove-accents";
 import { ElNotification } from "element-plus";
+import { setTitleScream } from "@/helpers/setTitle";
 
 export default {
   name: "nav-bottom",
@@ -418,7 +419,39 @@ export default {
             },
           });
         }
+      } else {
+        let objectBread = {
+          country: currentChrome.country,
+          country_key: currentChrome.country_key.toLowerCase(),
+          state: currentChrome.state,
+          state_key: currentChrome.state_key,
+          county: currentChrome.county,
+          cities: currentChrome.cities,
+          latitude: currentChrome.lat,
+          longitude: currentChrome.lng,
+        };
+
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+        this.setBreadcumsNotAllowLocation(objectBread);
+
+        // tồn tại thành phố
+        if (objectBread.state.length !== 0 && objectBread.cities.length === 0) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                this.convertLowerCase(objectBread.state),
+              ],
+            },
+          });
+        }
       }
+
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      setTitleScream(0, retrievedArray, this.languageParam);
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${currentChrome.latitude},${currentChrome.longitude}?lang=${this.languageParam}`;
 

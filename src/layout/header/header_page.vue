@@ -323,6 +323,8 @@ export default {
       "setIndexComponent",
       "setIsScroll",
       "setObjectFormattesLocation",
+      "setListDetailCityAll",
+      "setObjectCityByLocation",
     ]),
     ...mapMutations(["setListLocation", "setCountryFilter"]),
 
@@ -495,7 +497,12 @@ export default {
       this.valueSearch = "";
       debugger;
 
-      await this.loadProvinceWould(item.country);
+      if (item?.country_key?.toLowerCase() === "vn") {
+        await this.loadProvince();
+        await this.loadAllFileJson();
+      } else {
+        await this.loadProvinceWould(item.country);
+      }
       let language = this.languageParam;
       if (item?.country_key?.toLowerCase() === "vn") {
         let objectBread = {
@@ -596,7 +603,7 @@ export default {
         this.setBreadcumsAllowLocation(objectBread);
 
         // Bang
-        if (objectBread.state.length !== 0 && objectBread.county.length === 0) {
+        if (objectBread.state.length !== 0 && objectBread.cities.length === 0) {
           await this.$router.push({
             name: "today-weather",
             params: {
@@ -611,8 +618,7 @@ export default {
         // Quận
         if (
           objectBread.state.length !== 0 &&
-          objectBread.county.length !== 0 &&
-          objectBread.cities.length === 0
+          !objectBread.cities.length !== 0
         ) {
           await this.$router.push({
             name: "today-weather",
@@ -621,25 +627,6 @@ export default {
               location: [
                 objectBread.country_key.toLowerCase(),
                 convertLowerCase(objectBread.state),
-                convertLowerCase(objectBread.county),
-              ],
-            },
-          });
-        }
-        // Thành phố
-        if (
-          objectBread.state.length !== 0 &&
-          objectBread.county.length !== 0 &&
-          objectBread.cities.length !== 0
-        ) {
-          await this.$router.push({
-            name: "today-weather",
-            params: {
-              language: language,
-              location: [
-                objectBread.country_key.toLowerCase(),
-                convertLowerCase(objectBread.state),
-                convertLowerCase(objectBread.county),
                 convertLowerCase(objectBread.cities),
               ],
             },
@@ -691,6 +678,51 @@ export default {
         }
       } else {
         this.setObjectFormattesLocation(dataCityVNSession);
+      }
+    },
+
+    async loadAllFileJson() {
+      let provinces = [];
+      const dataCityLogVNSession = JSON.parse(
+        sessionStorage.getItem("dataCityAll")
+      );
+      if (!dataCityLogVNSession) {
+        const context = require.context(
+          "/public/json/vietnamese",
+          false,
+          /\.json$/
+        );
+        // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+        const provincesData = context.keys().map((key) => {
+          const provinceData = context(key); // Load dữ liệu từ file
+
+          provinces.push(provinceData);
+        });
+        this.setListDetailCityAll(provinces);
+      } else {
+        this.setListDetailCityAll(dataCityLogVNSession);
+      }
+    },
+
+    async loadProvince() {
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem("dataCityLog")
+      );
+      if (!dataCityVNSession) {
+        try {
+          const response = await fetch("/json/city/city.json");
+          if (!response.ok)
+            throw new Error(
+              `Failed to fetch data: ${response.status} ${response.statusText}`
+            );
+          const data = await response.json(); // Parse JSON data
+          this.provinceData = data;
+          this.setObjectCityByLocation(this.provinceData);
+        } catch (error) {
+          console.error("Error loading file:", error.message);
+        }
+      } else {
+        this.setObjectCityByLocation(dataCityVNSession);
       }
     },
 

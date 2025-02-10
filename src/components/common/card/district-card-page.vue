@@ -28,10 +28,7 @@
         }}
       </div>
 
-      <div
-        class="text-center txt_medium_14"
-        v-if="breadcumsObject.country_key === 'us'"
-      >
+      <div class="text-center txt_medium_14" v-else>
         <!-- {{
           removeWordAndAccents(
             $t(
@@ -47,7 +44,8 @@
 
       <div class="txt_regular_12 color_BFBFBF">
         <p>
-          ({{ calculateDistance(objectLocation.location) }}km {{ $t("Away") }})
+          ({{ Math.round(calculateDistance(objectLocation.location))
+          }}{{ unitSetting.activeDistance_save }} {{ $t("Away") }})
         </p>
       </div>
     </div>
@@ -56,7 +54,7 @@
 <script>
 import { mapGetters } from "vuex";
 import removeAccents from "remove-accents";
-import { capitalizeWords } from "@/utils/converValue";
+import { capitalizeWords, convertHaversine } from "@/utils/converValue";
 import { encodeBase64, urlEncodeString } from "@/utils/EncoderDecoderUtils";
 import { getDistance } from "geolib";
 
@@ -89,6 +87,11 @@ export default {
 
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
+
+    unitSetting() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return unitSetting;
+    },
   },
 
   methods: {
@@ -101,10 +104,19 @@ export default {
         latitude: this.breadcumsObject.latitude,
         longitude: this.breadcumsObject.longitude,
       };
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      const distanceValue = convertHaversine(
+        locationValue.latitude,
+        locationValue.longitude,
+        locationSearch.latitude,
+        locationSearch.longitude,
+        unitSetting.activeDistance_save
+      );
       // Sử dụng geolib để tính khoảng cách
       const distance = getDistance(locationValue, locationSearch);
       this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km và làm tròn
-      return this.distanceKm;
+      return distanceValue;
     },
     convertCapitalizeWords(value) {
       return capitalizeWords(value);

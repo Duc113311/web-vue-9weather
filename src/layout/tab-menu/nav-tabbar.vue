@@ -38,13 +38,17 @@ import IcCloudSun from "@/components/icons/IcCloudSun.vue";
 import IcCalendar from "@/components/icons/IcCalendar.vue";
 import IcOclock from "@/components/icons/IcOclock.vue";
 import IcRadar from "@/components/icons/IcRadar.vue";
-import { convertLowerCase } from "@/utils/coverTextSystem";
+import {
+  convertLowerCase,
+  removeWordAndAccents,
+} from "@/utils/coverTextSystem";
 import IcApiTab from "@/components/icons/IcApiTab.vue";
 import IcUvIndex from "@/components/icons/IcUvIndex.vue";
 import IcTitleSun from "@/components/icons/IcTitleSun.vue";
 import IcMoonphase from "@/components/icons/IcMoonphase.vue";
 
 import { ElNotification } from "element-plus";
+import { setTitleScream } from "@/helpers/setTitle";
 
 export default {
   name: "nav-tabbar",
@@ -203,143 +207,9 @@ export default {
     },
 
     setTitleScream(activeIndex) {
-      let districtKeyTitle = this.breadcumsObject?.district_key;
-      let districtTitle = this.breadcumsObject?.district;
-      let cityTitle = this.breadcumsObject?.city;
-      let cityKeyTitle = this.breadcumsObject?.city_key;
-      let countryTitle = this.breadcumsObject?.country;
-      let countryKey = this.breadcumsObject?.country_key;
-
-      if (countryKey) {
-        if (countryKey.toLowerCase() === "vn") {
-          switch (activeIndex) {
-            case 0:
-              if (Object.keys(this.$route.params).length !== 0) {
-                document.title = `${this.$t(
-                  `Weather_Today_for_{district}_{city}_{country}`,
-                  {
-                    district: districtKeyTitle
-                      ? this.$t(
-                          `${this.convertToSlugCity(
-                            cityTitle
-                          )}.${this.convertToSlugCity(cityTitle)}_${
-                            this.languageParam
-                          }.${this.convertToLowCase(districtKeyTitle)}`
-                        )
-                      : "",
-                    city: cityKeyTitle
-                      ? this.$t(
-                          `city.city_${
-                            this.languageParam
-                          }.${this.convertToLowCase(cityKeyTitle)}`
-                        )
-                      : "",
-                    country: countryTitle,
-                  }
-                )} | 9Weather`;
-              }
-              break;
-
-            case 1:
-              document.title = `${this.$t(
-                `Weather_Hourly_for_{district}_{city}_{country}`,
-                {
-                  district: districtKeyTitle
-                    ? this.$t(
-                        `${this.convertToSlugCity(
-                          cityTitle
-                        )}.${this.convertToSlugCity(cityTitle)}_${
-                          this.languageParam
-                        }.${this.convertToLowCase(districtKeyTitle)}`
-                      )
-                    : "",
-                  city: cityKeyTitle
-                    ? this.$t(
-                        `city.city_${
-                          this.languageParam
-                        }.${this.convertToLowCase(cityKeyTitle)}`
-                      )
-                    : "",
-                  country: countryTitle,
-                }
-              )} | 9Weather`;
-              break;
-            case 2:
-              document.title = `${this.$t(
-                `Weather_Month_for_{district}_{city}_{country}`,
-                {
-                  district: districtKeyTitle
-                    ? this.$t(
-                        `${this.convertToSlugCity(
-                          cityTitle
-                        )}.${this.convertToSlugCity(cityTitle)}_${
-                          this.languageParam
-                        }.${this.convertToLowCase(districtKeyTitle)}`
-                      )
-                    : "",
-                  city: cityKeyTitle
-                    ? this.$t(
-                        `city.city_${
-                          this.languageParam
-                        }.${this.convertToLowCase(cityKeyTitle)}`
-                      )
-                    : "",
-                  country: countryTitle,
-                }
-              )} | 9Weather`;
-              break;
-
-            default:
-              document.title = `${this.$t("Local_National_Global")} | 9Weather`;
-              break;
-          }
-        } else {
-          let stateTitle = this.breadcumsObject?.state;
-          let countyTitle = this.breadcumsObject?.county;
-          let countryTitle = this.breadcumsObject?.country;
-          switch (activeIndex) {
-            case 0:
-              if (Object.keys(this.$route.params).length !== 0) {
-                document.title = `${this.$t(
-                  `Weather_Today_for_{district}_{city}_{country}`,
-                  {
-                    district: countyTitle ? `${countyTitle}, ` : "",
-                    city: stateTitle ? `${stateTitle}, ` : "",
-                    country: countryTitle,
-                  }
-                )} | 9weather`;
-              }
-              break;
-
-            case 1:
-              document.title = `${this.$t(
-                `Weather_Hourly_for_{district}_{city}_{country}`,
-                {
-                  district: countyTitle ? `${countyTitle}, ` : "",
-                  city: stateTitle ? `${stateTitle}, ` : "",
-                  country: countryTitle,
-                }
-              )} | 9weather`;
-              break;
-            case 2:
-              document.title = `${this.$t(
-                `Weather_Month_for_{district}_{city}_{country}`,
-                {
-                  district: countyTitle ? `${countyTitle}, ` : "",
-                  city: stateTitle ? `${stateTitle}, ` : "",
-                  country: countryTitle,
-                }
-              )} | 9weather`;
-              break;
-
-            default:
-              document.title = `${this.$t("Local_National_Global")} | 9weather`;
-              break;
-          }
-        }
-      } else {
-        document.title = `${this.$t("Local_National_Global")} | 9weather`;
-      }
+      debugger;
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      setTitleScream(activeIndex, retrievedArray, this.languageParam);
     },
     isActive(menu) {
       return this.$route.name === menu.name;
@@ -356,11 +226,6 @@ export default {
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng "-"
         .replace(/[^a-z0-9-]/g, ""); // Loại bỏ ký tự không hợp lệ (chỉ giữ lại chữ, số, và "-")
-    },
-
-    convertLowerCase(str) {
-      const slug = removeAccents(str);
-      return slug.replace(/\s+/g, "-").toLowerCase();
     },
 
     removeWordAndAccents(str, wordsToRemove) {
@@ -426,55 +291,61 @@ export default {
         const countryKey = objectBread.country_key;
 
         console.log("this.breadcumsObject", objectBread);
+        debugger;
 
         if (countryKey.toLowerCase() === "vn") {
-          let routeParams = {
-            name: screamName,
-            params: {
-              language: this.renderLanguage,
-              location: [objectBread.country_key.toLowerCase()],
-            },
-          };
-
-          // Xây dựng mảng location dựa vào điều kiện
+          // tồn tại thành phố
           if (
             objectBread.city.length !== 0 &&
             objectBread.district.length === 0
           ) {
-            routeParams.params.location.push(
-              this.convertLowerCase(objectBread.city)
-            );
+            await this.$router.push({
+              name: screamName,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.city),
+                ],
+              },
+            });
           }
-
+          // Tồn tại quận
           if (
             objectBread.city.length !== 0 &&
             objectBread.district.length !== 0 &&
             objectBread.ward.length === 0
           ) {
-            routeParams.params.location.push(
-              this.convertLowerCase(objectBread.district)
-            );
+            await this.$router.push({
+              name: screamName,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.city),
+                  convertLowerCase(objectBread.district),
+                ],
+              },
+            });
           }
-
           if (
             objectBread.city.length !== 0 &&
             objectBread.district.length !== 0 &&
             objectBread.ward.length !== 0
           ) {
-            routeParams.params.location.push(
-              this.convertToSlug(
-                this.removeWordAndAccents(objectBread.ward, [
-                  "Xã",
-                  "Thị Xã",
-                  "Phường",
-                  "Thị Trấn",
-                ])
-              )
-            );
+            await this.$router.push({
+              name: screamName,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.city),
+                  convertLowerCase(objectBread.district),
+                  convertLowerCase(removeWordAndAccents(objectBread.ward)),
+                ],
+              },
+            });
           }
-
-          // Thêm query param để force component re-render
-          await this.$router.push(routeParams);
 
           // Chuyển route và đợi cho đến khi navigation hoàn tất
           this.setKeyIndexComponent(1);
@@ -483,50 +354,38 @@ export default {
           // Emit event để thông báo cho component cha biết route đã thay đổi
           this.$emit("route-changed", screamName);
         } else {
-          debugger;
-          let routeParams = {
-            name: screamName,
-            params: {
-              language: this.renderLanguage,
-              location: [objectBread.country_key.toLowerCase()],
-            },
-          };
-
-          // Xây dựng mảng location dựa vào điều kiện
           if (
             objectBread.state.length !== 0 &&
-            objectBread.county.length === 0
-          ) {
-            routeParams.params.location.push(
-              convertLowerCase(objectBread.state)
-            );
-          }
-
-          if (
-            objectBread.state.length !== 0 &&
-            objectBread.county.length !== 0 &&
             objectBread.cities.length === 0
           ) {
-            routeParams.params.location.push(
-              convertLowerCase(objectBread.state),
-              convertLowerCase(objectBread.county)
-            );
+            await this.$router.push({
+              name: screamName,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.state),
+                ],
+              },
+            });
           }
-
+          // Quận
           if (
             objectBread.state.length !== 0 &&
-            objectBread.county.length !== 0 &&
-            objectBread.cities.length !== 0
+            !objectBread.cities.length !== 0
           ) {
-            routeParams.params.location.push(
-              convertLowerCase(objectBread.state),
-              convertLowerCase(objectBread.county),
-              convertLowerCase(objectBread.cities)
-            );
+            await this.$router.push({
+              name: screamName,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.state),
+                  convertLowerCase(objectBread.cities),
+                ],
+              },
+            });
           }
-
-          // Thêm query param để force component re-render
-          await this.$router.push(routeParams);
 
           // Chuyển route và đợi cho đến khi navigation hoàn tất
           this.setKeyIndexComponent(1);
@@ -535,6 +394,7 @@ export default {
           // Emit event để thông báo cho component cha biết route đã thay đổi
           this.$emit("route-changed", screamName);
         }
+        debugger;
       } catch (err) {
         console.error("Navigation failed:", err);
       }

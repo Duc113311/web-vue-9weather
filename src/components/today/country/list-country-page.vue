@@ -28,7 +28,7 @@
       </template>
 
       <div
-        class="w-full h-auto show-scroll pt-1 pb-1"
+        class="w-full h-[350px] show-scroll pt-1 pb-1"
         v-if="renderCityLocation.length !== 0"
       >
         <div v-if="objectBreadParam.country_key === 'vn'">
@@ -49,26 +49,32 @@
             </div>
             <div>
               <p class="txt_medium_14 color_BFBFBF">
-                {{ calculateDistance(item.location) }}km {{ $t("Away") }}
+                {{ Math.round(calculateDistance(item.location))
+                }}{{ unitSetting.activeDistance_save }} {{ $t("Away") }}
               </p>
             </div>
           </div>
         </div>
-        <div v-if="objectBreadParam.country_key === 'us'">
+        <div v-else>
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
             class="flex justify-between items-center pb-3 pt-3 pr-2"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
+            @click="onClickRenderCityLocation(item)"
           >
-            <div>
-              {{ item.nameState }}
+            <div class="flex gap-2 items-center">
+              <img src="../../../assets/images/svg_v2/ic_city.svg" alt="" />
+              <p class="txt_medium_14">
+                {{ item.enNameLanguage }}
+              </p>
             </div>
-            <img
-              src="../../../assets/images/svg_v2/ic_rain_data.svg"
-              width="24"
-              alt=""
-            />
+            <div>
+              <p class="txt_medium_14 color_BFBFBF">
+                {{ Math.round(calculateDistance(item.location))
+                }}{{ unitSetting.activeDistance_save }} {{ $t("Away") }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +88,7 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
-import { capitalizeWords } from "@/utils/converValue";
+import { capitalizeWords, convertHaversine } from "@/utils/converValue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { getDistance } from "geolib";
 import { convertLowerCase } from "@/utils/coverTextSystem";
@@ -91,6 +97,7 @@ import {
   getAqiDataFromLocation,
   getParamAirByCode,
 } from "@/utils/EncoderDecoderUtils";
+import { setTitleScream } from "@/helpers/setTitle";
 
 export default {
   name: "list-country-page",
@@ -114,7 +121,22 @@ export default {
       "breadcumsObjectGetters",
       "listStateAmericanGetters",
       "locationChomeObjectGetters",
+      "objectFormatLocationGetters",
     ]),
+
+    listCityWorldData() {
+      const retrievedValue = JSON.parse(localStorage.getItem("objectBread"));
+      const formattedCountry = retrievedValue.country.replace(/ /g, "_");
+
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem(`data_${formattedCountry}`)
+      );
+      const resultData = dataCityVNSession
+        ? dataCityVNSession
+        : this.objectFormatLocationGetters;
+
+      return resultData;
+    },
 
     renderLanguage() {
       const languageRouter = this.$route.params;
@@ -160,17 +182,12 @@ export default {
             }
           }
         }
-      } else if (countryCode === "us") {
-        for (const element of this.listStateAmericanGetters) {
-          const findExistData = element.states.filter(
-            (x) => x.nameState !== this.objectBreadParam.state
-          );
-          if (findExistData.length > 0) {
-            return findExistData;
-          }
-        }
       } else {
-        return [];
+        if (this.listCityWorldData.length !== 0) {
+          return this.listCityWorldData;
+        } else {
+          return [];
+        }
       }
 
       return [];
@@ -182,6 +199,11 @@ export default {
       );
 
       return retrievedArray ? retrievedArray : this.locationChomeObjectGetters;
+    },
+
+    unitSetting() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return unitSetting;
     },
   },
 
@@ -198,7 +220,11 @@ export default {
     ]),
     async onClickRenderCityLocation(value) {
       debugger;
-      const objectBreadValue = this.currentLocationChome;
+      const objectBreadValue = this.objectBreadParam;
+      const locationValue = {
+        latitude: value.location.lat,
+        longitude: value.location.lng,
+      };
       if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
         let objectBread = {
           country: objectBreadValue.country,
@@ -227,29 +253,58 @@ export default {
           },
         });
         debugger;
-        const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.renderLanguage}`;
+      } else {
+        debugger;
+        let objectBread = {
+          country: objectBreadValue.country,
+          country_key: objectBreadValue.country_key.toLowerCase(),
+          state: value.enNameLanguage,
+          state_key: value.keyAccentLanguage,
+          cities: "",
+          latitude: value.location.lat,
+          longitude: value.location.lng,
+        };
 
-        // const latLong = localStorage.getItem("locationLatLong");
-        const resultAir = getAqiDataFromLocation(
-          objectBread.latitude,
-          objectBread.longitude
-        );
-        const encodeDataWeather = encodeBase64(param);
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+        this.setBreadcumsAllowLocation(objectBread);
 
-        // API Get Weather Current
-        await this.getWeatherDataCurrent(encodeDataWeather);
-
-        const encodeKeyAir = encodeBase64(resultAir);
-        // API Get Air Quality By Key
-        await this.getAirQualityByKey(encodeKeyAir);
-
-        const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
-        const encodeAirCode = encodeBase64(airCode);
-        // API Get Air Quality Data
-        await this.getAirQuality(encodeAirCode);
-        this.indexKey = this.indexKey + 1;
-        this.setIndexComponent(this.indexKey);
+        await this.$router.push({
+          name: "today-weather",
+          params: {
+            language: this.languageParam,
+            location: [
+              objectBread?.country_key?.toLowerCase(),
+              convertLowerCase(objectBread.state),
+            ],
+          },
+        });
       }
+
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      setTitleScream(0, retrievedArray, this.languageParam);
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${locationValue.latitude},${locationValue.longitude}?lang=${this.renderLanguage}`;
+
+      // const latLong = localStorage.getItem("locationLatLong");
+      const resultAir = getAqiDataFromLocation(
+        locationValue.latitude,
+        locationValue.longitude
+      );
+      const encodeDataWeather = encodeBase64(param);
+
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
     },
     calculateDistance(value) {
       const locationValue = {
@@ -257,13 +312,22 @@ export default {
         longitude: value.lng,
       };
       const locationSearch = {
-        latitude: this.currentLocationChome.latitude,
-        longitude: this.currentLocationChome.longitude,
+        latitude: this.objectBreadParam.latitude,
+        longitude: this.objectBreadParam.longitude,
       };
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      const distanceValue = convertHaversine(
+        locationValue.latitude,
+        locationValue.longitude,
+        locationSearch.latitude,
+        locationSearch.longitude,
+        unitSetting.activeDistance_save
+      );
       // Sử dụng geolib để tính khoảng cách
       const distance = getDistance(locationValue, locationSearch);
       this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km và làm tròn
-      return this.distanceKm;
+      return distanceValue;
     },
 
     convertCapitalizeWords(value) {

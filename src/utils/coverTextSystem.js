@@ -193,3 +193,11 @@ export function convertToLowCase(value) {
 
   return normalizedStr;
 }
+
+export function convertToSlugCity(str) {
+  const slug = removeAccents(str);
+
+  return slug
+    .toLowerCase() // Chuyển thành chữ thường
+    .replace(/\s+/g, ""); // Xóa khoảng trắng
+}

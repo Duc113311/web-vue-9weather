@@ -216,7 +216,6 @@ export function getIconChartPrecipIntensity(value) {
   }
 }
 
-
 export function getIconHourlyForecastTheme(value) {
   const ic_cloudy_hourly = IcCloudy;
   const ic_rain_hourly = IcRain;
@@ -626,7 +625,6 @@ export function convertTimestamp12hSun(
   let [hours, minutes] = time.split(":").map(Number);
   minutes += offsetValue;
 
-
   // Xử lý nếu giờ >= 12h
   if (hours >= 12) {
     period = "PM";
@@ -641,8 +639,6 @@ export function convertTimestamp12hSun(
   const formattedMinutes = minutes.toString().padStart(2, "0");
 
   return `${formattedHours}:${formattedMinutes} ${period}`;
-
-
 }
 
 //
@@ -914,9 +910,15 @@ export function convertHaversine(
   latCurrently,
   lonCurrently,
   latNearest,
-  lonNearest
+  lonNearest,
+  unit = "km" // Mặc định là km
 ) {
-  const R = 6371; // Bán kính của Trái Đất tính bằng km
+  console.log("unit", unit);
+
+  const R_KM = 6371; // Bán kính Trái Đất (km)
+  const R_MI = 3958.8; // Bán kính Trái Đất (miles)
+
+  const R = unit === "mi" ? R_MI : R_KM; // Chọn bán kính phù hợp
   const toRad = (x) => (x * Math.PI) / 180;
 
   const dLat = toRad(latNearest - latCurrently);
@@ -924,11 +926,11 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-    Math.cos(toRad(latNearest)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRad(latNearest)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c; // Khoảng cách tính bằng km
+  const distance = R * c; // Khoảng cách theo đơn vị được chọn
 
   return distance;
 }
@@ -1775,7 +1777,9 @@ export function getTextWeather(value) {
       textWeather = i18n.global.t("rain_in_the_evening_and_overnight");
       break;
     case "possible light rain in the morning and overnight":
-      textWeather = i18n.global.t("possible_light_rain_in_the_morning_and_overnight");
+      textWeather = i18n.global.t(
+        "possible_light_rain_in_the_morning_and_overnight"
+      );
       break;
     default:
       textWeather = "";
@@ -1783,7 +1787,7 @@ export function getTextWeather(value) {
   }
 
   if (textWeather === "") textWeather = value;
-  return toTitleCase(textWeather)
+  return toTitleCase(textWeather);
 }
 
 function toTitleCase(str) {
@@ -1798,7 +1802,6 @@ function toTitleCase(str) {
   // Ghép mảng từ đã thay đổi thành chuỗi
   return capitalizedWords.join(" ");
 }
-
 
 export function convertToWeekdayAndDate(unixTime, offsetValue) {
   const daysOfWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];

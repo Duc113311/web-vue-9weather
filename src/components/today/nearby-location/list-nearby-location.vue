@@ -19,6 +19,7 @@
                 stroke-linejoin="round"
               />
             </svg>
+            <!-- Việt nam -->
             <div
               class="flex items-center txt_medium_14 text-left"
               v-if="wardParam?.country_key === 'vn'"
@@ -26,7 +27,7 @@
               <span v-if="wardParam?.city && !wardParam?.district">
                 {{
                   convertCapitalizeWords(
-                    $t(`{city}_district_Weather`, {
+                    $t(`Weather_in_{city}`, {
                       city: $t(
                         `city.city_${languageParam}.${convertToLowCase(
                           wardParam?.city_key
@@ -43,14 +44,19 @@
               >
                 {{
                   convertCapitalizeWords(
-                    $t(`Weather_in_{city}_ward_and_commune`, {
-                      city: $t(
+                    $t(`Weather_in_{district}_{city}`, {
+                      district: $t(
                         `${convertToSlugCity(
                           wardParam?.city
                         )}.${convertToSlugCity(
                           wardParam?.city
                         )}_${languageParam}.${convertToLowCase(
                           wardParam?.district_key
+                        )}`
+                      ),
+                      city: $t(
+                        `city.city_${languageParam}.${convertToLowCase(
+                          wardParam?.city_key
                         )}`
                       ),
                     })
@@ -62,8 +68,8 @@
               >
                 {{
                   convertCapitalizeWords(
-                    $t(`Weather_in_{city}_ward_and_commune`, {
-                      city: $t(
+                    $t(`Weather_in_{ward}_{city}`, {
+                      ward: $t(
                         `${convertToSlugCity(
                           wardParam?.city
                         )}.${convertToSlugCity(
@@ -72,42 +78,31 @@
                           wardParam?.ward_key
                         )}`
                       ),
+                      city: $t(
+                        `city.city_${languageParam}.${convertToLowCase(
+                          wardParam?.city_key
+                        )}`
+                      ),
                     })
                   )
                 }}
               </span>
             </div>
+            <!-- Nước khác -->
             <div class="txt_medium_14" v-else>
-              <span v-if="wardParam?.state && !wardParam?.county">
+              <span v-if="wardParam?.state && !wardParam?.cities">
                 {{
                   convertCapitalizeWords(
-                    $t(`{city}_district_Weather`, {
+                    $t(`Weather_in_{city}_area`, {
                       city: `${wardParam?.state}`,
                     })
                   )
                 }}
               </span>
-              <span
-                v-if="
-                  wardParam?.state && wardParam?.county && !wardParam?.cities
-                "
-              >
+              <span v-if="wardParam?.state && wardParam?.cities">
                 {{
                   convertCapitalizeWords(
-                    $t(`Weather_in_{city}_ward_and_commune`, {
-                      city: `${wardParam?.county}`,
-                    })
-                  )
-                }}
-              </span>
-              <span
-                v-if="
-                  wardParam?.state && wardParam?.county && wardParam?.cities
-                "
-              >
-                {{
-                  convertCapitalizeWords(
-                    $t(`Weather_in_{city}_ward_and_commune`, {
+                    $t(`Weather_in_the_area_around_{city}`, {
                       city: `${wardParam?.cities}`,
                     })
                   )
@@ -158,7 +153,12 @@
 <script>
 import DistrictCardPage from "@/components/common/card/district-card-page.vue";
 import ItemComponent from "@/components/common/itemComponent.vue";
+import { setTitleScream } from "@/helpers/setTitle";
 import { capitalizeWords } from "@/utils/converValue";
+import {
+  convertLowerCase,
+  removeWordAndAccents,
+} from "@/utils/coverTextSystem";
 import {
   decodeBase64,
   encodeBase64,
@@ -320,7 +320,7 @@ export default {
           } else {
             return [];
           }
-        } else if (countryKey === "us") {
+        } else {
           const cityKey = this.wardParam.state.toLowerCase();
 
           const findData = this.listCityWorldData.find(
@@ -332,8 +332,6 @@ export default {
           } else {
             return [];
           }
-        } else {
-          return [];
         }
       } else {
         return [];
@@ -350,7 +348,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations("commonModule", ["setBreadcumsNotAllowLocation"]),
+    ...mapMutations("commonModule", [
+      "setBreadcumsNotAllowLocation",
+      "setBreadcumsAllowLocation",
+      "setIndexComponent",
+    ]),
     ...mapActions("weatherModule", [
       "getWeatherDataCurrent",
       "getFormattedAddress",
@@ -552,11 +554,6 @@ export default {
       return key;
     },
 
-    convertLowerCase(str) {
-      const slug = this.removeAccentsUnicode(str);
-      return slug.replace(/\s+/g, "-").toLowerCase();
-    },
-
     findDistrictsData(value) {
       const listCityVN = this.listCityAllData;
 
@@ -664,7 +661,153 @@ export default {
     },
 
     async onClickShowDetailDistrict(value) {
-      this.successUnit();
+      const objectBreadValue = this.wardParam;
+      let locationValue = {
+        latitude: value.location.lat,
+        longitude: value.location.lng,
+      };
+
+      if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
+        //
+        let objectBread = objectBreadValue;
+
+        if (
+          value.type === "Ward" ||
+          value.type === "Town" ||
+          value.type === "Commune"
+        ) {
+          objectBread.ward = value.viNameLanguage;
+          objectBread.ward_key = value.keyAccentLanguage;
+        }
+        if (value.type === "City" || value.type === "District") {
+          objectBread.district = value.viNameLanguage;
+          objectBread.district_key = value.keyAccentLanguage;
+        }
+        objectBread.latitude = value.location.lat;
+        objectBread.longitude = value.location.lng;
+        debugger;
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+        this.setBreadcumsNotAllowLocation(objectBread);
+        setTitleScream(0, objectBread, this.languageParam);
+
+        // tồn tại thành phố
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.city),
+              ],
+            },
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0 &&
+          objectBread.ward.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.city),
+                convertLowerCase(objectBread.district),
+              ],
+            },
+          });
+        }
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0 &&
+          objectBread.ward.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.city),
+                convertLowerCase(objectBread.district),
+                convertLowerCase(removeWordAndAccents(objectBread.ward)),
+              ],
+            },
+          });
+        }
+      } else {
+        debugger;
+        let objectBread = {
+          country: objectBreadValue.country,
+          country_key: objectBreadValue.country_key.toLowerCase(),
+          state: objectBreadValue.state,
+          state_key: objectBreadValue.state_key,
+        };
+
+        objectBread.cities = value.enNameLanguage;
+        (objectBread.latitude = locationValue.latitude),
+          (objectBread.longitude = locationValue.longitude);
+
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+        this.setBreadcumsAllowLocation(objectBread);
+        setTitleScream(0, objectBread, this.languageParam);
+
+        if (objectBreadValue.state && !objectBreadValue.cities) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBread?.country_key?.toLowerCase(),
+                convertLowerCase(objectBread.state),
+              ],
+            },
+          });
+        }
+        if (objectBreadValue.state && objectBreadValue.cities) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBread?.country_key?.toLowerCase(),
+                convertLowerCase(objectBread.state),
+                convertLowerCase(objectBread.cities),
+              ],
+            },
+          });
+        }
+      }
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${locationValue.latitude},${locationValue.longitude}?lang=${this.languageParam}`;
+      const resultAir = getAqiDataFromLocation(
+        locationValue.latitude,
+        locationValue.longitude
+      );
+      const encodeDataWeather = encodeBase64(param);
+
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
     },
 
     removeWordAndAccents(str, wordsToRemove) {
