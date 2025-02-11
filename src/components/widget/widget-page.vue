@@ -1,36 +1,33 @@
 <template>
   <div class="w-full h-full">
-    <div class="w-full h-[200px] flex justify-center items-center mb-6 mt-6">
-      <div class="img-ads bg-ads w-full h-full">
-        <!-- Ads -->
-      </div>
-    </div>
     <!-- -->
-    <div class="w-full bg-from mb-6 card">
-      <div class="w-full pl-4 pr-4 pt-4 text-left bor-bottom">
-        <div class="w-full p-4">
-          <div class="txt_regular">
-            <span>{{ $t("Weather_forecast_on_your_website") }}</span>
-          </div>
-          <div class="txt_light_summer">
-            <span>{{ $t("Create_a_custom_code_for_your_website") }} </span>
+    <BaseComponent :isShowPad="false">
+      <template v-slot:header>
+        <div class="w-full text-left bor-bottom">
+          <div class="w-full">
+            <div class="txt_regular">
+              <span>{{ $t("Weather_forecast_on_your_website") }}</span>
+            </div>
+            <div class="txt_light_summer">
+              <span>{{ $t("Create_custom_code_for_your_website") }} </span>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
       <div class="w-full pl-4 pr-4 pb-4">
         <div class="lg:flex block w-full justify-between p-4">
           <!-- Left -->
           <div class="lg:w-[50%] flex flex-col gap-4">
             <div class="label w-full">
               <div class="text-left mb-2 txt_regular">
-                <span>{{ $t("Location") }}</span>
+                <span>{{ $t("Locations") }}</span>
               </div>
               <div class="w-full flex justify-start">
                 <el-select
                   size="large"
                   v-model="valueAddress"
                   filterable
-                  placeholder="Select"
+                  :placeholder="$t('Search_location')"
                   :filter-method="() => true"
                   no-data-text="No data"
                   @input="handleInput"
@@ -52,7 +49,7 @@
               <div class="w-full flex justify-start">
                 <el-select
                   v-model="valueSampling"
-                  :placeholder="Select"
+                  placeholder="Select"
                   size="large"
                   @change="onChangeSampling"
                 >
@@ -669,14 +666,59 @@
           </div>
         </div>
       </div>
-    </div>
+    </BaseComponent>
+
     <!-- <div v-html="valueCodeWidget"></div> -->
-    <div class="w-full h-[300px] flex justify-center items-center">
-      <div class="img-ads bg-ads w-full h-full">
-        <!-- Ads -->
-      </div>
+    <div class="w-full items-center">
+      <BaseComponent :isShowPad="true">
+        <template v-slot:header>
+          <div class="flex items-center text-left gap-2">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.25 12.75V11.25H15.675C15.6 10.8 15.375 10.35 15.15 9.9L16.275 8.775L15.225 7.725L14.1 8.85C13.725 8.625 13.275 8.4 12.75 8.325V6.75H11.25V8.325C10.8 8.4 10.35 8.625 9.9 8.85L8.775 7.725L7.725 8.775L8.85 9.9C8.625 10.275 8.4 10.725 8.325 11.25H6.75V12.75H8.325C8.4 13.2 8.625 13.65 8.85 14.1L7.725 15.225L8.775 16.275L9.9 15.15C10.275 15.375 10.725 15.6 11.25 15.675V17.25H12.75V15.675C13.2 15.6 13.65 15.375 14.1 15.15L15.225 16.275L16.275 15.225L15.15 14.1C15.375 13.725 15.6 13.275 15.675 12.75H17.25ZM12 14.25C10.725 14.25 9.75 13.275 9.75 12C9.75 10.725 10.725 9.75 12 9.75C13.275 9.75 14.25 10.725 14.25 12C14.25 13.275 13.275 14.25 12 14.25Z"
+                fill="var(--color-icon-df)"
+              />
+              <path
+                d="M12.0004 1.5V3C16.9504 3 21.0004 7.05 21.0004 12C21.0004 16.95 16.9504 21 12.0004 21V22.5C17.7754 22.5 22.5004 17.775 22.5004 12C22.5004 6.225 17.7754 1.5 12.0004 1.5ZM6.15039 18.825L5.25039 20.025C6.15039 20.775 7.20039 21.45 8.40039 21.825L8.92539 20.4C7.87539 20.025 6.97539 19.5 6.15039 18.825ZM3.15039 13.5L1.65039 13.8C1.87539 15 2.32539 16.2 2.92539 17.25L4.20039 16.5C3.67539 15.6 3.30039 14.55 3.15039 13.5ZM4.20039 7.5L2.92539 6.75C2.32539 7.8 1.87539 9 1.72539 10.2L3.22539 10.425C3.30039 9.375 3.67539 8.4 4.20039 7.5ZM8.85039 3.6L8.32539 2.175C7.20039 2.625 6.15039 3.225 5.25039 3.975L6.22539 5.1C6.97539 4.5 7.87539 3.975 8.85039 3.6Z"
+                fill="var(--color-icon-df)"
+              />
+            </svg>
+
+            <p>
+              {{ $t("INSTRUCTIONS_ON_WEBSITE") }}
+            </p>
+          </div>
+        </template>
+        <div class="text-left flex flex-col gap-2">
+          <div>
+            <p>
+              {{ $t("Creating_and_installing") }}
+            </p>
+          </div>
+          <div>
+            <p>
+              {{ $t("Next_is_a_custom") }}
+            </p>
+          </div>
+          <div>
+            <p>
+              {{ $t("Then_you_copy") }}
+            </p>
+          </div>
+          <div>
+            <p>
+              {{ $t("The_above_code") }}
+            </p>
+          </div>
+        </div>
+      </BaseComponent>
     </div>
-    <!-- Cách giải quyết là tạo 1 link widget/index vẽ form đó, đồng thời sẽ vẽ thêm 1 form bên này khi tạo sẽ lấy form kia add vào link và sẽ hiện được widget -->
   </div>
 </template>
 
@@ -692,9 +734,10 @@ import {
   convertCtoF,
   codeToFind,
 } from "../../utils/converValue.js";
+import BaseComponent from "../common/baseComponent.vue";
 export default {
   name: "widget-page",
-  components: {},
+  components: { BaseComponent },
 
   setup() {
     const successCopy = () => {
@@ -735,6 +778,17 @@ export default {
 
   computed: {
     ...mapGetters("commonModule", ["weatherWidgetOptionGetters"]),
+
+    classThemeBg() {
+      const themeValue = this.$store.state.commonModule.themeValue;
+      const savedTheme = themeValue
+        ? themeValue
+        : localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        return "bg-color-light";
+      }
+      return "bg-color-dark";
+    },
     optionsSampling() {
       return [
         {

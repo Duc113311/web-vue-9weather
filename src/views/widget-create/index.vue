@@ -1,9 +1,12 @@
 <template>
   <div class="w-full h-full">
+    <NavBottom></NavBottom>
     <!-- -->
     <div class="container">
       <WidgetPage></WidgetPage>
     </div>
+
+    <FooterPage></FooterPage>
   </div>
 </template>
 
@@ -11,8 +14,10 @@
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import WidgetPage from "../../components/widget/widget-page";
 import { encodeBase64 } from "@/utils/EncoderDecoderUtils";
+import NavBottom from "@/layout/tabbar-bottom/nav-bottom.vue";
+import FooterPage from "@/layout/footer/footer-page.vue";
 export default {
-  components: { WidgetPage },
+  components: { WidgetPage, NavBottom, FooterPage },
   name: "create-widget-view",
 
   data() {

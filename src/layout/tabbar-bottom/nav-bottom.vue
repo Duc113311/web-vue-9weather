@@ -368,13 +368,13 @@ export default {
     },
 
     async onClickShowWidget() {
-      // await this.$router.push({
-      //   path: `/${this.renderLanguage}/create-widget`,
-      // });
+      await this.$router.push({
+        path: `/${this.renderLanguage}/create-widget`,
+      });
       debugger;
-      console.log("hello");
+      // console.log("hello");
 
-      this.successUnit();
+      // this.successUnit();
     },
 
     async onClickLocationNow() {
