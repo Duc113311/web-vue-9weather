@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full mt-4">
     <!-- -->
     <BaseComponent :isShowPad="false">
       <template v-slot:header>
@@ -219,7 +219,7 @@
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
                           <p class="temp-ture">
-                            <span class="txt_regular_title_50">{{
+                            <span class="txt_regular_40">{{
                               convertTemperature(
                                 renderObjectWidget?.currently?.temperature
                               )
@@ -244,19 +244,30 @@
                               }}</span
                             >
                           </p>
-                          <p><span>Moderate rain</span></p>
+                          <p>
+                            <span>{{
+                              convertCapitalizeWords(
+                                $t(
+                                  `${renderObjectWidget?.currently?.summary.replace(
+                                    /\s+/g,
+                                    "_"
+                                  )}`
+                                )
+                              )
+                            }}</span>
+                          </p>
                         </div>
                       </div>
                       <div class="ml-4 h-full flex items-center pt-4">
-                        <img
-                          width="70"
-                          :src="
+                        <component
+                          :width="50"
+                          :height="50"
+                          :is="
                             convertIconCurrently(
                               renderObjectWidget?.currently?.icon
                             )
                           "
-                          alt=""
-                        />
+                        ></component>
                       </div>
                     </div>
                   </div>
@@ -356,14 +367,15 @@
                     <!-- Nhiệt độ -->
                     <div class="flex w-full">
                       <div class="mr-4 h-full flex items-center pt-4">
-                        <img
-                          width="70"
-                          :src="
+                        <component
+                          :width="40"
+                          :height="40"
+                          :is="
                             convertIconCurrently(
                               renderObjectWidget?.currently?.icon
                             )
                           "
-                        />
+                        ></component>
                       </div>
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
@@ -492,14 +504,15 @@
                     <!-- Nhiệt độ -->
                     <div class="flex w-full">
                       <div class="mr-4 h-full flex items-center pt-4">
-                        <img
-                          width="70"
-                          :src="
+                        <component
+                          :width="40"
+                          :height="40"
+                          :is="
                             convertIconCurrently(
                               renderObjectWidget?.currently?.icon
                             )
                           "
-                        />
+                        ></component>
                       </div>
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
@@ -580,14 +593,15 @@
                     <!-- Nhiệt độ -->
                     <div class="flex w-full">
                       <div class="mr-4 h-full flex items-center pt-4">
-                        <img
-                          width="70"
-                          :src="
+                        <component
+                          :width="40"
+                          :height="40"
+                          :is="
                             convertIconCurrently(
                               renderObjectWidget?.currently?.icon
                             )
                           "
-                        />
+                        ></component>
                       </div>
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
@@ -669,7 +683,7 @@
     </BaseComponent>
 
     <!-- <div v-html="valueCodeWidget"></div> -->
-    <div class="w-full items-center">
+    <div class="w-full items-center mt-4">
       <BaseComponent :isShowPad="true">
         <template v-slot:header>
           <div class="flex items-center text-left gap-2">
@@ -719,6 +733,8 @@
         </div>
       </BaseComponent>
     </div>
+
+    <div class="w-full h-[100px] items-center mt-4"></div>
   </div>
 </template>
 
@@ -733,6 +749,7 @@ import {
   convertFtoC,
   convertCtoF,
   codeToFind,
+  capitalizeWords,
 } from "../../utils/converValue.js";
 import BaseComponent from "../common/baseComponent.vue";
 export default {
@@ -853,9 +870,12 @@ export default {
   },
 
   mounted() {
-    const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+    const retrievedArray = JSON.parse(
+      localStorage.getItem("currentLocationChome")
+    );
 
-    this.valueAddressLocation = retrievedArray.city;
+    this.valueAddressLocation =
+      retrievedArray.city + ", " + retrievedArray.country;
 
     this.onClickCreateWidget();
   },
@@ -901,7 +921,12 @@ export default {
       this.valueSliderWidth = value;
     },
 
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
+
     async onChangeChoose(value) {
+      debugger;
       this.valueAddressLocation = value.label;
       const latitudeValue = value.lat;
       const longitudeValue = value.lng;
