@@ -223,6 +223,7 @@ export default {
       "listCityAllGetters",
       "objectCityByLocationGetters",
       "breadcumsObjectGetters",
+      "locationChomeObjectGetters",
     ]),
     ...mapGetters("airQualityModule", [
       "airObjectGetters",
@@ -283,6 +284,19 @@ export default {
       const resultData = retrievedArray
         ? retrievedArray
         : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
+
+    wardParamChrome() {
+      debugger;
+
+      const retrievedArray = JSON.parse(
+        localStorage.getItem("currentLocationChome")
+      );
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.locationChomeObjectGetters;
 
       return resultData;
     },
@@ -786,7 +800,7 @@ export default {
     },
 
     async onClickLocationView() {
-      const objectBreadValue = this.wardParam;
+      const objectBreadValue = this.wardParamChrome;
 
       localStorage.setItem("objectBread", JSON.stringify(objectBreadValue));
 

@@ -10,36 +10,9 @@ const state = {
   statusAddWidget: true,
 
   objectWidget: {
-    titleName: "Hà Nội",
-    currently: {
-      temperature: 80.62,
-      apparentTemperature: 80.62,
-      humidity: 0.87,
-      icon: "rain",
-    },
-    listDaily: [
-      {
-        time: 1722272400,
-        humidity: 0.93,
-        icon: "rain",
-        temperatureMin: 77.16,
-        temperatureMax: 79.5,
-      },
-      {
-        time: 1722358800,
-        humidity: 0.79,
-        icon: "rain",
-        temperatureMin: 76.77,
-        temperatureMax: 84.7,
-      },
-      {
-        time: 1722445200,
-        humidity: 0.61,
-        icon: "rain",
-        temperatureMin: 77.18,
-        temperatureMax: 91.99,
-      },
-    ],
+    titleName: "",
+    currently: {},
+    listDaily: [],
   },
 
   objectSetting: {

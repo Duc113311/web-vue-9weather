@@ -37,6 +37,12 @@ const state = {
 
   objectWidget: {},
   weatherWidgetDefault: [],
+
+  valueTitleWidget: "",
+
+  valueOptionWidget: {},
+
+  valueNumberWeather: 4,
 };
 
 /**
@@ -237,16 +243,35 @@ const mutations = {
     const widgetCurrently = JSON.parse(decodeBase64(data));
     state.weatherWidgetDefault = widgetCurrently;
 
+    debugger;
     state.objectWidget.currently = widgetCurrently.currently;
 
-    state.objectWidget.listDaily = widgetCurrently.daily.data.slice(0, 3);
+    state.objectWidget.listDaily = widgetCurrently.daily.data.slice(
+      1,
+      state.valueNumberWeather
+    );
+
+    localStorage.setItem("objectWidget", JSON.stringify(state.objectWidget));
   },
 
   setNumberDailyWeather(state, data) {
+    debugger;
+    state.valueNumberWeather = data;
     state.objectWidget.listDaily = state.weatherWidgetDefault.daily.data.slice(
-      0,
+      1,
       data
     );
+
+    localStorage.setItem("objectWidget", JSON.stringify(state.objectWidget));
+  },
+
+  setTitleWidget(state, data) {
+    state.valueTitleWidget = data;
+  },
+
+  setOptionWidget(state, data) {
+    debugger;
+    state.valueOptionWidget = data;
   },
 };
 

@@ -12,7 +12,7 @@ import RadarMap from "../views/radar-map/index.vue";
 import HomePageV3 from "../views/home-page/index-v3.vue";
 const routes = [
   {
-    path: "/:language/widget-view",
+    path: "/widget-view",
     name: "widget-view",
     component: WidgetView,
     props: true,

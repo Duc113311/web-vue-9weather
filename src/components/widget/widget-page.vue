@@ -31,7 +31,7 @@
                   :filter-method="() => true"
                   no-data-text="No data"
                   @input="handleInput"
-                  @change="onChangeChoose"
+                  @update:modelValue="onChangeChoose"
                 >
                   <el-option
                     v-for="(item, index) in options"
@@ -360,7 +360,7 @@
                   <!--  -->
                   <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
                     <div class="w-full text-center pt-2">
-                      <span class="txt_medium_30" href="">{{
+                      <span class="txt_medium_30 text-white" href="">{{
                         valueAddressLocation
                       }}</span>
                     </div>
@@ -380,7 +380,7 @@
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
                           <p class="temp-ture">
-                            <span class="txt_regular_title_50">{{
+                            <span class="txt_regular_40">{{
                               convertTemperature(
                                 renderObjectWidget?.currently?.temperature
                               )
@@ -402,7 +402,18 @@
                               }}</span
                             >
                           </p>
-                          <p><span>Moderate rain</span></p>
+                          <p>
+                            <span>{{
+                              convertCapitalizeWords(
+                                $t(
+                                  `${renderObjectWidget?.currently?.summary.replace(
+                                    /\s+/g,
+                                    "_"
+                                  )}`
+                                )
+                              )
+                            }}</span>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -497,7 +508,7 @@
                   <!--  -->
                   <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
                     <div class="w-full text-left pt-2">
-                      <span class="txt_medium_30" href="">{{
+                      <span class="txt_medium_30 text-white" href="">{{
                         valueAddressLocation
                       }}</span>
                     </div>
@@ -517,7 +528,7 @@
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
                           <p class="temp-ture">
-                            <span class="txt_regular_title_50">{{
+                            <span class="txt_regular_40">{{
                               convertTemperature(
                                 renderObjectWidget?.currently?.temperature
                               )
@@ -539,7 +550,18 @@
                               }}</span
                             >
                           </p>
-                          <p><span>Moderate rain</span></p>
+                          <p>
+                            <span>{{
+                              convertCapitalizeWords(
+                                $t(
+                                  `${renderObjectWidget?.currently?.summary.replace(
+                                    /\s+/g,
+                                    "_"
+                                  )}`
+                                )
+                              )
+                            }}</span>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -586,7 +608,7 @@
                   <!--  -->
                   <div class="w-full items-center pl-4 pr-4 pt-2 pb-2">
                     <div class="w-full text-left pt-2">
-                      <span class="txt_medium_30" href="">{{
+                      <span class="txt_medium_30 text-white" href="">{{
                         valueAddressLocation
                       }}</span>
                     </div>
@@ -606,7 +628,7 @@
                       <div class="text-left h-full w-auto">
                         <div :style="{ color: titleColor }">
                           <p class="temp-ture">
-                            <span class="txt_regular_title_50">{{
+                            <span class="txt_regular_40">{{
                               convertTemperature(
                                 renderObjectWidget?.currently?.temperature
                               )
@@ -628,7 +650,18 @@
                               }}</span
                             >
                           </p>
-                          <p><span>Moderate rain</span></p>
+                          <p>
+                            <span>{{
+                              convertCapitalizeWords(
+                                $t(
+                                  `${renderObjectWidget?.currently?.summary.replace(
+                                    /\s+/g,
+                                    "_"
+                                  )}`
+                                )
+                              )
+                            }}</span>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -735,6 +768,7 @@
     </div>
 
     <div class="w-full h-[100px] items-center mt-4"></div>
+    <!-- <div v-html="valueCodeWidget"></div> -->
   </div>
 </template>
 
@@ -760,7 +794,21 @@ export default {
     const successCopy = () => {
       ElNotification({
         title: "Success",
-        message: "Copy url iframe widget success",
+        message: "Copy URL Iframe Widget Success",
+        type: "success",
+        duration: 3000,
+        position: "top-right",
+        dangerouslyUseHTMLString: true,
+        showClose: true, // Show the close button
+        iconClass: "el-icon-check", // Custom icon class
+        customClass: "custom-notification", // Custom CSS class
+        offset: 50, // Offset from the top
+      });
+    };
+    const successCreate = () => {
+      ElNotification({
+        title: "Success",
+        message: "Create Iframe Widget Success",
         type: "success",
         duration: 3000,
         position: "top-right",
@@ -773,6 +821,7 @@ export default {
     };
     return {
       successCopy,
+      successCreate,
     };
   },
 
@@ -867,6 +916,13 @@ export default {
     renderCountry() {
       return this.$store.state.weatherModule.cityCountry;
     },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
   },
 
   mounted() {
@@ -875,9 +931,23 @@ export default {
     );
 
     this.valueAddressLocation =
-      retrievedArray.city + ", " + retrievedArray.country;
+      this.$t(`city.city_${this.languageParam}.${retrievedArray?.city_key}`) +
+      ", " +
+      retrievedArray.country;
 
-    this.onClickCreateWidget();
+    localStorage.setItem(
+      "titleWidget",
+      JSON.stringify(this.valueAddressLocation)
+    );
+    const objectOptionWidgetNew = {
+      valueSample: this.valueSampling,
+      valueNumber: this.valueNumberDay,
+      valueSliderWidth: this.valueSliderWidth,
+    };
+    this.setOptionWidget(objectOptionWidgetNew);
+    if (this.renderObjectWidget) {
+      this.onClickCreateWidget();
+    }
   },
 
   methods: {
@@ -889,7 +959,11 @@ export default {
       "setLineColor",
       "setNumberDataDaily",
     ]),
-    ...mapMutations("weatherModule", ["setNumberDailyWeather"]),
+    ...mapMutations("weatherModule", [
+      "setNumberDailyWeather",
+      "setTitleWidget",
+      "setOptionWidget",
+    ]),
 
     ...mapActions("commonModule", ["getFormattedAddress", "getWeatherWidget"]),
     ...mapActions("weatherModule", ["getWeatherByWidget"]),
@@ -927,9 +1001,14 @@ export default {
 
     async onChangeChoose(value) {
       debugger;
+      this.valueAddress = null; // Reset giá trị trước khi cập nhật
+      this.$nextTick(() => {});
+      this.valueAddress = value;
+
       this.valueAddressLocation = value.label;
       const latitudeValue = value.lat;
       const longitudeValue = value.lng;
+
       const keyLanguageStorage = this.$route.params.language
         ? this.$route.params.language
         : this.$i18n.locale;
@@ -938,6 +1017,12 @@ export default {
       const encodeDataWeather = encodeBase64(param);
 
       await this.getWeatherByWidget(encodeDataWeather);
+
+      localStorage.setItem(
+        "titleWidget",
+        JSON.stringify(this.valueAddressLocation)
+      );
+      this.setTitleWidget(this.valueAddressLocation);
     },
 
     async handleInput(event) {
@@ -1069,15 +1154,28 @@ export default {
 
     onClickCreateWidget() {
       this.isVisible = false;
+      const objectOptionWidgetNew = {
+        valueSample: this.valueSampling,
+        valueNumber: this.valueNumberDay,
+        valueSliderWidth: this.valueSliderWidth,
+      };
+      const optionWidgetObject = JSON.stringify(objectOptionWidgetNew);
+      this.setOptionWidget(objectOptionWidgetNew);
+      localStorage.setItem("optionWidgetObject", optionWidgetObject);
+      debugger;
 
       // Tăng key và hiển thị lại component sau 100ms
+
       setTimeout(() => {
         this.reloadKey += 1; // Tăng key để Vue render lại component
         this.isVisible = true; // Hiển thị lại component
       }, 100); // Độ trễ 100ms để tạo hiệu ứng "nháy"
-      const objectWidget = this.$store.state.commonModule.objectWidget;
+      const objectWidget = this.$store.state.weatherModule.objectWidget;
       const objectWidgetString = JSON.stringify(objectWidget);
-      localStorage.setItem("objectWidget", objectWidgetString);
+
+      console.log("objectWidgetString", objectWidgetString);
+
+      // localStorage.setItem("objectWidget", objectWidgetString);
 
       const titleColor = this.$store.state.commonModule.titleColor;
       const textColor = this.$store.state.commonModule.textColor;
@@ -1085,18 +1183,29 @@ export default {
         this.$store.state.commonModule.titleBackgroundColor;
       const descriptionColor = this.$store.state.commonModule.descriptionColor;
       const lineColor = this.$store.state.commonModule.lineColor;
-      const srcUrl = `http://localhost:8080/widget-view?titleColor=${titleColor}&textColor=${textColor}&titleBackgroundColor=${titleBackgroundColor}&descriptionColor=${descriptionColor}&lineColor=${lineColor}&objectWidget=${objectWidgetString}`;
+      const srcUrl = `http://localhost:8080/widget-view?titleColor=${encodeURIComponent(
+        titleColor
+      )}&textColor=${encodeURIComponent(
+        textColor
+      )}&titleBackgroundColor=${encodeURIComponent(
+        titleBackgroundColor
+      )}&descriptionColor=${encodeURIComponent(
+        descriptionColor
+      )}&lineColor=${encodeURIComponent(
+        lineColor
+      )}&objectWidget=${encodeURIComponent(objectWidgetString)}`;
 
       this.valueCodeWidget = `<iframe
-        width=${this.valueSliderWidth}+'px'
-        height="360px"
         src="${srcUrl}"
+        width="${this.valueSliderWidth}px"
+        height="360px"
         id="widget-view"
         scrolling="no"
         frameborder="0"
         allowtransparency="true"
         style="border: none; overflow: hidden"
       ></iframe>`;
+      this.successCreate();
     },
 
     onClickCopyWidget() {
@@ -1138,13 +1247,13 @@ export default {
       this.valueNumberDay = value;
       switch (value) {
         case "number_5":
-          this.setNumberDailyWeather(5);
+          this.setNumberDailyWeather(6);
           break;
         case "number_7":
-          this.setNumberDailyWeather(7);
+          this.setNumberDailyWeather(8);
           break;
         default:
-          this.setNumberDailyWeather(3);
+          this.setNumberDailyWeather(4);
           break;
       }
     },

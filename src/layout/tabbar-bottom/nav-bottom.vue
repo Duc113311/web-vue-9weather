@@ -485,69 +485,7 @@ export default {
     async onClickRechange() {
       this.valueSearch = "";
 
-      debugger;
-      const currentChrome = this.currentLocationChome;
-      debugger;
-      if (currentChrome?.country_key?.toLowerCase() === "vn") {
-        let objectBread = {
-          country: currentChrome.country,
-          country_key: currentChrome.country_key.toLowerCase(),
-          city: currentChrome.city ? currentChrome.city : "",
-          city_key: currentChrome.city_key ? currentChrome.city_key : "",
-          district: currentChrome.district ? currentChrome.district : "",
-          district_key: currentChrome.district_key
-            ? currentChrome.district_key
-            : "",
-          ward: currentChrome.ward ? currentChrome.ward : "",
-          ward_key: currentChrome.ward_key ? currentChrome.ward_key : "",
-          latitude: currentChrome.latitude,
-          longitude: currentChrome.longitude,
-        };
-
-        localStorage.setItem("objectBread", JSON.stringify(objectBread));
-
-        this.setBreadcumsNotAllowLocation(objectBread);
-
-        // tồn tại thành phố
-        if (
-          objectBread.city.length !== 0 &&
-          objectBread.district.length === 0
-        ) {
-          await this.$router.push({
-            name: "today-weather",
-            params: {
-              language: this.languageParam,
-              location: [
-                objectBread.country_key.toLowerCase(),
-                this.convertLowerCase(objectBread.city),
-              ],
-            },
-          });
-        }
-      }
-
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${currentChrome.latitude},${currentChrome.longitude}?lang=${this.languageParam}`;
-
-      // const latLong = localStorage.getItem("locationLatLong");
-      const resultAir = getAqiDataFromLocation(
-        currentChrome.latitude,
-        currentChrome.longitude
-      );
-      const encodeDataWeather = encodeBase64(param);
-
-      // API Get Weather Current
-      await this.getWeatherDataCurrent(encodeDataWeather);
-
-      const encodeKeyAir = encodeBase64(resultAir);
-      // API Get Air Quality By Key
-      await this.getAirQualityByKey(encodeKeyAir);
-
-      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
-      const encodeAirCode = encodeBase64(airCode);
-      // API Get Air Quality Data
-      await this.getAirQuality(encodeAirCode);
-      this.indexKey = this.indexKey + 1;
-      this.setIndexComponent(this.indexKey);
+      window.location.reload();
     },
   },
 };

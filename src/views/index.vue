@@ -83,7 +83,9 @@ export default {
       const objectBreadValue = JSON.parse(objectBread);
       if (objectBreadValue.country_key === "vn") {
         if (Object.keys(routerLink).length !== 0) {
-          this.handleLocationVietNam(routerLink.location);
+          if (routerLink.location) {
+            this.handleLocationVietNam(routerLink.location);
+          }
         } else {
           this.getLocationBrowser();
         }
