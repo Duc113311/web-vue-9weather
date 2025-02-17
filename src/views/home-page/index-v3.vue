@@ -126,8 +126,8 @@ export default {
 
 .ic-dow-apple {
   background-image: url("../../assets/images/svg_v2/ic_down_apple.svg");
-  width: 180px;
-  height: 60px;
+  width: 136px;
+  height: 46px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -135,8 +135,8 @@ export default {
 
 .ic-dow-ch {
   background-image: url("../../assets/images/svg_v2/ic_down_ch.svg");
-  width: 180px;
-  height: 60px;
+  width: 136px;
+  height: 46px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -144,8 +144,8 @@ export default {
 
 .ic-dow-app {
   background-image: url("../../assets/images/svg_v2/ic_hinh_app.png");
-  width: 289px;
-  height: 587.77px;
+  width: 193px;
+  height: 394.77px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -153,8 +153,8 @@ export default {
 
 .ic-dow-app-1 {
   background-image: url("../../assets/images/svg_v2/ic_hinh_app_1.png");
-  width: 289px;
-  height: 587.77px;
+  width: 193px;
+  height: 394.77px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -162,8 +162,8 @@ export default {
 
 .ic-dow-app-2 {
   background-image: url("../../assets/images/svg_v2/ic_hinh_app_2.png");
-  width: 289px;
-  height: 587.77px;
+  width: 193px;
+  height: 394.77px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -181,6 +181,18 @@ export default {
   margin-left: auto;
 }
 @media (min-width: 576px) {
+  .ic-dow-apple,
+  .ic-dow-ch {
+    width: 136px;
+    height: 46px;
+  }
+
+  .ic-dow-app,
+  .ic-dow-app-1,
+  .ic-dow-app-2 {
+    width: 193px;
+    height: 394.77px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -190,17 +202,53 @@ export default {
   .container-full {
     max-width: 1204px;
   }
+  .ic-dow-apple,
+  .ic-dow-ch {
+    width: 180px;
+    height: 60px;
+  }
+
+  .ic-dow-app,
+  .ic-dow-app-1,
+  .ic-dow-app-2 {
+    width: 289px;
+    height: 587.77px;
+  }
 }
 
 @media (min-width: 1280px) {
   .container-full {
     max-width: 1311px;
   }
+  .ic-dow-apple,
+  .ic-dow-ch {
+    width: 180px;
+    height: 60px;
+  }
+
+  .ic-dow-app,
+  .ic-dow-app-1,
+  .ic-dow-app-2 {
+    width: 289px;
+    height: 587.77px;
+  }
 }
 
 @media (min-width: 1536px) {
   .container-full {
     max-width: 1402px;
+  }
+  .ic-dow-apple,
+  .ic-dow-ch {
+    width: 180px;
+    height: 60px;
+  }
+
+  .ic-dow-app,
+  .ic-dow-app-1,
+  .ic-dow-app-2 {
+    width: 289px;
+    height: 587.77px;
   }
 }
 .tilted-image {

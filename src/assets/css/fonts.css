@@ -155,22 +155,19 @@
 
 /*  */
 .txt_line_50 {
-  font-size: 50px; /* Kích thước chữ mặc định */
+  font-size: 20px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
-  line-height: 70.18px; /* Khoảng cách giữa các dòng */
   font-weight: 700; /* Corresponds to Regular */
   text-decoration: underline;
 }
 .txt_line_48 {
-  font-size: 48px; /* Kích thước chữ mặc định */
+  font-size: 20px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
-  line-height: 58.08px; /* Khoảng cách giữa các dòng */
   font-weight: 700; /* Corresponds to Regular */
 }
 .txt_line_24 {
-  font-size: 24px; /* Kích thước chữ mặc định */
+  font-size: 12px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
-  line-height: 36px; /* Khoảng cách giữa các dòng */
   font-weight: 400; /* Corresponds to Regular */
 }
 
@@ -192,7 +189,10 @@
     font-size: 20px; /* Tăng kích thước chữ cho màn hình nhỏ */
   }
   .txt_line_48 {
-    font-size: 28px; /* Kích thước chữ mặc định */
+    font-size: 20px; /* Kích thước chữ mặc định */
+  }
+  .txt_line_50{
+    font-size: 20px; /* Kích thước chữ mặc định */
   }
 }
 
@@ -215,8 +215,11 @@
   .txt_medium_des_18 {
     font-size: 16px;
   }
-  .txt_line_48{
-    font-size: 20px;
+  .txt_line_48 {
+    font-size: 20px; /* Kích thước chữ mặc định */
+  }
+  .txt_line_50{
+    font-size: 20px; /* Kích thước chữ mặc định */
   }
 }
 
@@ -233,6 +236,12 @@
   .txt_default {
     font-size: 20px; /* Tăng kích thước chữ cho laptop/PC */
   }
+  .txt_line_48 {
+    font-size: 30px; /* Kích thước chữ mặc định */
+  }
+  .txt_line_50{
+    font-size: 30px; /* Kích thước chữ mặc định */
+  }
 }
 
 @media (min-width: 1200px) {
@@ -248,6 +257,12 @@
   .txt_default {
     font-size: 22px; /* Kích thước lớn hơn cho desktop */
   }
+  .txt_line_48 {
+    font-size: 48px; /* Kích thước chữ mặc định */
+  }
+  .txt_line_50{
+    font-size: 50px; /* Kích thước chữ mặc định */
+  }
 }
 
 @media (min-width: 1400px) {
@@ -262,5 +277,11 @@
   }
   .txt_default {
     font-size: 24px; /* Kích thước lớn nhất cho màn hình cực rộng */
+  }
+  .txt_line_48 {
+    font-size: 48px; /* Kích thước chữ mặc định */
+  }
+  .txt_line_50{
+    font-size: 50px; /* Kích thước chữ mặc định */
   }
 }
