@@ -12,7 +12,7 @@
             alt=""
             srcset=""
           />
-          <p class="txt_regular">{{ $t("Setting") }}</p>
+          <p class="txt_regular text-white">{{ $t("Setting") }}</p>
         </div>
         <div
           @click="onClickBack('settings')"
@@ -24,7 +24,7 @@
             alt=""
             srcset=""
           />
-          <p class="txt_regular">
+          <p class="txt_regular text-white">
             <span>{{ $t(`Unit_preferences_settings`) }}</span>
           </p>
         </div>
@@ -39,18 +39,17 @@
       </div>
       <!-- Mobile -->
 
-      <div
-        class="md:hidden block address-now pt-2 pb-2 text-left cursor-pointer text-blue-300 bg-slate-400"
-        :key="indexState + Math.random()"
-      >
-        <div class="flex justify-between items-center pl-4 pr-4">
+      <div class="lg:hidden block address-now text-left cursor-pointer">
+        <div
+          class="flex justify-between items-center pl-4 pr-4 bg-h-location pt-2 pb-2"
+        >
           <div
-            class="flex"
+            class="flex txt_regular_14"
             v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -64,22 +63,24 @@
               />
             </svg>
             &nbsp;
-            <p v-if="breadcumsObject?.city">
-              {{
-                $t(
-                  `city.city_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.city_key
-                  )}`
-                )
-              }},
-            </p>
-            &nbsp;
-            <p v-if="breadcumsObject?.country">
-              {{ breadcumsObject?.country }}
-            </p>
+            <div class="flex items-center">
+              <p v-if="breadcumsObject?.city">
+                {{
+                  $t(
+                    `city.city_${languageParam}.${convertToLowCase(
+                      breadcumsObject?.city_key
+                    )}`
+                  )
+                }},
+              </p>
+              &nbsp;
+              <p v-if="breadcumsObject?.country">
+                {{ breadcumsObject?.country }}
+              </p>
+            </div>
           </div>
 
-          <div class="flex items-center mr-4 txt_regular_14 color-text">
+          <div class="flex items-center txt_regular_12 color-text">
             <div class="flex items-center gap-1">
               <svg
                 width="20"
@@ -104,6 +105,60 @@
             <span id="s-date-time" class="flex items-center">
               {{ vietnamTime }}
             </span>
+          </div>
+        </div>
+        <!--  -->
+        <div class="w-full mt-2">
+          <div
+            class="w-full"
+            v-if="valueScream !== 'unit-preferences-settings'"
+          >
+            <div
+              v-for="(menu, index) in menuItems"
+              :key="index"
+              class="cursor-pointer pl-4 pr-4 pt-2 pb-2 flex bg-btn-hover justify-start"
+              @click="onClickMobile(menu)"
+            >
+              <div class="flex justify-between items-center w-full">
+                <div class="flex items-center txt-medium gap-2 cursor-pointer">
+                  <component :is="menu.icon" class="menu-icon" />
+                  <span class="txt_regular_14">{{ menu.label }}</span>
+                </div>
+
+                <div class="flex items-center" v-if="menu.isShowArrow">
+                  <component :is="IcBackRight"></component>
+                </div>
+                <div v-if="menu.isSwitch">
+                  <el-switch
+                    v-model="valueLives"
+                    @change="onChangeLiveActivity"
+                    class="ml-2"
+                    style="
+                      --el-switch-on-color: #0c61ee;
+                      --el-switch-off-color: #d4cccc;
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="pl-3 pr-3"
+            v-if="valueScream === 'unit-preferences-settings'"
+          >
+            <div
+              class="flex items-center cursor-pointer"
+              @click="onClickBackMobile"
+            >
+              <div>
+                <component :is="IcBackLeft"></component>
+              </div>
+              <div class="txt_medium_14 flex items-center">
+                <span>{{ $t(`Unit_preferences_settings`) }}</span>
+              </div>
+            </div>
+            <UnitPreferencesPageMobile></UnitPreferencesPageMobile>
           </div>
         </div>
       </div>
@@ -138,7 +193,7 @@
           class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
           @click="onClickUnitSetting('unit_settings')"
         >
-          <div class="txt_regular flex items-center">
+          <div class="txt_regular flex items-center text-white">
             <span>{{ $t(`Unit_preferences_settings`) }}</span>
           </div>
           <div>
@@ -149,7 +204,7 @@
           v-if="namePage !== 'unit_settings'"
           class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         >
-          <div class="txt_regular flex items-center">
+          <div class="txt_regular flex items-center text-white">
             <span>{{ $t("Dark/Light") }}</span>
           </div>
           <div>
@@ -184,12 +239,39 @@ import UnitPreferencesPage from "@/components/settings/unit-preferences-page.vue
 import { convertToEnglish } from "@/utils/converValue";
 import { mapGetters, mapMutations } from "vuex";
 import { formatInTimeZone } from "date-fns-tz";
+import IcCalendar from "@/components/icons/mobile/IcCalendar.vue";
+import IcOclock from "@/components/icons/mobile/IcOclock.vue";
+import IcCloudSun from "@/components/icons/mobile/IcCloudSun.vue";
+import IcApiTab from "@/components/icons/mobile/IcApiTab.vue";
+import IcUvIndex from "@/components/icons/mobile/IcUvIndex.vue";
+import IcMoonphase from "@/components/icons/mobile/IcMoonphase.vue";
+import IcRadar from "@/components/icons/mobile/IcRadar.vue";
+import IcUnitPreferences from "@/components/icons/mobile/IcUnitPreferences.vue";
+import IcDarkLight from "@/components/icons/mobile/IcDarkLight.vue";
+import IcLanguage from "@/components/icons/mobile/IcLanguage.vue";
+import IcRightArrow from "@/components/icons/mobile/IcRightArrow.vue";
+import { markRaw } from "vue";
+import UnitPreferencesPageMobile from "@/components/settings/unit-preferences-page-mobile.vue";
+import IcBackLeft from "@/components/icons/mobile/IcBackLeft.vue";
+import IcBackRight from "@/components/icons/mobile/IcBackRight.vue";
 
 export default {
   name: "header-menu",
 
   components: {
     UnitPreferencesPage,
+    UnitPreferencesPageMobile,
+    IcCalendar,
+    IcOclock,
+    IcCloudSun,
+    IcApiTab,
+    IcUvIndex,
+    IcMoonphase,
+    IcRadar,
+    IcLanguage,
+    IcDarkLight,
+    IcUnitPreferences,
+    IcRightArrow,
   },
 
   data() {
@@ -200,6 +282,10 @@ export default {
       indexKey: 0,
       vietnamTime: "",
       usTime: "",
+      valueScream: "",
+      IcRightArrow: markRaw(IcRightArrow),
+      IcBackLeft: markRaw(IcBackLeft),
+      IcBackRight: markRaw(IcBackRight),
       userTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Múi giờ của người dùng
     };
   },
@@ -219,6 +305,94 @@ export default {
     breadcumsObject() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
+    },
+
+    menuItems() {
+      return [
+        {
+          name: "today-weather",
+          label: this.$t("Today"),
+          isRun: true,
+          isShowArrow: false,
+          isSwitch: false,
+          icon: IcCloudSun,
+        },
+        {
+          name: "hourly-weather",
+          label: this.$t("Hourly"),
+          isRun: true,
+          isShowArrow: false,
+          isSwitch: false,
+          icon: IcOclock,
+        },
+        {
+          name: "month-weather",
+          label: this.$t("Month"),
+          isShowArrow: false,
+          isRun: true,
+          isSwitch: false,
+          icon: IcCalendar,
+        },
+        {
+          name: "radar-weather",
+          label: this.$t("Radar"),
+          isShowArrow: false,
+          isRun: true,
+          isSwitch: false,
+          icon: IcRadar,
+        },
+        {
+          name: "air-quality-weather",
+          label: this.$t("AQI"),
+          isShowArrow: false,
+          isRun: true,
+          isSwitch: false,
+          icon: IcApiTab,
+        },
+        {
+          name: "uv-weather",
+          label: this.$t("UV"),
+          isShowArrow: false,
+          isRun: true,
+          isSwitch: false,
+          icon: IcUvIndex,
+        },
+        {
+          name: "moon-phase-weather",
+          label: this.$t("Moon_phase"),
+          isShowArrow: false,
+          isRun: true,
+          isSwitch: false,
+          icon: IcMoonphase,
+        },
+
+        {
+          name: "unit-preferences-settings",
+          label: this.$t("Unit_preferences_settings"),
+          isShowArrow: true,
+          isRun: true,
+          isSwitch: false,
+          icon: IcUnitPreferences,
+        },
+
+        {
+          name: "dark-light",
+          label: this.$t("Dark/Light"),
+          isRun: true,
+          isShowArrow: false,
+          isSwitch: true,
+          icon: IcDarkLight,
+        },
+
+        {
+          name: "language-view",
+          label: this.$t("Language"),
+          isRun: true,
+          isShowArrow: true,
+          isSwitch: false,
+          icon: IcLanguage,
+        },
+      ];
     },
   },
 
@@ -292,13 +466,24 @@ export default {
       document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
       localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage
     },
+
+    onClickMobile(value) {
+      debugger;
+
+      this.valueScream = value.name;
+    },
+
+    onClickBackMobile(value) {
+      this.valueScream = "";
+    },
   },
 };
 </script>
 <style lang="scss">
 .header-menu {
-  background-color: #f9f9f9;
+  background-color: var(--bg-menu-mobile);
   border-top: 1px solid hsla(0, 0%, 76%, 0.2);
+  color: var(--color-menu-mobile);
   display: none;
   overflow-y: auto;
   // padding: 12px 0 0px;
@@ -313,7 +498,7 @@ export default {
     background-repeat: no-repeat;
     -webkit-box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
-    color: #f9f9f9;
+    color: var(--color-menu-mobile);
     padding: 20px 20px 0;
     position: absolute;
     right: 0;
@@ -340,5 +525,9 @@ export default {
 .pad-option-tb-8 {
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+.bg-h-location {
+  background-color: var(--bg-location-header);
 }
 </style>

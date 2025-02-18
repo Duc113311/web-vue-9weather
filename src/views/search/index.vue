@@ -1,13 +1,13 @@
 <template>
   <div class="w-full h-auto">
-    <NavBottom></NavBottom>
+    <NavBottom class="md:block hidden"></NavBottom>
 
     <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 
     <!--  -->
     <NavTabbar></NavTabbar>
 
-    <!-- <div class="ads w-full h-[83px]"></div> -->
+    <div class="ads w-full h-[83px] bg-slate-500 md:hidden block"></div>
 
     <router-view></router-view>
 

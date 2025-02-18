@@ -1,18 +1,19 @@
 <template>
   <div class="w-full items-center text-left color_f9f9f9 pad-t-b mt-2">
     <div class="container">
-      <div class="flex items-center gap-2 txt_regular_17 md:pad-l-r-20">
+      <div class="flex items-center gap-2 txt_regular_17 pad-l-r-20">
         <div class="cursor-pointer" @click="onClickHome()">
           {{ $t("Home") }}
         </div>
+        <!-- Riêng Việt nam -->
         <div
           class="flex items-center"
           v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
         >
           <div class="flex items-center" v-if="breadcumsObject?.country">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +31,8 @@
           </div>
           <div class="flex items-center" v-if="breadcumsObject?.city">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -55,8 +56,8 @@
           </div>
           <div class="flex items-center" v-if="breadcumsObject?.district">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -116,12 +117,13 @@
             </div>
           </div>
         </div>
+        <!-- End -->
         <!-- Trên thế giới -->
         <div v-else class="flex items-center">
           <div class="flex items-center" v-if="breadcumsObject?.country">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -139,8 +141,8 @@
           </div>
           <div class="flex items-center" v-if="breadcumsObject?.state">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -158,8 +160,8 @@
           </div>
           <div class="flex items-center" v-if="breadcumsObject?.county">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -177,8 +179,8 @@
           </div>
           <div class="flex items-center" v-if="breadcumsObject?.cities">
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -195,6 +197,7 @@
             </div>
           </div>
         </div>
+        <!-- End -->
       </div>
     </div>
   </div>

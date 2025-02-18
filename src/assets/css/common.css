@@ -127,8 +127,8 @@
 
 .imgLogo {
   background-image: url(@/assets/images/svg_v2/ic_logo.png);
-  width: 42px;
-  height: 42px;
+  width: 30px;
+  height: 30px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

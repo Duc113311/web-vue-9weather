@@ -232,3 +232,15 @@
 .el-carousel__indicators {
   display: none !important;
 }
+
+.icon-svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 1024px) { /* Desktop */
+  .icon-svg {
+    width: 24px;
+    height: 24px;
+  }
+}

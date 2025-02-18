@@ -5,6 +5,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <svg
+            class="icon-svg"
             width="25"
             height="24"
             viewBox="0 0 25 24"
@@ -87,7 +88,7 @@
         <!--  -->
         <TabNavigation @onChangeTabChart="onChangeTabChart"></TabNavigation>
         <!--  -->
-        <div class="w-full h-[378px] pad-l-r">
+        <div class="w-full h-[378px] pad-l-r pb-2">
           <ChartTempRain
             :key="indexKey + Math.random()"
             v-show="indexChart === 0"

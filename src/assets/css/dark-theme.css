@@ -22,6 +22,11 @@
   --color-txt-chart-precipitation: #ffffff;
   --color-txt-chart-uv: #ffffff;
   --bg-radio-chance-of-rain: #00e3f5;
-  --bg-radio-chance-of-snow: #FF8C00;
+  --bg-radio-chance-of-snow: #ff8c00;
   --text-search: #0d2952;
+  --color-icon-df-mobile: #333333;
+  --bg-location-header: #e3e3e3;
+  --bg-menu-mobile: #f9f9f9;
+  --color-menu-mobile:#333333;
+  --bg-btn-option:#ddbfbf;
 }

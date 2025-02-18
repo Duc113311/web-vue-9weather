@@ -1,8 +1,15 @@
 @import "../../assets/css/style.css";
 
 /* regular */
+.txt_regular {
+  font-size: 14px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 20.28px; /* Khoảng cách giữa các dòng */
+  text-align: center; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+}
 .txt_regular_17 {
-  font-size: 17px; /* Kích thước chữ mặc định */
+  font-size: 13px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 20.28px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
@@ -40,7 +47,7 @@
 }
 
 .txt_regular_14 {
-  font-size: 14px; /* Kích thước chữ mặc định */
+  font-size: 12px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 16.7px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
@@ -63,7 +70,7 @@
   font-weight: 500; /* Corresponds to Regular */
 }
 .txt_medium_17 {
-  font-size: 17px; /* Kích thước chữ mặc định */
+  font-size: 15px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 20.76px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
@@ -100,7 +107,7 @@
   font-weight: 700; /* Corresponds to Regular */
 }
 .txt_bold_34 {
-  font-size: 34px; /* Kích thước chữ mặc định */
+  font-size: 20px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 41.51px; /* Khoảng cách giữa các dòng */
   font-weight: 700; /* Corresponds to Regular */
@@ -180,7 +187,7 @@
     font-size: 16px; /* Tăng kích thước chữ trên màn hình lớn hơn 576px */
   }
   .txt_regular {
-    font-size: 12px; /* Tăng kích thước cho màn hình nhỏ từ 576px trở lên */
+    font-size: 14px; /* Tăng kích thước cho màn hình nhỏ từ 576px trở lên */
   }
   .txt_default {
     font-size: 16px; /* Tăng kích thước chữ cho màn hình nhỏ */
@@ -193,6 +200,17 @@
   }
   .txt_line_50{
     font-size: 20px; /* Kích thước chữ mặc định */
+  }
+
+  .txt_regular_14{
+    font-size: 12px;
+  }
+  .txt_regular_17{
+    font-size: 13px;
+  }
+
+  .txt_medium_17{
+    font-size: 15px;
   }
 }
 
@@ -221,6 +239,17 @@
   .txt_line_50{
     font-size: 20px; /* Kích thước chữ mặc định */
   }
+
+  .txt_regular_14{
+    font-size: 12px;
+  }
+  .txt_regular_17{
+    font-size: 13px;
+  }
+
+  .txt_medium_17{
+    font-size: 15px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -241,6 +270,17 @@
   }
   .txt_line_50{
     font-size: 30px; /* Kích thước chữ mặc định */
+  }
+
+  .txt_regular_14{
+    font-size: 14px;
+  }
+  .txt_regular_17{
+    font-size: 17px;
+  }
+
+  .txt_medium_17{
+    font-size: 17px;
   }
 }
 
@@ -263,6 +303,17 @@
   .txt_line_50{
     font-size: 50px; /* Kích thước chữ mặc định */
   }
+
+  .txt_regular_14{
+    font-size: 14px;
+  }
+  .txt_regular_17{
+    font-size: 17px;
+  }
+
+  .txt_medium_17{
+    font-size: 17px;
+  }
 }
 
 @media (min-width: 1400px) {
@@ -283,5 +334,19 @@
   }
   .txt_line_50{
     font-size: 50px; /* Kích thước chữ mặc định */
+  }
+  .txt_bold_34{
+    font-size: 34px; /* Tăng kích thước chữ cho màn hình nhỏ */
+  }
+
+  .txt_regular_14{
+    font-size: 14px;
+  }
+  .txt_regular_17{
+    font-size: 17px;
+  }
+
+  .txt_medium_17{
+    font-size: 17px;
   }
 }
