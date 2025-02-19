@@ -37,18 +37,18 @@
     <div class="pt-2 pb-2 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <IcTempt></IcTempt>
+          <IcTempt class="icon-svg"></IcTempt>
           <p class="txt_regular_14">{{ $t("Temperature") }}</p>
         </div>
         <div class="flex items-center">
           <div class="flex items-center">
-            <IcTemptMin></IcTemptMin>
+            <IcTemptMin class="icon-svg"></IcTemptMin>
             <p class="txt_medium_17">
               {{ convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMin) }}
             </p>
           </div>
           <div class="flex items-center">
-            <IcTemptMax></IcTemptMax>
+            <IcTemptMax class="icon-svg"></IcTemptMax>
             <p class="txt_medium_17">
               {{ convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMax) }}
             </p>
@@ -57,7 +57,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <IcUvIndex></IcUvIndex>
+          <IcUvIndex class="icon-svg"></IcUvIndex>
           <p class="txt_regular_14">{{ $t("UV") }}</p>
         </div>
         <div class="items-center flex gap-1">
@@ -71,7 +71,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <IcPrecipitation></IcPrecipitation>
+          <IcPrecipitation class="icon-svg"></IcPrecipitation>
           <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
         </div>
         <p class="txt_medium_des">
@@ -80,7 +80,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <IcChanceOfRain></IcChanceOfRain>
+          <IcChanceOfRain class="icon-svg"></IcChanceOfRain>
           <p class="txt_regular_14" v-if="currentlyData?.precipType === 'Snow'">
             {{ $t("Chance_of_snow") }}
           </p>

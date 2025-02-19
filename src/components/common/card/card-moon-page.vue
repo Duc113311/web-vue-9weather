@@ -10,6 +10,7 @@
       </div>
       <div class="flex items-center justify-center p-1">
         <component
+          class="icon-svg-moon"
           :is="convertStringMoonIcon(objectLocation.moonPhase)"
         ></component>
       </div>

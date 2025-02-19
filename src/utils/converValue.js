@@ -1288,7 +1288,7 @@ export function convertTimeNew(seconds) {
 // convert AQI
 export function getAQIColor(aqi) {
   if (aqi <= 50) return "#41E11F";
-  if ((51 <= aqi) & (aqi <= 100)) return "#FCFF2F";
+  if ((51 <= aqi) & (aqi <= 100)) return "#3DE177";
   if ((101 <= aqi) & (aqi <= 150)) return "#F68421";
   if ((151 <= aqi) & (aqi <= 200)) return "#F42E1C";
   if ((201 <= aqi) & (aqi <= 250)) return "#8C4396";
@@ -1956,5 +1956,33 @@ export function formatDateFull(timestamp, offset, locale = "en-US") {
     return "Invalid date";
   }
 }
+
+
+export function convertTimestampFullMoon(
+  timestamp,
+  offsetValue,
+  timezone
+) {
+// Chuyển đổi chuỗi ngày thành Date object
+const date = new Date(timestamp);
+
+// Kiểm tra nếu ngày không hợp lệ
+if (isNaN(date.getTime())) {
+  console.error("Invalid Date Format");
+  return null;
+}
+
+// Format ngày theo tiếng Anh
+const options = { 
+  weekday: "long", 
+  month: "long", 
+  day: "numeric", 
+  year: "numeric", 
+  timeZone: timezone // Đảm bảo đúng múi giờ GMT+7
+};
+
+return new Intl.DateTimeFormat("en-US", options).format(date);
+}
+
 
 // Convert Day

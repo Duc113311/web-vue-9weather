@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full pl-2 pr-2">
     <!-- -->
     <div class="container mt-5">
       <div class="header-m h-full lg:flex w-full gap-20-px">

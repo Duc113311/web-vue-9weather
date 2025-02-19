@@ -40,7 +40,7 @@
     <div class="pt-2 pb-2 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <IcUvIndex></IcUvIndex>
+          <IcUvIndex class="icon-svg"></IcUvIndex>
           <p class="txt_regular_14">{{ $t("UV") }}</p>
         </div>
         <div class="items-center flex gap-1">
@@ -55,7 +55,7 @@
       </div>
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
-          <IcPrecipitation></IcPrecipitation>
+          <IcPrecipitation class="icon-svg"></IcPrecipitation>
           <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
         </div>
         <p class="txt_medium_17">
@@ -67,11 +67,11 @@
           class="flex items-center text-left gap-2 txt_regular_des"
           v-if="dataDayNightRender?.precipType === 'Snow'"
         >
-          <IcChanceOfRainSnow></IcChanceOfRainSnow>
+          <IcChanceOfRainSnow class="icon-svg"></IcChanceOfRainSnow>
           <p class="txt_regular_14">{{ $t("Chance_of_snow") }}</p>
         </div>
         <div class="flex items-center text-left gap-2 txt_regular_des" v-else>
-          <IcChanceOfRain></IcChanceOfRain>
+          <IcChanceOfRain class="icon-svg"></IcChanceOfRain>
           <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
         </div>
         <p class="txt_medium_17">

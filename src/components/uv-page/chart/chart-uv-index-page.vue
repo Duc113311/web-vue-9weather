@@ -4,7 +4,7 @@
     <BaseComponent :isShowPad="true">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <component :is="srcDaytime"></component>
+          <component class="icon-svg" :is="srcDaytime"></component>
           <div
             class="txt_medium_14"
             v-if="breadcumsObject.country_key === 'vn'"

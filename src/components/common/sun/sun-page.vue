@@ -3,11 +3,11 @@
     <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <IcTitleSun></IcTitleSun>
+          <IcTitleSun class="icon-svg"></IcTitleSun>
           <p class="txt_medium_14">{{ $t("Sun") }}</p>
         </div>
       </template>
-      <div class="w-full lg:h-[211px]">
+      <div class="w-full lg:h-[200px] h-[230px]">
         <!--  -->
         <div class="sun-rise-progression w-full relative">
           <div

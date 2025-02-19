@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full flex flex-col gap-7 pad-t-b-10 pad-r-l-10">
+  <div
+    class="w-full md:flex md:flex-col grid grid-cols-2 gap-8 pad-t-b-10 pad-r-l-10"
+  >
     <div class="flex items-center text-left gap-2">
       <div class="bg-Good rounded-full w-[10px] h-[10px]"></div>
       <div class="text-left">

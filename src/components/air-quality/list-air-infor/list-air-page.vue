@@ -5,7 +5,7 @@
       <template v-slot:header>
         <div class="flex justify-between items-center">
           <div class="flex items-center text-left gap-2">
-            <IcApiO3></IcApiO3>
+            <IcApiO3 class="icon-svg"></IcApiO3>
 
             <div class="flex items-center txt_medium_14 text-left">
               <span>{{ $t("Pollutant") }}</span>
@@ -14,7 +14,7 @@
         </div>
       </template>
 
-      <div class="w-full h-auto flex gap-4">
+      <div class="w-full h-auto flex md:gap-4 gap-2">
         <!--  -->
         <div
           class="w-[200px]"

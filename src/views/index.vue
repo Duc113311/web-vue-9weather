@@ -9,7 +9,9 @@
       ></HeaderPage>
       <HeaderMenu
         v-show="isShowHeaderMenu"
+        :isShowHeaderMenu="isShowHeaderMenu"
         @onChangeCloseMenu="onChangeShowHeaderMenu"
+        @onChangeShowHeaderMobile="onChangeShowHeaderMobile"
       ></HeaderMenu>
     </div>
     <div class="header-placeholder"></div>
@@ -167,6 +169,10 @@ export default {
       }
     },
     onChangeShowHeaderMenu(value) {
+      this.isShowHeaderMenu = value;
+    },
+
+    onChangeShowHeaderMobile(value) {
       this.isShowHeaderMenu = value;
     },
 

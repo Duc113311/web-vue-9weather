@@ -3,6 +3,7 @@
     <!--   -->
     <div class="flex items-center text-left gap-2 pad-t-b">
       <svg
+        class="icon-svg"
         width="25"
         height="24"
         viewBox="0 0 25 24"
@@ -136,7 +137,10 @@
 
                 <div class="flex items-center">
                   <div class="flex items-center gap-2 mr-4">
-                    <component :is="renderIcon(item)"></component>
+                    <component
+                      class="icon-svg"
+                      :is="renderIcon(item)"
+                    ></component>
                     <p class="txt_medium_15">
                       {{ renderToCelsius(item?.temperatureMin) }} /
                       {{ renderToCelsius(item?.temperatureMax) }}
@@ -151,6 +155,7 @@
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      class="icon-svg"
                     >
                       <path
                         d="M18 9L12 15L6 9"
@@ -165,12 +170,12 @@
               </div>
               <div
                 v-if="index === valueChoose"
-                class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
+                class="w-full flex items-center justify-between pt-6 pb-4 md:pr-11"
               >
                 <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcTitleReadFeel></IcTitleReadFeel>
+                      <IcTitleReadFeel class="icon-svg"></IcTitleReadFeel>
                       <p class="txt_regular_14">{{ $t("Real_feel") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -187,7 +192,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcHumidity></IcHumidity>
+                      <IcHumidity class="icon-svg"></IcHumidity>
                       <p class="txt_regular_14">{{ $t("Humid") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -196,7 +201,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcUvIndex></IcUvIndex>
+                      <IcUvIndex class="icon-svg"></IcUvIndex>
                       <p class="txt_regular_14">{{ $t("UV") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -210,7 +215,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcPrecipitation></IcPrecipitation>
+                      <IcPrecipitation class="icon-svg"></IcPrecipitation>
                       <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -222,11 +227,11 @@
                       class="flex items-center gap-2"
                       v-if="item?.precipType === 'Snow'"
                     >
-                      <IcChanceOfRainSnow></IcChanceOfRainSnow>
+                      <IcChanceOfRainSnow class="icon-svg"></IcChanceOfRainSnow>
                       <p class="txt_regular_14">{{ $t("Chance_of_snow") }}</p>
                     </div>
                     <div class="flex items-center gap-2" v-else>
-                      <IcChanceOfRain></IcChanceOfRain>
+                      <IcChanceOfRain class="icon-svg"></IcChanceOfRain>
                       <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
@@ -236,7 +241,7 @@
 
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcTitleAir></IcTitleAir>
+                      <IcTitleAir class="icon-svg"></IcTitleAir>
                       <p class="txt_regular_14">{{ $t("Dew_point") }}</p>
                     </div>
                     <div class="flex items-center">
@@ -252,7 +257,7 @@
                 <div class="w-[50%] flex flex-col gap-4 pl-6">
                   <div class="flex items-center justify-between w-full">
                     <div class="flex items-center gap-2">
-                      <IcTitleWindSpeed></IcTitleWindSpeed>
+                      <IcTitleWindSpeed class="icon-svg"></IcTitleWindSpeed>
                       <p class="txt_regular_14">{{ $t("Wind_speed") }}</p>
                     </div>
 
@@ -267,7 +272,9 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcTitleWindDirection></IcTitleWindDirection>
+                      <IcTitleWindDirection
+                        class="icon-svg"
+                      ></IcTitleWindDirection>
                       <p class="txt_regular_14">{{ $t("Wind_direction") }}</p>
                     </div>
                     <div class="flex items-center">
@@ -278,7 +285,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcTitleCloudCover></IcTitleCloudCover>
+                      <IcTitleCloudCover class="icon-svg"></IcTitleCloudCover>
                       <p class="txt_regular_14">{{ $t("Cloud_cover") }}</p>
                     </div>
                     <div class="flex items-center">
@@ -289,7 +296,7 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcTitlePressure></IcTitlePressure>
+                      <IcTitlePressure class="icon-svg"></IcTitlePressure>
                       <p class="txt_regular_14">{{ $t("Pressure") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -304,7 +311,7 @@
 
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-1">
-                      <IcTitleSunrise></IcTitleSunrise>
+                      <IcTitleSunrise class="icon-svg"></IcTitleSunrise>
                       <p class="txt_regular_14">{{ $t("Sunrise") }}</p>
                     </div>
                     <div class="flex items-center gap-1">
@@ -321,7 +328,7 @@
 
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                      <IcTitleSunset></IcTitleSunset>
+                      <IcTitleSunset class="icon-svg"></IcTitleSunset>
                       <p class="txt_regular_14">{{ $t("Sunset") }}</p>
                     </div>
                     <div class="flex items-center gap-1">

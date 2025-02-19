@@ -6,6 +6,7 @@
         <div class="flex justify-between items-center">
           <div class="flex items-center text-left gap-2">
             <svg
+              class="icon-svg"
               width="25"
               height="24"
               viewBox="0 0 25 24"
@@ -40,7 +41,7 @@
             @click="onClickRenderCityLocation(item)"
           >
             <div class="flex gap-2 items-center">
-              <img src="../../../assets/images/svg_v2/ic_city.svg" alt="" />
+              <component class="icon-svg" :is="IcCardProvinces"></component>
               <p class="txt_medium_14">
                 {{
                   $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`)
@@ -64,7 +65,7 @@
             @click="onClickRenderCityLocation(item)"
           >
             <div class="flex gap-2 items-center">
-              <img src="../../../assets/images/svg_v2/ic_city.svg" alt="" />
+              <component :is="IcCardProvinces"></component>
               <p class="txt_medium_14">
                 {{ item.enNameLanguage }}
               </p>
@@ -98,7 +99,8 @@ import {
   getParamAirByCode,
 } from "@/utils/EncoderDecoderUtils";
 import { setTitleScream } from "@/helpers/setTitle";
-
+import IcCardProvinces from "@/components/icons/IcCardProvinces.vue";
+import { markRaw } from "vue";
 export default {
   name: "list-country-page",
 
@@ -108,6 +110,7 @@ export default {
   data() {
     return {
       indexKey: 0,
+      IcCardProvinces: markRaw(IcCardProvinces),
     };
   },
 

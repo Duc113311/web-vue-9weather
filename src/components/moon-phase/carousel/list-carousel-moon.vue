@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-full flex gap-20-px">
-    <div class="lg:w-[68%]">
+  <div class="w-full h-full md:flex gap-20-px">
+    <div class="lg:w-[68%] w-full">
       <div class="flex items-center text-left gap-2 pad-t-b">
-        <IcMoonphase></IcMoonphase>
+        <IcMoonphase class="icon-svg"></IcMoonphase>
         <span class="txt_medium_14">{{ $t("Moon_phase_s") }}</span>
       </div>
 
@@ -20,6 +20,7 @@
           </div>
           <div class="flex justify-center items-center w-full h-full">
             <component
+              class="icon-svg-moon"
               :is="convertStringMoonIcon(item.moonPhase)"
               width="130"
               height="130"
@@ -28,7 +29,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="right-hourly w-[30%]">
+    <div class="right-hourly md:w-[30%] w-full">
       <div class="w-full">
         <FormMoonPage :objectMoonNew="objectMoon"></FormMoonPage>
       </div>

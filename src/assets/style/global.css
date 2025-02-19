@@ -238,9 +238,22 @@
   height: 20px;
 }
 
+.icon-svg-moon {
+  width: 80px;
+  height: 80px;
+}
+
+
 @media (min-width: 1024px) { /* Desktop */
   .icon-svg {
     width: 24px;
     height: 24px;
   }
+
+  .icon-svg-moon {
+    width: 130px;
+    height: 130px;
+  }
+
+ 
 }

@@ -3,11 +3,7 @@
     <!--  -->
     <div class="district-card-km">
       <div class="flex items-center justify-center p-1">
-        <img
-          src="../../../assets/images/svg_v2/ic_rain_data.svg"
-          width="34"
-          alt=""
-        />
+        <component :is="IcCardCity"></component>
       </div>
 
       <div
@@ -57,6 +53,8 @@ import removeAccents from "remove-accents";
 import { capitalizeWords, convertHaversine } from "@/utils/converValue";
 import { encodeBase64, urlEncodeString } from "@/utils/EncoderDecoderUtils";
 import { getDistance } from "geolib";
+import IcCardCity from "@/components/icons/IcCardCity.vue";
+import { markRaw } from "vue";
 
 export default {
   name: "district-card-page",
@@ -71,6 +69,7 @@ export default {
   data() {
     return {
       distanceKm: 0,
+      IcCardCity: markRaw(IcCardCity),
     };
   },
 

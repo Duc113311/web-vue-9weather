@@ -29,7 +29,7 @@
 
 /* Radios */
 .bor-radios-big {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .bor-radios-small {
@@ -38,6 +38,11 @@
 
 .bor-rim-r {
   border-right: 1px solid #ffffff;
+}
+.bor-rim-b {
+  border-bottom: 1px solid #ffffff;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .bor-b {
@@ -126,8 +131,9 @@
 }
 
 .gap-22-px {
-  gap: 23px;
+  gap: 6px;
 }
+
 .p-chart-avg {
   padding-left: 2px;
   padding-right: 2px;
@@ -139,6 +145,9 @@
   .pad-l-r-20 {
     padding-left: 10px;
     padding-right: 10px;
+  }
+  .gap-22-px {
+    gap: 6px;
   }
 }
 
@@ -161,6 +170,9 @@
     padding-top: 4px;
     padding-bottom: 4px;
   }
+  .gap-22-px {
+    gap: 6px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -173,5 +185,13 @@
   .pad-t-b-10 {
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+
+  .gap-22-px {
+    gap: 22px;
+  }
+
+  .bor-radios-big {
+    border-radius: 20px;
   }
 }

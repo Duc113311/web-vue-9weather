@@ -4,7 +4,7 @@
       <template v-slot:header>
         <div class="flex justify-between items-center">
           <div class="flex items-center text-left gap-2">
-            <IcAirStation></IcAirStation>
+            <IcAirStation class="icon-svg"></IcAirStation>
             <span class="txt_medium_14">{{ $t("Air_Station_Near_By") }}</span>
           </div>
         </div>

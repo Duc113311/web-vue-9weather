@@ -228,8 +228,8 @@
 
       <!-- mobile -->
 
-      <div class="txt_medium absolute bottom-0 right-0 color-footer p-5">
-        <span>{{ $t("Version") }} 4/ 23.01.2024</span>
+      <div class="txt_regular_14 absolute bottom-0 right-0 color-footer p-5">
+        <span>{{ $t("Version") }} 5 - 19/2/2025</span>
       </div>
     </div>
   </div>
@@ -254,6 +254,10 @@ import { markRaw } from "vue";
 import UnitPreferencesPageMobile from "@/components/settings/unit-preferences-page-mobile.vue";
 import IcBackLeft from "@/components/icons/mobile/IcBackLeft.vue";
 import IcBackRight from "@/components/icons/mobile/IcBackRight.vue";
+import {
+  convertLowerCase,
+  removeWordAndAccents,
+} from "@/utils/coverTextSystem";
 
 export default {
   name: "header-menu",
@@ -370,7 +374,7 @@ export default {
           name: "unit-preferences-settings",
           label: this.$t("Unit_preferences_settings"),
           isShowArrow: true,
-          isRun: true,
+          isRun: false,
           isSwitch: false,
           icon: IcUnitPreferences,
         },
@@ -378,7 +382,7 @@ export default {
         {
           name: "dark-light",
           label: this.$t("Dark/Light"),
-          isRun: true,
+          isRun: false,
           isShowArrow: false,
           isSwitch: true,
           icon: IcDarkLight,
@@ -387,7 +391,7 @@ export default {
         {
           name: "language-view",
           label: this.$t("Language"),
-          isRun: true,
+          isRun: false,
           isShowArrow: true,
           isSwitch: false,
           icon: IcLanguage,
@@ -400,9 +404,9 @@ export default {
     const savedTheme = localStorage.getItem("theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
     if (savedTheme === "light") {
-      this.valueLive = true;
+      this.valueLives = true;
     } else {
-      this.valueLive = false;
+      this.valueLives = false;
     }
 
     this.updateTime();
@@ -416,6 +420,8 @@ export default {
       "setIndexComponent",
       "updateThemeColor",
       "setThemeState",
+      "setKeyIndexComponent",
+      "setIsScroll",
     ]),
 
     updateTime() {
@@ -462,15 +468,126 @@ export default {
       this.setIndexComponent(this.indexKey++);
 
       this.theme = this.valueLive ? "light" : "dark";
+      debugger;
       this.setThemeState(this.theme);
       document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
       localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage
     },
 
-    onClickMobile(value) {
+    async onClickMobile(value) {
       debugger;
 
-      this.valueScream = value.name;
+      if (value.isRun) {
+        this.valueScream = value.name;
+
+        const objectBread = JSON.parse(localStorage.getItem("objectBread"));
+        const countryKey = objectBread.country_key;
+
+        if (countryKey.toLowerCase() === "vn") {
+          // tồn tại thành phố
+          if (
+            objectBread.city.length !== 0 &&
+            objectBread.district.length === 0
+          ) {
+            await this.$router.push({
+              name: value.name,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.city),
+                ],
+              },
+            });
+          }
+          // Tồn tại quận
+          if (
+            objectBread.city.length !== 0 &&
+            objectBread.district.length !== 0 &&
+            objectBread.ward.length === 0
+          ) {
+            await this.$router.push({
+              name: value.name,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.city),
+                  convertLowerCase(objectBread.district),
+                ],
+              },
+            });
+          }
+          if (
+            objectBread.city.length !== 0 &&
+            objectBread.district.length !== 0 &&
+            objectBread.ward.length !== 0
+          ) {
+            await this.$router.push({
+              name: value.name,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.city),
+                  convertLowerCase(objectBread.district),
+                  convertLowerCase(removeWordAndAccents(objectBread.ward)),
+                ],
+              },
+            });
+          }
+
+          // Chuyển route và đợi cho đến khi navigation hoàn tất
+          this.setKeyIndexComponent(1);
+          this.setIndexComponent(1);
+
+          // Emit event để thông báo cho component cha biết route đã thay đổi
+          this.$emit("route-changed", value.name);
+        } else {
+          if (
+            objectBread.state.length !== 0 &&
+            objectBread.cities.length === 0
+          ) {
+            await this.$router.push({
+              name: value.name,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.state),
+                ],
+              },
+            });
+          }
+          // Quận
+          if (
+            objectBread.state.length !== 0 &&
+            !objectBread.cities.length !== 0
+          ) {
+            await this.$router.push({
+              name: value.name,
+              params: {
+                language: this.languageParam,
+                location: [
+                  objectBread.country_key.toLowerCase(),
+                  convertLowerCase(objectBread.state),
+                  convertLowerCase(objectBread.cities),
+                ],
+              },
+            });
+          }
+
+          // Chuyển route và đợi cho đến khi navigation hoàn tất
+          this.setKeyIndexComponent(1);
+
+          this.setIndexComponent(1);
+          // Emit event để thông báo cho component cha biết route đã thay đổi
+          this.$emit("route-changed", value.name);
+        }
+
+        this.$emit("onChangeCloseMenu", false);
+        this.setIsScroll(false);
+      }
     },
 
     onClickBackMobile(value) {

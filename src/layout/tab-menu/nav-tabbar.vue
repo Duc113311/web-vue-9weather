@@ -18,7 +18,7 @@
           <div class="flex items-center txt-medium gap-2 cursor-pointer">
             <component
               :is="menu.icon"
-              class="menu-icon"
+              class="menu-icon icon-svg"
               :class="{
                 'active-icon': activeTabGettersParam === index,
               }"

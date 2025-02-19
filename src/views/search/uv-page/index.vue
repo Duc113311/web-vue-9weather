@@ -1,19 +1,19 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full pl-2 pr-2">
     <!--  -->
 
     <div class="container mt-5">
-      <div class="header-h h-full w-full flex gap-20-px">
+      <div class="header-h h-full w-full md:flex gap-20-px">
         <div class="left-hourly lg:w-[85%] h-full w-full">
-          <div class="flex w-full h-full gap-20-px">
+          <div class="md:flex w-full h-full gap-20-px">
             <!--  -->
-            <div class="w-[65%] h-[280px]">
+            <div class="md:w-[65%] md:h-[280px] h-[300px] w-full">
               <ChartUvIndexPage
                 v-if="currentlyData && Object.keys(currentlyData).length > 0"
               ></ChartUvIndexPage>
               <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
             </div>
-            <div class="w-[35%]">
+            <div class="md:w-[35%] w-full md:mt-0 mt-12">
               <UvCurrentPage
                 v-if="currentlyData && Object.keys(currentlyData).length > 0"
               ></UvCurrentPage>
@@ -22,7 +22,7 @@
             <!--  -->
           </div>
         </div>
-        <div class="right-hourly w-[15%]">
+        <div class="right-hourly md:w-[15%] w-full md:block hidden">
           <div class="w-full h-full">
             <NoteUvPage
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -34,11 +34,11 @@
     </div>
     <!--  -->
 
-    <div class="container mt-5">
+    <div class="container">
       <div class="lg:flex w-full h-full gap-20-px">
         <!-- Left -->
         <div class="left-hourly h-full lg:w-[68%] w-full">
-          <div class="w-full">
+          <!-- <div class="w-full">
             <ItemTime24h
               :key="indexState + Math.random()"
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -46,7 +46,7 @@
             <div v-else class="w-full h-[860px] mt-4">
               <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
             </div>
-          </div>
+          </div> -->
 
           <!--  -->
 
@@ -82,7 +82,7 @@
 
         <!-- Right -->
 
-        <div class="right-hourly lg:w-[30%] w-full">
+        <div class="right-hourly lg:w-[30%] w-full md:block hidden">
           <div class="flex justify-center items-center h-auto mt-4">
             <img
               src="../../../assets/images/png/ic_app_download.png"
@@ -151,7 +151,7 @@ export default {
     MoonPage,
     AirQualityPage,
     SunPage,
-    ItemTime24h,
+    // ItemTime24h,
     ListNearbyLocation,
     ListCountryPage,
     UvCurrentPage,

@@ -4,6 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <svg
+            class="icon-svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -45,6 +46,7 @@
             <el-popover placement="top" :width="200" trigger="hover">
               <template #reference>
                 <svg
+                  class="icon-svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -130,10 +132,10 @@ export default {
 
     const getColorFromPercentage = (percentage) => {
       if (percentage <= 50) return "#41E11F";
-      if ((50 <= percentage) & (percentage <= 100)) return "#FCFF2F";
-      if ((100 <= percentage) & (percentage <= 150)) return "#F68421";
-      if ((150 <= percentage) & (percentage <= 200)) return "#F42E1C";
-      if ((200 <= percentage) & (percentage <= 300)) return "#8C4396";
+      if ((51 <= percentage) & (percentage <= 100)) return "#3DE177";
+      if ((101 <= percentage) & (percentage <= 150)) return "#F68421";
+      if ((151 <= percentage) & (percentage <= 200)) return "#F42E1C";
+      if ((201 <= percentage) & (percentage <= 300)) return "#8C4396";
       return "#781125"; // Giá trị phần trăm từ 90 đến 100
     };
 

@@ -3,41 +3,51 @@
     <BaseComponent>
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <IcMoonphase></IcMoonphase>
+          <IcMoonphase class="icon-svg"></IcMoonphase>
           <p class="txt_medium_14">{{ $t("Moon_phase") }}</p>
         </div>
       </template>
       <div class="w-full h-[183px]">
         <!--  -->
 
-        <div class="flex items-center w-full relative h-full">
+        <div
+          class="flex items-center w-full relative h-full"
+          v-if="listMoonData.length !== 0"
+        >
           <div class="text-left relative h-full w-[50%]">
             <div class="txt_medium_17 text-left">
-              <span>{{ moonPhaseName }}</span>
+              <span>{{ listMoonData[0].moonPhase }}</span>
             </div>
             <div class="txt_regular_12 pt-1">
-              <p>{{ dateFull }}</p>
+              <p>
+                {{
+                  convertFullMoonTime(listMoonData[0].infoMoonPhaseDay?.date)
+                }}
+              </p>
             </div>
             <div class="absolute bottom-0 w-full">
               <div
                 class="flex w-full justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("Moon_illumination") }}:</p>
-                <p>{{ moonPhaseInfo.illumination }}</p>
+                <p>{{ listMoonData[0]?.infoMoonPhaseDay?.illumination }}%</p>
               </div>
               <!--  -->
               <div
                 class="flex justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("Moonrise") }}:</p>
-                <p>{{ convertTime(moonPhaseInfo.moonrise) }}</p>
+                <p>{{ listMoonData[0]?.infoMoonPhaseDay?.moonrise }}</p>
               </div>
               <!--  -->
               <div
                 class="flex justify-between items-center txt_regular_12 pt-2 pb-2"
               >
                 <p>{{ $t("Next_full_moon") }}:</p>
-                <p>{{ moonPhaseInfo.nextFullMoon }} {{ $t("days") }}</p>
+                <p>
+                  {{ listMoonData[0]?.infoMoonPhaseDay?.nextFullMoon }}
+                  {{ $t("days") }}
+                </p>
               </div>
             </div>
           </div>
@@ -50,7 +60,13 @@
               :height="100"
             >
             </GlobalMoonIcon> -->
-            <div class="text-center">{{ $t("Coming_soon") }}</div>
+            <div class="text-center">
+              <component
+                :is="convertStringMoonIcon(listMoonData[0]?.moonPhase)"
+                width="100"
+                height="100"
+              ></component>
+            </div>
           </div>
         </div>
       </div>
@@ -60,7 +76,7 @@
 <script>
 import BaseComponent from "../baseComponent.vue";
 import GlobalMoonIcon from "./global-moon-icon.vue";
-import { getMoonPhase } from "../../../utils/moonPhase";
+import { getInfoMoonPhase, getMoonPhase } from "../../../utils/moonPhase";
 import {
   getWindDirectionEmojiFromDegrees,
   getWindDirectionFromDegrees,
@@ -70,19 +86,18 @@ import {
   getFormattedCurrentDate,
   convertTime12hTimeZoneNotNowUnit,
   convertTime24hTimeZoneNotNow,
+  convertTimestampFullMoon,
 } from "../../../utils/converValue";
-import {
-  Illumination,
-  Body,
-  Libration,
-  EclipticGeoMoon,
-  SearchRiseSet,
-  Observer,
-  Equator,
-  Horizon,
-  SearchMoonPhase,
-} from "astronomy-engine";
+
 import IcMoonphase from "@/components/icons/IcMoonphase.vue";
+import { markRaw } from "vue";
+import IcFullMoon from "@/components/icons/moon-phase/IcFullMoon.vue";
+import IcFirstQuarter from "@/components/icons/moon-phase/IcFirstQuarter.vue";
+import IcNewMoon from "@/components/icons/moon-phase/IcNewMoon.vue";
+import IcThirdQuarter from "@/components/icons/moon-phase/IcThirdQuarter.vue";
+import IcWaningGibbous from "@/components/icons/moon-phase/IcWaningGibbous.vue";
+import IcWaxingCrescent from "@/components/icons/moon-phase/IcWaxingCrescent.vue";
+import IcWaxingGibbous from "@/components/icons/moon-phase/IcWaxingGibbous.vue";
 
 export default {
   name: "moon-page",
@@ -94,27 +109,32 @@ export default {
 
   data() {
     return {
-      numberOfSubChildren: 24,
-      illuminate: 50,
-      moonPhaseName: this.$t("Full_Moon"),
-      dateFull: "Monday, December 16, 2024",
-      rotationDegrees: 0,
-      moonPhaseInfo: {
-        moonPhaseName: "Waning Crescent",
-        illumination: "5.57%",
-        moonset: "23:23",
-        moonrise: Math.floor(Date.now() / 1000),
-        nextFullMoon: "7",
-        nextNewMoon: "21 days",
-        distance: "403,253 km",
-        altitude: "4.7°",
-        azimuth: "90°",
-      },
-      next30DaysMoonPhases: [],
-      currentDate: new Date(),
-      isMouseDown: false,
-      startX: 0,
-      scrollLeft: 0,
+      IcFullMoon: markRaw(IcFullMoon),
+      IcFirstQuarter: markRaw(IcFirstQuarter),
+      IcNewMoon: markRaw(IcNewMoon),
+      IcThirdQuarter: markRaw(IcThirdQuarter),
+      IcWaningGibbous: markRaw(IcWaningGibbous),
+      IcWaxingCrescent: markRaw(IcWaxingCrescent),
+      IcWaxingGibbous: markRaw(IcWaxingGibbous),
+
+      currentDate: "",
+      listMoonData: [],
+      months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+
+      objectMoon: {},
     };
   },
 
@@ -131,6 +151,9 @@ export default {
   },
 
   methods: {
+    convertFullMoonTime(value) {
+      return convertTimestampFullMoon(value);
+    },
     convertTime(val) {
       const offsetValue =
         this.$store.state.weatherModule.locationOffset?.offset;
@@ -156,227 +179,139 @@ export default {
     convertDayFull(value) {
       return convertToShortDay(value);
     },
-    getWindDirectionEmoji() {
-      const azimuth = parseFloat(this.moonPhaseInfo.azimuth); // Ensure correct type
-      return `${getWindDirectionFromDegrees(azimuth)}
-        ${getWindDirectionEmojiFromDegrees(azimuth)}`;
-    },
-    handleMouseDown(event) {
-      this.isMouseDown = true;
-      this.startX = event.pageX - this.$refs.container.offsetLeft;
-      this.scrollLeft = this.$refs.container.scrollLeft;
-    },
-    handleMouseUp() {
-      this.isMouseDown = false;
-    },
-    handleMouseMove(event) {
-      if (!this.isMouseDown) return;
-      const x = event.pageX - this.$refs.container.offsetLeft;
-      const walk = x - this.startX;
-      this.$refs.container.scrollLeft = this.scrollLeft - walk;
-    },
-    getMiddleSubChild() {
-      const wrapperRect =
-        this.$refs.container.parentElement.getBoundingClientRect();
-      const middleX = wrapperRect.left + wrapperRect.width / 2;
-      const children = this.$refs.container.querySelectorAll(".sub-child");
 
-      for (let subChild of children) {
-        const subChildRect = subChild.getBoundingClientRect();
-        if (middleX >= subChildRect.left && middleX <= subChildRect.right) {
-          return subChild;
-        }
-      }
-      return null;
-    },
-    async calculateNext30DaysMoonPhases(value) {
-      try {
-        const dayDataList = [];
-        for (let dayOffset = 0; dayOffset < 30; dayOffset++) {
-          const dayData = [];
-          for (let hour = 0; hour < 24; hour++) {
-            const date = new Date(this.currentDate);
-            date.setDate(date.getDate() + dayOffset);
-            date.setHours(hour, 0, 0, 0);
+    convertStringMoonIcon(value) {
+      debugger;
+      const valueName = value.toString();
 
-            const moonPhase = await getMoonPhase(date);
-
-            const illum = Illumination(Body.Moon, date);
-            let illumination = (illum.phase_fraction * 100).toFixed(2);
-
-            const diamDeg = Libration(date).diam_deg;
-            const midDiamDeg = (0.5383 + 0.4924) / 2;
-            const rotation = 720 * (diamDeg - midDiamDeg);
-
-            const moonDistance = EclipticGeoMoon(date).dist * 149600000;
-
-            const latitude = value.latitude;
-            const longitude = value.longitude;
-            // const latitude = 80;
-            // const longitude = -90;
-            let observer = new Observer(latitude, longitude, 0.0);
-            let resultMoonRise = SearchRiseSet(
-              Body.Moon,
-              observer,
-              +1,
-              date,
-              1,
-              0
-            );
-
-            if (resultMoonRise == null) {
-              resultMoonRise = "--";
-            } else {
-              resultMoonRise = resultMoonRise.date;
-              resultMoonRise = new Date(resultMoonRise).getTime();
-              // const formattedHours = resultMoonRise
-              //   .getHours()
-              //   .toString()
-              //   .padStart(2, "0");
-              // const formattedMinutes = resultMoonRise
-              //   .getMinutes()
-              //   .toString()
-              //   .padStart(2, "0");
-              // resultMoonRise = `${formattedHours}:${formattedMinutes}`;
-            }
-
-            let resultMoonSet = SearchRiseSet(
-              Body.Moon,
-              observer,
-              -1,
-              date,
-              1,
-              0
-            );
-
-            if (resultMoonSet == null) {
-              resultMoonSet = "--";
-            } else {
-              resultMoonSet = resultMoonSet.date;
-
-              const formattedHours = resultMoonSet
-                .getHours()
-                .toString()
-                .padStart(2, "0");
-              const formattedMinutes = resultMoonSet
-                .getMinutes()
-                .toString()
-                .padStart(2, "0");
-              resultMoonSet = `${formattedHours}:${formattedMinutes}`;
-            }
-
-            let equ_ofdate = Equator(Body.Moon, date, observer, true, true);
-            let hor = Horizon(
-              date,
-              observer,
-              equ_ofdate.ra,
-              equ_ofdate.dec,
-              "normal"
-            );
-
-            // Giả sử nextNewMoon là ngày mà bạn đã nhận được từ hàm SearchMoonPhase
-            const nextFullMoon = SearchMoonPhase(180, date, 31);
-            const nextNewMoon = SearchMoonPhase(0, date, 31);
-
-            // Tính số ngày giữa ngày hiện tại và nextNewMoon
-            const diffTimeNewMoon = nextNewMoon.date - date; // Sự khác biệt tính bằng mili giây
-            const diffDaysNewMoon = Math.ceil(
-              diffTimeNewMoon / (1000 * 60 * 60 * 24)
-            ); // Chuyển đổi từ mili giây thành ngày
-
-            // Tính số ngày giữa ngày hiện tại và nextNewMoon
-            const diffTimeFullMoon = nextFullMoon.date - date; // Sự khác biệt tính bằng mili giây
-            const diffDaysFullMoon = Math.ceil(
-              diffTimeFullMoon / (1000 * 60 * 60 * 24)
-            ); // Chuyển đổi từ mili giây thành ngày
-
-            this.illuminate = illumination;
-            this.moonPhaseInfo = {
-              moonPhaseName: moonPhase.moonPhase,
-              illumination: illumination,
-              moonset: resultMoonSet,
-              moonrise: resultMoonRise,
-              nextFullMoon: diffDaysFullMoon - 1,
-              nextNewMoon: diffDaysNewMoon - 1,
-              distance: moonDistance.toFixed(3),
-              altitude: hor.altitude.toFixed(1),
-              azimuth: hor.azimuth.toFixed(0),
-            };
-
-            const formatterFull = new Intl.DateTimeFormat("en-US", {
-              weekday: "long",
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            });
-
-            const dateFull = formatterFull.format(date);
-
-            const formattedDate = date;
-
-            dayData.push({
-              date: formattedDate,
-              dateFull: dateFull,
-              hour: date.getHours(),
-              moonPhase: moonPhase.moonPhase,
-              percentage: moonPhase.percentage,
-              isLightFromStart: moonPhase.isLightFromStart,
-              illumination: illumination,
-              rotation: rotation,
-              moonPhaseInfo: this.moonPhaseInfo,
-            });
-          }
-          dayDataList.push(dayData);
-        }
-        this.next30DaysMoonPhases = dayDataList;
-      } catch (error) {
-        console.error("Lỗi khi tính toán pha mặt trăng:", error);
+      switch (valueName) {
+        case "Full Moon":
+          return this.IcFullMoon;
+        case "First Quarter":
+          return this.IcFirstQuarter;
+        case "New Moon":
+          return this.IcNewMoon;
+        case "Third Quarter":
+          return this.IcThirdQuarter;
+        case "Waning Gibbous":
+          return this.IcWaningGibbous;
+        case "Waxing Crescent":
+          return this.IcWaxingCrescent;
+        case "Waxing Gibbous":
+          return this.IcWaxingGibbous;
+        default:
+          return this.IcFullMoon;
       }
     },
+
+    rearrangeArray(arr, date, monthDay) {
+      // Tìm vị trí của `number` trong mảng
+      const index = arr.findIndex(
+        (item) => item.date === date && item.monthDay === monthDay
+      );
+
+      if (index === -1) {
+        return arr;
+      }
+
+      // Cắt mảng thành hai phần
+      const part1 = arr.slice(index); // Từ `number + 1` đến cuối
+      const part2 = arr.slice(0, index); // Từ đầu đến `number`
+
+      // Ghép lại theo thứ tự mới
+      return [...part1, ...part2];
+    },
+    renderListCityAllGetters() {
+      const dateNew = new Date();
+      const currYear = dateNew.getFullYear();
+      const currMonth = dateNew.getMonth();
+      const firstDayofMonth =
+        (new Date(currYear, currMonth, 1).getDay() + 6) % 7;
+      const lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
+      const lastDayofMonth = new Date(
+        currYear,
+        currMonth,
+        lastDateofMonth
+      ).getDay();
+
+      const lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+      let dayList = [];
+      const infoMoonPhaseDay = getInfoMoonPhase(new Date(), 80, -90);
+
+      // Ngày cuối của tháng trước
+      for (let i = firstDayofMonth; i > 0; i--) {
+        const monthDay = currMonth === 0 ? 12 : currMonth; // Tháng trước (1-12)
+
+        dayList.push({
+          date: lastDateofLastMonth - i + 1,
+          inactive: true,
+          monthDay: monthDay,
+          weekend: false,
+          moonPhase: "Full Moon",
+          moonPhasePercentage: 0,
+          infoMoonPhaseDay: infoMoonPhaseDay,
+        });
+      }
+      // Ngày trong tháng hiện tại
+      for (let i = 1; i <= lastDateofMonth; i++) {
+        const isToday =
+          i === new Date().getDate() &&
+          currMonth === new Date().getMonth() &&
+          currYear === new Date().getFullYear();
+        const isWeekend =
+          new Date(currYear, currMonth, i).getDay() === 0 ||
+          new Date(currYear, currMonth, i).getDay() === 6;
+
+        const infoMoonPhaseDay = getInfoMoonPhase(
+          new Date(currYear, currMonth, i),
+          80,
+          -90
+        );
+        const monthDay = currMonth + 1; // Tháng hiện tại (1-12)
+
+        dayList.push({
+          date: i,
+          monthDay: monthDay,
+          active: isToday,
+          weekend: isWeekend,
+          moonPhase: infoMoonPhaseDay.moonPhaseName,
+          moonPhasePercentage: infoMoonPhaseDay.moonPhasePercentage,
+          infoMoonPhaseDay: infoMoonPhaseDay,
+        });
+      }
+
+      // Ngày đầu của tháng sau
+      for (let i = lastDayofMonth; i < 6; i++) {
+        const monthDay = currMonth === 11 ? 1 : currMonth + 2; // Tháng sau (1-12)
+        dayList.push({
+          date: i - lastDayofMonth + 1,
+          monthDay: monthDay,
+          inactive: true,
+          weekend: false,
+          moonPhase: "Full Moon",
+          moonPhasePercentage: 0,
+          infoMoonPhaseDay: infoMoonPhaseDay,
+        });
+      }
+      this.currentDate = `${this.months[currMonth]} ${currYear}`;
+
+      const dateNow = new Date();
+      const day = dateNow.getDate(); // 4
+      const month = dateNow.getMonth() + 1;
+      debugger;
+      const findNumber = this.rearrangeArray(dayList, day, month);
+
+      this.listMoonData = findNumber;
+
+      console.log("this.listMoonData", this.listMoonData);
+    },
   },
 
-  mounted() {
-    this.dateFull = getFormattedCurrentDate();
-    this.container = this.$refs.container;
-    // if (this.renderPosition) {
-    //   this.calculateNext30DaysMoonPhases(this.renderPosition);
-    // }
-
-    // this.container.addEventListener("mousedown", this.handleMouseDown);
-    // this.container.addEventListener("mouseup", this.handleMouseUp);
-    // this.container.addEventListener("mousemove", this.handleMouseMove);
-    // this.container.addEventListener("mouseleave", this.handleMouseUp); // Để xử lý trường hợp khi chuột ra ngoài phần tử
-
-    // this.$refs.container.addEventListener("scroll", () => {
-    //   const middleSubChild = this.getMiddleSubChild();
-    //   if (middleSubChild) {
-    //     const parts = middleSubChild.id.split("-");
-    //     const firstNumber = parseInt(parts[1], 10);
-    //     const secondNumber = parseInt(parts[3], 10);
-    //     debugger;
-    //     this.illuminate =
-    //       this.next30DaysMoonPhases[firstNumber][secondNumber].illumination;
-    //     this.moonPhaseName =
-    //       this.next30DaysMoonPhases[firstNumber][secondNumber].moonPhase;
-    //     this.dateFull =
-    //       this.next30DaysMoonPhases[firstNumber][secondNumber].dateFull;
-    //     this.rotationDegrees =
-    //       this.next30DaysMoonPhases[firstNumber][secondNumber].rotation;
-    //     this.moonPhaseInfo =
-    //       this.next30DaysMoonPhases[firstNumber][secondNumber].moonPhaseInfo;
-    //   }
-    // });
+  async mounted() {
+    await this.renderListCityAllGetters();
   },
 
-  beforeUnmount() {
-    // this.container.removeEventListener("mousedown", this.handleMouseDown);
-    // this.container.removeEventListener("mouseup", this.handleMouseUp);
-    // this.container.removeEventListener("mousemove", this.handleMouseMove);
-    // this.container.removeEventListener("mouseleave", this.handleMouseUp);
-  },
+  beforeUnmount() {},
 };
 </script>
 <style lang="scss">

@@ -4,6 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <svg
+            class="icon-svg"
             width="25"
             height="24"
             viewBox="0 0 25 24"
@@ -39,12 +40,7 @@
             class="absolute bottom-2 bg-room right-2 p-1.5 rounded cursor-pointer transition-all"
             @click="toggleFullScreen"
           >
-            <img
-              src="../../../assets/images/svg_v2/ic_fullscreen.svg"
-              width="24"
-              height="24"
-              alt="Fullscreen"
-            />
+            <component :is="IcFullScream"></component>
           </div>
 
           <!-- Thêm nút locate -->
@@ -52,12 +48,7 @@
             class="absolute bottom-4 left-4 bg-locate p-1.5 rounded cursor-pointer transition-all"
             @click="onClickLocateFixed"
           >
-            <img
-              src="../../../assets/images/svg_v2/ic_locate_fixed.svg"
-              width="24"
-              height="24"
-              alt="locate-fixed"
-            />
+            <component :is="IcLocateFixed"></component>
           </div>
         </div>
       </div>
@@ -66,8 +57,10 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
+import IcFullScream from "@/components/icons/radar/IcFullScream.vue";
+import IcLocateFixed from "@/components/icons/radar/IcLocateFixed.vue";
+import { markRaw } from "vue";
 import { mapGetters, mapMutations } from "vuex";
-
 export default {
   name: "radar-map-page",
 
@@ -81,6 +74,8 @@ export default {
       originalPosition: null,
       userLocation: null,
       iframeKey: 0,
+      IcFullScream: markRaw(IcFullScream),
+      IcLocateFixed: markRaw(IcLocateFixed),
     };
   },
 

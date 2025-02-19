@@ -88,7 +88,7 @@
         <!--  -->
         <TabNavigation @onChangeTabChart="onChangeTabChart"></TabNavigation>
         <!--  -->
-        <div class="w-full h-[378px] pad-l-r pb-2">
+        <div class="w-full h-[378px] pad-l-r">
           <ChartTempRain
             :key="indexKey + Math.random()"
             v-show="indexChart === 0"

@@ -389,6 +389,7 @@ export default {
     },
 
     onClickShowMenuMobile() {
+      debugger;
       if (this.isShowHeaderMenu) {
         this.setIsScroll(false);
 

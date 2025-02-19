@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full pl-2 pr-2">
     <!--  -->
     <div class="container mt-5">
-      <div class="header-h h-full w-full flex gap-20-px">
+      <div class="header-h h-full w-full md:flex gap-20-px">
         <div class="left-hourly lg:w-[85%] w-full">
-          <div class="flex justify-between w-full gap-20-px">
+          <div class="md:flex justify-between w-full gap-20-px">
             <!--  -->
             <div class="w-full">
               <GaugeAir
@@ -13,7 +13,7 @@
               ></GaugeAir>
               <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
             </div>
-            <div class="w-full">
+            <div class="w-full mt-2 mb-2">
               <RecommendedInfor
                 v-if="currentlyData && Object.keys(currentlyData).length > 0"
               ></RecommendedInfor>
@@ -22,7 +22,7 @@
             <!--  -->
           </div>
         </div>
-        <div class="right-hourly w-[15%]">
+        <div class="right-hourly md:w-[15%] w-full">
           <div class="w-full h-full">
             <NoteAir
               v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -49,8 +49,8 @@
       <div class="lg:flex w-full h-full gap-20-px">
         <div class="left-hourly h-full lg:w-[68%] w-full">
           <div class="w-full h-full">
-            <div class="lg:h-[350px] w-full">
-              <div class="w-full h-full flex justify-between gap-4">
+            <div class="lg:h-[350px] h-auto w-full">
+              <div class="w-full h-full md:flex justify-between gap-4">
                 <div class="w-full h-full">
                   <ListStationPage
                     class="lg:h-[306px]"
@@ -61,9 +61,9 @@
                   <SkeletonLoader v-else class="w-full h-full">
                   </SkeletonLoader>
                 </div>
-                <div class="w-full h-full">
+                <div class="w-full h-[300px] mb-11">
                   <GoogleMapPage
-                    class="lg:h-[306px]"
+                    class="md:h-[306px]"
                     v-if="
                       currentlyData && Object.keys(currentlyData).length > 0
                     "
@@ -95,7 +95,7 @@
         </div>
 
         <!--  -->
-        <div class="right-hourly lg:w-[30%] w-full">
+        <div class="right-hourly lg:w-[30%] w-full md:block hidden">
           <div class="flex justify-center items-center h-auto">
             <img
               src="../../../assets/images/png/ic_app_download.png"

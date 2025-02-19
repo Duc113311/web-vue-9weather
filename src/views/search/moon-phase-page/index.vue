@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full pl-2 pr-2">
     <!--  -->
     <div class="container mt-5">
       <div class="header-h h-full w-full flex gap-20-px">
@@ -9,15 +9,6 @@
           ></ListCarouselMoon>
           <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
         </div>
-
-        <!-- <div class="right-hourly w-[30%]">
-          <div class="w-full">
-            <FormMoonPage
-              v-if="currentlyData && Object.keys(currentlyData).length > 0"
-            ></FormMoonPage>
-            <SkeletonLoader v-else class="w-full h-[320px]"> </SkeletonLoader>
-          </div>
-        </div> -->
       </div>
     </div>
 
@@ -76,7 +67,7 @@
         </div>
 
         <!--  -->
-        <div class="right-hourly lg:w-[30%] w-full">
+        <div class="right-hourly lg:w-[30%] w-full md:block hidden">
           <div class="flex justify-center items-center h-auto">
             <img
               src="../../../assets/images/png/ic_app_download.png"

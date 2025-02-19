@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full pl-2 pr-2">
     <!-- -->
     <div class="container mt-5">
       <div class="header-m flex w-full gap-20-px h-full">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="container">
-      <div class="header-b ld:block flex w-full gap-20-px h-full mt-4">
+      <div class="header-b ld:block lg:flex w-full gap-20-px h-full mt-4">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
           <ChartMonthPage
@@ -105,9 +105,9 @@
       </div>
     </div>
 
-    <div class="container local-c w-full flex gap-4">
+    <div class="container local-c w-full md:flex gap-20-px">
       <div
-        class="left-location lg:w-[68%] w-[60%]"
+        class="left-location lg:w-[68%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <ListNearbyLocation
@@ -119,7 +119,7 @@
       </div>
 
       <div
-        class="right-country lg:w-[30%] w-[40%]"
+        class="right-country lg:w-[30%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->

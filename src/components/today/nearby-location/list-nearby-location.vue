@@ -5,6 +5,7 @@
         <div class="flex justify-between items-center">
           <div class="flex items-center text-left gap-2">
             <svg
+              class="icon-svg"
               width="25"
               height="24"
               viewBox="0 0 25 24"

@@ -4,7 +4,7 @@
     <BaseComponent :isShowPad="true">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <component :is="srcDaytime"></component>
+          <component class="icon-svg" :is="srcDaytime"></component>
           <p class="txt_medium_14">
             {{ $t(`Current_UV_Index`) }}
           </p>
@@ -36,12 +36,12 @@
         </div>
         <div class="w-full flex items-center justify-between mt-6 mb-4">
           <div class="flex items-center text-left gap-2 txt_regular_des">
-            <IcTempt></IcTempt>
+            <IcTempt class="icon-svg"></IcTempt>
             <p class="txt_regular_14">{{ $t("Temperature") }}</p>
           </div>
           <div class="flex items-center">
             <div class="flex items-center">
-              <IcTemptMin></IcTemptMin>
+              <IcTemptMin class="icon-svg"></IcTemptMin>
               <p class="txt_medium_17">
                 {{
                   convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMin)
@@ -49,7 +49,7 @@
               </p>
             </div>
             <div class="flex items-center">
-              <IcTemptMax></IcTemptMax>
+              <IcTemptMax class="icon-svg"></IcTemptMax>
               <p class="txt_medium_17">
                 {{
                   convertFahrenheitToCelsiusNot(dailyOneData?.temperatureMax)

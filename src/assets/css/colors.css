@@ -132,7 +132,7 @@
 }
 
 .color_00e3f5{
-  color: #00e3f5;
+  color: var(--color-chance-of-rain);
 }
 
 .color_ff8c00{
@@ -148,7 +148,7 @@
 }
 
 .color_BFBFBF {
-  color: #bfbfbf;
+  color: var(--color-card-city);
 }
 
 .bg-precit {
@@ -186,20 +186,13 @@
   color: var(--color-txt);
 }
 .bg-color-light {
-  background: linear-gradient(
-    180deg,
-    rgba(92, 157, 255, 0.15) 0%,
-    rgba(0, 58, 145, 0.15) 100%
-  );
-
-  /* Hiệu ứng Glass Light */
-  box-shadow: inset 0 4px 4px rgba(255, 255, 255, 0.25),
-    /* Độ mờ 25% 0 56px 56px rgba(255, 255, 255, 0.5), */ /* Độ mờ 50% */ inset -50px -50px
-      100px rgba(255, 255, 255, 0.05),
-    /* Độ mờ 5% với blur 100px */ inset 500px 500px 100px
-      rgba(255, 255, 255, 0.05); /* Độ mờ 5% với blur 100px */
+  background: linear-gradient(180deg, rgb(92 157 255 / 0%) 0%, rgb(0 58 145 / 11%) 100%), linear-gradient(180deg, rgb(92 157 255 / 10%) 0%, rgb(0 58 145 / 0%) 100%);
 
   border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25),
+    /* First shadow */ -50px -50px 100px rgba(255, 255, 255, 0.05),
+    /* Second shadow */ 500px 500px 100px rgba(255, 255, 255, 0.05); /* Third shadow */
+  
 }
 
 .bg-color-dark {

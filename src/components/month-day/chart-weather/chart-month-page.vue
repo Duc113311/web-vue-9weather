@@ -4,6 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <svg
+            class="icon-svg"
             width="25"
             height="24"
             viewBox="0 0 25 24"
@@ -112,7 +113,7 @@
               </vue-horizontal>
 
               <div
-                class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10"
+                class="w-full h-[40px] md:flex grid grid-cols-2 justify-between pad-t-b-10 pad-r-l-10"
               >
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-c rounded-full w-[12px] h-[12px]"></div>

@@ -2,7 +2,7 @@
   <div class="w-full">
     <!--  -->
     <div class="flex items-center text-left gap-2 pad-t-b">
-      <IcTitleAir></IcTitleAir>
+      <IcTitleAir class="icon-svg"></IcTitleAir>
       <div class="txt_medium_14" v-if="breadcumsObject.country_key === 'vn'">
         <span v-if="breadcumsObject?.city && !breadcumsObject?.district">{{
           $t(`{city}_Air_Quality`, {
@@ -152,8 +152,8 @@
           >
             {{ convertAirIndexName(airQualityValue) }}
           </p>
-          <p class="txt_medium_24 mt-2">{{ airQualityValue }}</p>
-          <span>({{ $t("AQI") }})</span>
+          <p class="txt_medium_24 mt-2 color_f9f9f9">{{ airQualityValue }}</p>
+          <p class="color_BFBFBF">({{ $t("AQI") }})</p>
         </div>
       </div>
     </div>
@@ -277,11 +277,13 @@ export default {
     },
 
     progressColor(value) {
+      console.log("value-air", value);
+
       if (value <= 50) return "#41E11F";
-      if ((50 <= value) & (value <= 100)) return "#FCFF2F";
-      if ((100 <= value) & (value <= 150)) return "#F68421";
-      if ((150 <= value) & (value <= 200)) return "#F42E1C";
-      if ((200 <= value) & (value <= 300)) return "#8C4396";
+      if ((50 <= value) & (value <= 100)) return "#3DE177";
+      if ((101 <= value) & (value <= 150)) return "#F68421";
+      if ((151 <= value) & (value <= 200)) return "#F42E1C";
+      if ((201 <= value) & (value <= 300)) return "#8C4396";
       return "#781125"; // Giá trị phần trăm từ 90 đến 100
     },
 

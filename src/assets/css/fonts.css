@@ -17,7 +17,7 @@
 }
 
 .txt_regular_12 {
-  font-size: 12px; /* Kích thước chữ mặc định */
+  font-size: 11px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 16.5px; /* Khoảng cách giữa các dòng */
   font-weight: 400; /* Corresponds to Regular */
@@ -78,7 +78,7 @@
 }
 
 .txt_medium_15 {
-  font-size: 15px; /* Kích thước chữ mặc định */
+  font-size: 13px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 20.76px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
@@ -202,13 +202,18 @@
     font-size: 20px; /* Kích thước chữ mặc định */
   }
 
+  .txt_regular_12 {
+    font-size: 11px;
+  }
   .txt_regular_14{
     font-size: 12px;
   }
   .txt_regular_17{
     font-size: 13px;
   }
-
+  .txt_medium_15 {
+    font-size: 13px;
+  }
   .txt_medium_17{
     font-size: 15px;
   }
@@ -240,13 +245,18 @@
     font-size: 20px; /* Kích thước chữ mặc định */
   }
 
+  .txt_regular_12 {
+    font-size: 11px;
+  }
   .txt_regular_14{
     font-size: 12px;
   }
   .txt_regular_17{
     font-size: 13px;
   }
-
+  .txt_medium_15 {
+    font-size: 13px;
+  }
   .txt_medium_17{
     font-size: 15px;
   }
@@ -272,13 +282,18 @@
     font-size: 30px; /* Kích thước chữ mặc định */
   }
 
+  .txt_regular_12 {
+    font-size: 12px;
+  }
   .txt_regular_14{
     font-size: 14px;
   }
   .txt_regular_17{
     font-size: 17px;
   }
-
+  .txt_medium_15 {
+    font-size: 15px;
+  }
   .txt_medium_17{
     font-size: 17px;
   }
@@ -304,13 +319,19 @@
     font-size: 50px; /* Kích thước chữ mặc định */
   }
 
+
+  .txt_regular_12 {
+    font-size: 12px;
+  }
   .txt_regular_14{
     font-size: 14px;
   }
   .txt_regular_17{
     font-size: 17px;
   }
-
+  .txt_medium_15 {
+    font-size: 15px;
+  }
   .txt_medium_17{
     font-size: 17px;
   }
@@ -339,13 +360,19 @@
     font-size: 34px; /* Tăng kích thước chữ cho màn hình nhỏ */
   }
 
+
+  .txt_regular_12 {
+    font-size: 12px;
+  }
   .txt_regular_14{
     font-size: 14px;
   }
   .txt_regular_17{
     font-size: 17px;
   }
-
+  .txt_medium_15 {
+    font-size: 15px;
+  }
   .txt_medium_17{
     font-size: 17px;
   }

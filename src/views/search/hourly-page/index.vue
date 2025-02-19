@@ -1,14 +1,14 @@
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full pl-2 pr-2">
     <!-- -->
     <div class="container mt-5">
-      <div class="header-h h-full w-full flex gap-20-px">
-        <div class="left-hourly lg:w-[68%] w-full">
+      <div class="header-h h-full w-full lg:flex block gap-20-px">
+        <div class="left-hourly lg:w-[70%] w-full">
           <!--  -->
           <ChartAvgWeather :key="indexState + Math.random()"> </ChartAvgWeather>
         </div>
 
-        <div class="right-hourly w-[30%] md:block hidden">
+        <div class="right-hourly lg:w-[50%] w-full">
           <!--  -->
           <!-- <div class="flex justify-end items-center h-full w-full">
             <img src="../../../assets/images/png/ic_app_download.png" alt="" />
@@ -73,9 +73,9 @@
 
     <!--  -->
 
-    <div class="container w-full flex gap-4">
+    <div class="container w-full md:flex gap-20-px">
       <div
-        class="left-hourly lg:w-[68%] w-[60%]"
+        class="left-hourly lg:w-[68%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <ListNearbyLocation
@@ -87,7 +87,7 @@
       </div>
 
       <div
-        class="right-hourly h-[280px] lg:w-[30%] w-[40%]"
+        class="right-hourly lg:h-[280px] lg:w-[30%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <RadarPage :key="indexState + Math.random()"></RadarPage>

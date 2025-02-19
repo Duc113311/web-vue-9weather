@@ -4,7 +4,7 @@
     <BaseComponent :isShowPad="false">
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
-          <component :is="srcDayNight"></component>
+          <component class="icon-svg" :is="srcDayNight"></component>
           <p class="txt_medium_14">{{ title }}</p>
         </div>
       </template>
