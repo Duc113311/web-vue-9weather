@@ -402,9 +402,14 @@ export function convertTimestampToHoursMinutes12(
   let [time, period] = formattedTime.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
 
+  // console.log("minutes", minutes);
+
   // Loại bỏ số 0 đứng trước nếu có
   const formattedHours = parseInt(hours, 10).toString();
-  const formattedMinutes = minutes.toString().padStart(2, "0");
+  // const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedMinutes = "00";
+
+  // console.log("formattedMinutes", formattedMinutes);
 
   // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
   const now = new Date();
@@ -1957,32 +1962,26 @@ export function formatDateFull(timestamp, offset, locale = "en-US") {
   }
 }
 
+export function convertTimestampFullMoon(timestamp, offsetValue, timezone) {
+  // Chuyển đổi chuỗi ngày thành Date object
+  const date = new Date(timestamp);
 
-export function convertTimestampFullMoon(
-  timestamp,
-  offsetValue,
-  timezone
-) {
-// Chuyển đổi chuỗi ngày thành Date object
-const date = new Date(timestamp);
+  // Kiểm tra nếu ngày không hợp lệ
+  if (isNaN(date.getTime())) {
+    console.error("Invalid Date Format");
+    return null;
+  }
 
-// Kiểm tra nếu ngày không hợp lệ
-if (isNaN(date.getTime())) {
-  console.error("Invalid Date Format");
-  return null;
+  // Format ngày theo tiếng Anh
+  const options = {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: timezone, // Đảm bảo đúng múi giờ GMT+7
+  };
+
+  return new Intl.DateTimeFormat("en-US", options).format(date);
 }
-
-// Format ngày theo tiếng Anh
-const options = { 
-  weekday: "long", 
-  month: "long", 
-  day: "numeric", 
-  year: "numeric", 
-  timeZone: timezone // Đảm bảo đúng múi giờ GMT+7
-};
-
-return new Intl.DateTimeFormat("en-US", options).format(date);
-}
-
 
 // Convert Day

@@ -144,10 +144,20 @@
   background-size: cover;
   transition: width 0.3s ease, height 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
 }
+
+.main-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
 @media (min-width: 576px) {
   .imgLogo {
     width: 30px;
     height: 28px;
+  }
+
+  .main-top{
+    gap: 14px;
   }
 }
 
@@ -156,10 +166,17 @@
     width: 42px;
     height: 42px;
   }
+  .main-top{
+    gap: 20px;
+  }
 }
 @media (min-width: 1024px) {
   .imgLogo {
     width: 42px;
     height: 42px;
+  }
+
+  .main-top{
+    gap: 20px;
   }
 }

@@ -43,14 +43,14 @@
         </div>
         <div class="flex justify-center items-center">
           <div class="text-left flex txt_medium gap-1">
-            <IcTemptMin></IcTemptMin>
+            <IcTemptMin class="icon-svg"></IcTemptMin>
             <span class="txt_medium_17">{{
               renderToCelsiusAndUnit(dailyOneDataRender?.temperatureMin)
             }}</span>
           </div>
 
           <div class="text-right flex txt_medium gap-1">
-            <IcTemptMax></IcTemptMax>
+            <IcTemptMax class="icon-svg"></IcTemptMax>
             <span class="txt_medium_17">
               {{ renderToCelsiusAndUnit(dailyOneDataRender?.temperatureMax) }}
             </span>

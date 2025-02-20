@@ -70,7 +70,7 @@
   font-weight: 500; /* Corresponds to Regular */
 }
 .txt_medium_17 {
-  font-size: 15px; /* Kích thước chữ mặc định */
+  font-size: 14px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 20.76px; /* Khoảng cách giữa các dòng */
   text-align: center; /* Căn trái mặc định */
@@ -215,7 +215,7 @@
     font-size: 13px;
   }
   .txt_medium_17{
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
@@ -258,7 +258,7 @@
     font-size: 13px;
   }
   .txt_medium_17{
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 

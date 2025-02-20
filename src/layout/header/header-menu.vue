@@ -401,7 +401,7 @@ export default {
   },
 
   mounted() {
-    const savedTheme = localStorage.getItem("theme") || "dark";
+    const savedTheme = localStorage.getItem("theme");
     document.documentElement.setAttribute("data-theme", savedTheme);
     if (savedTheme === "light") {
       this.valueLives = true;

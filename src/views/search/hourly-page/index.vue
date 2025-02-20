@@ -3,22 +3,25 @@
     <!-- -->
     <div class="container mt-5">
       <div class="header-h h-full w-full lg:flex block gap-20-px">
-        <div class="left-hourly lg:w-[70%] w-full">
+        <div class="left-hourly lg:w-[77%] w-full">
           <!--  -->
-          <ChartAvgWeather :key="indexState + Math.random()"> </ChartAvgWeather>
+          <ChartAvgWeather
+            :key="indexState + Math.random()"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+          </ChartAvgWeather>
+          <div v-else class="w-full h-full">
+            <SkeletonLoader class="w-full h-[450px]"> </SkeletonLoader>
+          </div>
         </div>
 
-        <div class="right-hourly lg:w-[50%] w-full">
-          <!--  -->
-          <!-- <div class="flex justify-end items-center h-full w-full">
-            <img src="../../../assets/images/png/ic_app_download.png" alt="" />
-          </div> -->
+        <div class="right-hourly lg:w-[25%] w-full lg:mt-0 md:mt-0">
           <TempFullCard
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></TempFullCard>
-          <div v-else class="w-full h-full">
-            <SkeletonLoader class="w-full h-[600px]"> </SkeletonLoader>
+          <div v-else class="w-full h-full mt-4">
+            <SkeletonLoader class="w-full h-[400px]"> </SkeletonLoader>
           </div>
         </div>
       </div>
@@ -26,7 +29,7 @@
 
     <!--  -->
     <div class="container">
-      <div class="lg:flex w-full h-full pt-4 gap-20-px">
+      <div class="lg:flex w-full h-full mt-1 gap-20-px">
         <div class="left-hourly h-full lg:w-[68%] w-full">
           <!--  -->
           <ItemTime24h
@@ -38,33 +41,35 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full">
+        <div class="right-hourly lg:w-[30%] w-full md:grid grid-cols-2 gap-5">
           <SunPage
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></SunPage>
-          <div v-else class="w-full h-[200px] mt-5">
+          <div v-else class="w-full h-[260px] md:mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <MoonPage
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></MoonPage>
-          <div v-else class="w-full h-[200px] mt-5">
+          <div v-else class="w-full h-[260px] md:mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <UvPage
+            class="lg:mt-0 md:mt-6"
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></UvPage>
-          <div v-else class="w-full h-[200px] mt-5">
+          <div v-else class="w-full h-[260px] md:mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <AirQualityPage
+            class="lg:mt-0 md:mt-6"
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></AirQualityPage>
-          <div v-else class="w-full h-[200px] mt-5">
+          <div v-else class="w-full h-[260px] md:mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
@@ -73,9 +78,9 @@
 
     <!--  -->
 
-    <div class="container w-full md:flex gap-20-px">
+    <div class="container w-full lg:flex gap-20-px">
       <div
-        class="left-hourly lg:w-[68%] w-[100%]"
+        class="left-hourly lg:w-[68%] w-[100%] lg:mt-0 md:mt-10"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <ListNearbyLocation

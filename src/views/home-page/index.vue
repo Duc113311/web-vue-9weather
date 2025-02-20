@@ -1,4 +1,3 @@
-qq
 <template>
   <div class="w-full h-full pad-big">
     <!--  -->
@@ -55,7 +54,7 @@ qq
           >
             <RadarPage></RadarPage>
           </div>
-          <div v-else class="w-full h-[380px] mt-6">
+          <div v-else class="w-full h-[380px] md:mt-6 mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
@@ -218,12 +217,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.main-top {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
 .img-logo {
   width: 360px;
   height: auto;

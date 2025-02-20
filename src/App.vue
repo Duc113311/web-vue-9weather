@@ -90,9 +90,17 @@ export default {
     document.title = this.$t("Local_National_Global") + " " + "| 9Weather";
 
     const valueTheme = localStorage.getItem("theme");
-    this.setThemeState(valueTheme);
-    document.documentElement.setAttribute("data-theme", valueTheme);
-    localStorage.setItem("theme", valueTheme); // Lưu trạng thái vào localStorage
+    if (valueTheme) {
+      this.setThemeState(valueTheme);
+
+      document.documentElement.setAttribute("data-theme", valueTheme);
+      localStorage.setItem("theme", valueTheme); // Lưu trạng thái vào localStorage
+    } else {
+      this.setThemeState("dark");
+
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark"); // Lưu trạng thái vào localStorage
+    }
   },
 
   methods: {

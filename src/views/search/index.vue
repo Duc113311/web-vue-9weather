@@ -5,7 +5,7 @@
     <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 
     <!--  -->
-    <NavTabbar></NavTabbar>
+    <NavTabbar class="mb-4"></NavTabbar>
 
     <div class="ads w-full h-[83px] bg-slate-500 md:hidden block"></div>
 

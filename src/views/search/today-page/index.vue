@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full pl-2 pr-2">
-    <div class="container">
+    <div class="container md:mt-0 mt-4">
       <div class="header h-full w-full lg:flex gap-20-px">
         <div
           class="left-today lg:w-3/6 w-full h-full"
@@ -11,7 +11,7 @@
         <div v-else class="lg:w-[566px] w-full h-[850px]">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
-        <div class="right-today lg:w-3/6 w-full">
+        <div class="right-today lg:w-3/6 w-full lg:mt-0 md:mt-6">
           <div class="main-top">
             <div
               class="left-main h-full"
@@ -43,12 +43,12 @@
             </div>
           </div>
           <div
-            class="main-bottom lg:h-[344px] mt-2"
+            class="main-bottom lg:h-[344px] md:mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <RadarPage :key="indexState + Math.random()"></RadarPage>
           </div>
-          <div v-else class="w-full h-[380px] mt-6">
+          <div v-else class="w-full h-[380px] md:mt-6 mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
@@ -57,7 +57,7 @@
     <!--  -->
 
     <div
-      class="container local-d lg:flex block w-full justify-between gap-20-px pt-4 pb-4"
+      class="container local-d lg:flex block w-full justify-between gap-20-px md:pt-2 md:pb-2"
     >
       <!--  -->
       <div class="md:flex block justify-between lg:w-[70%] w-full gap-20-px">
@@ -69,7 +69,7 @@
           >
             <SunPage :key="indexState + Math.random()"></SunPage>
           </div>
-          <div v-else class="w-full h-[230px] mt-4">
+          <div v-else class="w-full h-[230px] md:mt-4 mt-2">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
           <div
@@ -78,7 +78,7 @@
           >
             <MoonPage :key="indexState + Math.random()"></MoonPage>
           </div>
-          <div v-else class="w-full h-[230px] mt-4">
+          <div v-else class="w-full h-[230px] md:mt-1">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
@@ -101,13 +101,13 @@
           >
             <AirQualityPage :key="indexState + Math.random()"></AirQualityPage>
           </div>
-          <div v-else class="w-full h-[230px] mt-4">
+          <div v-else class="w-full h-[230px] md:mt-1">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
       </div>
 
-      <div class="md:block hidden right-c pt-12 h-auto lg:w-[30%] w-full">
+      <div class="lg:block hidden right-c mt-3 h-auto lg:w-[30%] w-full">
         <!--  -->
         <div class="flex justify-center items-center h-auto">
           <img
@@ -129,7 +129,7 @@
           :key="indexState + Math.random()"
         ></ListNearbyLocation>
       </div>
-      <div v-else class="w-full h-[300px] mt-4">
+      <div v-else class="w-full h-[300px] md:mt-4 mt-2">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
@@ -142,6 +142,17 @@
       </div>
       <div v-else class="w-full h-[300px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+      </div>
+    </div>
+
+    <div class="md:hidden block mt-8">
+      <!--  -->
+      <div class="flex justify-center items-center h-auto">
+        <img
+          src="../../../assets/images/png/ic_app_download.png"
+          alt=""
+          width="200"
+        />
       </div>
     </div>
   </div>

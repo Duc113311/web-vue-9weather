@@ -351,7 +351,7 @@
         <button
           type="button"
           @click="onClickLoadMoreItems"
-          class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
+          class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 lg:mb-2"
         >
           <span class="txt_medium_12">
             {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
