@@ -145,6 +145,10 @@
   transition: width 0.3s ease, height 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
 }
 
+.cursor-pointer-bh{
+  cursor: pointer;
+}
+
 .main-top {
   display: grid;
   grid-template-columns: 1fr 1fr;

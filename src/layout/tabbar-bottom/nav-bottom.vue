@@ -85,7 +85,7 @@
                 >{{ $t("Your_current_location") }}:</span
               >
               <span
-                class="txt_medium_17 cursor-pointer"
+                class="txt_medium_17 cursor-pointer color_60A5FA"
                 @click="onClickLocationNow()"
                 v-if="currentLocationChome?.country_key?.toLowerCase() === 'vn'"
                 >{{
@@ -95,13 +95,13 @@
                 }}</span
               >
               <span
-                class="txt_medium_des_16 text-blue-400"
+                class="txt_medium_des_16 color_60A5FA"
                 v-else-if="
                   currentLocationChome?.country_key?.toLowerCase() === 'us'
                 "
                 >{{ currentLocationChome?.state }}</span
               >
-              <span class="txt_medium_des_16 text-blue-400" v-else>{{
+              <span class="txt_medium_des_16 color_60A5FA" v-else>{{
                 currentLocationChome?.city
               }}</span>
             </div>

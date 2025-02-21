@@ -136,7 +136,7 @@
                 </div>
 
                 <div class="flex items-center">
-                  <div class="flex items-center gap-2 mr-4">
+                  <div class="flex items-center gap-2 mr-4 w-[140px]">
                     <component
                       class="icon-svg"
                       :is="renderIcon(item)"
@@ -337,8 +337,8 @@
                       </p>
                       <span
                         class="txt_regular_14"
-                        v-if="timePeriodSunsetTime(item?.sunriseTime)"
-                        >({{ timePeriodSunsetTime(item?.sunriseTime) }})</span
+                        v-if="timePeriodSunsetTime(item?.sunsetTime)"
+                        >({{ timePeriodSunsetTime(item?.sunsetTime) }})</span
                       >
                     </div>
                   </div>
@@ -396,6 +396,7 @@ import {
   convertTime12hTimeZoneNotNowUnit,
   convertTimestampUnit12,
   getTextWeather,
+  convertAMPMFromTimestamp,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -508,16 +509,28 @@ export default {
 
   methods: {
     convertToShortDay(value) {
-      return convertTimestampToDayMonth(value);
+      const timezone =
+        this.$store.state.weatherModule?.locationOffset?.timezone;
+      const offsetValue =
+        this.$store.state.weatherModule?.locationOffset?.offset;
+
+      return convertTimestampToDayMonth(value, offsetValue, timezone);
+    },
+
+    convertAMPMFromTimestampData(value) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      return convertAMPMFromTimestamp(value, offsetValue, timezoneValue);
     },
 
     timePeriodSunsetTime(value) {
-      const timeString = this.convertTimeUnit(value);
+      const timeString = this.convertAMPMFromTimestampData(value);
       return timeString.split(" ")[1]; // Lấy phần AM/PM
     },
 
     timePeriodSunriseTime(value) {
-      const timeString = this.convertTimeUnit(value);
+      const timeString = this.convertAMPMFromTimestampData(value);
       return timeString.split(" ")[1]; // Lấy phần AM/PM
     },
 
@@ -662,7 +675,12 @@ export default {
           timezoneValue
         );
       } else {
-        return convertTime24hTimeZoneNotNow(value, 1, offsetValue);
+        return convertTime24hTimeZoneNotNow(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       }
     },
 

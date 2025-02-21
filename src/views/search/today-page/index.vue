@@ -43,7 +43,7 @@
             </div>
           </div>
           <div
-            class="main-bottom lg:h-[344px] md:mt-2"
+            class="main-bottom lg:h-[400px] md:mt-2"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
             <RadarPage :key="indexState + Math.random()"></RadarPage>

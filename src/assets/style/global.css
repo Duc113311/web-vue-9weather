@@ -257,3 +257,12 @@
 
  
 }
+.autocomplete-1-dropdown {
+  z-index: 1001 !important; /* Đặt giá trị cao hơn để không bị đè */
+  background-color: white;
+}
+
+.autocomplete-2-dropdown {
+  z-index: 1000 !important;
+  background-color: white;
+}

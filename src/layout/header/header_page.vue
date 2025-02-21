@@ -23,7 +23,7 @@
             </div>
           </div>
           <!-- Search -->
-          <div class="sm:block hidden md:w-[350px] w-[300px] h-full">
+          <div class="sm:w-[350px] w-[200px] h-full ml-4 md:ml-0">
             <div class="flex justify-center items-center h-full">
               <div class="w-[40vh] block">
                 <el-autocomplete
@@ -31,6 +31,7 @@
                   :fetch-suggestions="querySearchAsync"
                   :placeholder="$t('Search_location')"
                   @select="handleSelect"
+                  @keydown.enter="handleEnter"
                   :prefix-icon="Search"
                   class="custom-placeholder"
                 >
@@ -506,6 +507,15 @@ export default {
       }
 
       return null; // Trả về null nếu không tìm thấy district
+    },
+    async handleEnter(event) {
+      debugger;
+      const matchedItem = this.suggestions[1];
+      if (matchedItem) {
+        await this.handleSelect(matchedItem); // Gọi handleSelect khi nhấn Enter
+      } else {
+        console.log("No matching item found");
+      }
     },
 
     async handleSelect(item) {

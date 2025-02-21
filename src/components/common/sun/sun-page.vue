@@ -83,7 +83,21 @@ export default {
     timeHourly() {
       const timeValue = this.$store.state.weatherModule.currently;
 
-      return Math.round((convertTimeSun(timeValue.time, 0) * 100) / 24);
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+
+      const timezoneValue =
+        this.$store.state.weatherModule?.locationOffset?.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return Math.round(
+        (convertTimeSun(
+          timeValue.time,
+          timezoneValue,
+          offsetValue,
+          unitSetting.activeTime_save
+        ) *
+          100) /
+          24
+      );
     },
   },
 

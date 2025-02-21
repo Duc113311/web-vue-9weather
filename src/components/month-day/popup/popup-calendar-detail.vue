@@ -184,6 +184,7 @@
 import {
   capitalizeWords,
   codeToFind,
+  convertAMPMFromTimestamp,
   convertCtoF,
   convertFtoC,
   convertHpaToAtm,
@@ -368,13 +369,20 @@ export default {
         return convertTime24hTimeZoneNotNow(value, 1, offsetValue);
       }
     },
+
+    convertAMPMFromTimestampData(value) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      return convertAMPMFromTimestamp(value, offsetValue, timezoneValue);
+    },
     timePeriodSunriseTime(value) {
-      const timeString = this.convertTimeUnit(value);
+      const timeString = this.convertAMPMFromTimestampData(value);
       return timeString.split(" ")[1]; // Lấy phần AM/PM
     },
 
     timePeriodSunsetTime(value) {
-      const timeString = this.convertTimeUnit(value);
+      const timeString = this.convertAMPMFromTimestampData(value);
       return timeString.split(" ")[1]; // Lấy phần AM/PM
     },
 

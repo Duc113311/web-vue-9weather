@@ -29,7 +29,8 @@
       </template>
 
       <div
-        class="w-full h-[350px] show-scroll pt-1 pb-1"
+        class="w-full show-scroll pt-1 pb-1"
+        :class="[renderCityLocation.length <= 8 ? 'h-auto' : 'h-[250px]']"
         v-if="renderCityLocation.length !== 0"
       >
         <div v-if="objectBreadParam.country_key === 'vn'">
@@ -40,7 +41,7 @@
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
             @click="onClickRenderCityLocation(item)"
           >
-            <div class="flex gap-2 items-center">
+            <div class="flex gap-2 items-center cursor-pointer-bh">
               <component class="icon-svg" :is="IcCardProvinces"></component>
               <p class="txt_medium_14">
                 {{

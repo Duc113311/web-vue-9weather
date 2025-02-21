@@ -138,7 +138,7 @@
               </div>
 
               <div class="flex items-center">
-                <div class="flex items-center gap-2 mr-4">
+                <div class="flex items-center gap-2 mr-4 w-[80px]">
                   <component
                     class="icon-svg"
                     :is="renderIcon(item)"
@@ -388,6 +388,7 @@ import {
   getAirSummaryName,
   convertTime12hTimeZoneNotNowUnit,
   convertTimestampUnit12,
+  convertAMPMFromTimestamp,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -459,14 +460,14 @@ export default {
     },
 
     timePeriodSunsetTime() {
-      const timeString = this.convertTimeUnit(
+      const timeString = this.convertAMPMFromTimestampData(
         this.dailyOneGettersData?.sunsetTime
       );
       return timeString.split(" ")[1]; // Lấy phần AM/PM
     },
 
     timePeriodSunriseTime() {
-      const timeString = this.convertTimeUnit(
+      const timeString = this.convertAMPMFromTimestampData(
         this.dailyOneGettersData?.sunriseTime
       );
       return timeString.split(" ")[1]; // Lấy phần AM/PM
@@ -505,6 +506,12 @@ export default {
   methods: {
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
+    },
+    convertAMPMFromTimestampData(value) {
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      return convertAMPMFromTimestamp(value, offsetValue, timezoneValue);
     },
 
     convertWindSpeed(value) {
@@ -630,12 +637,23 @@ export default {
 
     convertTimeUnit(value) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTime12hTimeZoneNotNowUnit(value, 1, offsetValue);
+        return convertTime12hTimeZoneNotNowUnit(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       } else {
-        return convertTimestampToHoursMinutes(value, 1, offsetValue);
+        return convertTimestampToHoursMinutes(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       }
     },
 

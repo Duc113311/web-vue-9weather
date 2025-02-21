@@ -136,7 +136,7 @@
 }
 
 .color_ff8c00{
-  color: #ff8c00;
+  color: var(--bg-radio-chance-of-snow);
 }
 
 .color_0062F5 {
@@ -221,4 +221,9 @@
 
 .bg-btn-hover:hover {
   background-color: #c6d0d8d8;
+}
+
+
+.color_60A5FA{
+  color: var(--color-Address);
 }

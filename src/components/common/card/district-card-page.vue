@@ -10,18 +10,29 @@
         class="text-center txt_medium_14"
         v-if="breadcumsObject.country_key === 'vn'"
       >
-        {{
-          convertCapitalizeWords(
-            removeWordAndAccents(
-              $t(
-                `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
-                  breadcumsObject.city
-                )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
-              ),
-              "District"
+        <span v-if="renderLanguage === 'en'">
+          {{
+            convertCapitalizeWords(
+              removeWordAndAccents(
+                $t(
+                  `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
+                    breadcumsObject.city
+                  )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+                ),
+                "District"
+              )
             )
-          )
-        }}
+          }}
+        </span>
+        <span v-if="renderLanguage === 'vi'">
+          {{
+            $t(
+              `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
+                breadcumsObject.city
+              )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+            )
+          }}
+        </span>
       </div>
 
       <div class="text-center txt_medium_14" v-else>

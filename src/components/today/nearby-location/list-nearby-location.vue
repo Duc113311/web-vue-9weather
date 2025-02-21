@@ -324,8 +324,10 @@ export default {
         } else {
           const cityKey = this.wardParam.state.toLowerCase();
 
+          console.log("cityKey", cityKey);
+
           const findData = this.listCityWorldData.find(
-            (x) => x.keyAccentLanguage === cityKey
+            (x) => x.keyAccentLanguage === cityKey.replace(/ /g, "_")
           );
           debugger;
           if (findData) {

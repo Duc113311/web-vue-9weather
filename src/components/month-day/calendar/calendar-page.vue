@@ -90,8 +90,8 @@
                         v-if="day.precipType === 'Snow'"
                       >
                         <svg
-                          width="11"
-                          height="10"
+                          width="18"
+                          height="17"
                           viewBox="0 0 11 10"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@
                           <g clip-path="url(#clip0_3004_9967)">
                             <path
                               d="M5.14225 5.00004V8.33337C5.14225 8.55439 5.23005 8.76635 5.38633 8.92263C5.54261 9.07891 5.75457 9.16671 5.97559 9.16671C6.1966 9.16671 6.40856 9.07891 6.56484 8.92263C6.72112 8.76635 6.80892 8.55439 6.80892 8.33337M5.14225 0.833374V1.25004M9.30892 5.00005C9.19632 3.97366 8.70883 3.02494 7.93993 2.33578C7.17102 1.64662 6.1748 1.2655 5.14225 1.2655C4.1097 1.2655 3.11348 1.64662 2.34458 2.33578C1.57567 3.02494 1.08819 3.97366 0.975586 5.00005H9.30892Z"
-                              stroke="#BC8637"
+                              stroke="var(--bg-radio-chance-of-snow)"
                               stroke-linecap="round"
                               stroke-linejoin="round"
                             />
@@ -109,14 +109,14 @@
                               <rect
                                 width="10"
                                 height="10"
-                                fill="#BC8637"
+                                fill="#ff8c00"
                                 transform="translate(0.142578)"
                               />
                             </clipPath>
                           </defs>
                         </svg>
 
-                        <p class="weekend txt_regular_12">
+                        <p class="txt_regular_12">
                           {{ Math.round(day.precipProbability * 100) }}%
                         </p>
                       </div>
@@ -198,7 +198,8 @@ export default {
 
       // Lấy ngày đầu tiên trong mảng dữ liệu
       const timestamp = this.renderCalendar[0].time;
-      const date = new Date(timestamp * 1000); // Chuyển timestamp Unix thành Date
+      const adjustedTimestamp = timestamp + this.locationOffsetValue * 60; // offset từ phút sang giây
+      const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date objecte
 
       // Điều chỉnh theo múi giờ
       const utcTime = date.getTime();
@@ -249,26 +250,43 @@ export default {
       }
     },
     convertToShortDay(value) {
+      // Kiểm tra nếu value không hợp lệ (null, undefined, NaN)
+      if (!value || isNaN(value)) {
+        console.error("Invalid timestamp:", value);
+        return "Invalid Date";
+      }
       // Chuyển timestamp Unix thành Date (value là giây)
-      const date = new Date(value * 1000);
+      const adjustedTimestamp = value + this.locationOffsetValue * 60; // offset từ phút sang giây
 
-      // Lấy thời gian UTC
-      const utcTime = date.getTime();
+      const date = new Date(adjustedTimestamp * 1000);
 
-      // Điều chỉnh theo múi giờ người dùng (locationOffsetValue là giờ)
-      const localTime = new Date(
-        utcTime + this.locationOffsetValue * 3600 * 1000
-      );
+      const timezone =
+        this.$store.state.weatherModule?.locationOffset?.timezone;
 
-      // Lấy ngày và tháng
-      const day = localTime.getDate(); // Lấy ngày trong tháng
-      const month = localTime.getMonth() + 1; // Lấy tháng, cộng 1 vì tháng bắt đầu từ 0 (Jan = 0)
+      // Lấy tên ngày viết tắt theo timezone
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: timezone,
+        weekday: "short", // Trả về thứ viết tắt (Mon, Tue, Wed,...)
+        day: "2-digit", // Ngày (DD)
+        month: "2-digit", // Tháng (MM)
+      });
 
-      // Trả về định dạng "DD/MM"
-      return `${day < 10 ? "0" + day : day}/${
-        month < 10 ? "0" + month : month
-      }`;
+      // Format lại thành mảng [weekday, day, month]
+      const formattedDate = formatter.formatToParts(date);
+
+      // Lấy thông tin ngày, tháng, thứ từ phần đã format
+      let day = "";
+      let month = "";
+
+      formattedDate.forEach(({ type, value }) => {
+        if (type === "day") day = value;
+        if (type === "month") month = value;
+      });
+
+      // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
+      return `${day}/${month}`;
     },
+
     onvertToShortMonth(value) {
       return convertTimestampToMonthYear(value);
     },

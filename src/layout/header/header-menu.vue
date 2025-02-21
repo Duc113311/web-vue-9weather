@@ -39,7 +39,8 @@
       </div>
       <!-- Mobile -->
 
-      <div class="lg:hidden block address-now text-left cursor-pointer">
+      <div class="md:hidden block address-now text-left cursor-pointer z-30">
+        <!--  -->
         <div
           class="flex justify-between items-center pl-4 pr-4 bg-h-location pt-2 pb-2"
         >
@@ -237,7 +238,7 @@
 <script>
 import UnitPreferencesPage from "@/components/settings/unit-preferences-page.vue";
 import { convertToEnglish } from "@/utils/converValue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { formatInTimeZone } from "date-fns-tz";
 import IcCalendar from "@/components/icons/mobile/IcCalendar.vue";
 import IcOclock from "@/components/icons/mobile/IcOclock.vue";
@@ -255,13 +256,30 @@ import UnitPreferencesPageMobile from "@/components/settings/unit-preferences-pa
 import IcBackLeft from "@/components/icons/mobile/IcBackLeft.vue";
 import IcBackRight from "@/components/icons/mobile/IcBackRight.vue";
 import {
+  checkSubstring,
   convertLowerCase,
+  convertToConvertLowerCase,
+  convertToVietnamese,
   removeWordAndAccents,
+  replaceApostropheWithUnderscore,
 } from "@/utils/coverTextSystem";
+import {
+  encodeBase64,
+  getAqiDataFromLocation,
+  getParamAirByCode,
+  urlEncodeString,
+} from "@/utils/EncoderDecoderUtils";
+import removeAccents from "remove-accents";
+import { Search } from "@element-plus/icons-vue";
 
 export default {
   name: "header-menu",
 
+  setup() {
+    return {
+      Search,
+    };
+  },
   components: {
     UnitPreferencesPage,
     UnitPreferencesPageMobile,
@@ -281,7 +299,13 @@ export default {
   data() {
     return {
       namePage: "setting",
+      valueSearch: "",
       valueLives: false,
+      suggestions: [],
+      selectedActive: null,
+      suggestionsTop100: [],
+      suggestionsFull: [],
+
       theme: "dark",
       indexKey: 0,
       vietnamTime: "",
@@ -292,6 +316,15 @@ export default {
       IcBackRight: markRaw(IcBackRight),
       userTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Múi giờ của người dùng
     };
+  },
+
+  watch: {
+    valueSearch(newValue) {
+      if (!newValue) {
+        // Khi giá trị bị xóa, reset danh sách gợi ý
+        this.suggestions = [];
+      }
+    },
   },
 
   computed: {
@@ -398,6 +431,24 @@ export default {
         },
       ];
     },
+
+    objectCityByLocationData() {
+      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.objectCityByLocationGetters;
+
+      return resultData;
+    },
+
+    listCityAllData() {
+      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityAll"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.listCityAllGetters;
+
+      return resultData;
+    },
   },
 
   mounted() {
@@ -413,6 +464,8 @@ export default {
     setInterval(() => {
       this.updateTime();
     }, 1000);
+
+    this.valueSearch = "";
   },
 
   methods: {
@@ -422,7 +475,386 @@ export default {
       "setThemeState",
       "setKeyIndexComponent",
       "setIsScroll",
+      "setBreadcumsNotAllowLocation",
+      "setBreadcumsAllowLocation",
+      "setIndexComponent",
+      "setObjectCityByLocation",
+      "setListDetailCityAll",
+      "setObjectFormattesLocation",
     ]),
+
+    ...mapActions("weatherModule", [
+      "getWeatherDataCurrent",
+      "getFormattedAddress",
+    ]),
+
+    ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
+
+    async querySearchAsync(queryString, cb) {
+      let timeout;
+      // Tạo phần tử "Sử dụng vị trí hiện tại"
+      const useCurrentLocation = {
+        isFallback: true,
+        address: "",
+        country: "",
+      };
+
+      if (!this.valueSearch) {
+        // Khi không có giá trị tìm kiếm, chỉ hiển thị "Sử dụng vị trí hiện tại"
+        this.suggestions = [useCurrentLocation];
+        timeout = setTimeout(() => {
+          cb(this.suggestions);
+        }, 300);
+        return;
+      }
+
+      // Gọi API để lấy dữ liệu gợi ý
+      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.radar.rain&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+        this.valueSearch
+      )}&key=TOH_KEY`;
+
+      const value = encodeBase64(urlParam);
+
+      try {
+        await this.getFormattedAddress(value);
+
+        // Đảm bảo giá trị tìm kiếm không thay đổi
+        if (this.valueSearch === queryString) {
+          // Thêm phần tử "Sử dụng vị trí hiện tại" vào đầu danh sách
+          this.suggestions = [
+            useCurrentLocation,
+            ...(this.$store.state.weatherModule.newArray || []),
+          ];
+          timeout = setTimeout(() => {
+            cb(this.suggestions);
+          }, 300);
+        }
+      } catch (error) {
+        console.error("Error fetching address:", error);
+        this.suggestions = [useCurrentLocation];
+        cb(this.suggestions);
+      }
+    },
+
+    async handleSelect(item) {
+      this.valueSearch = "";
+      debugger;
+
+      if (item?.country_key?.toLowerCase() === "vn") {
+        await this.loadProvince();
+        await this.loadAllFileJson();
+      } else {
+        await this.loadProvinceWould(item.country);
+      }
+      let language = this.languageParam;
+      if (item?.country_key?.toLowerCase() === "vn") {
+        let objectBread = {
+          country: item.country,
+          country_key: item.country_key.toLowerCase(),
+          city: item.city ? this.findCityData(item).viNameLanguage : "",
+          city_key: item.city ? this.findCityData(item).keyAccentLanguage : "",
+          district:
+            item.district && this.findDistrictsData(item) ? item.district : "",
+          district_key:
+            item.district &&
+            item.district.trim() !== "" &&
+            this.findDistrictsData(item)
+              ? this.findDistrictsData(item).keyAccentLanguage
+              : "",
+          ward:
+            item.ward && this.getWardsByLocation(item)
+              ? this.getWardsByLocation(item).viNameLanguage
+              : "",
+          ward_key:
+            item.ward && this.getWardsByLocation(item)
+              ? this.getWardsByLocation(item).keyAccentLanguage
+              : "",
+          latitude: item.lat,
+          longitude: item.lng,
+        };
+
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+
+        this.setBreadcumsNotAllowLocation(objectBread);
+
+        // tồn tại thành phố
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.city),
+              ],
+            },
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0 &&
+          objectBread.ward.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.city),
+                convertLowerCase(objectBread.district),
+              ],
+            },
+          });
+        }
+        if (
+          objectBread.city.length !== 0 &&
+          objectBread.district.length !== 0 &&
+          objectBread.ward.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.city),
+                convertLowerCase(objectBread.district),
+                convertLowerCase(removeWordAndAccents(objectBread.ward)),
+              ],
+            },
+          });
+        }
+      } else {
+        // Trên thế giới
+        let objectBread = {
+          country: item.country,
+          country_key: item.country_key.toLowerCase(),
+          state: item.state,
+          state_key: item.state_key,
+          county: item.county,
+          cities: item.cities,
+          latitude: item.lat,
+          longitude: item.lng,
+        };
+
+        localStorage.setItem("objectBread", JSON.stringify(objectBread));
+        this.setBreadcumsAllowLocation(objectBread);
+
+        // Bang
+        if (objectBread.state.length !== 0 && objectBread.cities.length === 0) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.state),
+              ],
+            },
+          });
+        }
+        // Quận
+        if (
+          objectBread.state.length !== 0 &&
+          !objectBread.cities.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: language,
+              location: [
+                objectBread.country_key.toLowerCase(),
+                convertLowerCase(objectBread.state),
+                convertLowerCase(objectBread.cities),
+              ],
+            },
+          });
+        }
+      }
+
+      // window.location.reload();
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${item.lat},${item.lng}?lang=en`;
+      const resultAir = getAqiDataFromLocation(item.lat, item.lng);
+      const encodeDataWeather = encodeBase64(param);
+
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
+    },
+
+    async loadProvince() {
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem("dataCityLog")
+      );
+      if (!dataCityVNSession) {
+        try {
+          const response = await fetch("/json/city/city.json");
+          if (!response.ok)
+            throw new Error(
+              `Failed to fetch data: ${response.status} ${response.statusText}`
+            );
+          const data = await response.json(); // Parse JSON data
+          this.provinceData = data;
+          this.setObjectCityByLocation(this.provinceData);
+        } catch (error) {
+          console.error("Error loading file:", error.message);
+        }
+      } else {
+        this.setObjectCityByLocation(dataCityVNSession);
+      }
+    },
+
+    async loadAllFileJson() {
+      let provinces = [];
+      const dataCityLogVNSession = JSON.parse(
+        sessionStorage.getItem("dataCityAll")
+      );
+      if (!dataCityLogVNSession) {
+        const context = require.context(
+          "/public/json/vietnamese",
+          false,
+          /\.json$/
+        );
+        // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+        const provincesData = context.keys().map((key) => {
+          const provinceData = context(key); // Load dữ liệu từ file
+
+          provinces.push(provinceData);
+        });
+        this.setListDetailCityAll(provinces);
+      } else {
+        this.setListDetailCityAll(dataCityLogVNSession);
+      }
+    },
+
+    async loadProvinceWould(value) {
+      const formattedCountry = value.replace(/ /g, "_");
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem(`data_${formattedCountry}`)
+      );
+      if (!dataCityVNSession) {
+        try {
+          const response = await fetch(`/json/city/${formattedCountry}.json`);
+          if (!response.ok)
+            throw new Error(
+              `Failed to fetch data: ${response.status} ${response.statusText}`
+            );
+          const data = await response.json(); // Parse JSON data
+          const objectState = {
+            provinceData: data,
+            keyStorage: formattedCountry,
+          };
+          this.setObjectFormattesLocation(objectState);
+        } catch (error) {
+          console.error("Error loading file:", error.message);
+        }
+      } else {
+        this.setObjectFormattesLocation(dataCityVNSession);
+      }
+    },
+
+    findCityData(value) {
+      const listCityVN = this.objectCityByLocationData;
+
+      debugger;
+      const replaceCity = convertToVietnamese(value.city).cityConvert;
+      for (let index = 0; index < listCityVN.length; index++) {
+        const element = listCityVN[index];
+        const provinceCityData = element.provinceCity;
+        const findData = provinceCityData.find(
+          (x) => x.keyAccentLanguage === replaceCity
+        );
+        if (findData) {
+          return findData;
+        }
+      }
+    },
+
+    findDistrictsData(value) {
+      const listCityVN = this.listCityAllData;
+
+      const replaceCity = convertToVietnamese(value.city).cityConvert;
+      const replaceDistrict = convertToConvertLowerCase(value.district);
+
+      debugger;
+      const replaceApos = replaceApostropheWithUnderscore(replaceDistrict);
+      const findData = listCityVN.find(
+        (x) => x.keyAccentLanguage === replaceCity
+      );
+
+      if (findData) {
+        const districtListData = findData.districtList;
+
+        // Kiểm tra districtListData có tồn tại và là mảng không
+        if (Array.isArray(districtListData)) {
+          for (let index = 0; index < districtListData.length; index++) {
+            const element = districtListData[index];
+
+            debugger;
+            const checkSub = checkSubstring(
+              removeAccents(element.keyAccentLanguage),
+              replaceApos
+            );
+
+            if (checkSub) {
+              return element; // Trả về district nếu tìm thấy
+            }
+          }
+        } else {
+          console.error("districtListData không phải là mảng");
+        }
+      }
+
+      return null; // Trả về null nếu không tìm thấy district
+    },
+
+    getWardsByLocation(value) {
+      // Lấy danh sách Viet nam
+      const listCityVN = this.listCityAllData;
+
+      const replaceCity = convertToVietnamese(value.city).cityConvert;
+      const replaceDistrict = convertToConvertLowerCase(value.district);
+
+      const findData = listCityVN.find(
+        (x) => x.keyAccentLanguage === replaceCity
+      );
+      if (findData) {
+        const districtListData = findData.districtList;
+
+        if (Array.isArray(districtListData)) {
+          for (let index = 0; index < districtListData.length; index++) {
+            const element = districtListData[index];
+            debugger;
+            const listWard = element.wards;
+            const findDataWard = listWard.find(
+              (x) => x.location.lat === value.lat
+            );
+            if (findDataWard) {
+              localStorage.setItem("locationDistrict", element.location);
+              return findDataWard;
+            }
+          }
+        } else {
+          console.error("districtListData không phải là mảng");
+        }
+      }
+    },
 
     updateTime() {
       const now = new Date();
@@ -587,6 +1019,8 @@ export default {
 
         this.$emit("onChangeCloseMenu", false);
         this.setIsScroll(false);
+      } else {
+        this.valueScream = value.name;
       }
     },
 
@@ -615,7 +1049,7 @@ export default {
     background-repeat: no-repeat;
     -webkit-box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.5);
-    color: var(--color-menu-mobile);
+    color: #f9f9f9;
     padding: 20px 20px 0;
     position: absolute;
     right: 0;

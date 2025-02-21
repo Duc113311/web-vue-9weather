@@ -37,16 +37,51 @@ export default {
     paramHourly() {
       return this.listDaily30DayGetters;
     },
+
+    locationOffsetValue() {
+      return this.$store.state.weatherModule.locationOffset;
+    },
   },
 
   methods: {
     convertToShortDay(value) {
-      const date = new Date(value * 1000);
-      const dateNew = new Date(date);
-      const day = dateNew.getDate();
+      const timezone =
+        this.$store.state.weatherModule?.locationOffset?.timezone;
 
-      return day;
+      const offsetValue =
+        this.$store.state.weatherModule?.locationOffset?.offset;
+      // Kiểm tra nếu timestamp không hợp lệ
+      if (!value || isNaN(value)) {
+        console.error("Invalid timestamp:", value);
+        return "Invalid Date";
+      }
+
+      // Chuyển timestamp từ giây sang milliseconds & áp dụng offset (phút → giây)
+      const adjustedTimestamp = (value + offsetValue * 60) * 1000;
+
+      try {
+        // Tạo Date object theo múi giờ chỉ định
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: timezone,
+          day: "2-digit", // Lấy ngày (DD)
+        });
+
+        // Format để lấy ngày chính xác theo timezone
+        const formattedDate = formatter.formatToParts(
+          new Date(adjustedTimestamp)
+        );
+
+        // Lấy giá trị ngày
+        let day =
+          formattedDate.find(({ type }) => type === "day")?.value || "00";
+
+        return day;
+      } catch (error) {
+        console.error("Invalid Timezone:", timezone);
+        return "Invalid Timezone";
+      }
     },
+
     renderHourly(value) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
 

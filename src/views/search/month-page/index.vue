@@ -68,7 +68,9 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full md:grid grid-cols-2 gap-5">
+        <div
+          class="right-hourly lg:w-[32%] w-full md:grid md:grid-cols-2 gap-5 lg:block"
+        >
           <SunPage
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -117,7 +119,7 @@
       </div>
 
       <div
-        class="right-hourly lg:h-[280px] lg:w-[30%] w-[100%]"
+        class="right-hourly lg:h-[243px] lg:w-[30%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <ListCountryPage :key="indexState + Math.random()"></ListCountryPage>
