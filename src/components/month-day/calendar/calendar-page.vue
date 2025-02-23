@@ -41,7 +41,7 @@
               <li class="weekend txt_regular_14">{{ $t("Saturday") }}</li>
               <li class="weekend txt_regular_14">{{ $t("Sunday") }}</li>
             </ul>
-            <ul class="days p-4">
+            <ul class="days lg:p-4 p-2">
               <li
                 v-for="(day, index) in adjustedCalendar"
                 :key="index"
@@ -59,7 +59,7 @@
                   <template #reference>
                     <div
                       :class="{ 'active-calender': activeIndex === index }"
-                      class="flex flex-col p-1 justify-start gap-1 txt_light_14 rounded-xl"
+                      class="flex flex-col md:p-1 p-0.5 justify-start gap-1 txt_light_14 rounded-xl"
                     >
                       <span class="txt_regular_12 text-right">{{
                         convertToShortDay(day.time)

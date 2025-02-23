@@ -112,19 +112,12 @@ export default {
       const offsetValue =
         this.$store.state.weatherModule.locationOffset?.offset;
 
-      console.log(
-        "offsetValue",
-        this.$store.state.weatherModule.locationOffset
-      );
-
-      console.log("timestem", val);
-
       const timezoneValue =
         this.$store.state.weatherModule.locationOffset.timezone;
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
+        return convertTimestamp12hSun(val, 0, offsetValue, timezoneValue);
       } else {
         return convertTimestamp24hSun(val, 1, offsetValue, timezoneValue);
       }

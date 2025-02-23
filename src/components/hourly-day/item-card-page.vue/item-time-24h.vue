@@ -310,15 +310,11 @@
                   </div>
                   <div class="flex items-center gap-1">
                     <span class="txt_medium_15">
-                      {{
-                        convertTimeUnit(dailyOneGettersData?.sunriseTime).split(
-                          " "
-                        )[0]
-                      }}
+                      {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
                     </span>
-                    <span class="txt_regular_14" v-if="timePeriodSunriseTime">
+                    <!-- <span class="txt_regular_14" v-if="timePeriodSunriseTime">
                       ({{ timePeriodSunriseTime }})
-                    </span>
+                    </span> -->
                   </div>
                 </div>
 
@@ -329,15 +325,11 @@
                   </div>
                   <div class="flex items-center gap-1">
                     <span class="txt_medium_15">
-                      {{
-                        convertTimeUnit(dailyOneGettersData?.sunsetTime).split(
-                          " "
-                        )[0]
-                      }}
+                      {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
                     </span>
-                    <span class="txt_regular_14" v-if="timePeriodSunsetTime">
+                    <!-- <span class="txt_regular_14" v-if="timePeriodSunsetTime">
                       ({{ timePeriodSunsetTime }})
-                    </span>
+                    </span> -->
                   </div>
                 </div>
               </div>
@@ -389,6 +381,8 @@ import {
   convertTime12hTimeZoneNotNowUnit,
   convertTimestampUnit12,
   convertAMPMFromTimestamp,
+  convertTimestamp24hSun,
+  convertTimestamp12hSun,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -569,7 +563,12 @@ export default {
           timezoneValue
         );
       } else {
-        return convertTimestampToHoursMinutes(val, 1, offsetValue);
+        return convertTimestampToHoursMinutes(
+          val,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       }
     },
 
@@ -641,19 +640,9 @@ export default {
         this.$store.state.weatherModule.locationOffset.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTime12hTimeZoneNotNowUnit(
-          value,
-          1,
-          offsetValue,
-          timezoneValue
-        );
+        return convertTimestamp12hSun(value, 1, offsetValue, timezoneValue);
       } else {
-        return convertTimestampToHoursMinutes(
-          value,
-          1,
-          offsetValue,
-          timezoneValue
-        );
+        return convertTimestamp24hSun(value, 0, offsetValue, timezoneValue);
       }
     },
 

@@ -285,7 +285,7 @@ export function convertTimestampToMonthYear(timestamp) {
   return `${month} ${year}`;
 }
 
-export function convertTimestampToDayMonth(timestamp,offsetValue, timezone) {
+export function convertTimestampToDayMonth(timestamp, offsetValue, timezone) {
   // Kiểm tra nếu value không hợp lệ (null, undefined, NaN)
   if (!timestamp || isNaN(timestamp)) {
     console.error("Invalid timestamp:", timestamp);
@@ -385,19 +385,21 @@ export function convertTimestampToHoursMinutes(
   // const formattedMinutes = minutes.toString().padStart(2, "0");
   const formattedMinutes = "00";
   // Lấy giờ hiện tại theo timezone
-  const now = new Date();
-  const nowFormatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone: timezone,
-    hour: "2-digit",
-    hourCycle: "h23", // Chỉ lấy giờ (không lấy phút)
-  });
+  if (numberTime === 0) {
+    const now = new Date();
+    const nowFormatter = new Intl.DateTimeFormat("en-GB", {
+      timeZone: timezone,
+      hour: "2-digit",
+      hourCycle: "h23", // Chỉ lấy giờ (không lấy phút)
+    });
 
-  // Chỉ lấy giờ hiện tại
-  const nowHours = nowFormatter.format(now);
+    // Chỉ lấy giờ hiện tại
+    const nowHours = nowFormatter.format(now);
 
-  // Nếu giờ trùng nhau, hiển thị "Now"
-  if (nowHours === formattedHours) {
-    return "Now";
+    // Nếu giờ trùng nhau, hiển thị "Now"
+    if (nowHours === formattedHours) {
+      return "Now";
+    }
   }
 
   return `${formattedHours}:${formattedMinutes}`;
@@ -434,26 +436,28 @@ export function convertTimestampToHoursMinutes12(
   const formattedMinutes = "00";
 
   // console.log("formattedMinutes", formattedMinutes);
+  if (numberTime === 0) {
+    // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
+    const now = new Date();
+    const nowFormatter = new Intl.DateTimeFormat("en-US", {
+      timeZone: timezone,
+      hour: "2-digit",
+      hour12: true,
+    });
 
-  // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
-  const now = new Date();
-  const nowFormatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    hour: "2-digit",
-    hour12: true,
-  });
+    // Lấy giờ hiện tại và loại bỏ số 0 đứng trước
+    let [nowHours, nowPeriod] = nowFormatter.format(now).split(" ");
+    nowHours = parseInt(nowHours, 10).toString(); // Xoá số 0 đứng trước
 
-  // Lấy giờ hiện tại và loại bỏ số 0 đứng trước
-  let [nowHours, nowPeriod] = nowFormatter.format(now).split(" ");
-  nowHours = parseInt(nowHours, 10).toString(); // Xoá số 0 đứng trước
+    // console.log("nowTime", nowHours + " " + nowPeriod);
+    // console.log("timeData", formattedHours + " " + period);
 
-  // console.log("nowTime", nowHours + " " + nowPeriod);
-  // console.log("timeData", formattedHours + " " + period);
-
-  // Nếu giờ trùng nhau, hiển thị "Now"
-  if (nowHours === formattedHours && nowPeriod === period) {
-    return "Now";
+    // Nếu giờ trùng nhau, hiển thị "Now"
+    if (nowHours === formattedHours && nowPeriod === period) {
+      return "Now";
+    }
   }
+
 
   return `${formattedHours}:${formattedMinutes} ${period}`;
 }
@@ -635,9 +639,10 @@ export function convertTimestamp24hSun(
   offsetValue,
   timezone
 ) {
-  const date = new Date(timestamp * 1000);
+  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
+  const date = new Date(adjustedTimestamp * 1000);
 
-  // Sử dụng Intl.DateTimeFormat để lấy thời gian theo timezone mong muốn
+  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
   const formatter = new Intl.DateTimeFormat("en-GB", {
     timeZone: timezone,
     hour: "2-digit",
@@ -646,11 +651,10 @@ export function convertTimestamp24hSun(
   });
 
   // Chuyển timestamp thành đúng giờ theo timezone
-  const formattedTime = formatter.format(date);
+  let formattedTime = formatter.format(date);
 
   // Cộng thêm offset (1 phút)
   let [hours, minutes] = formattedTime.split(":").map(Number);
-  minutes += offsetValue;
 
   // Xử lý nếu phút >= 60
   if (minutes >= 60) {
@@ -662,6 +666,7 @@ export function convertTimestamp24hSun(
   const formattedHours = hours.toString().padStart(2, "0");
   const formattedMinutes = minutes.toString().padStart(2, "0");
 
+
   return `${formattedHours}:${formattedMinutes}`;
 }
 
@@ -671,7 +676,8 @@ export function convertTimestamp12hSun(
   offsetValue,
   timezone
 ) {
-  const date = new Date(timestamp * 1000);
+  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
+  const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
 
   // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -681,28 +687,21 @@ export function convertTimestamp12hSun(
     hour12: true, // Định dạng 12h AM/PM
   });
 
-  // Chuyển timestamp thành đúng giờ theo timezone
   let formattedTime = formatter.format(date);
-
-  // Cộng thêm offset (1 phút)
   let [time, period] = formattedTime.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
-  minutes += offsetValue;
 
-  // Xử lý nếu giờ >= 12h
-  if (hours >= 12) {
-    period = "PM";
-    if (hours > 12) hours -= 12;
-  } else {
-    period = "AM";
-    if (hours === 0) hours = 12;
-  }
-
-  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
-  const formattedHours = hours.toString();
+  const formattedHours = parseInt(hours, 10).toString();
   const formattedMinutes = minutes.toString().padStart(2, "0");
 
-  return `${formattedHours}:${formattedMinutes} ${period}`;
+  const now = new Date();
+  const nowFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    hour: "2-digit",
+    hour12: true,
+  });
+
+  return `${formattedHours}:${formattedMinutes} (${period})`;
 }
 
 //
@@ -1033,9 +1032,9 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-      Math.cos(toRad(latNearest)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRad(latNearest)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Khoảng cách theo đơn vị được chọn
 

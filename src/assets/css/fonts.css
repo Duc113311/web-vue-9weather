@@ -53,7 +53,7 @@
   text-align: center; /* Căn trái mặc định */
   font-weight: 400; /* Corresponds to Regular */
 }
-.txt_regular_15{
+.txt_regular_15 {
   font-size: 15px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 16.7px; /* Khoảng cách giữa các dòng */
@@ -66,7 +66,7 @@
   font-size: 14px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 20.76px; /* Khoảng cách giữa các dòng */
-  text-align: center; /* Căn trái mặc định */
+  text-align: left; /* Căn trái mặc định */
   font-weight: 500; /* Corresponds to Regular */
 }
 .txt_medium_17 {
@@ -192,29 +192,29 @@
   .txt_default {
     font-size: 16px; /* Tăng kích thước chữ cho màn hình nhỏ */
   }
-  .txt_bold_34{
+  .txt_bold_34 {
     font-size: 20px; /* Tăng kích thước chữ cho màn hình nhỏ */
   }
   .txt_line_48 {
     font-size: 20px; /* Kích thước chữ mặc định */
   }
-  .txt_line_50{
+  .txt_line_50 {
     font-size: 20px; /* Kích thước chữ mặc định */
   }
 
   .txt_regular_12 {
     font-size: 11px;
   }
-  .txt_regular_14{
+  .txt_regular_14 {
     font-size: 12px;
   }
-  .txt_regular_17{
+  .txt_regular_17 {
     font-size: 13px;
   }
   .txt_medium_15 {
     font-size: 13px;
   }
-  .txt_medium_17{
+  .txt_medium_17 {
     font-size: 14px;
   }
 }
@@ -241,23 +241,23 @@
   .txt_line_48 {
     font-size: 20px; /* Kích thước chữ mặc định */
   }
-  .txt_line_50{
+  .txt_line_50 {
     font-size: 20px; /* Kích thước chữ mặc định */
   }
 
   .txt_regular_12 {
     font-size: 11px;
   }
-  .txt_regular_14{
+  .txt_regular_14 {
     font-size: 12px;
   }
-  .txt_regular_17{
+  .txt_regular_17 {
     font-size: 13px;
   }
   .txt_medium_15 {
     font-size: 13px;
   }
-  .txt_medium_17{
+  .txt_medium_17 {
     font-size: 14px;
   }
 }
@@ -278,23 +278,23 @@
   .txt_line_48 {
     font-size: 30px; /* Kích thước chữ mặc định */
   }
-  .txt_line_50{
+  .txt_line_50 {
     font-size: 30px; /* Kích thước chữ mặc định */
   }
 
   .txt_regular_12 {
     font-size: 12px;
   }
-  .txt_regular_14{
+  .txt_regular_14 {
     font-size: 14px;
   }
-  .txt_regular_17{
+  .txt_regular_17 {
     font-size: 17px;
   }
   .txt_medium_15 {
     font-size: 15px;
   }
-  .txt_medium_17{
+  .txt_medium_17 {
     font-size: 17px;
   }
 }
@@ -315,24 +315,23 @@
   .txt_line_48 {
     font-size: 48px; /* Kích thước chữ mặc định */
   }
-  .txt_line_50{
+  .txt_line_50 {
     font-size: 50px; /* Kích thước chữ mặc định */
   }
-
 
   .txt_regular_12 {
     font-size: 12px;
   }
-  .txt_regular_14{
+  .txt_regular_14 {
     font-size: 14px;
   }
-  .txt_regular_17{
+  .txt_regular_17 {
     font-size: 17px;
   }
   .txt_medium_15 {
     font-size: 15px;
   }
-  .txt_medium_17{
+  .txt_medium_17 {
     font-size: 17px;
   }
 }
@@ -353,27 +352,26 @@
   .txt_line_48 {
     font-size: 48px; /* Kích thước chữ mặc định */
   }
-  .txt_line_50{
+  .txt_line_50 {
     font-size: 50px; /* Kích thước chữ mặc định */
   }
-  .txt_bold_34{
+  .txt_bold_34 {
     font-size: 34px; /* Tăng kích thước chữ cho màn hình nhỏ */
   }
-
 
   .txt_regular_12 {
     font-size: 12px;
   }
-  .txt_regular_14{
+  .txt_regular_14 {
     font-size: 14px;
   }
-  .txt_regular_17{
+  .txt_regular_17 {
     font-size: 17px;
   }
   .txt_medium_15 {
     font-size: 15px;
   }
-  .txt_medium_17{
+  .txt_medium_17 {
     font-size: 17px;
   }
 }

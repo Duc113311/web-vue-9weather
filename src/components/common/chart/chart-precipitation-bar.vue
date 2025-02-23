@@ -98,13 +98,13 @@ export default {
         unitSetting.activeTime_save === "12h"
           ? convertTimestampToHoursMinutes12(
               value.time,
-              1,
+              0,
               offsetValue,
               timezoneValue
             )
           : convertTimestampToHoursMinutes(
               value.time,
-              1,
+              0,
               offsetValue,
               timezoneValue
             );

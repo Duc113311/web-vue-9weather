@@ -249,7 +249,7 @@ export default {
         await this.$router.push({
           name: "today-weather",
           params: {
-            language: this.languageParam,
+            language: this.renderLanguage,
             location: [
               objectBread?.country_key?.toLowerCase(),
               convertLowerCase(objectBread.city),
@@ -275,7 +275,7 @@ export default {
         await this.$router.push({
           name: "today-weather",
           params: {
-            language: this.languageParam,
+            language: this.renderLanguage,
             location: [
               objectBread?.country_key?.toLowerCase(),
               convertLowerCase(objectBread.state),
@@ -285,7 +285,7 @@ export default {
       }
 
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      setTitleScream(0, retrievedArray, this.languageParam);
+      setTitleScream(0, retrievedArray, this.renderLanguage);
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${locationValue.latitude},${locationValue.longitude}?lang=${this.renderLanguage}`;
 
