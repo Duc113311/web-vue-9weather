@@ -262,27 +262,62 @@ export function getIconHourlyForecastTheme(value) {
   }
 }
 
-export function convertTimestampToMonthYear(timestamp) {
-  const date = new Date(timestamp * 1000); // Chuyển timestamp sang milliseconds
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+export function convertTimestampToMonthYear(
+  dateString,
+  locale,
+  offset,
+  timezone
+) {
+  // Chuyển chuỗi thành Date object
+  const date = new Date((dateString + offset * 3600) * 1000); // Điều chỉnh timestamp với offset
 
-  const month = months[date.getMonth()]; // Lấy tháng
-  const year = date.getFullYear(); // Lấy năm
+  // Lấy thông tin ngày, tháng, năm, thứ
+  const formatter = new Intl.DateTimeFormat(locale, {
+    weekday: "long", // Ví dụ: "Thứ Hai" / "Monday" / "Lundi"
+    day: "2-digit", // Ngày (24)
+    month: "long", // "Tháng 2" (vi) / "February" (en) / "février" (fr)
+    year: "numeric", // Năm (2025)
+    timeZone: timezone, // Sử dụng timezone
+  });
 
-  return `${month} ${year}`;
+  const parts = formatter.formatToParts(date);
+
+  // Trích xuất từng phần
+  let weekday = "";
+  let day = "";
+  let month = "";
+  let year = "";
+
+  parts.forEach(({ type, value }) => {
+    if (type === "weekday") weekday = value;
+    if (type === "day") day = value;
+    if (type === "month") month = value;
+    if (type === "year") year = value;
+  });
+
+  // Kiểm tra locale và định dạng chuỗi phù hợp
+  if (locale.startsWith("vi")) {
+    // Tiếng Việt: "Thứ Hai ngày 24 tháng 2, 2025"
+    return `Tháng ${month.replace("tháng ", "")}, ${year}`;
+  } else if (locale.startsWith("zh")) {
+    // Tiếng Trung: "2025年2月24日 星期一"
+    return `${year}年${month}${day}日 ${weekday}`;
+  } else if (locale.startsWith("ja")) {
+    // Tiếng Nhật: "2025年2月24日 (月曜日)"
+    return `${year}年${month}${day}日 (${weekday})`;
+  } else if (locale.startsWith("ko")) {
+    // Tiếng Hàn: "2025년 2월 24일 월요일"
+    return `${year}년 ${month} ${day}일 ${weekday}`;
+  } else if (locale.startsWith("de")) {
+    // Tiếng Đức: "Montag, 24. Februar 2025"
+    return `${weekday}, ${day}. ${month} ${year}`;
+  } else if (locale.startsWith("fr")) {
+    // Tiếng Pháp: "Lundi 24 février 2025"
+    return `${weekday} ${day} ${month} ${year}`;
+  } else {
+    // Mặc định: Tiếng Anh "Monday, February 24, 2025"
+    return `${month}, ${year}`;
+  }
 }
 
 export function convertTimestampToDayMonth(timestamp, offsetValue, timezone) {
@@ -295,7 +330,6 @@ export function convertTimestampToDayMonth(timestamp, offsetValue, timezone) {
   const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
 
   const date = new Date(adjustedTimestamp * 1000);
-
 
   // Lấy tên ngày viết tắt theo timezone
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -385,21 +419,19 @@ export function convertTimestampToHoursMinutes(
   // const formattedMinutes = minutes.toString().padStart(2, "0");
   const formattedMinutes = "00";
   // Lấy giờ hiện tại theo timezone
-  if (numberTime === 0) {
-    const now = new Date();
-    const nowFormatter = new Intl.DateTimeFormat("en-GB", {
-      timeZone: timezone,
-      hour: "2-digit",
-      hourCycle: "h23", // Chỉ lấy giờ (không lấy phút)
-    });
+  const now = new Date();
+  const nowFormatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timezone,
+    hour: "2-digit",
+    hourCycle: "h23", // Chỉ lấy giờ (không lấy phút)
+  });
 
-    // Chỉ lấy giờ hiện tại
-    const nowHours = nowFormatter.format(now);
+  // Chỉ lấy giờ hiện tại
+  const nowHours = nowFormatter.format(now);
 
-    // Nếu giờ trùng nhau, hiển thị "Now"
-    if (nowHours === formattedHours) {
-      return "Now";
-    }
+  // Nếu giờ trùng nhau, hiển thị "Now"
+  if (nowHours === formattedHours) {
+    return "Now";
   }
 
   return `${formattedHours}:${formattedMinutes}`;
@@ -436,28 +468,26 @@ export function convertTimestampToHoursMinutes12(
   const formattedMinutes = "00";
 
   // console.log("formattedMinutes", formattedMinutes);
-  if (numberTime === 0) {
-    // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
-    const now = new Date();
-    const nowFormatter = new Intl.DateTimeFormat("en-US", {
-      timeZone: timezone,
-      hour: "2-digit",
-      hour12: true,
-    });
 
-    // Lấy giờ hiện tại và loại bỏ số 0 đứng trước
-    let [nowHours, nowPeriod] = nowFormatter.format(now).split(" ");
-    nowHours = parseInt(nowHours, 10).toString(); // Xoá số 0 đứng trước
+  // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
+  const now = new Date();
+  const nowFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    hour: "2-digit",
+    hour12: true,
+  });
 
-    // console.log("nowTime", nowHours + " " + nowPeriod);
-    // console.log("timeData", formattedHours + " " + period);
+  // Lấy giờ hiện tại và loại bỏ số 0 đứng trước
+  let [nowHours, nowPeriod] = nowFormatter.format(now).split(" ");
+  nowHours = parseInt(nowHours, 10).toString(); // Xoá số 0 đứng trước
 
-    // Nếu giờ trùng nhau, hiển thị "Now"
-    if (nowHours === formattedHours && nowPeriod === period) {
-      return "Now";
-    }
+  // console.log("nowTime", nowHours + " " + nowPeriod);
+  // console.log("timeData", formattedHours + " " + period);
+
+  // Nếu giờ trùng nhau, hiển thị "Now"
+  if (nowHours === formattedHours && nowPeriod === period) {
+    return "Now";
   }
-
 
   return `${formattedHours}:${formattedMinutes} ${period}`;
 }
@@ -639,10 +669,9 @@ export function convertTimestamp24hSun(
   offsetValue,
   timezone
 ) {
-  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
-  const date = new Date(adjustedTimestamp * 1000);
+  const date = new Date(timestamp * 1000);
 
-  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
+  // Sử dụng Intl.DateTimeFormat để lấy thời gian theo timezone mong muốn
   const formatter = new Intl.DateTimeFormat("en-GB", {
     timeZone: timezone,
     hour: "2-digit",
@@ -651,10 +680,11 @@ export function convertTimestamp24hSun(
   });
 
   // Chuyển timestamp thành đúng giờ theo timezone
-  let formattedTime = formatter.format(date);
+  const formattedTime = formatter.format(date);
 
   // Cộng thêm offset (1 phút)
   let [hours, minutes] = formattedTime.split(":").map(Number);
+  minutes += offsetValue;
 
   // Xử lý nếu phút >= 60
   if (minutes >= 60) {
@@ -666,7 +696,6 @@ export function convertTimestamp24hSun(
   const formattedHours = hours.toString().padStart(2, "0");
   const formattedMinutes = minutes.toString().padStart(2, "0");
 
-
   return `${formattedHours}:${formattedMinutes}`;
 }
 
@@ -676,8 +705,7 @@ export function convertTimestamp12hSun(
   offsetValue,
   timezone
 ) {
-  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
-  const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
+  const date = new Date(timestamp * 1000);
 
   // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -687,21 +715,28 @@ export function convertTimestamp12hSun(
     hour12: true, // Định dạng 12h AM/PM
   });
 
+  // Chuyển timestamp thành đúng giờ theo timezone
   let formattedTime = formatter.format(date);
+
+  // Cộng thêm offset (1 phút)
   let [time, period] = formattedTime.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
+  minutes += offsetValue;
 
-  const formattedHours = parseInt(hours, 10).toString();
+  // Xử lý nếu giờ >= 12h
+  if (hours >= 12) {
+    period = "PM";
+    if (hours > 12) hours -= 12;
+  } else {
+    period = "AM";
+    if (hours === 0) hours = 12;
+  }
+
+  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
+  const formattedHours = hours.toString();
   const formattedMinutes = minutes.toString().padStart(2, "0");
 
-  const now = new Date();
-  const nowFormatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    hour: "2-digit",
-    hour12: true,
-  });
-
-  return `${formattedHours}:${formattedMinutes} (${period})`;
+  return `${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 //
@@ -1032,9 +1067,9 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-    Math.cos(toRad(latNearest)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRad(latNearest)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Khoảng cách theo đơn vị được chọn
 
@@ -2063,26 +2098,61 @@ export function formatDateFull(timestamp, offset, locale = "en-US") {
   }
 }
 
-export function convertTimestampFullMoon(timestamp, offsetValue, timezone) {
-  // Chuyển đổi chuỗi ngày thành Date object
-  const date = new Date(timestamp);
+export function convertTimestampFullMoon(dateString, locale, timezone) {
+  // Chuyển chuỗi thành Date object
+  
+  const date = new Date(dateString);
 
-  // Kiểm tra nếu ngày không hợp lệ
-  if (isNaN(date.getTime())) {
-    console.error("Invalid Date Format");
-    return null;
+  // Lấy thông tin ngày, tháng, năm, thứ
+  const formatter = new Intl.DateTimeFormat(locale, {
+    weekday: "long", // Ví dụ: "Thứ Hai" / "Monday" / "Lundi"
+    day: "2-digit", // Ngày (24)
+    month: "long", // "Tháng 2" (vi) / "February" (en) / "février" (fr)
+    year: "numeric", // Năm (2025)
+    timeZone: timezone, // Sử dụng timezone
+  });
+
+  const parts = formatter.formatToParts(date);
+
+  // Trích xuất từng phần
+  let weekday = "";
+  let day = "";
+  let month = "";
+  let year = "";
+
+  parts.forEach(({ type, value }) => {
+    if (type === "weekday") weekday = value;
+    if (type === "day") day = value;
+    if (type === "month") month = value;
+    if (type === "year") year = value;
+  });
+
+  // Kiểm tra locale và định dạng chuỗi phù hợp
+  if (locale.startsWith("vi")) {
+    // Tiếng Việt: "Thứ Hai ngày 24 tháng 2, 2025"
+    return `${weekday} ngày ${day} tháng ${month.replace(
+      "tháng ",
+      ""
+    )}, ${year}`;
+  } else if (locale.startsWith("zh")) {
+    // Tiếng Trung: "2025年2月24日 星期一"
+    return `${year}年${month}${day}日 ${weekday}`;
+  } else if (locale.startsWith("ja")) {
+    // Tiếng Nhật: "2025年2月24日 (月曜日)"
+    return `${year}年${month}${day}日 (${weekday})`;
+  } else if (locale.startsWith("ko")) {
+    // Tiếng Hàn: "2025년 2월 24일 월요일"
+    return `${year}년 ${month} ${day}일 ${weekday}`;
+  } else if (locale.startsWith("de")) {
+    // Tiếng Đức: "Montag, 24. Februar 2025"
+    return `${weekday}, ${day}. ${month} ${year}`;
+  } else if (locale.startsWith("fr")) {
+    // Tiếng Pháp: "Lundi 24 février 2025"
+    return `${weekday} ${day} ${month} ${year}`;
+  } else {
+    // Mặc định: Tiếng Anh "Monday, February 24, 2025"
+    return `${weekday}, ${month} ${day}, ${year}`;
   }
-
-  // Format ngày theo tiếng Anh
-  const options = {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: timezone, // Đảm bảo đúng múi giờ GMT+7
-  };
-
-  return new Intl.DateTimeFormat("en-US", options).format(date);
 }
 
 // Convert Day

@@ -3,21 +3,24 @@
     <!--  -->
     <div class="district-card">
       <div class="text-center txt_medium_14">
-        {{ objectLocation.moonPhase }}
+        {{ $t(`${objectLocation?.moonPhase}`) }}
       </div>
-      <div class="txt_regular_12 color_BFBFBF">
-        <p>{{ objectLocation.date }}/{{ objectLocation.monthDay }}</p>
+      <div class="txt_regular_10 color_BFBFBF">
+        <p>{{ convertFullMoonTime(objectLocation?.infoMoonPhaseDay?.date) }}</p>
       </div>
       <div class="flex items-center justify-center p-1">
         <component
-          class="icon-svg-moon"
-          :is="convertStringMoonIcon(objectLocation.moonPhase)"
+          class="icon-svg-moon-list"
+          :is="convertStringMoonIcon(objectLocation?.moonPhase)"
+          width="30"
+          height="30"
         ></component>
       </div>
 
       <div class="txt_regular_12 color_BFBFBF">
         <p>
-          Illumination: {{ objectLocation?.infoMoonPhaseDay?.illumination }}%
+          {{ $t("Illumination") }}:
+          {{ objectLocation?.infoMoonPhaseDay?.illumination }}%
         </p>
       </div>
     </div>
@@ -31,6 +34,7 @@ import IcThirdQuarter from "@/components/icons/moon-phase/IcThirdQuarter.vue";
 import IcWaningGibbous from "@/components/icons/moon-phase/IcWaningGibbous.vue";
 import IcWaxingCrescent from "@/components/icons/moon-phase/IcWaxingCrescent.vue";
 import IcWaxingGibbous from "@/components/icons/moon-phase/IcWaxingGibbous.vue";
+import { convertTimestampFullMoon } from "@/utils/converValue";
 import { markRaw } from "vue";
 
 export default {
@@ -55,26 +59,47 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
+  },
 
   methods: {
+    convertFullMoonTime(value) {
+      if (value) {
+        const timezoneValue =
+          this.$store.state.weatherModule.locationOffset.timezone;
+        const offsetValue =
+          this.$store.state.weatherModule.locationOffset.offset;
+        const dateString = convertTimestampFullMoon(
+          value,
+          this.languageParam,
+          timezoneValue
+        );
+        return dateString;
+      }
+    },
     convertStringMoonIcon(value) {
       const valueName = value.toString();
 
       switch (valueName) {
-        case "Full Moon":
+        case "Full_Moon":
           return this.IcFullMoon;
-        case "First Quarter":
+        case "First_Quarter":
           return this.IcFirstQuarter;
-        case "New Moon":
+        case "New_Moon":
           return this.IcNewMoon;
-        case "Third Quarter":
+        case "Third_Quarter":
           return this.IcThirdQuarter;
-        case "Waning Gibbous":
+        case "Waning_Gibbous":
           return this.IcWaningGibbous;
-        case "Waxing Crescent":
+        case "Waxing_Crescent":
           return this.IcWaxingCrescent;
-        case "Waxing Gibbous":
+        case "Waxing_Gibbous":
           return this.IcWaxingGibbous;
         default:
           return this.IcFullMoon;

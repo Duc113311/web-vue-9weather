@@ -26,7 +26,7 @@
             <div class="flex items-center gap-1">
               <div class="bg-pressure rounded-full w-[10px] h-[10px]"></div>
               <div class="txt_regular_12">
-                <p>Pressure:</p>
+                <p>{{ $t("Pressure") }}:</p>
               </div>
               <div class="flex items-center gap-0.5">
                 <p class="txt_medium_15">

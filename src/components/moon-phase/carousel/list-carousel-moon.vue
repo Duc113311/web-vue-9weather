@@ -15,8 +15,10 @@
       >
         <el-carousel-item v-for="item in listMoonData" :key="item">
           <div class="text-center w-full">
-            <p class="txt_medium_15">{{ item.moonPhase }}</p>
-            <p class="txt_regular_14">{{ item.date }}/{{ item.monthDay }}</p>
+            <p class="txt_medium_15">{{ $t(`${item.moonPhase}`) }}</p>
+            <p class="txt_regular_10">
+              {{ convertFullMoonTime(item?.infoMoonPhaseDay?.date) }}
+            </p>
           </div>
           <div class="flex justify-center items-center w-full h-full">
             <component
@@ -50,6 +52,7 @@ import { mapGetters } from "vuex";
 import { getInfoMoonPhase } from "@/utils/moonPhase";
 import IcWaxingGibbous from "@/components/icons/moon-phase/IcWaxingGibbous.vue";
 import IcMoonphase from "@/components/icons/IcMoonphase.vue";
+import { convertTimestampFullMoon } from "@/utils/converValue";
 
 export default {
   name: "list-carousel-moon",
@@ -95,26 +98,33 @@ export default {
     currentlyData() {
       return this.currentlyGetters;
     },
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
   },
 
   methods: {
     convertStringMoonIcon(value) {
+      debugger;
       const valueName = value.toString();
 
       switch (valueName) {
-        case "Full Moon":
+        case "Full_Moon":
           return this.IcFullMoon;
-        case "First Quarter":
+        case "First_Quarter":
           return this.IcFirstQuarter;
-        case "New Moon":
+        case "New_Moon":
           return this.IcNewMoon;
-        case "Third Quarter":
+        case "Third_Quarter":
           return this.IcThirdQuarter;
-        case "Waning Gibbous":
+        case "Waning_Gibbous":
           return this.IcWaningGibbous;
-        case "Waxing Crescent":
+        case "Waxing_Crescent":
           return this.IcWaxingCrescent;
-        case "Waxing Gibbous":
+        case "Waxing_Gibbous":
           return this.IcWaxingGibbous;
         default:
           return this.IcFullMoon;
@@ -164,7 +174,7 @@ export default {
           inactive: true,
           monthDay: monthDay,
           weekend: false,
-          moonPhase: "Full Moon",
+          moonPhase: "Full_Moon",
           moonPhasePercentage: 0,
           infoMoonPhaseDay: infoMoonPhaseDay,
         });
@@ -205,7 +215,7 @@ export default {
           monthDay: monthDay,
           inactive: true,
           weekend: false,
-          moonPhase: "Full Moon",
+          moonPhase: "Full_Moon",
           moonPhasePercentage: 0,
           infoMoonPhaseDay: infoMoonPhaseDay,
         });
@@ -219,6 +229,21 @@ export default {
       const findNumber = this.rearrangeArray(dayList, day, month);
 
       this.listMoonData = findNumber;
+    },
+
+    convertFullMoonTime(value) {
+      if (value) {
+        const timezoneValue =
+          this.$store.state.weatherModule.locationOffset.timezone;
+        const offsetValue =
+          this.$store.state.weatherModule.locationOffset.offset;
+        const dateString = convertTimestampFullMoon(
+          value,
+          this.languageParam,
+          timezoneValue
+        );
+        return dateString;
+      }
     },
 
     onChangeMoon(value) {

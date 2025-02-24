@@ -243,6 +243,10 @@
   height: 80px;
 }
 
+.icon-svg-moon-list{
+  width: 80px;
+  height: 80px;
+}
 
 @media (min-width: 1024px) { /* Desktop */
   .icon-svg {
@@ -255,6 +259,10 @@
     height: 130px;
   }
 
+  .icon-svg-moon-list{
+    width: 80px;
+    height: 80px;
+  }
  
 }
 .autocomplete-1-dropdown {

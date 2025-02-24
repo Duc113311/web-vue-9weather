@@ -367,14 +367,10 @@ export default {
       return data.languages[languageKey] || data.languages.vi;
     },
 
-    async onClickShowWidget() {
-      await this.$router.push({
+    onClickShowWidget() {
+      this.$router.push({
         path: `/${this.renderLanguage}/create-widget`,
       });
-      debugger;
-      // console.log("hello");
-
-      // this.successUnit();
     },
 
     async onClickLocationNow() {

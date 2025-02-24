@@ -15,7 +15,9 @@
       </div>
     </div>
     <div class="flex items-center text-left gap-2">
-      <div class="bg-Sensitive-Groups rounded-full w-[10px] h-[10px]"></div>
+      <div class="w-[18px] h-[10px]">
+        <div class="bg-Sensitive-Groups rounded-full w-full h-full"></div>
+      </div>
       <div class="text-left">
         <p class="txt_regular_12">{{ $t("Unhealthy_for_Sensitive_Groups") }}</p>
       </div>

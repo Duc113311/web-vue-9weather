@@ -15,8 +15,8 @@
           v-if="listMoonData.length !== 0"
         >
           <div class="text-left relative h-full w-[50%]">
-            <div class="txt_medium_17 text-left">
-              <span>{{ listMoonData[0].moonPhase }}</span>
+            <div class="txt_medium_14 text-left">
+              <span>{{ $t(`${listMoonData[0].moonPhase}`) }}</span>
             </div>
             <div class="txt_regular_12 pt-1">
               <p>
@@ -142,6 +142,13 @@ export default {
     renderPosition() {
       return this.$store.state.weatherModule.cityCountry;
     },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
   },
 
   watch: {
@@ -152,7 +159,15 @@ export default {
 
   methods: {
     convertFullMoonTime(value) {
-      return convertTimestampFullMoon(value);
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const dateString = convertTimestampFullMoon(
+        value,
+        this.languageParam,
+        timezoneValue
+      );
+      return dateString;
     },
     convertTime(val) {
       const offsetValue =
@@ -185,19 +200,19 @@ export default {
       const valueName = value.toString();
 
       switch (valueName) {
-        case "Full Moon":
+        case "Full_Moon":
           return this.IcFullMoon;
-        case "First Quarter":
+        case "First_Quarter":
           return this.IcFirstQuarter;
-        case "New Moon":
+        case "New_Moon":
           return this.IcNewMoon;
-        case "Third Quarter":
+        case "Third_Quarter":
           return this.IcThirdQuarter;
-        case "Waning Gibbous":
+        case "Waning_Gibbous":
           return this.IcWaningGibbous;
-        case "Waxing Crescent":
+        case "Waxing_Crescent":
           return this.IcWaxingCrescent;
-        case "Waxing Gibbous":
+        case "Waxing_Gibbous":
           return this.IcWaxingGibbous;
         default:
           return this.IcFullMoon;

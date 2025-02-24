@@ -189,6 +189,14 @@ export default {
       return listDaily30Day;
     },
 
+    languageParam() {
+      debugger;
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
     locationOffsetValue() {
       return this.$store.state.weatherModule.locationOffset.offset;
     },
@@ -288,7 +296,15 @@ export default {
     },
 
     onvertToShortMonth(value) {
-      return convertTimestampToMonthYear(value);
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      return convertTimestampToMonthYear(
+        value,
+        this.languageParam,
+        offsetValue,
+        timezoneValue
+      );
     },
 
     convertToShortToDay() {

@@ -5,7 +5,7 @@
       <template v-slot:header>
         <div class="w-full text-left bor-bottom">
           <div class="w-full">
-            <div class="txt_regular">
+            <div class="txt_regular text-left">
               <span>{{ $t("Weather_forecast_on_your_website") }}</span>
             </div>
             <div class="txt_light_summer">
@@ -167,7 +167,7 @@
 
             <div class="w-full mt-4 text-left">
               <button
-                @click="onClickCreateWidget()"
+                @click="onClickCreateWidget(true)"
                 type="button"
                 class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-xl text-sm px-4 py-2.5 text-center me-2 mb-2"
               >
@@ -946,7 +946,7 @@ export default {
     };
     this.setOptionWidget(objectOptionWidgetNew);
     if (this.renderObjectWidget) {
-      this.onClickCreateWidget();
+      this.onClickCreateWidget(false);
     }
   },
 
@@ -1152,7 +1152,7 @@ export default {
       }
     },
 
-    onClickCreateWidget() {
+    onClickCreateWidget(value) {
       this.isVisible = false;
       const objectOptionWidgetNew = {
         valueSample: this.valueSampling,
@@ -1205,7 +1205,9 @@ export default {
         allowtransparency="true"
         style="border: none; overflow: hidden"
       ></iframe>`;
-      this.successCreate();
+      if (value === true) {
+        this.successCreate();
+      }
     },
 
     onClickCopyWidget() {

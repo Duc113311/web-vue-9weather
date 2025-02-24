@@ -258,7 +258,7 @@ export default {
           inactive: true,
           monthDay: monthDay,
           weekend: false,
-          moonPhase: "Full Moon",
+          moonPhase: "Full_Moon",
           moonPhasePercentage: 0,
           infoMoonPhaseDay: infoMoonPhaseDay,
         });
@@ -299,7 +299,7 @@ export default {
           monthDay: monthDay,
           inactive: true,
           weekend: false,
-          moonPhase: "Full Moon",
+          moonPhase: "Full_Moon",
           moonPhasePercentage: 0,
           infoMoonPhaseDay: infoMoonPhaseDay,
         });

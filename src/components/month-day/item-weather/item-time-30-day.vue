@@ -136,7 +136,9 @@
                 </div>
 
                 <div class="flex items-center">
-                  <div class="flex items-center gap-2 mr-4 w-[100px]">
+                  <div
+                    class="flex items-center gap-2 mr-4 md:w-[120px] w-[100px]"
+                  >
                     <component
                       class="icon-svg"
                       :is="renderIcon(item)"

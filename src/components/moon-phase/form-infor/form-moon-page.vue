@@ -31,51 +31,52 @@
       <div class="w-full text-left">
         <div class="w-full text-left pt-4 pb-2">
           <span class="txt_poppins_24">
-            {{ objectMoonNewParam.moonPhase }}
+            {{ $t(`${objectMoonNewParam.moonPhase}`) }}
           </span>
         </div>
         <!--   -->
 
         <div class="w-full text-left flex flex-col gap-2 mt-2">
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Illumination</p>
+            <p class="txt_regular_12">{{ $t("Illumination") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.illumination }}%
             </p>
           </div>
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Moonset</p>
+            <p class="txt_regular_12">{{ $t("Moonset") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.moonset }}
             </p>
           </div>
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Moonrise</p>
+            <p class="txt_regular_12">{{ $t("Moonrise") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.moonrise }}
             </p>
           </div>
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Next New Moon</p>
+            <p class="txt_regular_12">{{ $t("Next_New_Moon") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.nextNewMoon }}
             </p>
           </div>
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Next full moon</p>
+            <p class="txt_regular_12">{{ $t("Next_full_moon") }}</p>
             <p class="txt_regular_12">
-              {{ objectMoonNewParam?.infoMoonPhaseDay?.nextFullMoon }} days
+              {{ objectMoonNewParam?.infoMoonPhaseDay?.nextFullMoon }}
+              {{ $t("days") }}
             </p>
           </div>
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Moon Sign</p>
+            <p class="txt_regular_12">{{ $t("Moon_Sign") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.moonSign }}
             </p>
           </div>
 
           <div class="flex justify-between items-baseline">
-            <p class="txt_regular_12">Distance</p>
+            <p class="txt_regular_12">{{ $t("Distance") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.distance }}
             </p>
@@ -110,6 +111,8 @@ export default {
 
   computed: {
     objectMoonNewParam() {
+      console.log("this.objectMoonNew;", this.objectMoonNew);
+
       return this.objectMoonNew;
     },
   },

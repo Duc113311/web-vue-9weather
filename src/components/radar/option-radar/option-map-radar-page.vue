@@ -70,7 +70,7 @@ export default {
           urlImg: require("../../../assets/images/radar/rain.png"),
         },
         {
-          title: "Cloud",
+          title: this.$t("Cloud"),
           codeOverlay: "clouds",
           urlImg: require("../../../assets/images/radar/cloudy.png"),
         },

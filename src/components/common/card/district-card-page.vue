@@ -50,9 +50,17 @@
       </div>
 
       <div class="txt_regular_12 color_BFBFBF">
-        <p>
+        <!-- <p>
           ({{ Math.round(calculateDistance(objectLocation.location))
           }}{{ unitSetting.activeDistance_save }} {{ $t("Away") }})
+        </p> -->
+        <p>
+          {{
+            $t(`{number}_{unit}_away`, {
+              number: Math.round(calculateDistance(objectLocation.location)),
+              unit: unitSetting.activeDistance_save,
+            })
+          }}
         </p>
       </div>
     </div>
