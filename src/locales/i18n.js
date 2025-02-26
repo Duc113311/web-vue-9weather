@@ -42,6 +42,9 @@ const messages = {
     ...loadVietnamMessages(),
     ...loadCommonMessages().vi,
   },
+  ja: {
+    ...loadCommonMessages().ja,
+  },
 };
 
 // const messages = {
