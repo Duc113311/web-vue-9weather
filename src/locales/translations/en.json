@@ -14,7 +14,7 @@
   "Distance": "Distance",
   "Wind_speed": "Wind",
   "Humid": "Humidity",
-  "Rain":"Rain",
+  "Rain": "Rain",
   "Pressure": "Pressure",
   "Cloud_cover": "Cloud Cover",
   "Wind_direction": "Wind Direction",
@@ -85,7 +85,7 @@
   "See_more": "See more",
   "Cities_Provinces": "Provinces Weather",
   "Away": "away",
-  "{number}_{unit}_away":"{number} {unit} aways",
+  "{number}_{unit}_away": "{number} {unit} aways",
   "Hide": "Hide",
   "High": "High",
   "Recommended_Precautions": "Recommended Precautions",
@@ -123,7 +123,8 @@
   "Snow": "Snow",
   "Cloud": "Cloud",
   "Radar_Map": "Radar Map",
-  "{city}_Air_Quality": "{city} Air Quality",
+  "{city}_UV_Index_By_Hour": "{city} Air Quality",
+  "{city}_By_House": "{city} UV index by hour",
   "Pollutant": "Major Air Pollutants",
   "Version": "Version",
   "Now": "Now",
@@ -287,6 +288,8 @@
   "INSTRUCTIONS_ON_WEBSITE": "INSTRUCTIONS ON HOW TO INSERT WEATHER WIDGET INFORMATION INTO THE WEBSITE",
   "Illumination": "Illumination",
   "Moonset": "Moonset",
-  "Next_New_Moon":"Next New Moon",
-  "Moon_Sign":"Moon Sign"
+  "Next_New_Moon": "Next New Moon",
+  "Moon_Sign": "Moon Sign",
+  "Wind_gust": "Wind Gust",
+  "Ozone": "Ozone"
 }

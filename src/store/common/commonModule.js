@@ -2,11 +2,11 @@ import { httpWeather } from "../../configs/http-weather";
 import { decodeBase64 } from "../../utils/EncoderDecoderUtils";
 
 const state = {
-  titleBackgroundColor: "#0D274C",
-  descriptionColor: "#C7C8C8",
-  titleColor: "#ffffff",
-  textColor: "#CCCEFF",
-  lineColor: "#F2F2F2",
+  titleBackgroundColor: "var(--bg-color-widget)",
+  descriptionColor: `var(--description-color-widget)`,
+  titleColor: `var(--title-color-widget)`,
+  textColor: `var(--text-color-widget)`,
+  lineColor: `var(--line-color-widget)`,
   statusAddWidget: true,
 
   objectWidget: {
@@ -138,6 +138,9 @@ const getters = {
 };
 
 const mutations = {
+  SET_TITLE_BACKGROUND_COLOR(state, value) {
+    state.titleBackgroundColor = value;
+  },
   setIsScroll(state, value) {
     state.isScroll = value;
   },

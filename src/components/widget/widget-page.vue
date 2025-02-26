@@ -292,11 +292,21 @@
                           <span>{{ convertDayWeek(item.time) }}</span>
                         </div>
                         <div class="flex text-right">
-                          <img
-                            src="../../assets/images/svg_v2/ic_droplet_blue.svg"
-                            alt=""
-                            width="16"
-                          />
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 22C13.8565 22 15.637 21.2625 16.9497 19.9497C18.2625 18.637 19 16.8565 19 15C19 13 18 11.1 16 9.5C14 7.9 12.5 5.5 12 3C11.5 5.5 10 7.9 8 9.5C6 11.1 5 13 5 15C5 16.8565 5.7375 18.637 7.05025 19.9497C8.36301 21.2625 10.1435 22 12 22Z"
+                              stroke="var(--color-chance-of-rain)"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
                           <span>{{ Math.round(item.humidity * 100) }}%</span>
                         </div>
                         <div class="flex items-center gap-2">
@@ -893,20 +903,81 @@ export default {
       ];
     },
 
-    titleBackgroundColor() {
-      return this.$store.state.commonModule.titleBackgroundColor;
+    titleBackgroundColor: {
+      get() {
+        debugger;
+        const valueTheme = localStorage.getItem("theme");
+        if (valueTheme === "light") {
+          return "#ffffff";
+        } else {
+          return "#0D274C";
+        }
+      },
+      set(value) {
+        debugger;
+        this.SET_TITLE_BACKGROUND_COLOR(value);
+      },
     },
-    descriptionColor() {
-      return this.$store.state.commonModule.descriptionColor;
+
+    descriptionColor: {
+      get() {
+        debugger;
+        const valueTheme = localStorage.getItem("theme");
+        if (valueTheme === "light") {
+          return "#889a9a";
+        } else {
+          return "#C7C8C8";
+        }
+      },
+      set(value) {
+        debugger;
+        this.setDescriptionColor(value);
+      },
     },
-    titleColor() {
-      return this.$store.state.commonModule.titleColor;
+    titleColor: {
+      get() {
+        debugger;
+        const valueTheme = localStorage.getItem("theme");
+        if (valueTheme === "light") {
+          return "#0E2950";
+        } else {
+          return "#ffffff";
+        }
+      },
+      set(value) {
+        debugger;
+        this.setTitleColor(value);
+      },
     },
-    textColor() {
-      return this.$store.state.commonModule.textColor;
+    textColor: {
+      get() {
+        debugger;
+        const valueTheme = localStorage.getItem("theme");
+        if (valueTheme === "light") {
+          return "#7d7fd2";
+        } else {
+          return "#CCCEFF";
+        }
+      },
+      set(value) {
+        debugger;
+        this.setTextColor(value);
+      },
     },
-    lineColor() {
-      return this.$store.state.commonModule.lineColor;
+    lineColor: {
+      get() {
+        debugger;
+        const valueTheme = localStorage.getItem("theme");
+        if (valueTheme === "light") {
+          return "#739bd3";
+        } else {
+          return "#F2F2F2";
+        }
+      },
+      set(value) {
+        debugger;
+        this.setLineColor(value);
+      },
     },
 
     renderObjectWidget() {
@@ -958,6 +1029,7 @@ export default {
       "setTextColor",
       "setLineColor",
       "setNumberDataDaily",
+      "SET_TITLE_BACKGROUND_COLOR",
     ]),
     ...mapMutations("weatherModule", [
       "setNumberDailyWeather",

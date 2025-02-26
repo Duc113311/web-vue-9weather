@@ -10,7 +10,7 @@
             v-if="breadcumsObject.country_key === 'vn'"
           >
             <span v-if="breadcumsObject?.city && !breadcumsObject?.district">{{
-              $t(`{city}_Air_Quality`, {
+              $t(`{city}_By_House`, {
                 city: $t(
                   `city.city_${languageParam}.${breadcumsObject?.city_key}`
                 ),
@@ -24,7 +24,7 @@
               "
             >
               {{
-                $t(`{city}_Air_Quality`, {
+                $t(`{city}_By_House`, {
                   city: $t(
                     `${convertToSlugCity(
                       breadcumsObject?.city
@@ -45,7 +45,7 @@
               "
             >
               {{
-                $t(`{city}_Air_Quality`, {
+                $t(`{city}_By_House`, {
                   city: $t(
                     `${convertToSlugCity(
                       breadcumsObject?.city
@@ -61,7 +61,7 @@
           </div>
           <div class="txt_medium_14" v-else>
             <span v-if="breadcumsObject?.state && !breadcumsObject?.county">{{
-              $t(`{city}_Air_Quality`, {
+              $t(`{city}_By_House`, {
                 city: $t(`${breadcumsObject?.state}`),
               })
             }}</span>
@@ -72,7 +72,7 @@
                 !breadcumsObject?.cities
               "
               >{{
-                $t(`{city}_Air_Quality`, {
+                $t(`{city}_By_House`, {
                   city: $t(`${breadcumsObject?.county}`),
                 })
               }}</span
@@ -85,7 +85,7 @@
                 breadcumsObject?.cities
               "
               >{{
-                $t(`{city}_Air_Quality`, {
+                $t(`{city}_By_House`, {
                   city: $t(`${breadcumsObject?.cities}`),
                 })
               }}</span
@@ -187,7 +187,16 @@ export default {
     },
 
     listHourly() {
-      return this.$store.state.weatherModule.hourly24h;
+      const hourly24hValue = [...this.$store.state.weatherModule.hourly24h]; // Tạo bản sao để tránh thay đổi trực tiếp trong store
+      const currently = this.$store.state.weatherModule.currently;
+
+      if (hourly24hValue.length !== 0 && currently) {
+        hourly24hValue.splice(0, 1, currently); // Chỉ thay thế phần tử đầu tiên bằng object currently
+      }
+
+      console.log("hourly24hValue", hourly24hValue);
+
+      return hourly24hValue;
     },
 
     objectSetting() {
@@ -248,7 +257,7 @@ export default {
       if (unitSetting.activeTime_save === "12h") {
         return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
       } else {
-        return convertTimestamp24hSun(val, 1, offsetValue);
+        return convertTimestamp24hSun(val, 1, offsetValue, timezoneValue);
       }
     },
 

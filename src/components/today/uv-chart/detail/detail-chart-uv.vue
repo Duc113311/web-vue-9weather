@@ -46,7 +46,16 @@ export default {
 
   computed: {
     listHourly() {
-      return this.$store.state.weatherModule.hourly24h;
+      const hourly24hValue = [...this.$store.state.weatherModule.hourly24h]; // Tạo bản sao để tránh thay đổi trực tiếp trong store
+      const currently = this.$store.state.weatherModule.currently;
+
+      if (hourly24hValue.length !== 0 && currently) {
+        hourly24hValue.splice(0, 1, currently); // Chỉ thay thế phần tử đầu tiên bằng object currently
+      }
+
+      console.log("hourly24hValue", hourly24hValue);
+
+      return hourly24hValue;
     },
 
     objectSetting() {
@@ -92,7 +101,7 @@ export default {
       if (unitSetting.activeTime_save === "12h") {
         return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
       } else {
-        return convertTimestamp24hSun(val, 1, offsetValue);
+        return convertTimestamp24hSun(val, 1, offsetValue, timezoneValue);
       }
     },
     createChartHourly24h() {

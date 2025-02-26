@@ -43,7 +43,7 @@
 }
 
 .show-scroll::-webkit-scrollbar {
-  width: 0px;
+  width: 2px;
 }
 
 .show-scroll::-webkit-scrollbar-track {

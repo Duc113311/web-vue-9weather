@@ -18,8 +18,7 @@
                   `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
                     breadcumsObject.city
                   )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
-                ),
-                "District"
+                )
               )
             )
           }}

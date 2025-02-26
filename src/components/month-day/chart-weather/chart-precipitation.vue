@@ -83,7 +83,7 @@ export default {
       if (unitSetting.activeTime_save === "12h") {
         return convertTimestamp12hSun(val, 1, offsetValue, timezoneValue);
       } else {
-        return convertTimestamp24hSun(val, 1, offsetValue);
+        return convertTimestamp24hSun(val, 1, offsetValue, timezoneValue);
       }
     },
 

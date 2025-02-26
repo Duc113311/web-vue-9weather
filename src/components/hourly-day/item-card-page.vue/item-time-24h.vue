@@ -305,12 +305,12 @@
 
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
-                    <IcTitleSunrise class="icon-svg"></IcTitleSunrise>
-                    <p class="txt_regular_14">{{ $t("Sunrise") }}</p>
+                    <IcTitleOzone3 class="icon-svg"></IcTitleOzone3>
+                    <p class="txt_regular_14">{{ $t("Ozone") }}</p>
                   </div>
                   <div class="flex items-center gap-1">
                     <span class="txt_medium_15">
-                      {{ convertTimeUnit(dailyOneGettersData?.sunriseTime) }}
+                      {{ item?.ozone }}
                     </span>
                     <!-- <span class="txt_regular_14" v-if="timePeriodSunriseTime">
                       ({{ timePeriodSunriseTime }})
@@ -320,16 +320,16 @@
 
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
-                    <IcTitleSunset class="icon-svg"></IcTitleSunset>
-                    <p class="txt_regular_14">{{ $t("Sunset") }}</p>
+                    <IcTitleWindGust class="icon-svg"></IcTitleWindGust>
+                    <p class="txt_regular_14">{{ $t("Wind_gust") }}</p>
                   </div>
                   <div class="flex items-center gap-1">
-                    <span class="txt_medium_15">
-                      {{ convertTimeUnit(dailyOneGettersData?.sunsetTime) }}
-                    </span>
-                    <!-- <span class="txt_regular_14" v-if="timePeriodSunsetTime">
-                      ({{ timePeriodSunsetTime }})
-                    </span> -->
+                    <p class="txt_medium_15">
+                      {{ convertWindSpeed(item.windGust) }}
+                    </p>
+                    <span class="txt_regular_14">{{
+                      convertUnitWindSpeed()
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -383,6 +383,7 @@ import {
   convertAMPMFromTimestamp,
   convertTimestamp24hSun,
   convertTimestamp12hSun,
+  convertTime24hTimeZoneNotNow,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
 import { mapGetters } from "vuex";
@@ -404,6 +405,8 @@ import IcTemptMin from "@/components/icons/IcTemptMin.vue";
 import IcTempt from "@/components/icons/IcTempt.vue";
 import IcHumidity from "@/components/icons/IcHumidity.vue";
 import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
+import IcTitleOzone3 from "@/components/icons/IcTitleOzone3.vue";
+import IcTitleWindGust from "@/components/icons/IcTitleWindGust.vue";
 
 export default {
   name: "item-time-24h",
@@ -426,6 +429,8 @@ export default {
     IcTitleSunrise,
     IcHumidity,
     IcChanceOfRainSnow,
+    IcTitleWindGust,
+    IcTitleOzone3,
   },
   data() {
     return {
@@ -640,9 +645,19 @@ export default {
         this.$store.state.weatherModule.locationOffset.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestamp12hSun(value, 1, offsetValue, timezoneValue);
+        return convertTime12hTimeZoneNotNowUnit(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       } else {
-        return convertTimestamp24hSun(value, 0, offsetValue, timezoneValue);
+        return convertTime24hTimeZoneNotNow(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       }
     },
 

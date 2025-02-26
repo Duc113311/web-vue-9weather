@@ -556,44 +556,10 @@ export function convertTime12hTimeZoneNotNowUnit(
   let [hours, minutes] = time.split(":").map(Number);
 
   const formattedHours = parseInt(hours, 10).toString();
-  const formattedMinutes = "00";
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  // const formattedMinutes = "00";
 
-  const now = new Date();
-  const nowFormatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    hour: "2-digit",
-    hour12: true,
-  });
-
-  return `${formattedHours}:${formattedMinutes}`;
-}
-
-export function convertTime12hTimeZoneNotNow(
-  timestamp,
-  numberTime,
-  offsetValue,
-  timezone
-) {
-  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
-  // Lấy giờ và phút
-  let hours = dateTime.hour; // Giờ
-  let minutes = dateTime.minute; // Phút
-
-  // Chuyển đổi giờ sang định dạng 12 giờ
-  let period = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
-  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
-
-  const now = DateTime.now().setZone(timezone);
-  let hoursNow = now.hour % 12 || 12;
-  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
-
-  // Trả về thời gian định dạng 12 giờ
-  if (numberTime === 0) {
-    return hours + ":" + minutes + " " + period;
-  } else if (numberTime === 1) {
-    return hours + ":" + minutes + " " + period;
-  }
+  return `${formattedHours}:${formattedMinutes} (${period})`;
 }
 
 export function convertTime24hTimeZoneNotNow(
@@ -634,6 +600,34 @@ export function convertTime24hTimeZoneNotNow(
   return `${formattedHours}:${formattedMinutes}`;
 }
 
+export function convertTime12hTimeZoneNotNow(
+  timestamp,
+  numberTime,
+  offsetValue,
+  timezone
+) {
+  const dateTime = DateTime.fromMillis(timestamp * 1000, { zone: timezone });
+  // Lấy giờ và phút
+  let hours = dateTime.hour; // Giờ
+  let minutes = dateTime.minute; // Phút
+
+  // Chuyển đổi giờ sang định dạng 12 giờ
+  let period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
+  minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
+
+  const now = DateTime.now().setZone(timezone);
+  let hoursNow = now.hour % 12 || 12;
+  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
+
+  // Trả về thời gian định dạng 12 giờ
+  if (numberTime === 0) {
+    return hours + ":" + minutes + " " + period;
+  } else if (numberTime === 1) {
+    return hours + ":" + minutes + " " + period;
+  }
+}
+
 export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
   const date = new Date(timestamp * 1000);
   const utcTime = date.getTime();
@@ -669,9 +663,12 @@ export function convertTimestamp24hSun(
   offsetValue,
   timezone
 ) {
-  const date = new Date(timestamp * 1000);
+  const adjustedTimestamp = timestamp + offsetValue * 60;
 
-  // Sử dụng Intl.DateTimeFormat để lấy thời gian theo timezone mong muốn
+  const date = new Date(adjustedTimestamp * 1000);
+  console.log("timezone", timezone);
+
+  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
   const formatter = new Intl.DateTimeFormat("en-GB", {
     timeZone: timezone,
     hour: "2-digit",
@@ -680,11 +677,10 @@ export function convertTimestamp24hSun(
   });
 
   // Chuyển timestamp thành đúng giờ theo timezone
-  const formattedTime = formatter.format(date);
+  let formattedTime = formatter.format(date);
 
   // Cộng thêm offset (1 phút)
   let [hours, minutes] = formattedTime.split(":").map(Number);
-  minutes += offsetValue;
 
   // Xử lý nếu phút >= 60
   if (minutes >= 60) {
@@ -694,7 +690,8 @@ export function convertTimestamp24hSun(
 
   // Định dạng lại giờ & phút với số 0 phía trước nếu cần
   const formattedHours = hours.toString().padStart(2, "0");
-  const formattedMinutes = minutes.toString().padStart(2, "0");
+  // const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedMinutes = "00";
 
   return `${formattedHours}:${formattedMinutes}`;
 }
@@ -705,7 +702,9 @@ export function convertTimestamp12hSun(
   offsetValue,
   timezone
 ) {
-  const date = new Date(timestamp * 1000);
+  // Cộng offset vào timestamp trước khi chuyển đổi
+  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
+  const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
 
   // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -715,28 +714,15 @@ export function convertTimestamp12hSun(
     hour12: true, // Định dạng 12h AM/PM
   });
 
-  // Chuyển timestamp thành đúng giờ theo timezone
   let formattedTime = formatter.format(date);
-
-  // Cộng thêm offset (1 phút)
   let [time, period] = formattedTime.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
-  minutes += offsetValue;
 
-  // Xử lý nếu giờ >= 12h
-  if (hours >= 12) {
-    period = "PM";
-    if (hours > 12) hours -= 12;
-  } else {
-    period = "AM";
-    if (hours === 0) hours = 12;
-  }
+  const formattedHours = parseInt(hours, 10).toString();
+  // const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedMinutes = "00";
 
-  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
-  const formattedHours = hours.toString();
-  const formattedMinutes = minutes.toString().padStart(2, "0");
-
-  return `${formattedHours}:${formattedMinutes} ${period}`;
+  return `${formattedHours}:${formattedMinutes} (${period})`;
 }
 
 //
@@ -770,45 +756,10 @@ export function convertTimestampNow24(timestamp, numberTime, offsetValue) {
 }
 
 export function convertTimeSun(timestamp, timezone, offsetValue, activeTime) {
-  if (activeTime === "12h") {
-    // Cộng offset vào timestamp trước khi chuyển đổi
+  debugger;
+  
     const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
     const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
-
-    // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
-    const formatter = new Intl.DateTimeFormat("en-US", {
-      timeZone: timezone,
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true, // Định dạng 12h AM/PM
-    });
-
-    // Chuyển timestamp thành đúng giờ theo timezone
-    let formattedTime = formatter.format(date);
-    let [time, period] = formattedTime.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
-
-    // console.log("minutes", minutes);
-
-    // Loại bỏ số 0 đứng trước nếu có
-    const formattedHours = parseInt(hours, 10).toString();
-    // const formattedMinutes = minutes.toString().padStart(2, "0");
-    const formattedMinutes = "00";
-
-    // console.log("formattedMinutes", formattedMinutes);
-
-    // Lấy giờ hiện tại theo timezone (chỉ lấy giờ)
-    const now = new Date();
-    const nowFormatter = new Intl.DateTimeFormat("en-US", {
-      timeZone: timezone,
-      hour: "2-digit",
-      hour12: true,
-    });
-
-    return formattedHours;
-  } else {
-    // Chuyển timestamp từ giây sang milliseconds
-    const date = new Date(timestamp * 1000);
 
     // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
     const formatter = new Intl.DateTimeFormat("en-GB", {
@@ -836,7 +787,6 @@ export function convertTimeSun(timestamp, timezone, offsetValue, activeTime) {
     console.log("formattedHours", formattedHours);
 
     return formattedHours;
-  }
 }
 
 export function convertTimestampToAmPm(timestamp) {
@@ -2100,7 +2050,7 @@ export function formatDateFull(timestamp, offset, locale = "en-US") {
 
 export function convertTimestampFullMoon(dateString, locale, timezone) {
   // Chuyển chuỗi thành Date object
-  
+
   const date = new Date(dateString);
 
   // Lấy thông tin ngày, tháng, năm, thứ

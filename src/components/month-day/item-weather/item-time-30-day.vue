@@ -252,6 +252,21 @@
                       }}</span>
                     </div>
                   </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <IcTitleOzone3 class="icon-svg"></IcTitleOzone3>
+                      <p class="txt_regular_14">{{ $t("Ozone") }}</p>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <span class="txt_medium_15">
+                        {{ item?.ozone }}
+                      </span>
+                      <!-- <span class="txt_regular_14" v-if="timePeriodSunriseTime">
+                      ({{ timePeriodSunriseTime }})
+                    </span> -->
+                    </div>
+                  </div>
                 </div>
 
                 <!--  -->
@@ -312,6 +327,21 @@
                   </div>
 
                   <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <IcTitleWindGust class="icon-svg"></IcTitleWindGust>
+                      <p class="txt_regular_14">{{ $t("Wind_gust") }}</p>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <p class="txt_medium_15">
+                        {{ convertWindSpeed(item.windGust) }}
+                      </p>
+                      <span class="txt_regular_14">{{
+                        convertUnitWindSpeed()
+                      }}</span>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
                     <div class="flex items-center gap-1">
                       <IcTitleSunrise class="icon-svg"></IcTitleSunrise>
                       <p class="txt_regular_14">{{ $t("Sunrise") }}</p>
@@ -322,8 +352,10 @@
                       </p>
                       <span
                         class="txt_regular_14"
-                        v-if="timePeriodSunriseTime(item?.sunriseTime)"
-                        >({{ timePeriodSunriseTime(item?.sunriseTime) }})</span
+                        v-if="convertTimeUnit(item?.sunriseTime)"
+                        >{{
+                          convertTimeUnit(item?.sunriseTime).split(" ")[1]
+                        }}</span
                       >
                     </div>
                   </div>
@@ -339,8 +371,10 @@
                       </p>
                       <span
                         class="txt_regular_14"
-                        v-if="timePeriodSunsetTime(item?.sunsetTime)"
-                        >({{ timePeriodSunsetTime(item?.sunsetTime) }})</span
+                        v-if="convertTimeUnit(item?.sunsetTime)"
+                        >{{
+                          convertTimeUnit(item?.sunsetTime).split(" ")[1]
+                        }}</span
                       >
                     </div>
                   </div>
@@ -419,6 +453,8 @@ import IcTitleSunset from "@/components/icons/IcTitleSunset.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
 import IcHumidity from "@/components/icons/IcHumidity.vue";
 import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
+import IcTitleOzone3 from "@/components/icons/IcTitleOzone3.vue";
+import IcTitleWindGust from "@/components/icons/IcTitleWindGust.vue";
 
 export default {
   name: "item-time-30-day",
@@ -441,6 +477,8 @@ export default {
     IcPrecipitation,
     IcHumidity,
     IcChanceOfRainSnow,
+    IcTitleOzone3,
+    IcTitleWindGust,
   },
   data() {
     return {

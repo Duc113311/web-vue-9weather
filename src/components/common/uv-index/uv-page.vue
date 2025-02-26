@@ -25,7 +25,7 @@
             <p>{{ convertInformationUVIndex(currentlyData?.uvIndex) }}</p>
           </div>
         </div>
-        <div class="w-full relative mt-1 pr-2 h-[calc(100%-100px)]">
+        <div class="w-full relative mt-4 pr-2 h-[calc(100%-108px)]">
           <!--  -->
           <div class="chart-container absolute bottom-0 w-full h-full">
             <!--  -->

@@ -5,7 +5,7 @@
       <div class="md:flex w-full items-center justify-between hidden">
         <div
           class="flex items-center gap-2"
-          v-if="namePage !== 'unit_settings'"
+          v-if="namePage !== 'unit_settings' && namePage !== 'unit_language'"
         >
           <img
             src="../../assets/images/svg_v2/ic_settings.svg"
@@ -26,6 +26,20 @@
           />
           <p class="txt_regular text-white">
             <span>{{ $t(`Unit_preferences_settings`) }}</span>
+          </p>
+        </div>
+        <div
+          @click="onClickBack('settings')"
+          class="flex items-center gap-2 cursor-pointer"
+          v-if="namePage === 'unit_language'"
+        >
+          <img
+            src="../../assets/images/svg_v2/ic_back_st.svg"
+            alt=""
+            srcset=""
+          />
+          <p class="txt_regular text-white">
+            <span>{{ $t(`Language`) }}</span>
           </p>
         </div>
 
@@ -190,7 +204,7 @@
       <!-- desktop -->
       <div class="w-full md:block hidden">
         <div
-          v-if="namePage !== 'unit_settings'"
+          v-if="namePage !== 'unit_settings' && namePage !== 'unit_language'"
           class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
           @click="onClickUnitSetting('unit_settings')"
         >
@@ -202,7 +216,20 @@
           </div>
         </div>
         <div
-          v-if="namePage !== 'unit_settings'"
+          v-if="namePage !== 'unit_settings' && namePage !== 'unit_language'"
+          class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
+          @click="onClickLanguage('unit_language')"
+        >
+          <div class="txt_regular flex items-center text-white">
+            <span>{{ $t(`Language`) }}</span>
+          </div>
+          <div>
+            <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
+          </div>
+        </div>
+
+        <div
+          v-if="namePage !== 'unit_settings' && namePage !== 'unit_language'"
           class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         >
           <div class="txt_regular flex items-center text-white">
@@ -225,12 +252,14 @@
         <UnitPreferencesPage
           v-if="namePage === 'unit_settings'"
         ></UnitPreferencesPage>
+
+        <LanguagePage v-if="namePage === 'unit_language'"></LanguagePage>
       </div>
 
       <!-- mobile -->
 
       <div class="txt_regular_14 absolute bottom-0 right-0 color-footer p-5">
-        <span>{{ $t("Version") }} 5 - 19/2/2025</span>
+        <span>{{ $t("Version") }} 6 - 26/2/2025</span>
       </div>
     </div>
   </div>
@@ -271,6 +300,7 @@ import {
 } from "@/utils/EncoderDecoderUtils";
 import removeAccents from "remove-accents";
 import { Search } from "@element-plus/icons-vue";
+import LanguagePage from "@/components/settings/language-page.vue";
 
 export default {
   name: "header-menu",
@@ -294,6 +324,7 @@ export default {
     IcDarkLight,
     IcUnitPreferences,
     IcRightArrow,
+    LanguagePage,
   },
 
   data() {
@@ -879,6 +910,10 @@ export default {
       return normalizedStr;
     },
     onClickUnitSetting(value) {
+      this.namePage = value;
+    },
+
+    onClickLanguage(value) {
       this.namePage = value;
     },
 

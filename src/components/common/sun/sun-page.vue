@@ -14,19 +14,37 @@
             class="flex items-center justify-between w-full absolute bottom-24"
           >
             <div class="flex flex-col gap-2 items-center">
-              <p class="txt_medium_14 pl-2 text-center">
-                <span>{{ convertTime(paramDailyOne?.sunriseTime) }}</span
-                ><br />
-                <span class="txt_regular_12">{{ $t("Sunrise") }}</span>
-              </p>
+              <div class="flex items-center gap-1">
+                <p class="txt_medium_14 pl-2 text-center">
+                  {{
+                    convertTimeUnit(paramDailyOne?.sunriseTime).split(" ")[0]
+                  }}
+                </p>
+                <span
+                  class="txt_regular_14"
+                  v-if="convertTimeUnit(paramDailyOne?.sunriseTime)"
+                  >{{
+                    convertTimeUnit(paramDailyOne?.sunriseTime).split(" ")[1]
+                  }}</span
+                >
+              </div>
+              <span class="txt_regular_12">{{ $t("Sunrise") }}</span>
             </div>
             <!--  -->
             <div class="flex flex-col gap-2 items-center">
-              <p class="txt_medium_14 pr-2 text-center">
-                <span>{{ convertTime(paramDailyOne?.sunsetTime) }}</span
-                ><br />
-                <span class="txt_regular_12">{{ $t("Sunset") }}</span>
-              </p>
+              <div class="flex items-center gap-1 pr-2">
+                <p class="txt_medium_14 text-center">
+                  {{ convertTimeUnit(paramDailyOne?.sunsetTime).split(" ")[0] }}
+                </p>
+                <span
+                  class="txt_regular_14"
+                  v-if="convertTimeUnit(paramDailyOne?.sunsetTime)"
+                  >{{
+                    convertTimeUnit(paramDailyOne?.sunsetTime).split(" ")[1]
+                  }}</span
+                >
+              </div>
+              <span class="txt_regular_12">{{ $t("Sunset") }}</span>
             </div>
           </div>
           <canvas
@@ -43,6 +61,8 @@
 <script>
 import BaseComponent from "../baseComponent.vue";
 import {
+  convertTime12hTimeZoneNotNowUnit,
+  convertTime24hTimeZoneNotNow,
   convertTimestamp12hSun,
   convertTimestamp24hSun,
   convertTimeSun,
@@ -83,13 +103,14 @@ export default {
     timeHourly() {
       const timeValue = this.$store.state.weatherModule.currently;
 
-      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const offsetValue =
+        this.$store.state.weatherModule.locationOffset?.offset;
 
       const timezoneValue =
         this.$store.state.weatherModule?.locationOffset?.timezone;
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       return Math.round(
-        (convertTimeSun(
+        (this.convertTimeSunRender(
           timeValue.time,
           timezoneValue,
           offsetValue,
@@ -108,7 +129,10 @@ export default {
   },
 
   methods: {
-    convertTime(val) {
+    convertTimeSunRender(timeValue, timezoneValue, offsetValue, unitSetting) {
+      return convertTimeSun(timeValue, timezoneValue, offsetValue, unitSetting);
+    },
+    convertTimeUnit(val) {
       const offsetValue =
         this.$store.state.weatherModule.locationOffset?.offset;
 
@@ -117,9 +141,14 @@ export default {
 
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activeTime_save === "12h") {
-        return convertTimestamp12hSun(val, 0, offsetValue, timezoneValue);
+        return convertTime12hTimeZoneNotNowUnit(
+          val,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       } else {
-        return convertTimestamp24hSun(val, 1, offsetValue, timezoneValue);
+        return convertTime24hTimeZoneNotNow(val, 1, offsetValue, timezoneValue);
       }
     },
     async createProgressionSin() {

@@ -68,17 +68,17 @@
 }
 
 .el-drawer.rtl {
-  width: 100% !important;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 50% !important;
+  height: 30% !important;
+}
+
+.el-drawer{
+  background-color: var(--bg-draw);
 }
 /* .el-overlay {
   background-color: rgb(255 255 255 / 56%) !important;
 } */
-.el-drawer__header {
-  margin-bottom: 0px !important;
-}
+
 .el-switch--large .el-switch__core {
   min-width: 44px !important;
 }
@@ -101,6 +101,7 @@
 .el-color-picker__trigger {
   height: 100% !important;
   width: 100% !important;
+  border: 1px solid #ccc !important;
 }
 
 .el-color-picker {
@@ -119,9 +120,6 @@
 .el-autocomplete-suggestion li {
   line-height: 20px !important;
   /* padding: 5px 9px !important; */
-}
-.el-drawer__body {
-  overflow: hidden !important;
 }
 
 .el-breadcrumb__inner a:hover,
