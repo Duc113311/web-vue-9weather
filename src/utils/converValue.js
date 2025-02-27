@@ -431,7 +431,7 @@ export function convertTimestampToHoursMinutes(
 
   // Nếu giờ trùng nhau, hiển thị "Now"
   if (nowHours === formattedHours) {
-    return "Now";
+    return i18n.global.t("Now");
   }
 
   return `${formattedHours}:${formattedMinutes}`;
@@ -486,7 +486,7 @@ export function convertTimestampToHoursMinutes12(
 
   // Nếu giờ trùng nhau, hiển thị "Now"
   if (nowHours === formattedHours && nowPeriod === period) {
-    return "Now";
+    return i18n.global.t("Now");
   }
 
   return `${formattedHours}:${formattedMinutes} ${period}`;
@@ -559,7 +559,7 @@ export function convertTime12hTimeZoneNotNowUnit(
   const formattedMinutes = minutes.toString().padStart(2, "0");
   // const formattedMinutes = "00";
 
-  return `${formattedHours}:${formattedMinutes} (${period})`;
+  return `${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 export function convertTime24hTimeZoneNotNow(
@@ -722,7 +722,7 @@ export function convertTimestamp12hSun(
   // const formattedMinutes = minutes.toString().padStart(2, "0");
   const formattedMinutes = "00";
 
-  return `${formattedHours}:${formattedMinutes} (${period})`;
+  return `${formattedHours}:${formattedMinutes} ${period}`;
 }
 
 //
@@ -915,21 +915,21 @@ export function getWindDirectionFromDegrees(windBearing) {
     windBearing += 360;
   }
 
-  if (windBearing >= 11.5 && windBearing < 33.5) return "NNE";
-  if (windBearing >= 33.5 && windBearing < 56.5) return "NE";
-  if (windBearing >= 56.5 && windBearing < 78.5) return "ENE";
-  if (windBearing >= 78.5 && windBearing < 101.5) return "E";
-  if (windBearing >= 101.5 && windBearing < 123.5) return "ESE";
-  if (windBearing >= 123.5 && windBearing < 146.5) return "SE";
-  if (windBearing >= 146.5 && windBearing < 168.5) return "SSE";
-  if (windBearing >= 168.5 && windBearing < 191.5) return "S";
-  if (windBearing >= 191.5 && windBearing < 213.5) return "SSW";
-  if (windBearing >= 213.5 && windBearing < 236.5) return "SW";
-  if (windBearing >= 236.5 && windBearing < 258.5) return "WSW";
-  if (windBearing >= 258.5 && windBearing < 281.5) return "W";
-  if (windBearing >= 281.5 && windBearing < 303.5) return "WNW";
-  if (windBearing >= 303.5 && windBearing < 326.5) return "NW";
-  if (windBearing >= 326.5 && windBearing < 348.5) return "NNW";
+  if (windBearing >= 11.5 && windBearing < 33.5) return i18n.global.t("NNE");
+  if (windBearing >= 33.5 && windBearing < 56.5) return i18n.global.t("NE");
+  if (windBearing >= 56.5 && windBearing < 78.5) return i18n.global.t("ENE");
+  if (windBearing >= 78.5 && windBearing < 101.5) return i18n.global.t("E");
+  if (windBearing >= 101.5 && windBearing < 123.5) return i18n.global.t("ESE");
+  if (windBearing >= 123.5 && windBearing < 146.5) return i18n.global.t("SE");
+  if (windBearing >= 146.5 && windBearing < 168.5) return i18n.global.t("SSE");
+  if (windBearing >= 168.5 && windBearing < 191.5) return i18n.global.t("S");
+  if (windBearing >= 191.5 && windBearing < 213.5) return i18n.global.t("SSW");
+  if (windBearing >= 213.5 && windBearing < 236.5) return i18n.global.t("SW");
+  if (windBearing >= 236.5 && windBearing < 258.5) return i18n.global.t("WSW");
+  if (windBearing >= 258.5 && windBearing < 281.5) return i18n.global.t("W");
+  if (windBearing >= 281.5 && windBearing < 303.5) return i18n.global.t("WNW");
+  if (windBearing >= 303.5 && windBearing < 326.5) return i18n.global.t("NW");
+  if (windBearing >= 326.5 && windBearing < 348.5) return i18n.global.t("NNW");
 
   // Default case for windBearing < 11.5 or >= 348.5
   return "N";
@@ -1642,6 +1642,9 @@ export function getTextWeather(value) {
     case "moderate rain":
       textWeather = i18n.global.t("moderate_rain");
       break;
+    case "sky is clear":
+        textWeather = i18n.global.t("sky_is_clear");
+        break;
     case "moderate rain at times":
       textWeather = i18n.global.t("moderate_rain_at_times");
       break;
@@ -2048,23 +2051,28 @@ export function formatDateFull(timestamp, offset, locale = "en-US") {
   }
 }
 
-export function convertTimestampFullMoon(dateString, locale, timezone) {
+export function convertTimestampFullMoon(dateString) {
   // Chuyển chuỗi thành Date object
+  //const adjustedTimestamp = dateString + offsetValue * 60; // offset từ phút sang giây
+  //const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
 
-  const date = new Date(dateString);
 
   // Lấy thông tin ngày, tháng, năm, thứ
-  const formatter = new Intl.DateTimeFormat(locale, {
+  const formatter = new Intl.DateTimeFormat("en-US", {
     weekday: "long", // Ví dụ: "Thứ Hai" / "Monday" / "Lundi"
     day: "2-digit", // Ngày (24)
-    month: "long", // "Tháng 2" (vi) / "February" (en) / "février" (fr)
+    month: "2-digit", // "Tháng 2" (vi) / "February" (en) / "février" (fr)
     year: "numeric", // Năm (2025)
-    timeZone: timezone, // Sử dụng timezone
   });
 
-  const parts = formatter.formatToParts(date);
 
-  // Trích xuất từng phần
+
+
+  // Format lại thành mảng [weekday, day, month]
+  const parts = formatter.formatToParts(dateString);
+
+
+debugger;  // Trích xuất từng phần
   let weekday = "";
   let day = "";
   let month = "";
@@ -2077,32 +2085,7 @@ export function convertTimestampFullMoon(dateString, locale, timezone) {
     if (type === "year") year = value;
   });
 
-  // Kiểm tra locale và định dạng chuỗi phù hợp
-  if (locale.startsWith("vi")) {
-    // Tiếng Việt: "Thứ Hai ngày 24 tháng 2, 2025"
-    return `${weekday} ngày ${day} tháng ${month.replace(
-      "tháng ",
-      ""
-    )}, ${year}`;
-  } else if (locale.startsWith("zh")) {
-    // Tiếng Trung: "2025年2月24日 星期一"
-    return `${year}年${month}${day}日 ${weekday}`;
-  } else if (locale.startsWith("ja")) {
-    // Tiếng Nhật: "2025年2月24日 (月曜日)"
-    return `${year}年${month}${day}日 (${weekday})`;
-  } else if (locale.startsWith("ko")) {
-    // Tiếng Hàn: "2025년 2월 24일 월요일"
-    return `${year}년 ${month} ${day}일 ${weekday}`;
-  } else if (locale.startsWith("de")) {
-    // Tiếng Đức: "Montag, 24. Februar 2025"
-    return `${weekday}, ${day}. ${month} ${year}`;
-  } else if (locale.startsWith("fr")) {
-    // Tiếng Pháp: "Lundi 24 février 2025"
-    return `${weekday} ${day} ${month} ${year}`;
-  } else {
-    // Mặc định: Tiếng Anh "Monday, February 24, 2025"
-    return `${weekday}, ${month} ${day}, ${year}`;
-  }
+  return `${weekday}, ${day}-${month}-${year}`
 }
 
 // Convert Day

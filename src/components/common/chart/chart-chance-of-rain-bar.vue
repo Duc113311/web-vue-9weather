@@ -62,9 +62,7 @@ export default {
 
     listDataPrecipIntensity() {
       return this.paramHourly.map((element) =>
-        element.precipType !== "Snow"
-          ? Math.round(element.precipProbability * 100)
-          : 0
+        Math.round(element.precipProbability * 100)
       );
       // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
       // return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

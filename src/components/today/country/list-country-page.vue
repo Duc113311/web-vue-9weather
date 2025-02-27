@@ -29,7 +29,7 @@
       </template>
 
       <div
-        class="w-full show-scroll pt-1 pb-1"
+        class="w-full show-scroll pt-1 pb-1 pr-2"
         :class="[renderCityLocation.length <= 8 ? 'h-auto' : 'h-[250px]']"
         v-if="renderCityLocation.length !== 0"
       >

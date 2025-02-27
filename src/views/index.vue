@@ -673,6 +673,6 @@ export default {
 }
 
 .body-app {
-  height: calc(100vh - 60px);
+  height: 100vh;
 }
 </style>

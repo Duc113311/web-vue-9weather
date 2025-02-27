@@ -42,8 +42,209 @@ const messages = {
     ...loadVietnamMessages(),
     ...loadCommonMessages().vi,
   },
+  hi: {
+    ...loadCommonMessages().hi,
+  },
+  es: {
+    ...loadCommonMessages().es,
+  },
+  rCN: {
+    ...loadCommonMessages().rCN,
+  },
+  fr: {
+    ...loadCommonMessages().fr,
+  },
+  ar: {
+    ...loadCommonMessages().ar,
+  },
+  bn: {
+    ...loadCommonMessages().bn,
+  },
+  ru: {
+    ...loadCommonMessages().ru,
+  },
+  pt: {
+    ...loadCommonMessages().pt,
+  },
+  ur: {
+    ...loadCommonMessages().ur,
+  },
+  in: {
+    ...loadCommonMessages().in,
+  },
+  de: {
+    ...loadCommonMessages().de,
+  },
   ja: {
     ...loadCommonMessages().ja,
+  },
+  mr: {
+    ...loadCommonMessages().mr,
+  },
+  te: {
+    ...loadCommonMessages().te,
+  },
+  tr: {
+    ...loadCommonMessages().tr,
+  },
+  rTW: {
+    ...loadCommonMessages().rTW,
+  },
+  af: {
+    ...loadCommonMessages().af,
+  },
+  az: {
+    ...loadCommonMessages().az,
+  },
+  am: {
+    ...loadCommonMessages().am,
+  },
+  be: {
+    ...loadCommonMessages().be,
+  },
+  bg: {
+    ...loadCommonMessages().bg,
+  },
+  ca: {
+    ...loadCommonMessages().ca,
+  },
+  cs: {
+    ...loadCommonMessages().cs,
+  },
+  da: {
+    ...loadCommonMessages().da,
+  },
+  el: {
+    ...loadCommonMessages().el,
+  },
+  et: {
+    ...loadCommonMessages().et,
+  },
+  eu: {
+    ...loadCommonMessages().eu,
+  },
+  fa: {
+    ...loadCommonMessages().fa,
+  },
+  fi: {
+    ...loadCommonMessages().fi,
+  },
+  fil: {
+    ...loadCommonMessages().fil,
+  },
+  gl: {
+    ...loadCommonMessages().gl,
+  },
+  gu: {
+    ...loadCommonMessages().gu,
+  },
+  hr: {
+    ...loadCommonMessages().hr,
+  },
+  hu: {
+    ...loadCommonMessages().hu,
+  },
+  hy: {
+    ...loadCommonMessages().hy,
+  },
+  is: {
+    ...loadCommonMessages().is,
+  },
+  it: {
+    ...loadCommonMessages().it,
+  },
+  iw: {
+    ...loadCommonMessages().iw,
+  },
+  ka: {
+    ...loadCommonMessages().ka,
+  },
+  kk: {
+    ...loadCommonMessages().kk,
+  },
+  km: {
+    ...loadCommonMessages().km,
+  },
+  kn: {
+    ...loadCommonMessages().kn,
+  },
+  ko: {
+    ...loadCommonMessages().ko,
+  },
+  ky: {
+    ...loadCommonMessages().ky,
+  },
+  lo: {
+    ...loadCommonMessages().lo,
+  },
+  lt: {
+    ...loadCommonMessages().lt,
+  },
+  lv: {
+    ...loadCommonMessages().lv,
+  },
+  mk: {
+    ...loadCommonMessages().mk,
+  },
+  ml: {
+    ...loadCommonMessages().ml,
+  },
+  mn: {
+    ...loadCommonMessages().mn,
+  },
+  ms: {
+    ...loadCommonMessages().ms,
+  },
+  my: {
+    ...loadCommonMessages().my,
+  },
+  ne: {
+    ...loadCommonMessages().ne,
+  },
+  nl: {
+    ...loadCommonMessages().nl,
+  },
+  no: {
+    ...loadCommonMessages().no,
+  },
+  pa: {
+    ...loadCommonMessages().pa,
+  },
+  pl: {
+    ...loadCommonMessages().pl,
+  },
+  ro: {
+    ...loadCommonMessages().ro,
+  },
+  si: {
+    ...loadCommonMessages().si,
+  },
+  sk: {
+    ...loadCommonMessages().sk,
+  },
+  sl: {
+    ...loadCommonMessages().sl,
+  },
+  sq: {
+    ...loadCommonMessages().sq,
+  },
+  sr: {
+    ...loadCommonMessages().sr,
+  },
+  sv: {
+    ...loadCommonMessages().sv,
+  },
+  sw: {
+    ...loadCommonMessages().sw,
+  },
+  th: {
+    ...loadCommonMessages().th,
+  },
+  uk: {
+    ...loadCommonMessages().uk,
+  },
+  zu: {
+    ...loadCommonMessages().zu,
   },
 };
 

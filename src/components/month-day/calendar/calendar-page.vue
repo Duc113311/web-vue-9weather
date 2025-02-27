@@ -332,15 +332,23 @@ export default {
     },
 
     convertToShortToDay() {
-      const today = new Date();
+      // Lấy thời gian hiện tại
+      const now = new Date();
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      // Điều chỉnh thời gian theo offset (phút)
+      const adjustedTime = new Date(now.getTime() + offsetValue * 60000);
 
-      const day = today.getDate(); // Lấy ngày (1-31)
-      const month = today.getMonth() + 1; // Lấy tháng (0-11), cần cộng thêm 1 vì tháng bắt đầu từ 0
+      // Định dạng ngày/tháng theo múi giờ cụ thể
+      const formatter = new Intl.DateTimeFormat("en-GB", {
+        timeZone: timezoneValue,
+        day: "2-digit",
+        month: "2-digit",
+      });
 
-      // Trả về ngày/tháng theo định dạng DD/MM
-      return `${day < 10 ? "0" + day : day}/${
-        month < 10 ? "0" + month : month
-      }`;
+      // Format lại thành chuỗi DD/MM
+      return formatter.format(adjustedTime);
     },
 
     getStyle(value) {

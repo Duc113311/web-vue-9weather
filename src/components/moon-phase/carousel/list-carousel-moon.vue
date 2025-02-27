@@ -95,6 +95,8 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["currentlyGetters"]),
+    ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
+
     currentlyData() {
       return this.currentlyGetters;
     },
@@ -103,6 +105,22 @@ export default {
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
         : this.$i18n.locale;
+    },
+
+    breadcumsObject() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
+    },
+
+    locationOffsetValue() {
+      return this.$store.state.weatherModule.locationOffset.offset;
+    },
+    timezoneValue() {
+      return this.$store.state.weatherModule.locationOffset.timezone;
     },
   },
 
@@ -150,49 +168,41 @@ export default {
     },
     renderListCityAllGetters() {
       const dateNew = new Date();
-      const currYear = dateNew.getFullYear();
-      const currMonth = dateNew.getMonth();
-      const firstDayofMonth =
-        (new Date(currYear, currMonth, 1).getDay() + 6) % 7;
+      debugger;
+
+      const timezoneOffset = this.locationOffsetValue * 60; // offset từ phút sang giây
+      const adjustedNow = new Date(dateNew.getTime() + timezoneOffset * 1000);
+
+      const currYear = adjustedNow.getFullYear();
+      const currMonth = adjustedNow.getMonth();
+
       const lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
-      const lastDayofMonth = new Date(
-        currYear,
-        currMonth,
-        lastDateofMonth
-      ).getDay();
 
-      const lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
       let dayList = [];
-      const infoMoonPhaseDay = getInfoMoonPhase(new Date(), 80, -90);
 
-      // Ngày cuối của tháng trước
-      for (let i = firstDayofMonth; i > 0; i--) {
-        const monthDay = currMonth === 0 ? 12 : currMonth; // Tháng trước (1-12)
-
-        dayList.push({
-          date: lastDateofLastMonth - i + 1,
-          inactive: true,
-          monthDay: monthDay,
-          weekend: false,
-          moonPhase: "Full_Moon",
-          moonPhasePercentage: 0,
-          infoMoonPhaseDay: infoMoonPhaseDay,
-        });
-      }
       // Ngày trong tháng hiện tại
       for (let i = 1; i <= lastDateofMonth; i++) {
+        const dateNew = new Date(currYear, currMonth, i);
+
+        // Lấy offset theo múi giờ (tính theo phút → chuyển thành mili giây)
+        const timezoneOffset = this.locationOffsetValue * 60 * 1000;
+
+        console.log("dateNew.getTime()", dateNew.getTime());
+
+        // Điều chỉnh ngày với múi giờ
+        const adjustedNowNew = new Date(dateNew.getTime() + timezoneOffset);
+
         const isToday =
           i === new Date().getDate() &&
           currMonth === new Date().getMonth() &&
           currYear === new Date().getFullYear();
-        const isWeekend =
-          new Date(currYear, currMonth, i).getDay() === 0 ||
-          new Date(currYear, currMonth, i).getDay() === 6;
+
+        const isWeekend = dateNew.getDay() === 0 || dateNew.getDay() === 6;
 
         const infoMoonPhaseDay = getInfoMoonPhase(
-          new Date(currYear, currMonth, i),
-          80,
-          -90
+          adjustedNowNew, // Dùng adjustedNow với ngày i đã điều chỉnh theo múi giờ
+          this.breadcumsObject?.latitude,
+          this.breadcumsObject?.longitude
         );
         const monthDay = currMonth + 1; // Tháng hiện tại (1-12)
 
@@ -207,21 +217,6 @@ export default {
         });
       }
 
-      // Ngày đầu của tháng sau
-      for (let i = lastDayofMonth; i < 6; i++) {
-        const monthDay = currMonth === 11 ? 1 : currMonth + 2; // Tháng sau (1-12)
-        dayList.push({
-          date: i - lastDayofMonth + 1,
-          monthDay: monthDay,
-          inactive: true,
-          weekend: false,
-          moonPhase: "Full_Moon",
-          moonPhasePercentage: 0,
-          infoMoonPhaseDay: infoMoonPhaseDay,
-        });
-      }
-      this.currentDate = `${this.months[currMonth]} ${currYear}`;
-
       const dateNow = new Date();
       const day = dateNow.getDate(); // 4
       const month = dateNow.getMonth() + 1;
@@ -229,19 +224,13 @@ export default {
       const findNumber = this.rearrangeArray(dayList, day, month);
 
       this.listMoonData = findNumber;
+
+      console.log("listMoonData", this.listMoonData);
     },
 
     convertFullMoonTime(value) {
       if (value) {
-        const timezoneValue =
-          this.$store.state.weatherModule.locationOffset.timezone;
-        const offsetValue =
-          this.$store.state.weatherModule.locationOffset.offset;
-        const dateString = convertTimestampFullMoon(
-          value,
-          this.languageParam,
-          timezoneValue
-        );
+        const dateString = convertTimestampFullMoon(value);
         return dateString;
       }
     },

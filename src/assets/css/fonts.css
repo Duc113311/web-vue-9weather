@@ -63,7 +63,7 @@
 /* medium */
 
 .txt_medium_14 {
-  font-size: 14px; /* Kích thước chữ mặc định */
+  font-size: 13px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;
   line-height: 20.76px; /* Khoảng cách giữa các dòng */
   text-align: left; /* Căn trái mặc định */
@@ -217,6 +217,9 @@
   .txt_medium_17 {
     font-size: 14px;
   }
+  .txt_medium_14{
+    font-size: 13px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -260,6 +263,9 @@
   .txt_medium_17 {
     font-size: 14px;
   }
+  .txt_medium_14{
+    font-size: 13px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -297,6 +303,9 @@
   .txt_medium_17 {
     font-size: 17px;
   }
+  .txt_medium_14{
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -333,6 +342,9 @@
   }
   .txt_medium_17 {
     font-size: 17px;
+  }
+  .txt_medium_14{
+    font-size: 14px;
   }
 }
 
@@ -373,5 +385,8 @@
   }
   .txt_medium_17 {
     font-size: 17px;
+  }
+  .txt_medium_14{
+    font-size: 14px;
   }
 }

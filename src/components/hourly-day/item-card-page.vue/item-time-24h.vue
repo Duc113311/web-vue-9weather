@@ -171,9 +171,9 @@
             </div>
             <div
               v-if="index === valueChoose"
-              class="w-full flex items-center justify-between pt-6 pb-4 pr-11"
+              class="w-full flex items-center justify-between pt-6 pb-4 md:pr-11"
             >
-              <div class="w-[50%] flex flex-col gap-4 bor-rim-r pr-6">
+              <div class="w-[50%] flex flex-col gap-4 bor-rim-r md:pr-6 pr-2">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <IcTitleReadFeel class="icon-svg"></IcTitleReadFeel>
@@ -248,7 +248,7 @@
 
               <!--  -->
 
-              <div class="w-[50%] flex flex-col gap-4 pl-6">
+              <div class="w-[50%] flex flex-col gap-4 md:pl-6 pl-2">
                 <div class="flex items-center justify-between w-full">
                   <div class="flex items-center gap-2">
                     <IcTitleWindSpeed class="icon-svg"></IcTitleWindSpeed>

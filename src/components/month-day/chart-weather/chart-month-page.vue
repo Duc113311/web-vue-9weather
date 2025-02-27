@@ -113,7 +113,7 @@
               </vue-horizontal>
 
               <div
-                class="w-full h-[40px] md:flex grid grid-cols-2 justify-between pad-t-b-10 pad-r-l-10"
+                class="w-full h-[40px] md:flex grid grid-cols-3 justify-between pad-t-b-10 pad-r-l-10"
               >
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-c rounded-full w-[12px] h-[12px]"></div>

@@ -59,6 +59,7 @@
             <p class="txt_regular_12">{{ $t("Next_New_Moon") }}</p>
             <p class="txt_regular_12">
               {{ objectMoonNewParam?.infoMoonPhaseDay?.nextNewMoon }}
+              {{ $t("days") }}
             </p>
           </div>
           <div class="flex justify-between items-baseline">
@@ -71,7 +72,7 @@
           <div class="flex justify-between items-baseline">
             <p class="txt_regular_12">{{ $t("Moon_Sign") }}</p>
             <p class="txt_regular_12">
-              {{ objectMoonNewParam?.infoMoonPhaseDay?.moonSign }}
+              {{ $t(`${objectMoonNewParam?.infoMoonPhaseDay?.moonSign}`) }}
             </p>
           </div>
 

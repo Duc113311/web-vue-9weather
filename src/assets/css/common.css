@@ -43,7 +43,7 @@
 }
 
 .show-scroll::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 
 .show-scroll::-webkit-scrollbar-track {
@@ -51,7 +51,7 @@
 }
 
 .show-scroll::-webkit-scrollbar-thumb {
-  background: #cdd2d7;
+  background: #2c82d7;
 }
 
 .show-scroll::-webkit-scrollbar-thumb:hover {

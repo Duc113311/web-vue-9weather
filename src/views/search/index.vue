@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-auto">
-    <NavBottom class="md:block hidden"></NavBottom>
+    <NavBottom class="md:block hidden mt-14"></NavBottom>
 
     <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
 

@@ -60,14 +60,10 @@
     <!-- Trên thế giới -->
     <div v-else class="flex items-center">
       <div class="flex items-center" v-if="breadcumsObject?.cities">
-        <div class="cursor-pointer">
-          {{ breadcumsObject?.cities }}
-        </div>
+        <div class="cursor-pointer">{{ breadcumsObject?.cities }},&nbsp;</div>
       </div>
       <div class="flex items-center" v-if="breadcumsObject?.state">
-        <div class="cursor-pointer">
-          {{ breadcumsObject?.state }}
-        </div>
+        <div class="cursor-pointer">{{ breadcumsObject?.state }},&nbsp;</div>
       </div>
       <div class="flex items-center" v-if="breadcumsObject?.country">
         <div class="cursor-pointer">
@@ -443,7 +439,7 @@ export default {
       // Lấy tên ngày viết tắt theo timezone
       const formatter = new Intl.DateTimeFormat("en-US", {
         timeZone: timezone,
-        weekday: "short", // Trả về thứ viết tắt (Mon, Tue, Wed,...)
+        weekday: "long", // Trả về thứ viết tắt (Mon, Tue, Wed,...)
         day: "2-digit", // Ngày (DD)
         month: "2-digit", // Tháng (MM)
       });
@@ -462,8 +458,10 @@ export default {
         if (type === "weekday") weekday = value;
       });
 
+      console.log("weekday", weekday);
+
       // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
-      return `${weekday} ${day}/${month}`;
+      return `${this.$t(`${weekday}`)}, ${day}/${month}`;
     },
 
     convertIconCurrently(value) {
@@ -603,7 +601,12 @@ export default {
           timezoneValue
         );
       } else {
-        return convertTime24hTimeZoneNotNow(value, 1, offsetValue);
+        return convertTime24hTimeZoneNotNow(
+          value,
+          1,
+          offsetValue,
+          timezoneValue
+        );
       }
     },
 

@@ -69,11 +69,12 @@
 
 .el-drawer.rtl {
   width: 50% !important;
-  height: 30% !important;
 }
 
 .el-drawer{
   background-color: var(--bg-draw);
+  height: 35% !important;
+
 }
 /* .el-overlay {
   background-color: rgb(255 255 255 / 56%) !important;

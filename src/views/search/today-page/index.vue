@@ -1,56 +1,15 @@
 <template>
-  <div class="w-full h-full pl-2 pr-2">
+  <div class="w-full pl-2 pr-2">
     <div class="container md:mt-0 mt-4">
       <div class="header h-full w-full lg:flex gap-20-px">
         <div
-          class="left-today lg:w-3/6 w-full h-full"
+          class="left-today w-full h-full"
           v-if="currentlyData && Object.keys(currentlyData).length > 0"
         >
           <TempPage :key="indexState + Math.random()"></TempPage>
         </div>
-        <div v-else class="lg:w-[566px] w-full h-[850px]">
+        <div v-else class="w-full h-[800px]">
           <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-        </div>
-        <div class="right-today lg:w-3/6 w-full lg:mt-0 md:mt-6">
-          <div class="main-top">
-            <div
-              class="left-main h-full"
-              v-if="currentlyData && Object.keys(currentlyData).length > 0"
-            >
-              <TempDayNightPage
-                :key="indexState + Math.random()"
-                :title="dayTime"
-                :srcDayNight="srcDaytime"
-              ></TempDayNightPage>
-            </div>
-            <div v-else class="w-full h-full">
-              <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-            </div>
-
-            <div
-              class="right-main"
-              v-if="currentlyData && Object.keys(currentlyData).length > 0"
-            >
-              <TempDayNightPage
-                :title="nightTime"
-                :srcDayNight="srcNighttime"
-                :isShowDayNight="isShowDayNight"
-                :key="indexState + Math.random()"
-              ></TempDayNightPage>
-            </div>
-            <div v-else class="w-full h-[444px]">
-              <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-            </div>
-          </div>
-          <div
-            class="main-bottom lg:h-[349px] md:mt-2"
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
-          >
-            <RadarPage :key="indexState + Math.random()"></RadarPage>
-          </div>
-          <div v-else class="w-full h-[380px] md:mt-6 mt-4">
-            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-          </div>
         </div>
       </div>
     </div>
@@ -128,17 +87,19 @@
         <ListNearbyLocation
           :key="indexState + Math.random()"
         ></ListNearbyLocation>
+
+        <ListCountryPage :key="indexState + Math.random()"></ListCountryPage>
       </div>
       <div v-else class="w-full h-[300px] md:mt-4 mt-2">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
       <div
-        class="right-country lg:w-[30%] w-[100%]"
+        class="right-country lg:h-[243px] lg:w-[30%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
-        <ListCountryPage :key="indexState + Math.random()"></ListCountryPage>
+        <RadarPage :key="indexState + Math.random()"></RadarPage>
       </div>
       <div v-else class="w-full h-[300px] mt-4">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -178,7 +139,7 @@ export default {
   name: "today-weather",
   components: {
     TempPage,
-    TempDayNightPage,
+    // TempDayNightPage,
     RadarPage,
     ListNearbyLocation,
     ListCountryPage,

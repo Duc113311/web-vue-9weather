@@ -74,14 +74,14 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center txt_regular_14">
-          <p v-if="currentlyDataRender?.precipType === 'Snow'">
+          <p v-if="currentlyDataRender?.summary === 'snow'">
             {{ $t("Chance_of_snow") }}
           </p>
           <p v-else>{{ $t("Chance_of_rain") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <IcChanceOfRainSnow
-            v-if="currentlyDataRender?.precipType === 'Snow'"
+            v-if="currentlyDataRender?.summary === 'snow'"
           ></IcChanceOfRainSnow>
           <IcChanceOfRain v-else></IcChanceOfRain>
         </div>
