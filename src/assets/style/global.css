@@ -73,8 +73,32 @@
 
 .el-drawer{
   background-color: var(--bg-draw);
-  height: 35% !important;
+  height: 46% !important;
 
+}
+
+@media (min-width: 576px) {
+  .el-drawer{
+    height: 46% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .el-drawer{
+    height: 40% !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .el-drawer{
+    height: 47% !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .el-drawer{
+    height: 35% !important;
+  }
 }
 /* .el-overlay {
   background-color: rgb(255 255 255 / 56%) !important;

@@ -257,8 +257,6 @@ export default {
         // Lấy offset theo múi giờ (tính theo phút → chuyển thành mili giây)
         const timezoneOffset = this.locationOffsetValue * 60 * 1000;
 
-        console.log("dateNew.getTime()", dateNew.getTime());
-
         // Điều chỉnh ngày với múi giờ
         const adjustedNowNew = new Date(dateNew.getTime() + timezoneOffset);
 
@@ -288,8 +286,6 @@ export default {
       }
 
       this.listMoonData = dayList;
-
-      console.log("listMoonData", dayList);
     },
 
     async onClickShowDetailDistrict(value) {

@@ -163,6 +163,8 @@ export default {
       const part1 = arr.slice(index); // Từ `number + 1` đến cuối
       const part2 = arr.slice(0, index); // Từ đầu đến `number`
 
+      console.log("part2", part2);
+
       // Ghép lại theo thứ tự mới
       return [...part1, ...part2];
     },
@@ -178,6 +180,13 @@ export default {
 
       const lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate();
 
+      console.log("lastDateofMonth", lastDateofMonth);
+      console.log("currYear", currYear);
+      console.log("currMonth", currMonth);
+      console.log("adjustedNow", adjustedNow);
+      console.log("adjustedNow", adjustedNow);
+      console.log("locationOffsetValue", this.locationOffsetValue);
+
       let dayList = [];
 
       // Ngày trong tháng hiện tại
@@ -186,8 +195,6 @@ export default {
 
         // Lấy offset theo múi giờ (tính theo phút → chuyển thành mili giây)
         const timezoneOffset = this.locationOffsetValue * 60 * 1000;
-
-        console.log("dateNew.getTime()", dateNew.getTime());
 
         // Điều chỉnh ngày với múi giờ
         const adjustedNowNew = new Date(dateNew.getTime() + timezoneOffset);
@@ -204,6 +211,11 @@ export default {
           this.breadcumsObject?.latitude,
           this.breadcumsObject?.longitude
         );
+        console.log(
+          "this.breadcumsObject?.latitude,",
+          this.breadcumsObject?.latitude
+        );
+
         const monthDay = currMonth + 1; // Tháng hiện tại (1-12)
 
         dayList.push({
@@ -213,7 +225,7 @@ export default {
           weekend: isWeekend,
           moonPhase: infoMoonPhaseDay.moonPhaseName,
           moonPhasePercentage: infoMoonPhaseDay.moonPhasePercentage,
-          infoMoonPhaseDay: infoMoonPhaseDay,
+          // infoMoonPhaseDay: infoMoonPhaseDay,
         });
       }
 
@@ -224,6 +236,9 @@ export default {
       const findNumber = this.rearrangeArray(dayList, day, month);
 
       this.listMoonData = findNumber;
+
+      console.log("day-moon", day);
+      console.log("month-moon", month);
 
       console.log("listMoonData", this.listMoonData);
     },
