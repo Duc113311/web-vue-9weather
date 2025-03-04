@@ -178,8 +178,12 @@ import {
   convertLowerCase,
   convertToConvertLowerCase,
   convertToVietnamese,
+  convertToWorldState,
+  convertToWourldState,
+  getFromIndexedDB,
   removeWordAndAccents,
   replaceApostropheWithUnderscore,
+  saveToIndexedDB,
 } from "@/utils/coverTextSystem";
 
 export default {
@@ -524,7 +528,10 @@ export default {
 
       if (item?.country_key?.toLowerCase() === "vn") {
         await this.loadProvince();
-        await this.loadAllFileJson();
+        await this.loadAllFileJson().then(async (x) => {
+          const dataGet = await getFromIndexedDB();
+          console.log("dataGet", dataGet);
+        });
       } else {
         await this.loadProvinceWould(item.country);
       }
@@ -616,7 +623,10 @@ export default {
         let objectBread = {
           country: item.country,
           country_key: item.country_key.toLowerCase(),
-          state: item.state,
+          state:
+            item.state && this.getStateByLocation(item.state)
+              ? this.getStateByLocation(item.state)
+              : "",
           state_key: item.state_key,
           county: item.county,
           cities: item.cities,
@@ -680,14 +690,20 @@ export default {
       this.setIndexComponent(this.indexKey);
     },
 
+    getStateByLocation(value) {
+      return convertToWorldState(value);
+    },
+
     async loadProvinceWould(value) {
-      const formattedCountry = value.replace(/ /g, "_");
+      const formattedCountry = value;
       const dataCityVNSession = JSON.parse(
         sessionStorage.getItem(`data_${formattedCountry}`)
       );
       if (!dataCityVNSession) {
         try {
-          const response = await fetch(`/json/city/${formattedCountry}.json`);
+          const response = await fetch(
+            `/json/city/ASIA/${formattedCountry}.json`
+          );
           if (!response.ok)
             throw new Error(
               `Failed to fetch data: ${response.status} ${response.statusText}`
@@ -708,25 +724,40 @@ export default {
 
     async loadAllFileJson() {
       let provinces = [];
-      const dataCityLogVNSession = JSON.parse(
-        sessionStorage.getItem("dataCityAll")
-      );
-      if (!dataCityLogVNSession) {
-        const context = require.context(
-          "/public/json/vietnamese",
-          false,
-          /\.json$/
-        );
-        // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
-        const provincesData = context.keys().map((key) => {
-          const provinceData = context(key); // Load dữ liệu từ file
 
-          provinces.push(provinceData);
-        });
-        this.setListDetailCityAll(provinces);
-      } else {
-        this.setListDetailCityAll(dataCityLogVNSession);
-      }
+      // const dataIndexDB = await getFromIndexedDB();
+      // console.log("dataIndexDB", dataIndexDB);
+
+      // if (!dataIndexDB) {
+      const context = require.context(
+        "/public/json/vietnamese",
+        false,
+        /\.json$/
+      );
+      // context.keys() trả về danh sách các file, duyệt qua và import dữ liệu của từng file
+      context.keys().map((key) => {
+        const provinceData = context(key); // Load dữ liệu từ file
+
+        provinces.push(provinceData);
+      });
+
+      const response = await fetch("/json/city/city.json");
+      if (!response.ok)
+        throw new Error(
+          `Failed to fetch data: ${response.status} ${response.statusText}`
+        );
+      const dataJson = await response.json(); // Parse JSON data
+      await saveToIndexedDB([
+        {
+          id: "cts",
+          data: provinces,
+        },
+        {
+          id: "city",
+          data: dataJson,
+        },
+      ]);
+      // }
     },
 
     async loadProvince() {

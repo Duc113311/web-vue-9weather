@@ -65,7 +65,7 @@
           <div
             v-for="(item, index) in renderCityLocation"
             :key="index"
-            class="flex justify-between items-center pb-3 pt-3 pr-2"
+            class="flex justify-between items-center pb-3 pt-3 pr-2 cursor-pointer"
             :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
             @click="onClickRenderCityLocation(item)"
           >

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full" v-if="renderListCityAllGetters.length !== 0">
     <ItemComponent>
       <template v-slot:header>
         <div class="flex justify-between items-center">
@@ -158,6 +158,7 @@ import { setTitleScream } from "@/helpers/setTitle";
 import { capitalizeWords } from "@/utils/converValue";
 import {
   convertLowerCase,
+  convertToWorldState,
   removeWordAndAccents,
 } from "@/utils/coverTextSystem";
 import {
@@ -240,6 +241,20 @@ export default {
       return resultData;
     },
 
+    listCityWorldStateData() {
+      const retrievedValue = JSON.parse(localStorage.getItem("objectBread"));
+      const formattedCountry = retrievedValue.country;
+
+      const dataCityVNSession = JSON.parse(
+        sessionStorage.getItem(`data_${formattedCountry}`)
+      );
+      const resultData = dataCityVNSession
+        ? dataCityVNSession
+        : this.objectFormatLocationGetters;
+
+      return resultData;
+    },
+
     objectCityByLocationData() {
       const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
       const resultData = retrievedArray
@@ -295,48 +310,56 @@ export default {
     },
 
     renderListCityAllGetters() {
+      if (!this.wardParam) return [];
+
       const countryKey = this.wardParam.country_key;
 
-      if (this.wardParam) {
-        if (countryKey === "vn") {
-          const cityKey = this.wardParam.city_key;
+      if (countryKey === "vn") {
+        const cityKey = this.wardParam.city_key;
+        const findData = this.listCityAllData.find(
+          (x) => x.keyAccentLanguage === cityKey
+        );
 
-          const findData = this.listCityAllData.find(
-            (x) => x.keyAccentLanguage === cityKey
+        if (!findData) return [];
+
+        if (this.wardParam.district_key) {
+          const findDataWard = findData.districtList?.find(
+            (x) => x.keyAccentLanguage === this.wardParam.district_key
           );
-
-          if (findData) {
-            if (this.wardParam.district_key) {
-              const findDataWard = findData.districtList?.find(
-                (x) => x.keyAccentLanguage === this.wardParam.district_key
-              );
-              if (findDataWard) {
-                return findDataWard.wards;
-              } else {
-                return [];
-              }
-            } else {
-              return findData.districtList || [];
-            }
-          } else {
-            return [];
-          }
+          return findDataWard ? findDataWard.wards : [];
         } else {
-          const cityKey = this.wardParam.state.toLowerCase();
-
-          console.log("cityKey", cityKey);
-
-          const findData = this.listCityWorldData.find(
-            (x) => x.keyAccentLanguage === cityKey.replace(/ /g, "_")
-          );
-          debugger;
-          if (findData) {
-            return findData.districtList;
-          } else {
-            return [];
-          }
+          return findData.districtList || [];
         }
       } else {
+        const cityKey = this.wardParam.state;
+        const cities = this.wardParam.cities;
+
+        if (
+          !this.listCityWorldStateData ||
+          this.listCityWorldStateData.length === 0
+        ) {
+          return [];
+        }
+        debugger;
+        // Tìm trong danh sách thành phố thế giới
+        const findData = this.listCityWorldStateData.find(
+          (x) => this.convertToWorldStateMethod(x.enNameLanguage) === cityKey
+        );
+
+        if (findData) {
+          return findData.districtList;
+        }
+
+        // Nếu không tìm thấy, duyệt danh sách để tìm city phù hợp
+        for (const element of this.listCityWorldStateData) {
+          const matchedDistrict = element.districtList.find(
+            (e) => e.enNameLanguage === cities
+          );
+          if (matchedDistrict) {
+            return element.districtList;
+          }
+        }
+
         return [];
       }
     },
@@ -363,6 +386,12 @@ export default {
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
 
+    convertToWorldStateMethod(value) {
+      const datanew = convertToWorldState(value);
+      console.log("datanew", datanew);
+
+      return datanew;
+    },
     convertToFormattedArray(input) {
       if (!input) return []; // Nếu chuỗi không có giá trị, trả về mảng rỗng
 

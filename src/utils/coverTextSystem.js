@@ -1,4 +1,6 @@
 import removeAccents from "remove-accents";
+import CryptoJS from "crypto-js";
+const SECRET_KEY = "bachasoft"; // 🔒 Chọn một khóa bí mật mạnh
 
 /**
  * Convert từ "Hà Nội thủ đô" => "Ha_Noi_thu_do"
@@ -92,6 +94,13 @@ export function convertToVietnamese(input) {
   };
 }
 
+export function convertToWorldState(input) {
+  const data = removeWorldStateAndAccents(input);
+  console.log("data-satte", data);
+
+  return data;
+}
+
 export function convertToConvertLowerCase(str) {
   const slug = removeAccentsUnicode(str).replace(/\s+/g, "_");
 
@@ -119,6 +128,21 @@ export function replaceApostropheWithUnderscore(key) {
   return key;
 }
 
+export function removeWorldStateAndAccents(str) {
+  if (typeof str !== "string") {
+    return ""; // Trả về chuỗi rỗng nếu đầu vào không phải là chuỗi
+  }
+
+  const wordsToRemove = ["Province", "province", "City"];
+
+  // Loại bỏ từng từ trong danh sách wordsToRemove
+  wordsToRemove.forEach((word) => {
+    const regex = new RegExp(`\\s*\\b${word}\\b`, "gi"); // Loại bỏ từ cùng với khoảng trắng
+    str = str.replace(regex, "").trim();
+  });
+
+  return str;
+}
 export function removeWordAndAccents(str) {
   const wordsToRemove = [
     "Xã",
@@ -200,4 +224,120 @@ export function convertToSlugCity(str) {
   return slug
     .toLowerCase() // Chuyển thành chữ thường
     .replace(/\s+/g, ""); // Xóa khoảng trắng
+}
+
+function encryptData(data) {
+  return CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
+}
+
+// 🔓 Giải mã dữ liệu JSON khi lấy từ IndexedDB
+function decryptData(encryptedData) {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
+  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+}
+
+export async function saveToIndexedDB(
+  jsonData,
+  dbName = "vietnam",
+  storeName = "vietname" // 🔥 Có thể lưu nhiều storeName khác nhau
+) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(dbName, 3); // 🔥 Đảm bảo luôn mở đúng phiên bản
+
+    request.onupgradeneeded = function (event) {
+      const db = event.target.result;
+
+      // 🔥 Nếu storeName chưa tồn tại, thì tạo mới
+      if (!db.objectStoreNames.contains(storeName)) {
+        db.createObjectStore(storeName, { keyPath: "id" });
+        console.log(`✅ Object store '${storeName}' đã được tạo!`);
+      }
+    };
+
+    request.onsuccess = function (event) {
+      const db = event.target.result;
+
+      // 🔥 Kiểm tra object store trước khi sử dụng
+      if (!db.objectStoreNames.contains(storeName)) {
+        console.warn(`⚠️ Object store '${storeName}' không tồn tại!`);
+        resolve(false);
+        return;
+      }
+
+      const transaction = db.transaction(storeName, "readwrite");
+      const store = transaction.objectStore(storeName);
+
+      // 🔥 Nếu ID trùng, nó sẽ ghi đè (update)
+      for (let index = 0; index < jsonData.length; index++) {
+        const element = jsonData[index];
+        const encryptedData = encryptData(element);
+
+        store.put({ id: 1 + element.id, data: encryptedData });
+      }
+
+      transaction.oncomplete = () => resolve(true);
+      transaction.onerror = (e) =>
+        reject("❌ Lỗi lưu IndexedDB: " + e.target.error);
+    };
+
+    request.onerror = (e) => reject("❌ Lỗi mở IndexedDB: " + e.target.error);
+  });
+}
+
+export async function getFromIndexedDB(
+  dbName = "ProvincesDB",
+  storeName = "defaultStore"
+) {
+  return new Promise((resolve) => {
+    if (!window.indexedDB) {
+      console.warn("⚠️ Trình duyệt không hỗ trợ IndexedDB!");
+      resolve(null);
+      return;
+    }
+
+    const request = indexedDB.open(dbName, 3);
+
+    request.onerror = function () {
+      console.warn("⚠️ Không thể mở IndexedDB");
+      resolve(null);
+    };
+
+    request.onupgradeneeded = function (event) {
+      console.warn("⚠️ Database chưa tồn tại, cần tạo mới!");
+      resolve(null);
+    };
+
+    request.onsuccess = function (event) {
+      const db = event.target.result;
+
+      if (!db.objectStoreNames.contains(storeName)) {
+        console.warn(`⚠️ Object store '${storeName}' chưa tồn tại!`);
+        resolve(null);
+        return;
+      }
+
+      const transaction = db.transaction(storeName, "readonly");
+      const store = transaction.objectStore(storeName);
+      const request = store.getAll(); // 🔥 Lấy toàn bộ dữ liệu thay vì chỉ lấy một ID cụ thể
+      debugger;
+      request.onsuccess = function (event) {
+        const results = event.target.result;
+        if (results.length > 0) {
+          // 🔓 Giải mã từng bản ghi
+          const decryptedData = results.map((record) => ({
+            id: record.id,
+            data: decryptData(record.data),
+          }));
+          resolve(decryptedData);
+        } else {
+          resolve(null);
+        }
+      };
+
+      request.onerror = function () {
+        console.warn("⚠️ Lỗi khi lấy dữ liệu từ IndexedDB");
+        resolve(null);
+      };
+    };
+  });
 }
