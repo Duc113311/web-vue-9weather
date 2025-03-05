@@ -159,6 +159,7 @@ import { capitalizeWords } from "@/utils/converValue";
 import {
   convertLowerCase,
   convertToWorldState,
+  decryptData,
   removeWordAndAccents,
 } from "@/utils/coverTextSystem";
 import {
@@ -219,9 +220,11 @@ export default {
     ]),
 
     listCityAllData() {
-      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityAll"));
-      const resultData = retrievedArray
-        ? retrievedArray
+      const retrievedArray = JSON.parse(
+        sessionStorage.getItem("cityDetailVietnam")
+      );
+      const resultData = decryptData(retrievedArray)
+        ? decryptData(retrievedArray)
         : this.listCityAllGetters;
 
       return resultData;
@@ -232,10 +235,10 @@ export default {
       const formattedCountry = retrievedValue.country.replace(/ /g, "_");
 
       const dataCityVNSession = JSON.parse(
-        sessionStorage.getItem(`data_${formattedCountry}`)
+        sessionStorage.getItem(`${formattedCountry}`)
       );
-      const resultData = dataCityVNSession
-        ? dataCityVNSession
+      const resultData = decryptData(dataCityVNSession)
+        ? decryptData(dataCityVNSession)
         : this.objectFormatLocationGetters;
 
       return resultData;
@@ -246,17 +249,17 @@ export default {
       const formattedCountry = retrievedValue.country;
 
       const dataCityVNSession = JSON.parse(
-        sessionStorage.getItem(`data_${formattedCountry}`)
+        sessionStorage.getItem(`${formattedCountry}`)
       );
-      const resultData = dataCityVNSession
-        ? dataCityVNSession
+      const resultData = decryptData(dataCityVNSession)
+        ? decryptData(dataCityVNSession)
         : this.objectFormatLocationGetters;
 
       return resultData;
     },
 
     objectCityByLocationData() {
-      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      const retrievedArray = JSON.parse(sessionStorage.getItem("cityVietnam"));
       const resultData = retrievedArray
         ? retrievedArray
         : this.objectCityByLocationGetters;
@@ -295,8 +298,13 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
+      debugger;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
+        ? "en"
         : this.$i18n.locale;
     },
 
@@ -307,6 +315,12 @@ export default {
         : this.breadcumsObjectGetters;
 
       return resultData;
+    },
+    renderLanguage() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
+        : this.$i18n.locale;
     },
 
     renderListCityAllGetters() {
@@ -731,7 +745,7 @@ export default {
           await this.$router.push({
             name: "today-weather",
             params: {
-              language: this.languageParam,
+              language: this.renderLanguage,
               location: [
                 objectBread.country_key.toLowerCase(),
                 convertLowerCase(objectBread.city),
@@ -748,7 +762,7 @@ export default {
           await this.$router.push({
             name: "today-weather",
             params: {
-              language: this.languageParam,
+              language: this.renderLanguage,
               location: [
                 objectBread.country_key.toLowerCase(),
                 convertLowerCase(objectBread.city),
@@ -765,7 +779,7 @@ export default {
           await this.$router.push({
             name: "today-weather",
             params: {
-              language: this.languageParam,
+              language: this.renderLanguage,
               location: [
                 objectBread.country_key.toLowerCase(),
                 convertLowerCase(objectBread.city),
@@ -797,7 +811,7 @@ export default {
           await this.$router.push({
             name: "today-weather",
             params: {
-              language: this.languageParam,
+              language: this.renderLanguage,
               location: [
                 objectBread?.country_key?.toLowerCase(),
                 convertLowerCase(objectBread.state),
@@ -809,7 +823,7 @@ export default {
           await this.$router.push({
             name: "today-weather",
             params: {
-              language: this.languageParam,
+              language: this.renderLanguage,
               location: [
                 objectBread?.country_key?.toLowerCase(),
                 convertLowerCase(objectBread.state),
@@ -820,7 +834,7 @@ export default {
         }
       }
 
-      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${locationValue.latitude},${locationValue.longitude}?lang=${this.languageParam}`;
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${locationValue.latitude},${locationValue.longitude}?lang=${this.renderLanguage}`;
       const resultAir = getAqiDataFromLocation(
         locationValue.latitude,
         locationValue.longitude

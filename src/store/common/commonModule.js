@@ -140,6 +140,7 @@ const getters = {
 const mutations = {
   SET_TITLE_BACKGROUND_COLOR(state, value) {
     state.titleBackgroundColor = value;
+    localStorage.setItem("theme", value); // 🔥 Lưu vào localStorage nếu cần
   },
   setIsScroll(state, value) {
     state.isScroll = value;

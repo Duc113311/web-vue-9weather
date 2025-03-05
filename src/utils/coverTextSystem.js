@@ -226,20 +226,20 @@ export function convertToSlugCity(str) {
     .replace(/\s+/g, ""); // Xóa khoảng trắng
 }
 
-function encryptData(data) {
+export function encryptData(data) {
   return CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
 }
 
 // 🔓 Giải mã dữ liệu JSON khi lấy từ IndexedDB
-function decryptData(encryptedData) {
+export function decryptData(encryptedData) {
   const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 }
 
 export async function saveToIndexedDB(
   jsonData,
-  dbName = "vietnam",
-  storeName = "vietname" // 🔥 Có thể lưu nhiều storeName khác nhau
+  dbName,
+  storeName // 🔥 Có thể lưu nhiều storeName khác nhau
 ) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(dbName, 3); // 🔥 Đảm bảo luôn mở đúng phiên bản
@@ -270,9 +270,11 @@ export async function saveToIndexedDB(
       // 🔥 Nếu ID trùng, nó sẽ ghi đè (update)
       for (let index = 0; index < jsonData.length; index++) {
         const element = jsonData[index];
-        const encryptedData = encryptData(element);
-
-        store.put({ id: 1 + element.id, data: encryptedData });
+        const encryptedData = encryptData(element.data);
+        // Lưu trên sessionStorage
+        sessionStorage.setItem(element.id, JSON.stringify(encryptedData));
+        // Lưu trên IndexDB
+        store.put({ id: element.id, data: encryptedData });
       }
 
       transaction.oncomplete = () => resolve(true);
@@ -284,10 +286,7 @@ export async function saveToIndexedDB(
   });
 }
 
-export async function getFromIndexedDB(
-  dbName = "ProvincesDB",
-  storeName = "defaultStore"
-) {
+export async function getFromIndexedDB(dbName, storeName) {
   return new Promise((resolve) => {
     if (!window.indexedDB) {
       console.warn("⚠️ Trình duyệt không hỗ trợ IndexedDB!");

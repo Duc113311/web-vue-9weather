@@ -757,36 +757,36 @@ export function convertTimestampNow24(timestamp, numberTime, offsetValue) {
 
 export function convertTimeSun(timestamp, timezone, offsetValue, activeTime) {
   debugger;
-  
-    const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
-    const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
 
-    // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
-    const formatter = new Intl.DateTimeFormat("en-GB", {
-      timeZone: timezone,
-      hour: "2-digit",
-      minute: "2-digit",
-      hourCycle: "h23", // Định dạng 24h
-    });
+  const adjustedTimestamp = timestamp + offsetValue * 60; // offset từ phút sang giây
+  const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
 
-    // Chuyển timestamp thành đúng giờ theo timezone
-    let formattedTime = formatter.format(date);
+  // Sử dụng Intl.DateTimeFormat để lấy giờ theo timezone mong muốn
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timezone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23", // Định dạng 24h
+  });
 
-    // Cộng thêm offset (1 phút)
-    let [hours, minutes] = formattedTime.split(":").map(Number);
+  // Chuyển timestamp thành đúng giờ theo timezone
+  let formattedTime = formatter.format(date);
 
-    // Xử lý nếu phút >= 60
-    if (minutes >= 60) {
-      hours += 1;
-      minutes -= 60;
-    }
+  // Cộng thêm offset (1 phút)
+  let [hours, minutes] = formattedTime.split(":").map(Number);
 
-    // Định dạng lại giờ & phút với số 0 phía trước nếu cần
-    const formattedHours = hours.toString().padStart(2, "0");
+  // Xử lý nếu phút >= 60
+  if (minutes >= 60) {
+    hours += 1;
+    minutes -= 60;
+  }
 
-    console.log("formattedHours", formattedHours);
+  // Định dạng lại giờ & phút với số 0 phía trước nếu cần
+  const formattedHours = hours.toString().padStart(2, "0");
 
-    return formattedHours;
+  console.log("formattedHours", formattedHours);
+
+  return formattedHours;
 }
 
 export function convertTimestampToAmPm(timestamp) {
@@ -1643,8 +1643,8 @@ export function getTextWeather(value) {
       textWeather = i18n.global.t("moderate_rain");
       break;
     case "sky is clear":
-        textWeather = i18n.global.t("sky_is_clear");
-        break;
+      textWeather = i18n.global.t("sky_is_clear");
+      break;
     case "moderate rain at times":
       textWeather = i18n.global.t("moderate_rain_at_times");
       break;
@@ -2051,11 +2051,10 @@ export function formatDateFull(timestamp, offset, locale = "en-US") {
   }
 }
 
-export function convertTimestampFullMoon(dateString) {
+export function convertTimestampFullMoon(dateString, language, timezone) {
   // Chuyển chuỗi thành Date object
   //const adjustedTimestamp = dateString + offsetValue * 60; // offset từ phút sang giây
   //const date = new Date(adjustedTimestamp * 1000); // Chuyển đổi thành Date object
-
 
   // Lấy thông tin ngày, tháng, năm, thứ
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -2065,14 +2064,10 @@ export function convertTimestampFullMoon(dateString) {
     year: "numeric", // Năm (2025)
   });
 
-
-
-
   // Format lại thành mảng [weekday, day, month]
   const parts = formatter.formatToParts(dateString);
 
-
-debugger;  // Trích xuất từng phần
+  debugger; // Trích xuất từng phần
   let weekday = "";
   let day = "";
   let month = "";
@@ -2085,7 +2080,7 @@ debugger;  // Trích xuất từng phần
     if (type === "year") year = value;
   });
 
-  return `${weekday}, ${day}-${month}-${year}`
+  return `${i18n.global.t(weekday)}, ${day}/${month}/${year}`;
 }
 
 // Convert Day

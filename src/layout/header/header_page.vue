@@ -180,6 +180,7 @@ import {
   convertToVietnamese,
   convertToWorldState,
   convertToWourldState,
+  decryptData,
   getFromIndexedDB,
   removeWordAndAccents,
   replaceApostropheWithUnderscore,
@@ -265,7 +266,7 @@ export default {
     },
 
     objectCityByLocationData() {
-      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityLog"));
+      const retrievedArray = JSON.parse(sessionStorage.getItem("cityVietnam"));
       const resultData = retrievedArray
         ? retrievedArray
         : this.objectCityByLocationGetters;
@@ -274,7 +275,9 @@ export default {
     },
 
     listCityAllData() {
-      const retrievedArray = JSON.parse(sessionStorage.getItem("dataCityAll"));
+      const retrievedArray = JSON.parse(
+        sessionStorage.getItem("cityDetailVietnam")
+      );
       const resultData = retrievedArray
         ? retrievedArray
         : this.listCityAllGetters;
@@ -459,7 +462,7 @@ export default {
     },
 
     findCityData(value) {
-      const listCityVN = this.objectCityByLocationData;
+      const listCityVN = decryptData(this.objectCityByLocationData);
 
       debugger;
       const replaceCity = convertToVietnamese(value.city).cityConvert;
@@ -476,7 +479,7 @@ export default {
     },
 
     findDistrictsData(value) {
-      const listCityVN = this.listCityAllData;
+      const listCityVN = decryptData(this.listCityAllData);
 
       const replaceCity = convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = convertToConvertLowerCase(value.district);
@@ -527,13 +530,19 @@ export default {
       debugger;
 
       if (item?.country_key?.toLowerCase() === "vn") {
-        await this.loadProvince();
         await this.loadAllFileJson().then(async (x) => {
-          const dataGet = await getFromIndexedDB();
+          const cityName = "Vietnamese";
+          const cityDetail = "vietnam";
+          const dataGet = await getFromIndexedDB(cityName, cityDetail);
           console.log("dataGet", dataGet);
         });
       } else {
-        await this.loadProvinceWould(item.country);
+        await this.loadProvinceWould(item).then(async (x) => {
+          const cityName = item.country;
+          const cityDetail = item.country_key;
+          const dataGet = await getFromIndexedDB(cityName, cityDetail);
+          console.log("dataGetWorld", dataGet);
+        });
       }
       let language = this.languageParam;
       if (item?.country_key?.toLowerCase() === "vn") {
@@ -695,30 +704,26 @@ export default {
     },
 
     async loadProvinceWould(value) {
-      const formattedCountry = value;
-      const dataCityVNSession = JSON.parse(
-        sessionStorage.getItem(`data_${formattedCountry}`)
-      );
-      if (!dataCityVNSession) {
-        try {
-          const response = await fetch(
-            `/json/city/ASIA/${formattedCountry}.json`
+      const formattedCountry = value.country;
+      const cityName = value.country;
+      const cityDetail = value.country_key;
+      try {
+        const response = await fetch(
+          `/json/city/ASIA/${formattedCountry}.json`
+        );
+        if (!response.ok)
+          throw new Error(
+            `Failed to fetch data: ${response.status} ${response.statusText}`
           );
-          if (!response.ok)
-            throw new Error(
-              `Failed to fetch data: ${response.status} ${response.statusText}`
-            );
-          const data = await response.json(); // Parse JSON data
-          const objectState = {
-            provinceData: data,
-            keyStorage: formattedCountry,
-          };
-          this.setObjectFormattesLocation(objectState);
-        } catch (error) {
-          console.error("Error loading file:", error.message);
-        }
-      } else {
-        this.setObjectFormattesLocation(dataCityVNSession);
+        const provinceData = await response.json(); // Parse JSON data
+        const objectState = {
+          id: formattedCountry,
+          data: provinceData,
+        };
+        // this.setObjectFormattesLocation(objectState);
+        await saveToIndexedDB([objectState], cityName, cityDetail);
+      } catch (error) {
+        console.error("Error loading file:", error.message);
       }
     },
 
@@ -747,16 +752,22 @@ export default {
           `Failed to fetch data: ${response.status} ${response.statusText}`
         );
       const dataJson = await response.json(); // Parse JSON data
-      await saveToIndexedDB([
-        {
-          id: "cts",
-          data: provinces,
-        },
-        {
-          id: "city",
-          data: dataJson,
-        },
-      ]);
+      const cityName = "Vietnamese";
+      const cityDetail = "vietnam";
+      await saveToIndexedDB(
+        [
+          {
+            id: "cityVietnam",
+            data: dataJson,
+          },
+          {
+            id: "cityDetailVietnam",
+            data: provinces,
+          },
+        ],
+        cityName,
+        cityDetail
+      );
       // }
     },
 
@@ -784,7 +795,7 @@ export default {
 
     getWardsByLocation(value) {
       // Lấy danh sách Viet nam
-      const listCityVN = this.listCityAllData;
+      const listCityVN = decryptData(this.listCityAllData);
 
       const replaceCity = convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = convertToConvertLowerCase(value.district);
@@ -843,6 +854,22 @@ export default {
 
     async onClickLocationView() {
       const objectBreadValue = this.wardParamChrome;
+
+      if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
+        await this.loadAllFileJson().then(async (x) => {
+          const cityName = "Vietnamese";
+          const cityDetail = "vietnam";
+          // const dataGet = await getFromIndexedDB(cityName, cityDetail);
+          // console.log("dataGet", dataGet);
+        });
+      } else {
+        await this.loadProvinceWould(objectBreadValue).then(async (x) => {
+          const cityName = objectBreadValue.country;
+          const cityDetail = objectBreadValue.country_key;
+          // const dataGet = await getFromIndexedDB(cityName, cityDetail);
+          // console.log("dataGetWorld", dataGet);
+        });
+      }
 
       localStorage.setItem("objectBread", JSON.stringify(objectBreadValue));
 

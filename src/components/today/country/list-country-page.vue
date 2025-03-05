@@ -44,9 +44,7 @@
             <div class="flex gap-2 items-center cursor-pointer-bh">
               <component class="icon-svg" :is="IcCardProvinces"></component>
               <p class="txt_medium_14">
-                {{
-                  $t(`city.city_${renderLanguage}.${item.keyAccentLanguage}`)
-                }}
+                {{ $t(`city.city_${languageParam}.${item.keyAccentLanguage}`) }}
               </p>
             </div>
             <div>
@@ -78,7 +76,7 @@
             <div>
               <p class="txt_medium_14 color_BFBFBF">
                 {{ Math.round(calculateDistance(item.location))
-                }}{{ unitSetting.activeDistance_save }} {{ $t("Away") }}
+                }}{{ unitSetting.activeDistance_save }}
               </p>
             </div>
           </div>
@@ -97,7 +95,7 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import { capitalizeWords, convertHaversine } from "@/utils/converValue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { getDistance } from "geolib";
-import { convertLowerCase } from "@/utils/coverTextSystem";
+import { convertLowerCase, decryptData } from "@/utils/coverTextSystem";
 import {
   encodeBase64,
   getAqiDataFromLocation,
@@ -137,12 +135,14 @@ export default {
       const formattedCountry = retrievedValue.country.replace(/ /g, "_");
 
       const dataCityVNSession = JSON.parse(
-        sessionStorage.getItem(`data_${formattedCountry}`)
+        sessionStorage.getItem(`${formattedCountry}`)
       );
-      const resultData = dataCityVNSession
-        ? dataCityVNSession
+
+      const resultData = decryptData(dataCityVNSession)
+        ? decryptData(dataCityVNSession)
         : this.objectFormatLocationGetters;
 
+      debugger;
       return resultData;
     },
 
@@ -150,6 +150,18 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+      debugger;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vn"
+        ? "en"
         : this.$i18n.locale;
     },
 
@@ -164,9 +176,14 @@ export default {
 
     renderCityLocation() {
       debugger;
-      const retrievedDataCity = sessionStorage.getItem("dataCityLog")
-        ? JSON.parse(sessionStorage.getItem("dataCityLog"))
+      const retrievedData = JSON.parse(sessionStorage.getItem("cityVietnam"));
+      // const value = decryptData(retrievedDataCity);
+      // ? JSON.parse(decryptData(sessionStorage.getItem("cityVietnam")))
+      // : [];
+      const retrievedDataCity = decryptData(retrievedData)
+        ? decryptData(retrievedData)
         : [];
+      debugger;
 
       if (!retrievedDataCity) {
         console.error("retrievedDataCity is null or invalid.");
@@ -289,7 +306,7 @@ export default {
       }
 
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      setTitleScream(0, retrievedArray, this.renderLanguage);
+      setTitleScream(0, retrievedArray, this.languageParam);
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${locationValue.latitude},${locationValue.longitude}?lang=${this.renderLanguage}`;
 

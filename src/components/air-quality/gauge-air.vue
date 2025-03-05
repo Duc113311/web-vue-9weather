@@ -196,10 +196,14 @@ export default {
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
+      debugger;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vn"
+        ? "en"
         : this.$i18n.locale;
     },
     breadcumsObject() {

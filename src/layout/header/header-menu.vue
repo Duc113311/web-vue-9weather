@@ -366,8 +366,13 @@ export default {
     },
     languageParam() {
       const languageRouter = this.$route.params;
+      debugger;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language
+        ? languageRouter.language !== "en"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en"
+        ? "en"
         : this.$i18n.locale;
     },
     breadcumsObject() {

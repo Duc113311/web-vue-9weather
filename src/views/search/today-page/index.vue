@@ -95,7 +95,7 @@
       </div>
 
       <div
-        class="right-country lg:h-[243px] lg:w-[30%] w-[100%]"
+        class="right-country lg:h-[243px] md:h-[243px] lg:w-[30%] w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->

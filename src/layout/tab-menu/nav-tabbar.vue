@@ -137,12 +137,6 @@ export default {
         : this.breadcumsObjectGetters?.country;
     },
 
-    renderLanguage() {
-      return this.$route.params.language
-        ? this.$route.params.language
-        : this.$i18n.locale;
-    },
-
     renderCoordinates() {
       return this.$route.params.coordinates
         ? this.$route.params.coordinates
@@ -159,6 +153,18 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
+    renderLanguage() {
+      const languageRouter = this.$route.params;
+      debugger;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vn"
+        ? "en"
         : this.$i18n.locale;
     },
 
@@ -209,7 +215,7 @@ export default {
     setTitleScream(activeIndex) {
       debugger;
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      setTitleScream(activeIndex, retrievedArray, this.languageParam);
+      setTitleScream(activeIndex, retrievedArray, this.renderLanguage);
     },
     isActive(menu) {
       return this.$route.name === menu.name;

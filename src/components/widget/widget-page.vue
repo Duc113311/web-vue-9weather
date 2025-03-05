@@ -990,8 +990,13 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
+      debugger;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
+        ? "en"
         : this.$i18n.locale;
     },
   },

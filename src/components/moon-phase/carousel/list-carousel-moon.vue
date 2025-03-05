@@ -17,7 +17,7 @@
           <div class="text-center w-full">
             <p class="txt_medium_15">{{ $t(`${item.moonPhase}`) }}</p>
             <p class="txt_regular_10">
-              {{ convertFullMoonTime(item?.infoMoonPhaseDay?.date) }}
+              {{ convertFullMoonTime(item.infoMoonPhaseDay?.date) }}
             </p>
           </div>
           <div class="flex justify-center items-center w-full h-full">
@@ -102,8 +102,13 @@ export default {
     },
     languageParam() {
       const languageRouter = this.$route.params;
+      debugger;
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
+        ? "en"
         : this.$i18n.locale;
     },
 
@@ -225,7 +230,7 @@ export default {
           weekend: isWeekend,
           moonPhase: infoMoonPhaseDay.moonPhaseName,
           moonPhasePercentage: infoMoonPhaseDay.moonPhasePercentage,
-          // infoMoonPhaseDay: infoMoonPhaseDay,
+          infoMoonPhaseDay: infoMoonPhaseDay,
         });
       }
 
@@ -245,6 +250,7 @@ export default {
 
     convertFullMoonTime(value) {
       if (value) {
+        debugger;
         const dateString = convertTimestampFullMoon(value);
         return dateString;
       }

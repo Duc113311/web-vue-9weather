@@ -10,25 +10,51 @@
         class="text-center txt_medium_14"
         v-if="breadcumsObject.country_key === 'vn'"
       >
-        <span v-if="renderLanguage === 'en'">
+        <span v-if="languageParam !== 'vi'">
           {{
-            convertCapitalizeWords(
-              removeWordAndAccents(
-                $t(
-                  `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
-                    breadcumsObject.city
-                  )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+            splitLocationName(
+              convertCapitalizeWords(
+                removeWordAndAccents(
+                  $t(
+                    `${convertToConvert(
+                      breadcumsObject.city
+                    )}.${convertToConvert(
+                      breadcumsObject.city
+                    )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+                  )
                 )
               )
+            ).name
+          }}
+
+          {{
+            $t(
+              `${
+                splitLocationName(
+                  convertCapitalizeWords(
+                    removeWordAndAccents(
+                      $t(
+                        `${convertToConvert(
+                          breadcumsObject.city
+                        )}.${convertToConvert(
+                          breadcumsObject.city
+                        )}_${renderLanguage}.${
+                          objectLocation.keyAccentLanguage
+                        }`
+                      )
+                    )
+                  )
+                ).types
+              }`
             )
           }}
         </span>
-        <span v-if="renderLanguage === 'vi'">
+        <span v-if="languageParam === 'vi'">
           {{
             $t(
               `${convertToConvert(breadcumsObject.city)}.${convertToConvert(
                 breadcumsObject.city
-              )}_${renderLanguage}.${objectLocation.keyAccentLanguage}`
+              )}_${languageParam}.${objectLocation.keyAccentLanguage}`
             )
           }}
         </span>
@@ -45,7 +71,8 @@
             "District"
           )
         }} -->
-        {{ objectLocation.enNameLanguage }}
+        {{ splitLocationName(objectLocation.enNameLanguage).name }}
+        {{ $t(`${splitLocationName(objectLocation.enNameLanguage).types}`) }}
       </div>
 
       <div class="txt_regular_12 color_BFBFBF">
@@ -94,8 +121,21 @@ export default {
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     renderLanguage() {
-      return this.$route.params.language
-        ? this.$route.params.language
+      const languageRouter = this.$route.params;
+      debugger;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
+        ? "en"
+        : this.$i18n.locale;
+    },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language
         : this.$i18n.locale;
     },
 
@@ -112,6 +152,41 @@ export default {
   },
 
   methods: {
+    splitLocationName(location) {
+      debugger;
+      const keywords = [
+        "Town",
+        "Commune",
+        "City",
+        "District",
+        "Ward",
+        "Province",
+      ]; // 🔥 Các từ khóa cần tách
+      const regex = new RegExp(`\\b(${keywords.join("|")})\\b`, "gi"); // Regex tìm từ khóa
+
+      const parts = location.split(/,\s*/); // Tách từng phần dựa trên dấu phẩy
+      let nameParts = [];
+      let types = [];
+      let splitDetails = [];
+
+      parts.forEach((part) => {
+        const matchedType = part.match(regex); // Tìm từ khóa trong phần này
+        const cleanedName = part.replace(regex, "").trim(); // Xóa từ khóa để lấy tên chính
+
+        if (matchedType) {
+          types.push(matchedType[0]); // Lưu loại địa danh
+          splitDetails.push({ name: cleanedName, type: matchedType[0] }); // Lưu cả tên và loại vào danh sách
+        }
+
+        nameParts.push(cleanedName); // Lưu phần tên (không có từ khóa)
+      });
+      debugger;
+
+      return {
+        name: nameParts[0], // Tên chính, nối lại với dấu phẩy
+        types: types[0], // Danh sách các loại địa danh
+      };
+    },
     calculateDistance(value) {
       const locationValue = {
         latitude: value.lat,

@@ -320,5 +320,11 @@
   "Sagittarius": "Sagittarius",
   "Capricorn": "Capricorn",
   "Aquarius": "Aquarius",
-  "Pisces": "Pisces"
+  "Pisces": "Pisces",
+  "City":"City",
+  "Town":"Town",
+  "Commune":"Commune",
+  "District":"District",
+  "Ward":"Ward",
+  "Province":"Province"
 }

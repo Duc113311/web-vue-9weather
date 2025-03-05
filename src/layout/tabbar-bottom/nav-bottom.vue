@@ -53,7 +53,7 @@
                 v-if="currentLocationChome?.country_key?.toLowerCase() === 'vn'"
                 >{{
                   $t(
-                    `city.city_${languageParam}.${currentLocationChome?.city_key}`
+                    `city.city_${renderLanguage}.${currentLocationChome?.city_key}`
                   )
                 }}</span
               >
@@ -140,12 +140,6 @@ export default {
       return "";
     },
 
-    renderLanguage() {
-      return this.$route.params.language
-        ? this.$route.params.language
-        : this.$i18n.locale;
-    },
-
     currentLocationChome() {
       const retrievedArray = JSON.parse(
         localStorage.getItem("currentLocationChome")
@@ -185,6 +179,18 @@ export default {
       const languageRouter = this.$route.params;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language
+        : this.$i18n.locale;
+    },
+
+    renderLanguage() {
+      const languageRouter = this.$route.params;
+      debugger;
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vn"
+        ? "en"
         : this.$i18n.locale;
     },
   },
@@ -332,7 +338,7 @@ export default {
 
     onClickShowWidget() {
       this.$router.push({
-        path: `/${this.renderLanguage}/create-widget`,
+        path: `/${this.languageParam}/create-widget`,
       });
     },
 

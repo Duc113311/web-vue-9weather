@@ -90,6 +90,7 @@ export default {
     document.title = this.$t("Local_National_Global") + " " + "| 9Weather";
 
     const valueTheme = localStorage.getItem("theme");
+    debugger;
     if (valueTheme) {
       this.setThemeState(valueTheme);
 
