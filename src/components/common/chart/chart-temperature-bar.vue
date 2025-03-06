@@ -184,7 +184,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: "Temperature",
+              label: this.$t("Temperature"),
               type: "line", // Kiểu dataset là line
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",

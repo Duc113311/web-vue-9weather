@@ -188,7 +188,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: "Chance of rain",
+              label: this.$t("Chance_of_rain"),
               type: "line", // Kiểu dataset là line
               borderColor: "#ccc",
               pointBackgroundColor: (context) => {
@@ -304,9 +304,9 @@ export default {
                   const precipType = this.listDataPrecipType[dataIndex];
                   // savedTheme === "light" ? "#333333" : "#00e3f5",
                   if (precipType === "Snow") {
-                    labelValue = "Chance Of Snow";
+                    labelValue = this.$t("Chance_of_snow");
                   } else {
-                    labelValue = "Chance Of Rain";
+                    labelValue = this.$t("Chance_of_rain");
                   }
                   // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
                   // return precipType === "Snow" ? "#BD8526" : "#00e3f5";

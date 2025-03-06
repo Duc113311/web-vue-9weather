@@ -214,7 +214,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: "Chance of rain",
+              label: this.$t("Chance_of_rain"),
               type: "line", // Kiểu dataset là line
               borderColor: "#90bcf3",
               pointBackgroundColor:

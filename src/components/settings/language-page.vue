@@ -3,7 +3,7 @@
     <!--  -->
     <div class="w-full h-full">
       <div
-        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
+        class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8 pr-2"
         v-for="(name, code) in languageMap"
         :key="code"
         @click="onChooseLanguage(code)"

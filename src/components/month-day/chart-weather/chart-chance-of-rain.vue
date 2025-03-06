@@ -106,7 +106,7 @@ export default {
           labels: [...Array(30).keys()].map((i) => i + 1),
           datasets: [
             {
-              label: "Chance of rain",
+              label: this.$t("Chance_of_rain"),
               borderColor: "#00E3F5",
               pointBackgroundColor: "#00E3F5",
               pointBorderWidth: 1, // Độ dày viền của điểm
@@ -136,7 +136,7 @@ export default {
               callbacks: {
                 label: (tooltipItem) => {
                   const value = tooltipItem.raw; // Get the raw value
-                  return `Chance of rain: ${value} %`; // Display value with percentage
+                  return `${this.$t("Chance_of_rain")}: ${value} %`; // Display value with percentage
                 },
               },
             },

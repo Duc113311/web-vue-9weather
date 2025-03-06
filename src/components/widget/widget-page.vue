@@ -906,11 +906,11 @@ export default {
     titleBackgroundColor: {
       get() {
         debugger;
-        const valueTheme = localStorage.getItem("theme");
+        const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
-          return "#ffffff";
+          return this.$store.state.commonModule.titleBackgroundColorLight;
         } else {
-          return "#0D274C";
+          return this.$store.state.commonModule.titleBackgroundColorDark;
         }
       },
       set(value) {
@@ -922,11 +922,11 @@ export default {
     descriptionColor: {
       get() {
         debugger;
-        const valueTheme = localStorage.getItem("theme");
+        const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
-          return "#889a9a";
+          return this.$store.state.commonModule.descriptionColorLight;
         } else {
-          return "#C7C8C8";
+          return this.$store.state.commonModule.descriptionColorDark;
         }
       },
       set(value) {
@@ -937,11 +937,11 @@ export default {
     titleColor: {
       get() {
         debugger;
-        const valueTheme = localStorage.getItem("theme");
+        const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
-          return "#0E2950";
+          return this.$store.state.commonModule.titleColorLight;
         } else {
-          return "#ffffff";
+          return this.$store.state.commonModule.titleColorDark;
         }
       },
       set(value) {
@@ -952,11 +952,11 @@ export default {
     textColor: {
       get() {
         debugger;
-        const valueTheme = localStorage.getItem("theme");
+        const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
-          return "#7d7fd2";
+          return this.$store.state.commonModule.textColorLight;
         } else {
-          return "#CCCEFF";
+          return this.$store.state.commonModule.textColorDark;
         }
       },
       set(value) {
@@ -967,11 +967,11 @@ export default {
     lineColor: {
       get() {
         debugger;
-        const valueTheme = localStorage.getItem("theme");
+        const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
-          return "#739bd3";
+          return this.$store.state.commonModule.lineColorLight;
         } else {
-          return "#F2F2F2";
+          return this.$store.state.commonModule.lineColorDark;
         }
       },
       set(value) {
@@ -1169,7 +1169,7 @@ export default {
     },
 
     onChangeTitleBackgroundColor(color) {
-      this.setTitleBackgroundColor(color);
+      this.SET_TITLE_BACKGROUND_COLOR(color);
     },
 
     changeColor(color) {

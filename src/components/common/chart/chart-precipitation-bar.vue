@@ -16,7 +16,7 @@
             <div class="flex items-center gap-1">
               <div class="w-[10px] h-[10px] bg-precit"></div>
               <p>
-                Precipitation:
+                {{ $t("Precipitation") }}:
                 {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
                 {{ unitPrecipitation }}
               </p>

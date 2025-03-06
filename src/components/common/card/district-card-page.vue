@@ -71,8 +71,13 @@
             "District"
           )
         }} -->
-        {{ splitLocationName(objectLocation.enNameLanguage).name }}
-        {{ $t(`${splitLocationName(objectLocation.enNameLanguage).types}`) }}
+        <span class="overflow-hidden">{{
+          splitLocationName(objectLocation.enNameLanguage).name
+        }}</span>
+        <span
+          v-if="splitLocationName(objectLocation.enNameLanguage).types !== 0"
+          >{{ splitLocationName(objectLocation.enNameLanguage).types }}</span
+        >
       </div>
 
       <div class="txt_regular_12 color_BFBFBF">
@@ -80,7 +85,7 @@
           ({{ Math.round(calculateDistance(objectLocation.location))
           }}{{ unitSetting.activeDistance_save }} {{ $t("Away") }})
         </p> -->
-        <p>
+        <p v-if="Math.round(calculateDistance(objectLocation.location)) !== 0">
           {{
             $t(`{number}_{unit}_away`, {
               number: Math.round(calculateDistance(objectLocation.location)),

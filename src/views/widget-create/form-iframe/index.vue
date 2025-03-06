@@ -453,6 +453,7 @@ export default {
     },
 
     titleBackgroundColor() {
+      debugger;
       return this.$route.query.titleBackgroundColor
         ? this.$route.query.titleBackgroundColor
         : this.$store.state.commonModule.titleBackgroundColor;

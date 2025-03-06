@@ -36,7 +36,7 @@ export default {
           data: [100, 100, 100, 100, 100, 100, 100, 100], // Dữ liệu nền 100%
         },
         {
-          name: "Chance of rain",
+          name: this.$t("Chance_of_rain"),
           data: [],
         },
       ],

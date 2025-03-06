@@ -7,6 +7,19 @@ const state = {
   titleColor: `var(--title-color-widget)`,
   textColor: `var(--text-color-widget)`,
   lineColor: `var(--line-color-widget)`,
+
+  titleBackgroundColorDark: "#0D274C",
+  descriptionColorDark: "#C7C8C8",
+  titleColorDark: "#ffffff",
+  textColorDark: "#CCCEFF",
+  lineColorDark: "#F2F2F2",
+
+  titleBackgroundColorLight: "#ffffff",
+  descriptionColorLight: "#889a9a",
+  titleColorLight: "#0E2950",
+  textColorLight: "#7d7fd2",
+  lineColorLight: "#739bd3",
+
   statusAddWidget: true,
 
   objectWidget: {
@@ -139,8 +152,14 @@ const getters = {
 
 const mutations = {
   SET_TITLE_BACKGROUND_COLOR(state, value) {
-    state.titleBackgroundColor = value;
-    localStorage.setItem("theme", value); // 🔥 Lưu vào localStorage nếu cần
+    // state.titleBackgroundColor = value;
+
+    const valueTheme = localStorage.getItem("theme");
+    if (valueTheme === "light") {
+      state.titleBackgroundColorLight = value;
+    } else {
+      state.titleBackgroundColorDark = value;
+    }
   },
   setIsScroll(state, value) {
     state.isScroll = value;
@@ -347,20 +366,40 @@ const mutations = {
     state.titleBackgroundColor = data;
   },
 
-  setDescriptionColor(state, data) {
-    state.descriptionColor = data;
+  setDescriptionColor(state, value) {
+    const valueTheme = localStorage.getItem("theme");
+    if (valueTheme === "light") {
+      state.descriptionColorLight = value;
+    } else {
+      state.descriptionColorDark = value;
+    }
   },
 
-  setTitleColor(state, data) {
-    state.titleColor = data;
+  setTitleColor(state, value) {
+    const valueTheme = localStorage.getItem("theme");
+    if (valueTheme === "light") {
+      state.titleColorLight = value;
+    } else {
+      state.titleColorDark = value;
+    }
   },
 
-  setTextColor(state, data) {
-    state.textColor = data;
+  setTextColor(state, value) {
+    const valueTheme = localStorage.getItem("theme");
+    if (valueTheme === "light") {
+      state.textColorLight = value;
+    } else {
+      state.textColorDark = value;
+    }
   },
 
-  setLineColor(state, data) {
-    state.lineColor = data;
+  setLineColor(state, value) {
+    const valueTheme = localStorage.getItem("theme");
+    if (valueTheme === "light") {
+      state.lineColorLight = value;
+    } else {
+      state.lineColorDark = value;
+    }
   },
 
   setListLocation(state, data) {
