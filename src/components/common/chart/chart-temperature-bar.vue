@@ -156,9 +156,9 @@ export default {
         ctx.canvas.height
       );
 
-      gradientTemperatureDark.addColorStop(0, "rgba(245, 163, 0, 1)"); // 100% độ mờ
-      gradientTemperatureDark.addColorStop(0.6, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
-      gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+      gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 1, 1)"); // 100% độ mờ
+      // gradientTemperatureDark.addColorStop(0.6, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
+      // gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
 
       // Tạo gradient Temperature Dark
       const gradientTemperatureLight = ctx.createLinearGradient(
@@ -167,9 +167,9 @@ export default {
         0,
         ctx.canvas.height
       );
-      gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.5)"); // Màu vàng cam (#F5A300) với độ mờ 50%
-      gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
-      gradientTemperatureLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
+      gradientTemperatureLight.addColorStop(1, "rgba(245, 163, 0, 1)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      // gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
+      // gradientTemperatureLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;

@@ -12,18 +12,23 @@
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
 
-            <!--  -->
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in paramHourly"
+                :key="index"
+                class="flex-1 border-r border-white opacity-30"
+              ></div>
+            </div>
             <ChartTemperatureBar
               class="h-[120px] absolute top-10"
             ></ChartTemperatureBar>
-
-            <ChartPrecipitationBar
+            <!-- <ChartPrecipitationBar
               class="h-[150px] absolute bottom-0 z-10"
             ></ChartPrecipitationBar>
 
             <ChartChanceOfRainBar
               class="h-[150px] absolute bottom-6 z-20"
-            ></ChartChanceOfRainBar>
+            ></ChartChanceOfRainBar> -->
 
             <!-- <ChartDomainTemps
                 class="z-20 absolute"
@@ -86,8 +91,8 @@ export default {
   components: {
     ChartDays,
     // ChartDomainTemps,
-    ChartPrecipitationBar,
-    ChartChanceOfRainBar,
+    // ChartPrecipitationBar,
+    // ChartChanceOfRainBar,
     ChartTemperatureBar,
     // ChartDomainRain,
     VueHorizontal,
@@ -161,5 +166,9 @@ export default {
 
 .top-tempt {
   top: 2px;
+}
+.border-r {
+  width: 50px; /* Kích thước mỗi cột */
+  height: 100%;
 }
 </style>
