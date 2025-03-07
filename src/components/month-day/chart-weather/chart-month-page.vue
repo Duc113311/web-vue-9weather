@@ -89,9 +89,10 @@
           <div class="w-full relative h-full">
             <div class="w-full h-full relative">
               <vue-horizontal
-                responsive
-                :displacement="0.8"
-                class="w-full h-[calc(100%-40px)] relative horizontals pt-4"
+                v-if="paramMonth.length > 0"
+                :key="paramMonth.length"
+                :displacement="0.5"
+                class="w-full h-[calc(100%-40px)] relative horizontals pt-4 pr-6 pl-4"
               >
                 <div class="w-full h-full relative">
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
@@ -179,7 +180,9 @@ export default {
 
   computed: {
     ...mapGetters("weatherModule", ["dailyOneGetters", "currentlyGetters"]),
-
+    paramMonth() {
+      return this.$store.state.weatherModule.listDaily30Day;
+    },
     languageParam() {
       debugger;
       const languageRouter = this.$route.params;

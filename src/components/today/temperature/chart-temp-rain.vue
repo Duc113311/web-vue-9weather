@@ -5,8 +5,8 @@
       <div class="w-full h-full relative">
         <vue-horizontal
           v-if="paramHourly.length > 0"
-          responsive
-          :displacement="0.8"
+          :key="paramHourly.length"
+          :displacement="1"
           class="w-full h-[calc(100%-40px)] relative horizontal"
         >
           <div class="w-full h-full relative">

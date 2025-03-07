@@ -156,7 +156,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: "Temperature Max",
+              label: " Max",
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",
               pointBorderWidth: 1, // Độ dày viền của điểm
@@ -180,7 +180,7 @@ export default {
             },
 
             {
-              label: "Temperature Min",
+              label: " Min",
               type: "line", // Kiểu dataset là line
               borderColor: "#00D354",
               pointBackgroundColor: "#00D354",
@@ -239,7 +239,9 @@ export default {
               position: "bottom",
             },
             tooltip: {
-              enabled: true,
+              clip: false, // Không cắt tooltip khi nó vượt khỏi vùng vẽ
+              enabled: false,
+              cornerRadius: 6, // Làm bo góc tooltip
               theme: "dark",
               callbacks: {
                 label: (context) => {
@@ -247,6 +249,60 @@ export default {
                   let value = context.raw || "";
                   return `${label}: ${Number(value) === 0 ? 0 : value}°`; // Thông tin khi hover
                 },
+              },
+
+              external: function (context) {
+                let tooltipModel = context.tooltip;
+                if (!tooltipModel || tooltipModel.opacity === 0) {
+                  let tooltipEl = document.getElementById("chartjs-tooltip");
+                  if (tooltipEl) tooltipEl.style.opacity = "0";
+                  return;
+                }
+
+                let tooltipEl = document.getElementById("chartjs-tooltip");
+
+                if (!tooltipEl) {
+                  tooltipEl = document.createElement("div");
+                  tooltipEl.id = "chartjs-tooltip";
+                  tooltipEl.style.position = "absolute";
+                  tooltipEl.style.background = "rgba(0, 0, 0, 0.8)";
+                  tooltipEl.style.color = "#fff";
+                  tooltipEl.style.padding = "6px 10px";
+                  tooltipEl.style.borderRadius = "4px";
+                  tooltipEl.style.pointerEvents = "none";
+                  tooltipEl.style.zIndex = "1000";
+                  tooltipEl.style.fontSize = "12px";
+                  tooltipEl.style.whiteSpace = "nowrap";
+                  tooltipEl.style.transition = "all 0.1s ease";
+                  context.chart.canvas.parentNode.appendChild(tooltipEl);
+                }
+
+                // Lấy thông tin điểm dữ liệu
+                const chartRect = context.chart.canvas.getBoundingClientRect();
+                let tooltipX = tooltipModel.caretX;
+                let tooltipY = tooltipModel.caretY;
+
+                // Kiểm tra nếu tooltip ở mép trái thì dịch sang phải
+                if (tooltipX < 20) {
+                  tooltipX += 10;
+                }
+                // Kiểm tra nếu tooltip ở mép phải thì dịch sang trái
+                if (tooltipX + tooltipEl.offsetWidth > chartRect.width - 20) {
+                  tooltipX -= tooltipEl.offsetWidth + 10;
+                }
+
+                // Định dạng nội dung tooltip
+                tooltipEl.innerHTML = `
+      <div style="display: flex; align-items: center;">
+        <span style="width: 8px; height: 8px; background: ${tooltipModel.labelColors[0].backgroundColor}; border-radius: 50%; margin-right: 6px;"></span>
+        <strong>${tooltipModel.title[0]}</strong>: ${tooltipModel.body[0].lines[0]}
+      </div>
+    `;
+
+                // Đặt vị trí tooltip gần dấu chấm
+                tooltipEl.style.opacity = "1";
+                tooltipEl.style.left = `${tooltipX + 10}px`; // Dịch sang phải một chút
+                tooltipEl.style.top = `${tooltipY - 25}px`; // Dịch lên trên điểm
               },
             },
           },
@@ -263,4 +319,13 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.chart-container-tempt {
+  overflow: visible !important;
+}
+
+#chartjs-tooltip {
+  transition: all 0.1s ease;
+  white-space: nowrap;
+}
+</style>
