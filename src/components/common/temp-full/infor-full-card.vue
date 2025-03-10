@@ -104,11 +104,7 @@
       </div> -->
     </div>
 
-    <div class="text-left w-full txt_regular_14 pt-4 pb-6">
-      <p>
-        {{ $t("Weather_description") }}
-      </p>
-    </div>
+    <div class="text-left w-full txt_regular_14 pt-2 pb-2"></div>
   </div>
 </template>
 <script>

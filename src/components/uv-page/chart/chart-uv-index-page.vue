@@ -95,19 +95,39 @@
       </template>
       <div class="w-full h-full">
         <vue-horizontal
-          responsive
-          :displacement="0.8"
+          v-if="listUvIndexData.length > 0"
+          :key="listUvIndexData.length"
+          :displacement="1"
           class="w-full h-full relative horizontal"
         >
           <div class="w-full h-full relative">
-            <ChartDays class="h-[40px] pl-3 pr-3"></ChartDays>
+            <ChartDays class="h-[40px]"></ChartDays>
 
-            <div class="h-[calc(100%-40px)] z-10 w-full">
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in listUvIndexData"
+                :key="index"
+                class="flex-1 bor-r-chart opacity-30"
+              ></div>
+            </div>
+
+            <div class="absolute bottom-0 z-10 w-full">
               <div
                 class="chart-container-tab-uv h-full w-[1550px]"
                 v-if="listHourly && listHourly.length"
               >
-                <canvas id="chart_hourlys" height="100%" ref="canvas"></canvas>
+                <canvas id="chart_hourlys" height="200" ref="canvas"></canvas>
+              </div>
+
+              <div class="flex w-[1550px] items-center mt-2">
+                <div
+                  class="weather-item w-full"
+                  v-for="(item, index) in listUvIndexData"
+                  :key="index"
+                >
+                  <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
+                  <div class="txt_regular_12">{{ item }}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -266,6 +286,14 @@ export default {
       }
     },
 
+    convertValueUvTitle(value) {
+      if (value <= 2) return this.$t("Low"); // Màu cho giá trị thấp
+      if (2 < value && value <= 5) return this.$t("Moderate"); // Màu cho giá trị trung bình
+      if (5 < value && value <= 7) return this.$t("High"); // Màu cho giá trị cao
+      if (7 < value && value <= 10) return this.$t("Very_High"); // Màu cho giá trị rất cao
+      return this.$t("Extreme"); // Màu cho giá trị cực cao
+    },
+
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -341,20 +369,19 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
+              callbacks: {
+                label: (context) => {
+                  const value = context.raw || "";
+
+                  return ` ${
+                    value === 0.5 ? 0 : value
+                  }, ${this.convertValueUvTitle(value)} UV`; // Thông tin khi hover
+                },
+              },
             },
             datalabels: {
-              display: true,
-              align: "end", // Position labels at the end of each bar
-              anchor: "end", // Anchor labels to the end of each bar
-              font: {
-                size: 14,
-                //   weight: "bold", // Chỉnh độ đậm của chữ
-              },
-              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-              formatter: (value, context) => {
-                return value === 0.5 ? 0 : value;
-              },
-              offset: 0,
+              display: false,
             },
           },
           scales: {

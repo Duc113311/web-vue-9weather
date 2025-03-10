@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1550px] flex justify-between items-center">
+  <div class="w-[1750px] flex justify-between items-center pl-pre">
     <div
       class="weather-item w-[50px]"
       v-for="(item, index) in paramHourly"
@@ -9,27 +9,15 @@
       <div class="flex justify-center items-center">
         <component :is="renderHourlyIcon(item.precipIntensity)"></component>
       </div>
-      <el-tooltip placement="top" popper-class="dark-tooltip">
-        <template #content>
-          <div class="cursor-pointer">
-            <p class="txt_regular_11">{{ convertTime(item?.time) }}</p>
-            <div class="flex items-center gap-1">
-              <div class="w-[10px] h-[10px] bg-precit"></div>
-              <p>
-                Precipitation:
-                {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
-                {{ unitPrecipitation }}
-              </p>
-            </div>
-          </div>
-        </template>
-        <div class="cursor-default">
-          <p class="txt_regular_14">
-            {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
-          </p>
-          <p class="txt_regular_12">{{ unitPrecipitation }}</p>
-        </div>
-      </el-tooltip>
+      <div class="">
+        <p class="txt_regular_12">
+          {{ Math.round(item.precipProbability * 100) }}%
+        </p>
+        <p class="txt_regular_12">
+          {{ item.precipIntensity === 0 ? "0.0" : item.precipIntensity }}
+          {{ unitPrecipitation }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -51,7 +39,13 @@ export default {
   computed: {
     ...mapGetters("weatherModule", ["hourly24hGetters"]),
     paramHourly() {
-      return this.$store.state.weatherModule.listDaily30Day;
+      const daily = this.$store.state.weatherModule.dailyData;
+      const listDaily30Day = this.$store.state.weatherModule.listDaily30Day;
+      if (daily.length !== 0) {
+        listDaily30Day.splice(0, 8, ...daily);
+      }
+
+      return listDaily30Day;
     },
 
     convertTimeMonth() {

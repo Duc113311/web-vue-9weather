@@ -4,14 +4,23 @@
       <div class="w-full h-full relative">
         <!--  -->
         <vue-horizontal
-          responsive
-          :displacement="0.8"
+          v-if="listHourly.length > 0"
+          :key="listHourly.length"
+          :displacement="1"
           class="w-full h-[calc(100%-40px)] relative horizontal"
         >
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
 
-            <div class="h-[calc(100%-40px)] w-full">
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in listHourly"
+                :key="index"
+                class="flex-1 bor-r-chart opacity-30"
+              ></div>
+            </div>
+
+            <div class="w-full absolute bottom-6">
               <div
                 class="chart-container w-[1550px] h-full p-chart-avg"
                 v-if="listHourly && listHourly.length"
@@ -23,6 +32,19 @@
                     ref="canvas"
                   ></canvas>
                 </div>
+              </div>
+            </div>
+
+            <div
+              class="w-[1550px] flex justify-between items-center absolute bottom-0"
+            >
+              <div
+                class="weather-item w-full"
+                v-for="(item, index) in listTemperatureData"
+                :key="index"
+              >
+                <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
+                <div class="txt_regular_12">{{ item }}%</div>
               </div>
             </div>
           </div>
@@ -222,8 +244,6 @@ export default {
       gradient.addColorStop(0, "rgba(0, 102, 255, 0.2)"); // Màu dưới (#F5D400 với độ mờ 10%)
       gradient.addColorStop(1, "rgba(0, 102, 255, 0)"); // Màu dưới (#F5D400 với độ mờ 10%)
 
-      const maxWindSpeedData = Math.max(...this.listTemperatureData);
-
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
@@ -243,9 +263,9 @@ export default {
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2,
               pointBorderColor: "#0b78d5",
-              pointRadius: 5,
+              pointRadius: 0,
               backgroundColor: gradient,
-              fill: true,
+              fill: "start",
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
             },
@@ -258,8 +278,6 @@ export default {
             padding: {
               top: 20, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 22,
-              right: 24,
             },
           },
           plugins: {
@@ -269,27 +287,21 @@ export default {
             },
             tooltip: {
               enabled: true,
+              intersect: false, // Cho phép hover ở mọi nơi trên đường
+              mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               theme: "dark",
               callbacks: {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value}%`; // Thông tin khi hover
+                  return ` ${value}%`; // Thông tin khi hover
                 },
               },
             },
             datalabels: {
-              display: true,
+              display: false,
               align: "top",
-              font: {
-                size: 14,
-                //   weight: "bold", // Chỉnh độ đậm của chữ
-              },
-              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-              formatter: (value, context) => {
-                return `${value}%`;
-              },
-              offset: 4,
+              anchor: "end",
             },
           },
           scales: {

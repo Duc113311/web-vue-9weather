@@ -90,7 +90,7 @@
 }
 
 .bg-rain {
-  background-color: #60a5fa;
+  background-color: #2AE2F3;
 }
 .bg-snow {
   background-color: #c79062;
@@ -153,6 +153,10 @@
 
 .bg-precit {
   background-color: #327cee;
+}
+
+.bg-snow {
+  background-color: #FD8E2D;
 }
 
 .txt-line {

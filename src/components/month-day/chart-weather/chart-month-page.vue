@@ -91,25 +91,33 @@
               <vue-horizontal
                 v-if="paramMonth.length > 0"
                 :key="paramMonth.length"
-                :displacement="0.5"
+                :displacement="1"
                 class="w-full h-[calc(100%-40px)] relative horizontals pt-4 pr-6 pl-4"
               >
                 <div class="w-full h-full relative">
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
+                  <ChartTitleTempMaxMin></ChartTitleTempMaxMin>
 
+                  <div class="flex w-full h-full min-w-[1750px]">
+                    <div
+                      v-for="(day, index) in paramMonth"
+                      :key="index"
+                      class="flex-1 bor-r-chart opacity-30"
+                    ></div>
+                  </div>
                   <ChartTempMaxMin
-                    class="h-[150px] absolute top-15"
+                    class="h-[150px] absolute top-20"
                     :key="indexState + Math.random()"
                   ></ChartTempMaxMin>
-
-                  <ChartChanceOfRainBarMonth
-                    class="h-[150px] absolute bottom-6 z-20"
-                  ></ChartChanceOfRainBarMonth>
 
                   <ChartPrecipitation
                     class="h-[150px] absolute bottom-0 z-10"
                     :key="indexState + Math.random()"
                   ></ChartPrecipitation>
+
+                  <ChartChanceOfRainBarMonth
+                    class="h-[120px] absolute bottom-8 z-20"
+                  ></ChartChanceOfRainBarMonth>
                 </div>
               </vue-horizontal>
 
@@ -159,6 +167,7 @@ import { capitalizeWords } from "@/utils/converValue";
 import removeAccents from "remove-accents";
 import { mapGetters } from "vuex";
 import ChartChanceOfRainBarMonth from "./chart-chance-of-rain-bar-month.vue";
+import ChartTitleTempMaxMin from "./chart-title-temp-max-min.vue";
 
 export default {
   name: "chart-month-page",
@@ -168,6 +177,7 @@ export default {
     ChartTimeIcon,
     ChartTempMaxMin,
     VueHorizontal,
+    ChartTitleTempMaxMin,
     // ChartChanceOfRain,
     ChartPrecipitation,
     ChartChanceOfRainBarMonth,

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1550px] flex justify-between items-center">
+  <div class="w-[1750px] flex justify-between items-center">
     <div
       class="weather-item w-[50px]"
       v-for="(item, index) in paramHourly"
@@ -84,8 +84,14 @@ export default {
 
     renderHourly(value) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timeZoneValue =
+        this.$store.state.weatherModule.locationOffset.timeZone;
 
-      const timestampValue = convertDayOfWeek(value.time);
+      const timestampValue = convertDayOfWeek(
+        value.time,
+        offsetValue,
+        timeZoneValue
+      );
       const iconValue = getIconHourlyForecastTheme(value.icon);
 
       return {

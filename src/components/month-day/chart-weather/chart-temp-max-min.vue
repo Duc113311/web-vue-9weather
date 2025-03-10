@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chart-container-tempt w-[1550px] p-chart-avg"
+    class="chart-container-tempt w-[1750px] p-chart-avg"
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper-tempt w-full h-full">
@@ -18,6 +18,7 @@ import {
   convertTimestamp12hSun,
   convertTimestamp24hSun,
   convertDayOfWeek,
+  convertDayOfWeekMonth,
 } from "../../../utils/converValue.js";
 import {
   Chart,
@@ -111,12 +112,15 @@ export default {
 
   methods: {
     convertTime(value) {
-      const date = new Date(value * 1000);
-      const dateNew = new Date(date);
-      const day = dateNew.getDate();
-      const year = dateNew.getFullYear();
-      const timestampValue = convertDayOfWeek(value);
-      return timestampValue + " " + day + " " + year;
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timeZoneValue =
+        this.$store.state.weatherModule.locationOffset.timeZone;
+      const timestampValue = convertDayOfWeekMonth(
+        value,
+        offsetValue,
+        timeZoneValue
+      );
+      return timestampValue;
     },
 
     createChartHourly24h() {
@@ -136,12 +140,13 @@ export default {
       const maxDataValue = Math.max(...this.listTemperatureData);
 
       const minDataValueMin = Math.min(...this.listTemperatureMin);
+      const chartHeight = ctx.canvas.height;
 
       // Tạo gradient Temperature Dark Max
 
-      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      gradient.addColorStop(0, "#d5c692");
-      gradient.addColorStop(1, "#d5c69229"); // Nửa dưới trong suốt
+      const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradient.addColorStop(0, "rgba(235, 171, 63, 1)"); // Màu đậm trên cùng
+      gradient.addColorStop(1, "rgba(235, 171, 63, 0)"); // Màu hoàn toàn trong suốt ở đáy
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
@@ -162,45 +167,25 @@ export default {
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
               pointBorderColor: "#EBAB3F",
-              pointRadius: 5, // Bán kính điểm
+              pointRadius: 0, // Bán kính điểm
               backgroundColor: gradient,
-              fill: false, // Tô nền dưới line
+              fill: "start", // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
-              datalabels: {
-                display: true,
-                align: "top",
-                font: {
-                  size: 14,
-                },
-                color: "#EBAB3F",
-                formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-                offset: 4,
-              },
             },
 
             {
               label: " Min",
               type: "line", // Kiểu dataset là line
-              borderColor: "#00D354",
-              pointBackgroundColor: "#00D354",
+              borderColor: "#25CB62",
+              pointBackgroundColor: "#25CB62",
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: "#00D354",
-              pointRadius: 5, // Bán kính điểm
+              pointBorderColor: "#25CB62",
+              pointRadius: 0, // Bán kính điểm
               backgroundColor: gradient,
               fill: "-1", // Tô nền dưới line
               data: this.listTemperatureMin,
               pointHoverRadius: 4, // Tăng kích thước khi hover
-              datalabels: {
-                display: true,
-                align: "bottom",
-                font: {
-                  size: 14,
-                },
-                color: "#00D354",
-                formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-                offset: 4,
-              },
             },
           ],
         },
@@ -209,10 +194,8 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 40, // Chỉ định padding phía trên
-              bottom: 20, // Chỉ định padding phía dưới
-              left: 18,
-              right: 20,
+              top: 0, // Chỉ định padding phía trên
+              bottom: 0, // Chỉ định padding phía dưới
             },
           },
           scales: {
@@ -239,8 +222,10 @@ export default {
               position: "bottom",
             },
             tooltip: {
+              enabled: true,
+              intersect: false, // Cho phép hover ở mọi nơi trên đường
+              mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               clip: false, // Không cắt tooltip khi nó vượt khỏi vùng vẽ
-              enabled: false,
               cornerRadius: 6, // Làm bo góc tooltip
               theme: "dark",
               callbacks: {
@@ -250,60 +235,12 @@ export default {
                   return `${label}: ${Number(value) === 0 ? 0 : value}°`; // Thông tin khi hover
                 },
               },
+            },
 
-              external: function (context) {
-                let tooltipModel = context.tooltip;
-                if (!tooltipModel || tooltipModel.opacity === 0) {
-                  let tooltipEl = document.getElementById("chartjs-tooltip");
-                  if (tooltipEl) tooltipEl.style.opacity = "0";
-                  return;
-                }
-
-                let tooltipEl = document.getElementById("chartjs-tooltip");
-
-                if (!tooltipEl) {
-                  tooltipEl = document.createElement("div");
-                  tooltipEl.id = "chartjs-tooltip";
-                  tooltipEl.style.position = "absolute";
-                  tooltipEl.style.background = "rgba(0, 0, 0, 0.8)";
-                  tooltipEl.style.color = "#fff";
-                  tooltipEl.style.padding = "6px 10px";
-                  tooltipEl.style.borderRadius = "4px";
-                  tooltipEl.style.pointerEvents = "none";
-                  tooltipEl.style.zIndex = "1000";
-                  tooltipEl.style.fontSize = "12px";
-                  tooltipEl.style.whiteSpace = "nowrap";
-                  tooltipEl.style.transition = "all 0.1s ease";
-                  context.chart.canvas.parentNode.appendChild(tooltipEl);
-                }
-
-                // Lấy thông tin điểm dữ liệu
-                const chartRect = context.chart.canvas.getBoundingClientRect();
-                let tooltipX = tooltipModel.caretX;
-                let tooltipY = tooltipModel.caretY;
-
-                // Kiểm tra nếu tooltip ở mép trái thì dịch sang phải
-                if (tooltipX < 20) {
-                  tooltipX += 10;
-                }
-                // Kiểm tra nếu tooltip ở mép phải thì dịch sang trái
-                if (tooltipX + tooltipEl.offsetWidth > chartRect.width - 20) {
-                  tooltipX -= tooltipEl.offsetWidth + 10;
-                }
-
-                // Định dạng nội dung tooltip
-                tooltipEl.innerHTML = `
-      <div style="display: flex; align-items: center;">
-        <span style="width: 8px; height: 8px; background: ${tooltipModel.labelColors[0].backgroundColor}; border-radius: 50%; margin-right: 6px;"></span>
-        <strong>${tooltipModel.title[0]}</strong>: ${tooltipModel.body[0].lines[0]}
-      </div>
-    `;
-
-                // Đặt vị trí tooltip gần dấu chấm
-                tooltipEl.style.opacity = "1";
-                tooltipEl.style.left = `${tooltipX + 10}px`; // Dịch sang phải một chút
-                tooltipEl.style.top = `${tooltipY - 25}px`; // Dịch lên trên điểm
-              },
+            datalabels: {
+              anchor: "end",
+              align: "top",
+              display: false,
             },
           },
 

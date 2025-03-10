@@ -4,24 +4,38 @@
     <div class="w-full relative h-full">
       <div class="w-full h-full relative">
         <vue-horizontal
-          :displacement="0.8"
-          responsive
+          v-if="paramHourly.length > 0"
+          :key="paramHourly.length"
+          :displacement="1"
           class="w-full h-[calc(100%-40px)] relative horizontals pl-2 pr-6 pt-4"
         >
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
+            <ChartTitleTemp></ChartTitleTemp>
+
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in paramHourly"
+                :key="index"
+                class="flex-1 bor-r-chart opacity-30"
+              ></div>
+            </div>
 
             <ChartTemperatureBar
-              class="h-[150px] absolute top-10"
+              class="h-[130px] absolute top-16"
             ></ChartTemperatureBar>
 
             <ChartPrecipitationBar
               class="h-[150px] absolute bottom-0 z-10"
             ></ChartPrecipitationBar>
 
-            <ChartChanceOfRainBar
+            <ChartTitleRain
+              class="h-[112px] absolute bottom-9 z-20"
+            ></ChartTitleRain>
+
+            <!-- <ChartChanceOfRainBar
               class="h-[150px] absolute bottom-6 z-20"
-            ></ChartChanceOfRainBar>
+            ></ChartChanceOfRainBar> -->
           </div>
         </vue-horizontal>
 
@@ -55,6 +69,8 @@ import ChartChanceOfRainBar from "@/components/common/chart/chart-chance-of-rain
 import ChartDays from "@/components/common/chart/chart-days.vue";
 import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
 import ChartTemperatureBar from "@/components/common/chart/chart-temperature-bar.vue";
+import ChartTitleRain from "@/components/common/chart/chart-title-rain.vue";
+import ChartTitleTemp from "@/components/common/chart/chart-title-temp.vue";
 import VueHorizontal from "vue-horizontal";
 
 export default {
@@ -62,14 +78,22 @@ export default {
 
   components: {
     VueHorizontal,
-    ChartChanceOfRainBar,
+    // ChartChanceOfRainBar,
     ChartTemperatureBar,
     ChartDays,
     ChartPrecipitationBar,
+    ChartTitleTemp,
+    ChartTitleRain,
   },
 
   data() {
     return {};
+  },
+
+  computed: {
+    paramHourly() {
+      return this.$store.state.weatherModule.hourly24h;
+    },
   },
 
   mounted() {},

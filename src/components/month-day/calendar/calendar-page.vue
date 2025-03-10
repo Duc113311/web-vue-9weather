@@ -181,6 +181,8 @@ export default {
         listDaily30Day.splice(0, 8, ...daily);
       }
 
+      console.log("listDaily30Day", listDaily30Day);
+
       return listDaily30Day;
     },
 

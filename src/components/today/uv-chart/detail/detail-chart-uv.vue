@@ -1,10 +1,22 @@
 <template>
-  <div class="w-[1550px] z-10">
+  <div class="chart-container-tempt w-[1550px]">
     <div
-      class="chart-container-uv h-full w-full"
-      v-if="listHourly && listHourly.length"
+      v-if="listHourly && listHourly.length && listUvIndexData.length"
+      class="chart-container-uv w-full"
     >
-      <canvas id="chart_hourly" height="auto" ref="canvas"></canvas>
+      <div class="chart-wrapper-tempt w-full h-full">
+        <canvas id="chart_hourly" height="275" ref="canvas"></canvas>
+      </div>
+    </div>
+    <div class="flex w-[1550px] items-center mt-2">
+      <div
+        class="weather-item w-full"
+        v-for="(item, index) in listUvIndexData"
+        :key="index"
+      >
+        <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
+        <div class="txt_regular_12">{{ item }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -66,10 +78,6 @@ export default {
       const unitSetting = this.objectSetting;
 
       return this.listHourly.map((element) => Math.round(element.uvIndex) || 0);
-      // return [
-      //   12, 12, 16, 17, 10, 13, 10, 15, 3, 12, 12, 16, 17, 12, 12, 16, 17, 10,
-      //   13, 10, 15, 3, 12, 12,
-      // ];
     },
   },
 
@@ -104,6 +112,14 @@ export default {
         return convertTimestamp24hSun(val, 1, offsetValue, timezoneValue);
       }
     },
+
+    convertValueUvTitle(value) {
+      if (value <= 2) return this.$t("Low"); // Màu cho giá trị thấp
+      if (2 < value && value <= 5) return this.$t("Moderate"); // Màu cho giá trị trung bình
+      if (5 < value && value <= 7) return this.$t("High"); // Màu cho giá trị cao
+      if (7 < value && value <= 10) return this.$t("Very_High"); // Màu cho giá trị rất cao
+      return this.$t("Extreme"); // Màu cho giá trị cực cao
+    },
     createChartHourly24h() {
       const canvas = this.$refs.canvas;
       if (!canvas) {
@@ -127,6 +143,7 @@ export default {
       );
 
       // Thay đổi màu sắc của từng cột dựa trên giá trị
+
       const backgroundColors = displayData.map((value) => {
         if (value <= 2) return "#389311"; // Màu cho giá trị thấp
         if (2 < value && value <= 5) return "#F3E52B"; // Màu cho giá trị trung bình
@@ -150,11 +167,11 @@ export default {
               label: "Uv Index",
               type: "bar",
               pointBackgroundColor: "#ffffff",
-              borderWidth: 1,
+              borderWidth: 0,
               pointBorderColor: "#C27021",
-              pointRadius: 5,
+              pointRadius: 6,
               backgroundColor: backgroundColors,
-              fill: true,
+              fill: "start",
               data: displayData,
               barThickness: 30,
               borderRadius: 20,
@@ -172,6 +189,7 @@ export default {
               right: 0,
             },
           },
+
           plugins: {
             legend: {
               display: false,
@@ -179,20 +197,20 @@ export default {
             },
             tooltip: {
               enabled: true,
+              theme: "dark",
+              callbacks: {
+                label: (context) => {
+                  const { dataset, dataIndex } = context;
+                  const value = context.raw || "";
+
+                  return ` ${
+                    value === 0.5 ? 0 : value
+                  }, ${this.convertValueUvTitle(value)} UV`; // Thông tin khi hover
+                },
+              },
             },
             datalabels: {
-              display: true,
-              align: "end", // Position labels at the end of each bar
-              anchor: "end", // Anchor labels to the end of each bar
-              font: {
-                size: 14,
-                //   weight: "bold", // Chỉnh độ đậm của chữ
-              },
-              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-              formatter: (value, context) => {
-                return value === 0.5 ? 0 : value;
-              },
-              offset: 0,
+              display: false,
             },
           },
           scales: {

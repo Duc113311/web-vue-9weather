@@ -123,10 +123,6 @@ export default {
         console.error("Failed to get canvas context");
         return;
       }
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = canvas.clientWidth * dpr;
-      canvas.height = canvas.clientHeight * dpr;
-      ctx.scale(dpr, dpr);
 
       if (this.chartInstance) {
         this.chartInstance.destroy();
@@ -139,45 +135,21 @@ export default {
       const maxDataValue = Math.max(...this.listTemperatureData);
 
       const chartHeight = ctx.canvas.height;
-      const minPosition =
-        chartHeight -
-        ((minDataValue - minDataValue) / (maxDataValue - minDataValue)) *
-          chartHeight;
-      const maxPosition =
-        chartHeight -
-        ((maxDataValue - minDataValue) / (maxDataValue - minDataValue)) *
-          chartHeight;
 
-      // Tạo gradient Temperature Dark
-      const gradientTemperatureDark = ctx.createLinearGradient(
-        0,
-        0,
-        0,
-        ctx.canvas.height
-      );
+      // Tạo gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradient.addColorStop(0, "rgba(235, 171, 63, 1)"); // Màu đậm trên cùng
+      gradient.addColorStop(0.6, "rgba(235, 171, 63, 0.2)"); // Màu gần như trong suốt hơn
+      gradient.addColorStop(0.8, "rgba(235, 171, 63, 0.02)"); // Màu rất nhạt trước khi hết
+      gradient.addColorStop(1, "rgba(235, 171, 63, 0)"); // Màu hoàn toàn trong suốt ở đáy
 
-      gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 1, 1)"); // 100% độ mờ
-      // gradientTemperatureDark.addColorStop(0.6, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
-      // gradientTemperatureDark.addColorStop(1, "rgba(245, 163, 0, 0)"); // Gần với màu nền, hoàn toàn trong suốt
-
-      // Tạo gradient Temperature Dark
-      const gradientTemperatureLight = ctx.createLinearGradient(
-        0,
-        0,
-        0,
-        ctx.canvas.height
-      );
-      gradientTemperatureLight.addColorStop(1, "rgba(245, 163, 0, 1)"); // Màu vàng cam (#F5A300) với độ mờ 50%
-      // gradientTemperatureLight.addColorStop(0, "rgba(245, 163, 0, 0.2)"); // Màu vàng cam (#F5A300) với độ mờ 50%
-      // gradientTemperatureLight.addColorStop(1, "rgba(255, 255, 255, 0)"); // Màu trắng (#FFFFFF) với độ mờ 0%
-
+      // Time
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
 
-      const savedTheme = localStorage.getItem("theme") || "light";
-
+      // Chart
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
@@ -191,75 +163,11 @@ export default {
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
               pointBorderColor: "#EBAB3F",
-              pointRadius: 5, // Bán kính điểm
-              backgroundColor: (context) => {
-                const { chart } = context;
-
-                console.log("context", context);
-
-                const dataIndex = context.datasetIndex;
-                const dataset = context.dataset;
-                const value = dataset.data[dataIndex];
-
-                const ctx = chart.ctx;
-
-                const isLightTheme = this.savedTheme === "light";
-
-                let gradient;
-                if (value >= 0) {
-                  // Vẽ gradient từ trên xuống
-                  gradient = ctx.createLinearGradient(
-                    0,
-                    0,
-                    0,
-                    ctx.canvas.height
-                  );
-                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
-                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0)");
-                } else {
-                  // Vẽ gradient từ dưới lên
-                  gradient = ctx.createLinearGradient(
-                    0,
-                    ctx.canvas.height,
-                    0,
-                    0
-                  );
-                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
-                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0.2)");
-                }
-
-                // Tuỳ theo theme ta chọn màu khác nhau
-                if (isLightTheme) {
-                  // Vd: Light theme: màu vàng đậm phía trên (hoặc dưới), dần chuyển sang trong suốt
-                  gradient.addColorStop(0, "rgba(245, 163, 0, 1)");
-                  gradient.addColorStop(0.6, "rgba(245, 163, 0, 0.3)");
-                  gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
-                } else {
-                  // Vd: Dark theme: bạn có thể đổi các mã màu cho phù hợp
-                  gradient.addColorStop(1, "rgba(245, 163, 0, 0)");
-                }
-
-                return gradient;
-              },
-
-              fill: true, // Tô nền dưới line
+              pointRadius: 0, // Bán kính điểm
+              backgroundColor: gradient,
+              fill: "start",
               data: this.listTemperatureData,
-              pointHoverRadius: 4, // Tăng kích thước khi hover
-              datalabels: {
-                display: true,
-                align: (context) => {
-                  const { dataset, dataIndex } = context;
-                  const value = dataset.data[dataIndex];
-                  // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                  return value < 0 ? "bottom" : "top";
-                },
-                anchor: "start", // Gắn nhãn ở đầu cột
-                font: {
-                  size: 14,
-                },
-                color: "#EBAB3F",
-                formatter: (value) => `${value}°`, // Định dạng giá trị hiển thị
-              },
+              pointHoverRadius: 3,
             },
           ],
         },
@@ -270,8 +178,6 @@ export default {
             padding: {
               top: maxDataValue, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 22,
-              right: 24,
             },
           },
           scales: {
@@ -297,19 +203,20 @@ export default {
             },
             tooltip: {
               enabled: true,
+              intersect: false, // Cho phép hover ở mọi nơi trên đường
+              mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               theme: "dark",
-              align: "left",
               callbacks: {
                 label: (context) => {
-                  const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${Number(value) === 0 ? 0 : value}°`; // Thông tin khi hover
+                  return `${Number(value) === 0 ? 0 : value}°C`;
                 },
               },
             },
             datalabels: {
               anchor: "end",
               align: "top",
+              display: false,
             },
           },
 

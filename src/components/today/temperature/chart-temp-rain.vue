@@ -11,22 +11,26 @@
         >
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
+            <ChartTitleTemp></ChartTitleTemp>
 
             <div class="flex w-full h-full min-w-[1550px]">
               <div
                 v-for="(day, index) in paramHourly"
                 :key="index"
-                class="flex-1 border-r border-white opacity-30"
+                class="flex-1 bor-r-chart opacity-30"
               ></div>
             </div>
             <ChartTemperatureBar
-              class="h-[120px] absolute top-10"
+              class="h-[120px] absolute top-14"
             ></ChartTemperatureBar>
-            <!-- <ChartPrecipitationBar
+
+            <ChartPrecipitationBar
               class="h-[150px] absolute bottom-0 z-10"
             ></ChartPrecipitationBar>
-
-            <ChartChanceOfRainBar
+            <ChartTitleRain
+              class="h-[112px] absolute bottom-9 z-20"
+            ></ChartTitleRain>
+            <!-- <ChartChanceOfRainBar
               class="h-[150px] absolute bottom-6 z-20"
             ></ChartChanceOfRainBar> -->
 
@@ -82,6 +86,8 @@ import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
 import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
 import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
 import ChartTemperatureBar from "@/components/common/chart/chart-temperature-bar.vue";
+import ChartTitleRain from "@/components/common/chart/chart-title-rain.vue";
+import ChartTitleTemp from "@/components/common/chart/chart-title-temp.vue";
 import ChartPrecipitation from "@/components/month-day/chart-weather/chart-precipitation.vue";
 import VueHorizontal from "vue-horizontal";
 
@@ -91,11 +97,13 @@ export default {
   components: {
     ChartDays,
     // ChartDomainTemps,
-    // ChartPrecipitationBar,
+    ChartPrecipitationBar,
     // ChartChanceOfRainBar,
     ChartTemperatureBar,
     // ChartDomainRain,
+    ChartTitleTemp,
     VueHorizontal,
+    ChartTitleRain,
 
     // ChartColumnRainfall,
     // ChartApexRain,

@@ -4,18 +4,41 @@
       <div class="w-full h-full relative">
         <!--  -->
         <vue-horizontal
-          responsive
+          v-if="listHourly.length > 0"
+          :key="listHourly.length"
           :displacement="1"
           class="w-full h-[calc(100%-40px)] relative horizontal"
         >
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
-            <div class="h-[calc(100%-40px)] w-full">
+
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in listHourly"
+                :key="index"
+                class="flex-1 bor-r-chart opacity-30"
+              ></div>
+            </div>
+
+            <div class="w-full absolute bottom-6">
               <div
                 class="chart-container-pressure w-[1550px] h-full p-chart-avg"
                 v-if="listHourly && listHourly.length"
               >
                 <canvas id="chart_hourly" class="h-full" ref="canvas"></canvas>
+              </div>
+            </div>
+
+            <div
+              class="w-[1550px] flex justify-between items-center absolute bottom-0"
+            >
+              <div
+                class="weather-item w-full"
+                v-for="(item, index) in listPressure"
+                :key="index"
+              >
+                <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
+                <div class="txt_regular_12">{{ item }}</div>
               </div>
             </div>
           </div>
@@ -206,31 +229,22 @@ export default {
         return;
       }
 
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = canvas.clientWidth * dpr;
-      canvas.height = canvas.clientHeight * dpr;
-      ctx.scale(dpr, dpr);
+      // const dpr = window.devicePixelRatio || 1;
+      // canvas.width = canvas.clientWidth * dpr;
+      // canvas.height = canvas.clientHeight * dpr;
+      // ctx.scale(dpr, dpr);
 
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
 
-      // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
-      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-      // Thêm các màu với độ mờ (opacity) khác nhau
+      const chartHeight = ctx.canvas.height;
 
-      // Màu bắt đầu: Xanh đậm (đậm nhất)
-      gradient.addColorStop(0, "rgba(117, 39, 213, 1)"); // #0E2950 với alpha = 1 (đậm)
-
-      // Màu trung gian: Xanh nhạt dần
-      gradient.addColorStop(0.5, "rgba(117, 39, 213, 0.3)"); // Alpha = 0.3 (nhạt)
-
-      // Gần cuối: Rất nhạt
-      gradient.addColorStop(0.7, "rgba(117, 39, 213, 0)"); // Alpha = 0.05 (rất mờ)
-      gradient.addColorStop(0.6, "rgba(117, 39, 213, 0)"); // Alpha = 0.05 (rất mờ)
-
-      // Màu kết thúc: Hoàn toàn trong suốt
-      gradient.addColorStop(1, "rgba(40, 99, 170, 0)"); // Alpha = 0 (trong suốt)
+      const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradient.addColorStop(0, "rgba(188, 65, 242, 1)"); // Màu đậm nhất ở trên (#BC41F2 với opacity 1)
+      gradient.addColorStop(0.6, "rgba(188, 65, 242, 0.5)"); // Giảm độ mờ
+      gradient.addColorStop(0.8, "rgba(188, 65, 242, 0.2)"); // Màu rất nhạt trước khi hết
+      gradient.addColorStop(1, "rgba(188, 65, 242, 0)"); // Hoàn toàn trong suốt ở đáy
 
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
@@ -240,7 +254,6 @@ export default {
       const minWindSpeedData = Math.min(...this.listPressure);
 
       const unitSetting = this.objectSetting.activePressure_save;
-      const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -254,11 +267,11 @@ export default {
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2,
               pointBorderColor: "#BC41F2",
-              pointRadius: 5,
+              pointRadius: 0,
               backgroundColor: gradient,
-              fill: true,
+              fill: "start",
               data: this.listPressure,
-              pointHoverRadius: 8, // Tăng kích thước khi hover
+              pointHoverRadius: 4, // Tăng kích thước khi hover
             },
           ],
         },
@@ -269,8 +282,6 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 22,
-              right: 24,
             },
           },
           plugins: {
@@ -280,27 +291,21 @@ export default {
             },
             tooltip: {
               enabled: true,
+              intersect: false, // Cho phép hover ở mọi nơi trên đường
+              mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               theme: "dark",
               callbacks: {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value} ${unitSetting}`; // Thông tin khi hover
+                  return ` ${value} ${unitSetting}`; // Thông tin khi hover
                 },
               },
             },
             datalabels: {
-              display: true,
+              display: false,
               align: "top",
-              font: {
-                size: 12,
-                //   weight: "bold", // Chỉnh độ đậm của chữ
-              },
-              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-              formatter: (value, context) => {
-                return `${value}`;
-              },
-              offset: 4,
+              anchor: "end",
             },
           },
           scales: {

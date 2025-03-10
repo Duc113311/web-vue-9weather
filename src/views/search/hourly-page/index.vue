@@ -3,7 +3,7 @@
     <!-- -->
     <div class="container mt-5">
       <div class="header-h h-full w-full lg:flex block gap-20-px">
-        <div class="left-hourly lg:w-[73%] w-full">
+        <div class="left-hourly lg:w-[67%] w-full">
           <!--  -->
           <ChartAvgWeather
             :key="indexState + Math.random()"
@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[25%] w-full lg:mt-0 md:mt-0">
+        <div class="right-hourly lg:w-[31%] w-full lg:mt-0 md:mt-0">
           <TempFullCard
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -37,6 +37,30 @@
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></ItemTime24h>
           <div v-else class="w-full h-[860px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="left-hourly w-[100%] lg:mt-0 md:mt-10"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <ListNearbyLocation
+              :key="indexState + Math.random()"
+            ></ListNearbyLocation>
+          </div>
+          <div v-else class="w-full h-[380px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="left-hourly w-[100%] lg:mt-0"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <ListCountryPage
+              :key="indexState + Math.random()"
+            ></ListCountryPage>
+          </div>
+          <div v-else class="w-full h-[380px] mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
@@ -74,35 +98,21 @@
           <div v-else class="w-full h-[260px] md:mt-5">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
+
+          <div
+            class="right-hourly lg:h-[243px] w-[100%]"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <RadarPage :key="indexState + Math.random()"></RadarPage>
+          </div>
+          <div v-else class="w-full h-[380px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
       </div>
     </div>
 
     <!--  -->
-
-    <div class="container w-full lg:flex gap-20-px">
-      <div
-        class="left-hourly lg:w-[68%] w-[100%] lg:mt-0 md:mt-10"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
-        <ListNearbyLocation
-          :key="indexState + Math.random()"
-        ></ListNearbyLocation>
-      </div>
-      <div v-else class="w-full h-[380px] mt-5">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-      </div>
-
-      <div
-        class="right-hourly lg:h-[243px] lg:w-[30%] w-[100%]"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
-        <RadarPage :key="indexState + Math.random()"></RadarPage>
-      </div>
-      <div v-else class="w-full h-[380px] mt-5">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -114,6 +124,7 @@ import TempFullCard from "@/components/common/temp-full/temp-full-card.vue";
 import UvPage from "@/components/common/uv-index/uv-page.vue";
 import ChartAvgWeather from "@/components/hourly-day/chart-weather/chart-avg-weather.vue";
 import ItemTime24h from "@/components/hourly-day/item-card-page.vue/item-time-24h.vue";
+import ListCountryPage from "@/components/today/country/list-country-page.vue";
 import ListNearbyLocation from "@/components/today/nearby-location/list-nearby-location.vue";
 import RadarPage from "@/components/today/radar/radar-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
@@ -133,6 +144,7 @@ export default {
     ListNearbyLocation,
     UvPage,
     TempFullCard,
+    ListCountryPage,
   },
   data() {
     return {};

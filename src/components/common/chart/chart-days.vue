@@ -1,12 +1,12 @@
 <template>
   <div class="w-[1550px] flex justify-between items-center">
     <div
-      class="weather-item w-full bg-slate-500"
+      class="weather-item w-full"
       v-for="(item, index) in paramHourly"
       :key="index"
     >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="txt_regular_11">
+      <div class="txt_regular_12">
         {{ renderHourlyTime(item) }}
       </div>
       <div class="flex justify-center items-center">

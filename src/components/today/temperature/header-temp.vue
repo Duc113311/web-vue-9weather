@@ -34,7 +34,7 @@
     </div>
 
     <!--  -->
-    <div class="c-temp-row w-full flex items-center mt-2">
+    <div class="c-temp-row w-full flex items-center mt-2 pt-6 pb-3">
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
         <div
           class="h-flex flex items-center justify-center pb-14 txt_regular_14"
@@ -93,12 +93,6 @@
     </div>
 
     <!--  -->
-
-    <div class="text-left w-full pt-6 pb-3 txt_regular_14">
-      <p>
-        {{ $t("Weather_description") }}
-      </p>
-    </div>
   </div>
 </template>
 <script>

@@ -140,6 +140,10 @@
 }
 
 
+.bor-r-chart{
+  border: 1px solid var(--color-border);
+}
+
 @media (min-width: 576px) {
 
   .pad-l-r-20 {

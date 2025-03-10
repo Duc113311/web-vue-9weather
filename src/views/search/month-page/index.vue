@@ -3,7 +3,7 @@
     <!-- -->
     <div class="container mt-5">
       <div class="header-m flex w-full gap-20-px h-full">
-        <div class="left-hourly lg:w-[68%] w-full">
+        <div class="left-hourly lg:w-[67%] w-full">
           <!--  -->
           <CalendarPage
             :key="indexState + Math.random()"
@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full lg:block hidden">
+        <div class="right-hourly lg:w-[31%] w-full lg:block hidden">
           <!--  -->
           <TempFullCard
             :key="indexState + Math.random()"
@@ -31,7 +31,7 @@
 
     <div class="container">
       <div class="header-b ld:block lg:flex w-full gap-20-px h-full">
-        <div class="left-hourly lg:w-[68%] w-full">
+        <div class="left-hourly lg:w-[67%] w-full">
           <!--  -->
           <ChartMonthPage
             :key="indexState + Math.random()"
@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div class="right-hourly lg:w-[30%] w-full lg:h-[439px]">
+        <div class="right-hourly lg:w-[31%] w-full lg:h-[439px]">
           <!--  -->
           <RadarPage
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -55,7 +55,7 @@
     </div>
 
     <div class="container">
-      <div class="header-b lg:flex w-full gap-20-px h-full">
+      <div class="lg:flex w-full h-full mt-1 gap-20-px">
         <div class="left-hourly lg:w-[68%] w-full">
           <!--  -->
 
@@ -65,6 +65,30 @@
           ></ItemTime30Day>
           <div v-else class="w-full h-full mt-6">
             <SkeletonLoader class="w-full h-[960px]"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="left-hourly w-[100%] lg:mt-0 md:mt-10"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <ListNearbyLocation
+              :key="indexState + Math.random()"
+            ></ListNearbyLocation>
+          </div>
+          <div v-else class="w-full h-[380px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="right-hourly w-[100%]"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <ListCountryPage
+              :key="indexState + Math.random()"
+            ></ListCountryPage>
+          </div>
+          <div v-else class="w-full h-[380px] mt-5">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
 
@@ -102,30 +126,6 @@
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="container w-full lg:flex gap-20-px">
-      <div
-        class="left-hourly lg:w-[68%] w-[100%] lg:mt-0 md:mt-10"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
-        <ListNearbyLocation
-          :key="indexState + Math.random()"
-        ></ListNearbyLocation>
-      </div>
-      <div v-else class="w-full h-[380px] mt-5">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-      </div>
-
-      <div
-        class="right-hourly lg:h-[243px] lg:w-[30%] w-[100%]"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
-        <ListCountryPage :key="indexState + Math.random()"></ListCountryPage>
-      </div>
-      <div v-else class="w-full h-[380px] mt-5">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
     </div>
   </div>

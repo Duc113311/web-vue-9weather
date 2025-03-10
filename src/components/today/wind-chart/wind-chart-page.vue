@@ -4,19 +4,41 @@
       <div class="w-full h-full relative">
         <!--  -->
         <vue-horizontal
-          responsive
-          :displacement="0.8"
+          v-if="listHourly.length > 0"
+          :key="listHourly.length"
+          :displacement="1"
           class="w-full h-[calc(100%-40px)] relative horizontal"
         >
           <div class="w-full h-full relative">
             <ChartWind class="h-[40px]"></ChartWind>
 
-            <div class="h-[calc(100%-40px)] w-full">
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in listHourly"
+                :key="index"
+                class="flex-1 bor-r-chart opacity-30"
+              ></div>
+            </div>
+
+            <div class="w-full absolute bottom-6">
               <div
                 class="chart-container-win h-full w-[1550px] p-chart-avg"
                 v-if="listHourly && listHourly.length"
               >
                 <canvas id="chart_hourly" class="h-full" ref="canvas"></canvas>
+              </div>
+            </div>
+
+            <div
+              class="w-[1550px] flex justify-between items-center absolute bottom-0"
+            >
+              <div
+                class="weather-item w-full"
+                v-for="(item, index) in listWindSpeedData"
+                :key="index"
+              >
+                <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
+                <div class="txt_regular_12">{{ item }}</div>
               </div>
             </div>
           </div>
@@ -215,30 +237,17 @@ export default {
         return;
       }
 
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = canvas.clientWidth * dpr;
-      canvas.height = canvas.clientHeight * dpr;
-      ctx.scale(dpr, dpr);
-
       if (this.chartInstance) {
         this.chartInstance.destroy();
       }
 
-      // Tạo gradient màu từ #FFDA24 đến #D9D9D9 chỉ ở nửa trên của canvas
-      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+      const chartHeight = ctx.canvas.height;
 
-      // Màu bắt đầu: Xanh đậm (đậm nhất)
-      gradient.addColorStop(0, "rgba(14, 41, 80, 1)"); // #0E2950 với alpha = 1 (đậm)
-
-      // Màu trung gian: Xanh nhạt dần
-      gradient.addColorStop(0.5, "rgba(14, 41, 80, 0.3)"); // Alpha = 0.3 (nhạt)
-
-      // Gần cuối: Rất nhạt
-      gradient.addColorStop(0.7, "rgba(14, 41, 80, 0)"); // Alpha = 0.05 (rất mờ)
-      gradient.addColorStop(0.6, "rgba(14, 41, 80, 0)"); // Alpha = 0.05 (rất mờ)
-
-      // Màu kết thúc: Hoàn toàn trong suốt
-      gradient.addColorStop(1, "rgba(14, 41, 80, 0)"); // Alpha = 0 (trong suốt)
+      const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradient.addColorStop(0, "rgba(14, 41, 80, 1)");
+      gradient.addColorStop(0.6, "rgba(14, 41, 80, 0.5)");
+      gradient.addColorStop(0.8, "rgba(14, 41, 80, 0.2)");
+      gradient.addColorStop(1, "rgba(14, 41, 80, 0)");
 
       const labelList = this.listHourly.map((item) => {
         const date = item.time;
@@ -249,24 +258,23 @@ export default {
 
       const unitSetting = this.objectSetting.activeWindSpeed_save;
 
-      const savedTheme = localStorage.getItem("theme") || "light";
-
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
           labels: labelList,
           datasets: [
             {
-              label: "Wind speed",
+              label: this.$t("Wind_speed"),
               borderColor: "#0E2950",
               pointBackgroundColor: "#0E2950",
+              pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2,
               pointBorderColor: "#0E2950",
-              pointRadius: 5,
+              pointRadius: 0,
               backgroundColor: gradient,
-              fill: true,
+              fill: "start",
               data: this.listWindSpeedData,
-              pointHoverRadius: 4, // Tăng kích thước khi hover
+              pointHoverRadius: 3, // Tăng kích thước khi hover
             },
           ],
         },
@@ -275,10 +283,8 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 0, // Chỉ định padding phía trên
+              top: maxWindSpeedData, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 18,
-              right: 18,
             },
           },
           plugins: {
@@ -288,26 +294,21 @@ export default {
             },
             tooltip: {
               enabled: true,
+              intersect: false, // Cho phép hover ở mọi nơi trên đường
+              mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               theme: "dark",
               callbacks: {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value} ${unitSetting}`; // Thông tin khi hover
+                  return ` ${value} ${unitSetting}`; // Thông tin khi hover
                 },
               },
             },
             datalabels: {
-              display: true,
+              display: false,
               align: "top",
-              font: {
-                size: 14,
-                //   weight: "bold", // Chỉnh độ đậm của chữ
-              },
-              color: savedTheme === "light" ? "#333333" : "#ffffff", // Thay đổi màu sắc của nhãn dữ liệu
-              formatter: (value, context) => {
-                return `${this.formatWindSpeed(value)}`;
-              },
+              anchor: "end",
             },
           },
           scales: {
@@ -315,10 +316,12 @@ export default {
               display: false,
 
               ticks: {
-                stepSize: 2, // Điều chỉnh số lượng điểm hiển thị trên trục x
+                stepSize: 10, // Điều chỉnh số lượng điểm hiển thị trên trục x
               },
             },
             y: {
+              type: "linear",
+              position: "left",
               display: false,
               beginAtZero: true,
               max: maxWindSpeedData + 4,
@@ -327,7 +330,7 @@ export default {
           },
           elements: {
             line: {
-              tension: 0.3,
+              tension: 0.5,
             },
           },
         },

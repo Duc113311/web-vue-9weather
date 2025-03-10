@@ -64,7 +64,10 @@ export default {
       return this.paramHourly.map((element) =>
         Math.round(element.precipProbability * 100)
       );
-      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
+      // return [
+      //   10, 13, 12, 53, 10, 12, 100, 4, 100, 26, 49, 0, 100, 4, 100, 26, 4, 0,
+      //   100, 4, 100, 26, 4, 0, 5,
+      // ];
       // return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     },
 
@@ -194,70 +197,19 @@ export default {
               label: this.$t("Chance_of_rain"),
               type: "line", // Kiểu dataset là line
               borderColor: "#ccc",
-              pointBackgroundColor: (context) => {
-                const { dataset, dataIndex } = context;
-                const value = dataset.data[dataIndex];
-
-                const precipType = this.listDataPrecipType[dataIndex];
-                // savedTheme === "light" ? "#333333" : "#00e3f5",
-
-                // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                return precipType === "Snow"
-                  ? "#ff8c00"
-                  : savedTheme === "light"
-                  ? "#90bcf3"
-                  : "#00e3f5";
-              },
+              pointBackgroundColor: "#00e3f5",
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: (context) => {
-                const { dataset, dataIndex } = context;
-                const value = dataset.data[dataIndex];
-
-                const precipType = this.listDataPrecipType[dataIndex];
-                // savedTheme === "light" ? "#333333" : "#00e3f5",
-
-                // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                return precipType === "Snow"
-                  ? "#ff8c00"
-                  : savedTheme === "light"
-                  ? "#90bcf3"
-                  : "#00e3f5";
-              },
-              pointRadius: 5, // Bán kính điểm
+              pointBorderColor: "#00e3f5",
+              pointRadius: 0, // Bán kính điểm
               backgroundColor:
                 savedTheme === "light"
                   ? gradientPrecipIntensityLight
                   : gradientPrecipIntensityDark,
-              fill: true, // Tô nền dưới line
+              fill: "start", // Tô nền dưới line
               data: displayData,
-              pointHoverRadius: 4, // Tăng kích thước khi hover
+              pointHoverRadius: 0, // Tăng kích thước khi hover
               yAxisID: "y1", // Gán trục y cho Temperature
-              datalabels: {
-                display: true,
-                align: "top",
-                anchor: "start", // Gắn nhãn ở đầu cột
-                font: {
-                  size: 14,
-                },
-                color: (context) => {
-                  const { dataset, dataIndex } = context;
-                  const value = dataset.data[dataIndex];
-
-                  const precipType = this.listDataPrecipType[dataIndex];
-                  // savedTheme === "light" ? "#333333" : "#00e3f5",
-
-                  // Nếu giá trị < 0 thì đặt align = bottom, ngược lại thì top
-                  return precipType === "Snow"
-                    ? "#ff8c00"
-                    : savedTheme === "light"
-                    ? "#90bcf3"
-                    : "#00e3f5";
-                },
-
-                formatter: (value) => `${value === 0.5 ? 0 : value}%`, // Định dạng giá trị hiển thị
-                offset: 6,
-              },
             },
           ],
         },
@@ -268,8 +220,6 @@ export default {
             padding: {
               top: 0, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
-              left: 20,
-              right: 20,
             },
           },
           scales: {
@@ -321,12 +271,13 @@ export default {
             datalabels: {
               anchor: "end",
               align: "top",
+              display: false,
             },
           },
 
           elements: {
             line: {
-              tension: 0,
+              tension: 0.3,
             },
           },
         },

@@ -4,50 +4,58 @@
       <div class="w-full h-full relative">
         <!--  -->
         <vue-horizontal
-          responsive
-          :displacement="0.8"
+          v-if="paramHourly.length > 0"
+          :key="paramHourly.length"
+          :displacement="1"
           class="w-full h-[calc(100%-40px)] relative horizontal"
         >
           <div class="w-full h-full relative">
-            <ChartDays class="h-[40px] pl-3 pr-3"></ChartDays>
+            <ChartDays class="h-[40px]"></ChartDays>
 
-            <DetailChartUv class="h-[calc(100%-45px)]"></DetailChartUv>
+            <div class="flex w-full h-full min-w-[1550px]">
+              <div
+                v-for="(day, index) in paramHourly"
+                :key="index"
+                class="flex-1 bor-r-chart opacity-30"
+              ></div>
+            </div>
+
+            <DetailChartUv
+              class="h-[calc(100%-40px)] absolute bottom-0"
+            ></DetailChartUv>
           </div>
         </vue-horizontal>
-        <div class="w-full h-[45px] flex justify-between pad-t-b-10 pad-r-l-10">
+
+        <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
           <div class="flex items-center text-left gap-2">
             <div class="bg-short rounded-full w-[10px] h-[10px]"></div>
             <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Low") }}</p>
-              <p class="txt_regular_12">0-2</p>
+              <p class="txt_regular_12">{{ $t("Low") }}: 0-2</p>
             </div>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-Medium rounded-full w-[10px] h-[10px]"></div>
             <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Moderate") }}</p>
-              <p class="txt_regular_12">3-5</p>
+              <p class="txt_regular_12">{{ $t("Moderate") }}: 3-5</p>
             </div>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-High rounded-full w-[10px] h-[10px]"></div>
             <div class="text-center">
-              <p class="txt_regular_12">{{ $t("High") }}</p>
-              <p class="txt_regular_12">6-7</p>
+              <p class="txt_regular_12">{{ $t("High") }}: 6-7</p>
             </div>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-Very-high rounded-full w-[10px] h-[10px]"></div>
             <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Very_High") }}</p>
-              <p class="txt_regular_12">8-10</p>
+              <p class="txt_regular_12">{{ $t("Very_High") }}: 8-10</p>
             </div>
           </div>
           <div class="flex items-center text-left gap-2">
             <div class="bg-Extremely-high rounded-full w-[10px] h-[10px]"></div>
             <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Extreme") }}</p>
-              <p class="txt_regular_12">> 10</p>
+              <p class="txt_regular_12">{{ $t("Extreme") }}: > 10</p>
+              <p class="txt_regular_12"></p>
             </div>
           </div>
         </div>
@@ -94,6 +102,9 @@ export default {
   components: { ChartDays, VueHorizontal, DetailChartUv },
 
   computed: {
+    paramHourly() {
+      return this.$store.state.weatherModule.hourly24h;
+    },
     listHourly() {
       const hourly24hValue = [...this.$store.state.weatherModule.hourly24h]; // Tạo bản sao để tránh thay đổi trực tiếp trong store
       const currently = this.$store.state.weatherModule.currently;
