@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[1750px] flex justify-between items-center">
+  <div class="w-[1800px] flex justify-between items-center">
     <div
       class="weather-item w-full"
       v-for="(item, index) in listTemperatureData"

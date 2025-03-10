@@ -1,28 +1,37 @@
 <template>
-  <div class="w-[1750px] flex justify-between items-center">
+  <div class="w-[1800px] flex justify-between items-center">
     <div
       class="weather-item w-full"
       v-for="(item, index) in listDataPrecipIntensity"
       :key="index"
     >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <el-tooltip placement="top" popper-class="dark-tooltip">
+      <el-tooltip
+        placement="top"
+        popper-class="custom-tooltip"
+        transition="none"
+        hide-after="0"
+      >
         <template #content>
-          <div class="cursor-pointer">
+          <div class="cursor-pointer tooltip-content">
             <p class="txt_regular_11">{{ convertTime(item?.time) }}</p>
-            <div class="flex items-center gap-1">
-              <div
-                class="w-[10px] h-[10px]"
-                :class="item.precipType === 'Snow' ? 'bg-snow' : 'bg-rain'"
-              ></div>
-              <p>{{ Math.round(item?.precipProbability * 100) }}%</p>
-            </div>
-            <div class="flex items-center gap-1">
-              <div class="w-[10px] h-[10px] bg-precit"></div>
-              <p>
-                {{ item.precipIntensity === 0 ? "0.0" : item.precipIntensity }}
-                {{ unitPrecipitation }}
-              </p>
+            <div class="flex flex-col">
+              <div class="flex items-center gap-1">
+                <div
+                  class="w-[10px] h-[10px]"
+                  :class="item.precipType === 'Snow' ? 'bg-snow' : 'bg-rain'"
+                ></div>
+                <p>{{ Math.round(item?.precipProbability * 100) }}%</p>
+              </div>
+              <div class="flex items-center gap-1">
+                <div class="w-[10px] h-[10px] bg-precit"></div>
+                <p>
+                  {{
+                    item.precipIntensity === 0 ? "0.0" : item.precipIntensity
+                  }}
+                  {{ unitPrecipitation }}
+                </p>
+              </div>
             </div>
           </div>
         </template>

@@ -71,32 +71,31 @@
   width: 50% !important;
 }
 
-.el-drawer{
+.el-drawer {
   background-color: var(--bg-draw);
   height: 46% !important;
-
 }
 
 @media (min-width: 576px) {
-  .el-drawer{
+  .el-drawer {
     height: 46% !important;
   }
 }
 
 @media (min-width: 768px) {
-  .el-drawer{
+  .el-drawer {
     height: 40% !important;
   }
 }
 
 @media (min-width: 1024px) {
-  .el-drawer{
+  .el-drawer {
     height: 47% !important;
   }
 }
 
 @media (min-width: 1280px) {
-  .el-drawer{
+  .el-drawer {
     height: 39% !important;
   }
 }
@@ -266,12 +265,13 @@
   height: 80px;
 }
 
-.icon-svg-moon-list{
+.icon-svg-moon-list {
   width: 80px;
   height: 80px;
 }
 
-@media (min-width: 1024px) { /* Desktop */
+@media (min-width: 1024px) {
+  /* Desktop */
   .icon-svg {
     width: 24px;
     height: 24px;
@@ -282,11 +282,10 @@
     height: 130px;
   }
 
-  .icon-svg-moon-list{
+  .icon-svg-moon-list {
     width: 80px;
     height: 80px;
   }
- 
 }
 .autocomplete-1-dropdown {
   z-index: 1001 !important; /* Đặt giá trị cao hơn để không bị đè */
@@ -296,4 +295,42 @@
 .autocomplete-2-dropdown {
   z-index: 1000 !important;
   background-color: white;
+}
+
+.custom-tooltip {
+  background: rgba(0, 0, 0, 0.85) !important; /* Nền đen đậm */
+  color: white !important; /* Chữ trắng */
+  border-radius: 8px !important; /* Bo góc */
+  padding: 4px 6px !important; /* Khoảng cách bên trong */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Viền trắng rất nhẹ */
+}
+
+.tooltip-content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 2px;
+}
+
+.tooltip-time {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tooltip-temp {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Tạo mũi tên tooltip */
+.custom-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -6px; /* Điều chỉnh vị trí mũi tên */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
 }

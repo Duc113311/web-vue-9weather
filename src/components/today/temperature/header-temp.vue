@@ -93,6 +93,11 @@
     </div>
 
     <!--  -->
+    <div class="text-left w-full pt-6 pb-3 txt_regular_14">
+      <p>
+        {{ renderTitleByIconHouse(currentlyDataRender?.icon, dailyOneData) }}
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -109,6 +114,7 @@ import {
   convertMillimetToInch,
   capitalizeWords,
   getIconHourlyForecastTheme,
+  getTitleIconByHouse,
 } from "@/utils/converValue";
 
 export default {
@@ -163,6 +169,12 @@ export default {
       } else {
         return convertFtoC(value);
       }
+    },
+
+    renderTitleByIconHouse(value, data) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return getTitleIconByHouse(value, data, unitSetting);
     },
 
     renderToCelsiusAndUnit(value) {

@@ -709,7 +709,7 @@ export default {
       const cityDetail = value.country_key;
       try {
         const response = await fetch(
-          `/json/city/ASIA/${formattedCountry}.json`
+          `/json/world/common/${formattedCountry}.json`
         );
         if (!response.ok)
           throw new Error(

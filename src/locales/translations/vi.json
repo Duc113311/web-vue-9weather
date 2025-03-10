@@ -326,5 +326,18 @@
   "Commune": "Xã",
   "District": "Huyện",
   "Ward": "Phường",
-  "Province": "Tỉnh"
+  "Province": "Tỉnh",
+  "cloudy_sky_thick_cloud_cover_lowest_temperature_is_{temp}": "Bầu trời nhiều mây, mây phủ dày, nhiệt độ thấp nhất là {temp}°",
+  "rainy_weather_humid_air_lowest_temperature_is_{temp}": "Trời mưa, không khí ẩm ướt, nhiệt độ thấp nhất là {temp}°",
+  "partly_cloudy_sky_gentle_sunlight_highest_temperature_is_{temp}": "Bầu trời có mây, ánh nắng dịu nhẹ, nhiệt độ cao nhất là {temp}°",
+  "cool_night_scattered_clouds_lowest_temperature_is_{temp}": "Trời mát mẻ, mây rải rác trong đêm, nhiệt độ thấp nhất là {temp}°",
+  "clear_sky_dry_air_highest_temperature_is_{temp}": "Bầu trời quang đãng, không khí khô ráo, nhiệt độ cao nhất là {temp}°",
+  "clear_sky_bright_stars_lowest_temperature_is_{temp}": "Bầu trời trong trẻo, sao sáng rực rỡ, nhiệt độ thấp nhất là {temp}°",
+  "sleet_cold_air_lowest_temperature_is_{temp}": "Mưa đá, không khí lạnh giá, nhiệt độ thấp nhất là {temp}°",
+  "foggy_weather_humid_air_lowest_temperature_is_{temp}": "Sương mù bao phủ, không khí ẩm ướt, nhiệt độ thấp nhất là {temp}°",
+  "strong_wind_cooler_air_lowest_temperature_is_{temp}": "Gió mạnh, không khí lạnh hơn, nhiệt độ thấp nhất là {temp}°",
+  "heavy_thunderstorm_strong_winds_lowest_temperature_is_{temp}": "Mưa dông lớn, gió giật mạnh, nhiệt độ thấp nhất là {temp}°",
+  "extreme_tornado_high_destruction_risk_lowest_temperature_is_{temp}": "Gió lốc cực mạnh, nguy cơ phá hủy cao, nhiệt độ thấp nhất là {temp}°",
+  "snowy_sky_temperature_continues_to_drop_lowest_temperature_is_{temp}": "Bầu trời phủ đầy tuyết, nhiệt độ tiếp tục giảm, nhiệt độ thấp nhất là {temp}°",
+  "cloudy_sky_gloomy_feeling_all_day_highest_temperature_is_{temp}": "Bầu trời nhiều mây, cảm giác âm u cả ngày, nhiệt độ cao nhất là {temp}°"
 }

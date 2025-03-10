@@ -98,7 +98,7 @@
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
                   <ChartTitleTempMaxMin></ChartTitleTempMaxMin>
 
-                  <div class="flex w-full h-full min-w-[1750px]">
+                  <div class="flex w-full h-full min-w-[1800px]">
                     <div
                       v-for="(day, index) in paramMonth"
                       :key="index"

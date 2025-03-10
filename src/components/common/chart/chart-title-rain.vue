@@ -6,9 +6,14 @@
       :key="index"
     >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <el-tooltip placement="top" popper-class="dark-tooltip">
+      <el-tooltip
+        placement="top"
+        popper-class="custom-tooltip"
+        transition="none"
+        hide-after="0"
+      >
         <template #content>
-          <div class="cursor-pointer">
+          <div class="cursor-pointer tooltip-content">
             <p class="txt_regular_11">{{ renderHourlyTime(item) }}</p>
             <div class="flex items-center gap-1">
               <div

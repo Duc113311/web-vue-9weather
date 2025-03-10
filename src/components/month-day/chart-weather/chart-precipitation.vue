@@ -1,7 +1,7 @@
 <template>
-  <div class="w-[1750px] flex justify-between items-center pl-pre">
+  <div class="w-[1800px] flex justify-between items-center">
     <div
-      class="weather-item w-[50px]"
+      class="weather-item w-[70px]"
       v-for="(item, index) in paramHourly"
       :key="index"
     >

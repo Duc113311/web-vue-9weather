@@ -209,7 +209,7 @@ export default {
               callbacks: {
                 label: (context) => {
                   const value = context.raw || "";
-                  return `${Number(value) === 0 ? 0 : value}°C`;
+                  return ` ${Number(value) === 0 ? 0 : value}°`;
                 },
               },
             },

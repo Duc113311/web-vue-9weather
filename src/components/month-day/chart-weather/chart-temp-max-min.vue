@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chart-container-tempt w-[1750px] p-chart-avg"
+    class="chart-container-tempt w-[1800px] p-chart-avg"
     v-if="paramHourly && paramHourly.length && listTemperatureData.length"
   >
     <div class="chart-wrapper-tempt w-full h-full">
