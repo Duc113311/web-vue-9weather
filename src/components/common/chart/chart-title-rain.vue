@@ -36,14 +36,10 @@
             v-if="item.precipType === 'Snow'"
             class="h-[115px] image-gradient-snow"
           ></div>
-          <div v-if="item.precipType === 'Rain'" class="h-[200px]">
-            <video autoplay loop muted playsinline class="rain-video h-[200px]">
-              <source
-                src="@/assets/images/Animation - 1741687003821.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
+          <div
+            v-if="item.precipType === 'Rain'"
+            class="h-[115px] image-gradient-rain"
+          ></div>
         </div>
         <div v-else>
           <div class="h-[120px]"></div>
@@ -122,11 +118,12 @@ export default {
 <style lang="scss">
 .image-gradient-rain {
   background-image: linear-gradient(
-    to bottom,
-    rgba(0, 204, 220, 0.5),
-    rgba(0, 160, 168, 0.2),
-    rgba(0, 160, 168, 0.02)
-  );
+      to bottom,
+      rgba(0, 204, 220, 0.5),
+      rgba(0, 160, 168, 0.2),
+      rgba(0, 160, 168, 0.02)
+    ),
+    url("@/assets/images/Rain.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -29,7 +29,7 @@
             </svg>
 
             <div class="flex items-center txt_medium_14 text-left">
-              <span>{{ $t("Moon_Phases_Calender") }}</span>
+              <span>{{ $t("Moon_Phases_List") }}</span>
             </div>
           </div>
         </div>

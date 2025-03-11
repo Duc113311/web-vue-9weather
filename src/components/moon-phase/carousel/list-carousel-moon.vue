@@ -3,7 +3,7 @@
     <div class="lg:w-[68%] w-full">
       <div class="flex items-center text-left gap-2 pad-t-b">
         <IcMoonphase class="icon-svg"></IcMoonphase>
-        <span class="txt_medium_14">{{ $t("Moon_phase_s") }}</span>
+        <span class="txt_medium_14">{{ $t("Moon_phase") }}</span>
       </div>
 
       <el-carousel

@@ -72,7 +72,7 @@
               class="md:flex hidden items-center cursor-pointer txt_regular_14 bg-color-refresh pad_bth_app bg-btn-hover"
               @click="onClickRechange()"
             >
-              <span>{{ $t("Rechange") }}</span>
+              <span>{{ $t("Reload") }}</span>
             </div>
           </div>
         </div>

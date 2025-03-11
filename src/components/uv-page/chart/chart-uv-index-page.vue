@@ -10,7 +10,7 @@
             v-if="breadcumsObject.country_key === 'vn'"
           >
             <span v-if="breadcumsObject?.city && !breadcumsObject?.district">{{
-              $t(`{city}_By_House`, {
+              $t(`{city}_UV_index_by_hour`, {
                 city: $t(
                   `city.city_${languageParam}.${breadcumsObject?.city_key}`
                 ),
@@ -24,7 +24,7 @@
               "
             >
               {{
-                $t(`{city}_By_House`, {
+                $t(`{city}_UV_index_by_hour`, {
                   city: $t(
                     `${convertToSlugCity(
                       breadcumsObject?.city
@@ -45,7 +45,7 @@
               "
             >
               {{
-                $t(`{city}_By_House`, {
+                $t(`{city}_UV_index_by_hour`, {
                   city: $t(
                     `${convertToSlugCity(
                       breadcumsObject?.city
@@ -61,7 +61,7 @@
           </div>
           <div class="txt_medium_14" v-else>
             <span v-if="breadcumsObject?.state && !breadcumsObject?.county">{{
-              $t(`{city}_By_House`, {
+              $t(`{city}_UV_index_by_hour`, {
                 city: $t(`${breadcumsObject?.state}`),
               })
             }}</span>
@@ -72,7 +72,7 @@
                 !breadcumsObject?.cities
               "
               >{{
-                $t(`{city}_By_House`, {
+                $t(`{city}_UV_index_by_hour`, {
                   city: $t(`${breadcumsObject?.county}`),
                 })
               }}</span
@@ -85,7 +85,7 @@
                 breadcumsObject?.cities
               "
               >{{
-                $t(`{city}_By_House`, {
+                $t(`{city}_UV_index_by_hour`, {
                   city: $t(`${breadcumsObject?.cities}`),
                 })
               }}</span

@@ -4,7 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <IcTitleSun class="icon-svg"></IcTitleSun>
-          <p class="txt_medium_14">{{ $t("Sun") }}</p>
+          <p class="txt_medium_14">{{ $t("Suns") }}</p>
         </div>
       </template>
       <div class="w-full lg:h-[212px] h-[210px]">

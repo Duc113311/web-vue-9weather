@@ -221,7 +221,7 @@
           @click="onClickLanguage('unit_language')"
         >
           <div class="txt_regular flex items-center text-white">
-            <span>{{ $t(`Language`) }}</span>
+            <span>{{ $t(`Language_content`) }}</span>
           </div>
           <div>
             <img src="../../assets/images/svg/ic_back_right.svg" alt="" />
@@ -233,7 +233,7 @@
           class="w-full nav-bar cursor-pointer flex justify-between pad-option-tb-8"
         >
           <div class="txt_regular flex items-center text-white">
-            <span>{{ $t("Dark/Light") }}</span>
+            <span>{{ $t("Theme_settings") }}</span>
           </div>
           <div>
             <el-switch
@@ -450,7 +450,7 @@ export default {
 
         {
           name: "dark-light",
-          label: this.$t("Dark/Light"),
+          label: this.$t("Theme_settings"),
           isRun: false,
           isShowArrow: false,
           isSwitch: true,
@@ -459,7 +459,7 @@ export default {
 
         {
           name: "language-view",
-          label: this.$t("Language"),
+          label: this.$t("Language_content"),
           isRun: false,
           isShowArrow: true,
           isSwitch: false,

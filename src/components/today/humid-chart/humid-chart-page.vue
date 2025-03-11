@@ -55,13 +55,12 @@
             <div class="flex items-center gap-1">
               <div class="bg-humid rounded-full w-[10px] h-[10px]"></div>
               <div class="txt_regular_12">
-                <p>{{ $t("Humid") }}:</p>
+                <p>{{ $t("Humidity") }}:</p>
               </div>
               <div class="flex items-center gap-0.5">
-                <p class="txt_medium_15">
-                  {{ Math.round(objectCurrently?.humidity * 100) }}
+                <p class="txt_regular_12">
+                  {{ Math.round(objectCurrently?.humidity * 100) }}%
                 </p>
-                <p class="txt_medium_15">%</p>
               </div>
             </div>
             <div class="flex items-center text-left gap-2">

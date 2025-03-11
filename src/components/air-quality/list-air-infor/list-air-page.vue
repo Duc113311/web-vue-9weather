@@ -8,7 +8,7 @@
             <IcApiO3 class="icon-svg"></IcApiO3>
 
             <div class="flex items-center txt_medium_14 text-left">
-              <span>{{ $t("Pollutant") }}</span>
+              <span>{{ $t("Major_Air_Pollutants") }}</span>
             </div>
           </div>
         </div>

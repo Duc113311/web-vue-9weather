@@ -18,16 +18,20 @@
         >
           <div>
             <span class="underline">
-              <a href="http://">Tems of Use</a>
+              <a href="http://">{{ $t("Tems_of_Use") }}</a>
             </span>
           </div>
           &nbsp;|&nbsp;
           <div>
-            <span class="underline"><a href="http://">Privacy Policy</a></span>
+            <span class="underline"
+              ><a href="http://">{{ $t("Privacy_Policy") }}</a></span
+            >
           </div>
           &nbsp;|&nbsp;
           <div>
-            <span class="underline"><a href="http://">Cookie Policy</a></span>
+            <span class="underline"
+              ><a href="http://">{{ $t("Cookie_Policy") }}</a></span
+            >
           </div>
         </div>
       </div>

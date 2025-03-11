@@ -19,7 +19,7 @@ export default {
   components: {},
   data() {
     return {
-      listTab: ["Today", "UV", "Wind_speed", "Humid", "Pressure"],
+      listTab: ["Today", "UV", "Wind_speed", "Humidity", "Pressure"],
       activeIndex: 0,
     };
   },

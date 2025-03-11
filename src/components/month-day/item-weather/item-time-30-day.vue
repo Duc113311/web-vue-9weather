@@ -195,7 +195,7 @@
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                       <IcHumidity class="icon-svg"></IcHumidity>
-                      <p class="txt_regular_14">{{ $t("Humid") }}</p>
+                      <p class="txt_regular_14">{{ $t("Humidity") }}</p>
                     </div>
                     <div class="flex items-center txt_medium_15">
                       <p>{{ Math.round(item?.humidity * 100) }}%</p>

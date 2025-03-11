@@ -29,7 +29,7 @@
               <div
                 class="flex w-full justify-between items-center txt_regular_12 pt-2 pb-2"
               >
-                <p>{{ $t("Moon_illumination") }}:</p>
+                <p>{{ $t("Illumination") }}:</p>
                 <p>{{ listMoonData[0]?.infoMoonPhaseDay?.illumination }}%</p>
               </div>
               <!--  -->

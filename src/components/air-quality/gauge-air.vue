@@ -147,7 +147,7 @@
         <!-- Text in Center -->
         <div class="progress-text">
           <p
-            class="w-[120px] txt_regular_14"
+            class="w-[120px] text-center txt_regular_14"
             :style="{ color: progressColor(airQualityValue) }"
           >
             {{ convertAirIndexName(airQualityValue) }}

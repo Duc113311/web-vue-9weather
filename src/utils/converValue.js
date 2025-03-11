@@ -458,6 +458,15 @@ export function convertDayOfWeekMonth(timestamp, offsetValue, timezone) {
   // Format lại thành mảng [weekday, day, month]
   const formattedDate = formatter.formatToParts(date);
 
+  const weekMap = {
+    "Sunday": "Sunday",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday"
+  };
   // Lấy thông tin ngày, tháng, thứ từ phần đã format
   let day = "";
   let month = "";
@@ -466,11 +475,11 @@ export function convertDayOfWeekMonth(timestamp, offsetValue, timezone) {
   formattedDate.forEach(({ type, value }) => {
     if (type === "day") day = value;
     if (type === "month") month = value;
-    if (type === "weekday") week = value;
+    if (type === "weekday") week = weekMap[value] || value;;
   });
 
   // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
-  return `${week} ${day}/${month}`;
+  return `${i18n.global.t(week)} ${day}/${month}`;
 }
 /**
  * Convert timestamp sang AM/PM

@@ -52,12 +52,12 @@
                 <p>{{ $t("Wind_speed") }}:</p>
               </div>
               <div class="flex items-center gap-0.5">
-                <p class="txt_medium_15">
+                <p class="txt_regular_12">
                   {{ this.generateSeriesDataObject(objectCurrently) }}
                 </p>
                 <p class="txt_regular_12">({{ convertUnitPressure() }})</p>
               </div>
-              <p class="txt_medium_15">
+              <p class="txt_regular_12">
                 {{ convertWindBearing(objectCurrently?.windBearing) }}
               </p>
             </div>

@@ -22,7 +22,7 @@
           </svg>
           <div class="txt_medium_14" v-if="wardParam.country_key === 'vn'">
             <span v-if="wardParam?.city && !wardParam?.district">{{
-              $t(`{city}_Weather`, {
+              $t(`Current_weather_in_{city}`, {
                 city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
               })
             }}</span>
@@ -30,7 +30,7 @@
               v-if="wardParam?.city && wardParam?.district && !wardParam?.ward"
               >{{
                 convertCapitalizeWords(
-                  $t(`{city}_Weather`, {
+                  $t(`Current_weather_in_{city}`, {
                     city: $t(
                       `${convertToSlugCity(
                         wardParam?.city
@@ -49,7 +49,7 @@
               v-if="wardParam?.city && wardParam?.district && wardParam?.ward"
               >{{
                 convertCapitalizeWords(
-                  $t(`{city}_Weather`, {
+                  $t(`Current_weather_in_{city}`, {
                     city: $t(
                       `${convertToSlugCity(
                         wardParam?.city
@@ -66,13 +66,13 @@
           </div>
           <div class="txt_medium_14" v-else>
             <span v-if="wardParam?.state && !wardParam?.cities">{{
-              $t(`{city}_Weather`, {
+              $t(`Current_weather_in_{city}`, {
                 city: $t(`${wardParam?.state}`),
               })
             }}</span>
 
             <span v-if="wardParam?.state && wardParam?.cities">{{
-              $t(`{city}_Weather`, {
+              $t(`Current_weather_in_{city}`, {
                 city: $t(`${wardParam?.cities}`),
               })
             }}</span>

@@ -22,7 +22,7 @@
             />
           </svg>
 
-          <span class="txt_medium_14">Google Map</span>
+          <span class="txt_medium_14">{{ this.$t("Google_Map") }}</span>
         </div>
       </template>
       <div class="h-[100%]">

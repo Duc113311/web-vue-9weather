@@ -96,7 +96,7 @@
 
       <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
         <div class="h-flex flex items-center justify-center txt_regular_14">
-          <p>{{ $t("Humid") }}</p>
+          <p>{{ $t("Humidity") }}</p>
         </div>
         <div class="icon-c flex justify-center p-4">
           <IcHumidity class="icon-svg"></IcHumidity>

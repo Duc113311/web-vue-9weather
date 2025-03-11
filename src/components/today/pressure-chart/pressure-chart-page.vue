@@ -52,7 +52,7 @@
                 <p>{{ $t("Pressure") }}:</p>
               </div>
               <div class="flex items-center gap-0.5">
-                <p class="txt_medium_15">
+                <p class="txt_regular_12">
                   {{ this.convertPressure(objectCurrently?.pressure) }}
                 </p>
                 <p class="txt_regular_12">({{ convertUnitPressure() }})</p>

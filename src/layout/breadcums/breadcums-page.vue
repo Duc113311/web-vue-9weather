@@ -222,10 +222,11 @@
                 <div
                   class="w-[200px] flex justify-center flex-col items-center gap-2"
                 >
-                  <p class="txt_medium_15 text-center">Scan the QR code</p>
+                  <p class="txt_medium_15 text-center">
+                    {{ $t("Scan_the_QR_code") }}
+                  </p>
                   <p class="txt_regular_11 text-center">
-                    Enjoy real-time, hyperlocal and the most accurate forecast
-                    on mobile
+                    {{ $t("Enjoy_the_most_accurate_forecast_on_mobile") }}
                   </p>
                   <img
                     src="@/assets/images/svg_v2/qr_weather.png"
@@ -240,7 +241,7 @@
               class="flex gap-1 items-center cursor-pointer bg-color-app pad_bth_app bg-btn-hover"
             >
               <IcScanApp></IcScanApp>
-              <p class="txt_regular_11">9Weather on Mobile</p>
+              <p class="txt_regular_11">{{ $t("9Weather_on_Mobile") }}</p>
             </div>
           </el-tooltip>
         </div>

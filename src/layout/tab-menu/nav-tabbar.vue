@@ -94,7 +94,7 @@ export default {
         },
         {
           name: "month-weather",
-          label: this.$t("Month"),
+          label: this.$t("Monthly"),
           isRun: true,
           icon: IcCalendar,
         },

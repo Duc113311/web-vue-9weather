@@ -60,12 +60,12 @@ export default {
           urlImg: require("../../../assets/images/radar/temperature.png"),
         },
         {
-          title: this.$t("Humid"),
+          title: this.$t("Humidity"),
           codeOverlay: "humidity",
           urlImg: require("../../../assets/images/radar/humidity.png"),
         },
         {
-          title: this.$t("Rain"),
+          title: this.$t("rain"),
           codeOverlay: "rain",
           urlImg: require("../../../assets/images/radar/rain.png"),
         },

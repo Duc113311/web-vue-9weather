@@ -22,7 +22,7 @@
               />
             </svg>
             <span class="txt_medium_14">{{
-              convertCapitalizeWords($t("Cities_Provinces"))
+              convertCapitalizeWords($t("Provinces_Weather"))
             }}</span>
           </div>
         </div>

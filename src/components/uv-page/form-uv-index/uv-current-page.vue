@@ -6,7 +6,13 @@
         <div class="flex items-center text-left gap-2">
           <component class="icon-svg" :is="srcDaytime"></component>
           <p class="txt_medium_14">
-            {{ $t(`Current_UV_Index`) }}
+            {{
+              $t(`Current_UV_In_{city}`, {
+                city: $t(
+                  `city.city_${languageParam}.${breadcumsObject?.city_key}`
+                ),
+              })
+            }}
           </p>
         </div>
       </template>
@@ -104,6 +110,7 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
 
     languageParam() {
+      debugger;
       const languageRouter = this.$route.params;
       debugger;
       return Object.keys(languageRouter).length !== 0
@@ -113,6 +120,15 @@ export default {
         : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
         ? "en"
         : this.$i18n.locale;
+    },
+
+    breadcumsObject() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
     },
     currentlyData() {
       return this.currentlyGetters;
