@@ -22,7 +22,7 @@
                 />
               </svg>
 
-              <span class="txt_regular_17">{{ $t("Widget") }}</span>
+              <span class="txt_regular_16">{{ $t("Widget") }}</span>
             </div>
           </div>
           <!-- right -->
@@ -44,7 +44,7 @@
             </svg>
 
             <div class="flex items-center mr-2 gap-2">
-              <span class="txt_regular_17"
+              <span class="txt_regular_16"
                 >{{ $t("Your_current_location") }}:</span
               >
               <span
@@ -69,7 +69,7 @@
               }}</span>
             </div>
             <div
-              class="md:flex hidden items-center cursor-pointer txt_regular_17 bg-bth pad_bth_change bg-btn-hover"
+              class="md:flex hidden items-center cursor-pointer txt_regular_14 bg-color-refresh pad_bth_app bg-btn-hover"
               @click="onClickRechange()"
             >
               <span>{{ $t("Rechange") }}</span>

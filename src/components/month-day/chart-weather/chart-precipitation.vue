@@ -14,7 +14,7 @@
           {{ Math.round(item.precipProbability * 100) }}%
         </p>
         <p class="txt_regular_12">
-          {{ item.precipIntensity === 0 ? "0.0" : item.precipIntensity }}
+          {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
           {{ unitPrecipitation }}
         </p>
       </div>

@@ -142,6 +142,13 @@ export default {
       }
     },
 
+    convertValueUvTitle(value) {
+      if (value <= 2) return this.$t("Low"); // Màu cho giá trị thấp
+      if (2 < value && value <= 5) return this.$t("Moderate"); // Màu cho giá trị trung bình
+      if (5 < value && value <= 7) return this.$t("High"); // Màu cho giá trị cao
+      if (7 < value && value <= 10) return this.$t("Very_High"); // Màu cho giá trị rất cao
+      return this.$t("Extreme"); // Màu cho giá trị cực cao
+    },
     convertTime(val) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
       const timezoneValue =
@@ -225,7 +232,9 @@ export default {
                 label: (context) => {
                   const label = context.dataset.label || "";
                   const value = context.raw || "";
-                  return `${label}: ${value === 0.5 ? 0 : value}`; // Thông tin khi hover
+                  return ` ${
+                    value === 0.5 ? 0 : value
+                  }, ${this.convertValueUvTitle(value)} UV`; // Thông tin khi hover
                 },
               },
             },

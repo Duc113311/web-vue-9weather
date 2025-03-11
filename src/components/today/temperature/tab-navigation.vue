@@ -1,8 +1,8 @@
 <template>
   <div class="w-full pad-l-r-20 pad-b pad-t">
-    <div class="flex justify-center gap-2">
+    <div class="flex justify-start gap-2">
       <div
-        class="bg-btn-hover color_f9f9f9 color_fffff_10 txt_regular_14 pad-tab bor-c bor-radios-big cursor-pointer w-[200px]"
+        class="bg-btn-hover color_f9f9f9 color_fffff_10 txt_regular_14 pad-tab bor-c bor-radios-big cursor-pointer w-[150px]"
         v-for="(item, index) in listTab"
         :class="{ 'active-tab': activeIndex === index }"
         :key="index"

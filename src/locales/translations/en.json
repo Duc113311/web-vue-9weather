@@ -339,5 +339,12 @@
   "heavy_thunderstorm_strong_winds_lowest_temperature_is_{temp}": "Heavy thunderstorm, strong winds, lowest temperature is {temp}°",
   "extreme_tornado_high_destruction_risk_lowest_temperature_is_{temp}": "Extreme tornado, high destruction risk, lowest temperature is {temp}°",
   "snowy_sky_temperature_continues_to_drop_lowest_temperature_is_{temp}": "Snowy sky, temperature continues to drop, lowest temperature is {temp}°",
-  "cloudy_sky_gloomy_feeling_all_day_highest_temperature_is_{temp}": "Cloudy sky, gloomy feeling all day, highest temperature is {temp}°"
+  "cloudy_sky_gloomy_feeling_all_day_highest_temperature_is_{temp}": "Cloudy sky, gloomy feeling all day, highest temperature is {temp}°",
+  "full_moon": "The Moon is fully illuminated, making it the brightest phase in the lunar cycle. It creates a stunning and mystical sight in the night sky. Appears around midnight and sets at dawn.",
+  "first_quarter": "Half of the Moon is illuminated (right side if viewed from the Northern Hemisphere). Occurs when the Moon has completed 1/4 of its cycle since the New Moon. Visible in the afternoon and remains until midnight.",
+  "new_moon": "The Moon is completely dark and invisible from Earth as it is positioned between the Sun and Earth. Best time to observe a sky full of stars since no moonlight interferes. Often associated with new beginnings in culture and spirituality.",
+  "third_quarter": "Similar to the First Quarter Moon, but the illuminated part is on the opposite side (left side if viewed from the Northern Hemisphere). Occurs when the Moon has completed 3/4 of its cycle, approaching the New Moon phase. Visible after midnight and lasts until morning.",
+  "waning_gibbous": "Occurs after the Full Moon when the illuminated area starts decreasing. Still appears bright but is no longer completely full. Visible late at night and remains until early morning.",
+  "waxing_crescent": "Appears after the New Moon when the illuminated part starts increasing. Only a small portion of the Moon is visible, forming a crescent shape. Seen just after sunset and disappears into the night.",
+  "waxing_gibbous": "Happens before the Full Moon as the illuminated area continues to expand. The Moon looks almost full but still has a small dark portion. Appears in the evening and lasts until late at night."
 }

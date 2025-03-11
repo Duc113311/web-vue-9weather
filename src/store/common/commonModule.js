@@ -97,6 +97,8 @@ const state = {
   themeColor: "var(--color-txt-chart-precipitation)",
 
   isScroll: false,
+
+  objectMoonDes: {},
 };
 
 const getters = {
@@ -435,6 +437,10 @@ const mutations = {
       0,
       data
     );
+  },
+
+  setObjectMoonphase(state, data) {
+    state.objectMoonDes = data;
   },
   // setting
 

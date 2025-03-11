@@ -224,9 +224,18 @@
 }
 
 .bg-btn-hover:hover {
-  background-color: #c6d0d8d8;
+  background-color: #6f3476;
 }
 
+.bg-color-app{
+  color: #f3f3f3;
+  background-color: #4c71a3;
+}
+
+.bg-color-refresh{
+  color: #f3f3f3;
+  background-color: #8bb4ea;
+}
 
 .color_60A5FA{
   color: var(--color-Address);

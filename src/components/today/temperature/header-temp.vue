@@ -2,33 +2,36 @@
   <div class="w-full border-b pad-l-r-20 pad-t">
     <!--  -->
     <div class="c-temp text-left">
-      <div class="flex items-center text-start gap-2">
-        <component
-          :is="renderIcon(currentlyDataRender)"
-          :width="40"
-          :height="40"
-        ></component>
-        <div class="flex items-start text-start">
-          <p class="txt_poppins_87">
-            {{ renderToCelsius(currentlyDataRender?.temperature) }}
-          </p>
-          <p class="txt_poppins_40">
-            °
-            <!-- {{ renderUnit(currentlyDataRender?.temperature) }} -->
-          </p>
-        </div>
-      </div>
-      <div class="flex flex-col gap-1.5 pt-2 pb-2">
-        <div class="txt_regular_17 text-start">
-          {{
-            convertCapitalizeWords(
-              $t(`${currentlyDataRender?.summary.replace(/\s+/g, "_")}`)
-            )
-          }}
-        </div>
-        <div class="txt_regular_12 text-start">
-          {{ $t("Real_feel") }}
-          {{ renderToCelsiusAndUnit(currentlyDataRender?.apparentTemperature) }}
+      <div class="flex justify-between items-start">
+        <div class="flex items-center text-start gap-6">
+          <div class="flex items-center text-start gap-2">
+            <component
+              :is="renderIcon(currentlyDataRender)"
+              :width="50"
+              :height="50"
+            ></component>
+            <div class="flex items-start text-start">
+              <p class="txt_poppins_87">
+                {{ renderToCelsius(currentlyDataRender?.temperature) }}
+              </p>
+              <p class="txt_poppins_40">{{ unitTemp() }}</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5 pt-2 pb-2">
+            <div class="txt_regular_17 text-start">
+              {{
+                convertCapitalizeWords(
+                  $t(`${currentlyDataRender?.summary.replace(/\s+/g, "_")}`)
+                )
+              }}
+            </div>
+            <div class="txt_regular_12 text-start">
+              {{ $t("Real_feel") }}
+              {{
+                renderToCelsiusAndUnit(currentlyDataRender?.apparentTemperature)
+              }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -90,6 +93,47 @@
           <p>{{ Math.round(currentlyDataRender?.precipProbability * 100) }}%</p>
         </div>
       </div>
+
+      <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
+        <div class="h-flex flex items-center justify-center txt_regular_14">
+          <p>{{ $t("Humid") }}</p>
+        </div>
+        <div class="icon-c flex justify-center p-4">
+          <IcHumidity class="icon-svg"></IcHumidity>
+        </div>
+        <div class="text-c text-center items-center txt_medium_17">
+          <p>{{ Math.round(currentlyDataRender?.humidity * 100) }}%</p>
+        </div>
+      </div>
+
+      <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
+        <div class="h-flex flex items-center justify-center txt_regular_14">
+          <p>{{ $t("Dew_point") }}</p>
+        </div>
+        <div class="icon-c flex justify-center p-4">
+          <IcTitleAir class="icon-svg"></IcTitleAir>
+        </div>
+        <div class="text-c text-center items-center txt_medium_17">
+          <p>
+            {{ renderToCelsiusAndUnit(currentlyDataRender?.dewPoint) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
+        <div class="h-flex flex items-center justify-center txt_regular_14">
+          <p>{{ $t("Wind_speed") }}</p>
+        </div>
+        <div class="icon-c flex justify-center p-4">
+          {{ convertWindBearing(currentlyDataRender?.windBearing) }}
+        </div>
+        <div class="text-c text-center items-center txt_medium_17">
+          <p>
+            {{ convertWindSpeed(currentlyDataRender.windSpeed) }}
+            <span class="txt_regular_14">{{ convertUnitWindSpeed() }}</span>
+          </p>
+        </div>
+      </div>
     </div>
 
     <!--  -->
@@ -103,9 +147,13 @@
 <script>
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
 import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
+import IcHumidity from "@/components/icons/IcHumidity.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
+import IcScanApp from "@/components/icons/IcScanApp.vue";
 import IcTemptMax from "@/components/icons/IcTemptMax.vue";
 import IcTemptMin from "@/components/icons/IcTemptMin.vue";
+import IcTitleAir from "@/components/icons/IcTitleAir.vue";
+import IcTitleWindSpeed from "@/components/icons/IcTitleWindSpeed.vue";
 import {
   codeToFind,
   convertCtoF,
@@ -115,6 +163,11 @@ import {
   capitalizeWords,
   getIconHourlyForecastTheme,
   getTitleIconByHouse,
+  convertMPHtoMetPS,
+  convertMiToKm,
+  convertMiToKnot,
+  convertMiToBeaufortScale,
+  getWindDirectionFromDegrees,
 } from "@/utils/converValue";
 
 export default {
@@ -124,7 +177,10 @@ export default {
     IcTemptMin,
     IcPrecipitation,
     IcChanceOfRain,
+    IcScanApp,
     IcChanceOfRainSnow,
+    IcHumidity,
+    IcTitleAir,
   },
 
   data() {
@@ -171,6 +227,15 @@ export default {
       }
     },
 
+    unitTemp() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return codeToFind(unitSetting.activeTemperature_save);
+      } else {
+        return codeToFind(unitSetting.activeTemperature_save);
+      }
+    },
+
     renderTitleByIconHouse(value, data) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
 
@@ -211,6 +276,34 @@ export default {
         );
       }
     },
+
+    convertUnitWindSpeed() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activeWindSpeed_save);
+    },
+
+    convertWindSpeed(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeWindSpeed_save === "m/s") {
+        return convertMPHtoMetPS(value);
+      }
+      if (unitSetting.activeWindSpeed_save === "km/h") {
+        return convertMiToKm(value);
+      }
+      if (unitSetting.activeWindSpeed_save === "mi/h") {
+        return value;
+      }
+      if (unitSetting.activeWindSpeed_save === "Knot") {
+        return convertMiToKnot(value);
+      }
+      if (unitSetting.activeWindSpeed_save === "bft") {
+        return convertMiToBeaufortScale(value);
+      }
+    },
+
+    convertWindBearing(value) {
+      return getWindDirectionFromDegrees(value);
+    },
   },
 };
 </script>
@@ -223,5 +316,24 @@ export default {
   &:last-child {
     border-right: none; // Remove border from the last item
   }
+}
+
+.image-container {
+  position: relative;
+  width: 80px;
+  height: 160px;
+}
+
+.stacked-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.stacked-image.active {
+  opacity: 1;
 }
 </style>

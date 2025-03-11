@@ -33,10 +33,9 @@
       </template>
       <div class="w-full flex gap-2 flex-col">
         <p class="txt_regular_14 text-left">
-          {{ $t("The_Third_Quarter_Moon") }}
-        </p>
-        <p class="txt_regular_14 text-left">
-          {{ $t("During_the_Third_Quarter") }}
+          {{
+            this.$t(`${convertStringMoonIcon(objectMoonDesRender?.moonPhase)}`)
+          }}
         </p>
       </div>
     </BaseComponent>
@@ -57,6 +56,38 @@ export default {
     return {
       IcMoonphase: markRaw(IcMoonphase),
     };
+  },
+
+  computed: {
+    objectMoonDesRender() {
+      return this.$store.state.commonModule.objectMoonDes;
+    },
+  },
+
+  methods: {
+    convertStringMoonIcon(value) {
+      debugger;
+      console.log("value", value);
+
+      switch (value) {
+        case "Full_Moon":
+          return "full_moon";
+        case "First_Quarter":
+          return "first_quarter";
+        case "New_Moon":
+          return "new_moon";
+        case "Third_Quarter":
+          return "third_quarter";
+        case "Waning_Gibbous":
+          return "waning_gibbous";
+        case "Waxing_Crescent":
+          return "waxing_crescent";
+        case "Waxing_Gibbous":
+          return "waxing_gibbous";
+        default:
+          return "full_moon";
+      }
+    },
   },
 };
 </script>

@@ -297,40 +297,57 @@
   background-color: white;
 }
 
+/* Ẩn mũi tên mặc định của Element Plus */
+.custom-tooltip .el-popper__arrow {
+  display: none !important;
+}
+
 .custom-tooltip {
   background: rgba(0, 0, 0, 0.85) !important; /* Nền đen đậm */
   color: white !important; /* Chữ trắng */
   border-radius: 8px !important; /* Bo góc */
   padding: 4px 6px !important; /* Khoảng cách bên trong */
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Viền trắng rất nhẹ */
-}
+  border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Viền trắng rất nhẹ */
+  position: relative;
 
-.tooltip-content {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 2px;
 }
-
-.tooltip-time {
-  font-weight: bold;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-.tooltip-temp {
-  font-size: 12px;
-  font-weight: 500;
-}
-
-/* Tạo mũi tên tooltip */
 .custom-tooltip::after {
-  content: "";
-  position: absolute;
-  bottom: -6px; /* Điều chỉnh vị trí mũi tên */
+  content: "" !important;
+  position: absolute !important;
+  bottom: -8px; /* Điều chỉnh vị trí */
   left: 50%;
   transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+  width: 14px; /* Tăng chiều rộng để cân đối */
+  height: 8px; /* Chiều cao thấp hơn để không quá nhọn */
+  background: rgba(0, 0, 0, 0.85); /* Giống màu tooltip */
+  clip-path: polygon(10% 0, 90% 0, 50% 100%); /* Tam giác cân */
+}
+
+
+.app-tooltip .el-popper__arrow {
+  display: none !important;
+}
+.app-tooltip {
+  cursor: pointer;
+  background: #DFECFE !important; /* Nền đen đậm */
+  color: var(--color-input-ic) !important; /* Chữ trắng */
+  border-radius: 8px !important; /* Bo góc */
+  padding: 4px 6px !important; /* Khoảng cách bên trong */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Viền trắng rất nhẹ */
+}
+
+.app-tooltip::after {
+  content: "" !important;
+  position: absolute !important;
+  top: -8px; /* Đặt mũi tên xuống dưới tooltip */  
+  right: 20%;
+  transform: translateX(50%);
+  width: 14px; /* Tăng chiều rộng để cân đối */
+  height: 8px; /* Chiều cao thấp hơn để không quá nhọn */
+  background: #DFECFE; /* Giống màu tooltip */
+  clip-path: polygon(50% 0, 0% 100%, 100% 100%); /* Tam giác quay lên trên */
+}
+
+.cursor-pointer{
+  cursor: pointer !important;
 }

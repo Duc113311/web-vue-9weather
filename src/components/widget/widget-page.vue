@@ -284,11 +284,11 @@
                               ? 'none'
                               : `1px solid ${lineColor}`,
                         }"
-                        class="flex justify-between items-center pt-2 pb-2 txt_light_14"
+                        class="flex justify-between items-center pt-2 pb-2 txt_regular_14"
                         v-for="(item, index) in renderObjectWidget?.listDaily"
                         :key="index"
                       >
-                        <div class="w-[60px]">
+                        <div class="w-[80px] text-left">
                           <span>{{ convertDayWeek(item.time) }}</span>
                         </div>
                         <div class="flex text-right">
@@ -313,9 +313,7 @@
                           <component
                             :is="convertIconCurrently(item?.icon)"
                           ></component>
-                          <component
-                            :is="convertIconCurrently(item?.icon)"
-                          ></component>
+
                           <!-- <img :src="convertIconCurrently(item?.icon)" alt="" />
                           <img :src="convertIconCurrently(item?.icon)" alt="" /> -->
                         </div>
@@ -441,7 +439,7 @@
                               ? 'none'
                               : `1px solid ${lineColor}`,
                         }"
-                        class="flex justify-between items-center pt-2 pb-2 txt_light_14"
+                        class="flex justify-between items-center pt-2 pb-2 txt_regular_14"
                         v-for="(item, index) in renderObjectWidget?.listDaily"
                         :key="index"
                       >
@@ -794,6 +792,7 @@ import {
   convertCtoF,
   codeToFind,
   capitalizeWords,
+  convertDayOfWeekMonth,
 } from "../../utils/converValue.js";
 import BaseComponent from "../common/baseComponent.vue";
 export default {
@@ -1195,7 +1194,11 @@ export default {
     },
 
     convertDayWeek(value) {
-      return convertDayOfWeek(value);
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timeZoneValue =
+        this.$store.state.weatherModule.locationOffset.timeZone;
+
+      return convertDayOfWeekMonth(value, offsetValue, timeZoneValue);
     },
 
     convertTemperature(value) {

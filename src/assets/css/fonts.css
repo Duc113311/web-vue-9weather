@@ -220,6 +220,9 @@
   .txt_medium_14{
     font-size: 13px;
   }
+  .txt_line_24 {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -266,6 +269,9 @@
   .txt_medium_14{
     font-size: 13px;
   }
+  .txt_line_24 {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -304,6 +310,9 @@
     font-size: 17px;
   }
   .txt_medium_14{
+    font-size: 14px;
+  }
+  .txt_line_24 {
     font-size: 14px;
   }
 }
@@ -345,6 +354,9 @@
   }
   .txt_medium_14{
     font-size: 14px;
+  }
+  .txt_line_24 {
+    font-size: 16px;
   }
 }
 
@@ -388,5 +400,9 @@
   }
   .txt_medium_14{
     font-size: 14px;
+  }
+
+  .txt_line_24 {
+    font-size: 16px;
   }
 }

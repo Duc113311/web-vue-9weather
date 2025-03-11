@@ -104,7 +104,11 @@
       </div> -->
     </div>
 
-    <div class="text-left w-full txt_regular_14 pt-2 pb-2"></div>
+    <div class="text-left w-full txt_regular_14 pt-2 pb-4">
+      <p>
+        {{ renderTitleByIconHouse(currentlyData?.icon, dailyOneData) }}
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -124,6 +128,7 @@ import {
   convertMillimetToInch,
   getAirSummaryName,
   getIconHourlyForecastTheme,
+  getTitleIconByHouse,
   getUvSummaryName,
 } from "@/utils/converValue";
 import { decodeBase64 } from "@/utils/EncoderDecoderUtils";
@@ -199,6 +204,12 @@ export default {
 
     convertUvIndexName(val) {
       return getUvSummaryName(val);
+    },
+
+    renderTitleByIconHouse(value, data) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return getTitleIconByHouse(value, data, unitSetting);
     },
 
     convertPrecipitation(val) {

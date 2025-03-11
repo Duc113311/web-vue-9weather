@@ -48,7 +48,7 @@ import IcWaxingCrescent from "@/components/icons/moon-phase/IcWaxingCrescent.vue
 import { markRaw } from "vue";
 import FormMoonPage from "../form-infor/form-moon-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { getInfoMoonPhase } from "@/utils/moonPhase";
 import IcWaxingGibbous from "@/components/icons/moon-phase/IcWaxingGibbous.vue";
 import IcMoonphase from "@/components/icons/IcMoonphase.vue";
@@ -130,6 +130,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations("commonModule", ["setObjectMoonphase"]),
     convertStringMoonIcon(value) {
       debugger;
       const valueName = value.toString();
@@ -259,6 +260,7 @@ export default {
     onChangeMoon(value) {
       debugger;
       this.objectMoon = this.listMoonData[value];
+      this.setObjectMoonphase(this.objectMoon);
     },
   },
 
@@ -276,6 +278,7 @@ export default {
     //   this.objectMoon = findData;
     // }
     this.objectMoon = this.listMoonData[0];
+    this.setObjectMoonphase(this.objectMoon);
   },
 };
 </script>

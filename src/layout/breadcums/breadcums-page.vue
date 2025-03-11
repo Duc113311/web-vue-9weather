@@ -1,203 +1,249 @@
 <template>
   <div class="w-full items-center text-left color_f9f9f9 pad-t-b mt-2">
     <div class="container">
-      <div class="flex items-center gap-2 txt_regular_17 pad-l-r-20">
-        <div class="cursor-pointer" @click="onClickHome()">
-          {{ $t("Home") }}
-        </div>
-        <!-- Riêng Việt nam -->
-        <div
-          class="flex items-center"
-          v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
-        >
-          <div class="flex items-center" v-if="breadcumsObject?.country">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer" @click="onClickHome()">
-              {{ breadcumsObject?.country }}
-            </div>
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 txt_regular_17">
+          <div class="cursor-pointer" @click="onClickHome()">
+            {{ $t("Home") }}
           </div>
-          <div class="flex items-center" v-if="breadcumsObject?.city">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer" @click="onClickCity()">
-              {{
-                $t(
-                  `city.city_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.city_key
-                  )}`
-                )
-              }}
+          <!-- Riêng Việt nam -->
+          <div
+            class="flex items-center"
+            v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
+          >
+            <div class="flex items-center" v-if="breadcumsObject?.country">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer" @click="onClickHome()">
+                {{ breadcumsObject?.country }}
+              </div>
             </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.district">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer" @click="onClickDistrict()">
-              {{
-                convertCapitalizeWords(
+            <div class="flex items-center" v-if="breadcumsObject?.city">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer" @click="onClickCity()">
+                {{
                   $t(
-                    `${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}.${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}_${languageParam}.${convertToLowCase(
-                      breadcumsObject?.district_key
+                    `city.city_${languageParam}.${convertToLowCase(
+                      breadcumsObject?.city_key
                     )}`
                   )
-                )
-              }}
+                }}
+              </div>
             </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.ward">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer" @click="onClickWard()">
-              {{
-                convertCapitalizeWords(
-                  $t(
-                    `${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}.${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}_${languageParam}.${convertToLowCase(
-                      breadcumsObject?.ward_key
-                    )}`
+            <div class="flex items-center" v-if="breadcumsObject?.district">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer" @click="onClickDistrict()">
+                {{
+                  convertCapitalizeWords(
+                    $t(
+                      `${convertToSlugCity(
+                        breadcumsObject?.city
+                      )}.${convertToSlugCity(
+                        breadcumsObject?.city
+                      )}_${languageParam}.${convertToLowCase(
+                        breadcumsObject?.district_key
+                      )}`
+                    )
                   )
-                )
-              }}
+                }}
+              </div>
+            </div>
+            <div class="flex items-center" v-if="breadcumsObject?.ward">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer" @click="onClickWard()">
+                {{
+                  convertCapitalizeWords(
+                    $t(
+                      `${convertToSlugCity(
+                        breadcumsObject?.city
+                      )}.${convertToSlugCity(
+                        breadcumsObject?.city
+                      )}_${languageParam}.${convertToLowCase(
+                        breadcumsObject?.ward_key
+                      )}`
+                    )
+                  )
+                }}
+              </div>
             </div>
           </div>
+          <!-- End -->
+          <!-- Trên thế giới -->
+          <div v-else class="flex items-center">
+            <div class="flex items-center" v-if="breadcumsObject?.country">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer">
+                {{ breadcumsObject?.country }}
+              </div>
+            </div>
+            <div class="flex items-center" v-if="breadcumsObject?.state">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer">
+                {{ breadcumsObject?.state }}
+              </div>
+            </div>
+            <div class="flex items-center" v-if="breadcumsObject?.county">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer">
+                {{ breadcumsObject?.county }}
+              </div>
+            </div>
+            <div class="flex items-center" v-if="breadcumsObject?.cities">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.43814 21.5621L14.5625 2.43778"
+                  stroke="var(--color-txt)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="cursor-pointer">
+                {{ breadcumsObject?.cities }}
+              </div>
+            </div>
+          </div>
+          <!-- End -->
         </div>
-        <!-- End -->
-        <!-- Trên thế giới -->
-        <div v-else class="flex items-center">
-          <div class="flex items-center" v-if="breadcumsObject?.country">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+
+        <div class="flex items-center gap-1">
+          <el-tooltip
+            popper-class="app-tooltip cursor-pointer"
+            effect="dark"
+            placement="bottom-end"
+          >
+            <template #content>
+              <div class="flex items-center">
+                <div class="image-container">
+                  <img
+                    v-for="(image, index) in listImageApp"
+                    :key="index"
+                    :src="image"
+                    :class="{ active: index === activeIndex }"
+                    class="stacked-image"
+                  />
+                </div>
+
+                <div
+                  class="w-[200px] flex justify-center flex-col items-center gap-2"
+                >
+                  <p class="txt_medium_15 text-center">Scan the QR code</p>
+                  <p class="txt_regular_11 text-center">
+                    Enjoy real-time, hyperlocal and the most accurate forecast
+                    on mobile
+                  </p>
+                  <img
+                    src="@/assets/images/svg_v2/qr_weather.png"
+                    alt=""
+                    width="100"
+                    srcset=""
+                  />
+                </div>
+              </div>
+            </template>
+            <div
+              class="flex gap-1 items-center cursor-pointer bg-color-app pad_bth_app bg-btn-hover"
             >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer">
-              {{ breadcumsObject?.country }}
+              <IcScanApp></IcScanApp>
+              <p class="txt_regular_11">9Weather on Mobile</p>
             </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.state">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer">
-              {{ breadcumsObject?.state }}
-            </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.county">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer">
-              {{ breadcumsObject?.county }}
-            </div>
-          </div>
-          <div class="flex items-center" v-if="breadcumsObject?.cities">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.43814 21.5621L14.5625 2.43778"
-                stroke="var(--color-txt)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <div class="cursor-pointer">
-              {{ breadcumsObject?.cities }}
-            </div>
-          </div>
+          </el-tooltip>
         </div>
-        <!-- End -->
       </div>
     </div>
   </div>
@@ -215,6 +261,7 @@ import {
   convertLowerCase,
   removeWordAndAccents,
 } from "@/utils/coverTextSystem";
+import IcScanApp from "@/components/icons/IcScanApp.vue";
 
 export default {
   name: "breadcums-page",
@@ -223,7 +270,18 @@ export default {
     return {
       localBreadcums: null,
       indexKey: 0,
+
+      listImageApp: [
+        require("@/assets/images/svg_v2/ic_scan_app.png"),
+        require("@/assets/images/svg_v2/ic_hinh_app_2.png"),
+        require("@/assets/images/svg_v2/ic_hinh_app_1.png"),
+      ],
+      activeIndex: 0,
     };
+  },
+
+  components: {
+    IcScanApp,
   },
 
   computed: {
@@ -588,6 +646,10 @@ export default {
 
   mounted() {
     this.updateLocalBreadcums();
+
+    setInterval(() => {
+      this.activeIndex = (this.activeIndex + 1) % this.listImageApp.length;
+    }, 1000); // Chuyển ảnh mỗi 2 giây
   },
 };
 </script>

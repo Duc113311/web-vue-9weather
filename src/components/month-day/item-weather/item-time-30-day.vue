@@ -582,7 +582,7 @@ export default {
     renderHourly(value) {
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
 
-      const timestampValue = convertDayOfWeek(value.time);
+      const timestampValue = convertDayOfWeek(value.time, offsetValue);
 
       return {
         timestampValue: timestampValue,

@@ -193,6 +193,38 @@ export default {
 
       ctx.clearRect(1, 0, canvas.width, canvas.height);
 
+      let innerGradient = ctx.createLinearGradient(
+        0,
+        canvas.height * 0.15, // Bắt đầu từ đỉnh quỹ đạo
+        0,
+        canvas.height * 0.6 // Kéo dài đến đáy canvas
+      );
+
+      innerGradient.addColorStop(0, "rgba(241, 217, 80, 0.4)"); // Vàng nhạt đậm hơn ở trên
+      innerGradient.addColorStop(0.5, "rgba(241, 217, 80, 0.2)"); // Trung bình
+      innerGradient.addColorStop(1, "rgba(241, 217, 80, 0)"); // Hoàn toàn trong suốt ở dưới
+
+      // **2️⃣ Áp dụng gradient vào vùng bên trong đường cong**
+      ctx.save();
+      ctx.fillStyle = innerGradient;
+      ctx.fill(path); // Đổ màu vào vùng dưới quỹ đạo
+      ctx.restore();
+
+      // **1️⃣ Tạo gradient cho phần dưới quỹ đạo**
+      let backgroundGradient = ctx.createLinearGradient(
+        0,
+        canvas.height * 0.5,
+        0,
+        canvas.height
+      );
+      backgroundGradient.addColorStop(0, "rgba(191, 191, 191, 0.6)"); // Xám đậm ở phần trên
+      backgroundGradient.addColorStop(0.3, "rgba(191, 191, 191, 0.4)"); // Giảm nhẹ độ đậm
+      backgroundGradient.addColorStop(0.6, "rgba(191, 191, 191, 0.02)"); // Mờ dần xuống
+      backgroundGradient.addColorStop(1, "rgba(191, 191, 191, 0)"); // Hoàn toàn trong suốt ở cuối
+
+      ctx.fillStyle = backgroundGradient;
+      ctx.fillRect(0, canvas.height * 0.6, canvas.width, canvas.height * 0.5); // Phủ nền dưới
+
       ctxDowner.strokeStyle = "#C5C5C5";
       ctxUpper.strokeStyle = "#F4DA2E";
       ctx.strokeStyle = "#C9C9C9";
@@ -260,6 +292,26 @@ export default {
       img.src = drawable;
 
       img.onload = () => {
+        // **1️⃣ Tạo hiệu ứng gradient ánh sáng mặt trời**
+        const gradient = ctxNew.createRadialGradient(
+          posX,
+          posY,
+          sunSize / 4, // Tâm gradient
+          posX,
+          posY,
+          sunSize // Bán kính lan tỏa
+        );
+
+        gradient.addColorStop(0, "rgba(255, 204, 0, 0.8)"); // Vàng cam sáng
+        gradient.addColorStop(0.4, "rgba(255, 153, 0, 0.5)"); // Màu vàng cam nhạt
+        gradient.addColorStop(1, "rgba(255, 102, 0, 0.2)"); // Màu nhạt dần ra ngoài
+
+        // **2️⃣ Vẽ gradient phía sau mặt trời**
+        ctxNew.fillStyle = gradient;
+        ctxNew.beginPath();
+        ctxNew.arc(posX, posY, sunSize * 1.2, 0, Math.PI * 2); // Tạo hình tròn
+        ctxNew.fill();
+
         ctxNew.drawImage(
           img,
           posX - this.sunSize / 2,
