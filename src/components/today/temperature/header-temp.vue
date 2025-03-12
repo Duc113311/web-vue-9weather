@@ -38,7 +38,7 @@
 
     <!--  -->
     <div
-      class="c-temp-row w-full md:flex grid grid-cols-3 gap-2 items-center mt-2 pt-6 pb-3"
+      class="c-temp-row w-full sm:flex grid grid-cols-3 gap-2 items-center mt-2 pt-6 pb-3"
     >
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
         <div
@@ -78,7 +78,7 @@
       </div>
 
       <div
-        class="md:temp-section precipitation-c w-auto b-flex md:bor-rim-r pad-l-r"
+        class="temp-section-c precipitation-c w-auto b-flex bor-rim-r pad-l-r"
       >
         <div class="h-flex flex items-center justify-center txt_regular_14">
           <p v-if="currentlyDataRender?.summary === 'snow'">
@@ -319,6 +319,22 @@ export default {
 
   &:last-child {
     border-right: none; // Remove border from the last item
+  }
+}
+
+.temp-section-c {
+  flex: 1;
+  min-width: 0; // This prevents flex items from overflowing
+  border-right: 0px solid #ccc; // Adjust color as needed
+
+  &:last-child {
+    border-right: none; // Remove border from the last item
+  }
+}
+
+@media (min-width: 1200px) {
+  .temp-section-c {
+    border-right: 1px solid #ccc; // Adjust color as needed
   }
 }
 

@@ -145,14 +145,12 @@ export default {
       // Tạo gradient Temperature Dark Max
 
       const gradientMax = ctx.createLinearGradient(0, 0, 0, chartHeight);
-      gradientMax.addColorStop(0, "rgba(235, 171, 63, 1)"); // Màu đậm trên cùng
-      gradientMax.addColorStop(0.4, "rgba(235, 171, 63, 0.7)"); // Màu gần như trong suốt hơn
-      gradientMax.addColorStop(0.8, "rgba(235, 171, 63, 0.2)"); // Màu rất nhạt trước khi hết
-      gradientMax.addColorStop(1, "rgba(235, 171, 63, 0)"); // Màu hoàn toàn trong suốt ở đáy
+      gradientMax.addColorStop(0, "rgba(53, 154, 65, 1)");
+      gradientMax.addColorStop(1, "rgba(53, 154, 65, 0)");
 
-      const gradientMin = ctx.createLinearGradient(0, 0, 0, chartHeight);
-      gradientMin.addColorStop(0, "rgba(83, 224, 80, 1)"); // Màu đậm trên cùng (53E050)
-      gradientMin.addColorStop(1, "rgba(83, 224, 80, 0.7)"); // Màu hoàn toàn trong suốt ở đáy (53E050)
+      const gradientMin = ctx.createLinearGradient(0, 0, 0, chartHeight - 20);
+      gradientMin.addColorStop(0, "rgba(23, 210, 45, 1)");
+      gradientMin.addColorStop(1, "rgba(23, 210, 45, 0)");
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
@@ -168,7 +166,7 @@ export default {
           datasets: [
             {
               label: this.$t("Max"),
-              order: 1, // Được vẽ sau, nên đè lên trên dataset Max
+              order: 0, // Được vẽ sau, nên đè lên trên dataset Max
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",
               pointBorderWidth: 1, // Độ dày viền của điểm
