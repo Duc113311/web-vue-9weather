@@ -28,7 +28,7 @@
                   }}</span
                 >
               </div>
-              <span class="txt_regular_12">{{ $t("Sunrise") }}</span>
+              <span class="txt_regular_12 pl-2">{{ $t("Sunrise") }}</span>
             </div>
             <!--  -->
             <div class="flex flex-col gap-2 items-center">
@@ -44,7 +44,7 @@
                   }}</span
                 >
               </div>
-              <span class="txt_regular_12">{{ $t("Sunset") }}</span>
+              <span class="txt_regular_12 pr-2">{{ $t("Sunset") }}</span>
             </div>
           </div>
           <canvas
@@ -302,15 +302,17 @@ export default {
           sunSize // Bán kính lan tỏa
         );
 
-        gradient.addColorStop(0, "rgba(255, 204, 0, 0.8)"); // Vàng cam sáng
-        gradient.addColorStop(0.4, "rgba(255, 153, 0, 0.5)"); // Màu vàng cam nhạt
-        gradient.addColorStop(1, "rgba(255, 102, 0, 0.2)"); // Màu nhạt dần ra ngoài
+        if (drawable !== "imgBottom") {
+          gradient.addColorStop(0, "rgba(255, 204, 0, 0.8)"); // Vàng cam sáng
+          gradient.addColorStop(0.4, "rgba(255, 153, 0, 0.5)"); // Màu vàng cam nhạt
+          gradient.addColorStop(1, "rgba(255, 102, 0, 0.2)"); // Màu nhạt dần ra ngoài
 
-        // **2️⃣ Vẽ gradient phía sau mặt trời**
-        ctxNew.fillStyle = gradient;
-        ctxNew.beginPath();
-        ctxNew.arc(posX, posY, sunSize * 1.2, 0, Math.PI * 2); // Tạo hình tròn
-        ctxNew.fill();
+          // **2️⃣ Vẽ gradient phía sau mặt trời**
+          ctxNew.fillStyle = gradient;
+          ctxNew.beginPath();
+          ctxNew.arc(posX, posY, sunSize * 1.2, 0, Math.PI * 2); // Tạo hình tròn
+          ctxNew.fill();
+        }
 
         ctxNew.drawImage(
           img,

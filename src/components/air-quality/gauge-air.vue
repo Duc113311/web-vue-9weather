@@ -147,7 +147,7 @@
         <!-- Text in Center -->
         <div class="progress-text">
           <p
-            class="w-[120px] text-center txt_regular_14"
+            class="w-[164px] text-center txt_regular_14"
             :style="{ color: progressColor(airQualityValue) }"
           >
             {{ convertAirIndexName(airQualityValue) }}
@@ -197,7 +197,6 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -293,7 +292,6 @@ export default {
 
     convertToSlugCity(str) {
       const slug = removeAccentsUnicode(str);
-      debugger;
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

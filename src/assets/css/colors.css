@@ -224,7 +224,8 @@
 }
 
 .bg-btn-hover:hover {
-  background-color: #6f3476;
+  background-color: var(--bg-tab-nav);
+  color: #f3f3f3;
 }
 
 .bg-color-app{

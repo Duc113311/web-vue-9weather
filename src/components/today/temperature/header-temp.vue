@@ -37,7 +37,9 @@
     </div>
 
     <!--  -->
-    <div class="c-temp-row w-full flex items-center mt-2 pt-6 pb-3">
+    <div
+      class="c-temp-row w-full md:flex grid grid-cols-3 gap-2 items-center mt-2 pt-6 pb-3"
+    >
       <div class="temp-section temp-max-min w-auto b-flex bor-rim-r pad-l-r">
         <div
           class="h-flex flex items-center justify-center pb-14 txt_regular_14"
@@ -75,7 +77,9 @@
         </div>
       </div>
 
-      <div class="temp-section precipitation-c w-auto b-flex bor-rim-r pad-l-r">
+      <div
+        class="md:temp-section precipitation-c w-auto b-flex md:bor-rim-r pad-l-r"
+      >
         <div class="h-flex flex items-center justify-center txt_regular_14">
           <p v-if="currentlyDataRender?.summary === 'snow'">
             {{ $t("Chance_of_snow") }}

@@ -39,7 +39,6 @@ export default {
     ...mapActions("weatherModule", ["getWeatherByWidget"]),
 
     async loadDataWidget() {
-      debugger;
       const locationLatLongValue = localStorage.getItem("locationLatLong");
       if (locationLatLongValue) {
         const convertLocation = JSON.parse(locationLatLongValue);

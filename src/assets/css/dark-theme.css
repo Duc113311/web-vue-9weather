@@ -27,20 +27,21 @@
   --color-icon-df-mobile: #333333;
   --bg-location-header: #e3e3e3;
   --bg-menu-mobile: #f9f9f9;
-  --color-menu-mobile:#333333;
-  --bg-btn-option:#ddbfbf;
-  --bg-icon-precip:#FFFFFF;
-  --color-card-city:#BFBFBF;
-  --color-card-provinces:#F9F9F9;
-  --color-chance-of-rain: #2AE2F3;
-  --color-Address:#60A5FA;
-  --bg-color-widget:#0D274C;
-  --title-color-widget:#ffffff;
-  --line-color-widget:#F2F2F2;
-  --text-color-widget:#CCCEFF;
-  --description-color-widget:#C7C8C8;
-  --border-widget:#dcdfe6;
-  --bg-draw:#3e5481;
+  --color-menu-mobile: #333333;
+  --bg-btn-option: #ddbfbf;
+  --bg-icon-precip: #ffffff;
+  --color-card-city: #bfbfbf;
+  --color-card-provinces: #f9f9f9;
+  --color-chance-of-rain: #2ae2f3;
+  --color-Address: #60a5fa;
+  --bg-color-widget: #0d274c;
+  --title-color-widget: #ffffff;
+  --line-color-widget: #f2f2f2;
+  --text-color-widget: #ccceff;
+  --description-color-widget: #c7c8c8;
+  --border-widget: #dcdfe6;
+  --bg-draw: #3e5481;
   --color-weekend: #35d1de;
-
+  --bg-tab-nav: #6f3476;
+  --bg-scan-mobile: #dfecfe;
 }

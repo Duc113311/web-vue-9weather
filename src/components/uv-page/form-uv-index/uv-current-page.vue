@@ -5,12 +5,20 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <component class="icon-svg" :is="srcDaytime"></component>
-          <p class="txt_medium_14">
+          <p class="txt_medium_14" v-if="breadcumsObject?.country_key === 'vn'">
             {{
               $t(`Current_UV_In_{city}`, {
                 city: $t(
                   `city.city_${languageParam}.${breadcumsObject?.city_key}`
                 ),
+              })
+            }}
+          </p>
+          <p class="txt_medium_14" v-else>
+            {{
+              $t(`Current_UV_In_{city}`, {
+                city: `
+                  ${breadcumsObject?.state}`,
               })
             }}
           </p>
@@ -110,9 +118,7 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"

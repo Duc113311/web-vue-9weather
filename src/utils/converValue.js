@@ -591,7 +591,7 @@ export function convertTimestampToHoursMinutes12(
     return i18n.global.t("Now");
   }
 
-  return `${formattedHours}:${formattedMinutes} ${period}`;
+  return `${formattedHours}:${formattedMinutes} ${i18n.global.t(period)}`;
 }
 
 export function convertTimestampUnit12(
@@ -605,14 +605,14 @@ export function convertTimestampUnit12(
   let hours = dateTime.hour; // Giờ
 
   // Chuyển đổi giờ sang định dạng 12 giờ
-  let period = hours >= 12 ? "PM" : "AM";
+  let period = hours >= 12 ? i18n.global.t("PM") : i18n.global.t("AM");
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
 
   // Trả về AM hoặc PM
   if (numberTime === 0) {
-    return period; // Trả về AM/PM
+    return i18n.global.t(period); // Trả về AM/PM
   } else if (numberTime === 1) {
-    return period; // Trả về AM/PM
+    return i18n.global.t(period); // Trả về AM/PM
   }
 }
 
@@ -661,7 +661,7 @@ export function convertTime12hTimeZoneNotNowUnit(
   const formattedMinutes = minutes.toString().padStart(2, "0");
   // const formattedMinutes = "00";
 
-  return `${formattedHours}:${formattedMinutes} ${period}`;
+  return `${formattedHours}:${formattedMinutes} ${i18n.global.t(period)}`;
 }
 
 export function convertTime24hTimeZoneNotNow(
@@ -714,19 +714,19 @@ export function convertTime12hTimeZoneNotNow(
   let minutes = dateTime.minute; // Phút
 
   // Chuyển đổi giờ sang định dạng 12 giờ
-  let period = hours >= 12 ? "PM" : "AM";
+  let period = hours >= 12 ? i18n.global.t("PM") : i18n.global.t("AM");
   hours = hours % 12 || 12; // Nếu giờ là 0, chuyển thành 12
   minutes = minutes < 10 ? "0" + minutes : minutes; // Đảm bảo phút có 2 chữ số
 
   const now = DateTime.now().setZone(timezone);
   let hoursNow = now.hour % 12 || 12;
-  let periodNow = now.hour >= 12 ? "PM" : "AM"; // AM/PM hiện tại
+  let periodNow = now.hour >= 12 ? i18n.global.t("PM") : i18n.global.t("AM"); // AM/PM hiện tại
 
   // Trả về thời gian định dạng 12 giờ
   if (numberTime === 0) {
-    return hours + ":" + minutes + " " + period;
+    return hours + ":" + minutes + " " + i18n.global.t(period);
   } else if (numberTime === 1) {
-    return hours + ":" + minutes + " " + period;
+    return hours + ":" + minutes + " " + i18n.global.t(period);
   }
 }
 
@@ -739,7 +739,7 @@ export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
   let minutes = localTime.getUTCMinutes();
 
   // Chuyển đổi giờ sang định dạng 12 giờ
-  let period = hours >= 12 ? "PM" : "AM";
+  let period = hours >= 12 ? i18n.global.t("PM") : i18n.global.t("AM");
   hours = hours % 12;
   hours = hours < 10 ? "0" + hours : 12; // Nếu giờ là 0 thì chuyển thành 12
   minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -749,12 +749,12 @@ export function convertTimestampNow12(timestamp, numberTime, offsetValue) {
 
   // Trả về thời gian định dạng 12 giờ
   if (numberTime === 0) {
-    return hours + ":" + minutes + " " + period;
+    return hours + ":" + minutes + " " + i18n.global.t(period);
   } else if (numberTime === 1) {
     if (hours === hoursNow) {
       return i18n.global.t("Now");
     }
-    return hours + ":" + minutes + " " + period;
+    return hours + ":" + minutes + " " + i18n.global.t(period);
   }
 }
 
@@ -824,7 +824,7 @@ export function convertTimestamp12hSun(
   // const formattedMinutes = minutes.toString().padStart(2, "0");
   const formattedMinutes = "00";
 
-  return `${formattedHours}:${formattedMinutes} ${period}`;
+  return `${formattedHours}:${formattedMinutes} ${i18n.global.t(period)}`;
 }
 
 //
@@ -896,7 +896,7 @@ export function convertTimestampToAmPm(timestamp) {
 
   let hours = date.getHours();
 
-  let amPm = hours >= 12 ? "PM" : "AM";
+  let amPm = hours >= 12 ? i18n.global.t("PM") : i18n.global.t("AM");
 
   // Trả về thời gian định dạng 12 giờ
   return amPm;
@@ -948,7 +948,7 @@ export function getFormattedCurrentDate() {
   const isAM = hours < 12;
   const formattedHours = hours % 12 || 12; // Chuyển sang định dạng 12 giờ
   const formattedMinutes = minutes.toString().padStart(2, "0");
-  const period = isAM ? "AM" : "PM";
+  const period = isAM ? i18n.global.t("AM") : i18n.global.t("PM");
 
   // return `${dayOfWeek}, ${month} ${day}, ${year} at ${formattedHours}:${formattedMinutes} ${period}`;
   return `${dayOfWeek}, ${month} ${day}, ${year}`;
@@ -1106,7 +1106,7 @@ export function convertHaversine(
   lonNearest,
   unit = "km" // Mặc định là km
 ) {
-  console.log("unit", unit);
+  console.log("unit-test", unit);
 
   const R_KM = 6371; // Bán kính Trái Đất (km)
   const R_MI = 3958.8; // Bán kính Trái Đất (miles)

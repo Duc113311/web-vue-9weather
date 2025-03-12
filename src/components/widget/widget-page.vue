@@ -904,7 +904,6 @@ export default {
 
     titleBackgroundColor: {
       get() {
-        debugger;
         const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
           return this.$store.state.commonModule.titleBackgroundColorLight;
@@ -913,14 +912,12 @@ export default {
         }
       },
       set(value) {
-        debugger;
         this.SET_TITLE_BACKGROUND_COLOR(value);
       },
     },
 
     descriptionColor: {
       get() {
-        debugger;
         const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
           return this.$store.state.commonModule.descriptionColorLight;
@@ -929,13 +926,11 @@ export default {
         }
       },
       set(value) {
-        debugger;
         this.setDescriptionColor(value);
       },
     },
     titleColor: {
       get() {
-        debugger;
         const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
           return this.$store.state.commonModule.titleColorLight;
@@ -944,13 +939,11 @@ export default {
         }
       },
       set(value) {
-        debugger;
         this.setTitleColor(value);
       },
     },
     textColor: {
       get() {
-        debugger;
         const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
           return this.$store.state.commonModule.textColorLight;
@@ -959,13 +952,11 @@ export default {
         }
       },
       set(value) {
-        debugger;
         this.setTextColor(value);
       },
     },
     lineColor: {
       get() {
-        debugger;
         const valueTheme = this.$store.state.commonModule.themeValue;
         if (valueTheme === "light") {
           return this.$store.state.commonModule.lineColorLight;
@@ -974,7 +965,6 @@ export default {
         }
       },
       set(value) {
-        debugger;
         this.setLineColor(value);
       },
     },
@@ -989,7 +979,6 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -1076,7 +1065,6 @@ export default {
     },
 
     async onChangeChoose(value) {
-      debugger;
       this.valueAddress = null; // Reset giá trị trước khi cập nhật
       this.$nextTick(() => {});
       this.valueAddress = value;
@@ -1242,7 +1230,6 @@ export default {
       const optionWidgetObject = JSON.stringify(objectOptionWidgetNew);
       this.setOptionWidget(objectOptionWidgetNew);
       localStorage.setItem("optionWidgetObject", optionWidgetObject);
-      debugger;
 
       // Tăng key và hiển thị lại component sau 100ms
 

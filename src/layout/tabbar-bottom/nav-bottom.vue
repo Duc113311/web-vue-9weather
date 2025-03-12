@@ -130,7 +130,7 @@ export default {
 
     activeCities() {
       const paramCity = this.$route.params;
-      debugger;
+
       if (Object.keys(paramCity).length !== 0) {
         const newData = paramCity.location[1];
 
@@ -184,7 +184,7 @@ export default {
 
     renderLanguage() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -273,7 +273,6 @@ export default {
         const newDataValue = this.$store.state.weatherModule.newArray[0];
         const language = this.languageParam;
 
-        debugger;
         const objectBread = {
           country: newDataValue.country,
           country_key: newDataValue.country_key.toLowerCase(),
@@ -345,9 +344,8 @@ export default {
     async onClickLocationNow() {
       this.valueSearch = "";
 
-      debugger;
       const currentChrome = this.currentLocationChome;
-      debugger;
+
       if (currentChrome?.country_key?.toLowerCase() === "vn") {
         let objectBread = {
           country: currentChrome.country,

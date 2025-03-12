@@ -7,7 +7,7 @@
           v-if="paramHourly.length > 0"
           :key="paramHourly.length"
           :displacement="1"
-          class="w-full h-[calc(100%-40px)] relative horizontals pl-2 pr-6 pt-4"
+          class="w-full h-[calc(100%-40px)] relative horizontals pt-4"
         >
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
@@ -104,28 +104,7 @@ export default {
 };
 </script>
 
-<style scoped>
-.horizontals >>> .v-hl-btn-prev {
-  display: none !important;
-  left: 10px !important;
-}
-.horizontals >>> .v-hl-btn-next {
-  display: none !important;
-
-  right: 10px !important;
-}
-.horizontals:hover >>> .v-hl-btn-prev {
-  display: flex !important;
-  left: 24px !important;
-  opacity: 0.5;
-}
-
-.horizontals:hover >>> .v-hl-btn-next {
-  display: flex !important;
-  right: 24px !important;
-  opacity: 0.5;
-}
-
+<style lang="css">
 .bg-temp-c {
   background-color: #ffa60d;
 }

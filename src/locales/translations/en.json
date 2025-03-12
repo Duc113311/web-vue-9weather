@@ -48,6 +48,8 @@
   "Weather_in_{city}": "Weather in the vicinity of {city}",
   "Weather_in_{district}_{city}": "Weather in the vicinity of {district}, {city}",
   "Weather_in_{ward}_{city}": "Weather in the vicinity of {ward}, {city}",
+  "Weather_in_{city}_area":"Weather in {city} area",
+  "Weather_in_the_area_around_{city}":"Weather in the area around {city}",
   "Provinces_Weather": "Provinces Weather",
   "City": "City",
   "Town": "Town",
@@ -296,7 +298,7 @@
   "possible_light_rain_in_the_morning_and_overnight": "possible light rain in the morning and overnight",
   "Temperature_and_chance_of_rain_{city}_hour": "Temperature And Chance Of Rain {city} In The Coming Hours",
   "Weather_forecast_for_{city}": "Weather Forecast For {city} In The Coming Hours",
-  "Weather_{city}": "Weather {city}",
+  "Weather_{city}": "{city} Weather",
   "Calendar": "Calendar",
   "Temperature_and_chance_of_rain_{city}_next_30_days": "Temperature And Chance Of Rain {city} In The Next 30 Days",
   "{city}_weather_forecast_next_30_days": "{city} Weather Forecast For The Next 30 Days",
@@ -348,5 +350,9 @@
   "Weather_Radar_for_{district}_{city}_{country}": "{district} {city} {country} Radar Weather",
   "Weather_AQI_for_{district}_{city}_{country}": "{district} {city} {country} AQI Weather",
   "Weather_UV_for_{district}_{city}_{country}": "{district} {city} {country} UV Weather",
-  "Weather_Moon_for_{district}_{city}_{country}": "{district} {city} {country} Moon Phase Weather"
+  "Weather_Moon_for_{district}_{city}_{country}": "{district} {city} {country} Moon Phase Weather",
+  "AM":"AM",
+  "PM":"PM",
+  "Max":"Max",
+  "Min":"Min"
 }

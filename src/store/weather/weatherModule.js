@@ -93,7 +93,6 @@ const mutations = {
    */
   setWeatherDataCurrent(state, data) {
     state.weatherCurrentData = JSON.parse(decodeBase64(data));
-    debugger;
     if (state.weatherCurrentData) {
       state.locationOffset.latitude = state.weatherCurrentData.latitude;
       state.locationOffset.longitude = state.weatherCurrentData.longitude;
@@ -130,7 +129,6 @@ const mutations = {
 
     const listResultAddress = JSON.parse(jsonValue);
 
-    debugger;
     const addressResult = listResultAddress.results;
 
     state.newArray = [];
@@ -243,7 +241,6 @@ const mutations = {
     const widgetCurrently = JSON.parse(decodeBase64(data));
     state.weatherWidgetDefault = widgetCurrently;
 
-    debugger;
     state.objectWidget.currently = widgetCurrently.currently;
 
     state.objectWidget.listDaily = widgetCurrently.daily.data.slice(
@@ -255,7 +252,6 @@ const mutations = {
   },
 
   setNumberDailyWeather(state, data) {
-    debugger;
     state.valueNumberWeather = data;
     state.objectWidget.listDaily = state.weatherWidgetDefault.daily.data.slice(
       1,
@@ -270,7 +266,6 @@ const mutations = {
   },
 
   setOptionWidget(state, data) {
-    debugger;
     state.valueOptionWidget = data;
   },
 };
@@ -291,7 +286,6 @@ const actions = {
         .get(`api.php?param=${data}`)
         .then((response) => {
           if (response.status === 200) {
-            debugger;
             commit("setWeatherDataCurrent", response.data);
             resolve(response.data);
           } else {

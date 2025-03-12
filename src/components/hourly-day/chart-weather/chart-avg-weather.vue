@@ -99,7 +99,7 @@
           </template>
 
           <div class="w-full">
-            <div class="w-auto h-[422px]">
+            <div class="w-auto h-[422px] pl-4 pr-4">
               <!-- <ChartTempRain></ChartTempRain> -->
               <ChartSyntheticHourly></ChartSyntheticHourly>
             </div>
@@ -158,7 +158,7 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -169,8 +169,6 @@ export default {
     },
 
     wardParam() {
-      debugger;
-
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       const resultData = retrievedArray
         ? retrievedArray
@@ -193,7 +191,7 @@ export default {
 
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

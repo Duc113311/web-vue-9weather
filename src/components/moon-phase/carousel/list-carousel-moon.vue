@@ -102,7 +102,7 @@ export default {
     },
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -132,7 +132,6 @@ export default {
   methods: {
     ...mapMutations("commonModule", ["setObjectMoonphase"]),
     convertStringMoonIcon(value) {
-      debugger;
       const valueName = value.toString();
 
       switch (valueName) {
@@ -176,7 +175,6 @@ export default {
     },
     renderListCityAllGetters() {
       const dateNew = new Date();
-      debugger;
 
       const timezoneOffset = this.locationOffsetValue * 60; // offset từ phút sang giây
       const adjustedNow = new Date(dateNew.getTime() + timezoneOffset * 1000);
@@ -238,7 +236,7 @@ export default {
       const dateNow = new Date();
       const day = dateNow.getDate(); // 4
       const month = dateNow.getMonth() + 1;
-      debugger;
+
       const findNumber = this.rearrangeArray(dayList, day, month);
 
       this.listMoonData = findNumber;
@@ -251,14 +249,12 @@ export default {
 
     convertFullMoonTime(value) {
       if (value) {
-        debugger;
         const dateString = convertTimestampFullMoon(value);
         return dateString;
       }
     },
 
     onChangeMoon(value) {
-      debugger;
       this.objectMoon = this.listMoonData[value];
       this.setObjectMoonphase(this.objectMoon);
     },

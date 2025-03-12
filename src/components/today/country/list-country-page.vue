@@ -30,15 +30,15 @@
 
       <div
         class="w-full show-scroll pt-1 pb-1 pr-2"
-        :class="[renderCityLocation.length <= 8 ? 'h-auto' : 'h-[250px]']"
-        v-if="renderCityLocation.length !== 0"
+        :class="[listCityState.length <= 8 ? 'h-auto' : 'h-[250px]']"
+        v-if="listCityState.length !== 0"
       >
         <div v-if="objectBreadParam.country_key === 'vn'">
           <div
-            v-for="(item, index) in renderCityLocation"
+            v-for="(item, index) in listCityState"
             :key="index"
             class="flex justify-between items-center pt-2 pb-2 cursor-pointer item-city"
-            :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
+            :class="{ 'bor-b': index !== listCityState.length - 1 }"
             @click="onClickRenderCityLocation(item)"
           >
             <div class="flex gap-2 items-center cursor-pointer-bh">
@@ -61,10 +61,10 @@
         </div>
         <div v-else>
           <div
-            v-for="(item, index) in renderCityLocation"
+            v-for="(item, index) in listCityState"
             :key="index"
             class="flex justify-between items-center pb-3 pt-3 pr-2 cursor-pointer"
-            :class="{ 'bor-b': index !== renderCityLocation.length - 1 }"
+            :class="{ 'bor-b': index !== listCityState.length - 1 }"
             @click="onClickRenderCityLocation(item)"
           >
             <div class="flex gap-2 items-center">
@@ -95,7 +95,11 @@ import BaseComponent from "@/components/common/baseComponent.vue";
 import { capitalizeWords, convertHaversine } from "@/utils/converValue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { getDistance } from "geolib";
-import { convertLowerCase, decryptData } from "@/utils/coverTextSystem";
+import {
+  convertLowerCase,
+  decryptData,
+  getFromIndexedDB,
+} from "@/utils/coverTextSystem";
 import {
   encodeBase64,
   getAqiDataFromLocation,
@@ -114,6 +118,7 @@ export default {
     return {
       indexKey: 0,
       IcCardProvinces: markRaw(IcCardProvinces),
+      listCityState: [],
     };
   },
 
@@ -243,6 +248,37 @@ export default {
       "getWeatherDataCurrent",
       "getFormattedAddress",
     ]),
+
+    async getDataByCounty() {
+      const countryCode = this.objectBreadParam.country_key.toLowerCase();
+
+      debugger;
+      if (countryCode === "vn") {
+        const cityName = "Vietnamese";
+        const cityDetail = "vietnam";
+        const dataGet = await getFromIndexedDB(cityName, cityDetail);
+
+        for (const element of dataGet[1].data) {
+          const listCity = element.provinceCity;
+          const findExistData = listCity.filter(
+            (x) => x.keyAccentLanguage === this.objectBreadParam.city_key
+          );
+          if (findExistData.length > 0) {
+            const findExistNew = listCity.filter(
+              (x) => x.keyAccentLanguage !== this.objectBreadParam.city_key
+            );
+            this.listCityState = findExistNew;
+            return;
+          }
+        }
+      } else {
+        const cityName = this.objectBreadParam.country;
+        const cityDetail = this.objectBreadParam.country_key;
+        const dataGet = await getFromIndexedDB(cityName, cityDetail);
+        this.listCityState = dataGet[0].data;
+        return;
+      }
+    },
     async onClickRenderCityLocation(value) {
       debugger;
       const objectBreadValue = this.objectBreadParam;
@@ -341,17 +377,27 @@ export default {
         longitude: this.objectBreadParam.longitude,
       };
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      const isMiles = unitSetting.activeDistance_save === "mi"; // Kiểm tra đơn vị đang sử dụng
 
+      // Sử dụng Haversine để tính khoảng cách
       const distanceValue = convertHaversine(
         locationValue.latitude,
         locationValue.longitude,
         locationSearch.latitude,
         locationSearch.longitude,
-        unitSetting.activeDistance_save
+        isMiles ? "mi" : "km" // Truyền đơn vị vào hàm nếu cần
       );
-      // Sử dụng geolib để tính khoảng cách
-      const distance = getDistance(locationValue, locationSearch);
-      this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km và làm tròn
+
+      // Sử dụng geolib để tính khoảng cách (mặc định là mét)
+      let distance = getDistance(locationValue, locationSearch);
+
+      // Chuyển đổi đơn vị
+      if (isMiles) {
+        this.distanceKm = (distance / 1609.34).toFixed(1); // Đổi sang mile
+      } else {
+        this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km
+      }
+
       return distanceValue;
     },
 
@@ -371,6 +417,10 @@ export default {
         .normalize("NFD") // Tách ký tự dấu
         .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ dấu
     },
+  },
+
+  async mounted() {
+    await this.getDataByCounty();
   },
 };
 </script>

@@ -243,7 +243,6 @@ export async function saveToIndexedDB(
 ) {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(dbName, 3); // 🔥 Đảm bảo luôn mở đúng phiên bản
-
     request.onupgradeneeded = function (event) {
       const db = event.target.result;
 
@@ -270,6 +269,8 @@ export async function saveToIndexedDB(
       // 🔥 Nếu ID trùng, nó sẽ ghi đè (update)
       for (let index = 0; index < jsonData.length; index++) {
         const element = jsonData[index];
+        console.log("element.data", element.data);
+
         const encryptedData = encryptData(element.data);
         // Lưu trên sessionStorage
         sessionStorage.setItem(element.id, JSON.stringify(encryptedData));
@@ -318,7 +319,6 @@ export async function getFromIndexedDB(dbName, storeName) {
       const transaction = db.transaction(storeName, "readonly");
       const store = transaction.objectStore(storeName);
       const request = store.getAll(); // 🔥 Lấy toàn bộ dữ liệu thay vì chỉ lấy một ID cụ thể
-      debugger;
       request.onsuccess = function (event) {
         const results = event.target.result;
         if (results.length > 0) {

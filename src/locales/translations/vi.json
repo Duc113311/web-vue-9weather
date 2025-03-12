@@ -48,6 +48,8 @@
   "Weather_in_{city}": "Thời tiết ở vùng lân cận {city}",
   "Weather_in_{district}_{city}": "Thời tiết ở vùng lân cận {district}, {city}",
   "Weather_in_{ward}_{city}": "Thời tiết ở vùng lân cận {ward}, {city}",
+  "Weather_in_{city}_area": "Thời tiết ở khu vực {city}",
+  "Weather_in_the_area_around_{city}": "Thời tiết ở khu vực xung quanh {city}",
   "Provinces_Weather": "Thời tiết tỉnh",
   "city": "Thành phố",
   "Town": "Thị trấn",
@@ -313,7 +315,7 @@
   "Moon_Phase_Description": "Mô tả giai đoạn mặt trăng",
   "Moon_Phases_List": "Danh sách giai đoạn mặt trăng",
   "Scan_the_QR_code": "Quét mã QR",
-  "Enjoy_the_most_accurate_forecast_on_mobile": "Tận hưởng thời gian thực, hyperlocal và dự báo chính xác nhất trên thiết bị di động",
+  "Enjoy_the_most_accurate_forecast_on_mobile": "Tận hưởng thời gian thực, siêu cục bộ và dự báo chính xác nhất trên thiết bị di động",
   "Weather_forecast_on_your_website": "Dự báo thời tiết trên trang web của bạn",
   "Create_custom_code_for_your_website": "Tạo mã tùy chỉnh cho trang web của bạn và sao chép mã nhúng vào nơi bạn muốn nó xuất hiện trên trang web của bạn.",
   "Locations": "Vị trí",
@@ -348,5 +350,9 @@
   "Weather_Radar_for_{district}_{city}_{country}": "{district} {city} {country} Thời tiết radar",
   "Weather_AQI_for_{district}_{city}_{country}": "{district} {city} {country} Thời tiết AQI",
   "Weather_UV_for_{district}_{city}_{country}": "{district} {city} {country} Thời tiết UV",
-  "Weather_Moon_for_{district}_{city}_{country}": "{district} {city} {country} Thời tiết pha trăng"
+  "Weather_Moon_for_{district}_{city}_{country}": "{district} {city} {country} Thời tiết pha trăng",
+  "AM": "SA",
+  "PM": "CH",
+  "Max":"Cao",
+  "Min":"Thấp"
 }

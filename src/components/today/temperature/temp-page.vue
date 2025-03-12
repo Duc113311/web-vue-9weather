@@ -162,7 +162,6 @@ export default {
     },
 
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
 
@@ -176,9 +175,8 @@ export default {
     },
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -219,7 +217,7 @@ export default {
     },
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

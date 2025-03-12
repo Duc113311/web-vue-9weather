@@ -286,8 +286,6 @@ export default {
     },
 
     wardParam() {
-      debugger;
-
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       const resultData = retrievedArray
         ? retrievedArray
@@ -297,8 +295,6 @@ export default {
     },
 
     wardParamChrome() {
-      debugger;
-
       const retrievedArray = JSON.parse(
         localStorage.getItem("currentLocationChome")
       );
@@ -397,7 +393,6 @@ export default {
     },
 
     onClickShowMenuMobile() {
-      debugger;
       if (this.isShowHeaderMenu) {
         this.setIsScroll(false);
 
@@ -464,7 +459,6 @@ export default {
     findCityData(value) {
       const listCityVN = decryptData(this.objectCityByLocationData);
 
-      debugger;
       const replaceCity = convertToVietnamese(value.city).cityConvert;
       for (let index = 0; index < listCityVN.length; index++) {
         const element = listCityVN[index];
@@ -484,7 +478,6 @@ export default {
       const replaceCity = convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = convertToConvertLowerCase(value.district);
 
-      debugger;
       const replaceApos = replaceApostropheWithUnderscore(replaceDistrict);
       const findData = listCityVN.find(
         (x) => x.keyAccentLanguage === replaceCity
@@ -498,7 +491,6 @@ export default {
           for (let index = 0; index < districtListData.length; index++) {
             const element = districtListData[index];
 
-            debugger;
             const checkSub = checkSubstring(
               removeAccents(element.keyAccentLanguage),
               replaceApos
@@ -516,7 +508,6 @@ export default {
       return null; // Trả về null nếu không tìm thấy district
     },
     async handleEnter(event) {
-      debugger;
       const matchedItem = this.suggestions[1];
       if (matchedItem) {
         await this.handleSelect(matchedItem); // Gọi handleSelect khi nhấn Enter
@@ -527,7 +518,6 @@ export default {
 
     async handleSelect(item) {
       this.valueSearch = "";
-      debugger;
 
       if (item?.country_key?.toLowerCase() === "vn") {
         await this.loadAllFileJson().then(async (x) => {
@@ -705,6 +695,7 @@ export default {
 
     async loadProvinceWould(value) {
       const formattedCountry = value.country;
+
       const cityName = value.country;
       const cityDetail = value.country_key;
       try {
@@ -716,6 +707,7 @@ export default {
             `Failed to fetch data: ${response.status} ${response.statusText}`
           );
         const provinceData = await response.json(); // Parse JSON data
+
         const objectState = {
           id: formattedCountry,
           data: provinceData,
@@ -809,7 +801,7 @@ export default {
         if (Array.isArray(districtListData)) {
           for (let index = 0; index < districtListData.length; index++) {
             const element = districtListData[index];
-            debugger;
+
             const listWard = element.wards;
             const findDataWard = listWard.find(
               (x) => x.location.lat === value.lat

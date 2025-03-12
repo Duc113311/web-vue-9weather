@@ -190,9 +190,8 @@ export default {
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -260,7 +259,7 @@ export default {
   methods: {
     convertToSlugCity(str) {
       const slug = removeAccentsUnicode(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

@@ -39,7 +39,7 @@
             srcset=""
           />
           <p class="txt_regular text-white">
-            <span>{{ $t(`Language`) }}</span>
+            <span>{{ $t(`Language_content`) }}</span>
           </p>
         </div>
 
@@ -361,12 +361,11 @@ export default {
   computed: {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en"
           ? "en"
@@ -574,7 +573,6 @@ export default {
 
     async handleSelect(item) {
       this.valueSearch = "";
-      debugger;
 
       if (item?.country_key?.toLowerCase() === "vn") {
         await this.loadProvince();
@@ -808,7 +806,6 @@ export default {
     findCityData(value) {
       const listCityVN = this.objectCityByLocationData;
 
-      debugger;
       const replaceCity = convertToVietnamese(value.city).cityConvert;
       for (let index = 0; index < listCityVN.length; index++) {
         const element = listCityVN[index];
@@ -828,7 +825,6 @@ export default {
       const replaceCity = convertToVietnamese(value.city).cityConvert;
       const replaceDistrict = convertToConvertLowerCase(value.district);
 
-      debugger;
       const replaceApos = replaceApostropheWithUnderscore(replaceDistrict);
       const findData = listCityVN.find(
         (x) => x.keyAccentLanguage === replaceCity
@@ -842,7 +838,6 @@ export default {
           for (let index = 0; index < districtListData.length; index++) {
             const element = districtListData[index];
 
-            debugger;
             const checkSub = checkSubstring(
               removeAccents(element.keyAccentLanguage),
               replaceApos
@@ -876,7 +871,7 @@ export default {
         if (Array.isArray(districtListData)) {
           for (let index = 0; index < districtListData.length; index++) {
             const element = districtListData[index];
-            debugger;
+
             const listWard = element.wards;
             const findDataWard = listWard.find(
               (x) => x.location.lat === value.lat
@@ -922,9 +917,7 @@ export default {
       this.namePage = value;
     },
 
-    onClickLanguagesSetting(value) {
-      debugger;
-    },
+    onClickLanguagesSetting(value) {},
 
     onClickCancel() {
       this.$emit("onChangeCloseMenu", false);
@@ -935,20 +928,17 @@ export default {
     },
 
     onChangeLiveActivity(value) {
-      debugger;
       this.valueLive = value;
       this.setIndexComponent(this.indexKey++);
 
       this.theme = this.valueLive ? "light" : "dark";
-      debugger;
+
       this.setThemeState(this.theme);
       document.documentElement.setAttribute("data-theme", this.theme); // Gán `data-theme` vào HTML
       localStorage.setItem("theme", this.theme); // Lưu trạng thái vào localStorage
     },
 
     async onClickMobile(value) {
-      debugger;
-
       if (value.isRun) {
         this.valueScream = value.name;
 

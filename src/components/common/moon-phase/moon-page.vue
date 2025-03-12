@@ -145,7 +145,7 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -201,7 +201,6 @@ export default {
     },
 
     convertStringMoonIcon(value) {
-      debugger;
       const valueName = value.toString();
 
       switch (valueName) {
@@ -318,7 +317,7 @@ export default {
       const dateNow = new Date();
       const day = dateNow.getDate(); // 4
       const month = dateNow.getMonth() + 1;
-      debugger;
+
       const findNumber = this.rearrangeArray(dayList, day, month);
 
       this.listMoonData = findNumber;

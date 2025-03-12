@@ -170,7 +170,6 @@ const mutations = {
     state.themeValue = value;
   },
   updateThemeColor(state, color) {
-    debugger;
     state.themeColor = color;
   },
   setObjectCityByLocation(state, data) {

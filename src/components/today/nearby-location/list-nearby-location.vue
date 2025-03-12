@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full" v-if="renderListCityAllGetters.length !== 0">
+  <div class="w-full" v-if="listCity.length !== 0">
     <ItemComponent>
       <template v-slot:header>
         <div class="flex justify-between items-center">
@@ -114,7 +114,7 @@
         </div>
       </template>
 
-      <div class="w-full h-auto" v-if="renderListCityAllGetters.length !== 0">
+      <div class="w-full h-auto" v-if="listCity.length !== 0">
         <!--  -->
         <transition-group name="fade" tag="div" class="district-list">
           <DistrictCardPage
@@ -124,14 +124,11 @@
             @click="onClickShowDetailDistrict(item)"
           ></DistrictCardPage>
         </transition-group>
-        <div
-          class="w-full text-left mt-3"
-          v-if="renderListCityAllGetters.length > 8"
-        >
+        <div class="w-full text-left mt-3" v-if="listCity.length > 8">
           <button
             type="button"
             @click="onClickLoadMoreItems"
-            class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 md:mb-2"
+            class="bg-gradient-to-r from-cyan-500 text-white to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 md:mb-2"
           >
             <span class="txt_regular_12">
               {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
@@ -160,6 +157,7 @@ import {
   convertLowerCase,
   convertToWorldState,
   decryptData,
+  getFromIndexedDB,
   removeWordAndAccents,
 } from "@/utils/coverTextSystem";
 import {
@@ -188,6 +186,7 @@ export default {
       showLessButton: false,
       itemsPerPage: 8, // Số mục hiển thị ban đầu
       currentPage: 1, // Trang hiện tại
+      listCity: [],
     };
   },
 
@@ -281,7 +280,7 @@ export default {
     displayedItems() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = this.currentPage * this.itemsPerPage;
-      return this.renderListCityAllGetters.slice(0, end);
+      return this.listCity.slice(0, end);
     },
 
     itemSliceCount() {
@@ -322,65 +321,12 @@ export default {
         ? languageRouter.language
         : this.$i18n.locale;
     },
-
-    renderListCityAllGetters() {
-      if (!this.wardParam) return [];
-
-      const countryKey = this.wardParam.country_key;
-
-      if (countryKey === "vn") {
-        const cityKey = this.wardParam.city_key;
-        const findData = this.listCityAllData.find(
-          (x) => x.keyAccentLanguage === cityKey
-        );
-
-        if (!findData) return [];
-
-        if (this.wardParam.district_key) {
-          const findDataWard = findData.districtList?.find(
-            (x) => x.keyAccentLanguage === this.wardParam.district_key
-          );
-          return findDataWard ? findDataWard.wards : [];
-        } else {
-          return findData.districtList || [];
-        }
-      } else {
-        const cityKey = this.wardParam.state;
-        const cities = this.wardParam.cities;
-
-        if (
-          !this.listCityWorldStateData ||
-          this.listCityWorldStateData.length === 0
-        ) {
-          return [];
-        }
-        debugger;
-        // Tìm trong danh sách thành phố thế giới
-        const findData = this.listCityWorldStateData.find(
-          (x) => this.convertToWorldStateMethod(x.enNameLanguage) === cityKey
-        );
-
-        if (findData) {
-          return findData.districtList;
-        }
-
-        // Nếu không tìm thấy, duyệt danh sách để tìm city phù hợp
-        for (const element of this.listCityWorldStateData) {
-          const matchedDistrict = element.districtList.find(
-            (e) => e.enNameLanguage === cities
-          );
-          if (matchedDistrict) {
-            return element.districtList;
-          }
-        }
-
-        return [];
-      }
-    },
   },
 
-  mounted() {
+  async mounted() {
     window.addEventListener("resize", this.handleResize);
+
+    await this.renderListCityAllGetters();
   },
 
   beforeUnmount() {
@@ -399,6 +345,77 @@ export default {
     ]),
     ...mapActions("airQualityModule", ["getAirQualityByKey", "getAirQuality"]),
     ...mapMutations("weatherModule", ["setCityWeather"]),
+
+    async renderListCityAllGetters() {
+      if (!this.wardParam) return;
+
+      const countryKey = this.wardParam.country_key;
+      let dataIndex = await this.getDataByCounty();
+
+      if (countryKey === "vn") {
+        const cityKey = this.wardParam.city_key;
+        const findData = dataIndex.find((x) => x.keyAccentLanguage === cityKey);
+
+        if (!findData) return;
+
+        if (this.wardParam.district_key) {
+          const findDataWard = findData.districtList?.find(
+            (x) => x.keyAccentLanguage === this.wardParam.district_key
+          );
+          this.listCity = findDataWard ? findDataWard.wards : [];
+        } else {
+          this.listCity = findData.districtList || [];
+        }
+      } else {
+        const cityKey = this.wardParam.state;
+        const cities = this.wardParam.cities;
+        if (!dataIndex || dataIndex.length === 0) {
+          return;
+        }
+
+        // Tìm trong danh sách thành phố thế giới
+        const findData = dataIndex.find(
+          (x) => this.convertToWorldStateMethod(x.enNameLanguage) === cityKey
+        );
+
+        if (findData) {
+          this.listCity = findData.districtList;
+          return;
+        }
+
+        // Nếu không tìm thấy, duyệt danh sách để tìm city phù hợp
+        for (const element of dataIndex) {
+          const matchedDistrict = element.districtList.find(
+            (e) => e.enNameLanguage === cities
+          );
+          if (matchedDistrict) {
+            this.listCity = element.districtList;
+            return;
+          }
+        }
+
+        this.listCity = [];
+      }
+    },
+
+    async getDataByCounty() {
+      const countryKey = this.wardParam.country_key.toLowerCase();
+      debugger;
+
+      if (countryKey === "vn") {
+        debugger;
+        const cityName = "Vietnamese";
+        const cityDetail = "vietnam";
+        const dataGet = await getFromIndexedDB(cityName, cityDetail);
+        return dataGet[0].data;
+      } else {
+        const cityName = this.wardParam.country;
+        const cityDetail = this.wardParam.country_key;
+        const dataGet = await getFromIndexedDB(cityName, cityDetail);
+
+        return dataGet[0].data;
+      }
+    },
 
     convertToWorldStateMethod(value) {
       const datanew = convertToWorldState(value);

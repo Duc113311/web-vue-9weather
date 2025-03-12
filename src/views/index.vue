@@ -72,7 +72,7 @@ export default {
   async mounted() {
     const objectBread = localStorage.getItem("objectBread");
     const routerLink = this.$route.params;
-    debugger;
+
     // Xóa cache
     if (!objectBread) {
       // Điều hướng về màn Home
@@ -81,7 +81,6 @@ export default {
     }
     // Không xóa cache
     else {
-      debugger;
       const objectBreadValue = JSON.parse(objectBread);
       if (objectBreadValue.country_key === "vn") {
         if (Object.keys(routerLink).length !== 0) {
@@ -158,7 +157,6 @@ export default {
     ...mapActions("idFindModule", ["getIpLocation"]),
 
     getLocationBrowser() {
-      debugger;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           this.setPosition.bind(this),
@@ -311,7 +309,6 @@ export default {
       const objectBread = this.objectLocalBreadcums;
       let nameScream = this.$route.name;
 
-      debugger;
       if (dataValue.length === 2) {
         let objectBreadValue = {
           country: objectBread.country,
@@ -394,7 +391,6 @@ export default {
           },
         });
       }
-      debugger;
 
       const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
@@ -477,7 +473,6 @@ export default {
       } else if (dataResponsive.country_code.toLowerCase() === "vn") {
         await this.loadProvince();
 
-        debugger;
         await this.loadAllFileJson();
         const objectPosition = {
           latitude: latitude,

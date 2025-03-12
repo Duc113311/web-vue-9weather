@@ -187,9 +187,8 @@ export default {
     },
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -268,7 +267,6 @@ export default {
       this.activeIndex = null;
     },
     onClickDraw(data, value, index) {
-      debugger;
       this.activeIndex = index;
       this.drawer = value;
       this.dayValue = data;
@@ -382,7 +380,6 @@ export default {
     },
 
     closeIfClickedOutside(event) {
-      debugger;
       const daysList = this.$refs.daysList;
       if (daysList && !daysList.contains(event.target)) {
         this.activeDayIndex = null; // Tắt active nếu click ra ngoài

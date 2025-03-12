@@ -83,13 +83,10 @@ export default {
     },
 
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
 
     wardParam() {
-      debugger;
-
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       const resultData = retrievedArray
         ? retrievedArray
@@ -99,7 +96,7 @@ export default {
     },
 
     titleParam() {
-      return this.$t(`{city}_Weather`, { city: this.wardParam?.city });
+      return this.$t(`Weather_{city}`, { city: this.wardParam?.city });
     },
   },
 

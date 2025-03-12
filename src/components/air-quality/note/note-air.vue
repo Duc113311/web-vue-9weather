@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="flex items-center text-left gap-2">
-      <div class="w-[18px] h-[10px]">
+      <div class="w-[13px] h-[10px]">
         <div class="bg-Sensitive-Groups rounded-full w-full h-full"></div>
       </div>
       <div class="text-left">

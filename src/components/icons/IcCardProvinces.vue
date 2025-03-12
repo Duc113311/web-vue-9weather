@@ -7,11 +7,34 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M6 22V4C6 3.46957 6.21071 2.96086 6.58579 2.58579C6.96086 2.21071 7.46957 2 8 2H16C16.5304 2 17.0391 2.21071 17.4142 2.58579C17.7893 2.96086 18 3.46957 18 4V22M6 22H18M6 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V14C2 13.4696 2.21071 12.9609 2.58579 12.5858C2.96086 12.2107 3.46957 12 4 12H6M18 22H20C20.5304 22 21.0391 21.7893 21.4142 21.4142C21.7893 21.0391 22 20.5304 22 20V11C22 10.4696 21.7893 9.96086 21.4142 9.58579C21.0391 9.21071 20.5304 9 20 9H18M10 6H14M10 10H14M10 14H14M10 18H14"
-      stroke="var(--color-card-provinces)"
+      d="M2 21H22"
+      stroke="var(--color-card-city)"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
+    />
+    <path
+      d="M7 13H5C4.44772 13 4 13.4477 4 14V20C4 20.5523 4.44772 21 5 21H7C7.55228 21 8 20.5523 8 20V14C8 13.4477 7.55228 13 7 13Z"
+      stroke="var(--color-card-city)"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M6 17H6.5"
+      stroke="var(--color-card-city)"
+      stroke-width="2"
+      stroke-linecap="square"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M19 2H9C8.44772 2 8 2.44772 8 3V20C8 20.5523 8.44772 21 9 21H19C19.5523 21 20 20.5523 20 20V3C20 2.44772 19.5523 2 19 2Z"
+      stroke="var(--color-card-city)"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M11 5H13V7H11V5ZM15 5H17V7H15V5ZM11 8.5H13V10.5H11V8.5ZM15 8.5H17V10.5H15V8.5ZM15 12H17V14H15V12ZM15 15.5H17V17.5H15V15.5Z"
+      fill="var(--color-card-city)"
     />
   </svg>
 </template>

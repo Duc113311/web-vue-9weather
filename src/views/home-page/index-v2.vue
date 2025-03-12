@@ -205,7 +205,6 @@ export default {
     },
 
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
   },

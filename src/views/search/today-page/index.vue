@@ -66,14 +66,17 @@
         </div>
       </div>
 
-      <div class="lg:block hidden right-c mt-3 h-auto lg:w-[30%] w-full">
+      <div class="right-c h-auto lg:w-[30%] w-full">
         <!--  -->
-        <div class="flex justify-center items-center h-auto">
-          <img
-            src="../../../assets/images/png/ic_app_download.png"
-            alt=""
-            class="img-logo"
-          />
+        <div
+          class="right-country lg:h-[485px] md:h-[243px] w-[100%]"
+          v-if="currentlyData && Object.keys(currentlyData).length > 0"
+        >
+          <!--  -->
+          <RadarPage :key="indexState + Math.random()"></RadarPage>
+        </div>
+        <div v-else class="w-full h-[300px] mt-4">
+          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
         </div>
       </div>
     </div>
@@ -94,15 +97,15 @@
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
       </div>
 
-      <div
-        class="right-country lg:h-[243px] md:h-[243px] lg:w-[30%] w-[100%]"
-        v-if="currentlyData && Object.keys(currentlyData).length > 0"
-      >
+      <div class="right-country lg:block hidden">
         <!--  -->
-        <RadarPage :key="indexState + Math.random()"></RadarPage>
-      </div>
-      <div v-else class="w-full h-[300px] mt-4">
-        <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+        <div class="flex justify-center items-center mt-3">
+          <img
+            src="../../../assets/images/png/ic_app_download.png"
+            alt=""
+            width="300"
+          />
+        </div>
       </div>
     </div>
 
@@ -177,7 +180,6 @@ export default {
     },
 
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
   },

@@ -71,13 +71,13 @@
           </div>
           <div class="txt_medium_14" v-else>
             <span v-if="wardParam?.state && !wardParam?.cities">{{
-              $t(`{city}_Weather`, {
+              $t(`Weather_{city}`, {
                 city: $t(`${wardParam?.state}`),
               })
             }}</span>
 
             <span v-if="wardParam?.state && wardParam?.cities">{{
-              $t(`{city}_Weather`, {
+              $t(`Weather_{city}`, {
                 city: $t(`${wardParam?.cities}`),
               })
             }}</span>
@@ -116,7 +116,6 @@ export default {
     },
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -142,7 +141,6 @@ export default {
 
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

@@ -145,7 +145,7 @@ export default {
 
     breadcumsObject() {
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
-      debugger;
+
       return retrievedArray ? retrievedArray : this.breadcumsObjectGetters;
     },
 
@@ -158,7 +158,7 @@ export default {
 
     renderLanguage() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -178,7 +178,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     const nameRouter = this.$route.name;
     this.activeIndex = this.menuItems.findIndex((x) => x.name === nameRouter);
 
@@ -213,7 +212,6 @@ export default {
     },
 
     setTitleScream(activeIndex) {
-      debugger;
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       setTitleScream(activeIndex, retrievedArray, this.renderLanguage);
     },
@@ -256,7 +254,6 @@ export default {
     },
 
     async onClickRouterView(value, index) {
-      debugger;
       try {
         this.activeIndex = index;
 
@@ -291,13 +288,12 @@ export default {
           screamName = "moon-phase-weather";
           // this.successUnit();
         }
-        debugger;
+
         this.setTitleScream(this.activeIndex);
         const objectBread = JSON.parse(localStorage.getItem("objectBread"));
         const countryKey = objectBread.country_key;
 
         console.log("this.breadcumsObject", objectBread);
-        debugger;
 
         if (countryKey.toLowerCase() === "vn") {
           // tồn tại thành phố
@@ -400,7 +396,6 @@ export default {
           // Emit event để thông báo cho component cha biết route đã thay đổi
           this.$emit("route-changed", screamName);
         }
-        debugger;
       } catch (err) {
         console.error("Navigation failed:", err);
       }

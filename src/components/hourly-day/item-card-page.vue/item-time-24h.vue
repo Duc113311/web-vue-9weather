@@ -448,9 +448,8 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     ...mapGetters("airQualityModule", ["airObjectGetters"]),
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -547,7 +546,6 @@ export default {
     },
 
     onClickShowDetailCard(value) {
-      debugger;
       if (this.activeIndex === value) {
         this.activeIndex = null; // Đóng mục nếu đã mở
       } else {
@@ -716,7 +714,7 @@ export default {
 
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

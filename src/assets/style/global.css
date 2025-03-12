@@ -329,11 +329,12 @@
 }
 .app-tooltip {
   cursor: pointer;
-  background: #DFECFE !important; /* Nền đen đậm */
+  background: var(--bg-scan-mobile) !important; /* Nền đen đậm */
   color: var(--color-input-ic) !important; /* Chữ trắng */
   border-radius: 8px !important; /* Bo góc */
   padding: 4px 6px !important; /* Khoảng cách bên trong */
   border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Viền trắng rất nhẹ */
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .app-tooltip::after {
@@ -344,7 +345,7 @@
   transform: translateX(50%);
   width: 14px; /* Tăng chiều rộng để cân đối */
   height: 8px; /* Chiều cao thấp hơn để không quá nhọn */
-  background: #DFECFE; /* Giống màu tooltip */
+  background: var(--bg-scan-mobile); /* Giống màu tooltip */
   clip-path: polygon(50% 0, 0% 100%, 100% 100%); /* Tam giác quay lên trên */
 }
 

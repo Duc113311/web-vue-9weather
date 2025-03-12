@@ -144,9 +144,15 @@ export default {
 
       // Tạo gradient Temperature Dark Max
 
-      const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
-      gradient.addColorStop(0, "rgba(235, 171, 63, 1)"); // Màu đậm trên cùng
-      gradient.addColorStop(1, "rgba(235, 171, 63, 0)"); // Màu hoàn toàn trong suốt ở đáy
+      const gradientMax = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradientMax.addColorStop(0, "rgba(235, 171, 63, 1)"); // Màu đậm trên cùng
+      gradientMax.addColorStop(0.4, "rgba(235, 171, 63, 0.7)"); // Màu gần như trong suốt hơn
+      gradientMax.addColorStop(0.8, "rgba(235, 171, 63, 0.2)"); // Màu rất nhạt trước khi hết
+      gradientMax.addColorStop(1, "rgba(235, 171, 63, 0)"); // Màu hoàn toàn trong suốt ở đáy
+
+      const gradientMin = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradientMin.addColorStop(0, "rgba(83, 224, 80, 1)"); // Màu đậm trên cùng (53E050)
+      gradientMin.addColorStop(1, "rgba(83, 224, 80, 0.7)"); // Màu hoàn toàn trong suốt ở đáy (53E050)
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
@@ -161,29 +167,31 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: " Max",
+              label: this.$t("Max"),
+              order: 1, // Được vẽ sau, nên đè lên trên dataset Max
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
               pointBorderColor: "#EBAB3F",
               pointRadius: 0, // Bán kính điểm
-              backgroundColor: gradient,
+              backgroundColor: gradientMax,
               fill: "start", // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
             },
 
             {
-              label: " Min",
+              label: this.$t("Min"),
+              order: 2, // Được vẽ sau, nên đè lên trên dataset Max
               type: "line", // Kiểu dataset là line
-              borderColor: "#25CB62",
-              pointBackgroundColor: "#25CB62",
+              borderColor: "#53E050",
+              pointBackgroundColor: "#53E050",
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: "#25CB62",
+              pointBorderColor: "#53E050",
               pointRadius: 0, // Bán kính điểm
-              backgroundColor: gradient,
-              fill: "-1", // Tô nền dưới line
+              backgroundColor: gradientMin,
+              fill: "start", // Tô nền dưới line
               data: this.listTemperatureMin,
               pointHoverRadius: 4, // Tăng kích thước khi hover
             },

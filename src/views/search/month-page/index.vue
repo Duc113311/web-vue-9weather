@@ -191,7 +191,6 @@ export default {
     },
 
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
 
@@ -213,7 +212,6 @@ export default {
     ...mapActions("weatherModule", ["getWeather30DayData"]),
     ...mapMutations("commonModule", ["setActiveTab"]),
     async getWeather30Day() {
-      debugger;
       const objectLocationLatLong = JSON.parse(
         localStorage.getItem("locationLatLong")
       );

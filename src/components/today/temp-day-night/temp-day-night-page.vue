@@ -140,7 +140,6 @@ export default {
 
       const maxUvIndex = Math.max(...listDaytimeData.map((obj) => obj.uvIndex));
 
-      debugger;
       const objectDaytime = {
         tempAvg: avgTempDaytime ? avgTempDaytime : avgTempNighttime,
         tempMaxMin: maxTemp ? maxTemp : minTemp,
@@ -190,7 +189,7 @@ export default {
           this.locationOffsetGetters?.offset
         );
       }
-      debugger;
+
       //   Ngày đêm
       dataList.forEach((data) => {
         const timeConvertUTCValue = timeConvertUTC(

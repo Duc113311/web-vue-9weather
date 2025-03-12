@@ -84,7 +84,7 @@
       </template>
 
       <div class="w-full gap-4">
-        <div class="w-auto h-[440px]">
+        <div class="w-auto h-[440px] pl-4 pr-4">
           <!-- <ChartTempRain></ChartTempRain> -->
           <div class="w-full relative h-full">
             <div class="w-full h-full relative">
@@ -92,7 +92,7 @@
                 v-if="paramMonth.length > 0"
                 :key="paramMonth.length"
                 :displacement="1"
-                class="w-full h-[calc(100%-40px)] relative horizontals pt-4 pr-6 pl-4"
+                class="w-full h-[calc(100%-40px)] relative horizontals pt-4"
               >
                 <div class="w-full h-full relative">
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
@@ -194,9 +194,8 @@ export default {
       return this.$store.state.weatherModule.listDaily30Day;
     },
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -207,8 +206,6 @@ export default {
     },
 
     wardParam() {
-      debugger;
-
       const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
       const resultData = retrievedArray
         ? retrievedArray
@@ -217,7 +214,6 @@ export default {
       return resultData;
     },
     indexState() {
-      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
   },
@@ -225,7 +221,7 @@ export default {
   methods: {
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng
@@ -245,28 +241,7 @@ export default {
   },
 };
 </script>
-<style scoped>
-.horizontals >>> .v-hl-btn-prev {
-  display: none !important;
-  left: 10px !important;
-}
-.horizontals >>> .v-hl-btn-next {
-  display: none !important;
-
-  right: 10px !important;
-}
-.horizontals:hover >>> .v-hl-btn-prev {
-  display: flex !important;
-  left: 24px !important;
-  opacity: 0.5;
-}
-
-.horizontals:hover >>> .v-hl-btn-next {
-  display: flex !important;
-  right: 24px !important;
-  opacity: 0.5;
-}
-
+<style lang="css">
 .bg-temp-c {
   background-color: #ec9d00;
 }

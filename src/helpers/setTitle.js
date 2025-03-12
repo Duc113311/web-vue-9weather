@@ -5,7 +5,6 @@ import { convertToLowCase, convertToSlugCity } from "@/utils/coverTextSystem";
 export function setTitleScream(activeIndex, breadcumsObject, languageParam) {
   const route = useRoute();
 
-  debugger;
   let districtKeyTitle = breadcumsObject?.district_key;
   let districtTitle = breadcumsObject?.district;
   let cityTitle = breadcumsObject?.city;

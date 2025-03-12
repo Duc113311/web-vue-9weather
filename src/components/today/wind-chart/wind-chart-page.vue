@@ -167,7 +167,6 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"

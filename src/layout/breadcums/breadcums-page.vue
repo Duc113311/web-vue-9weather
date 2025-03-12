@@ -297,7 +297,7 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -397,7 +397,6 @@ export default {
     },
 
     async onClickCity() {
-      debugger;
       const objectBreadValue = this.breadcumsObject;
       if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
         const locationValue = this.getCityByLocation(objectBreadValue.city_key);
@@ -426,7 +425,7 @@ export default {
             ],
           },
         });
-        debugger;
+
         const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
         // const latLong = localStorage.getItem("locationLatLong");
@@ -453,7 +452,6 @@ export default {
     },
 
     async onClickWard() {
-      debugger;
       const objectBread = this.breadcumsObject;
       localStorage.setItem("objectBread", JSON.stringify(objectBread));
 
@@ -470,7 +468,7 @@ export default {
           ],
         },
       });
-      debugger;
+
       const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
       // const latLong = localStorage.getItem("locationLatLong");
@@ -496,7 +494,6 @@ export default {
     },
 
     async onClickDistrict() {
-      debugger;
       const objectBreadValue = this.breadcumsObject;
       if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
         const locationValue = this.getDistrictByLocation(
@@ -531,7 +528,7 @@ export default {
             ],
           },
         });
-        debugger;
+
         const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBread.latitude},${objectBread.longitude}?lang=${this.languageParam}`;
 
         // const latLong = localStorage.getItem("locationLatLong");
@@ -559,7 +556,7 @@ export default {
 
     getCityByLocation(cityKey) {
       // Lấy danh sách Viet nam
-      debugger;
+
       const listCityVN = this.listCityAllData;
 
       const findData = listCityVN.find((x) => x.keyAccentLanguage === cityKey);
@@ -570,7 +567,7 @@ export default {
 
     getDistrictByLocation(district, district_key) {
       // Lấy danh sách Viet nam
-      debugger;
+
       const listCityVN = this.listCityAllData;
 
       const findData = listCityVN.find((x) => x.keyAccentLanguage === district);
@@ -578,13 +575,10 @@ export default {
         const districtListData = findData.districtList;
 
         if (Array.isArray(districtListData)) {
-          debugger;
-
           const findDataDistrict = districtListData.find(
             (x) => x.keyAccentLanguage === district_key
           );
           if (findDataDistrict) {
-            debugger;
             return findDataDistrict.location;
           }
         } else {

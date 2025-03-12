@@ -188,7 +188,7 @@ export default {
 
     languageParam() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -243,7 +243,6 @@ export default {
 
     renderListCityAllGetters() {
       const dateNew = new Date();
-      debugger;
 
       const timezoneOffset = this.locationOffsetValue * 60; // offset từ phút sang giây
       const adjustedNow = new Date(dateNew.getTime() + timezoneOffset * 1000);

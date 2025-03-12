@@ -361,7 +361,7 @@
                   </div>
 
                   <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1">
                       <IcTitleSunset class="icon-svg"></IcTitleSunset>
                       <p class="txt_regular_14">{{ $t("Sunset") }}</p>
                     </div>
@@ -510,9 +510,8 @@ export default {
     },
 
     languageParam() {
-      debugger;
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -794,7 +793,7 @@ export default {
 
     convertToSlugCity(str) {
       const slug = removeAccents(str);
-      debugger;
+
       return slug
         .toLowerCase() // Chuyển thành chữ thường
         .replace(/\s+/g, ""); // Xóa khoảng trắng

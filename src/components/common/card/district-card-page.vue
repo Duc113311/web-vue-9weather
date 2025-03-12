@@ -127,7 +127,7 @@ export default {
     ...mapGetters("commonModule", ["breadcumsObjectGetters"]),
     renderLanguage() {
       const languageRouter = this.$route.params;
-      debugger;
+
       return Object.keys(languageRouter).length !== 0
         ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
@@ -158,7 +158,6 @@ export default {
 
   methods: {
     splitLocationName(location) {
-      debugger;
       const keywords = [
         "Town",
         "Commune",
@@ -185,7 +184,6 @@ export default {
 
         nameParts.push(cleanedName); // Lưu phần tên (không có từ khóa)
       });
-      debugger;
 
       return {
         name: nameParts[0], // Tên chính, nối lại với dấu phẩy
@@ -202,17 +200,24 @@ export default {
         longitude: this.breadcumsObject.longitude,
       };
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      const isMiles = unitSetting.activeDistance_save === "mi"; // Kiểm tra đơn vị đang sử dụng
 
       const distanceValue = convertHaversine(
         locationValue.latitude,
         locationValue.longitude,
         locationSearch.latitude,
         locationSearch.longitude,
-        unitSetting.activeDistance_save
+        isMiles ? "mi" : "km" // Truyền đơn vị vào hàm nếu cần
       );
-      // Sử dụng geolib để tính khoảng cách
-      const distance = getDistance(locationValue, locationSearch);
-      this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km và làm tròn
+      // Sử dụng geolib để tính khoảng cách (mặc định là mét)
+      let distance = getDistance(locationValue, locationSearch);
+
+      // Chuyển đổi đơn vị
+      if (isMiles) {
+        this.distanceKm = (distance / 1609.34).toFixed(1); // Đổi sang mile
+      } else {
+        this.distanceKm = (distance / 1000).toFixed(1); // Đổi sang km
+      }
       return distanceValue;
     },
     convertCapitalizeWords(value) {
