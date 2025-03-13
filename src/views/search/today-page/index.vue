@@ -1,5 +1,6 @@
 <template>
   <div class="w-full pl-2 pr-2">
+    <!-- Body1 Current -->
     <div class="container md:mt-0 mt-4">
       <div class="header h-full w-full lg:flex gap-20-px">
         <div
@@ -13,13 +14,51 @@
         </div>
       </div>
     </div>
-    <!--  -->
+
+    <!-- Body2 daily -->
 
     <div
       class="container local-d lg:flex block w-full justify-between gap-20-px md:pt-2 md:pb-2"
     >
       <!--  -->
-      <div class="md:flex block justify-between lg:w-[70%] w-full gap-20-px">
+      <div
+        class="container h-[300px] local-d lg:flex block w-full justify-between gap-20-px md:pt-2 md:pb-2"
+      >
+        <div class="left-c w-full lg:w-[68%] gap-20-px">
+          <div
+            class="md:flex block justify-between lg:h-[260px] w-full gap-20-px"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <!--  -->
+            <DailyPage></DailyPage>
+          </div>
+          <div v-else class="w-full h-[310px]">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+        </div>
+
+        <div class="right-c lg:w-[32%] w-full">
+          <!--  -->
+          <div
+            class="right-country lg:h-[260px] md:h-[243px] w-[100%]"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <!--  -->
+            <RadarPage :key="indexState + Math.random()"></RadarPage>
+          </div>
+          <div v-else class="w-full h-[310px]">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body3 Option-current -->
+    <div
+      class="container local-d lg:flex block w-full justify-between gap-20-px md:pt-2 md:pb-2 mt-4"
+    >
+      <!--  -->
+      <div class="md:flex block justify-between w-full gap-20-px">
         <div class="left-c md:w-[50%] w-full flex flex-col gap-20-px">
           <!--  -->
           <div
@@ -38,6 +77,16 @@
             <MoonPage :key="indexState + Math.random()"></MoonPage>
           </div>
           <div v-else class="w-full h-[230px] md:mt-1">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <PreciptationPage></PreciptationPage>
+          </div>
+          <div v-else class="w-full h-[240px] md:mt-1">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
         </div>
@@ -63,24 +112,54 @@
           <div v-else class="w-full h-[230px] md:mt-1">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
-        </div>
-      </div>
 
-      <div class="right-c h-auto lg:w-[30%] w-full">
-        <!--  -->
-        <div
-          class="right-country lg:h-[485px] md:h-[243px] w-[100%]"
-          v-if="currentlyData && Object.keys(currentlyData).length > 0"
-        >
-          <!--  -->
-          <RadarPage :key="indexState + Math.random()"></RadarPage>
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <CloudCoverPage :key="indexState + Math.random()"></CloudCoverPage>
+          </div>
+          <div v-else class="w-full h-[240px] md:mt-1">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
-        <div v-else class="w-full h-[300px] mt-4">
-          <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+
+        <div class="center-c md:w-[50%] w-full flex flex-col gap-20-px">
+          <!--  -->
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <HumidityPage :key="indexState + Math.random()"></HumidityPage>
+          </div>
+          <div v-else class="w-full h-[240px] mt-4">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <WindSpeedPage :key="indexState + Math.random()"></WindSpeedPage>
+          </div>
+          <div v-else class="w-full h-[240px] md:mt-1">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
+
+          <div
+            class="w-full"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          >
+            <VisibilityPage :key="indexState + Math.random()"></VisibilityPage>
+          </div>
+          <div v-else class="w-full h-[240px] md:mt-1">
+            <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Body4 City around -->
     <div class="container local-c w-full md:flex gap-20-px">
       <div
         class="left-location lg:w-[70%] w-[100%]"
@@ -137,6 +216,12 @@ import TempPage from "@/components/today/temperature/temp-page.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters, mapMutations } from "vuex";
 import { markRaw } from "vue";
+import DailyPage from "@/components/common/daily-week/daily-page.vue";
+import PreciptationPage from "@/components/common/preciptation/preciptation-page.vue";
+import CloudCoverPage from "@/components/common/cloud-cover/cloud-cover-page.vue";
+import WindSpeedPage from "@/components/common/wind/wind-speed-page.vue";
+import VisibilityPage from "@/components/common/visibility/visibility.page.vue";
+import HumidityPage from "@/components/common/humidity/humidity-page.vue";
 
 export default {
   name: "today-weather",
@@ -151,6 +236,12 @@ export default {
     UvPage,
     AirQualityPage,
     SkeletonLoader,
+    DailyPage,
+    PreciptationPage,
+    CloudCoverPage,
+    VisibilityPage,
+    WindSpeedPage,
+    HumidityPage,
   },
   data() {
     return {
@@ -180,6 +271,7 @@ export default {
     },
 
     indexState() {
+      debugger;
       return this.$store.state.commonModule.indexComponent;
     },
   },
