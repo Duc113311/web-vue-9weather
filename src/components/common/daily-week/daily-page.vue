@@ -19,10 +19,8 @@ vue-horizontal
             >
               <div class="w-full flex gap-4 h-full relative pl-2 pr-2">
                 <div v-for="(item, index) in dailyGettersData" :key="index">
-                  <div
-                    class="w-[130px] h-full cursor-pointer flex flex-col gap-1 item-daily"
-                  >
-                    <div class="w-full">
+                  <div class="w-[150px] h-full flex flex-col gap-1 item-daily">
+                    <div class="w-full text-left">
                       <span class="txt_regular_14">{{
                         renderHourly(item).timestampValue
                       }}</span>
@@ -32,7 +30,7 @@ vue-horizontal
                     </div>
                     <!--  -->
                     <div
-                      class="w-full flex gap-4 item-city justify-center p-2 items-center"
+                      class="w-full flex gap-4 justify-center p-2 items-center"
                     >
                       <component
                         class="icon-svg"
@@ -53,17 +51,13 @@ vue-horizontal
                     </div>
                     <div class="flex flex-col gap-2">
                       <!--  -->
-                      <div
-                        class="w-full flex item-city justify-start items-center"
-                      >
+                      <div class="w-full flex justify-start items-center">
                         <p class="txt_regular_14">
                           {{ convertSummary(item?.summary) }}
                         </p>
                       </div>
                       <!--  -->
-                      <div
-                        class="w-full flex item-city gap-1 justify-start items-center"
-                      >
+                      <div class="w-full flex gap-1 justify-start items-center">
                         <IcPrecipitation class="icon-svg"></IcPrecipitation>
                         <div class="flex items-center txt_medium_15">
                           <p>
@@ -72,9 +66,7 @@ vue-horizontal
                         </div>
                       </div>
                       <!--  -->
-                      <div
-                        class="w-full flex item-city gap-1 justify-start items-center"
-                      >
+                      <div class="w-full flex gap-1 justify-start items-center">
                         <div
                           class="flex items-center gap-2"
                           v-if="item?.precipType === 'Snow'"
@@ -93,9 +85,7 @@ vue-horizontal
                         </div>
                       </div>
                       <!--  -->
-                      <div
-                        class="w-full flex item-city gap-1 justify-start items-center"
-                      >
+                      <div class="w-full flex gap-1 justify-start items-center">
                         <IcHumidity class="icon-svg"></IcHumidity>
                         <div class="flex items-center txt_medium_15">
                           <p>{{ Math.round(item?.humidity * 100) }}%</p>

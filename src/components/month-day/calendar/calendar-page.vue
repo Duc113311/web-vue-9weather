@@ -43,18 +43,21 @@
             </ul>
             <ul class="days lg:p-4 p-2">
               <li
+                class="mb-2"
                 v-for="(day, index) in adjustedCalendar"
                 :key="index"
                 :style="getStyle(day?.time)"
                 @click="onClickDraw(day, true, index)"
+                :class="{
+                  'active-calender': activeIndex === index,
+                }"
               >
                 <div
                   v-if="day && day.time"
                   :class="{
-                    'active-calender': activeIndex === index,
                     'current-month': isCurrentMonth(day?.time),
                   }"
-                  class="flex flex-col md:p-1 p-0.5 justify-start gap-1 txt_light_14"
+                  class="flex item-calender p-2 flex-col justify-start gap-1 txt_light_14 opacity-45"
                 >
                   <span class="txt_regular_12 text-right">{{
                     convertToShortDay(day.time)
@@ -64,20 +67,15 @@
                       class="icon-svg"
                       :is="convertIconCurrently(day?.icon)"
                     ></component>
+                    <div class="flex justify-start items-center gap-1">
+                      <p class="txt_regular_12">
+                        {{ convertTemperature(day.temperatureMin) }}° /
+                        {{ convertTemperature(day.temperatureMax) }}°
+                      </p>
+                    </div>
                   </div>
                   <div>
                     <!-- <img :src="convertIcon(day.icon)" alt="" /> -->
-                  </div>
-                  <div class="flex justify-start items-center gap-1">
-                    <!-- <img
-                          src="../../../assets/images/svg/v2/ic_temperature_v2_dark.svg"
-                          class="size-img"
-                          alt=""
-                        /> -->
-                    <p class="txt_regular_12">
-                      {{ convertTemperature(day.temperatureMin) }}° /
-                      {{ convertTemperature(day.temperatureMax) }}°
-                    </p>
                   </div>
 
                   <div
@@ -359,8 +357,9 @@ export default {
     getStyle(value) {
       if (this.convertToShortDay(value) === this.convertToShortToDay()) {
         return {
-          backgroundColor: "rgba(0, 98, 245, 0.25)",
-          // border: "2px solid #0062F5",
+          // backgroundColor: "rgba(0, 98, 245, 0.25)",
+          border: "2px solid #0062F5",
+          borderRadius: "10px",
         };
       } else {
         return { backgroundColor: "transparent" };
@@ -456,7 +455,8 @@ export default {
 }
 
 .days li:not(.active):hover::before {
-  background: rgba(114, 149, 202, 0.5);
+  border: 2px solid #abcaf9;
+  border-radius: 10px;
 }
 
 .active-calender {
@@ -464,6 +464,6 @@ export default {
 }
 
 .current-month {
-  background-color: #c6b6d243; /* Màu nền cho tháng hiện tại */
+  opacity: 1;
 }
 </style>
