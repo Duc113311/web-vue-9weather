@@ -11,7 +11,16 @@
       </div>
 
       <div class="">
-        <p class="txt_regular_12">
+        <p class="txt_regular_12 flex gap-1 text-center justify-center">
+          <IcChanceOfRainSnow
+            v-if="item?.summary === 'snow'"
+          ></IcChanceOfRainSnow>
+          <IcChanceOfRain
+            v-else
+            IcChanceOfRain
+            :width="width"
+            :height="height"
+          ></IcChanceOfRain>
           {{ Math.round(item.precipProbability * 100) }}%
         </p>
         <p class="txt_regular_12">
@@ -23,6 +32,8 @@
   </div>
 </template>
 <script>
+import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 import {
   codeToFind,
   convertTimestamp12hSun,
@@ -36,6 +47,18 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "chart-precipitation",
+
+  components: {
+    IcChanceOfRain,
+    IcChanceOfRainSnow,
+  },
+
+  data() {
+    return {
+      width: 14,
+      height: 14,
+    };
+  },
 
   computed: {
     ...mapGetters("weatherModule", ["hourly24hGetters"]),

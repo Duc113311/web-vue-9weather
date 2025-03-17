@@ -21,14 +21,14 @@
               ></div>
             </div>
             <ChartTemperatureBar
-              class="h-[120px] absolute top-14"
+              class="h-[120px] absolute top-14 z-40"
             ></ChartTemperatureBar>
 
             <ChartPrecipitationBar
               class="h-[150px] absolute bottom-0 z-10"
             ></ChartPrecipitationBar>
             <ChartTitleRain
-              class="h-[112px] absolute bottom-9 z-20"
+              class="h-[112px] absolute top-rain-gif z-20"
             ></ChartTitleRain>
             <!-- <ChartChanceOfRainBar
               class="h-[150px] absolute bottom-6 z-20"
@@ -157,5 +157,9 @@ export default {
 .border-r {
   width: 50px; /* Kích thước mỗi cột */
   height: 100%;
+}
+
+.top-rain-gif {
+  top: 58px;
 }
 </style>

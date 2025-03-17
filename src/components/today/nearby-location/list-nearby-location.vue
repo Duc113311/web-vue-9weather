@@ -124,7 +124,7 @@
             @click="onClickShowDetailDistrict(item)"
           ></DistrictCardPage>
         </transition-group>
-        <div class="w-full text-left mt-3" v-if="listCity.length > 8">
+        <div class="w-full text-left mt-3" v-if="listCity.length > 14">
           <button
             type="button"
             @click="onClickLoadMoreItems"
@@ -184,7 +184,7 @@ export default {
     return {
       windowWidth: window.innerWidth,
       showLessButton: false,
-      itemsPerPage: 8, // Số mục hiển thị ban đầu
+      itemsPerPage: 14, // Số mục hiển thị ban đầu
       currentPage: 1, // Trang hiện tại
       listCity: [],
     };

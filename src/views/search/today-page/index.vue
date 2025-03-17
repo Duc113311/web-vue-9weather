@@ -125,11 +125,11 @@
         </div>
 
         <div class="center-c md:w-[50%] w-full flex flex-col gap-20-px">
-          <!-- <div
+          <div
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <HumidityPage :key="indexState + Math.random()"></HumidityPage>
+            <CloudCoverPage :key="indexState + Math.random()"></CloudCoverPage>
           </div>
           <div v-else class="w-full h-[240px] mt-4">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
@@ -139,13 +139,15 @@
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <WindSpeedPage :key="indexState + Math.random()"></WindSpeedPage>
+            <PreciptationPage
+              :key="indexState + Math.random()"
+            ></PreciptationPage>
           </div>
           <div v-else class="w-full h-[240px] md:mt-1">
             <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
           </div>
 
-          <div
+          <!-- <div
             class="w-full"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
@@ -161,7 +163,7 @@
     <!-- Body4 City around -->
     <div class="container local-c w-full md:flex gap-20-px">
       <div
-        class="left-location lg:w-[70%] w-[100%]"
+        class="left-location w-[100%]"
         v-if="currentlyData && Object.keys(currentlyData).length > 0"
       >
         <!--  -->
@@ -173,17 +175,6 @@
       </div>
       <div v-else class="w-full h-[300px] md:mt-4 mt-2">
         <SkeletonLoader class="w-full h-full"> </SkeletonLoader>
-      </div>
-
-      <div class="right-country lg:block hidden">
-        <!--  -->
-        <div class="flex justify-center items-center mt-3">
-          <img
-            src="../../../assets/images/png/ic_app_download.png"
-            alt=""
-            width="300"
-          />
-        </div>
       </div>
     </div>
 
@@ -216,11 +207,12 @@ import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { mapGetters, mapMutations } from "vuex";
 import { markRaw } from "vue";
 import DailyPage from "@/components/common/daily-week/daily-page.vue";
-import PreciptationPage from "@/components/common/preciptation/preciptation-page.vue";
+// import PreciptationPage from "@/components/common/preciptation/preciptation-page.vue";
 import CloudCoverPage from "@/components/common/cloud-cover/cloud-cover-page.vue";
 import WindSpeedPage from "@/components/common/wind/wind-speed-page.vue";
 import VisibilityPage from "@/components/common/visibility/visibility.page.vue";
 import HumidityPage from "@/components/common/humidity/humidity-page.vue";
+import PreciptationPage from "@/components/common/preciptation/preciptation-page.vue";
 
 export default {
   name: "today-weather",
@@ -237,7 +229,8 @@ export default {
     SkeletonLoader,
     DailyPage,
     // PreciptationPage,
-    // CloudCoverPage,
+    CloudCoverPage,
+    PreciptationPage,
     // VisibilityPage,
     // WindSpeedPage,
     // HumidityPage,

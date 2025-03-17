@@ -70,6 +70,23 @@ export default {
       );
       // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
+
+    listPrecipProbabilityData() {
+      return this.paramHourly.map((element) =>
+        Math.round(element?.precipProbability * 100)
+      );
+    },
+
+    listPrecipIntensityData() {
+      return this.paramHourly.map((element) =>
+        element.precipIntensity === 0 ? "0.00" : element.precipIntensity
+      );
+    },
+
+    unitPrecipitation() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePrecipitation_save);
+    },
   },
 
   props: {
@@ -156,7 +173,7 @@ export default {
           labels: labelList,
           datasets: [
             {
-              label: this.$t("Temperature"),
+              label: "",
               type: "line", // Kiểu dataset là line
               borderColor: "#EBAB3F",
               pointBackgroundColor: "#EBAB3F",
@@ -206,10 +223,20 @@ export default {
               intersect: false, // Cho phép hover ở mọi nơi trên đường
               mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               theme: "dark",
+              displayColors: false, // Ẩn ô màu mặc định
+              titleAlign: "center",
+              bodyAlign: "center",
+              footerAlign: "center",
               callbacks: {
                 label: (context) => {
                   const value = context.raw || "";
-                  return ` ${Number(value) === 0 ? 0 : value}°`;
+                  return [
+                    `${Number(value) === 0 ? 0 : value}°`,
+                    `${this.listPrecipProbabilityData[context.dataIndex]}%`,
+                    `${this.listPrecipIntensityData[context.dataIndex]} ${
+                      this.unitPrecipitation
+                    }`,
+                  ];
                 },
               },
             },

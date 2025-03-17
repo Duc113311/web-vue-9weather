@@ -314,13 +314,13 @@
 .custom-tooltip::after {
   content: "" !important;
   position: absolute !important;
-  bottom: -8px; /* Điều chỉnh vị trí */
+  top: -8px; /* Đưa mũi tên lên trên */
   left: 50%;
   transform: translateX(-50%);
-  width: 14px; /* Tăng chiều rộng để cân đối */
-  height: 8px; /* Chiều cao thấp hơn để không quá nhọn */
-  background: rgba(0, 0, 0, 0.85); /* Giống màu tooltip */
-  clip-path: polygon(10% 0, 90% 0, 50% 100%); /* Tam giác cân */
+  width: 14px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  clip-path: polygon(50% 0, 10% 100%, 90% 100%); /* Tam giác có đỉnh ở trên */
 }
 
 

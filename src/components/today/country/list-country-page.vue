@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <BaseComponent>
+    <ItemComponent>
       <!--  -->
       <template v-slot:header>
         <div class="flex justify-between items-center">
@@ -28,58 +28,25 @@
         </div>
       </template>
 
-      <div
-        class="w-full show-scroll pt-1 pb-1 pr-2"
-        :class="[listCityState.length <= 8 ? 'h-auto' : 'h-[250px]']"
-        v-if="listCityState.length !== 0"
-      >
-        <div v-if="objectBreadParam.country_key === 'vn'">
-          <div
-            v-for="(item, index) in listCityState"
-            :key="index"
-            class="flex justify-between items-center pt-2 pb-2 cursor-pointer item-city"
-            :class="{ 'bor-b': index !== listCityState.length - 1 }"
+      <div class="w-full h-auto" v-if="listCityState.length !== 0">
+        <!--  -->
+        <transition-group name="fade" tag="div" class="district-list">
+          <ProvinceCardPage
+            v-for="(item, index) in displayedItems"
+            :key="`district-${index}`"
+            :objectProvince="item"
             @click="onClickRenderCityLocation(item)"
+          ></ProvinceCardPage>
+        </transition-group>
+        <div class="w-full text-left mt-3" v-if="listCityState.length > 8">
+          <button
+            type="button"
+            class="bg-gradient-to-r from-cyan-500 text-white to-blue-500 hover:bg-gradient-to-bl focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center me-2 md:mb-2"
           >
-            <div class="flex gap-2 items-center cursor-pointer-bh">
-              <component class="icon-svg" :is="IcCardProvinces"></component>
-              <p class="txt_medium_14">
-                {{ $t(`city.city_${languageParam}.${item.keyAccentLanguage}`) }}
-              </p>
-            </div>
-            <div>
-              <p class="txt_regular_12 color_BFBFBF">
-                {{
-                  $t(`{number}_{unit}_away`, {
-                    number: Math.round(calculateDistance(item.location)),
-                    unit: unitSetting.activeDistance_save,
-                  })
-                }}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div v-else>
-          <div
-            v-for="(item, index) in listCityState"
-            :key="index"
-            class="flex justify-between items-center pb-3 pt-3 pr-2 cursor-pointer"
-            :class="{ 'bor-b': index !== listCityState.length - 1 }"
-            @click="onClickRenderCityLocation(item)"
-          >
-            <div class="flex gap-2 items-center">
-              <component :is="IcCardProvinces"></component>
-              <p class="txt_medium_14">
-                {{ item.enNameLanguage }}
-              </p>
-            </div>
-            <div>
-              <p class="txt_medium_14 color_BFBFBF">
-                {{ Math.round(calculateDistance(item.location))
-                }}{{ unitSetting.activeDistance_save }}
-              </p>
-            </div>
-          </div>
+            <span class="txt_regular_12">
+              {{ showLessButton ? $t("Hide") : $t("See_more") }}</span
+            >
+          </button>
         </div>
       </div>
       <div class="h-[212px]" v-else>
@@ -87,11 +54,10 @@
           {{ $t("In_development") }}
         </div>
       </div>
-    </BaseComponent>
+    </ItemComponent>
   </div>
 </template>
 <script>
-import BaseComponent from "@/components/common/baseComponent.vue";
 import { capitalizeWords, convertHaversine } from "@/utils/converValue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { getDistance } from "geolib";
@@ -108,17 +74,23 @@ import {
 import { setTitleScream } from "@/helpers/setTitle";
 import IcCardProvinces from "@/components/icons/IcCardProvinces.vue";
 import { markRaw } from "vue";
+import ProvinceCardPage from "@/components/common/card/province-card-page.vue";
+import ItemComponent from "@/components/common/itemComponent.vue";
 export default {
   name: "list-country-page",
 
   components: {
-    BaseComponent,
+    ItemComponent,
+    ProvinceCardPage,
   },
   data() {
     return {
       indexKey: 0,
       IcCardProvinces: markRaw(IcCardProvinces),
       listCityState: [],
+      itemsPerPage: 14, // Số mục hiển thị ban đầu
+      currentPage: 1, // Trang hiện tại
+      showLessButton: false,
     };
   },
 
@@ -134,6 +106,12 @@ export default {
       "locationChomeObjectGetters",
       "objectFormatLocationGetters",
     ]),
+
+    displayedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = this.currentPage * this.itemsPerPage;
+      return this.listCityState.slice(0, end);
+    },
 
     listCityWorldData() {
       const retrievedValue = JSON.parse(localStorage.getItem("objectBread"));
