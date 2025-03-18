@@ -354,5 +354,6 @@
   "AM":"AM",
   "PM":"PM",
   "Max":"Max",
-  "Min":"Min"
+  "Min":"Min",
+  "In_next_24h":"In next 24h"
 }

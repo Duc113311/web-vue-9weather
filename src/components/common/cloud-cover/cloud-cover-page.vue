@@ -12,15 +12,20 @@
         <div class="w-full h-full flex justify-between gap-2">
           <div class="text-left h-[100px]">
             <p class="txt_bold_24">
-              {{ Math.round(currentlyData.cloudCover * 100) }}
+              {{ Math.round(currentlyData.cloudCover * 100) }}%
             </p>
-            <p v-if="Math.round(currentlyData.cloudCover * 100) > 50">
-              Partly Sunny
+            <p class="txt_regular_17 text-left">
+              {{
+                convertCapitalizeWords(
+                  $t(`${currentlyData?.summary.replace(/\s+/g, "_")}`)
+                )
+              }}
             </p>
-            <p class="txt_regular_12">
-              Decreasing with mostly clear sky at 8:00 PM. Mostly clear sky
-              expected in the evening.
-            </p>
+            <div class="text-left w-full pt-2 pb-2 txt_regular_12">
+              <p>
+                {{ renderTitleByIconHouse(currentlyData?.icon, dailyOneData) }}
+              </p>
+            </div>
           </div>
           <div class="h-full flex justify-center items-center">
             <IcCloudyHome></IcCloudyHome>
@@ -35,6 +40,7 @@ import IcTitleCloudCover from "@/components/icons/IcTitleCloudCover.vue";
 import BaseComponent from "../baseComponent.vue";
 import IcCloudyHome from "@/components/icons/IcCloudyHome.vue";
 import { mapGetters } from "vuex";
+import { capitalizeWords, getTitleIconByHouse } from "@/utils/converValue";
 
 export default {
   name: "cloud-cover-page",
@@ -46,12 +52,28 @@ export default {
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["currentlyGetters"]),
+    ...mapGetters("weatherModule", ["currentlyGetters", "dailyOneGetters"]),
     listHourly() {
       return this.$store.state.weatherModule.hourly24h;
     },
     currentlyData() {
       return this.currentlyGetters;
+    },
+
+    dailyOneData() {
+      return this.dailyOneGetters;
+    },
+  },
+
+  methods: {
+    convertCapitalizeWords(value) {
+      return capitalizeWords(value);
+    },
+
+    renderTitleByIconHouse(value, data) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return getTitleIconByHouse(value, data, unitSetting);
     },
   },
 };
