@@ -5,7 +5,7 @@ vue-horizontal
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <IcUvIndex class="icon-svg"></IcUvIndex>
-          <p class="txt_medium_14">Daily Weather</p>
+          <p class="txt_medium_14">{{ $t("Daily Weather") }}</p>
         </div>
       </template>
       <div class="w-full h-full">

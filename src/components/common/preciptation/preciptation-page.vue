@@ -37,7 +37,9 @@
             </div>
           </div>
           <div class="h-full flex justify-center items-center">
-            <IcPrecipitationHome></IcPrecipitationHome>
+            <component
+              :is="renderHourlyIcon(currentlyData.precipIntensity)"
+            ></component>
             <!-- <img
               src="../../../assets/images/svg_v2/ic_precip/20%.svg"
               alt=""
@@ -59,6 +61,7 @@ import {
   codeToFind,
   convertMillimet,
   convertMillimetToInch,
+  getIconChartPrecipIntensityHome,
 } from "@/utils/converValue";
 import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
@@ -87,6 +90,11 @@ export default {
   },
 
   methods: {
+    renderHourlyIcon(value) {
+      const iconValue = getIconChartPrecipIntensityHome(value);
+
+      return iconValue;
+    },
     convertPrecipitation(val) {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
       if (unitSetting.activePrecipitation_save === "mm") {

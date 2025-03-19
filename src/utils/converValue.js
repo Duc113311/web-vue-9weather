@@ -21,6 +21,13 @@ import IcPrecip60 from "@/components/icons/precip-intensity/IcPrecip_60.vue";
 import IcPrecip80 from "@/components/icons/precip-intensity/IcPrecip_80.vue";
 import IcPrecip100 from "@/components/icons/precip-intensity/IcPrecip_100.vue";
 
+import IcPrecip0Home from "@/components/icons/precip-intensity/IcPrecip_0_home.vue";
+import IcPrecip20Home from "@/components/icons/precip-intensity/IcPrecip_20_home.vue";
+import IcPrecip40Home from "@/components/icons/precip-intensity/IcPrecip_40_home.vue";
+import IcPrecip60Home from "@/components/icons/precip-intensity/IcPrecip_60_home.vue";
+import IcPrecip80Home from "@/components/icons/precip-intensity/IcPrecip_80_home.vue";
+import IcPrecip100Home from "@/components/icons/precip-intensity/IcPrecip_100_home.vue";
+
 /* eslint-disable prettier/prettier */
 /**
  * Convert nhiệt độ Celsius sang Fahrenheit
@@ -215,6 +222,34 @@ export function getIconChartPrecipIntensity(value) {
     return ic_precip_0; // Default icon if value is outside the expected range
   }
 }
+
+
+export function getIconChartPrecipIntensityHome(value) {
+  const ic_precip_0 = IcPrecip0Home;
+  const ic_precip_20 = IcPrecip20Home;
+  const ic_precip_40 = IcPrecip40Home;
+  const ic_precip_60 = IcPrecip60Home;
+  const ic_precip_80 = IcPrecip80Home;
+  const ic_precip_100 = IcPrecip100Home;
+
+  // Sử dụng if-else để kiểm tra giá trị phạm vi
+  if (value < 2.5) {
+    return ic_precip_0;
+  } else if (value >= 2.5 && value < 7.5) {
+    return ic_precip_20;
+  } else if (value >= 7.5 && value < 20) {
+    return ic_precip_40;
+  } else if (value >= 20 && value < 50) {
+    return ic_precip_60;
+  } else if (value >= 50 && value < 100) {
+    return ic_precip_80;
+  } else if (value >= 100 && value < 1000) {
+    return ic_precip_100;
+  } else {
+    return ic_precip_0; // Default icon if value is outside the expected range
+  }
+}
+
 
 export function getIconHourlyForecastTheme(value) {
   const ic_cloudy_hourly = IcCloudy;

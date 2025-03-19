@@ -12,7 +12,9 @@
           v-if="breadcumsObject.country_key === 'vn'"
         >
           {{
-            $t(`city.city_${languageParam}.${objectProvince.keyAccentLanguage}`)
+            $t(
+              `city.city_${renderLanguage}.${objectProvince.keyAccentLanguage}`
+            )
           }}
         </p>
         <p class="txt_medium_14 text-center" v-else>

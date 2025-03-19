@@ -4,7 +4,7 @@
       <template v-slot:header>
         <div class="flex items-center text-left gap-2">
           <IcTitleCloudCover class="icon-svg"></IcTitleCloudCover>
-          <p class="txt_medium_14">Cloud Cover</p>
+          <p class="txt_medium_14">{{ $t("Cloud_cover") }}</p>
         </div>
       </template>
       <div class="w-full h-[182px]">
