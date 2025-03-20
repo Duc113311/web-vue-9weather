@@ -2,16 +2,19 @@
   <div class="w-full h-auto">
     <NavBottom class="md:block hidden mt-14"></NavBottom>
 
-    <BreadcumsPage :key="indexState + Math.random()"></BreadcumsPage>
+    <BreadcumsPage
+      v-if="nameRouter !== 'radar-map'"
+      :key="indexState + Math.random()"
+    ></BreadcumsPage>
 
     <!--  -->
-    <NavTabbar class="mb-4"></NavTabbar>
+    <NavTabbar v-if="nameRouter !== 'radar-map'" class="mb-4"></NavTabbar>
 
     <div class="ads w-full h-[83px] bg-slate-500 md:hidden block"></div>
 
     <router-view></router-view>
 
-    <FooterPage></FooterPage>
+    <FooterPage v-if="nameRouter !== 'radar-map'"></FooterPage>
   </div>
 </template>
 <script>
@@ -32,7 +35,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      nameRouter: "",
+    };
   },
 
   computed: {
@@ -42,6 +47,8 @@ export default {
   },
 
   mounted() {
+    debugger;
+    this.nameRouter = this.$route.name;
     // const objectBread = localStorage.getItem("objectBread");
     // this.setBreadcumsNotAllowLocation(objectBread);
   },

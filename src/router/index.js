@@ -87,43 +87,11 @@ const routes = [
             name: "moon-phase-weather",
             component: () => import("@/views/search/moon-phase-page/index.vue"), // Component cho route con
           },
-
-          // // Today
-          // {
-          //   path: `today-weather/:country/:city`, // Tỉnh
-          //   name: "today-weather",
-          //   component: () => import("@/views/search/today-page/index.vue"), // Component cho route con
-          // },
-
-          // {
-          //   path: `today-weather/:country/:city/:district`, // Thành phố, quận , huyện
-          //   name: "today-weather-district",
-          //   component: () =>
-          //     import("@/views/search/today-page/district/index.vue"), // Component cho route con
-          // },
-
-          // {
-          //   path: `today-weather/:country/:city/:district/:ward`, // Phường/xã
-          //   name: "today-weather-ward",
-          //   component: () => import("@/views/search/today-page/ward/index.vue"), // Component cho route con
-          // },
-          // // End today
-
-          // {
-          //   path: `month-weather/:country/:city`, // Add ':language' as a dynamic segment
-          //   name: "month-weather",
-          //   component: () => import("@/views/search/month-page/index.vue"), // Component cho route con
-          // },
-          // {
-          //   path: `hourly-weather/:country*/:city`, // Add ':language' as a dynamic segment
-          //   name: "hourly-weather",
-          //   component: () => import("@/views/search/hourly-page/index.vue"), // Component cho route con
-          // },
-          // {
-          //   path: `radar-weather/:country/:city`, // Add ':language' as a dynamic segment
-          //   name: "radar-weather",
-          //   component: () => import("@/views/search/radar-page/index.vue"), // Component cho route con
-          // },
+          {
+            path: `radar-map/:location*`, // Add ':language' as a dynamic segment
+            name: "radar-map",
+            component: () => import("@/views/search/radar-map/index.vue"), // Component cho route con
+          },
         ],
       },
       {

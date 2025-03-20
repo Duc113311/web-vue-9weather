@@ -47,84 +47,90 @@
                 v-for="(day, index) in adjustedCalendar"
                 :key="index"
                 :style="getStyle(day?.time)"
-                @click="onClickDraw(day, true, index)"
                 :class="{
                   'active-calender': activeIndex === index,
                 }"
               >
-                <div
-                  v-if="day && day.time"
-                  :class="{
-                    'current-month': isCurrentMonth(day?.time),
-                  }"
-                  class="flex item-calender p-2 flex-col justify-start gap-1 txt_light_14 opacity-45"
-                >
-                  <span class="txt_regular_12 text-right">{{
-                    convertToShortDay(day.time)
-                  }}</span>
-                  <div class="flex justify-between">
-                    <component
-                      class="icon-svg"
-                      :is="convertIconCurrently(day?.icon)"
-                    ></component>
-                    <div class="flex justify-start items-center gap-1">
+                <el-tooltip placement="right" transition="none" hide-after="0">
+                  <template #content>
+                    <PopupCalendarDetail
+                      :objTemperature="day"
+                    ></PopupCalendarDetail>
+                  </template>
+                  <div
+                    v-if="day && day.time"
+                    :class="{
+                      'current-month': isCurrentMonth(day?.time),
+                    }"
+                    class="flex item-calender p-2 flex-col justify-start gap-1 txt_light_14 opacity-45"
+                  >
+                    <span class="txt_regular_12 text-right">{{
+                      convertToShortDay(day.time)
+                    }}</span>
+                    <div class="flex justify-between">
+                      <component
+                        class="icon-svg"
+                        :is="convertIconCurrently(day?.icon)"
+                      ></component>
+                      <div class="flex justify-start items-center gap-1">
+                        <p class="txt_regular_12">
+                          {{ convertTemperature(day.temperatureMin) }}° /
+                          {{ convertTemperature(day.temperatureMax) }}°
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <!-- <img :src="convertIcon(day.icon)" alt="" /> -->
+                    </div>
+
+                    <div
+                      class="flex items-center gap-0.5 color_ff8c00"
+                      v-if="day.precipType === 'Snow'"
+                    >
+                      <svg
+                        width="18"
+                        height="17"
+                        viewBox="0 0 11 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_3004_9967)">
+                          <path
+                            d="M5.14225 5.00004V8.33337C5.14225 8.55439 5.23005 8.76635 5.38633 8.92263C5.54261 9.07891 5.75457 9.16671 5.97559 9.16671C6.1966 9.16671 6.40856 9.07891 6.56484 8.92263C6.72112 8.76635 6.80892 8.55439 6.80892 8.33337M5.14225 0.833374V1.25004M9.30892 5.00005C9.19632 3.97366 8.70883 3.02494 7.93993 2.33578C7.17102 1.64662 6.1748 1.2655 5.14225 1.2655C4.1097 1.2655 3.11348 1.64662 2.34458 2.33578C1.57567 3.02494 1.08819 3.97366 0.975586 5.00005H9.30892Z"
+                            stroke="var(--bg-radio-chance-of-snow)"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_3004_9967">
+                            <rect
+                              width="10"
+                              height="10"
+                              fill="#ff8c00"
+                              transform="translate(0.142578)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
                       <p class="txt_regular_12">
-                        {{ convertTemperature(day.temperatureMin) }}° /
-                        {{ convertTemperature(day.temperatureMax) }}°
+                        {{ Math.round(day.precipProbability * 100) }}%
+                      </p>
+                    </div>
+                    <div class="flex items-center gap-0.5 color_00e3f5" v-else>
+                      <component
+                        :is="IcChanceOfRain"
+                        :height="18"
+                        :width="18"
+                      ></component>
+
+                      <p class="txt_regular_12">
+                        {{ Math.round(day.precipProbability * 100) }}%
                       </p>
                     </div>
                   </div>
-                  <div>
-                    <!-- <img :src="convertIcon(day.icon)" alt="" /> -->
-                  </div>
-
-                  <div
-                    class="flex items-center gap-0.5 color_ff8c00"
-                    v-if="day.precipType === 'Snow'"
-                  >
-                    <svg
-                      width="18"
-                      height="17"
-                      viewBox="0 0 11 10"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_3004_9967)">
-                        <path
-                          d="M5.14225 5.00004V8.33337C5.14225 8.55439 5.23005 8.76635 5.38633 8.92263C5.54261 9.07891 5.75457 9.16671 5.97559 9.16671C6.1966 9.16671 6.40856 9.07891 6.56484 8.92263C6.72112 8.76635 6.80892 8.55439 6.80892 8.33337M5.14225 0.833374V1.25004M9.30892 5.00005C9.19632 3.97366 8.70883 3.02494 7.93993 2.33578C7.17102 1.64662 6.1748 1.2655 5.14225 1.2655C4.1097 1.2655 3.11348 1.64662 2.34458 2.33578C1.57567 3.02494 1.08819 3.97366 0.975586 5.00005H9.30892Z"
-                          stroke="var(--bg-radio-chance-of-snow)"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_3004_9967">
-                          <rect
-                            width="10"
-                            height="10"
-                            fill="#ff8c00"
-                            transform="translate(0.142578)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-
-                    <p class="txt_regular_12">
-                      {{ Math.round(day.precipProbability * 100) }}%
-                    </p>
-                  </div>
-                  <div class="flex items-center gap-0.5 color_00e3f5" v-else>
-                    <component
-                      :is="IcChanceOfRain"
-                      :height="18"
-                      :width="18"
-                    ></component>
-
-                    <p class="txt_regular_12">
-                      {{ Math.round(day.precipProbability * 100) }}%
-                    </p>
-                  </div>
-                </div>
+                </el-tooltip>
               </li>
             </ul>
           </div>
@@ -140,7 +146,6 @@
     :with-header="false"
     @close="onClose()"
   >
-    <PopupCalendarDetail :objTemperature="dayValue"></PopupCalendarDetail>
   </el-drawer>
 </template>
 <script>
@@ -419,7 +424,7 @@ export default {
 }
 
 .calendar .days li {
-  cursor: pointer;
+  cursor: default;
   position: relative;
   // margin-top: 8px;
 }

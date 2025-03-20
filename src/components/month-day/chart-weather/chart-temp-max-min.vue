@@ -83,6 +83,23 @@ export default {
       );
       // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
+
+    listPrecipProbabilityData() {
+      return this.paramHourly.map((element) =>
+        Math.round(element?.precipProbability * 100)
+      );
+    },
+
+    listPrecipIntensityData() {
+      return this.paramHourly.map((element) =>
+        element.precipIntensity === 0 ? "0.00" : element.precipIntensity
+      );
+    },
+
+    unitPrecipitation() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      return codeToFind(unitSetting.activePrecipitation_save);
+    },
   },
 
   props: {
@@ -233,12 +250,31 @@ export default {
               mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               clip: false, // Không cắt tooltip khi nó vượt khỏi vùng vẽ
               cornerRadius: 6, // Làm bo góc tooltip
+              displayColors: false, // Ẩn ô màu mặc định
               theme: "dark",
+              titleAlign: "center",
+              bodyAlign: "center",
+              footerAlign: "center",
               callbacks: {
                 label: (context) => {
-                  let label = context.dataset.label || "";
-                  let value = context.raw || "";
-                  return `${label}: ${Number(value) === 0 ? 0 : value}°`; // Thông tin khi hover
+                  if (context.dataset.label === this.$t("Max")) {
+                    const index = context.dataIndex;
+                    const maxVal = context.raw;
+                    // Tìm dataset có label "Min"
+                    const minDataset = context.chart.data.datasets.find(
+                      (ds) => ds.label === this.$t("Min")
+                    );
+                    const minVal = minDataset ? minDataset.data[index] : "N/A";
+                    // Kết hợp các thông tin vào một dòng tooltip
+                    return [
+                      `Max: ${maxVal}°`,
+                      `Min: ${minVal}°`,
+                      `${this.listPrecipProbabilityData[index]}%`,
+                      `${this.listPrecipIntensityData[index]} ${this.unitPrecipitation}`,
+                    ];
+                  }
+                  // Đối với dataset "Min", trả về chuỗi rỗng để không hiển thị tooltip riêng
+                  return "";
                 },
               },
             },

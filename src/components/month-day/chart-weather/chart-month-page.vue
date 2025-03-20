@@ -106,7 +106,7 @@
                     ></div>
                   </div>
                   <ChartTempMaxMin
-                    class="h-[150px] absolute top-20"
+                    class="h-[150px] absolute top-20 z-40"
                     :key="indexState + Math.random()"
                   ></ChartTempMaxMin>
 
@@ -116,7 +116,7 @@
                   ></ChartPrecipitation>
 
                   <ChartChanceOfRainBarMonth
-                    class="h-[120px] absolute bottom-8 z-20"
+                    class="h-[120px] absolute top-rain-gif-calendar z-20"
                   ></ChartChanceOfRainBarMonth>
                 </div>
               </vue-horizontal>
@@ -266,5 +266,9 @@ export default {
 }
 .bottom-chart-rain {
   top: 174px;
+}
+
+.top-rain-gif-calendar {
+  top: 74px;
 }
 </style>

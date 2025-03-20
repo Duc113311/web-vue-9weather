@@ -1,146 +1,39 @@
 <template>
-  <div class="w-full txt_medium_20 text-center flex justify-center">
-    <!-- Riêng Việt nam -->
-    <div
-      class="flex items-center"
-      v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
-    >
-      <div class="flex items-center" v-if="breadcumsObject?.ward">
-        <div class="cursor-pointer">
-          {{
-            convertCapitalizeWords(
-              $t(
-                `${convertToSlugCity(
-                  breadcumsObject?.city
-                )}.${convertToSlugCity(
-                  breadcumsObject?.city
-                )}_${languageParam}.${convertToLowCase(
-                  breadcumsObject?.ward_key
-                )}`
-              )
-            )
-          }},&nbsp;
-        </div>
-      </div>
-      <div class="flex items-center" v-if="breadcumsObject?.district">
-        <div class="cursor-pointer">
-          {{
-            convertCapitalizeWords(
-              $t(
-                `${convertToSlugCity(
-                  breadcumsObject?.city
-                )}.${convertToSlugCity(
-                  breadcumsObject?.city
-                )}_${languageParam}.${convertToLowCase(
-                  breadcumsObject?.district_key
-                )}`
-              )
-            )
-          }},&nbsp;
-        </div>
-      </div>
-      <div class="flex items-center" v-if="breadcumsObject?.city">
-        <div class="cursor-pointer">
-          {{
-            $t(
-              `city.city_${languageParam}.${convertToLowCase(
-                breadcumsObject?.city_key
-              )}`
-            )
-          }},&nbsp;
-        </div>
-      </div>
-      <div class="flex items-center" v-if="breadcumsObject?.country">
-        <div class="cursor-pointer">
-          {{ breadcumsObject?.country }}
-        </div>
-      </div>
-    </div>
-    <!-- End -->
-    <!-- Trên thế giới -->
-    <div v-else class="flex items-center">
-      <div class="flex items-center" v-if="breadcumsObject?.cities">
-        <div class="cursor-pointer">{{ breadcumsObject?.cities }},&nbsp;</div>
-      </div>
-      <div class="flex items-center" v-if="breadcumsObject?.state">
-        <div class="cursor-pointer">{{ breadcumsObject?.state }},&nbsp;</div>
-      </div>
-      <div class="flex items-center" v-if="breadcumsObject?.country">
-        <div class="cursor-pointer">
-          {{ breadcumsObject?.country }}
-        </div>
-      </div>
-    </div>
-    <!-- End -->
-  </div>
-  <div class="w-full flex items-center justify-between md:pr-11 container">
-    <div class="w-[30%]">
-      {{ convertToShortDay(objTemperature.time) }}
-    </div>
-    <div class="flex items-center justify-center w-[30%]">
+  <div class="w-full flex items-center justify-between mb-2">
+    <div class="flex gap-1 items-center">
       <div class="flex items-center">
         <IcTemptMin class="icon-svg"></IcTemptMin>
-        <p class="txt_medium_24">
+        <p class="txt_medium_14">
           {{ convertFahrenheitToCelsiusNot(objTemperature?.temperatureMin) }}
         </p>
       </div>
+      <div class="flex flex-col items-center gap-1">
+        <component
+          :width="20"
+          :height="20"
+          :is="convertIconCurrently(objTemperature?.icon)"
+        ></component>
+        <div class="txt_regular_12 text-start">
+          {{
+            convertCapitalizeWords(
+              $t(`${objTemperature?.summary.replace(/\s+/g, "_")}`)
+            )
+          }}
+        </div>
+      </div>
       <div class="flex items-center">
         <IcTemptMax class="icon-svg"></IcTemptMax>
-        <p class="txt_medium_24">
+        <p class="txt_medium_14">
           {{ convertFahrenheitToCelsiusNot(objTemperature?.temperatureMax) }}
         </p>
       </div>
     </div>
-    <div class="flex flex-col items-center gap-4 w-[30%]">
-      <component
-        :width="40"
-        :height="40"
-        :is="convertIconCurrently(objTemperature?.icon)"
-      ></component>
-      <div class="txt_regular_17 text-start">
-        {{
-          convertCapitalizeWords(
-            $t(`${objTemperature?.summary.replace(/\s+/g, "_")}`)
-          )
-        }}
-      </div>
-    </div>
   </div>
-  <div
-    class="w-full flex items-center justify-between pt-6 pb-4 md:pr-11 container"
-  >
-    <div class="w-[50%] flex flex-col gap-4 bor-rim-r md:pr-6 pr-2">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleReadFeel class="icon-svg"></IcTitleReadFeel>
-          <p class="txt_regular_14">{{ $t("Real_feel") }}</p>
-        </div>
-        <div class="flex items-center txt_medium_15">
-          <p>
-            {{
-              convertFahrenheitToCelsiusNot(
-                (objTemperature?.apparentTemperatureMin +
-                  objTemperature?.apparentTemperatureMax) /
-                  2
-              )
-            }}
-          </p>
-        </div>
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcHumidity class="icon-svg"></IcHumidity>
-          <p class="txt_regular_14">{{ $t("Humidity") }}</p>
-        </div>
-        <div class="flex items-center txt_medium_15">
-          <p>{{ Math.round(objTemperature?.humidity * 100) }}%</p>
-        </div>
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcUvIndex class="icon-svg"></IcUvIndex>
-          <p class="txt_regular_14">{{ $t("UV") }}</p>
-        </div>
+
+  <div class="w-full flex flex-col gap-2">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <IcUvIndex class="icon-svg"></IcUvIndex>
         <div class="flex items-center gap-1">
           <span class="txt_medium_15">
             {{ Math.round(objTemperature?.uvIndex) }}
@@ -150,163 +43,32 @@
           >
         </div>
       </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcPrecipitation class="icon-svg"></IcPrecipitation>
-          <p class="txt_regular_14">{{ $t("Precipitation") }}</p>
-        </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <IcPrecipitation class="icon-svg"></IcPrecipitation>
         <div class="flex items-center txt_medium_15">
           <p>{{ convertPrecipitation(objTemperature?.precipIntensity) }}</p>
         </div>
       </div>
-      <div class="flex items-center justify-between">
-        <div
-          class="flex items-center gap-2"
-          v-if="objTemperature?.precipType === 'Snow'"
-        >
-          <IcChanceOfRainSnow class="icon-svg"></IcChanceOfRainSnow>
-          <p class="txt_regular_14">{{ $t("Chance_of_snow") }}</p>
-        </div>
-        <div class="flex items-center gap-2" v-else>
-          <IcChanceOfRain class="icon-svg"></IcChanceOfRain>
-          <p class="txt_regular_14">{{ $t("Chance_of_rain") }}</p>
-        </div>
-        <div class="flex items-center txt_medium_15">
-          <p>{{ Math.round(objTemperature?.precipProbability * 100) }}%</p>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleAir class="icon-svg"></IcTitleAir>
-          <p class="txt_regular_14">{{ $t("Dew_point") }}</p>
-        </div>
-        <div class="flex items-center">
-          <span class="txt_regular_14">{{
-            convertFahrenheitToCelsiusNot(objTemperature?.dewPoint)
-          }}</span>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleOzone3 class="icon-svg"></IcTitleOzone3>
-          <p class="txt_regular_14">{{ $t("Ozone") }}</p>
-        </div>
-        <div class="flex items-center gap-1">
-          <span class="txt_medium_15">
-            {{ objTemperature?.ozone }}
-          </span>
-          <!-- <span class="txt_regular_14" v-if="timePeriodSunriseTime">
-                      ({{ timePeriodSunriseTime }})
-                    </span> -->
-        </div>
-      </div>
     </div>
-
-    <!--  -->
-
-    <div class="w-[50%] flex flex-col gap-4 md:pl-6 pl-2">
-      <div class="flex items-center justify-between w-full">
-        <div class="flex items-center gap-2">
-          <IcTitleWindSpeed class="icon-svg"></IcTitleWindSpeed>
-          <p class="txt_regular_14">{{ $t("Wind_speed") }}</p>
-        </div>
-
-        <div class="flex items-center gap-1">
-          <p class="txt_medium_15">
-            {{ convertWindSpeed(objTemperature.windSpeed) }}
-          </p>
-          <span class="txt_regular_14">{{ convertUnitWindSpeed() }}</span>
-        </div>
+    <div class="flex items-center gap-2">
+      <div
+        class="flex items-center gap-2"
+        v-if="objTemperature?.precipType === 'Snow'"
+      >
+        <IcChanceOfRainSnow class="icon-svg"></IcChanceOfRainSnow>
       </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleWindDirection class="icon-svg"></IcTitleWindDirection>
-          <p class="txt_regular_14">{{ $t("Wind_direction") }}</p>
-        </div>
-        <div class="flex items-center">
-          <p class="txt_medium_15">
-            {{ convertWindBearing(objTemperature?.windBearing) }}
-          </p>
-        </div>
+      <div class="flex items-center gap-2" v-else>
+        <IcChanceOfRain class="icon-svg"></IcChanceOfRain>
       </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleCloudCover class="icon-svg"></IcTitleCloudCover>
-          <p class="txt_regular_14">{{ $t("Cloud_cover") }}</p>
-        </div>
-        <div class="flex items-center">
-          <p class="txt_medium_15">
-            {{ Math.round(objTemperature.cloudCover * 100) }}%
-          </p>
-        </div>
-      </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitlePressure class="icon-svg"></IcTitlePressure>
-          <p class="txt_regular_14">{{ $t("Pressure") }}</p>
-        </div>
-        <div class="flex items-center gap-1">
-          <p class="txt_medium_15">
-            {{ convertPressure(objTemperature?.pressure) }}
-          </p>
-          <span class="txt_regular_14">{{ convertUnitPressure() }}</span>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleWindGust class="icon-svg"></IcTitleWindGust>
-          <p class="txt_regular_14">{{ $t("Wind_gust") }}</p>
-        </div>
-        <div class="flex items-center gap-1">
-          <p class="txt_medium_15">
-            {{ convertWindSpeed(objTemperature.windGust) }}
-          </p>
-          <span class="txt_regular_14">{{ convertUnitWindSpeed() }}</span>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-1">
-          <IcTitleSunrise class="icon-svg"></IcTitleSunrise>
-          <p class="txt_regular_14">{{ $t("Sunrise") }}</p>
-        </div>
-        <div class="flex items-center gap-1">
-          <p class="txt_medium_15">
-            {{ convertTimeUnit(objTemperature?.sunriseTime).split(" ")[0] }}
-          </p>
-          <span
-            class="txt_regular_14"
-            v-if="convertTimeUnit(objTemperature?.sunriseTime)"
-            >{{
-              convertTimeUnit(objTemperature?.sunriseTime).split(" ")[1]
-            }}</span
-          >
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <IcTitleSunset class="icon-svg"></IcTitleSunset>
-          <p class="txt_regular_14">{{ $t("Sunset") }}</p>
-        </div>
-        <div class="flex items-center gap-1">
-          <p class="txt_medium_15">
-            {{ convertTimeUnit(objTemperature?.sunsetTime).split(" ")[0] }}
-          </p>
-          <span
-            class="txt_regular_14"
-            v-if="convertTimeUnit(objTemperature?.sunsetTime)"
-            >{{
-              convertTimeUnit(objTemperature?.sunsetTime).split(" ")[1]
-            }}</span
-          >
-        </div>
+      <div class="flex items-center txt_medium_15">
+        <p>{{ Math.round(objTemperature?.precipProbability * 100) }}%</p>
       </div>
     </div>
   </div>
+
+  <!--  -->
 </template>
 <script>
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";

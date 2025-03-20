@@ -5,50 +5,19 @@
       v-for="(item, index) in listDataPrecipIntensity"
       :key="index"
     >
-      <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <el-tooltip
-        placement="top"
-        popper-class="custom-tooltip"
-        transition="none"
-        hide-after="0"
-      >
-        <template #content>
-          <div class="cursor-pointer tooltip-content">
-            <p class="txt_regular_11">{{ convertTime(item?.time) }}</p>
-            <div class="flex flex-col">
-              <div class="flex items-center gap-1">
-                <div
-                  class="w-[10px] h-[10px]"
-                  :class="item.precipType === 'Snow' ? 'bg-snow' : 'bg-rain'"
-                ></div>
-                <p>{{ Math.round(item?.precipProbability * 100) }}%</p>
-              </div>
-              <div class="flex items-center gap-1">
-                <div class="w-[10px] h-[10px] bg-precit"></div>
-                <p>
-                  {{
-                    item.precipIntensity === 0 ? "0.0" : item.precipIntensity
-                  }}
-                  {{ unitPrecipitation }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </template>
-        <div v-if="Math.round(item.precipProbability * 100) > 50">
-          <div
-            v-if="item.precipType === 'Snow'"
-            class="h-[115px] image-gradient-snow"
-          ></div>
-          <div
-            v-if="item.precipType === 'Rain'"
-            class="h-[115px] image-gradient-rain"
-          ></div>
-        </div>
-        <div v-else>
-          <div class="h-[120px]"></div>
-        </div>
-      </el-tooltip>
+      <div v-if="Math.round(item.precipProbability * 100) > 50">
+        <div
+          v-if="item.precipType === 'Snow'"
+          class="h-[115px] image-gradient-snow"
+        ></div>
+        <div
+          v-if="item.precipType === 'Rain'"
+          class="h-[115px] image-gradient-rain"
+        ></div>
+      </div>
+      <div v-else>
+        <div class="h-[120px]"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -145,7 +114,7 @@ export default {
       rgba(0, 160, 168, 0.2),
       rgba(0, 160, 168, 0.02)
     ),
-    url("@/assets/images/Rain.svg");
+    url("@/assets/images/Raining_Sticker.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -159,7 +128,7 @@ export default {
       rgba(0, 160, 168, 0.2),
       rgba(0, 160, 168, 0.02)
     ),
-    url("@/assets/images/snow.png");
+    url("@/assets/images/Snowing_Sticker.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
