@@ -205,13 +205,15 @@ export default {
       const metricPressure = objectSetting.activePressure_save; // hpa, inhg, mmhg
       const metricHumidity = "percent"; // percent
       const metricClouds = objectSetting.activePrecipitation_save; // mm, in
-      const urlHost =
-        "https://maps.goweatherradar.com/en/widget/1bfe4f546eb8a1d9fbe2f73812e60361e616c57d";
+      const urlHost = "https://sradar.tohapp.com/en/apiv2/tohWeather.php";
+      //   const urlIframe =
+      //     urlHost +
+      //     `?lat=${dataPosition.latitude}&lng=${dataPosition.longitude}&overlay=${this.overlayValue}&zoom=${zoomValue}&metricTemp=${metricTempValue}&metricRain=${metricRainValue}&metricSnow=${metricSnow}&metricWind=${metricWind}&metricPressure=mmhg&metricHumidity=${metricHumidity}&metricClouds=${metricClouds}&marker=${dataPosition.latitude},${dataPosition.longitude}`;
+
       const urlIframe =
         urlHost +
-        `?lat=${dataPosition.latitude}&lng=${dataPosition.longitude}&overlay=${this.overlayValue}&zoom=${zoomValue}&metricTemp=${metricTempValue}&metricRain=${metricRainValue}&metricSnow=${metricSnow}&metricWind=${metricWind}&metricPressure=mmhg&metricHumidity=${metricHumidity}&metricClouds=${metricClouds}&marker=${dataPosition.latitude},${dataPosition.longitude}`;
+        `?lat=${dataPosition.latitude}&lng=${dataPosition.longitude}&overlay=${this.overlayValue}&metricTemp=${metricTempValue}&metricRain=${metricRainValue}&metricSnow=${metricSnow}&metricWind=${metricWind}`;
 
-      const urlIf = `https://embed.windy.com/embed2.html?lat=${dataPosition.latitude}&lon=${dataPosition.longitude}&zoom=${zoomValue}&metricTemp=${metricTempValue}&level=surface&overlay=${this.overlayValue}`;
       return urlIframe;
     },
   },

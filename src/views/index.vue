@@ -17,14 +17,10 @@
     <div class="header-placeholder"></div>
 
     <div class="body-app relative body-n flex-grow">
-      <!-- <NavBottom></NavBottom> -->
       <div class="w-full h-full color-txt-df">
         <router-view />
       </div>
-      <!-- <FooterPage></FooterPage> -->
     </div>
-
-    <!-- Header menu -->
   </div>
 </template>
 <script>
@@ -565,6 +561,7 @@ export default {
         const codeLocation = encodeBase64(value);
         await this.getWeatherDataIp(codeLocation).then(async (data) => {
           const valueNew = decodeBase64(data);
+          debugger;
           // API Lấy vị trí
           await this.getIpLocation(valueNew).then(async (data) => {
             // Xét Breadcum
