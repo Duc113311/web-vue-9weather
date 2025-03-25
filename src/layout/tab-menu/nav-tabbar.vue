@@ -49,6 +49,7 @@ import IcMoonphase from "@/components/icons/IcMoonphase.vue";
 
 import { ElNotification } from "element-plus";
 import { setTitleScream } from "@/helpers/setTitle";
+import IcTide from "@/components/icons/IcTide.vue";
 
 export default {
   name: "nav-tabbar",
@@ -121,6 +122,12 @@ export default {
           label: this.$t("Moon_phase"),
           isRun: true,
           icon: IcMoonphase,
+        },
+        {
+          name: "tide-page",
+          label: this.$t("Tide"),
+          isRun: true,
+          icon: IcTide,
         },
       ];
     },
@@ -286,6 +293,11 @@ export default {
         if (this.activeIndex === 6) {
           this.setActiveTab(6);
           screamName = "moon-phase-weather";
+          // this.successUnit();
+        }
+        if (this.activeIndex === 7) {
+          this.setActiveTab(7);
+          screamName = "tide-page";
           // this.successUnit();
         }
 

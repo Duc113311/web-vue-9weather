@@ -88,6 +88,11 @@ const routes = [
             component: () => import("@/views/search/moon-phase-page/index.vue"), // Component cho route con
           },
           {
+            path: `tide-page/:location*`, // Add ':language' as a dynamic segment
+            name: "tide-page",
+            component: () => import("@/views/search/tide-page/index.vue"), // Component cho route con
+          },
+          {
             path: `radar-map/:location*`, // Add ':language' as a dynamic segment
             name: "radar-map",
             component: () => import("@/views/search/radar-map/index.vue"), // Component cho route con
