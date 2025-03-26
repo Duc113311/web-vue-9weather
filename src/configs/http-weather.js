@@ -48,7 +48,9 @@ export const httpTides = axios.create({
   baseURL: `https://server-amobilab.amobilab.com/`,
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
   },
-  timeout: 10000,
+
+  timeout: 30000,
   withCredentials: false,
 });

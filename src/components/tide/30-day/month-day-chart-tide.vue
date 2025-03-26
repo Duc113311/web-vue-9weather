@@ -23,13 +23,25 @@
           </div>
         </div>
       </template>
-      <div class="w-full"></div>
+      <div class="w-full h-[400px]">
+        <!--  -->
+      </div>
     </BaseComponent>
   </div>
 </template>
 <script>
+import BaseComponent from "@/components/common/baseComponent.vue";
+
 export default {
-  name: "30day-chart-tide",
+  name: "month-day-chart-tide",
+
+  components: { BaseComponent },
+
+  data() {
+    return {
+      heightAuto: "auto",
+    };
+  },
 };
 </script>
 <style lang="scss"></style>

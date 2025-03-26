@@ -2221,3 +2221,20 @@ export function convertTimestampFullMoon(dateString, language, timezone) {
 }
 
 // Convert Day
+export function formatDatetimeToVN(datetimeStr) {
+   // Tạo 1 ngày tạm để parse được giờ
+   const fakeDate = new Date(`1970-01-01T${datetimeStr}`);
+  
+   // Cộng thêm 7 tiếng (GMT+7)
+   const vnDate = new Date(fakeDate.getTime() + 7 * 60 * 60 * 1000);
+ 
+   const hours = String(vnDate.getHours()).padStart(2, '0');
+   const minutes = String(vnDate.getMinutes()).padStart(2, '0');
+ 
+   return `${hours}:${minutes}`;
+}
+
+export function formatDateToDDMM(dateStr) {
+  const [year, month, day] = dateStr.split("-");
+  return `${day}/${month}`;
+}

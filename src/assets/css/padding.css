@@ -5,12 +5,19 @@
   padding: 10px;
 }
 
+.pad-small-tide {
+  padding: 8px;
+}
+
+
 .pad-t-b-l-r {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
 }
+
+
 
 .pad-t-b {
   padding-top: 10px;
@@ -28,6 +35,10 @@
 }
 
 /* Radios */
+.bor-radios-full {
+  border-radius: 50px;
+}
+
 .bor-radios-big {
   border-radius: 10px;
 }
