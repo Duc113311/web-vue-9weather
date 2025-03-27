@@ -223,7 +223,6 @@ export function getIconChartPrecipIntensity(value) {
   }
 }
 
-
 export function getIconChartPrecipIntensityHome(value) {
   const ic_precip_0 = IcPrecip0Home;
   const ic_precip_20 = IcPrecip20Home;
@@ -249,7 +248,6 @@ export function getIconChartPrecipIntensityHome(value) {
     return ic_precip_0; // Default icon if value is outside the expected range
   }
 }
-
 
 export function getIconHourlyForecastTheme(value) {
   const ic_cloudy_hourly = IcCloudy;
@@ -301,60 +299,131 @@ export function getTitleIconByHouse(value, data, unitSetting) {
   value = value.toString();
   switch (value) {
     case "cloudy":
-      return i18n.global.t("cloudy_sky_thick_cloud_cover_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "cloudy_sky_thick_cloud_cover_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "rain":
-      return i18n.global.t("rainy_weather_humid_air_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "rainy_weather_humid_air_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "partly_cloudy_day":
-      return i18n.global.t("partly_cloudy_sky_gentle_sunlight_highest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMax) : convertFtoC(data.temperatureMax)
-      });
+      return i18n.global.t(
+        "partly_cloudy_sky_gentle_sunlight_highest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMax)
+              : convertFtoC(data.temperatureMax),
+        }
+      );
     case "partly_cloudy_night":
-      return i18n.global.t("cool_night_scattered_clouds_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "cool_night_scattered_clouds_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "clear_day":
       return i18n.global.t("clear_sky_dry_air_highest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMax) : convertFtoC(data.temperatureMax)
+        temp:
+          unitSetting.activeTemperature_save === "f"
+            ? convertCtoF(data.temperatureMax)
+            : convertFtoC(data.temperatureMax),
       });
     case "clear_night":
-      return i18n.global.t("clear_sky_bright_stars_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "clear_sky_bright_stars_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "sleet":
       return i18n.global.t("sleet_cold_air_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
+        temp:
+          unitSetting.activeTemperature_save === "f"
+            ? convertCtoF(data.temperatureMin)
+            : convertFtoC(data.temperatureMin),
       });
     case "fog":
-      return i18n.global.t("foggy_weather_humid_air_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "foggy_weather_humid_air_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "wind":
-      return i18n.global.t("strong_wind_cooler_air_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "strong_wind_cooler_air_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "thunderstorm":
-      return i18n.global.t("heavy_thunderstorm_strong_winds_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "heavy_thunderstorm_strong_winds_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "tornado":
-      return i18n.global.t("extreme_tornado_high_destruction_risk_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "extreme_tornado_high_destruction_risk_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     case "snow":
-      return i18n.global.t("snowy_sky_temperature_continues_to_drop_lowest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMin) : convertFtoC(data.temperatureMin)
-      });
+      return i18n.global.t(
+        "snowy_sky_temperature_continues_to_drop_lowest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMin)
+              : convertFtoC(data.temperatureMin),
+        }
+      );
     default:
-      return i18n.global.t("cloudy_sky_gloomy_feeling_all_day_highest_temperature_is_{temp}", {
-        temp: unitSetting.activeTemperature_save === "f" ? convertCtoF(data.temperatureMax) : convertFtoC(data.temperatureMax)
-      });
+      return i18n.global.t(
+        "cloudy_sky_gloomy_feeling_all_day_highest_temperature_is_{temp}",
+        {
+          temp:
+            unitSetting.activeTemperature_save === "f"
+              ? convertCtoF(data.temperatureMax)
+              : convertFtoC(data.temperatureMax),
+        }
+      );
   }
 }
-
 
 export function convertTimestampToMonthYear(
   dateString,
@@ -494,13 +563,13 @@ export function convertDayOfWeekMonth(timestamp, offsetValue, timezone) {
   const formattedDate = formatter.formatToParts(date);
 
   const weekMap = {
-    "Sunday": "Sunday",
-    "Monday": "Monday",
-    "Tuesday": "Tuesday",
-    "Wednesday": "Wednesday",
-    "Thursday": "Thursday",
-    "Friday": "Friday",
-    "Saturday": "Saturday"
+    Sunday: "Sunday",
+    Monday: "Monday",
+    Tuesday: "Tuesday",
+    Wednesday: "Wednesday",
+    Thursday: "Thursday",
+    Friday: "Friday",
+    Saturday: "Saturday",
   };
   // Lấy thông tin ngày, tháng, thứ từ phần đã format
   let day = "";
@@ -510,7 +579,7 @@ export function convertDayOfWeekMonth(timestamp, offsetValue, timezone) {
   formattedDate.forEach(({ type, value }) => {
     if (type === "day") day = value;
     if (type === "month") month = value;
-    if (type === "weekday") week = weekMap[value] || value;;
+    if (type === "weekday") week = weekMap[value] || value;
   });
 
   // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
@@ -1154,9 +1223,9 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-    Math.cos(toRad(latNearest)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRad(latNearest)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Khoảng cách theo đơn vị được chọn
 
@@ -2222,19 +2291,55 @@ export function convertTimestampFullMoon(dateString, language, timezone) {
 
 // Convert Day
 export function formatDatetimeToVN(datetimeStr) {
-   // Tạo 1 ngày tạm để parse được giờ
-   const fakeDate = new Date(`1970-01-01T${datetimeStr}`);
-  
-   // Cộng thêm 7 tiếng (GMT+7)
-   const vnDate = new Date(fakeDate.getTime() + 7 * 60 * 60 * 1000);
- 
-   const hours = String(vnDate.getHours()).padStart(2, '0');
-   const minutes = String(vnDate.getMinutes()).padStart(2, '0');
- 
-   return `${hours}:${minutes}`;
+  // Tạo 1 ngày tạm để parse được giờ
+  const fakeDate = new Date(`1970-01-01T${datetimeStr}`);
+
+  // Cộng thêm 7 tiếng (GMT+7)
+  const vnDate = new Date(fakeDate.getTime() + 7 * 60 * 60 * 1000);
+
+  const hours = String(vnDate.getHours()).padStart(2, "0");
+  const minutes = String(vnDate.getMinutes()).padStart(2, "0");
+
+  return `${hours}:${minutes}`;
 }
 
 export function formatDateToDDMM(dateStr) {
   const [year, month, day] = dateStr.split("-");
+  return `${day}/${month}`;
+}
+
+export function convertToShortDayMonth(value, locationOffsetValue, timezone) {
+  // Kiểm tra nếu value không hợp lệ (null, undefined, NaN)
+  if (!value || isNaN(value)) {
+    console.error("Invalid timestamp:", value);
+    return "Invalid Date";
+  }
+  // Chuyển timestamp Unix thành Date (value là giây)
+  const adjustedTimestamp = value + locationOffsetValue * 60; // offset từ phút sang giây
+
+  const date = new Date(adjustedTimestamp * 1000);
+
+
+  // Lấy tên ngày viết tắt theo timezone
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    weekday: "short", // Trả về thứ viết tắt (Mon, Tue, Wed,...)
+    day: "2-digit", // Ngày (DD)
+    month: "2-digit", // Tháng (MM)
+  });
+
+  // Format lại thành mảng [weekday, day, month]
+  const formattedDate = formatter.formatToParts(date);
+
+  // Lấy thông tin ngày, tháng, thứ từ phần đã format
+  let day = "";
+  let month = "";
+
+  formattedDate.forEach(({ type, value }) => {
+    if (type === "day") day = value;
+    if (type === "month") month = value;
+  });
+
+  // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
   return `${day}/${month}`;
 }

@@ -25,17 +25,19 @@
       </template>
       <div class="w-full h-[400px]">
         <!--  -->
+        <ChartTideBarMonth></ChartTideBarMonth>
       </div>
     </BaseComponent>
   </div>
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
+import ChartTideBarMonth from "../chart-tide-bar/chart-tide-bar-month.vue";
 
 export default {
   name: "month-day-chart-tide",
 
-  components: { BaseComponent },
+  components: { BaseComponent, ChartTideBarMonth },
 
   data() {
     return {
