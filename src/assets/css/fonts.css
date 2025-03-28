@@ -178,6 +178,12 @@
   font-weight: 400; /* Corresponds to Regular */
 }
 
+.txt_line_20 {
+  font-size: 24px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: 400; /* Corresponds to Regular */
+}
+
 /* Responsive */
 @media (min-width: 576px) {
   .txt_bold {

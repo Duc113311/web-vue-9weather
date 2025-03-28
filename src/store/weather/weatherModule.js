@@ -43,6 +43,8 @@ const state = {
   valueOptionWidget: {},
 
   valueNumberWeather: 4,
+
+  recentData: [],
 };
 
 /**

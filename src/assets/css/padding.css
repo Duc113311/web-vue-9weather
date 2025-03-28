@@ -42,7 +42,11 @@
 .bor-radios-big {
   border-radius: 10px;
 }
-
+.bor-radios-10 {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  top: 50px;
+}
 .bor-radios-small {
   border-radius: 14px;
 }
@@ -158,6 +162,10 @@
 
 .bor-r-chart{
   border: 1px solid var(--color-border);
+}
+
+.btn-input:hover{
+  background-color: #a9b9cd;
 }
 
 @media (min-width: 576px) {

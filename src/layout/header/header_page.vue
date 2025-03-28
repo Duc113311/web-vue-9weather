@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="w-full h-full bg-header overflow-hidden sticky top-0 header-page">
+  <div class="w-full h-full bg-header sticky top-0 header-page">
     <!--  -->
     <div class="w-full bg-header h-full pl-4 pr-4">
       <div class="w-full h-full container">
@@ -23,48 +23,104 @@
             </div>
           </div>
           <!-- Search -->
-          <div class="sm:w-[350px] w-[200px] h-full ml-4 md:ml-0">
+          <div class="sm:w-[350px] w-[200px] h-full ml-4 md:ml-0 relative">
             <div class="flex justify-center items-center h-full">
               <div class="w-[40vh] block">
-                <el-autocomplete
-                  v-model="valueSearch"
-                  :fetch-suggestions="querySearchAsync"
-                  :placeholder="$t('Search_location')"
-                  @select="handleSelect"
-                  @keydown.enter="handleEnter"
-                  :prefix-icon="Search"
-                  class="custom-placeholder"
-                >
-                  <template #default="{ item }">
-                    <!--  -->
+                <!--  -->
+                <div class="featured-search-bar featured-search">
+                  <div class="searchbar-content">
+                    <!-- Icon search -->
+                    <svg
+                      class="search-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        transform="translate(3 3)"
+                        d="M7.186 13.554c-3.462 0-6.303-2.869-6.303-6.359C.883 3.681 3.724.837 7.186.837c3.437 0 6.278 2.844 6.278 6.358 0 3.49-2.865 6.359-6.278 6.359zm5.323-1.602a7.176 7.176 0 0 0 1.815-4.757c0-3.968-3.2-7.195-7.138-7.195C3.223 0 0 3.227 0 7.195c0 3.944 3.223 7.171 7.186 7.171a7.058 7.058 0 0 0 4.75-1.84L17.427 18l.573-.55-5.49-5.498z"
+                      />
+                    </svg>
+
+                    <!-- Input -->
+                    <input
+                      v-model="searchQuery"
+                      @focus="showDropdown = true"
+                      @input="onSearch"
+                      class="search-input"
+                      type="text"
+                      :placeholder="$t('Search_your_address')"
+                      autocomplete="off"
+                    />
+
+                    <!-- X Clear -->
+                    <svg
+                      v-if="searchQuery"
+                      class="clear-icon close-icon"
+                      @click="searchQuery = ''"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                    >
+                      <g fill-rule="evenodd" transform="translate(-1 -1)">
+                        <rect
+                          width="2"
+                          height="24"
+                          x="9"
+                          y="-2"
+                          rx="1"
+                          transform="rotate(45 10 10)"
+                        />
+                        <rect
+                          width="2"
+                          height="24"
+                          x="9"
+                          y="-2"
+                          rx="1"
+                          transform="rotate(-45 10 10)"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div v-if="showDropdown" class="search-results">
                     <div
-                      v-if="item.isFallback"
-                      @click.stop="onClickLocationView"
-                      class="flex items-center justify-start cursor-pointer gap-2 bg-location-now p-3"
+                      class="search-bar-result current-location-result flex gap-2"
+                      @click="onClickLocationView()"
                     >
                       <img
                         src="../../assets/images/svg_v2/mingcute_send-fill.svg"
                         alt=""
                         width="16"
                       />
-                      <div class="txt_regular_des_moon_12">
-                        {{ $t("Use_current_location") }}
-                      </div>
-                    </div>
-                    <!--  -->
-
-                    <div v-else-if="item.address" class="p-3">
-                      <div class="txt_regular_des_moon_12">
-                        {{ item.address }}
-                      </div>
-                      <span class="link txt_regular_12">{{
-                        item.country || ""
+                      <span class="txt_regular_des_moon_12">{{
+                        $t("Use_current_location")
                       }}</span>
-
-                      <img src="" alt="" srcset="" />
                     </div>
-                  </template>
-                </el-autocomplete>
+                    <div
+                      class="results-container"
+                      v-for="(item, index) in suggestions"
+                      :key="index"
+                      @click="selectSuggestion(item)"
+                    >
+                      <div class="current-location-result" v-if="item.address">
+                        <div class="text-left">
+                          <p
+                            class="search-bar-result__name txt_regular_des_moon_12"
+                          >
+                            {{ item.address }}
+                          </p>
+                          <p
+                            class="search-bar-result__long-name txt_regular_12"
+                          >
+                            {{ item.country || "" }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- <div class="w-[30vh] h-full"></div> -->
             </div>
@@ -211,8 +267,12 @@ export default {
       dateValue: "",
 
       vietnamTime: "",
+      isShowProgress: false,
       usTime: "",
       userTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Múi giờ của người dùng
+
+      searchQuery: "",
+      showDropdown: false,
     };
   },
 
@@ -328,9 +388,13 @@ export default {
     // const storageCity = localStorage.getItem("cityName");
 
     this.valueSearch = "";
+
+    document.addEventListener("click", this.handleClickOutside);
   },
 
-  created() {},
+  beforeUnmount() {
+    document.removeEventListener("click", this.handleClickOutside);
+  },
 
   methods: {
     ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
@@ -351,6 +415,62 @@ export default {
       "getWeatherDataCurrent",
       "getFormattedAddress",
     ]),
+
+    async onSearch() {
+      const currentInput = this.searchQuery;
+
+      if (!currentInput) {
+        this.suggestions = [];
+        return;
+      }
+
+      const useCurrentLocation = {
+        isFallback: true,
+        address: "",
+        country: "",
+      };
+
+      try {
+        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.radar.rain&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+          currentInput
+        )}&key=TOH_KEY`;
+
+        const encoded = encodeBase64(urlParam);
+
+        await this.getFormattedAddress(encoded);
+
+        // 👇 Kiểm tra lại searchQuery tại thời điểm này
+        if (this.searchQuery !== currentInput) {
+          // Nếu người dùng đã gõ/xóa tiếp → không update suggestion nữa
+          return;
+        }
+
+        const resultFromStore = this.$store.state.weatherModule.newArray || [];
+
+        this.suggestions = [useCurrentLocation, ...resultFromStore];
+      } catch (error) {
+        console.error("Lỗi khi gọi API địa chỉ:", error);
+        this.suggestions = [];
+      }
+    },
+    handleEnter() {
+      console.log("Search for:", this.searchQuery);
+      this.showDropdown = false;
+    },
+    useCurrentLocation() {
+      console.log("Use current location");
+      this.showDropdown = false;
+    },
+    selectSuggestion(item) {
+      this.searchQuery = "";
+      this.showDropdown = false;
+      this.handleSelect(item);
+    },
+    handleClickOutside(event) {
+      if (!event.target.closest(".featured-search")) {
+        this.showDropdown = false;
+      }
+    },
 
     /**
      * Lấy thông tin weather, back về trang chủ
@@ -407,9 +527,9 @@ export default {
      * @param queryString
      * @param cb
      */
-    async querySearchAsync(queryString, cb) {
-      let timeout;
-      // Tạo phần tử "Sử dụng vị trí hiện tại"
+    async handleFocus() {
+      this.isShowProgress = true;
+
       const useCurrentLocation = {
         isFallback: true,
         address: "",
@@ -417,41 +537,26 @@ export default {
       };
 
       if (!this.valueSearch) {
-        // Khi không có giá trị tìm kiếm, chỉ hiển thị "Sử dụng vị trí hiện tại"
         this.suggestions = [useCurrentLocation];
-        timeout = setTimeout(() => {
-          cb(this.suggestions);
-        }, 300);
         return;
       }
 
-      // Gọi API để lấy dữ liệu gợi ý
-      const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.radar.rain&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
-        this.valueSearch
-      )}&key=TOH_KEY`;
-
-      const value = encodeBase64(urlParam);
-
       try {
-        await this.getFormattedAddress(value);
+        const urlParam = `version=1&type=4&app_id=amobi.weather.forecast.radar.rain&request=https://maps.googleapis.com/maps/api/geocode/json?address=${urlEncodeString(
+          this.valueSearch
+        )}&key=TOH_KEY`;
 
-        // Đảm bảo giá trị tìm kiếm không thay đổi
-        if (this.valueSearch === queryString) {
-          // Thêm phần tử "Sử dụng vị trí hiện tại" vào đầu danh sách
-          this.suggestions = [
-            useCurrentLocation,
-            ...(this.$store.state.weatherModule.newArray || []),
-          ];
-          timeout = setTimeout(() => {
-            cb(this.suggestions);
-          }, 300);
-        }
+        const encoded = encodeBase64(urlParam);
+        await this.getFormattedAddress(encoded);
+
+        const resultFromStore = this.$store.state.weatherModule.newArray || [];
+        this.suggestions = [useCurrentLocation, ...resultFromStore];
       } catch (error) {
-        console.error("Error fetching address:", error);
+        console.error("❌ Lỗi fetch gợi ý:", error);
         this.suggestions = [useCurrentLocation];
-        cb(this.suggestions);
       }
     },
+
     splitStingWard(inputString) {
       return inputString.split("_").slice(1).join("_");
     },
@@ -507,14 +612,14 @@ export default {
 
       return null; // Trả về null nếu không tìm thấy district
     },
-    async handleEnter(event) {
-      const matchedItem = this.suggestions[1];
-      if (matchedItem) {
-        await this.handleSelect(matchedItem); // Gọi handleSelect khi nhấn Enter
-      } else {
-        console.log("No matching item found");
-      }
-    },
+    // async handleEnter(event) {
+    //   const matchedItem = this.suggestions[1];
+    //   if (matchedItem) {
+    //     await this.handleSelect(matchedItem); // Gọi handleSelect khi nhấn Enter
+    //   } else {
+    //     console.log("No matching item found");
+    //   }
+    // },
 
     async handleSelect(item) {
       this.valueSearch = "";
@@ -846,7 +951,6 @@ export default {
 
     async onClickLocationView() {
       const objectBreadValue = this.wardParamChrome;
-
       if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
         await this.loadAllFileJson().then(async (x) => {
           const cityName = "Vietnamese";
@@ -975,6 +1079,8 @@ export default {
         }
       }
 
+      this.showDropdown = false;
+
       const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=${this.languageParam}`;
       const resultAir = getAqiDataFromLocation(
         objectBreadValue.latitude,
@@ -1037,6 +1143,70 @@ export default {
 }
 
 .bg-location-now {
-  background-color: #91d6dd63;
+  background-color: #b1c4dc;
+}
+
+.featured-search-bar {
+  position: relative;
+  width: 100%;
+}
+
+.searchbar-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 6px;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.search-icon {
+  margin-right: 8px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.clear-icon {
+  cursor: pointer;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  z-index: 10;
+  margin-top: 2px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.current-location-result {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.current-location-result:hover {
+  background-color: #f5f5f5;
+}
+
+.results-container .result-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.results-container .result-item:hover {
+  background-color: #f0f0f0;
 }
 </style>

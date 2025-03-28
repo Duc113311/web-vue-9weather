@@ -1,5 +1,5 @@
 {
-  "Everything_You_Need": "Mọi thứ bạn cần biết",
+  "Everything_You_Need": "Dự báo thời tiết chính xác theo vị trí của bạn",
   "Stay_prepared_with_live_updates": "Hãy chuẩn bị với các bản cập nhật trực tiếp, dự báo chi tiết và cảnh báo.",
   "Search_location": "Vị trí tìm kiếm",
   "Use_current_location": "Sử dụng vị trí hiện tại",
@@ -355,5 +355,6 @@
   "PM": "CH",
   "Max":"Cao",
   "Min":"Thấp",
-  "In_next_24h":"Trong 24h tới"
+  "In_next_24h":"Trong 24h tới",
+  "Search_your_address":"Địa chỉ, Thành phố"
 }

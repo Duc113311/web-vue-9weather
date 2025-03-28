@@ -23,13 +23,25 @@
               </div>
             </div>
             <!--  -->
-            <div class="flex xl:flex-col justify-center gap-4 mt-4 xl:mt-0">
-              <a href="http://">
-                <div class="ic-dow-apple cursor-pointer" alt="" srcset="" />
-              </a>
-              <a href="http://">
-                <div class="ic-dow-ch cursor-pointer" alt="" srcset="" />
-              </a>
+
+            <div class="flex flex-col gap-2">
+              <div>
+                <p class="txt_line_20">Tải app miễn phí</p>
+              </div>
+              <div class="flex xl:flex-col justify-center gap-4 mt-4 xl:mt-0">
+                <a
+                  href="https://play.google.com/store/apps/details?id=amobi.weather.forecast.storm.radar"
+                  class="ic-dow-ch"
+                >
+                  <div class="ic-dow-ch cursor-pointer" alt="" srcset="" />
+                </a>
+                <a
+                  href="https://apps.apple.com/vn/app/9weather-d%E1%BB%B1-b%C3%A1o-th%E1%BB%9Di-ti%E1%BA%BFt/id6467690935?l=vi"
+                  class="ic-dow-apple"
+                >
+                  <div class="ic-dow-apple cursor-pointer"></div>
+                </a>
+              </div>
             </div>
           </div>
           <div
