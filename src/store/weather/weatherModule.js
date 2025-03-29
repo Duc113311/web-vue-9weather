@@ -111,6 +111,19 @@ const mutations = {
     }
   },
 
+  saveRecentData(state, data) {
+    const exists = state.recentData.find(
+      (item) => item.cityName === data.cityName
+    );
+    if (exists) return; // tránh trùng
+
+    if (state.recentData.length >= 5) {
+      state.recentData.shift(); // Xoá phần tử đầu tiên nếu đã đủ 5
+    }
+
+    state.recentData.push(data);
+  },
+
   setCityWeather(state, data) {
     state.cityCountry = data;
     state.countryFilter = data;

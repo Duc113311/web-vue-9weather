@@ -119,6 +119,41 @@
                         </div>
                       </div>
                     </div>
+                    <div v-if="paramRecent.length > 0">
+                      <div class="text-left p-2 bor-b">
+                        <p class="txt_regular_14 text-left">Recent</p>
+                      </div>
+                      <div
+                        class="results-container"
+                        v-for="(item, index) in paramRecent"
+                        :key="index"
+                      >
+                        <div class="current-location-result">
+                          <!--  -->
+                          <div class="flex w-full justify-between items-center">
+                            <div class="text-left">
+                              <p
+                                class="search-bar-result__name txt_regular_des_moon_12"
+                              >
+                                {{ item.cityName }}
+                              </p>
+                              <p
+                                class="search-bar-result__long-name txt_regular_12"
+                              >
+                                {{ item.countryName || "" }}
+                              </p>
+                            </div>
+                            <!--  -->
+                            <component
+                              :is="renderIcon(item.iconWeather)"
+                              :width="50"
+                              :height="50"
+                            ></component>
+                            <div>{{ renderToCelsiusAndUnit(item.tempt) }}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -303,6 +338,10 @@ export default {
         : this.$i18n.locale;
     },
 
+    paramRecent() {
+      return this.$store.state.weatherModule.recentData;
+    },
+
     renderCountry() {
       return this.$store.state.weatherModule.cityCountry;
     },
@@ -397,7 +436,11 @@ export default {
   },
 
   methods: {
-    ...mapMutations("weatherModule", ["setCityWeather", "setDataTop100City"]),
+    ...mapMutations("weatherModule", [
+      "setCityWeather",
+      "setDataTop100City",
+      "saveRecentData",
+    ]),
     ...mapMutations("commonModule", [
       "setBreadcumsNotAllowLocation",
       "setBreadcumsAllowLocation",
@@ -452,6 +495,11 @@ export default {
         console.error("Lỗi khi gọi API địa chỉ:", error);
         this.suggestions = [];
       }
+    },
+
+    renderIcon(val) {
+      const iconValue = getIconHourlyForecastTheme(val.icon);
+      return iconValue;
     },
     handleEnter() {
       console.log("Search for:", this.searchQuery);
@@ -577,6 +625,19 @@ export default {
       }
     },
 
+    renderToCelsiusAndUnit(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      } else {
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      }
+    },
+
     findDistrictsData(value) {
       const listCityVN = decryptData(this.listCityAllData);
 
@@ -622,8 +683,8 @@ export default {
     // },
 
     async handleSelect(item) {
-      this.valueSearch = "";
-
+      this.searchQuery = "";
+      this.suggestions = [];
       if (item?.country_key?.toLowerCase() === "vn") {
         await this.loadAllFileJson().then(async (x) => {
           const cityName = "Vietnamese";
@@ -781,6 +842,23 @@ export default {
 
       // API Get Weather Current
       await this.getWeatherDataCurrent(encodeDataWeather);
+
+      const locationCurrently = this.paramCurrently;
+      debugger;
+      let cityName = "";
+      let countryName = "";
+      if (item?.country_key?.toLowerCase() === "vn") {
+        cityName = item.city ? this.findCityData(item).viNameLanguage : "";
+      } else {
+        cityName = this.getStateByLocation(item.state);
+      }
+      const objectRecent = {
+        cityName: cityName,
+        countryName: item.country,
+        iconWeather: locationCurrently?.icon,
+        tempt: locationCurrently?.temperature,
+      };
+      this.saveRecentData(objectRecent);
 
       const encodeKeyAir = encodeBase64(resultAir);
       // API Get Air Quality By Key
