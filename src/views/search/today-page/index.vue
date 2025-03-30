@@ -43,7 +43,6 @@
             class="right-country lg:h-[260px] md:h-[243px] w-[100%]"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           >
-            <!--  -->
             <RadarPage :key="indexState + Math.random()"></RadarPage>
           </div>
           <div v-else class="w-full h-[310px]">
@@ -279,7 +278,6 @@ export default {
   methods: {
     ...mapMutations("commonModule", ["setActiveTab"]),
   },
-
   // beforeRouteLeave(to, from, next) {
   //   window.location.replace(to.fullPath);
   //   next(); // Cho phép chuyển route
