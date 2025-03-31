@@ -138,7 +138,7 @@
               </div>
 
               <div class="flex items-center">
-                <div class="flex items-center gap-2 mr-4 w-[80px]">
+                <div class="flex items-center gap-2 mr-2 w-[80px]">
                   <component
                     class="icon-svg"
                     :is="renderIcon(item)"
@@ -171,7 +171,7 @@
             </div>
             <div
               v-if="index === valueChoose"
-              class="w-full flex items-center justify-between pt-6 pb-4 md:pr-11"
+              class="w-full flex items-center justify-between pt-4 md:pr-11"
             >
               <div class="w-[50%] flex flex-col gap-4 bor-rim-r md:pr-6 pr-2">
                 <div class="flex items-center justify-between">

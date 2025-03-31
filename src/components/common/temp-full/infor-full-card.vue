@@ -34,7 +34,7 @@
 
     <!--  -->
 
-    <div class="pt-2 pb-2 gap-2 flex-col flex">
+    <div class="pt-1 pb-1 gap-2 flex-col flex">
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcTempt class="icon-svg"></IcTempt>
@@ -69,6 +69,15 @@
           >
         </div>
       </div>
+
+      <div class="flex justify-between items-center">
+        <div class="flex items-center text-left gap-2 txt_regular_des">
+          <IcHumidity class="icon-svg"></IcHumidity>
+          <p class="txt_regular_14">{{ $t("Humidity") }}</p>
+        </div>
+        <p>{{ Math.round(currentlyData?.humidity * 100) }}%</p>
+      </div>
+
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcPrecipitation class="icon-svg"></IcPrecipitation>
@@ -78,6 +87,17 @@
           {{ convertPrecipitation(currentlyData?.precipIntensity) }}
         </p>
       </div>
+
+      <div class="flex justify-between items-center">
+        <div class="flex items-center text-left gap-2 txt_regular_des">
+          <IcTitleAir class="icon-svg"></IcTitleAir>
+          <p class="txt_regular_14">{{ $t("Dew_point") }}</p>
+        </div>
+        <p class="txt_medium_des">
+          {{ renderToCelsiusAndUnit(currentlyData?.dewPoint) }}
+        </p>
+      </div>
+
       <div class="flex justify-between items-center">
         <div class="flex items-center text-left gap-2 txt_regular_des">
           <IcChanceOfRain class="icon-svg"></IcChanceOfRain>
@@ -104,7 +124,7 @@
       </div> -->
     </div>
 
-    <div class="text-left w-full txt_regular_14 pt-2 pb-4">
+    <div class="text-left w-full txt_regular_14 pb-2 pt-2">
       <p>
         {{ renderTitleByIconHouse(currentlyData?.icon, dailyOneData) }}
       </p>
@@ -113,6 +133,7 @@
 </template>
 <script>
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcHumidity from "@/components/icons/IcHumidity.vue";
 import IcPrecipitation from "@/components/icons/IcPrecipitation.vue";
 import IcTempt from "@/components/icons/IcTempt.vue";
 import IcTemptMax from "@/components/icons/IcTemptMax.vue";
@@ -145,6 +166,7 @@ export default {
     IcTemptMin,
     IcTitleAir,
     IcUvIndex,
+    IcHumidity,
   },
 
   data() {
@@ -174,6 +196,20 @@ export default {
       const iconValue = getIconHourlyForecastTheme(val.icon);
       return iconValue;
     },
+
+    renderToCelsiusAndUnit(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTemperature_save === "f") {
+        return (
+          convertCtoF(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      } else {
+        return (
+          convertFtoC(value) + codeToFind(unitSetting.activeTemperature_save)
+        );
+      }
+    },
+
     convertCapitalizeWords(value) {
       return capitalizeWords(value);
     },

@@ -1,19 +1,13 @@
 <template>
-  <div class="w-full flex items-center justify-between mb-2">
+  <div class="w-full mb-2 pl-2 pr-2 pt-2">
     <div class="flex gap-1 items-center">
-      <div class="flex items-center">
-        <IcTemptMin class="icon-svg"></IcTemptMin>
-        <p class="txt_medium_14">
-          {{ convertFahrenheitToCelsiusNot(objTemperature?.temperatureMin) }}
-        </p>
-      </div>
-      <div class="flex flex-col items-center gap-1">
+      <div class="flex items-center gap-2">
         <component
-          :width="20"
-          :height="20"
+          :width="26"
+          :height="26"
           :is="convertIconCurrently(objTemperature?.icon)"
         ></component>
-        <div class="txt_regular_12 text-start">
+        <div class="txt_regular_14 text-start">
           {{
             convertCapitalizeWords(
               $t(`${objTemperature?.summary.replace(/\s+/g, "_")}`)
@@ -21,7 +15,15 @@
           }}
         </div>
       </div>
-      <div class="flex items-center">
+    </div>
+    <div class="flex justify-between items-center mt-2">
+      <div class="flex items-center gap-1">
+        <IcTemptMin class="icon-svg"></IcTemptMin>
+        <p class="txt_medium_14">
+          {{ convertFahrenheitToCelsiusNot(objTemperature?.temperatureMin) }}
+        </p>
+      </div>
+      <div class="flex items-center gap-1">
         <IcTemptMax class="icon-svg"></IcTemptMax>
         <p class="txt_medium_14">
           {{ convertFahrenheitToCelsiusNot(objTemperature?.temperatureMax) }}
@@ -30,7 +32,7 @@
     </div>
   </div>
 
-  <div class="w-full flex flex-col gap-2">
+  <div class="w-full flex flex-col gap-2 pl-2 pr-2 pb-2">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <IcUvIndex class="icon-svg"></IcUvIndex>

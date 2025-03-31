@@ -3,25 +3,12 @@
     <!-- -->
     <div class="container mt-5">
       <div class="header-m flex w-full gap-20-px h-full">
-        <div class="left-hourly lg:w-[67%] w-full">
+        <div class="left-hourly w-full">
           <!--  -->
           <CalendarPage
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></CalendarPage>
-          <div v-else class="w-full h-full">
-            <SkeletonLoader class="w-full h-[600px]"> </SkeletonLoader>
-          </div>
-        </div>
-
-        <div class="right-hourly lg:w-[31%] w-full lg:block hidden">
-          <!--  -->
-          <TempFullCard
-            :key="indexState + Math.random()"
-            v-if="currentlyData && Object.keys(currentlyData).length > 0"
-            :title="title"
-          ></TempFullCard>
-
           <div v-else class="w-full h-full">
             <SkeletonLoader class="w-full h-[600px]"> </SkeletonLoader>
           </div>
@@ -44,12 +31,16 @@
 
         <div class="right-hourly lg:w-[31%] w-full lg:h-[439px]">
           <!--  -->
-          <RadarPage
+          <TempFullCard
+            :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
-          ></RadarPage>
-          <div v-else class="w-full h-full mt-6">
-            <SkeletonLoader class="w-full h-[460px]"> </SkeletonLoader>
+            :title="title"
+          ></TempFullCard>
+
+          <div v-else class="w-full h-full">
+            <SkeletonLoader class="w-full h-[600px]"> </SkeletonLoader>
           </div>
+          <!--  -->
         </div>
       </div>
     </div>
@@ -95,7 +86,15 @@
         <div
           class="right-hourly lg:w-[32%] w-full md:grid md:grid-cols-2 gap-5 lg:block"
         >
+          <RadarPage
+            class="lg:h-[200px]"
+            v-if="currentlyData && Object.keys(currentlyData).length > 0"
+          ></RadarPage>
+          <div v-else class="w-full h-[260px] md:mt-5">
+            <SkeletonLoader class="w-full h-[260px]"> </SkeletonLoader>
+          </div>
           <SunPage
+            class="mt-10"
             :key="indexState + Math.random()"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
           ></SunPage>

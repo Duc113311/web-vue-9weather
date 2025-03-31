@@ -97,6 +97,7 @@
                 <div class="w-full h-full relative">
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
                   <ChartTitleTempMaxMin></ChartTitleTempMaxMin>
+                  <ChartTitleChanceOfRainMonth></ChartTitleChanceOfRainMonth>
 
                   <div class="flex w-full h-full min-w-[1800px]">
                     <div
@@ -106,7 +107,7 @@
                     ></div>
                   </div>
                   <ChartTempMaxMin
-                    class="h-[150px] absolute top-20 z-40"
+                    class="h-[120px] w-full absolute top-20 z-40 bg-slate-400"
                     :key="indexState + Math.random()"
                   ></ChartTempMaxMin>
 
@@ -168,6 +169,8 @@ import removeAccents from "remove-accents";
 import { mapGetters } from "vuex";
 import ChartChanceOfRainBarMonth from "./chart-chance-of-rain-bar-month.vue";
 import ChartTitleTempMaxMin from "./chart-title-temp-max-min.vue";
+import ChartTitleChanceOfRain from "@/components/common/chart/chart-title-chance-of-rain.vue";
+import ChartTitleChanceOfRainMonth from "./chart-title-chance-of-rain-month.vue";
 
 export default {
   name: "chart-month-page",
@@ -181,6 +184,7 @@ export default {
     // ChartChanceOfRain,
     ChartPrecipitation,
     ChartChanceOfRainBarMonth,
+    ChartTitleChanceOfRainMonth,
   },
   data() {
     return {

@@ -41,9 +41,9 @@
               <li class="weekend txt_regular_14">{{ $t("Saturday") }}</li>
               <li class="weekend txt_regular_14">{{ $t("Sunday") }}</li>
             </ul>
-            <ul class="days lg:p-4 p-2">
+            <ul class="days">
               <li
-                class="mb-2"
+                class=""
                 v-for="(day, index) in adjustedCalendar"
                 :key="index"
                 :style="getStyle(day?.time)"
@@ -51,7 +51,13 @@
                   'active-calender': activeIndex === index,
                 }"
               >
-                <el-tooltip placement="right" transition="none" hide-after="0">
+                <el-tooltip
+                  popper-class="app-tooltip cursor-pointer"
+                  placement="bottom-end"
+                  effect="dark"
+                  transition="none"
+                  hide-after="0"
+                >
                   <template #content>
                     <PopupCalendarDetail
                       :objTemperature="day"
@@ -69,14 +75,27 @@
                     }}</span>
                     <div class="flex justify-between">
                       <component
-                        class="icon-svg"
+                        :width="30"
+                        :height="30"
                         :is="convertIconCurrently(day?.icon)"
                       ></component>
                       <div class="flex justify-start items-center gap-1">
-                        <p class="txt_regular_12">
-                          {{ convertTemperature(day.temperatureMin) }}° /
-                          {{ convertTemperature(day.temperatureMax) }}°
-                        </p>
+                        <div class="flex items-center">
+                          <p>
+                            <IcTemptMin class="icon-svg"></IcTemptMin>
+                          </p>
+                          <p class="txt_regular_14">
+                            {{ convertTemperature(day.temperatureMin) }}°
+                          </p>
+                        </div>
+                        <div class="flex items-center">
+                          <p>
+                            <IcTemptMax class="icon-svg"></IcTemptMax>
+                          </p>
+                          <p class="txt_regular_14">
+                            {{ convertTemperature(day.temperatureMax) }}°
+                          </p>
+                        </div>
                       </div>
                     </div>
                     <div>
@@ -159,12 +178,16 @@ import {
 import PopupCalendarDetail from "../popup/popup-calendar-detail.vue";
 import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
 import { markRaw } from "vue";
+import IcTemptMax from "@/components/icons/IcTemptMax.vue";
+import IcTemptMin from "@/components/icons/IcTemptMin.vue";
 export default {
   name: "calendar-page",
 
   components: {
     BaseComponent,
     PopupCalendarDetail,
+    IcTemptMax,
+    IcTemptMin,
   },
   data() {
     return {
@@ -324,7 +347,7 @@ export default {
       });
 
       // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
-      return `${day}/${month}`;
+      return `${day}-${month}`;
     },
 
     onvertToShortMonth(value) {
@@ -409,10 +432,6 @@ export default {
   text-align: center;
 }
 
-// .calendar .days {
-//   margin-bottom: 12px;
-// }
-
 .calendar li {
   width: calc(100% / 7);
   position: relative; /* Make sure tooltip is positioned correctly */
@@ -427,10 +446,12 @@ export default {
   cursor: default;
   position: relative;
   // margin-top: 8px;
+  border-right: 1px solid #cccccc56;
+  border-bottom: 1px solid #cccccc56;
 }
 
 .days li.inactive {
-  color: #ae8f8f;
+  color: #3f62ad56;
   opacity: 0;
 }
 
