@@ -27,37 +27,88 @@
         </vue-horizontal>
 
         <div class="w-full h-[40px] flex justify-between pad-t-b-10 pad-r-l-10">
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-short rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Low") }}: 0-2</p>
+          <el-tooltip
+            popper-class="app-tooltip cursor-pointer"
+            effect="dark"
+            placement="bottom-end"
+          >
+            <template #content>
+              <div class="w-[150px] p-2">{{ $t("Low_UV_levels") }}</div>
+            </template>
+            <div class="flex items-center text-left gap-2 cursor-default">
+              <div class="bg-short rounded-full w-[10px] h-[10px]"></div>
+              <div class="text-center">
+                <p class="txt_regular_12">{{ $t("Low") }}: 0-2</p>
+              </div>
             </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-Medium rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Moderate") }}: 3-5</p>
+          </el-tooltip>
+          <el-tooltip
+            popper-class="app-tooltip cursor-pointer"
+            effect="dark"
+            placement="bottom-end"
+          >
+            <template #content>
+              <div class="w-[150px] p-2">{{ $t("There_is_a_moderate") }}</div>
+            </template>
+            <div class="flex items-center text-left gap-2 cursor-default">
+              <div class="bg-Medium rounded-full w-[10px] h-[10px]"></div>
+              <div class="text-center">
+                <p class="txt_regular_12">{{ $t("Moderate") }}: 3-5</p>
+              </div>
             </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-High rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("High") }}: 6-7</p>
+          </el-tooltip>
+          <el-tooltip
+            popper-class="app-tooltip cursor-pointer"
+            effect="dark"
+            placement="bottom-end"
+          >
+            <template #content>
+              <div class="w-[150px] p-2">{{ $t("UV_rays_are_highly") }}</div>
+            </template>
+            <div class="flex items-center text-left gap-2 cursor-default">
+              <div class="bg-High rounded-full w-[10px] h-[10px]"></div>
+              <div class="text-center">
+                <p class="txt_regular_12">{{ $t("High") }}: 6-7</p>
+              </div>
             </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-Very-high rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Very_High") }}: 8-10</p>
+          </el-tooltip>
+          <el-tooltip
+            popper-class="app-tooltip cursor-pointer"
+            effect="dark"
+            placement="bottom-end"
+          >
+            <template #content>
+              <div class="w-[150px] p-2">
+                {{ $t("The_risk_from_UV_is_very_high") }}
+              </div>
+            </template>
+            <div class="flex items-center text-left gap-2 cursor-default">
+              <div class="bg-Very-high rounded-full w-[10px] h-[10px]"></div>
+              <div class="text-center">
+                <p class="txt_regular_12">{{ $t("Very_High") }}: 8-10</p>
+              </div>
             </div>
-          </div>
-          <div class="flex items-center text-left gap-2">
-            <div class="bg-Extremely-high rounded-full w-[10px] h-[10px]"></div>
-            <div class="text-center">
-              <p class="txt_regular_12">{{ $t("Extreme") }}: > 10</p>
-              <p class="txt_regular_12"></p>
+          </el-tooltip>
+          <el-tooltip
+            popper-class="app-tooltip cursor-pointer"
+            effect="dark"
+            placement="bottom-end"
+          >
+            <template #content>
+              <div class="w-[150px] p-2">
+                {{ $t("UV_rays_are_extremely_dangerous") }}
+              </div>
+            </template>
+            <div class="flex items-center text-left gap-2 cursor-default">
+              <div
+                class="bg-Extremely-high rounded-full w-[10px] h-[10px]"
+              ></div>
+              <div class="text-center">
+                <p class="txt_regular_12">{{ $t("Extreme") }}: > 10</p>
+                <p class="txt_regular_12"></p>
+              </div>
             </div>
-          </div>
+          </el-tooltip>
         </div>
       </div>
     </div>

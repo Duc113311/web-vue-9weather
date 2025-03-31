@@ -12,6 +12,7 @@
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
             <ChartTitleTemp></ChartTitleTemp>
+            <ChartTitleChanceOfRain></ChartTitleChanceOfRain>
 
             <div class="flex w-full h-full min-w-[1550px]">
               <div
@@ -26,11 +27,11 @@
             ></ChartTemperatureBar>
 
             <ChartPrecipitationBar
-              class="h-[150px] absolute bottom-0 z-10"
+              class="h-[150px] absolute -bottom-2 z-10"
             ></ChartPrecipitationBar>
 
             <ChartTitleRain
-              class="h-[112px] absolute bottom-9 z-20"
+              class="h-[112px] absolute rain-ab z-20"
             ></ChartTitleRain>
 
             <!-- <ChartChanceOfRainBar
@@ -65,25 +66,26 @@
 </template>
 
 <script>
-import ChartChanceOfRainBar from "@/components/common/chart/chart-chance-of-rain-bar.vue";
+import VueHorizontal from "vue-horizontal";
+
 import ChartDays from "@/components/common/chart/chart-days.vue";
 import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
 import ChartTemperatureBar from "@/components/common/chart/chart-temperature-bar.vue";
+import ChartTitleChanceOfRain from "@/components/common/chart/chart-title-chance-of-rain.vue";
 import ChartTitleRain from "@/components/common/chart/chart-title-rain.vue";
 import ChartTitleTemp from "@/components/common/chart/chart-title-temp.vue";
-import VueHorizontal from "vue-horizontal";
 
 export default {
   name: "chart-synthetic-hourly",
 
   components: {
     VueHorizontal,
-    // ChartChanceOfRainBar,
     ChartTemperatureBar,
     ChartDays,
     ChartPrecipitationBar,
     ChartTitleTemp,
     ChartTitleRain,
+    ChartTitleChanceOfRain,
   },
 
   data() {
@@ -125,5 +127,9 @@ export default {
 }
 .top-chart-pre-hourly {
   top: 170px;
+}
+
+.rain-ab {
+  top: 75px;
 }
 </style>

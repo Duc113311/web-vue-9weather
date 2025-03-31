@@ -11,18 +11,6 @@
       </div>
 
       <div class="">
-        <p class="txt_regular_12 flex gap-1 text-center justify-center">
-          <IcChanceOfRainSnow
-            v-if="item?.summary === 'snow'"
-          ></IcChanceOfRainSnow>
-          <IcChanceOfRain
-            v-else
-            IcChanceOfRain
-            :width="width"
-            :height="height"
-          ></IcChanceOfRain>
-          {{ Math.round(item.precipProbability * 100) }}%
-        </p>
         <p class="txt_regular_12">
           {{ item.precipIntensity === 0 ? "0.00" : item.precipIntensity }}
           {{ unitPrecipitation }}

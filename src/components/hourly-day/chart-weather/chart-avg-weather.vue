@@ -99,7 +99,7 @@
           </template>
 
           <div class="w-full">
-            <div class="w-auto h-[422px] pl-4 pr-4">
+            <div class="w-auto h-[380px] pl-4 pr-4">
               <!-- <ChartTempRain></ChartTempRain> -->
               <ChartSyntheticHourly></ChartSyntheticHourly>
             </div>

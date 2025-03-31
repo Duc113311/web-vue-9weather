@@ -357,5 +357,8 @@
   "Min":"Min",
   "In_next_24h":"In next 24h",
   "Daily_Weather":"Daily Weather",
-  "Search_your_address":"Search your address"
+  "Search_your_address":"Search your address",
+  "Recent":"Recent",
+  "No_results_found":"No results found",
+  "Try_searching_for_a_city_district":"Try searching for a city, district"
 }

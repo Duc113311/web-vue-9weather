@@ -255,6 +255,13 @@
   display: none !important;
 }
 
+
+.icon-svg-small{
+  width: 14px;
+  height: 14px;
+}
+
+
 .icon-svg {
   width: 20px;
   height: 20px;
@@ -329,12 +336,12 @@
 }
 .app-tooltip {
   cursor: pointer;
-  background: var(--bg-scan-mobile) !important; /* Nền đen đậm */
-  color: var(--color-input-ic) !important; /* Chữ trắng */
-  border-radius: 8px !important; /* Bo góc */
+  background: #1b324d !important; /* Nền đen đậm */
+  color: var(--color_f9f9f9) !important; /* Chữ trắng */
+  border-radius: 20px !important; /* Bo góc */
   padding: 4px 6px !important; /* Khoảng cách bên trong */
   border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Viền trắng rất nhẹ */
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25)!important;
 }
 
 .app-tooltip::after {
@@ -345,7 +352,7 @@
   transform: translateX(50%);
   width: 14px; /* Tăng chiều rộng để cân đối */
   height: 8px; /* Chiều cao thấp hơn để không quá nhọn */
-  background: var(--bg-scan-mobile); /* Giống màu tooltip */
+  background: #1b324d; /* Giống màu tooltip */
   clip-path: polygon(50% 0, 0% 100%, 100% 100%); /* Tam giác quay lên trên */
 }
 

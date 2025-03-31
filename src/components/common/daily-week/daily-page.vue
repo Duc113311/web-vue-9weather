@@ -19,23 +19,25 @@ vue-horizontal
             >
               <div class="w-full flex gap-4 h-full relative pl-2 pr-2">
                 <div v-for="(item, index) in dailyGettersData" :key="index">
-                  <div class="w-[150px] h-full flex flex-col gap-1 item-daily">
+                  <div class="w-[169px] h-full flex flex-col gap-1 item-daily">
                     <div class="w-full text-left">
-                      <span class="txt_regular_14">{{
-                        renderHourly(item).timestampValue
-                      }}</span>
-                      <span class="txt_regular_12 absolute ml-1">
+                      <span class="txt_regular_14"
+                        >{{ renderHourly(item).timestampValue }},
+                      </span>
+                      <span class="txt_regular_12">
                         {{ convertToShortDay(item.time) }}
                       </span>
                     </div>
                     <!--  -->
                     <div
-                      class="w-full flex gap-4 justify-center p-2 items-center"
+                      class="w-full flex gap-4 justify-between items-center pt-2 pb-2 h-[90px]"
                     >
-                      <component
-                        class="icon-svg"
-                        :is="renderIcon(item.icon)"
-                      ></component>
+                      <div class="flex flex-col gap-2">
+                        <component :is="renderIcon(item.icon)"></component>
+                        <p class="txt_regular_12 text-left">
+                          {{ convertSummary(item?.summary) }}
+                        </p>
+                      </div>
 
                       <div class="flex flex-col gap-1">
                         <div class="flex items-center gap-1">
@@ -51,13 +53,11 @@ vue-horizontal
                     </div>
                     <div class="flex flex-col gap-2">
                       <!--  -->
-                      <div class="w-full flex justify-start items-center">
-                        <p class="txt_regular_14">
-                          {{ convertSummary(item?.summary) }}
-                        </p>
-                      </div>
+                      <div class="w-full flex justify-start items-center"></div>
                       <!--  -->
-                      <div class="w-full flex gap-1 justify-start items-center">
+                      <div
+                        class="w-full flex gap-1 justify-between items-center"
+                      >
                         <IcPrecipitation class="icon-svg"></IcPrecipitation>
                         <div class="flex items-center txt_medium_15">
                           <p>
@@ -66,7 +66,9 @@ vue-horizontal
                         </div>
                       </div>
                       <!--  -->
-                      <div class="w-full flex gap-1 justify-start items-center">
+                      <div
+                        class="w-full flex gap-1 justify-between items-center"
+                      >
                         <div
                           class="flex items-center gap-2"
                           v-if="item?.precipType === 'Snow'"
@@ -85,7 +87,9 @@ vue-horizontal
                         </div>
                       </div>
                       <!--  -->
-                      <div class="w-full flex gap-1 justify-start items-center">
+                      <div
+                        class="w-full flex gap-1 justify-between items-center"
+                      >
                         <IcHumidity class="icon-svg"></IcHumidity>
                         <div class="flex items-center txt_medium_15">
                           <p>{{ Math.round(item?.humidity * 100) }}%</p>
@@ -156,8 +160,10 @@ export default {
 
     dailyGettersData() {
       debugger;
-      console.log("this.dailyDataGetters", this.dailyDataGetters);
-      return this.$store.state.weatherModule.dailyData;
+      const dailyData = this.$store.state.weatherModule.dailyData;
+      console.log("dailyData", dailyData.slice(1));
+
+      return dailyData.slice(1);
     },
   },
 
@@ -225,7 +231,7 @@ export default {
 <style lang="scss">
 .item-daily {
   border-radius: 20px;
-  background: linear-gradient(to bottom, #0e203d33, #06233f);
+  background: linear-gradient(to bottom, #495970 50%, #4b74b0);
   padding: 10px;
 }
 </style>

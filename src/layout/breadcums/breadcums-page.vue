@@ -220,7 +220,7 @@
                 </div>
 
                 <div
-                  class="w-[200px] flex justify-center flex-col items-center gap-2"
+                  class="w-[200px] flex justify-center flex-col items-center gap-2 cursor-pointer"
                 >
                   <p class="txt_medium_15 text-center">
                     {{ $t("Scan_the_QR_code") }}

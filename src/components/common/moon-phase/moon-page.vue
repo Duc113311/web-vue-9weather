@@ -359,7 +359,6 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   font-size: 12px;
-  pointer-events: none;
   color: aqua;
 }
 

@@ -11,8 +11,8 @@
         >
           <div class="w-full h-full relative">
             <ChartDays class="h-[40px]"></ChartDays>
-            <ChartTitleTemp></ChartTitleTemp>
-
+            <ChartTitleTemp class="mt-0.5"></ChartTitleTemp>
+            <ChartTitleChanceOfRain class="mt-0.5"></ChartTitleChanceOfRain>
             <div class="flex w-full h-full min-w-[1550px]">
               <div
                 v-for="(day, index) in paramHourly"
@@ -21,12 +21,13 @@
               ></div>
             </div>
             <ChartTemperatureBar
-              class="h-[120px] absolute top-14 z-40"
+              class="h-[120px] absolute top-16 z-40"
             ></ChartTemperatureBar>
 
             <ChartPrecipitationBar
-              class="h-[150px] absolute bottom-0 z-10"
+              class="h-[150px] absolute -bottom-2 z-10"
             ></ChartPrecipitationBar>
+
             <ChartTitleRain
               class="h-[112px] absolute top-rain-gif z-20"
             ></ChartTitleRain>
@@ -86,6 +87,7 @@ import ChartDomainRain from "@/components/common/chart/chart-domain-rain.vue";
 import ChartDomainTemps from "@/components/common/chart/chart-domain-temps.vue";
 import ChartPrecipitationBar from "@/components/common/chart/chart-precipitation-bar.vue";
 import ChartTemperatureBar from "@/components/common/chart/chart-temperature-bar.vue";
+import ChartTitleChanceOfRain from "@/components/common/chart/chart-title-chance-of-rain.vue";
 import ChartTitleRain from "@/components/common/chart/chart-title-rain.vue";
 import ChartTitleTemp from "@/components/common/chart/chart-title-temp.vue";
 import ChartPrecipitation from "@/components/month-day/chart-weather/chart-precipitation.vue";
@@ -104,7 +106,7 @@ export default {
     ChartTitleTemp,
     VueHorizontal,
     ChartTitleRain,
-
+    ChartTitleChanceOfRain,
     // ChartColumnRainfall,
     // ChartApexRain,
     // ChartBarRain,
@@ -160,6 +162,6 @@ export default {
 }
 
 .top-rain-gif {
-  top: 58px;
+  top: 79px;
 }
 </style>

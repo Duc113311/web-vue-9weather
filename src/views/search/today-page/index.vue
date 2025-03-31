@@ -22,9 +22,9 @@
     >
       <!--  -->
       <div
-        class="container h-[300px] local-d lg:flex block w-full justify-between gap-20-px md:pt-2 md:pb-2"
+        class="container h-[280px] local-d lg:flex block w-full justify-between gap-20-px md:pt-2 md:pb-2"
       >
-        <div class="left-c w-full lg:w-[66%] gap-20-px">
+        <div class="left-c w-full lg:w-[68%] gap-20-px">
           <div
             class="md:flex block justify-between lg:h-[260px] w-full gap-20-px"
             v-if="currentlyData && Object.keys(currentlyData).length > 0"
@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <div class="right-c lg:w-[34%] w-full">
+        <div class="right-c lg:w-[32%] w-full">
           <!--  -->
           <div
             class="right-country lg:h-[260px] md:h-[243px] w-[100%]"

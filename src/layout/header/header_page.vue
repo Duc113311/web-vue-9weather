@@ -84,72 +84,102 @@
                       </g>
                     </svg>
                   </div>
-                  <div v-if="showDropdown" class="search-results">
+                  <div v-if="showDropdown" class="search-results color_f9f9f9">
                     <div
-                      class="search-bar-result current-location-result flex gap-2"
+                      class="search-bar-result current-location-result flex gap-2 cursor-pointer"
                       @click="onClickLocationView()"
                     >
                       <img
-                        src="../../assets/images/svg_v2/mingcute_send-fill.svg"
+                        src="../../assets/images/svg_v2/tabler_location.svg"
                         alt=""
                         width="16"
                       />
-                      <span class="txt_regular_des_moon_12">{{
-                        $t("Use_current_location")
-                      }}</span>
+                      <span
+                        class="txt_regular_des_moon_12 txt-current color_60A5FA"
+                        >{{ $t("Use_current_location") }}</span
+                      >
                     </div>
-                    <div
-                      class="results-container"
-                      v-for="(item, index) in suggestions"
-                      :key="index"
-                      @click="selectSuggestion(item)"
-                    >
-                      <div class="current-location-result" v-if="item.address">
-                        <div class="text-left">
-                          <p
-                            class="search-bar-result__name txt_regular_des_moon_12"
-                          >
-                            {{ item.address }}
-                          </p>
-                          <p
-                            class="search-bar-result__long-name txt_regular_12"
-                          >
-                            {{ item.country || "" }}
-                          </p>
+                    <div v-if="suggestions.length !== 0" class="mt-2">
+                      <div
+                        class="results-container cursor-pointer"
+                        v-for="(item, index) in suggestions"
+                        :key="index"
+                        @click="selectSuggestion(item)"
+                      >
+                        <div
+                          class="current-location-result pt-1 pb-1"
+                          v-if="item.address"
+                        >
+                          <div class="text-left">
+                            <p
+                              class="search-bar-result__name txt_regular_des_moon_12"
+                            >
+                              {{ item.address }}
+                            </p>
+                            <p
+                              class="search-bar-result__long-name txt_regular_12"
+                            >
+                              {{ item.country || "" }}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div v-if="paramRecent.length > 0">
-                      <div class="text-left p-2 bor-b">
-                        <p class="txt_regular_14 text-left">Recent</p>
+                    <div
+                      v-if="suggestions.length === 0 && searchQuery.length >= 2"
+                      class="mt-4 bor-b"
+                    >
+                      <p class="txt_medium_14 text-center">
+                        {{ $t("No_results_found") }}
+                      </p>
+                      <span class="txt_regular_14 text-center">{{
+                        $t("Try_searching_for_a_city_district")
+                      }}</span>
+                    </div>
+                    <div
+                      v-if="
+                        paramRecent.length !== 0 &&
+                        searchQuery.length <= 1 &&
+                        suggestions.length === 0
+                      "
+                    >
+                      <div class="text-left pt-4 pb-2">
+                        <p class="txt_regular_14 text-left">
+                          {{ $t("Recent") }}
+                        </p>
                       </div>
                       <div
-                        class="results-container"
+                        class="results-container pt-2 pb-2 cursor-pointer"
                         v-for="(item, index) in paramRecent"
                         :key="index"
+                        @click="onClickWeatherRecent(item)"
                       >
                         <div class="current-location-result">
                           <!--  -->
                           <div class="flex w-full justify-between items-center">
-                            <div class="text-left">
+                            <div class="text-left w-[50%] search-address">
                               <p
                                 class="search-bar-result__name txt_regular_des_moon_12"
                               >
-                                {{ item.cityName }}
+                                {{ item.objectAddress?.city }}
                               </p>
                               <p
                                 class="search-bar-result__long-name txt_regular_12"
                               >
-                                {{ item.countryName || "" }}
+                                {{ item.objectAddress?.country || "" }}
                               </p>
                             </div>
                             <!--  -->
-                            <component
-                              :is="renderIcon(item.iconWeather)"
-                              :width="50"
-                              :height="50"
-                            ></component>
-                            <div>{{ renderToCelsiusAndUnit(item.tempt) }}</div>
+                            <div class="flex items-center w-[50%] justify-end">
+                              <component
+                                :is="renderIcon(item.iconWeather)"
+                                :width="30"
+                                :height="30"
+                              ></component>
+                              <div class="w-[45px] text-right txt_medium_17">
+                                {{ renderToCelsiusAndUnit(item.tempt) }}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -339,7 +369,23 @@ export default {
     },
 
     paramRecent() {
-      return this.$store.state.weatherModule.recentData;
+      const storedRecent = localStorage.getItem("recentData");
+      const stateRecent = this.$store.state.weatherModule.recentData;
+
+      if (stateRecent.length !== 0) {
+        return stateRecent;
+      }
+
+      if (storedRecent) {
+        try {
+          return JSON.parse(storedRecent);
+        } catch (e) {
+          console.error("Lỗi parse localStorage:", e);
+          return [];
+        }
+      }
+
+      return [];
     },
 
     renderCountry() {
@@ -461,7 +507,7 @@ export default {
 
     async onSearch() {
       const currentInput = this.searchQuery;
-
+      debugger;
       if (!currentInput) {
         this.suggestions = [];
         return;
@@ -487,10 +533,13 @@ export default {
           // Nếu người dùng đã gõ/xóa tiếp → không update suggestion nữa
           return;
         }
-
+        debugger;
         const resultFromStore = this.$store.state.weatherModule.newArray || [];
-
-        this.suggestions = [useCurrentLocation, ...resultFromStore];
+        if (Object.keys(resultFromStore[0]).length !== 0) {
+          this.suggestions = [useCurrentLocation, ...resultFromStore];
+        } else {
+          this.suggestions = [];
+        }
       } catch (error) {
         console.error("Lỗi khi gọi API địa chỉ:", error);
         this.suggestions = [];
@@ -498,7 +547,7 @@ export default {
     },
 
     renderIcon(val) {
-      const iconValue = getIconHourlyForecastTheme(val.icon);
+      const iconValue = getIconHourlyForecastTheme(val);
       return iconValue;
     },
     handleEnter() {
@@ -853,8 +902,7 @@ export default {
         cityName = this.getStateByLocation(item.state);
       }
       const objectRecent = {
-        cityName: cityName,
-        countryName: item.country,
+        objectAddress: this.wardParam,
         iconWeather: locationCurrently?.icon,
         tempt: locationCurrently?.temperature,
       };
@@ -1168,6 +1216,188 @@ export default {
 
       // API Get Weather Current
       await this.getWeatherDataCurrent(encodeDataWeather);
+      const locationCurrently = this.paramCurrently;
+      let cityName = "";
+      let countryName = "";
+      if (this.wardParam?.country_key?.toLowerCase() === "vn") {
+        cityName = this.wardParam.city;
+      } else {
+        cityName = this.wardParam.city;
+      }
+      const objectRecent = {
+        objectAddress: this.wardParam,
+        iconWeather: locationCurrently?.icon,
+        tempt: locationCurrently?.temperature,
+      };
+      this.saveRecentData(objectRecent);
+
+      const encodeKeyAir = encodeBase64(resultAir);
+      // API Get Air Quality By Key
+      await this.getAirQualityByKey(encodeKeyAir);
+
+      const airCode = getParamAirByCode(this.airKeyObjectGetters?.key);
+      const encodeAirCode = encodeBase64(airCode);
+      // API Get Air Quality Data
+      await this.getAirQuality(encodeAirCode);
+      this.indexKey = this.indexKey + 1;
+      this.setIndexComponent(this.indexKey);
+    },
+
+    async onClickWeatherRecent(value) {
+      const objectBreadValue = value.objectAddress;
+      if (objectBreadValue?.country_key?.toLowerCase() === "vn") {
+        await this.loadAllFileJson().then(async (x) => {
+          const cityName = "Vietnamese";
+          const cityDetail = "vietnam";
+          // const dataGet = await getFromIndexedDB(cityName, cityDetail);
+          // console.log("dataGet", dataGet);
+        });
+      } else {
+        await this.loadProvinceWould(objectBreadValue).then(async (x) => {
+          const cityName = objectBreadValue.country;
+          const cityDetail = objectBreadValue.country_key;
+          // const dataGet = await getFromIndexedDB(cityName, cityDetail);
+          // console.log("dataGetWorld", dataGet);
+        });
+      }
+
+      localStorage.setItem("objectBread", JSON.stringify(objectBreadValue));
+
+      this.setBreadcumsNotAllowLocation(objectBreadValue);
+
+      if (objectBreadValue.country_key.toLowerCase() === "vn") {
+        // tồn tại thành phố
+        if (
+          objectBreadValue.city.length !== 0 &&
+          objectBreadValue.district.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.city),
+              ],
+            },
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBreadValue.city.length !== 0 &&
+          objectBreadValue.district.length !== 0 &&
+          objectBreadValue.ward.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.city),
+                convertLowerCase(objectBreadValue.district),
+              ],
+            },
+          });
+        }
+        if (
+          objectBreadValue.city.length !== 0 &&
+          objectBreadValue.district.length !== 0 &&
+          objectBreadValue.ward.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.city),
+                convertLowerCase(objectBreadValue.district),
+                convertLowerCase(removeWordAndAccents(objectBreadValue.ward)),
+              ],
+            },
+          });
+        }
+      } else {
+        // tồn tại thành phố
+        if (
+          objectBreadValue.state.length !== 0 &&
+          objectBreadValue.county.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.state),
+              ],
+            },
+          });
+        }
+        // Tồn tại quận
+        if (
+          objectBreadValue.state.length !== 0 &&
+          objectBreadValue.county.length !== 0 &&
+          objectBreadValue.cities.length === 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.state),
+                convertLowerCase(objectBreadValue.county),
+              ],
+            },
+          });
+        }
+        if (
+          objectBreadValue.state.length !== 0 &&
+          objectBreadValue.county.length !== 0 &&
+          objectBreadValue.cities.length !== 0
+        ) {
+          await this.$router.push({
+            name: "today-weather",
+            params: {
+              language: this.languageParam,
+              location: [
+                objectBreadValue.country_key.toLowerCase(),
+                convertLowerCase(objectBreadValue.state),
+                convertLowerCase(objectBreadValue.county),
+                convertLowerCase(objectBreadValue.cities),
+              ],
+            },
+          });
+        }
+      }
+
+      this.showDropdown = false;
+
+      const param = `version=1&type=8&app_id=amobi.weather.forecast.radar.rain&request=https://api.forecast.io/forecast/TOH_KEY/${objectBreadValue.latitude},${objectBreadValue.longitude}?lang=${this.languageParam}`;
+      const resultAir = getAqiDataFromLocation(
+        objectBreadValue.latitude,
+        objectBreadValue.longitude
+      );
+      const encodeDataWeather = encodeBase64(param);
+
+      // API Get Weather Current
+      await this.getWeatherDataCurrent(encodeDataWeather);
+      const locationCurrently = this.paramCurrently;
+      let cityName = "";
+      let countryName = "";
+      if (this.wardParam?.country_key?.toLowerCase() === "vn") {
+        cityName = this.wardParam.city;
+      } else {
+        cityName = this.wardParam.city;
+      }
+      const objectRecent = {
+        objectAddress: this.wardParam,
+        iconWeather: locationCurrently?.icon,
+        tempt: locationCurrently?.temperature,
+      };
+      this.saveRecentData(objectRecent);
 
       const encodeKeyAir = encodeBase64(resultAir);
       // API Get Air Quality By Key
@@ -1233,8 +1463,8 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  background: white;
-  border-radius: 6px;
+  background-color: rgba(13, 41, 82, 0.1);
+  border-radius: 20px;
   padding: 8px;
   border: 1px solid #ccc;
 }
@@ -1248,6 +1478,11 @@ export default {
   border: none;
   outline: none;
   font-size: 14px;
+  background-color: rgb(13 41 82 / 0%);
+}
+
+.search-input::placeholder {
+  color: rgba(13, 41, 82, 0.5);
 }
 
 .clear-icon {
@@ -1259,24 +1494,38 @@ export default {
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
-  border: 1px solid #ddd;
+  background: #1b324d;
+  border: 1px solid var(--bg-button);
   z-index: 10;
   margin-top: 2px;
-  border-radius: 6px;
+  border-radius: 20px;
+  padding: 20px;
   overflow: hidden;
 }
 
 .current-location-result {
   display: flex;
   align-items: center;
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
 }
 
+.current-location-result * {
+  cursor: inherit;
+}
+.search-bar-result:hover {
+  .txt-current {
+    color: #d3dfeda0;
+  }
+}
 .current-location-result:hover {
-  background-color: #f5f5f5;
+  .search-address {
+    color: #d3dfeda0;
+  }
+}
+
+.results-container:hover {
+  .search-bar-result__name {
+    color: #d3dfeda0;
+  }
 }
 
 .results-container .result-item {

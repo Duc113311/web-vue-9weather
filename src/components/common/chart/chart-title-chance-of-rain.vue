@@ -2,13 +2,19 @@
   <div class="w-[1550px] flex justify-between items-center">
     <div
       class="weather-item w-full"
-      v-for="(item, index) in listTemperatureData"
+      v-for="(item, index) in listChanceOfRainData"
       :key="index"
     >
       <!-- <span class="txt">{{ renderHourly(item).timestampValue }}</span> -->
-      <div class="flex items-center justify-center">
-        <IcTempt class="icon-svg-small"></IcTempt>
-        <div class="txt_regular_12">{{ item }}°</div>
+      <div class="flex items-center justify-center gap-1">
+        <IcChanceOfRain
+          v-if="item.summary !== 'snow'"
+          class="icon-svg-small"
+        ></IcChanceOfRain>
+        <IcChanceOfRainSnow v-else class="icon-svg-small"></IcChanceOfRainSnow>
+        <div class="txt_regular_12">
+          {{ Math.round(item.precipProbability * 100) }}%
+        </div>
       </div>
     </div>
   </div>
@@ -25,10 +31,13 @@ import {
   convertFtoC,
 } from "../../../utils/converValue";
 import IcTempt from "@/components/icons/IcTempt.vue";
+import IcChanceOfRain from "@/components/icons/IcChanceOfRain.vue";
+import IcChanceOfRainSnow from "@/components/icons/IcChanceOfRainSnow.vue";
 export default {
-  name: "chart-title-temp",
+  name: "chart-title-chance-of-rain",
   components: {
-    IcTempt,
+    IcChanceOfRain,
+    IcChanceOfRainSnow,
   },
   data() {
     return {};
@@ -44,14 +53,10 @@ export default {
       return this.$store.state.commonModule.objectSettingSave;
     },
 
-    listTemperatureData() {
+    listChanceOfRainData() {
       const unitSetting = this.objectSetting;
 
-      return this.paramHourly.map((element) =>
-        unitSetting.activeTemperature_save === "f"
-          ? convertCtoF(element.temperature)
-          : convertFtoC(element.temperature)
-      );
+      return this.paramHourly.map((element) => element);
       // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
   },

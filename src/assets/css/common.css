@@ -93,7 +93,6 @@
   bottom: 0;
   left: 0;
   overflow-y: scroll; /* Cho phép cuộn dọc */
-  pointer-events: none; /* Không cho phép tương tác với pseudo-element */
 }
 
 /* Scrollbar styles (optional) */
@@ -145,9 +144,6 @@
   transition: width 0.3s ease, height 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
 }
 
-.cursor-pointer-bh{
-  cursor: pointer;
-}
 
 .main-top {
   display: grid;
