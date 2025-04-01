@@ -23,8 +23,8 @@
           </div>
         </div>
       </template>
-      <div class="w-full">
-        <div class="h-[220px] w-full relative p-4">
+      <div class="w-full h-[460px]">
+        <div class="h-[50%] w-full relative p-4 bg-white">
           <div class="flex items-center">
             <p class="">Nov 01 2024</p>
           </div>
@@ -85,24 +85,22 @@
               </div>
             </div>
           </div>
-          <div class="w-full h-[130px] absolute bottom-0 left-0 pl-2 pr-2">
-            <ChartTideBarCurrent></ChartTideBarCurrent>
+          <div class="w-full h-[120px] absolute bottom-0 left-0 pl-2 pr-2">
+            <!-- <ChartTideBarCurrent></ChartTideBarCurrent> -->
           </div>
         </div>
-        <div class="h-[240px] w-full pl-10 pr-10">
+        <div class="h-[50%] w-full pl-10 pr-10 bg-slate-400">
           <div
             class="items-center w-full"
-            v-for="(itemExtreme, key) in extremesDataRender"
-            :key="key"
+            v-for="(itemExtreme, index) in extremesDataRender"
+            :key="index"
           >
             <div
-              v-for="(item, index) in itemExtreme"
-              :key="index"
               class="flex justify-between items-center w-full pad-small-tide"
             >
               <div class="flex items-center gap-2 w-[200px]">
                 <svg
-                  v-if="item.state === 'LOW TIDE'"
+                  v-if="itemExtreme.state === 'LOW TIDE'"
                   width="18"
                   height="19"
                   viewBox="0 0 20 21"
@@ -176,16 +174,17 @@
                   </defs>
                 </svg>
 
-                <p class="txt_regular_12">{{ item.state }}</p>
+                <p class="txt_regular_12">
+                  {{ convertExtreme(itemExtreme.state) }}
+                </p>
               </div>
               <!--  -->
               <div class="w-[120px] text-center flex txt_medium_15">
-                {{ formatDateToDDMMConvert(key) }}
-                {{ formatDatetimeToVNConvert(item.time) }}
+                {{ formatDatetimeToVNConvert(itemExtreme.datetime) }}
               </div>
               <div class="w-[100px] text-right">
                 <p class="txt_regular_14 text-right">
-                  {{ Number(item.height.toFixed(2)) }} ft
+                  {{ Number(itemExtreme.height.toFixed(2)) }} ft
                 </p>
               </div>
             </div>
@@ -201,12 +200,16 @@ import { formatDatetimeToVN, formatDateToDDMM } from "@/utils/converValue";
 import { groupTidesFromToday, takeFirstNFromObject } from "@/utils/middleware";
 import { mapGetters } from "vuex";
 import ChartTideBarCurrent from "../chart-tide-bar/chart-tide-bar-current.vue";
+import {
+  formatDateTime12h,
+  formatDateTime24h,
+} from "../../../utils/converValue";
 
 export default {
   name: "today-chart-tide",
   components: {
     BaseComponent,
-    ChartTideBarCurrent,
+    // ChartTideBarCurrent,
   },
 
   data() {
@@ -219,19 +222,40 @@ export default {
     ...mapGetters("tideModule", ["tideDataGetters", "extremesDataGetters"]),
 
     extremesDataRender() {
-      // console.log("this.extremesDataGetters", this.extremesDataGetters);
+      console.log(
+        "extremesDataGetters-1",
+        takeFirstNFromObject(this.extremesDataGetters, 3)
+      );
 
-      return takeFirstNFromObject(this.extremesDataGetters, 2);
+      return takeFirstNFromObject(this.extremesDataGetters, 3);
     },
   },
 
   methods: {
     formatDatetimeToVNConvert(data) {
-      return formatDatetimeToVN(data);
+      // return formatDatetimeToVN(data);
+      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
+      const timezoneValue =
+        this.$store.state.weatherModule.locationOffset.timezone;
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return formatDateTime12h(data, offsetValue, timezoneValue);
+      } else {
+        return formatDateTime24h(data, offsetValue, timezoneValue);
+      }
     },
 
     formatDateToDDMMConvert(data) {
       return formatDateToDDMM(data);
+    },
+
+    convertExtreme(data) {
+      if (data === "LOW TIDE") {
+        return "Low Tide";
+      } else {
+        return "High Tide";
+      }
     },
   },
 };

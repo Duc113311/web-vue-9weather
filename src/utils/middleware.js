@@ -79,27 +79,18 @@ export function groupTidesFromToday(data, daysAhead = 3) {
   return grouped;
 }
 
-export function takeFirstNFromObject(grouped, limitDays = 3) {
+export function takeFirstNFromObject(data, limitDays = 3) {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // reset giờ
+  today.setHours(0, 0, 0, 0); // Reset về đầu ngày
 
-  const filtered = {};
+  const endDate = new Date(today);
+  endDate.setDate(today.getDate() + limitDays); // Ngày kết thúc
 
-  const sortedKeys = Object.keys(grouped)
-    .filter((dateStr) => {
-      const date = new Date(dateStr);
-      return date >= today;
-    })
-    .sort(); // đảm bảo ngày theo thứ tự tăng dần
-
-  // Lấy tối đa limitDays ngày
-  const limitedKeys = sortedKeys.slice(0, limitDays);
-
-  limitedKeys.forEach((key) => {
-    filtered[key] = grouped[key];
+  return data.filter((item) => {
+    const dateItem = new Date(item.datetime);
+    dateItem.setHours(0, 0, 0, 0);
+    return dateItem >= today && dateItem < endDate;
   });
-
-  return filtered;
 }
 
 export function convertGroupedForLineChart(grouped) {

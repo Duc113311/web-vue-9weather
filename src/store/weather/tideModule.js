@@ -33,7 +33,8 @@ const mutations = {
 
     console.log("tideData", state.tideData);
 
-    state.extremesData = groupTidesByDate(data.extremes);
+    // state.extremesData = groupTidesByDate(data.extremes);
+    state.extremesData = data.extremes;
     state.datumsData = data.datums;
     state.timestampCurrent = data.timestamp;
     state.heightsData = data.heights;

@@ -1223,9 +1223,9 @@ export function convertHaversine(
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(latCurrently)) *
-      Math.cos(toRad(latNearest)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRad(latNearest)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Khoảng cách theo đơn vị được chọn
 
@@ -2361,4 +2361,52 @@ export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   const b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   return EARTH_RADIUS * b;
+}
+
+// Format dạng 24h: 26/03 18:05
+export function formatDateTime24h(datetime, offset = 0, timezone = "UTC") {
+  try {
+    const utcDate = new Date(datetime);
+
+    const localTime = new Date(
+      utcDate.getTime() + offset * 60 * 60 * 1000
+    );
+
+    const day = String(localTime.getDate()).padStart(2, "0");
+    const month = String(localTime.getMonth() + 1).padStart(2, "0");
+    const hour = String(localTime.getHours()).padStart(2, "0");
+    const minute = String(localTime.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month} ${hour}:${minute}`;
+  } catch (e) {
+    console.warn("Lỗi định dạng 24h:", e.message);
+    return datetime;
+  }
+}
+
+
+// Format dạng 12h: 26/03 06:05 AM
+export function formatDateTime12h(datetime, offset = 0, timezone = "UTC") {
+  try {
+    const utcDate = new Date(datetime);
+
+    const localTime = new Date(
+      utcDate.getTime() + offset * 60 * 60 * 1000
+    );
+
+    const day = String(localTime.getDate()).padStart(2, "0");
+    const month = String(localTime.getMonth() + 1).padStart(2, "0");
+
+    let hour = localTime.getHours();
+    const ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12; // 0 => 12
+
+    const hourStr = String(hour).padStart(2, "0");
+    const minute = String(localTime.getMinutes()).padStart(2, "0");
+
+    return `${day}/${month} ${hourStr}:${minute} ${ampm}`;
+  } catch (e) {
+    console.warn("Lỗi định dạng 12h:", e.message);
+    return datetime;
+  }
 }

@@ -10,8 +10,6 @@
           <TodayChartTide></TodayChartTide>
         </div>
 
-        <!--  -->
-
         <div
           class="right-hourly lg:w-[32%] w-full md:grid md:grid-cols-2 gap-5 lg:block"
         >
@@ -142,7 +140,9 @@ export default {
         console.log("listTideStation", this.listTideStation);
 
         debugger;
-        const stationId = this.listTideStation[0].station_id;
+        const stationId = this.listTideStation[0].id;
+        console.log("stationId", stationId);
+
         // this.setListTideStation(this.listTideStation);
         const params = {
           keyPrivate: "AMOBI_SOFT",
@@ -166,16 +166,16 @@ export default {
       this.objectBread?.latitude,
       this.objectBread?.longitude
     );
-    const params = {
-      keyPrivate: "AMOBI_SOFT",
-      duration: 44640,
-      interval: 1440,
-      timestamp: 1743502205,
-      station_id: "GESLA3:c1028eb231",
-      datum: "MLLW",
-    };
+    // const params = {
+    //   keyPrivate: "AMOBI_SOFT",
+    //   duration: 44640,
+    //   interval: 1440,
+    //   timestamp: 1743502205,
+    //   station_id: "GESLA3:c1028eb231",
+    //   datum: "MLLW",
+    // };
 
-    await this.getTidesData(params);
+    // await this.getTidesData(params);
   },
 };
 </script>
