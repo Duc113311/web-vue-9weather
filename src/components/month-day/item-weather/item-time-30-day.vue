@@ -22,9 +22,7 @@
         <span v-if="breadcumsObject?.city && !breadcumsObject?.district">
           {{
             $t(`{city}_weather_forecast_next_30_days`, {
-              city: $t(
-                `city.city_${languageParam}.${breadcumsObject?.city_key}`
-              ),
+              city: convertToLowCase(breadcumsObject.city),
             })
           }}
         </span>
@@ -39,15 +37,7 @@
           {{
             convertCapitalizeWords(
               $t(`{city}_weather_forecast_next_30_days`, {
-                city: $t(
-                  `${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}.${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.district_key
-                  )}`
-                ),
+                city: convertToLowCase(breadcumsObject.district),
               })
             )
           }}
@@ -62,15 +52,7 @@
           >{{
             convertCapitalizeWords(
               $t(`{city}_weather_forecast_next_30_days`, {
-                city: $t(
-                  `${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}.${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.ward_key
-                  )}`
-                ),
+                city: convertToLowCase(breadcumsObject.ward),
               })
             )
           }}</span
@@ -122,10 +104,10 @@
                 <div class="flex items-center">
                   <p class="w-[100px] text-left">
                     <span class="txt_regular_14">
-                      {{ renderHourly(item).timestampValue }}
+                      {{ renderHourly(item).timestampValue }},
                     </span>
 
-                    <span class="txt_regular_12 absolute ml-1">
+                    <span class="txt_regular_12">
                       {{ convertToShortDay(item.time) }}
                     </span>
                   </p>
@@ -172,7 +154,7 @@
               </div>
               <div
                 v-if="index === valueChoose"
-                class="w-full flex items-center justify-between md:pr-11"
+                class="w-full flex items-center justify-between md:pr-11 mt-2"
               >
                 <div class="w-[50%] flex flex-col gap-4 bor-rim-r md:pr-6 pr-2">
                   <div class="flex items-center justify-between">

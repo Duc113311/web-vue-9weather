@@ -8,9 +8,7 @@
           <p class="txt_medium_14" v-if="breadcumsObject?.country_key === 'vn'">
             {{
               $t(`Current_UV_In_{city}`, {
-                city: $t(
-                  `city.city_${languageParam}.${breadcumsObject?.city_key}`
-                ),
+                city: convertToLowCase(breadcumsObject.city),
               })
             }}
           </p>
@@ -39,13 +37,8 @@
             v-if="objectBreadcums?.country_key?.toLowerCase() === 'vn'"
             class="txt_regular_17 text-left"
           >
-            {{
-              $t(
-                `city.city_${languageParam}.${convertToLowCase(
-                  objectBreadcums?.city_key
-                )}`
-              )
-            }}, {{ objectBreadcums?.country }}
+            {{ convertToLowCase(objectBreadcums.city) }},
+            {{ objectBreadcums?.country }}
           </p>
         </div>
         <div class="w-full flex items-center justify-between mt-6 mb-4">

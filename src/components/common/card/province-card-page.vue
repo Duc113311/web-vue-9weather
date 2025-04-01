@@ -11,11 +11,12 @@
           class="txt_medium_14 text-center"
           v-if="breadcumsObject.country_key === 'vn'"
         >
-          {{
-            $t(
-              `city.city_${renderLanguage}.${objectProvince.keyAccentLanguage}`
-            )
-          }}
+          <span v-if="renderLanguage === 'vi'">
+            {{ objectProvince.viNameLanguage }}
+          </span>
+          <span v-else>
+            {{ convertToLowCase(objectProvince.keyAccentLanguage) }}
+          </span>
         </p>
         <p class="txt_medium_14 text-center" v-else>
           {{ objectProvince.enNameLanguage }}
@@ -99,6 +100,9 @@ export default {
   },
 
   methods: {
+    convertToLowCase(value) {
+      return value ? value.replace(/_/g, " ") : "";
+    },
     splitLocationName(location) {
       const keywords = [
         "Town",

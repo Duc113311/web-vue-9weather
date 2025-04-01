@@ -24,18 +24,20 @@
         </div>
       </template>
       <div class="w-full">
-        <div class="h-[200px] w-full relative p-4">
+        <div class="h-[220px] w-full relative p-4">
           <div class="flex items-center">
             <p class="">Nov 01 2024</p>
           </div>
-          <div class="absolute right-0 top-0 p-4">
+          <div class="absolute right-0 top-0 p-3">
             <div class="relative">
-              <div class="w-[68px] h-[68px] bg-red-300 bor-radios-full p-2">
+              <div
+                class="w-[60px] h-[60px] bg-red-500 bor-radios-full p-2 button-rotate"
+              >
                 <div class="items-center">
                   <div class="flex justify-center">
                     <svg
-                      width="16"
-                      height="17"
+                      width="14"
+                      height="15"
                       viewBox="0 0 20 21"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +72,8 @@
                       </defs>
                     </svg>
                   </div>
-                  <p class="txt_regular_12">18:30</p>
-                  <p class="txt_regular_12">-10.67 ft</p>
+                  <p class="txt_regular_10">18:30</p>
+                  <p class="txt_regular_10">-10.67 ft</p>
                 </div>
               </div>
               <div class="flex justify-center">
@@ -83,11 +85,11 @@
               </div>
             </div>
           </div>
-          <div class="w-full h-[150px]">
+          <div class="w-full h-[130px] absolute bottom-0 left-0 pl-2 pr-2">
             <ChartTideBarCurrent></ChartTideBarCurrent>
           </div>
         </div>
-        <div class="h-[260px] w-full pl-10 pr-10">
+        <div class="h-[240px] w-full pl-10 pr-10">
           <div
             class="items-center w-full"
             v-for="(itemExtreme, key) in extremesDataRender"
@@ -96,13 +98,13 @@
             <div
               v-for="(item, index) in itemExtreme"
               :key="index"
-              class="flex justify-between items-center w-full pad-small"
+              class="flex justify-between items-center w-full pad-small-tide"
             >
               <div class="flex items-center gap-2 w-[200px]">
                 <svg
                   v-if="item.state === 'LOW TIDE'"
-                  width="20"
-                  height="21"
+                  width="18"
+                  height="19"
                   viewBox="0 0 20 21"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -138,8 +140,8 @@
                 </svg>
                 <svg
                   v-else
-                  width="20"
-                  height="21"
+                  width="18"
+                  height="19"
                   viewBox="0 0 20 21"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +176,7 @@
                   </defs>
                 </svg>
 
-                <p class="txt_regular_14">{{ item.state }}</p>
+                <p class="txt_regular_12">{{ item.state }}</p>
               </div>
               <!--  -->
               <div class="w-[120px] text-center flex txt_medium_15">
@@ -219,7 +221,7 @@ export default {
     extremesDataRender() {
       // console.log("this.extremesDataGetters", this.extremesDataGetters);
 
-      return takeFirstNFromObject(this.extremesDataGetters, 3);
+      return takeFirstNFromObject(this.extremesDataGetters, 2);
     },
   },
 
@@ -239,6 +241,74 @@ export default {
   border-radius: 14px;
   background-color: rgb(75, 136, 227);
   padding: 3px 6px;
-  top: 60px;
+  top: 54px;
+}
+
+.button-rotate {
+  cursor: pointer;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+
+@-webkit-keyframes glowing {
+  0% {
+    background-color: #b20000;
+    -webkit-box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    -webkit-box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    -webkit-box-shadow: 0 0 3px #b20000;
+  }
+}
+
+@-moz-keyframes glowing {
+  0% {
+    background-color: #b20000;
+    -moz-box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    -moz-box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    -moz-box-shadow: 0 0 3px #b20000;
+  }
+}
+
+@-o-keyframes glowing {
+  0% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
+  50% {
+    background-color: #ff0000;
+    box-shadow: 0 0 40px #ff0000;
+  }
+  100% {
+    background-color: #b20000;
+    box-shadow: 0 0 3px #b20000;
+  }
 }
 </style>

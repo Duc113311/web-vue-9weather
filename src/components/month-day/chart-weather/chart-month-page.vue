@@ -23,7 +23,7 @@
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
                 $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
-                  city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+                  city: convertToLowCase(wardParam.city),
                 })
               }}
             </span>
@@ -34,15 +34,7 @@
               {{
                 convertCapitalizeWords(
                   $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
-                    city: $t(
-                      `${convertToSlugCity(
-                        wardParam?.city
-                      )}.${convertToSlugCity(
-                        wardParam?.city
-                      )}_${languageParam}.${convertToLowCase(
-                        wardParam?.district_key
-                      )}`
-                    ),
+                    city: convertToLowCase(wardParam.district),
                   })
                 )
               }}
@@ -53,15 +45,7 @@
               >{{
                 convertCapitalizeWords(
                   $t(`Temperature_and_chance_of_rain_{city}_next_30_days`, {
-                    city: $t(
-                      `${convertToSlugCity(
-                        wardParam?.city
-                      )}.${convertToSlugCity(
-                        wardParam?.city
-                      )}_${languageParam}.${convertToLowCase(
-                        wardParam?.ward_key
-                      )}`
-                    ),
+                    city: convertToLowCase(wardParam.ward),
                   })
                 )
               }}</span
@@ -84,15 +68,15 @@
       </template>
 
       <div class="w-full gap-4">
-        <div class="w-auto h-[440px] pl-4 pr-4">
+        <div class="w-auto h-[380px] pl-4 pr-4">
           <!-- <ChartTempRain></ChartTempRain> -->
           <div class="w-full relative h-full">
             <div class="w-full h-full relative">
               <vue-horizontal
                 v-if="paramMonth.length > 0"
                 :key="paramMonth.length"
-                :displacement="1"
-                class="w-full h-[calc(100%-40px)] relative horizontals pt-4"
+                :displacement="0.9"
+                class="w-full h-[calc(100%-30px)] relative horizontals pt-2"
               >
                 <div class="w-full h-full relative">
                   <ChartTimeIcon class="h-[60px]"></ChartTimeIcon>
@@ -107,12 +91,12 @@
                     ></div>
                   </div>
                   <ChartTempMaxMin
-                    class="h-[120px] w-full absolute top-20 z-40 bg-slate-400"
+                    class="h-[110px] absolute top-tem-month z-40"
                     :key="indexState + Math.random()"
                   ></ChartTempMaxMin>
 
                   <ChartPrecipitation
-                    class="h-[150px] absolute bottom-0 z-10"
+                    class="h-[150px] absolute -bottom-2 z-10"
                     :key="indexState + Math.random()"
                   ></ChartPrecipitation>
 
@@ -123,7 +107,7 @@
               </vue-horizontal>
 
               <div
-                class="w-full h-[40px] md:flex grid grid-cols-3 justify-between pad-t-b-10 pad-r-l-10"
+                class="w-full h-[30px] md:flex grid grid-cols-3 justify-between pad-r-l-10"
               >
                 <div class="flex items-center text-left gap-2">
                   <div class="bg-temp-c rounded-full w-[12px] h-[12px]"></div>
@@ -273,6 +257,10 @@ export default {
 }
 
 .top-rain-gif-calendar {
-  top: 74px;
+  top: 91px;
+}
+
+.top-tem-month {
+  top: 93px;
 }
 </style>

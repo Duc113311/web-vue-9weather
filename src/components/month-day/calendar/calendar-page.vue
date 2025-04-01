@@ -347,7 +347,7 @@ export default {
       });
 
       // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
-      return `${day}-${month}`;
+      return `${day}/${month}`;
     },
 
     onvertToShortMonth(value) {
@@ -385,7 +385,7 @@ export default {
     getStyle(value) {
       if (this.convertToShortDay(value) === this.convertToShortToDay()) {
         return {
-          // backgroundColor: "rgba(0, 98, 245, 0.25)",
+          backgroundColor: "rgba(0, 98, 245, 0.25)",
           border: "2px solid #0062F5",
           borderRadius: "10px",
         };

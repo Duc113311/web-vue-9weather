@@ -4,8 +4,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 // import './assets/css/variables.css'; // Đường dẫn tới tệp variables.css
-import './assets/css/light-theme.css'; // Đường dẫn tới tệp variables.css
-import './assets/css/dark-theme.css'; // Đường dẫn tới tệp variables.css
+import "./assets/css/light-theme.css"; // Đường dẫn tới tệp variables.css
+import "./assets/css/dark-theme.css"; // Đường dẫn tới tệp variables.css
 
 // eslint-disable-next-line prettier/prettier
 import ElementPlus from "element-plus";
@@ -16,7 +16,7 @@ import "../src/assets/css/fonts.css";
 import "../src/assets/style/tailwind.css";
 import "../src/assets/style/global.css";
 
-import i18n from "./locales/i18n"
+import i18n from "./locales/i18n";
 
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
@@ -25,6 +25,7 @@ import VueApexCharts from "vue3-apexcharts";
 const app = createApp(App);
 
 app.use(VueApexCharts);
+console.log("i18n-data", i18n);
 
 app.use(store);
 app.use(router);

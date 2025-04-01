@@ -2343,3 +2343,22 @@ export function convertToShortDayMonth(value, locationOffsetValue, timezone) {
   // Trả về định dạng "Thu DD/MM" (VD: "Fri 21/02")
   return `${day}/${month}`;
 }
+
+
+export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  const EARTH_RADIUS = 6371; // Bán kính Trái Đất (km)
+
+  const deg2rad = (deg) => deg * (Math.PI / 180);
+
+  const latDiff = deg2rad(lat2 - lat1);
+  const lonDiff = deg2rad(lon2 - lon1);
+
+  const sin1 = Math.sin(latDiff / 2) ** 2;
+  const cos1 = Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2));
+  const sin2 = Math.sin(lonDiff / 2) ** 2;
+
+  const a = sin1 + cos1 * sin2;
+  const b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return EARTH_RADIUS * b;
+}

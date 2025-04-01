@@ -63,13 +63,8 @@
                 class="txt_regular_12"
                 v-if="breadcumsObjectValue?.country_key?.toLowerCase() === 'vn'"
               >
-                {{
-                  $t(
-                    `city.city_${languageParam}.${convertToLowCase(
-                      breadcumsObjectValue?.city_key
-                    )}`
-                  )
-                }}, {{ breadcumsObjectValue?.country }}</span
+                {{ convertToLowCase(breadcumsObjectValue.city) }},
+                {{ breadcumsObjectValue?.country }}</span
               >
               <span v-else class="txt_regular_12">
                 {{ breadcumsObjectValue.state }},

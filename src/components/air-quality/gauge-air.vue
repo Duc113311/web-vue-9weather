@@ -6,7 +6,7 @@
       <div class="txt_medium_14" v-if="breadcumsObject.country_key === 'vn'">
         <span v-if="breadcumsObject?.city && !breadcumsObject?.district">{{
           $t(`{city}_Air_Quality`, {
-            city: $t(`city.city_${languageParam}.${breadcumsObject?.city_key}`),
+            city: convertToLowCase(breadcumsObject.city),
           })
         }}</span>
         <span
@@ -18,15 +18,7 @@
         >
           {{
             $t(`{city}_Air_Quality`, {
-              city: $t(
-                `${convertToSlugCity(
-                  breadcumsObject?.city
-                )}.${convertToSlugCity(
-                  breadcumsObject?.city
-                )}_${languageParam}.${convertToLowCase(
-                  breadcumsObject?.district_key
-                )}`
-              ),
+              city: convertToLowCase(breadcumsObject.district),
             })
           }}
         </span>
@@ -39,15 +31,7 @@
         >
           {{
             $t(`{city}_Air_Quality`, {
-              city: $t(
-                `${convertToSlugCity(
-                  breadcumsObject?.city
-                )}.${convertToSlugCity(
-                  breadcumsObject?.city
-                )}_${languageParam}.${convertToLowCase(
-                  breadcumsObject?.ward_key
-                )}`
-              ),
+              city: convertToLowCase(breadcumsObject.ward),
             })
           }}
         </span>

@@ -51,11 +51,7 @@
                 class="txt_medium_17 cursor-pointer color_60A5FA"
                 @click="onClickLocationNow()"
                 v-if="currentLocationChome?.country_key?.toLowerCase() === 'vn'"
-                >{{
-                  $t(
-                    `city.city_${renderLanguage}.${currentLocationChome?.city_key}`
-                  )
-                }}</span
+                >{{ convertToLowCase(currentLocationChome.city) }}</span
               >
               <span
                 class="txt_medium_des_16 color_60A5FA"

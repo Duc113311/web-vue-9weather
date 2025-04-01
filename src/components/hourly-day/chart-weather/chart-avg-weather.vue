@@ -28,9 +28,7 @@
                 <span v-if="wardParam?.city && !wardParam?.district">
                   {{
                     $t(`Temperature_and_chance_of_rain_{city}_hour`, {
-                      city: $t(
-                        `city.city_${languageParam}.${wardParam?.city_key}`
-                      ),
+                      city: convertToLowCase(wardParam.city),
                     })
                   }}
                 </span>
@@ -43,15 +41,7 @@
                   {{
                     convertCapitalizeWords(
                       $t(`Temperature_and_chance_of_rain_{city}_hour`, {
-                        city: $t(
-                          `${convertToSlugCity(
-                            wardParam?.city
-                          )}.${convertToSlugCity(
-                            wardParam?.city
-                          )}_${languageParam}.${convertToLowCase(
-                            wardParam?.district_key
-                          )}`
-                        ),
+                        city: convertToLowCase(wardParam.district),
                       })
                     )
                   }}
@@ -64,15 +54,7 @@
                   >{{
                     convertCapitalizeWords(
                       $t(`Temperature_and_chance_of_rain_{city}_hour`, {
-                        city: $t(
-                          `${convertToSlugCity(
-                            wardParam?.city
-                          )}.${convertToSlugCity(
-                            wardParam?.city
-                          )}_${languageParam}.${convertToLowCase(
-                            wardParam?.ward_key
-                          )}`
-                        ),
+                        city: convertToLowCase(wardParam.ward),
                       })
                     )
                   }}</span
@@ -242,11 +224,7 @@ export default {
     },
 
     convertToLowCase(value) {
-      const normalizedStr = value
-        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
-        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
-
-      return normalizedStr;
+      return value ? value.replace(/_/g, " ") : "";
     },
   },
 };

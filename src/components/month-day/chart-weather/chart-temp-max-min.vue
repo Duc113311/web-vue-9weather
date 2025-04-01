@@ -55,6 +55,11 @@ export default {
 
   computed: {
     paramHourly() {
+      console.log(
+        "listDaily30Day-data",
+        this.$store.state.weatherModule.listDaily30Day
+      );
+
       return this.$store.state.weatherModule.listDaily30Day;
     },
 
@@ -70,7 +75,6 @@ export default {
           ? convertCtoF(element.temperatureMax)
           : convertFtoC(element.temperatureMax)
       );
-      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
 
     listTemperatureMin() {
@@ -81,7 +85,6 @@ export default {
           ? convertCtoF(element.temperatureMin)
           : convertFtoC(element.temperatureMin)
       );
-      // return [0, 1, 5, 10, 0, 100, 4, 100, 26, 49, 0];
     },
 
     listPrecipProbabilityData() {
@@ -162,19 +165,29 @@ export default {
       // Tạo gradient Temperature Dark Max
 
       const gradientMax = ctx.createLinearGradient(0, 0, 0, chartHeight);
-      gradientMax.addColorStop(0, "rgba(53, 154, 65, 1)");
-      gradientMax.addColorStop(1, "rgba(53, 154, 65, 0)");
+      gradientMax.addColorStop(0, "rgba(255, 218, 36, 0.5)");
+      gradientMax.addColorStop(1, "rgba(255, 218, 36, 0)");
 
-      const gradientMin = ctx.createLinearGradient(0, 0, 0, chartHeight - 20);
-      gradientMin.addColorStop(0, "rgba(23, 210, 45, 1)");
-      gradientMin.addColorStop(1, "rgba(23, 210, 45, 0)");
+      const gradientMin = ctx.createLinearGradient(0, 0, 0, chartHeight);
+      gradientMin.addColorStop(0, "rgba(83, 224, 80, 0.4)");
+      gradientMin.addColorStop(1, "rgba(83, 224, 80, 0)");
+
+      // Fill từ Min xuống đáy
+      const gradientFillMin = ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        chartHeight - 40
+      );
+      gradientFillMin.addColorStop(0.5, "rgba(117, 255, 95, 0.8)");
+      gradientFillMin.addColorStop(1, "rgba(117, 255, 95, 0)");
 
       const labelList = this.paramHourly.map((item) => {
         const date = item.time;
         return this.convertTime(date);
       });
 
-      const savedTheme = localStorage.getItem("theme") || "light";
+      // const savedTheme = localStorage.getItem("theme") || "light";
 
       this.chartInstance = new Chart(ctx, {
         type: "line",
@@ -191,7 +204,7 @@ export default {
               pointBorderColor: "#EBAB3F",
               pointRadius: 0, // Bán kính điểm
               backgroundColor: gradientMax,
-              fill: "start", // Tô nền dưới line
+              fill: false, // Tô nền dưới line
               data: this.listTemperatureData,
               pointHoverRadius: 4, // Tăng kích thước khi hover
             },
@@ -205,10 +218,19 @@ export default {
               borderWidth: 2, // Độ dày đường
               pointBorderColor: "#53E050",
               pointRadius: 0, // Bán kính điểm
-              backgroundColor: gradientMin,
-              fill: "start", // Tô nền dưới line
+              backgroundColor: gradientMax,
+              fill: "-1", // Tô nền dưới line
               data: this.listTemperatureMin,
               pointHoverRadius: 4, // Tăng kích thước khi hover
+            },
+            {
+              label: "Fill dưới Min",
+              order: -1, // Vẽ đầu tiên (làm nền)
+              borderWidth: 0,
+              pointRadius: 0,
+              backgroundColor: gradientFillMin, // Màu nhẹ hơn
+              fill: "start", // Từ Min đến trục X
+              data: this.listTemperatureMin, // same với line Min
             },
           ],
         },

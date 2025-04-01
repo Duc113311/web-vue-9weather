@@ -80,13 +80,7 @@
             &nbsp;
             <div class="flex items-center">
               <p v-if="breadcumsObject?.city">
-                {{
-                  $t(
-                    `city.city_${languageParam}.${convertToLowCase(
-                      breadcumsObject?.city_key
-                    )}`
-                  )
-                }},
+                {{ convertToLowCase(breadcumsObject.city) }},
               </p>
               &nbsp;
               <p v-if="breadcumsObject?.country">
@@ -188,13 +182,8 @@
           v-if="breadcumsObject?.country_key?.toLowerCase() === 'vn'"
         >
           <p v-if="breadcumsObject?.city">
-            {{
-              $t(
-                `city.city_${languageParam}.${convertToLowCase(
-                  breadcumsObject?.city_key
-                )}`
-              )
-            }},
+            <!-- {{ $t(`city.city_${languageParam}.${breadcumsObject?.city_key}`) }}, -->
+            {{ convertToLowCase(breadcumsObject.city) }},
           </p>
           &nbsp;
           <p v-if="breadcumsObject?.country">{{ breadcumsObject?.country }}</p>
@@ -367,10 +356,10 @@ export default {
       const languageRouter = this.$route.params;
 
       return Object.keys(languageRouter).length !== 0
-        ? languageRouter.language !== "en"
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
           ? "en"
           : languageRouter.language
-        : this.$i18n.locale !== "en"
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
         ? "en"
         : this.$i18n.locale;
     },

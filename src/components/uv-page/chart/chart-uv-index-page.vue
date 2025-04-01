@@ -11,9 +11,7 @@
           >
             <span v-if="breadcumsObject?.city && !breadcumsObject?.district">{{
               $t(`{city}_UV_index_by_hour`, {
-                city: $t(
-                  `city.city_${languageParam}.${breadcumsObject?.city_key}`
-                ),
+                city: convertToLowCase(breadcumsObject.city),
               })
             }}</span>
             <span
@@ -25,15 +23,7 @@
             >
               {{
                 $t(`{city}_UV_index_by_hour`, {
-                  city: $t(
-                    `${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}.${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}_${languageParam}.${convertToLowCase(
-                      breadcumsObject?.district_key
-                    )}`
-                  ),
+                  city: convertToLowCase(breadcumsObject.district),
                 })
               }}
             </span>
@@ -46,15 +36,7 @@
             >
               {{
                 $t(`{city}_UV_index_by_hour`, {
-                  city: $t(
-                    `${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}.${convertToSlugCity(
-                      breadcumsObject?.city
-                    )}_${languageParam}.${convertToLowCase(
-                      breadcumsObject?.ward_key
-                    )}`
-                  ),
+                  city: convertToLowCase(breadcumsObject.ward),
                 })
               }}
             </span>

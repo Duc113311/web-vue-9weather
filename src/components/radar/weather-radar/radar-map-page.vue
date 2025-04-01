@@ -23,7 +23,7 @@
         </div>
       </template>
 
-      <div class="w-full h-[420px]">
+      <div class="w-full h-[380px]">
         <div class="w-full h-full relative">
           <iframe
             ref="radarIframe"
@@ -226,7 +226,7 @@ export default {
 
 iframe {
   transition: border 0.3s ease, box-shadow 0.3s ease;
-  border: 2px solid transparent; /* Default border */
+  // border: 2px solid transparent; /* Default border */
 }
 
 iframe.active-radar {

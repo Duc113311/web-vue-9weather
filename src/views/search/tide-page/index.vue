@@ -69,6 +69,7 @@ import DatumTide from "@/components/tide/datum/datum-tide.vue";
 import StationTide from "@/components/tide/station/station-tide.vue";
 import TodayChartTide from "@/components/tide/today/today-chart-tide.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
+import { getDistanceFromLatLonInKm } from "@/utils/converValue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -84,26 +85,92 @@ export default {
     DatumTide,
   },
   data() {
-    return {};
+    return {
+      listTideStation: [],
+    };
   },
 
   computed: {
-    ...mapGetters("weatherModule", ["currentlyGetters"]),
+    ...mapGetters("weatherModule", [
+      "currentlyGetters",
+      "breadcumsObjectGetters",
+    ]),
     currentlyData() {
       return this.currentlyGetters;
+    },
+
+    objectBread() {
+      const retrievedArray = JSON.parse(localStorage.getItem("objectBread"));
+      const resultData = retrievedArray
+        ? retrievedArray
+        : this.breadcumsObjectGetters;
+
+      return resultData;
     },
   },
 
   methods: {
     ...mapActions("tideModule", ["getTidesData"]),
+
+    async loadListTideStation(currentLat, currentLon) {
+      try {
+        const response = await fetch("/json/tide/list_tide_station.json");
+        if (!response.ok)
+          throw new Error(
+            `Failed to fetch data: ${response.status} ${response.statusText}`
+          );
+
+        const data = await response.json();
+
+        // Tính khoảng cách và thêm vào từng station
+        const stationsWithDistance = data.map((station) => {
+          const distance = getDistanceFromLatLonInKm(
+            currentLat,
+            currentLon,
+            station.latitude,
+            station.longitude
+          );
+          return { ...station, distance };
+        });
+
+        // Sắp xếp theo khoảng cách tăng dần và lấy 6 phần tử đầu tiên
+        const nearestStations = stationsWithDistance
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, 6);
+
+        this.listTideStation = nearestStations;
+        console.log("listTideStation", this.listTideStation);
+
+        debugger;
+        const stationId = this.listTideStation[0].station_id;
+        // this.setListTideStation(this.listTideStation);
+        const params = {
+          keyPrivate: "AMOBI_SOFT",
+          duration: 44640,
+          interval: 1440,
+          timestamp: 1742724047,
+          station_id: stationId,
+          datum: "MLLW",
+        };
+
+        await this.getTidesData(params);
+        debugger;
+      } catch (error) {
+        console.error("Error loading file:", error.message);
+      }
+    },
   },
 
   async mounted() {
+    await this.loadListTideStation(
+      this.objectBread?.latitude,
+      this.objectBread?.longitude
+    );
     const params = {
       keyPrivate: "AMOBI_SOFT",
       duration: 44640,
       interval: 1440,
-      timestamp: 1742724047,
+      timestamp: 1743502205,
       station_id: "GESLA3:c1028eb231",
       datum: "MLLW",
     };

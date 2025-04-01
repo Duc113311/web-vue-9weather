@@ -25,7 +25,7 @@
             <span v-if="wardParam?.city && !wardParam?.district">
               {{
                 $t(`Weather_{city}`, {
-                  city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+                  city: convertToLowCase(wardParam.city),
                 })
               }}
             </span>
@@ -36,15 +36,7 @@
               {{
                 convertCapitalizeWords(
                   $t(`Weather_{city}`, {
-                    city: $t(
-                      `${convertToSlugCity(
-                        wardParam?.city
-                      )}.${convertToSlugCity(
-                        wardParam?.city
-                      )}_${languageParam}.${convertToLowCase(
-                        wardParam?.district_key
-                      )}`
-                    ),
+                    city: convertToLowCase(wardParam.district),
                   })
                 )
               }}
@@ -55,15 +47,7 @@
               >{{
                 convertCapitalizeWords(
                   $t(`Weather_{city}`, {
-                    city: $t(
-                      `${convertToSlugCity(
-                        wardParam?.city
-                      )}.${convertToSlugCity(
-                        wardParam?.city
-                      )}_${languageParam}.${convertToLowCase(
-                        wardParam?.ward_key
-                      )}`
-                    ),
+                    city: convertToLowCase(wardParam.ward),
                   })
                 )
               }}</span
@@ -147,11 +131,7 @@ export default {
     },
 
     convertToLowCase(value) {
-      const normalizedStr = value
-        .normalize("NFD") // Chuyển chuỗi sang dạng tổ hợp Unicode
-        .replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu
-
-      return normalizedStr;
+      return value ? value.replace(/_/g, " ") : "";
     },
   },
 };

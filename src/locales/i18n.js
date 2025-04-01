@@ -10,6 +10,8 @@ function loadCommonMessages() {
     commonMessages[lang] = commonLocales(key); // Thêm tệp ngôn ngữ vào commonMessages
   });
 
+  console.log("commonMessages", commonMessages);
+
   return commonMessages;
 }
 
@@ -29,6 +31,8 @@ function loadVietnamMessages() {
       vietnamMessages[lang][region] = vietnamLocales(key); // Thêm tệp ngôn ngữ vào vietnamMessages
     }
   });
+
+  console.log("vietnamMessages", vietnamMessages);
 
   return vietnamMessages;
 }
@@ -262,12 +266,16 @@ const messages = {
 //     bacgiang: bacgiangVi,
 //   },
 // };
+console.log("hihi", messages.en.city.city_en.Hung_Yen); // Kết quả mong đợi: "Hung Yen"
 
 const storedLanguage = localStorage.getItem("language");
 const defaultLanguage = "en"; // Ngôn ngữ mặc định
 const i18n = createI18n({
   locale: storedLanguage || defaultLanguage, // Sử dụng ngôn ngữ từ localStorage nếu có, ngược lại sử dụng ngôn ngữ mặc định
   fallbackLocale: defaultLanguage,
+  missingWarn: false, // tắt cảnh báo missing
+  fallbackWarn: false, // tắt cảnh báo fallback
+  silentFallbackWarn: true, // Tắt cảnh báo fallback
   messages,
 });
 

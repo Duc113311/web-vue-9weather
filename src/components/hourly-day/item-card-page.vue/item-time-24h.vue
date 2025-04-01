@@ -22,9 +22,7 @@
         <span v-if="breadcumsObject?.city && !breadcumsObject?.district">
           {{
             $t(`Weather_forecast_for_{city}`, {
-              city: $t(
-                `city.city_${languageParam}.${breadcumsObject?.city_key}`
-              ),
+              city: convertToLowCase(breadcumsObject.city),
             })
           }}
         </span>
@@ -39,15 +37,7 @@
           {{
             convertCapitalizeWords(
               $t(`Weather_forecast_for_{city}`, {
-                city: $t(
-                  `${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}.${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.district_key
-                  )}`
-                ),
+                city: convertToLowCase(breadcumsObject.district),
               })
             )
           }}
@@ -62,15 +52,7 @@
           >{{
             convertCapitalizeWords(
               $t(`Weather_forecast_for_{city}`, {
-                city: $t(
-                  `${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}.${convertToSlugCity(
-                    breadcumsObject?.city
-                  )}_${languageParam}.${convertToLowCase(
-                    breadcumsObject?.ward_key
-                  )}`
-                ),
+                city: convertToLowCase(breadcumsObject.ward),
               })
             )
           }}</span

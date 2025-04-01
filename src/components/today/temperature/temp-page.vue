@@ -23,7 +23,7 @@
           <div class="txt_medium_14" v-if="wardParam.country_key === 'vn'">
             <span v-if="wardParam?.city && !wardParam?.district">{{
               $t(`Current_weather_in_{city}`, {
-                city: $t(`city.city_${languageParam}.${wardParam?.city_key}`),
+                city: convertToLowCase(wardParam.city),
               })
             }}</span>
             <span
@@ -31,15 +31,7 @@
               >{{
                 convertCapitalizeWords(
                   $t(`Current_weather_in_{city}`, {
-                    city: $t(
-                      `${convertToSlugCity(
-                        wardParam?.city
-                      )}.${convertToSlugCity(
-                        wardParam?.city
-                      )}_${languageParam}.${convertToLowCase(
-                        wardParam?.district_key
-                      )}`
-                    ),
+                    city: convertToLowCase(wardParam.district),
                   })
                 )
               }}</span
@@ -50,15 +42,7 @@
               >{{
                 convertCapitalizeWords(
                   $t(`Current_weather_in_{city}`, {
-                    city: $t(
-                      `${convertToSlugCity(
-                        wardParam?.city
-                      )}.${convertToSlugCity(
-                        wardParam?.city
-                      )}_${languageParam}.${convertToLowCase(
-                        wardParam?.ward_key
-                      )}`
-                    ),
+                    city: convertToLowCase(wardParam.ward),
                   })
                 )
               }}</span
