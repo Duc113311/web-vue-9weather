@@ -144,11 +144,13 @@ export default {
         console.log("stationId", stationId);
 
         // this.setListTideStation(this.listTideStation);
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+
         const params = {
           keyPrivate: "AMOBI_SOFT",
           duration: 44640,
           interval: 1440,
-          timestamp: 1742724047,
+          timestamp: currentTimestamp,
           station_id: stationId,
           datum: "MLLW",
         };

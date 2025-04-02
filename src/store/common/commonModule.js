@@ -44,6 +44,7 @@ const state = {
     activeDistance_save: "km",
     activeWindSpeed_save: "mi/h",
     activePressure_save: "hPa",
+    activeTide_save: "m",
   },
 
   objectAqiPollutant: [

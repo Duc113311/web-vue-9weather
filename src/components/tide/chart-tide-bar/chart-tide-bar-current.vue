@@ -1,5 +1,8 @@
 <template>
-  <div class="chart-container-tempt p-chart-avg" v-if="extremesDataRender">
+  <div
+    class="chart-container-tempt w-[1550px] pl-6 pr-6"
+    v-if="extremesDataRender"
+  >
     <div class="chart-wrapper-tempt w-full h-full">
       <canvas id="chart_hourly" ref="canvas"></canvas>
     </div>
@@ -36,6 +39,12 @@ Chart.register(
   ChartDataLabels
 );
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import {
+  convertFeetToMeter,
+  convertMeterToFeet,
+  formatTo12HourTimeTide,
+  formatTo24HourTimeTide,
+} from "@/utils/converValue";
 
 export default {
   name: "chart-tide-bar-current",
@@ -44,53 +53,62 @@ export default {
   },
 
   computed: {
-    ...mapGetters("tideModule", ["tideDataGetters"]),
+    ...mapGetters("tideModule", ["extremesDataGetters"]),
 
     extremesDataRender() {
-      const data = this.tideDataGetters?.extremes;
+      const data = this.extremesDataGetters.slice(0, 2);
 
-      if (!data || !Array.isArray(data)) return [];
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
 
-      const now = new Date();
-      now.setHours(0, 0, 0, 0); // Hôm nay 00:00
+      // 🔹 Fake điểm đầu: giảm 20%
+      const objectCloneStart = { ...data[0] };
+      objectCloneStart.height = objectCloneStart.height * 0.1;
+      const fakeStartValue =
+        unitSetting.activeTide_save === "m"
+          ? convertFeetToMeter(objectCloneStart.height)
+          : convertMeterToFeet(objectCloneStart.height);
 
-      const start = new Date(now); // Hôm trước 12:00
-      start.setDate(start.getDate() - 1);
-      start.setHours(12, 0, 0, 0);
+      // 🔹 Fake điểm cuối: tăng 80%
+      const objectCloneEnd = { ...data[data.length - 1] };
+      objectCloneEnd.height = objectCloneEnd.height / 4.8;
+      const fakeEndValue =
+        unitSetting.activeTide_save === "m"
+          ? convertFeetToMeter(objectCloneEnd.height)
+          : convertMeterToFeet(objectCloneEnd.height);
 
-      const end = new Date(now); // Ngày mai 12:00
-      end.setDate(end.getDate() + 1);
-      end.setHours(12, 0, 0, 0);
-
-      const result = data.filter((item) => {
-        const itemTime = new Date(item.datetime);
-        return itemTime >= start && itemTime <= end;
+      // 🔹 Dữ liệu thật
+      const listHeight = data.map((el) => {
+        const value = el.height;
+        return unitSetting.activeTide_save === "m"
+          ? convertFeetToMeter(value)
+          : convertMeterToFeet(value);
       });
 
-      return result.map((el) => Number(el.height.toFixed(2)));
+      // 🔹 Trả kết quả: [fake đầu, dữ liệu thật..., fake cuối]
+      return [fakeStartValue, ...listHeight, fakeEndValue];
     },
 
     extremesDataRenderTime() {
-      const data = this.tideDataGetters?.extremes;
+      const data = this.extremesDataGetters;
+      const objectClone = { ...data[0] };
+      const objectCloneEnd = { ...data[data.length - 1] };
 
-      if (!data || !Array.isArray(data)) return [];
+      console.log("data-extreme", data);
 
-      const now = new Date();
-      now.setHours(0, 0, 0, 0); // Hôm nay 00:00
+      return [objectClone, ...data, objectCloneEnd] || [];
+    },
 
-      const start = new Date(now); // Hôm trước 12:00
-      start.setDate(start.getDate() - 1);
-      start.setHours(12, 0, 0, 0);
+    extremesDataRenderTimeRender() {
+      const data = this.extremesDataGetters;
+      const objectClone = { ...data[0] };
+      const objectCloneEnd = { ...data[data.length - 1] };
 
-      const end = new Date(now); // Ngày mai 12:00
-      end.setDate(end.getDate() + 1);
-      end.setHours(12, 0, 0, 0);
-
-      const result = data.filter((item) => {
-        const itemTime = new Date(item.datetime);
-        return itemTime >= start && itemTime <= end;
+      const timeClone = objectClone.datetime;
+      const timeCloneend = objectCloneEnd.datetime;
+      const listDataTime = data.map((el) => {
+        return el.datetime;
       });
-      return result || [];
+      return [timeClone, ...listDataTime, objectCloneEnd] || [];
     },
   },
 
@@ -131,15 +149,16 @@ export default {
       }
 
       const maxDataValue = Math.max(...this.extremesDataRender);
+      const minDataValue = Math.min(...this.extremesDataRender);
 
       const chartHeight = ctx.canvas.height;
 
       // Tạo gradient
       const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
-      gradient.addColorStop(0, "rgba(235, 171, 63, 1)"); // Màu đậm trên cùng
-      gradient.addColorStop(0.6, "rgba(235, 171, 63, 0.2)"); // Màu gần như trong suốt hơn
-      gradient.addColorStop(0.8, "rgba(235, 171, 63, 0.02)"); // Màu rất nhạt trước khi hết
-      gradient.addColorStop(1, "rgba(235, 171, 63, 0)"); // Màu hoàn toàn trong suốt ở đáy
+      gradient.addColorStop(0, "rgba(20, 130, 231, 1)"); // Màu đậm trên cùng
+      gradient.addColorStop(0.6, "rgba(20, 130, 231, 0.2)"); // Màu gần như trong suốt hơn
+      gradient.addColorStop(0.8, "rgba(20, 130, 231, 0.02)"); // Màu rất nhạt trước khi hết
+      gradient.addColorStop(1, "rgba(20, 130, 231, 0)"); // Màu hoàn toàn trong suốt ở đáy
 
       // Time
       const labelList = this.extremesDataRenderTime.map((item) => {
@@ -156,17 +175,57 @@ export default {
             {
               label: "",
               type: "line", // Kiểu dataset là line
-              borderColor: "#EBAB3F",
-              pointBackgroundColor: "#EBAB3F",
+              borderColor: "#1482E7",
+              pointBackgroundColor: "#ffffff",
+              pointRadius: (ctx) =>
+                ctx.dataIndex === 0 || ctx.dataIndex === 3 ? 0 : 4, // ẩn chấm đầu
               pointBorderWidth: 1, // Độ dày viền của điểm
               borderWidth: 2, // Độ dày đường
-              pointBorderColor: "#EBAB3F",
-              pointRadius: 4, // Bán kính điểm
+              pointBorderColor: "#ffffff",
               backgroundColor: gradient,
               fill: "start",
               data: this.extremesDataRender,
               pointHoverRadius: 3,
               tension: 0.4,
+              datalabels: {
+                align: "top",
+                anchor: "end",
+                color: "#ffffff",
+                font: {
+                  size: 10,
+                },
+                formatter: (value, context) => {
+                  console.log("value", context.dataIndex);
+                  console.log(
+                    "this.extremesDataRenderTimeRender",
+                    this.extremesDataRenderTimeRender
+                  );
+
+                  return this.convertDateTime(
+                    this.extremesDataRenderTimeRender[context.dataIndex]
+                  ); // VD: "05:20"
+                },
+              },
+              display: true,
+            },
+            {
+              label: "",
+              data: this.extremesDataRender,
+              borderColor: "transparent",
+              backgroundColor: "transparent",
+              pointRadius: 0,
+              datalabels: {
+                align: "bottom",
+                anchor: "start",
+                color: "#cccccc",
+                font: {
+                  size: 12,
+                },
+                formatter: (value, context) => {
+                  const trendArrow = value >= 0 ? "↑" : "↓";
+                  return `${value} ${this.unitTide()} ${trendArrow}`;
+                },
+              },
             },
           ],
         },
@@ -175,7 +234,7 @@ export default {
           maintainAspectRatio: false,
           layout: {
             padding: {
-              top: 0, // Chỉ định padding phía trên
+              top: 10, // Chỉ định padding phía trên
               bottom: 0, // Chỉ định padding phía dưới
             },
           },
@@ -194,8 +253,8 @@ export default {
               position: "left",
               display: false,
               beginAtZero: true,
-              max: maxDataValue - 4,
-              min: maxDataValue,
+              max: maxDataValue + 0.5,
+              min: minDataValue - 1,
             },
           },
           plugins: {
@@ -214,9 +273,19 @@ export default {
               footerAlign: "center",
             },
             datalabels: {
-              anchor: "end",
+              anchor: "center",
               align: "top",
-              display: false,
+              color: "#ccc", // Màu chữ
+              display: (ctx) =>
+                ctx.dataIndex === 0 || ctx.dataIndex === 3 ? 0 : 4, // ẩn chấm đầu
+              font: {
+                size: 12,
+              },
+              formatter: (value, context) => {
+                const labelTime = context.chart.data.labels[context.dataIndex];
+                const trendArrow = value >= 0 ? "↑" : "↓"; // Mũi tên
+                return [`${labelTime}`, `${value} ${trendArrow}`]; // array = hiển thị 2 dòng
+              },
             },
           },
 
@@ -228,6 +297,20 @@ export default {
         },
         plugins: [{}],
       });
+    },
+    convertDateTime(value) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+      if (unitSetting.activeTime_save === "12h") {
+        return formatTo12HourTimeTide(value);
+      } else {
+        return formatTo24HourTimeTide(value);
+      }
+    },
+
+    unitTide() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return unitSetting.activeTide_save;
     },
   },
 };

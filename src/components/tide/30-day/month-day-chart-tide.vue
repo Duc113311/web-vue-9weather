@@ -23,9 +23,14 @@
           </div>
         </div>
       </template>
-      <div class="w-full h-[400px]">
+      <div class="w-full h-[400px] pl-4 pr-4">
         <!--  -->
-        <ChartTideBarMonth></ChartTideBarMonth>
+        <vue-horizontal
+          :displacement="1"
+          class="w-full h-full relative horizontal pl-5 pr-5"
+        >
+          <ChartTideBarMonth></ChartTideBarMonth>
+        </vue-horizontal>
       </div>
     </BaseComponent>
   </div>
@@ -33,11 +38,12 @@
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
 import ChartTideBarMonth from "../chart-tide-bar/chart-tide-bar-month.vue";
+import VueHorizontal from "vue-horizontal";
 
 export default {
   name: "month-day-chart-tide",
 
-  components: { BaseComponent, ChartTideBarMonth },
+  components: { BaseComponent, ChartTideBarMonth, VueHorizontal },
 
   data() {
     return {

@@ -24,16 +24,18 @@
         </div>
       </template>
       <div class="w-full h-[460px]">
-        <div class="h-[50%] w-full relative p-4 bg-white">
+        <div class="h-[50%] w-full relative p-4">
           <div class="flex items-center">
-            <p class="">Nov 01 2024</p>
+            <p class="">
+              {{ formatDateLocalizedConvert(tideDataRender.datetime) }}
+            </p>
           </div>
           <div class="absolute right-0 top-0 p-3">
             <div class="relative">
               <div
                 class="w-[60px] h-[60px] bg-red-500 bor-radios-full p-2 button-rotate"
               >
-                <div class="items-center">
+                <div class="items-center" v-if="convertTimeRender()">
                   <div class="flex justify-center">
                     <svg
                       width="14"
@@ -72,8 +74,12 @@
                       </defs>
                     </svg>
                   </div>
-                  <p class="txt_regular_10">18:30</p>
-                  <p class="txt_regular_10">-10.67 ft</p>
+                  <p class="txt_regular_10">
+                    {{ convertTimeTideLive(convertTimeRender().datetime) }}
+                  </p>
+                  <p class="txt_regular_10">
+                    {{ formatTideHeightSingle(convertTimeRender().height) }}
+                  </p>
                 </div>
               </div>
               <div class="flex justify-center">
@@ -85,11 +91,11 @@
               </div>
             </div>
           </div>
-          <div class="w-full h-[120px] absolute bottom-0 left-0 pl-2 pr-2">
-            <!-- <ChartTideBarCurrent></ChartTideBarCurrent> -->
+          <div class="w-full h-[120px] absolute bottom-8 left-0 pl-2 pr-2">
+            <ChartTideBarCurrent></ChartTideBarCurrent>
           </div>
         </div>
-        <div class="h-[50%] w-full pl-10 pr-10 bg-slate-400">
+        <div class="h-[50%] w-full pl-16 pr-16">
           <div
             class="items-center w-full"
             v-for="(itemExtreme, index) in extremesDataRender"
@@ -174,17 +180,18 @@
                   </defs>
                 </svg>
 
-                <p class="txt_regular_12">
+                <p class="txt_regular_16">
                   {{ convertExtreme(itemExtreme.state) }}
                 </p>
               </div>
               <!--  -->
-              <div class="w-[120px] text-center flex txt_medium_15">
+              <div class="w-[120px] text-center flex txt_regular_16">
                 {{ formatDatetimeToVNConvert(itemExtreme.datetime) }}
               </div>
               <div class="w-[100px] text-right">
-                <p class="txt_regular_14 text-right">
-                  {{ Number(itemExtreme.height.toFixed(2)) }} ft
+                <p class="txt_regular_16 text-right">
+                  {{ formatUnitTide(itemExtreme.height) }}
+                  {{ unitTide(tideDataRender?.unit) }}
                 </p>
               </div>
             </div>
@@ -196,7 +203,18 @@
 </template>
 <script>
 import BaseComponent from "@/components/common/baseComponent.vue";
-import { formatDatetimeToVN, formatDateToDDMM } from "@/utils/converValue";
+import {
+  convertFeetToMeter,
+  convertMeterToFeet,
+  formatDateLocalized,
+  formatDateString,
+  formatDateTimeGlobal,
+  formatDatetimeToVN,
+  formatDateToDDMM,
+  formatTo12HourTimeTide,
+  formatTo24HourTimeTide,
+  getCurrentTimeISO,
+} from "@/utils/converValue";
 import { groupTidesFromToday, takeFirstNFromObject } from "@/utils/middleware";
 import { mapGetters } from "vuex";
 import ChartTideBarCurrent from "../chart-tide-bar/chart-tide-bar-current.vue";
@@ -204,34 +222,94 @@ import {
   formatDateTime12h,
   formatDateTime24h,
 } from "../../../utils/converValue";
+import Index from "@/views/index.vue";
 
 export default {
   name: "today-chart-tide",
   components: {
     BaseComponent,
-    // ChartTideBarCurrent,
+    ChartTideBarCurrent,
   },
 
   data() {
     return {
       heightAuto: "auto",
+      activeIndex: 0,
+      resultData: [],
+      currentTideUnitIndex: 0, // 0: m, 1: ft
+      tideInterval: null, // Lưu giữ ID của setInterval
     };
   },
 
   computed: {
-    ...mapGetters("tideModule", ["tideDataGetters", "extremesDataGetters"]),
+    ...mapGetters("tideModule", [
+      "tideDataGetters",
+      "extremesDataGetters",
+      "tideDataGetters",
+    ]),
 
     extremesDataRender() {
-      console.log(
-        "extremesDataGetters-1",
-        takeFirstNFromObject(this.extremesDataGetters, 3)
-      );
+      console.log("extremesDataGetters-1", this.extremesDataGetters);
 
-      return takeFirstNFromObject(this.extremesDataGetters, 3);
+      return this.extremesDataGetters;
+    },
+
+    tideDataRender() {
+      console.log("tideDataGetters-1", this.tideDataGetters);
+
+      return this.tideDataGetters;
+    },
+
+    languageParam() {
+      const languageRouter = this.$route.params;
+
+      return Object.keys(languageRouter).length !== 0
+        ? languageRouter.language !== "en" && languageRouter.language !== "vi"
+          ? "en"
+          : languageRouter.language
+        : this.$i18n.locale !== "en" && this.$i18n.locale !== "vi"
+        ? "en"
+        : this.$i18n.locale;
     },
   },
 
   methods: {
+    convertTimeTideLive(data) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTime_save === "12h") {
+        return formatTo12HourTimeTide(data, true);
+      } else {
+        return formatTo24HourTimeTide(data, false);
+      }
+    },
+    convertTimeRender() {
+      const now = new Date();
+      debugger;
+      const data = this.extremesDataRender;
+      if (!Array.isArray(data) || data.length < 3) {
+        console.warn("extremesDataRender chưa sẵn sàng");
+        return null;
+      }
+      const currentDayNowFirst = data[0];
+      const currentDayNowSecond = data[1];
+      const currentDayNowThird = data[2];
+
+      const first = new Date(currentDayNowFirst.datetime); // sáng
+      const second = new Date(currentDayNowSecond.datetime); // chiều
+      const third = new Date(currentDayNowThird.datetime); // sáng hôm sau
+
+      if (now >= first && now <= second) {
+        return currentDayNowSecond; // nằm giữa sáng và chiều
+      } else if (now < first) {
+        return currentDayNowFirst; // trước sáng → chọn sáng
+      } else {
+        return currentDayNowThird; // sau chiều → chọn sáng hôm sau
+      }
+    },
+    formatDateLocalizedConvert(data) {
+      return formatDateLocalized(data, this.languageParam);
+    },
     formatDatetimeToVNConvert(data) {
       // return formatDatetimeToVN(data);
       const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
@@ -240,14 +318,56 @@ export default {
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
 
       if (unitSetting.activeTime_save === "12h") {
-        return formatDateTime12h(data, offsetValue, timezoneValue);
+        return formatDateString(data, true);
       } else {
-        return formatDateTime24h(data, offsetValue, timezoneValue);
+        return formatDateString(data, false);
       }
+    },
+
+    formatUnitTide(data) {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      if (unitSetting.activeTide_save === "m") {
+        return convertFeetToMeter(data);
+      } else {
+        return convertMeterToFeet(data);
+      }
+    },
+
+    formatSetIntervalTideHight(data) {
+      const listUnitTide = ["m", "ft"];
+
+      for (let i = 0; i < listUnitTide.length; i++) {
+        const unitValue = listUnitTide[i];
+        if (unitValue === "m") {
+          const dataHeight = convertFeetToMeter(data) + " " + unitValue;
+          this.resultData.push(dataHeight);
+        } else if (unitValue === "ft") {
+          // Chuyển đổi từ feet sang mét
+          const dataHeight = convertMeterToFeet(data) + " " + unitValue;
+          this.resultData.push(dataHeight);
+        }
+      }
+      return this.resultData;
+    },
+
+    unitTide() {
+      const unitSetting = this.$store.state.commonModule.objectSettingSave;
+
+      return unitSetting.activeTide_save;
     },
 
     formatDateToDDMMConvert(data) {
       return formatDateToDDMM(data);
+    },
+
+    formatTideHeightSingle(value) {
+      const unit = this.currentTideUnitIndex === 0 ? "m" : "ft"; // Kiểm tra đơn vị
+      if (unit === "m") {
+        return convertFeetToMeter(value) + " m"; // Chuyển từ ft sang m
+      } else {
+        return convertMeterToFeet(value) + " ft"; // Chuyển từ m sang ft
+      }
     },
 
     convertExtreme(data) {
@@ -257,6 +377,13 @@ export default {
         return "High Tide";
       }
     },
+  },
+
+  mounted() {
+    this.tideInterval = setInterval(() => {
+      // Đổi đơn vị giữa "m" và "ft" sau mỗi 10 giây
+      this.currentTideUnitIndex = (this.currentTideUnitIndex + 1) % 2;
+    }, 1000); // 10000ms = 10s
   },
 };
 </script>

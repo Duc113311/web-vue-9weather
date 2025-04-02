@@ -80,6 +80,8 @@ export function groupTidesFromToday(data, daysAhead = 3) {
 }
 
 export function takeFirstNFromObject(data, limitDays = 3) {
+  console.log("data-tide", data);
+
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Reset về đầu ngày
 

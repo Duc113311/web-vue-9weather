@@ -5,12 +5,13 @@ const state = {
   heightsData: [],
   datumsData: {},
   extremesData: [],
+  extremesDataFull: [],
   timestampCurrent: "",
 };
 
 const getters = {
   extremesDataGetters(state) {
-    return state.extremesData;
+    return state.extremesData.slice(0, 6);
   },
 
   datumsDataGetters(state) {
@@ -24,6 +25,10 @@ const getters = {
   tideDataGetters(state) {
     return state.tideData;
   },
+
+  extremesDataFullGetters(state) {
+    return state.extremesDataFull.slice(0, 30);
+  },
 };
 
 const mutations = {
@@ -34,7 +39,10 @@ const mutations = {
     console.log("tideData", state.tideData);
 
     // state.extremesData = groupTidesByDate(data.extremes);
+
     state.extremesData = data.extremes;
+    state.extremesDataFull = data.extremes;
+
     state.datumsData = data.datums;
     state.timestampCurrent = data.timestamp;
     state.heightsData = data.heights;

@@ -75,6 +75,15 @@ export function inchToMm(inch) {
   return Math.round(inch * 25.4) + " " + "mm";
 }
 
+export function convertMeterToFeet(value) {
+  return (value * 3.28084).toFixed(2);
+}
+
+export function convertFeetToMeter(value) {
+  return value.toFixed(2);
+}
+
+
 /**
  * Convert mi/h sang m/s
  * @param {*} ms
@@ -2409,4 +2418,89 @@ export function formatDateTime12h(datetime, offset = 0, timezone = "UTC") {
     console.warn("Lỗi định dạng 12h:", e.message);
     return datetime;
   }
+}
+
+export function formatDateString(datetime, use12Hour = false) {
+  try {
+    const date = new Date(datetime);
+
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+
+    let hours = date.getUTCHours();
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+
+    if (use12Hour) {
+      const suffix = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12; // chuyển 0 thành 12
+      return `${day}/${month} ${String(hours).padStart(2, "0")}:${minutes} ${suffix}`;
+    } else {
+      return `${day}/${month} ${String(hours).padStart(2, "0")}:${minutes}`;
+    }
+  } catch (err) {
+    console.warn("Lỗi định dạng:", err.message);
+    return datetime;
+  }
+}
+
+
+export function formatDateLocalized(datetime, locale = "vi") {
+  const date = new Date(datetime);
+
+  const today = new Date();
+  const isToday =
+    date.getUTCDate() === today.getUTCDate() &&
+    date.getUTCMonth() === today.getUTCMonth() &&
+    date.getUTCFullYear() === today.getUTCFullYear();
+
+  let formatted;
+
+  if (locale === "vi") {
+    formatted = `Ngày ${date.getUTCDate()} tháng ${date.getUTCMonth() + 1}, ${date.getUTCFullYear()}`;
+    return isToday ? `Hôm nay (${formatted})` : formatted;
+  } else {
+    // Mặc định EN
+    const options = { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" };
+    formatted = date.toLocaleDateString("en-US", options);
+    return isToday ? `Today (${formatted})` : formatted;
+  }
+}
+
+export function getCurrentTimeISO() {
+  const now = new Date();
+
+  // Lấy phần yyyy-mm-ddThh:mm:ss từ ISO string
+  const isoString = now.toISOString().split(".")[0]; // Bỏ mili giây
+  return isoString + "+00:00"; // Gắn offset UTC
+}
+
+export function formatTo12HourTimeTide(datetimeStr) {
+  const date = new Date(datetimeStr);
+  let hours = date.getUTCHours(); // dùng getUTCHours vì chuỗi có +00:00
+  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0 giờ thành 12
+
+  return `${String(hours).padStart(2, "0")}:${minutes} ${ampm}`;
+}
+
+export function formatTo24HourTimeTide(datetimeStr) {
+  const date = new Date(datetimeStr);
+  const hours = String(date.getUTCHours()).padStart(2, "0");
+  const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+}
+
+export function formatDateToDayMonth(datetimeStr) {
+  debugger
+  const date = new Date(datetimeStr);
+
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const hour = String(date.getUTCHours()).padStart(2, "0");
+
+  return `${day}/${month}`;
 }
