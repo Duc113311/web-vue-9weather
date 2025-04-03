@@ -68,7 +68,7 @@ import StationTide from "@/components/tide/station/station-tide.vue";
 import TodayChartTide from "@/components/tide/today/today-chart-tide.vue";
 import SkeletonLoader from "@/control-ui/SkeletonLoader/SkeletonLoader.vue";
 import { getDistanceFromLatLonInKm } from "@/utils/converValue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "tide-page",
@@ -108,6 +108,11 @@ export default {
   },
 
   methods: {
+    ...mapMutations("tideModule", [
+      "setListTideStation",
+      "setTideStationNearBy",
+      "setCurrentStationNear",
+    ]),
     ...mapActions("tideModule", ["getTidesData"]),
 
     async loadListTideStation(currentLat, currentLon) {
@@ -137,13 +142,12 @@ export default {
           .slice(0, 6);
 
         this.listTideStation = nearestStations;
-        console.log("listTideStation", this.listTideStation);
 
-        debugger;
+        this.setTideStationNearBy(this.listTideStation);
+
         const stationId = this.listTideStation[0].id;
-        console.log("stationId", stationId);
 
-        // this.setListTideStation(this.listTideStation);
+        this.setCurrentStationNear(this.listTideStation[0]);
         const currentTimestamp = Math.floor(Date.now() / 1000);
 
         const params = {
@@ -156,7 +160,6 @@ export default {
         };
 
         await this.getTidesData(params);
-        debugger;
       } catch (error) {
         console.error("Error loading file:", error.message);
       }

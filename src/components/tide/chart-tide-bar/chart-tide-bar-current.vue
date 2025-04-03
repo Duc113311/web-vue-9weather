@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="chart-container-tempt w-[1550px] pl-6 pr-6"
-    v-if="extremesDataRender"
-  >
+  <div class="chart-container-tempt w-full pl-6" v-if="extremesDataRender">
     <div class="chart-wrapper-tempt w-full h-full">
       <canvas id="chart_hourly" ref="canvas"></canvas>
     </div>
@@ -18,27 +15,33 @@ import { mapGetters } from "vuex";
 
 import {
   Chart,
-  CategoryScale,
-  LinearScale,
+  LineController,
   LineElement,
   PointElement,
-  Filler,
+  LinearScale,
+  TimeScale,
+  CategoryScale,
   Tooltip,
   Legend,
-  LineController,
+  Filler,
 } from "chart.js";
+
+import annotationPlugin from "chartjs-plugin-annotation";
+import "chartjs-adapter-date-fns"; // hoặc dayjs nếu mày dùng dayjs
+
 Chart.register(
-  CategoryScale,
-  LinearScale,
+  LineController,
   LineElement,
   PointElement,
-  Filler,
+  LinearScale,
+  CategoryScale,
+  TimeScale, // ✅ đăng ký TimeScale ở đây
   Tooltip,
   Legend,
-  LineController,
-  ChartDataLabels
+  Filler,
+  annotationPlugin
 );
-import ChartDataLabels from "chartjs-plugin-datalabels";
+
 import {
   convertFeetToMeter,
   convertMeterToFeet,
@@ -49,7 +52,10 @@ import {
 export default {
   name: "chart-tide-bar-current",
   data() {
-    return {};
+    return {
+      xTarget: "2025-04-03T09:00:00+00:00", // Thời gian muốn nhúng điểm
+      yTarget: null, // Giá trị y tương ứng với xTarget
+    };
   },
 
   computed: {
@@ -89,26 +95,38 @@ export default {
     },
 
     extremesDataRenderTime() {
-      const data = this.extremesDataGetters;
+      const data = this.extremesDataGetters.slice(0, 2);
       const objectClone = { ...data[0] };
       const objectCloneEnd = { ...data[data.length - 1] };
-
-      console.log("data-extreme", data);
 
       return [objectClone, ...data, objectCloneEnd] || [];
     },
 
     extremesDataRenderTimeRender() {
-      const data = this.extremesDataGetters;
-      const objectClone = { ...data[0] };
-      const objectCloneEnd = { ...data[data.length - 1] };
+      const data = this.extremesDataGetters.slice(0, 2);
 
-      const timeClone = objectClone.datetime;
-      const timeCloneend = objectCloneEnd.datetime;
-      const listDataTime = data.map((el) => {
-        return el.datetime;
-      });
-      return [timeClone, ...listDataTime, objectCloneEnd] || [];
+      if (!data.length) return [];
+
+      const formatToISOStringNoMs = (dateStr) => {
+        const date = new Date(dateStr);
+        const iso = date.toISOString();
+        return iso.split(".")[0] + "+00:00";
+      };
+
+      // Clone đầu/cuối
+      const start = new Date(data[0].datetime);
+      start.setHours(start.getHours() + 3);
+
+      const end = new Date(data[data.length - 1].datetime);
+      end.setHours(end.getHours() - 3);
+
+      const listDataTime = data.map((el) => formatToISOStringNoMs(el.datetime));
+
+      return [
+        formatToISOStringNoMs(start.toISOString()),
+        ...listDataTime,
+        formatToISOStringNoMs(end.toISOString()),
+      ];
     },
   },
 
@@ -166,11 +184,19 @@ export default {
         return date;
       });
 
+      console.log("extremesDataRender,", this.extremesDataRender);
+      console.log("labelList", this.extremesDataRenderTimeRender);
+      console.log(
+        "Length match?",
+        this.extremesDataRenderTimeRender.length ===
+          this.extremesDataRender.length
+      );
+
       // Chart
       this.chartInstance = new Chart(ctx, {
         type: "line",
         data: {
-          labels: labelList,
+          labels: this.extremesDataRenderTimeRender,
           datasets: [
             {
               label: "",
@@ -196,10 +222,6 @@ export default {
                 },
                 formatter: (value, context) => {
                   console.log("value", context.dataIndex);
-                  console.log(
-                    "this.extremesDataRenderTimeRender",
-                    this.extremesDataRenderTimeRender
-                  );
 
                   return this.convertDateTime(
                     this.extremesDataRenderTimeRender[context.dataIndex]
@@ -210,6 +232,7 @@ export default {
             },
             {
               label: "",
+              type: "line",
               data: this.extremesDataRender,
               borderColor: "transparent",
               backgroundColor: "transparent",
@@ -246,11 +269,9 @@ export default {
                 autoSkip: false, // không bỏ qua nhãn
                 maxRotation: 40,
               },
-              offset: false, // ✅ Thêm khoảng cách đầu/cuối
+              offset: false, // ✅ Thêm khoảng cách đầu/cuố
             },
             y: {
-              type: "linear",
-              position: "left",
               display: false,
               beginAtZero: true,
               max: maxDataValue + 0.5,
@@ -260,17 +281,86 @@ export default {
           plugins: {
             legend: {
               display: false,
-              position: "bottom",
             },
+            annotation: {
+              annotation: {
+                annotations: {
+                  movingDot: {
+                    type: "point",
+                    xValue: null,
+                    yValue: null,
+                    radius: 6,
+                    backgroundColor: "red",
+                    borderColor: "#fff",
+                    borderWidth: 2,
+                  },
+                },
+              },
+            },
+
             tooltip: {
               enabled: true,
+              mode: "nearest",
               intersect: false, // Cho phép hover ở mọi nơi trên đường
-              mode: "index", // Hiển thị tooltip của tất cả dataset tại vị trí trục x
               theme: "dark",
               displayColors: false, // Ẩn ô màu mặc định
               titleAlign: "center",
               bodyAlign: "center",
               footerAlign: "center",
+              filter: (tooltipItem) => {
+                try {
+                  const index = tooltipItem?.dataIndex;
+                  const dataLength = tooltipItem?.chart?.data?.labels?.length;
+                  if (index === undefined || !dataLength) return false;
+
+                  // ✅ ẩn tooltip ở điểm đầu (index === 0) và điểm cuối (index === labels.length - 1)
+                  return index !== 0 && index !== 3;
+                } catch {
+                  return false;
+                }
+              },
+
+              callbacks: {
+                title: (tooltipItems) => {
+                  const item = tooltipItems?.[0];
+                  if (!item || item.dataIndex === undefined) return "";
+
+                  const index = item.dataIndex;
+                  const dataLength = item.chart.data.labels.length; // ✅ dùng đúng biến
+                  if (index === 0 || index === 3) return "";
+
+                  const rawTime = this.extremesDataRenderTimeRender[index]; // Mảng thời gian của mày
+                  const valueTime = this.convertDateTime(rawTime);
+                  // Tùy format: có thể là "2025-04-02T05:20:00"
+                  const date = new Date(rawTime);
+                  const day = String(date.getDate()).padStart(2, "0");
+                  const month = String(date.getMonth() + 1).padStart(2, "0");
+
+                  return `${valueTime} - ${day}/${month}`;
+                },
+                label: (context) => {
+                  const index = context.dataIndex;
+                  const datasetIndex = context.datasetIndex;
+                  const value = context.raw;
+                  const dataLength = context.chart.data.labels.length;
+
+                  if (index === 0 || index === 3) return ``;
+
+                  // Nếu là dataset đầu tiên (dữ liệu chính)
+                  if (datasetIndex === 0) {
+                    const trendArrow = value >= 0 ? "↑" : "↓";
+                    return `${value} ${this.unitTide()} ${trendArrow}`;
+                  }
+
+                  // Nếu là dataset thứ 2 (ví dụ nhãn dưới điểm)
+                  if (datasetIndex === 1) {
+                    return ``;
+                  }
+
+                  // Default
+                  return `Giá trị: ${value}`;
+                },
+              },
             },
             datalabels: {
               anchor: "center",
@@ -295,7 +385,6 @@ export default {
             },
           },
         },
-        plugins: [{}],
       });
     },
     convertDateTime(value) {

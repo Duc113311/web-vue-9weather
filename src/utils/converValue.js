@@ -76,13 +76,14 @@ export function inchToMm(inch) {
 }
 
 export function convertMeterToFeet(value) {
-  return (value * 3.28084).toFixed(2);
+  const num = Number(value);
+  return isNaN(num) ? "0.00" : (num * 3.28084).toFixed(2);
 }
 
 export function convertFeetToMeter(value) {
-  return value.toFixed(2);
+  const num = Number(value);
+  return isNaN(num) ? "0.00" : num.toFixed(2);
 }
-
 
 /**
  * Convert mi/h sang m/s

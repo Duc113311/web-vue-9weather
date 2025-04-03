@@ -29,7 +29,12 @@
           :displacement="1"
           class="w-full h-full relative horizontal pl-5 pr-5"
         >
-          <ChartTideBarMonth></ChartTideBarMonth>
+          <div class="relative w-full h-full">
+            <LabelTimeMonth class="absolute bottom-2"></LabelTimeMonth>
+            <ChartTideBarMonth
+              class="h-[370px] absolute top-0"
+            ></ChartTideBarMonth>
+          </div>
         </vue-horizontal>
       </div>
     </BaseComponent>
@@ -39,11 +44,17 @@
 import BaseComponent from "@/components/common/baseComponent.vue";
 import ChartTideBarMonth from "../chart-tide-bar/chart-tide-bar-month.vue";
 import VueHorizontal from "vue-horizontal";
+import LabelTimeMonth from "../chart-tide-bar/label-time-month.vue";
 
 export default {
   name: "month-day-chart-tide",
 
-  components: { BaseComponent, ChartTideBarMonth, VueHorizontal },
+  components: {
+    BaseComponent,
+    ChartTideBarMonth,
+    VueHorizontal,
+    LabelTimeMonth,
+  },
 
   data() {
     return {

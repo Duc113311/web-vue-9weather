@@ -249,14 +249,10 @@ export default {
     ]),
 
     extremesDataRender() {
-      console.log("extremesDataGetters-1", this.extremesDataGetters);
-
       return this.extremesDataGetters;
     },
 
     tideDataRender() {
-      console.log("tideDataGetters-1", this.tideDataGetters);
-
       return this.tideDataGetters;
     },
 
@@ -285,10 +281,9 @@ export default {
     },
     convertTimeRender() {
       const now = new Date();
-      debugger;
+
       const data = this.extremesDataRender;
       if (!Array.isArray(data) || data.length < 3) {
-        console.warn("extremesDataRender chưa sẵn sàng");
         return null;
       }
       const currentDayNowFirst = data[0];
@@ -312,9 +307,7 @@ export default {
     },
     formatDatetimeToVNConvert(data) {
       // return formatDatetimeToVN(data);
-      const offsetValue = this.$store.state.weatherModule.locationOffset.offset;
-      const timezoneValue =
-        this.$store.state.weatherModule.locationOffset.timezone;
+
       const unitSetting = this.$store.state.commonModule.objectSettingSave;
 
       if (unitSetting.activeTime_save === "12h") {

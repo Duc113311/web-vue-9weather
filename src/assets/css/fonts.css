@@ -46,6 +46,15 @@
   font-weight: 400; /* Corresponds to Regular */
 }
 
+.txt_regular_14_tide {
+  font-size: 12px; /* Kích thước chữ mặc định */
+  font-family: "Helvetica Neue", sans-serif;
+  line-height: 10px; /* Khoảng cách giữa các dòng */
+  text-align: center; /* Căn trái mặc định */
+  font-weight: 400; /* Corresponds to Regular */
+  letter-spacing: 0px;
+}
+
 .txt_regular_14 {
   font-size: 12px; /* Kích thước chữ mặc định */
   font-family: "Helvetica Neue", sans-serif;

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chart-container-tempt p-chart-avg w-[1550px] h-full pt-4 pb-4"
+    class="chart-container-tempt p-chart-avg w-[1550px] pt-4 pb-4"
     v-if="extremesDataHeightRender"
   >
     <div class="chart-wrapper-tempt w-full h-full">
@@ -80,7 +80,6 @@ export default {
     extremesDataRenderTime() {
       const data = this.extremesDataFullGetters;
       const objectClone = { ...data[0] };
-      console.log("data-extreme", data);
 
       return [objectClone, ...data] || [];
     },
@@ -154,7 +153,6 @@ export default {
 
       const labelList = this.extremesDataRenderTime.map((item) => {
         const date = item.datetime;
-        console.log("formatDateToDayMonth(date)", formatDateToDayMonth(date));
 
         return formatDateToDayMonth(date);
       });
@@ -191,12 +189,6 @@ export default {
                   size: 10,
                 },
                 formatter: (value, context) => {
-                  console.log("value", context.dataIndex);
-                  console.log(
-                    "this.extremesDataRenderTimeRender",
-                    this.extremesDataRenderTimeRender
-                  );
-
                   return this.convertDateTime(
                     this.extremesDataRenderTimeRender[context.dataIndex]
                   ); // VD: "05:20"
@@ -246,6 +238,7 @@ export default {
                 font: {
                   size: 12,
                 },
+                display: false,
                 callback: function (value, index, ticks) {
                   const label = this.getLabelForValue(value);
                   const prevTick = ticks[index - 1];
@@ -264,8 +257,11 @@ export default {
               offset: false, // ✅ Thêm khoảng cách đầu/cuối
 
               grid: {
-                display: true, // ✅ Hiện vạch kẻ trục X
+                display: true,
                 color: "rgba(0,0,0,0.1)",
+                drawOnChartArea: true, // ✅ cần cái này
+                drawTicks: true,
+                borderColor: "rgba(255,255,255,0.1)",
               },
             },
             y: {
@@ -354,6 +350,11 @@ export default {
             line: {
               tension: 0.5,
             },
+          },
+
+          hover: {
+            mode: "index",
+            intersect: false,
           },
         },
         plugins: [{}],

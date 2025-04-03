@@ -7,6 +7,8 @@ const state = {
   extremesData: [],
   extremesDataFull: [],
   timestampCurrent: "",
+  listStationNearBy: [],
+  currentStationNear: {},
 };
 
 const getters = {
@@ -29,6 +31,14 @@ const getters = {
   extremesDataFullGetters(state) {
     return state.extremesDataFull.slice(0, 30);
   },
+
+  listStationNearByGetters(state) {
+    return state.listStationNearBy;
+  },
+
+  currentStationNearGetters(state) {
+    return state.currentStationNear;
+  },
 };
 
 const mutations = {
@@ -46,6 +56,14 @@ const mutations = {
     state.datumsData = data.datums;
     state.timestampCurrent = data.timestamp;
     state.heightsData = data.heights;
+  },
+
+  setTideStationNearBy(state, data) {
+    state.listStationNearBy = data;
+  },
+
+  setCurrentStationNear(state, data) {
+    state.currentStationNear = data;
   },
 };
 
