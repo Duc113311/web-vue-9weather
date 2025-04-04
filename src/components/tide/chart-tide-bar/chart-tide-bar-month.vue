@@ -300,7 +300,6 @@ export default {
                 title: (tooltipItems) => {
                   const index = tooltipItems[0].dataIndex;
                   const rawTime = this.extremesDataRenderTimeRender[index]; // Mảng thời gian của mày
-                  console.log("rawTime", rawTime);
                   const valueTime = this.convertDateTime(rawTime);
                   // Tùy format: có thể là "2025-04-02T05:20:00"
                   const date = new Date(rawTime);

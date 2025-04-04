@@ -76,6 +76,7 @@ const actions = {
         ) // 👈 Chuẩn Axios params
         .then((response) => {
           if (response.status === 200) {
+            debugger;
             commit("setTidesDataMutation", response.data);
             resolve(response.data);
           } else {

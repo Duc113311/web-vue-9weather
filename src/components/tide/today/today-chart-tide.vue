@@ -91,7 +91,7 @@
               </div>
             </div>
           </div>
-          <div class="w-full h-[120px] absolute bottom-8 left-0 pl-2 pr-2">
+          <div class="w-full h-[120px] absolute bottom-8 left-0 pl-2 pr-8">
             <ChartTideBarCurrent></ChartTideBarCurrent>
           </div>
         </div>
