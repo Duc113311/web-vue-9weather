@@ -20,6 +20,7 @@
               </div>
               <div class="txt_line_50 mt-2">
                 <a href="http://9weather.com">9Weather.com</a>
+                <!-- <img src="../../assets/images/uDRT86sLb8 (2).gif" alt="" /> -->
               </div>
             </div>
             <!--  -->

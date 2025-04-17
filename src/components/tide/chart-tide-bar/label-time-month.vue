@@ -7,7 +7,7 @@
       v-for="(item, index) in extremesDataRenderTimeRender"
       :key="index"
     >
-      <el-tooltip effect="dark" placement="bottom-end">
+      <!-- <el-tooltip effect="dark" placement="bottom-end">
         <template #content>
           <div class="w-[200px]">
             <div>Hello</div>
@@ -16,7 +16,11 @@
         <div class="txt_regular_12">
           {{ convertDateTime(item) }}
         </div>
-      </el-tooltip>
+      </el-tooltip> -->
+
+      <div class="txt_regular_12">
+        {{ convertDateTime(item) }}
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +34,12 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "label-time-month",
+
+  data() {
+    return {
+      shownDates: new Set(),
+    };
+  },
 
   computed: {
     ...mapGetters("tideModule", [
@@ -45,6 +55,9 @@ export default {
       const listDataTime = data.map((el) => {
         return el.datetime;
       });
+
+      console.log("timeClone", [timeClone, ...listDataTime]);
+
       return [timeClone, ...listDataTime] || [];
     },
 
@@ -61,18 +74,6 @@ export default {
     convertDateTime(value) {
       // const unitSetting = this.$store.state.commonModule.objectSettingSave;
       return formatDateToDayMonth(value);
-    },
-
-    shouldShowTime(index) {
-      const current = this.convertDateTime(
-        this.extremesDataRenderTimeRender[index]
-      );
-      const prev = this.convertDateTime(
-        this.extremesDataRenderTimeRender[index - 1]
-      );
-
-      if (index === 0) return true;
-      return current !== prev;
     },
   },
 };
